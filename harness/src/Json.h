@@ -12,6 +12,18 @@ namespace FixtureFiles
 			System::IO::File::WriteAllBytes( path, bytes );
 			return;
 		}
+		if( bytes->Length == 0 )
+		{
+			// GZipStream writes no header when given no data, leaving a 0-byte file
+			// that gunzip rejects. Write the empty member from RFC 1952 instead:
+			// header, an empty final deflate block, CRC-32 0, size 0.
+			array< System::Byte >^ empty_gzip = {
+				0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff,
+				0x03, 0x00,
+				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+			System::IO::File::WriteAllBytes( path, empty_gzip );
+			return;
+		}
 		System::IO::FileStream^ file = System::IO::File::Create( path );
 		try
 		{
