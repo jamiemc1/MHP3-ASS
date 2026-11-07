@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -8,6 +9,7 @@ import pytest
 from data_rows import armor_row, decoration_row
 from goldens import SearchGolden, read_golden, read_search_goldens
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
+from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
 
 
@@ -99,20 +101,36 @@ def models_golden(golden_data_dir: Path) -> Any:
 
 
 @pytest.fixture(scope="session")
-def teamhgg_game(legacy_data_dir: Path) -> GameData:
+def load_teamhgg_game(legacy_data_dir: Path) -> Callable[[], GameData]:
+    """Loads a fresh copy of the game data in English (TeamHGG), for tests that mutate it."""
+
+    def load() -> GameData:
+        game = load_game_data(legacy_data_dir)
+        apply_language(game, legacy_data_dir / "Languages" / "English (TeamHGG)")
+        return game
+
+    return load
+
+
+@pytest.fixture(scope="session")
+def teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
     """Game data in English (TeamHGG), the GUI's default language and the charm golden's.
 
     Shared across the session: tests must not mutate it.
     """
-    game = load_game_data(legacy_data_dir)
-    apply_language(game, legacy_data_dir / "Languages" / "English (TeamHGG)")
-    return game
+    return load_teamhgg_game()
 
 
 @pytest.fixture(scope="session")
 def charm_tables(teamhgg_game: GameData) -> CharmTables:
     """Generated charm tables for ``teamhgg_game`` (about a second). Tests must not mutate them."""
     return generate_charm_tables(teamhgg_game)
+
+
+@pytest.fixture(scope="session")
+def validity(charm_tables: CharmTables, teamhgg_game: GameData) -> CharmValidity:
+    """CharmExists / CharmIsIllegal over ``charm_tables``."""
+    return build_charm_validity(charm_tables, ability_count=len(teamhgg_game.abilities))
 
 
 @pytest.fixture(scope="session")

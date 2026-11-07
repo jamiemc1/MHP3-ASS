@@ -13,13 +13,7 @@ from mhp3ass.charms.my_charms import (
     save_my_charms,
 )
 from mhp3ass.charms.naming import charm_name
-from mhp3ass.charms.validity import build_charm_validity
 from mhp3ass.model import AbilityPair, Charm
-
-
-@pytest.fixture(scope="module")
-def validity(charm_tables, teamhgg_game):
-    return build_charm_validity(charm_tables, ability_count=len(teamhgg_game.abilities))
 
 
 @pytest.fixture(scope="module")
@@ -40,7 +34,7 @@ def test_golden_covers_loading_and_crashing_files(models_golden):
     assert [
         len(_loaded_files(models_golden, crashed=False)),
         len(_loaded_files(models_golden, crashed=True)),
-    ] == [2, 2]
+    ] == [2, 3]
 
 
 def test_loading_matches_golden(models_golden, my_charms_dir, teamhgg_game, validity):
@@ -68,19 +62,27 @@ def test_loading_matches_golden(models_golden, my_charms_dir, teamhgg_game, vali
 def test_crashing_files_raise_where_the_original_throws(
     models_golden, my_charms_dir, teamhgg_game, validity
 ):
-    # .NET exception types and the Python errors the port raises in their place.
-    causes = {"FormatException": ValueError, "IndexOutOfRangeException": IndexError}
-    raised = []
+    # The original's exception per file, and the Python error the port raises in its place.
+    # split_fields reports RemoveQuotes' out-of-range read as a ValueError.
+    expected_causes = {
+        "03-bad-slots.txt": ("FormatException", ValueError),
+        "04-four-slots.txt": ("IndexOutOfRangeException", IndexError),
+        "05-bad-quotes.txt": ("IndexOutOfRangeException", ValueError),
+    }
+    ours = {}
+    golden = {}
     for entry in _loaded_files(models_golden, crashed=True):
         with pytest.raises(MyCharmsFileError) as error:
             load_my_charms(my_charms_dir / entry["file"], teamhgg_game, validity)
-        raised.append([error.value.line, type(error.value.cause)])
-    expected = [
-        [entry["exception"]["line"], causes[entry["exception"]["type"]]]
-        for entry in _loaded_files(models_golden, crashed=True)
-    ]
+        dotnet_type, python_cause = expected_causes[entry["file"]]
+        ours[entry["file"]] = [error.value.line, dotnet_type, type(error.value.cause)]
+        golden[entry["file"]] = [
+            entry["exception"]["line"],
+            entry["exception"]["type"],
+            python_cause,
+        ]
 
-    assert raised == expected
+    assert ours == golden
 
 
 def test_loaded_charms_are_marked_custom(my_charms_dir, teamhgg_game, validity):
