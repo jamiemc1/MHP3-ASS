@@ -71,10 +71,11 @@ def read_gui_capture_solutions(capture_dir: Path) -> list[str]:
     """Solution lines from a GUI capture's settings.cfg.
 
     settings.cfg version 2: 14 option lines and 24 skill lines, then one
-    solution per line.
+    solution per line. Blank lines are skipped, as in the converter's
+    ``gui_solution_count``.
     """
     lines = (capture_dir / "settings.cfg").read_text(encoding="utf-8").splitlines()
     if lines[0] != "2":
         raise ValueError(f"unsupported settings.cfg version {lines[0]!r} in {capture_dir}")
-    solution_lines = lines[38:]
+    solution_lines = [line for line in lines[38:] if line]
     return solution_lines

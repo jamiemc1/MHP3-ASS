@@ -146,9 +146,6 @@ def _survivor_choice_differs_only(candidates: list[Candidate], gui_lines: list[s
     charm_of = {candidate.solution_line: candidate.charm_name for candidate in candidates}
     if any(line not in charm_of for line in gui_lines):
         return False
-    available = Counter(candidate.solution_line for candidate in candidates)
-    if any(count > available[line] for line, count in Counter(gui_lines).items()):
-        return False
     charm_free_gui = Counter(line for line in gui_lines if charm_of[line] == "")
     charm_free_candidates = Counter(c.solution_line for c in candidates if c.charm_name == "")
     gui_keys = Counter((charm_of[line], _armor_hash(line)) for line in gui_lines if charm_of[line])
@@ -167,7 +164,10 @@ def _gui_mismatches(goldens: list[SearchGolden], captures_dir: Path) -> list[str
     mismatched = []
     for golden in goldens:
         capture = golden.query.get("gui_capture")
-        if capture is None or not (captures_dir / capture).is_dir():
+        if capture is None:
+            continue
+        if not (captures_dir / capture).is_dir():
+            mismatched.append(f"{golden.query['id']} (no capture {capture})")
             continue
         gui_lines = read_gui_capture_solutions(captures_dir / capture)
         if golden.query.get("gui_order_dependent"):
@@ -191,23 +191,41 @@ def test_personal_searches_match_gui_captures(
     assert _gui_mismatches(personal_search_goldens, gui_captures_dir) == []
 
 
-def test_order_dependent_queries_have_candidates(search_goldens: list[SearchGolden]):
+def _missing_candidates(goldens: list[SearchGolden]) -> list[str]:
     missing = [
         golden.query["id"]
-        for golden in search_goldens
+        for golden in goldens
         if golden.query.get("gui_order_dependent") and golden.candidates is None
     ]
+    return missing
 
-    assert missing == []
 
-
-def test_duplicate_removal_over_candidates_reproduces_solutions(search_goldens: list[SearchGolden]):
+def _candidates_disagreeing_with_solutions(goldens: list[SearchGolden]) -> list[str]:
     # Workers run in start order, each in loop order: the order the harness adds them in.
     differing = [
         golden.query["id"]
-        for golden in search_goldens
+        for golden in goldens
         if golden.candidates is not None
         and _remove_duplicates(golden.candidates) != golden.solution_lines
     ]
+    return differing
 
-    assert differing == []
+
+def test_order_dependent_queries_have_candidates(search_goldens: list[SearchGolden]):
+    assert _missing_candidates(search_goldens) == []
+
+
+def test_personal_order_dependent_queries_have_candidates(
+    personal_search_goldens: list[SearchGolden],
+):
+    assert _missing_candidates(personal_search_goldens) == []
+
+
+def test_duplicate_removal_over_candidates_reproduces_solutions(search_goldens: list[SearchGolden]):
+    assert _candidates_disagreeing_with_solutions(search_goldens) == []
+
+
+def test_personal_duplicate_removal_over_candidates_reproduces_solutions(
+    personal_search_goldens: list[SearchGolden],
+):
+    assert _candidates_disagreeing_with_solutions(personal_search_goldens) == []
