@@ -10,7 +10,8 @@ each result to `tests/golden/relevance/<name>.json.gz`.
 They cover what the search corpus doesn't: every HR and village level (charm
 types unlock by HR; armour is available when either rank suffices), Gunner
 and female hunters, each armour toggle off on its own, Auto-Guard (the only
-ability with no decorations), skills with and without negative second skills
+selectable ability with no decorations; Torso Inc has none either, but has no
+skills, so the GUI never offers it), skills with and without negative second skills
 on their decorations, and two-skill charm pairs with no or many charms. Some
 repeat the query fields of personal-charm queries in `tests/savefile/corpus/`
 so the public tests cover them too.
