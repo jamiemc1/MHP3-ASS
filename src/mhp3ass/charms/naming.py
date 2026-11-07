@@ -39,7 +39,7 @@ def charm_name(charm: Charm) -> str:
     return name
 
 
-def _equal_abilities(first: list[AbilityPair], second: list[AbilityPair]) -> bool:
+def equal_abilities(first: list[AbilityPair], second: list[AbilityPair]) -> bool:
     """``EqualAbilities`` (Armor.cpp:290-298).
 
     Compares ``l2[i]->amount != l2[i]->amount``, always false, so amounts are
@@ -54,7 +54,7 @@ def charms_equal(charm: Charm, other: Charm) -> bool:
     equal = (
         charm.num_slots == other.num_slots
         and len(charm.abilities) == len(other.abilities)
-        and _equal_abilities(charm.abilities, other.abilities)
+        and equal_abilities(charm.abilities, other.abilities)
     )
     return equal
 
