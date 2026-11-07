@@ -28,7 +28,8 @@ $mycharms = Join-Path $runDir "Data\mycharms.txt"
 $capturesDir = Join-Path $repoRoot "tests\savefile\gui-captures"
 New-Item -ItemType Directory -Force -Path $capturesDir | Out-Null
 
-# settings.cfg version 2: 14 option lines and 24 skill lines precede the solutions.
+# settings.cfg version 2: 14 option lines and 24 skill lines precede the solutions
+# (src/mhp3ass/settings_cfg.py). The count printed here is only a quick check.
 $headerLines = 38
 
 # Number after the highest existing capture, so gaps and non-numeric folders never lead to an overwrite.
