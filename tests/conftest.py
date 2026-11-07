@@ -194,11 +194,12 @@ def personal_search_goldens(savefile_dir: Path) -> list[SearchGolden]:
 def personal_relevance_goldens(savefile_dir: Path) -> list[RelevanceGolden]:
     """Relevance output for the personal corpus queries (their charm fields aren't read)."""
     corpus_dir = savefile_dir / "corpus"
+    golden_dir = savefile_dir / "golden" / "relevance"
     if not corpus_dir.is_dir():
         pytest.skip("no personal corpus in tests/savefile/corpus")
-    return read_relevance_goldens(
-        query_dirs=[corpus_dir], golden_dir=savefile_dir / "golden" / "relevance"
-    )
+    if not golden_dir.is_dir():
+        pytest.skip("no personal relevance goldens; run scripts/windows/generate-goldens.ps1")
+    return read_relevance_goldens(query_dirs=[corpus_dir], golden_dir=golden_dir)
 
 
 @pytest.fixture(scope="session")

@@ -271,12 +271,21 @@ def _relevant_also_inferior(listing: dict[str, list[Any]]) -> bool:
     return all(entry in inferior for entry in relevant)
 
 
+def _inferior_only_armor_has_skills(listing: dict[str, list[Any]]) -> bool:
+    relevant = {entry["index"] for entry in listing["relevant"]}
+    inferior_only = [entry for entry in listing["inferior"] if entry["index"] not in relevant]
+    return not any(entry["no_skills"] for entry in inferior_only)
+
+
 def _inconsistent_relevance(goldens: list[RelevanceGolden], game_data: Any) -> list[str]:
     """Queries whose relevance output breaks an invariant of GetRelevantData.
 
     The relevant abilities are the query skills' abilities in order, exactly
     those flagged relevant; every relevant armour piece and decoration is also
-    on its inferior list (AddToList adds to both, LoadedData.cpp:56-57, :80-81).
+    on its inferior list (AddToList adds to both, LoadedData.cpp:56-57, :80-81);
+    and an armour piece on the inferior list alone has skills, because a
+    skill-less piece leaves it when dropped (:68-69) and never joins it when
+    rejected (:75-76).
     """
     inconsistent = []
     for golden in goldens:
@@ -284,12 +293,17 @@ def _inconsistent_relevance(goldens: list[RelevanceGolden], game_data: Any) -> l
         skill_abilities = [
             game_data["skills"][index]["ability"] for index in golden.query["skills"]
         ]
-        listings = [relevance["decorations"], *relevance["armor"].values()]
+        armor_listings = list(relevance["armor"].values())
+        listings = [relevance["decorations"], *armor_listings]
         relevant_listed = all(_relevant_also_inferior(listing) for listing in listings)
+        inferior_have_skills = all(
+            _inferior_only_armor_has_skills(listing) for listing in armor_listings
+        )
         if not (
             relevance["rel_abilities"] == skill_abilities
             and relevance["relevant_flags"] == sorted(skill_abilities)
             and relevant_listed
+            and inferior_have_skills
         ):
             inconsistent.append(golden.query["id"])
     return inconsistent
@@ -324,12 +338,15 @@ def test_best_decoration_throws_exactly_for_abilities_without_decorations(
     assert throwing == without_decorations
 
 
-def test_best_decoration_grid_marks_throws_only_where_they_happen(best_decorations_golden: Any):
-    misplaced = [
-        entry["ability"]
-        for entry in best_decorations_golden["abilities"]
-        if (entry["exception"] is not None)
-        != any(value == -2 for by_hr in entry["best"] for by_elder in by_hr for value in by_elder)
-    ]
+def test_best_decoration_throws_in_every_cell_or_none(best_decorations_golden: Any):
+    """The unchecked lookup (Decoration.cpp:110) runs before any HR or slot filter,
+    so an ability throws for every HR, village and slot count, or never."""
+    partial = []
+    for entry in best_decorations_golden["abilities"]:
+        cells = [value for by_hr in entry["best"] for by_elder in by_hr for value in by_elder]
+        throws = [value == -2 for value in cells]
+        expected = entry["exception"] is not None
+        if any(throw != expected for throw in throws):
+            partial.append(entry["ability"])
 
-    assert misplaced == []
+    assert partial == []
