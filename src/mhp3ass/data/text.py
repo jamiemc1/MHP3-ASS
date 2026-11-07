@@ -123,6 +123,20 @@ def to_uint32(text: str) -> int:
     return value
 
 
+def to_boolean(text: str) -> bool:
+    """``Convert::ToBoolean( String^ )``, which is ``Boolean.Parse``.
+
+    "True" or "False" in any ASCII case, after trimming white space and NULs.
+    Non-ASCII case variants are rejected; whether .NET accepts any is unprobed.
+    """
+    trimmed = text.strip(_TRIM_CHARS + "\x00")
+    lowered = trimmed.lower() if trimmed.isascii() else trimmed
+    if lowered not in ("true", "false"):
+        raise ValueError(f"{text!r} is not a valid Boolean")
+    value = lowered == "true"
+    return value
+
+
 def as_unsigned(value: int) -> int:
     """Store ``value`` in a C++ ``unsigned`` (32-bit, wraps on overflow and underflow)."""
     wrapped = value & 0xFFFFFFFF
