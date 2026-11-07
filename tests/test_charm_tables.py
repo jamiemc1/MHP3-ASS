@@ -2,7 +2,19 @@
 
 from __future__ import annotations
 
+import subprocess
+import sys
+
 from mhp3ass.charms.tables import SKILL_TABLES, SLOT_THRESHOLDS
+
+
+def test_committed_tables_match_the_legacy_source(repo_root):
+    script = repo_root / "scripts" / "extract_charm_tables.py"
+    result = subprocess.run(
+        [sys.executable, str(script), "--check"], capture_output=True, text=True, check=False
+    )
+
+    assert [result.returncode, result.stderr] == [0, ""]
 
 
 def test_skill_rows_name_ordered_abilities_with_valid_ranges(teamhgg_game):
