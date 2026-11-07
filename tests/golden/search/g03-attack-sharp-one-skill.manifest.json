@@ -1,0 +1,53 @@
+{
+  "id": "g03",
+  "query_json": "{\"id\":\"g03\",\"description\":\"Attack Up [Med] + Sharp Sword, Blademaster HR 6, village 6, up to one-skill charms\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[1,12],\"skill_names\":[\"Attack Up [Med]\",\"Sharp Sword\"],\"my_charms\":[],\"gui_solution_count\":50659,\"gui_capture\":\"03\",\"gui_order_dependent\":true}",
+  "my_charms_loaded": 0,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    8,
+    4,
+    7,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+1 Attack OOO",
+      "found": 9639,
+      "added": 9578
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Attack OO-",
+      "found": 9593,
+      "added": 9586
+    },
+    {
+      "worker": 2,
+      "charm": "+10 Attack O--",
+      "found": 9436,
+      "added": 8060
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Sharpness OOO",
+      "found": 9710,
+      "added": 6902
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Sharpness OO-",
+      "found": 9481,
+      "added": 8666
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Sharpness O--",
+      "found": 9250,
+      "added": 7867
+    }
+  ],
+  "solution_count": 50659
+}

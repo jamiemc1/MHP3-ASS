@@ -137,11 +137,9 @@ def gui_imported_mycharms(savefile_dir: Path) -> list[str]:
 
 
 @pytest.fixture(scope="session")
-def gui_query_1b_solution_lines(savefile_dir: Path) -> list[str]:
-    """Solution lines the original GUI saved in settings.cfg after running query 1b."""
-    path = savefile_dir / "gui-query-1b.settings.cfg"
-    if not path.is_file():
-        pytest.skip("no settings.cfg captured from the GUI for query 1b")
-    # settings.cfg version 2: 14 option lines and 24 skill lines, then one solution per line.
-    solution_lines = path.read_text(encoding="utf-8").splitlines()[38:]
-    return solution_lines
+def gui_captures_dir(savefile_dir: Path) -> Path:
+    """Searches captured from the original GUI (scripts/windows/capture-gui-searches.ps1)."""
+    captures_dir = savefile_dir / "gui-captures"
+    if not captures_dir.is_dir():
+        pytest.skip("no GUI captures in tests/savefile/gui-captures")
+    return captures_dir

@@ -387,7 +387,7 @@ String^ SearchDump::QueryLanguage( String^ query_path )
 	return GetString( ReadQueryFile( query_path ), L"language" );
 }
 
-void SearchDump::Run( String^ query_path, String^ out_prefix )
+void SearchDump::Run( String^ query_path, String^ out_prefix, bool write_candidates )
 {
 	JsonObject^ spec = ReadQueryFile( query_path );
 	LoadedData^ data = gcnew LoadedData;
@@ -413,6 +413,7 @@ void SearchDump::Run( String^ query_path, String^ out_prefix )
 	json->Field( L"relevant_decoration_count", query->rel_decorations.Count );
 
 	ResultSet results;
+	List< String^ >^ candidates = gcnew List< String^ >;
 	List< Charm^ >^ worker_charms = query->skills.Count > 0 ? WorkerCharms( query, charm_select ) : gcnew List< Charm^ >;
 	json->Key( L"workers" );
 	json->BeginArray();
@@ -420,6 +421,14 @@ void SearchDump::Run( String^ query_path, String^ out_prefix )
 	{
 		Charm^ charm = worker_charms[ worker ];
 		List< Solution^ >^ found = RunWorker( query, charm );
+		if( write_candidates )
+		{
+			for each( Solution^ solution in found )
+			{
+				String^ charm_name = solution->charm ? solution->charm->GetName() : L"";
+				candidates->Add( Convert::ToString( worker ) + L"\t" + charm_name + L"\t" + SolutionLine( solution ) );
+			}
+		}
 		const int added = results.AddSolutions( found );
 		json->BeginObject();
 		json->Field( L"worker", worker );
@@ -439,4 +448,6 @@ void SearchDump::Run( String^ query_path, String^ out_prefix )
 
 	json->WriteToFile( out_prefix + L".manifest.json" );
 	WriteLines( out_prefix + L".solutions.txt.gz", lines );
+	if( write_candidates )
+		WriteLines( out_prefix + L".candidates.txt.gz", candidates );
 }

@@ -1,0 +1,23 @@
+{
+  "id": "g02",
+  "query_json": "{\"id\":\"g02\",\"description\":\"Attack Up [Med] + Sharp Sword, Blademaster HR 6, village 6, slotted charms only\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[1,12],\"skill_names\":[\"Attack Up [Med]\",\"Sharp Sword\"],\"my_charms\":[],\"gui_solution_count\":9456,\"gui_capture\":\"02\"}",
+  "my_charms_loaded": 0,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    8,
+    4,
+    7,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 9523,
+      "added": 9456
+    }
+  ],
+  "solution_count": 9456
+}
