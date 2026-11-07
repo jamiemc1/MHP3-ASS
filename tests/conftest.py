@@ -5,12 +5,66 @@ from typing import Any
 
 import pytest
 
+from data_rows import armor_row, decoration_row
 from goldens import SearchGolden, read_golden, read_search_goldens
 
 
 @pytest.fixture(scope="session")
 def repo_root() -> Path:
     return Path(__file__).resolve().parent.parent
+
+
+@pytest.fixture
+def minimal_data_files() -> dict[str, str]:
+    """A tiny but complete data set: two abilities, two materials, one armour per slot,
+    one decoration. Tests replace single files to isolate one loading rule."""
+    files = {
+        "components.txt": "Ore,2\nGem,7\n",
+        "tags.txt": "Offensive\n",
+        "skills.txt": (
+            "#name,jname,ability,jability,points,type,tag,order\n"
+            "Attack Up,j,Attack,j,10,0,Offensive,0\n"
+            "Defense Up,j,Defense,j,10,0,,1\n"
+        ),
+        "head.txt": armor_row("Cap") + "\n",
+        "body.txt": armor_row("Mail") + "\n",
+        "arms.txt": armor_row("Vambraces") + "\n",
+        "waist.txt": armor_row("Tasset") + "\n",
+        "legs.txt": armor_row("Greaves") + "\n",
+        "decorations.txt": decoration_row("Attack Jewel") + "\n",
+    }
+    return files
+
+
+@pytest.fixture
+def minimal_language_files() -> dict[str, str]:
+    """A translation of ``minimal_data_files``: every record renamed with a "T " prefix."""
+    files = {
+        "tags.txt": "T All\nT Misc\nT Offensive\n",
+        "components.txt": "T Ore\nT Gem\n",
+        "head.txt": "T Cap\n",
+        "body.txt": "T Mail\n",
+        "arms.txt": "T Vambraces\n",
+        "waist.txt": "T Tasset\n",
+        "legs.txt": "T Greaves\n",
+        "decorations.txt": "T Attack Jewel\n",
+        "skills.txt": "T Attack\nT Defense\nT Attack Up\nT Defense Up\n",
+    }
+    return files
+
+
+@pytest.fixture
+def write_files(tmp_path: Path):
+    """Write a {file name: content} dict into a fresh folder and return the folder."""
+
+    def write(files: dict[str, str], folder_name: str = "Data") -> Path:
+        folder = tmp_path / folder_name
+        folder.mkdir()
+        for name, content in files.items():
+            (folder / name).write_text(content, encoding="utf-8")
+        return folder
+
+    return write
 
 
 @pytest.fixture(scope="session")
