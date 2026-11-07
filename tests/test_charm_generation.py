@@ -118,7 +118,14 @@ def test_charm_hashes_match_golden(charm_tables, charm_database_golden):
     assert _first_difference(charm_tables.charm_hashes, golden) is None
 
 
-def test_two_skill_lists_are_shared_between_orders(charm_tables, teamhgg_game):
-    first, second = teamhgg_game.abilities[0], teamhgg_game.abilities[1]
+def test_two_skill_lists_stay_shared_between_orders(charm_tables, teamhgg_game):
+    abilities = teamhgg_game.abilities
+    pairs = [(abilities[i], abilities[j]) for i in range(1, len(abilities)) for j in range(i)]
+    unshared = [
+        (a.name, b.name)
+        for a, b in pairs
+        if charm_tables.two_skill[a][b] is not charm_tables.two_skill[b][a]
+    ]
+    filled = sum(1 for a, b in pairs if charm_tables.two_skill[a][b])
 
-    assert charm_tables.two_skill[first][second] is charm_tables.two_skill[second][first]
+    assert [unshared, filled > 0] == [[], True]

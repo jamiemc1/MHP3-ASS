@@ -2,7 +2,7 @@
 
 Ported from ``Charm::GetName``, ``EqualAbilities``, ``Charm::operator==``,
 ``Charm::GetHash`` and ``Charm::HashFunction`` (``legacy/Armor.cpp:216-341``)
-and ``Utility::SlotString`` (``legacy/Common.cpp:58-63``).
+and ``Utility::SlotString`` (``legacy/Common.cpp:62-67``).
 """
 
 from __future__ import annotations
