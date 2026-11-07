@@ -11,9 +11,10 @@ from __future__ import annotations
 import json
 from collections import Counter
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
-from goldens import SearchGolden
+from goldens import Candidate, SearchGolden, read_gui_capture_solutions
 
 
 def test_save_import_matches_gui_output(save_golden: Any, gui_imported_mycharms: list[str]):
@@ -114,13 +115,99 @@ def test_search_manifests_are_consistent(search_goldens: list[SearchGolden]):
     assert inconsistent == []
 
 
-def test_query_1b_matches_gui_solutions(
-    personal_search_goldens: list[SearchGolden], gui_query_1b_solution_lines: list[str]
-):
-    goldens_by_id = {golden.query["id"]: golden for golden in personal_search_goldens}
-    assert "1b" in goldens_by_id, (
-        "settings.cfg for query 1b exists but tests/savefile/corpus has no query 1b"
-    )
+def _armor_hash(solution_line: str) -> int:
+    """Form1::HashArmor (Form1.h:1691-1699): sum(index << (slot * 3)) over the armour indices."""
+    indices = [int(token) for token in solution_line.split()[:5]]
+    hashed = sum(index << (slot * 3) for slot, index in enumerate(indices))
+    return hashed
 
-    # Same solutions; order differs because the GUI's search threads interleave their batches.
-    assert Counter(goldens_by_id["1b"].solution_lines) == Counter(gui_query_1b_solution_lines)
+
+def _remove_duplicates(candidates: list[Candidate]) -> list[str]:
+    """Form1::AddSolutions (Form1.h:1701-1746) applied to candidates in the given order."""
+    seen: set[tuple[str, int]] = set()
+    kept = []
+    for candidate in candidates:
+        if candidate.charm_name:
+            key = (candidate.charm_name, _armor_hash(candidate.solution_line))
+            if key in seen:
+                continue
+            seen.add(key)
+        kept.append(candidate.solution_line)
+    return kept
+
+
+def _survivor_choice_differs_only(candidates: list[Candidate], gui_lines: list[str]) -> bool:
+    """Whether the GUI's result is the candidates with some choice of duplicates kept.
+
+    True when every GUI line is a candidate, charm-free solutions (never
+    de-duplicated) match exactly, and the GUI keeps exactly one solution per
+    (charm name, armour hash) key, covering the same keys as the candidates.
+    """
+    charm_of = {candidate.solution_line: candidate.charm_name for candidate in candidates}
+    if any(line not in charm_of for line in gui_lines):
+        return False
+    available = Counter(candidate.solution_line for candidate in candidates)
+    if any(count > available[line] for line, count in Counter(gui_lines).items()):
+        return False
+    charm_free_gui = Counter(line for line in gui_lines if charm_of[line] == "")
+    charm_free_candidates = Counter(c.solution_line for c in candidates if c.charm_name == "")
+    gui_keys = Counter((charm_of[line], _armor_hash(line)) for line in gui_lines if charm_of[line])
+    candidate_keys = {
+        (c.charm_name, _armor_hash(c.solution_line)) for c in candidates if c.charm_name
+    }
+    matches = (
+        charm_free_gui == charm_free_candidates
+        and all(count == 1 for count in gui_keys.values())
+        and set(gui_keys) == candidate_keys
+    )
+    return matches
+
+
+def _gui_mismatches(goldens: list[SearchGolden], captures_dir: Path) -> list[str]:
+    mismatched = []
+    for golden in goldens:
+        capture = golden.query.get("gui_capture")
+        if capture is None or not (captures_dir / capture).is_dir():
+            continue
+        gui_lines = read_gui_capture_solutions(captures_dir / capture)
+        if golden.query.get("gui_order_dependent"):
+            if golden.candidates is None or not _survivor_choice_differs_only(
+                golden.candidates, gui_lines
+            ):
+                mismatched.append(golden.query["id"])
+        # Same solutions; order differs because the GUI's search threads interleave their batches.
+        elif Counter(golden.solution_lines) != Counter(gui_lines):
+            mismatched.append(golden.query["id"])
+    return mismatched
+
+
+def test_searches_match_gui_captures(search_goldens: list[SearchGolden], gui_captures_dir: Path):
+    assert _gui_mismatches(search_goldens, gui_captures_dir) == []
+
+
+def test_personal_searches_match_gui_captures(
+    personal_search_goldens: list[SearchGolden], gui_captures_dir: Path
+):
+    assert _gui_mismatches(personal_search_goldens, gui_captures_dir) == []
+
+
+def test_order_dependent_queries_have_candidates(search_goldens: list[SearchGolden]):
+    missing = [
+        golden.query["id"]
+        for golden in search_goldens
+        if golden.query.get("gui_order_dependent") and golden.candidates is None
+    ]
+
+    assert missing == []
+
+
+def test_duplicate_removal_over_candidates_reproduces_solutions(search_goldens: list[SearchGolden]):
+    # Workers run in start order, each in loop order: the order the harness adds them in.
+    differing = [
+        golden.query["id"]
+        for golden in search_goldens
+        if golden.candidates is not None
+        and _remove_duplicates(golden.candidates) != golden.solution_lines
+    ]
+
+    assert differing == []

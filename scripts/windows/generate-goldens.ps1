@@ -52,9 +52,18 @@ function Invoke-Searches([string]$corpusDir, [string]$outDir) {
     }
     New-Item -ItemType Directory -Force -Path $outDir | Out-Null
     # Start clean so results of renamed or deleted queries don't linger.
-    Get-ChildItem -File $outDir -Include "*.manifest.json", "*.solutions.txt.gz" -Recurse | Remove-Item
+    Get-ChildItem -File $outDir -Include "*.manifest.json", "*.solutions.txt.gz", "*.candidates.txt.gz" -Recurse |
+        Remove-Item
     foreach ($query in Get-ChildItem -File -Filter "*.json" $corpusDir) {
-        Invoke-Harness search $query.FullName --out (Join-Path $outDir $query.BaseName)
+        $out = Join-Path $outDir $query.BaseName
+        # The GUI keeps a timing-dependent choice of duplicates for these, so
+        # tests check its result against every candidate the harness found.
+        if ((Get-Content $query.FullName -Raw | ConvertFrom-Json).gui_order_dependent) {
+            Invoke-Harness search $query.FullName --candidates --out $out
+        }
+        else {
+            Invoke-Harness search $query.FullName --out $out
+        }
     }
 }
 

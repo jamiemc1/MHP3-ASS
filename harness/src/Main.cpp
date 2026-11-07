@@ -16,7 +16,7 @@ namespace
 		Console::Error->WriteLine( L"  Harness dump-data    --out <file.json[.gz]> [--lang <language>] [--names-only] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness dump-charms  --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness decrypt-save <save.bin> --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
-		Console::Error->WriteLine( L"  Harness search       <query.json> --out <prefix> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness search       <query.json> --out <prefix> [--candidates] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
 		Console::Error->WriteLine( L"search writes <prefix>.manifest.json and <prefix>.solutions.txt.gz, in the query's language." );
 		Console::Error->WriteLine( L"<language> is a folder name under Data/Languages, e.g. \"English (TeamHGG)\"." );
@@ -33,8 +33,9 @@ namespace
 		String^ language;
 		String^ run_dir;
 		bool names_only;
+		bool candidates;
 
-		Options() : positional( gcnew List< String^ > ), names_only( false ) {}
+		Options() : positional( gcnew List< String^ > ), names_only( false ), candidates( false ) {}
 	};
 
 	String^ OptionValue( array< String^ >^ args, int% i )
@@ -56,6 +57,8 @@ namespace
 				options->language = OptionValue( args, i );
 			else if( arg == L"--run-dir" )
 				options->run_dir = OptionValue( args, i );
+			else if( arg == L"--candidates" )
+				options->candidates = true;
 			else if( arg == L"--names-only" )
 				options->names_only = true;
 			else if( arg->StartsWith( L"--" ) )
@@ -110,6 +113,11 @@ int main( array< String^ >^ args )
 		Console::Error->WriteLine( L"--names-only only applies to dump-data" );
 		return Usage();
 	}
+	if( options->candidates && options->command != L"search" )
+	{
+		Console::Error->WriteLine( L"--candidates only applies to search" );
+		return Usage();
+	}
 	if( options->command == L"search" && options->language != nullptr )
 	{
 		Console::Error->WriteLine( L"search takes its language from the query file; remove --lang" );
@@ -144,7 +152,7 @@ int main( array< String^ >^ args )
 	{
 		options->language = SearchDump::QueryLanguage( inputs[ 0 ] );
 		LoadGameData( options );
-		SearchDump::Run( inputs[ 0 ], out_path );
+		SearchDump::Run( inputs[ 0 ], out_path, options->candidates );
 	}
 	else
 		return Usage();

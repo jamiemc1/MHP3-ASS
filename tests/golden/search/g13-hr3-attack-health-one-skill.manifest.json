@@ -1,0 +1,41 @@
+{
+  "id": "g13",
+  "query_json": "{\"id\":\"g13\",\"description\":\"HR 3, village 4: Attack Up [Sm] + Health +20, one-skill charms\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[0,141],\"skill_names\":[\"Attack Up [Sm]\",\"Health +20\"],\"my_charms\":[],\"gui_solution_count\":4444,\"gui_capture\":\"13\",\"gui_order_dependent\":true}",
+  "my_charms_loaded": 0,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    3,
+    5,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+3 Attack O--",
+      "found": 1183,
+      "added": 1183
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Attack ---",
+      "found": 1183,
+      "added": 1073
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Health O--",
+      "found": 1136,
+      "added": 1129
+    },
+    {
+      "worker": 3,
+      "charm": "+8 Health ---",
+      "found": 1092,
+      "added": 1059
+    }
+  ],
+  "solution_count": 4444
+}
