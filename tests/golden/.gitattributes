@@ -1,0 +1,5 @@
+# The harness writes LF. Check goldens out with LF on Windows too, so a
+# regeneration that changes nothing shows nothing in git status.
+*.json text eol=lf
+*.md text eol=lf
+*.gz binary
