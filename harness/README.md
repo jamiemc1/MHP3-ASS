@@ -13,7 +13,9 @@ fixtures for the Python port.
 | `src/DataDump.cpp` | L1 dumps of game data, charm tables and per-language names |
 | `src/SaveDump.cpp` | L1 dump of save decryption and charm import |
 | `src/ModelDump.cpp` | L1 record behaviour that needs no query (skills, decorations, charm validity, my-charms file, charm comparisons) |
-| `src/SearchDump.cpp` | L3 Quick Search: query, charm dispatch, search loop and duplicate removal |
+| `src/QueryFile.cpp` | Corpus query files and `FormulateQuery`, shared by `search` and `relevance` |
+| `src/RelevanceDump.cpp` | L2 query set-up: `GetRelevantData`, `CharmDatabase::GetCharms`, the query-based `GetBestDecoration` |
+| `src/SearchDump.cpp` | L3 Quick Search: charm dispatch, search loop and duplicate removal |
 | `src/Fixtures.h` | Serialisation shared by every fixture (charms, ability pairs, hex) |
 | `src/Json.h` | Deterministic JSON writer (gzip when the output ends in `.gz`) |
 
@@ -45,6 +47,8 @@ harness\Release\Harness.exe                      # prints usage
 | `decrypt-save <save.bin> --lang <language> --out <file>` | SHA-256 after each decryption layer, every charm per character, the "Select Best" choice, and the `mycharms.txt` an import would write |
 | `search <query.json> --out <prefix>` | `<prefix>.manifest.json` and `<prefix>.solutions.txt.gz` for one corpus query (schema in `tests/corpus/README.md`) |
 | `search <query.json> --out <prefix> --candidates` | Also `<prefix>.candidates.txt.gz`: every solution each worker found before duplicate removal, as `<worker>\t<charm name>\t<solution line>`. `generate-goldens.ps1` passes it for `gui_order_dependent` queries |
+| `relevance <query.json> --out <file>` | `GetRelevantData` for one query (relevant abilities and flags; relevant and inferior armour per slot, with `no_skills` and `danger`; relevant and inferior decorations) and `GetCharms` for one- and two-skill charms. Charm fields in the query are ignored |
+| `best-decorations --out <file>` | `GetBestDecoration( ability, max_slots, query )` for every ability, max slots 0-3, HR 1-6 and village 1-6 |
 
 `<language>` is a folder under `legacy/Run/Data/Languages`. The GUI defaults
 to `English (TeamHGG)` on first run.
@@ -66,7 +70,7 @@ forever, so a hung run usually means bad input data.
 powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1
 ```
 
-This writes `tests/golden/data/` and `tests/golden/search/` (committed) and,
+This writes `tests/golden/data/`, `tests/golden/search/` and `tests/golden/relevance/` (committed) and,
 for queries and saves from personal data, `tests/savefile/golden/`
 (gitignored). Output is byte-identical across runs. Copy the files back to
 the development machine and commit them there.

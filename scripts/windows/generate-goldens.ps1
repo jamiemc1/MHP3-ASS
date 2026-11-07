@@ -42,6 +42,7 @@ Invoke-Harness dump-charms --lang $Language --out (Join-Path $dataDir "charm-dat
 $mycharmsFiles = @(Get-ChildItem -File -Filter "*.txt" (Join-Path $repoRoot "tests\models\mycharms") |
     Sort-Object Name | ForEach-Object { $_.FullName })
 Invoke-Harness dump-models @mycharmsFiles --lang $Language --out (Join-Path $dataDir "models.json.gz")
+Invoke-Harness best-decorations --out (Join-Path $dataDir "best-decorations.json.gz")
 
 $languagesDir = Join-Path $repoRoot "legacy\Run\Data\Languages"
 # PowerShell variable names are case-insensitive: don't reuse $Language here.
@@ -74,6 +75,29 @@ function Invoke-Searches([string]$corpusDir, [string]$outDir) {
 Invoke-Searches (Join-Path $repoRoot "tests\corpus") (Join-Path $repoRoot "tests\golden\search")
 # Queries built from a personal charm list stay out of git with their results.
 Invoke-Searches (Join-Path $repoRoot "tests\savefile\corpus") (Join-Path $repoRoot "tests\savefile\golden\search")
+
+function Invoke-Relevance([string[]]$queryDirs, [string]$outDir) {
+    $queries = @(foreach ($queryDir in $queryDirs) {
+        if (Test-Path $queryDir) { Get-ChildItem -File -Filter "*.json" $queryDir }
+    })
+    if ($queries.Count -eq 0) {
+        return
+    }
+    New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+    # Start clean so results of renamed or deleted queries don't linger.
+    Get-ChildItem -File -Filter "*.json.gz" $outDir | Remove-Item
+    foreach ($query in $queries) {
+        $out = Join-Path $outDir "$($query.BaseName).json.gz"
+        if (Test-Path $out) {
+            throw "Two queries named $($query.BaseName) write the same relevance golden"
+        }
+        Invoke-Harness relevance $query.FullName --out $out
+    }
+}
+
+Invoke-Relevance @((Join-Path $repoRoot "tests\corpus"), (Join-Path $repoRoot "tests\relevance")) `
+    (Join-Path $repoRoot "tests\golden\relevance")
+Invoke-Relevance @(, (Join-Path $repoRoot "tests\savefile\corpus")) (Join-Path $repoRoot "tests\savefile\golden\relevance")
 
 $save = Join-Path $repoRoot "tests\savefile\MHP3RD.BIN"
 if (Test-Path $save) {
