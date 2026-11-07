@@ -15,6 +15,7 @@ the corpus and re-run `scripts/windows/generate-goldens.ps1` (see
 | `data/names/<language>.json.gz` | Display names per record for each language |
 | `search/<query>.manifest.json` | Per-worker charm, solutions found and kept after duplicate removal, total |
 | `search/<query>.solutions.txt.gz` | Every solution, in `settings.cfg` line format (see `tests/corpus/README.md`) |
+| `search/<query>.candidates.txt.gz` | `gui_order_dependent` queries only: every solution found before duplicate removal, as `<worker>\t<charm name>\t<solution line>` |
 
 Fixtures derived from a personal save file live in the gitignored
 `tests/savefile/golden/` instead.

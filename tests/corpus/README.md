@@ -2,7 +2,8 @@
 
 Inputs for the harness's `search` command. Each `*.json` file is one Quick
 Search; `scripts/windows/generate-goldens.ps1` writes its result to
-`tests/golden/search/<name>.manifest.json` and `<name>.solutions.txt.gz`.
+`tests/golden/search/<name>.manifest.json` and `<name>.solutions.txt.gz`
+(plus `<name>.candidates.txt.gz` for `gui_order_dependent` queries).
 
 Queries whose charm list comes from a personal save go in the gitignored
 `tests/savefile/corpus/` instead; their results go to
@@ -24,6 +25,11 @@ Queries whose charm list comes from a personal save go in the gitignored
 | `skill_names` | string[] | The same skills by name in `language`; the harness fails if they disagree |
 | `my_charms` | string[] | Lines in `mycharms.txt` format (`NumSlots,Skill1,Points1,Skill2,Points2`) |
 | `gui_solution_count` | int, optional | Count the original GUI reported for this query; tests check the harness matches it |
+| `gui_capture` | string, optional | Folder under the gitignored `tests/savefile/gui-captures/` holding the GUI's own `settings.cfg` for this query. Tests compare its solution lines with the harness's as a set, and skip the comparison when the capture isn't present |
+| `gui_order_dependent` | bool, optional | The GUI's result depends on thread timing (quirk 5 in `docs/quirks.md`), so it may keep different duplicates from the harness. The golden then also includes `<name>.candidates.txt.gz`, and tests check the GUI kept one candidate per duplicate key instead of comparing sets |
+
+Queries with a `gui_capture` are written from the capture by
+`scripts/gui_capture_to_corpus.py`.
 
 ## Solution line format
 
