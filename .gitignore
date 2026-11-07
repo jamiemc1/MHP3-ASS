@@ -14,6 +14,7 @@ htmlcov/
 # Harness build output (C++/CLI, built on Windows)
 harness/[Dd]ebug/
 harness/[Rr]elease/
+harness/obj/
 harness/.vs/
 harness/*.user
 
