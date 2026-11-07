@@ -1,0 +1,52 @@
+{
+  "id": "1a",
+  "my_charms_loaded": 259,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    8,
+    4,
+    7,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 7241,
+      "added": 7241
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Rec Level, -1 Sheathe OOO",
+      "found": 9523,
+      "added": 9336
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Sharpness, +1 Blight Res OO-",
+      "found": 9412,
+      "added": 9231
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Loading, +5 Attack O--",
+      "found": 9316,
+      "added": 9138
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Sharpness, +5 Expert ---",
+      "found": 9127,
+      "added": 8969
+    },
+    {
+      "worker": 5,
+      "charm": "+4 WindPress, +7 Attack ---",
+      "found": 9069,
+      "added": 8897
+    }
+  ],
+  "solution_count": 52812
+}
