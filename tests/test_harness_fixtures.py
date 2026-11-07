@@ -137,7 +137,7 @@ def _remove_duplicates(candidates: list[Candidate]) -> list[str]:
     return kept
 
 
-def _survivor_choice_differs_only(candidates: list[Candidate], gui_lines: list[str]) -> bool:
+def _survivor_choice_differs_only(candidates: list[Candidate], gui_lines: tuple[str, ...]) -> bool:
     """Whether the GUI's result is the candidates with some choice of duplicates kept.
 
     True when every GUI line is a candidate, charm-free solutions (never

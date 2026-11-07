@@ -40,8 +40,8 @@ class SettingsCfg:
     hr: int
     elder_star: int
     weapon_slots: int
-    skill_selections: list[SkillSelection]
-    solution_lines: list[str]
+    skill_selections: tuple[SkillSelection, ...]
+    solution_lines: tuple[str, ...]
 
 
 def read_settings_cfg(path: Path) -> SettingsCfg:
@@ -50,7 +50,9 @@ def read_settings_cfg(path: Path) -> SettingsCfg:
     Version 1 files hold five skill rows and version 2 six. The original
     silently ignores any other version; this raises instead, as does a file
     that ends before the skill rows do. Every line after the skill rows is a
-    solution, as ``LoadConfig`` reads them until ``EndOfStream``.
+    solution, as ``LoadConfig`` reads them until ``EndOfStream``; a blank one
+    raises, as ``AddSolution`` fails converting its empty first field
+    (``Form1.h:342-348``).
     """
     lines = read_lines(path)
     if not lines or lines[0] not in ("1", "2"):
@@ -61,8 +63,12 @@ def read_settings_cfg(path: Path) -> SettingsCfg:
     if len(lines) < header_length:
         raise ValueError(f"{path} ends inside its header ({len(lines)} lines)")
 
+    solution_lines = tuple(lines[header_length:])
+    if "" in solution_lines:
+        raise ValueError(f"{path} has a blank solution line")
+
     rows = lines[14:header_length]
-    skill_selections = [
+    skill_selections = tuple(
         SkillSelection(
             blademaster_filter=to_int32(rows[row * 4]),
             blademaster_skill=to_int32(rows[row * 4 + 1]),
@@ -70,7 +76,7 @@ def read_settings_cfg(path: Path) -> SettingsCfg:
             gunner_skill=to_int32(rows[row * 4 + 3]),
         )
         for row in range(skill_rows)
-    ]
+    )
     settings = SettingsCfg(
         version=version,
         language_index=to_uint32(lines[1]),
@@ -87,6 +93,6 @@ def read_settings_cfg(path: Path) -> SettingsCfg:
         elder_star=to_int32(lines[12]),
         weapon_slots=to_int32(lines[13]),
         skill_selections=skill_selections,
-        solution_lines=lines[header_length:],
+        solution_lines=solution_lines,
     )
     return settings
