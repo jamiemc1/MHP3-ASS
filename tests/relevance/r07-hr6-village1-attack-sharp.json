@@ -1,0 +1,22 @@
+{
+  "id": "r07",
+  "description": "Attack Up [Med] + Sharp Sword at HR 6, village 1: HR alone unlocks armour",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    1,
+    12
+  ],
+  "skill_names": [
+    "Attack Up [Med]",
+    "Sharp Sword"
+  ]
+}
