@@ -39,6 +39,9 @@ re-read docs and PR text before pushing.
 - **Before opening or updating a PR, run `/review-pr`, then act on the findings without waiting to be asked.** Fix Important findings and in-scope Nits in the same PR, re-run the checks, and report what changed. Raise a finding with Jamie only when the fix is ambiguous, changes agreed scope or behaviour, or contradicts these rules. If a finding reveals a missing rule, propose adding it here
 - **Every commit stands alone:** no references to files, commands or behaviour that only arrive in a later commit
 - PR bodies follow the workspace template (Why / Testing / Risk / How to revert) and the "Never commit" rules above
+- **Merges are rebase merges**, which give the commits new SHAs. Never reuse a merged branch; start the next one from the updated `master`
+- **Tidy branches as you go.** Once a PR merges: fast-forward local `master`, delete the branch locally and on the remote (`git push origin --delete <branch>`), and `git fetch --prune`. Do the same on the Windows build machine's checkout. Leave no stale branches behind on any machine
+- **Branch names** describe the work (`phase-1-harness`, `docs/branch-hygiene`), one branch per PR
 
 ## Commands
 
