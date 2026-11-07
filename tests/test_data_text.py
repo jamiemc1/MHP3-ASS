@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import codecs
+
 import pytest
 
 from mhp3ass.data.text import (
@@ -38,18 +40,45 @@ def test_read_lines_strips_utf8_bom(tmp_path):
 
 def test_read_lines_decodes_utf16_with_bom(tmp_path):
     path = tmp_path / "lines.txt"
-    path.write_bytes("﻿Jäger\n".encode("utf-16-le"))
+    path.write_bytes(codecs.BOM_UTF16_LE + "Jäger\n".encode("utf-16-le"))
 
     assert read_lines(path) == ["Jäger"]
 
 
 def test_trim_keeps_separators_python_treats_as_space():
     # \x1c-\x1f count as space for str.strip but not for String.Trim.
-    assert dotnet_trim("\x1c a b 　") == "\x1c a b"
+    ideographic_space = chr(0x3000)
+    assert dotnet_trim(f"\x1c a b {ideographic_space}") == "\x1c a b"
+
+
+def test_trim_keeps_byte_order_mark():
+    # Probed on .NET Framework 4.8: String.Trim does not remove U+FEFF.
+    byte_order_mark = chr(0xFEFF)
+    assert dotnet_trim(f"{byte_order_mark}x ") == f"{byte_order_mark}x"
 
 
 def test_split_fields_trims_the_line_but_not_fields():
     assert split_fields('  "a", b ,c  ') == ['"a"', " b ", "c"]
+
+
+@pytest.mark.parametrize("line", ["a, ,b", 'a,",b', "a,\t,b"])
+def test_split_fields_fails_where_remove_quotes_fails(line):
+    with pytest.raises(ValueError):
+        split_fields(line)
+
+
+def test_split_fields_accepts_empty_fields():
+    assert split_fields("a,,b") == ["a", "", "b"]
+
+
+def test_to_int32_ignores_nuls_after_trailing_space():
+    # Probed on .NET Framework 4.8: "5\0" and "5 \0" parse; "5\0 " throws.
+    assert [to_int32("5\x00"), to_int32("5 \x00\x00")] == [5, 5]
+
+
+def test_to_int32_rejects_space_after_nul():
+    with pytest.raises(ValueError):
+        to_int32("5\x00 ")
 
 
 @pytest.mark.parametrize("text", ["1_0", "\u0661", "", "1.0", "0x10"])

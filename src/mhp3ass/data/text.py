@@ -1,6 +1,7 @@
 """Text handling that matches the .NET calls the legacy loaders make.
 
-Python's defaults differ from .NET's in small ways that change parsing:
+The reference is .NET Framework 4.8, which the GUI and harness builds
+target. Python's defaults differ from it in small ways that change parsing:
 ``str.splitlines`` breaks on more characters than ``StreamReader.ReadLine``,
 ``str.strip`` removes more than ``String.Trim``, and ``int()`` accepts
 underscores and Unicode digits that ``Convert.ToInt32`` rejects.
@@ -10,12 +11,29 @@ from __future__ import annotations
 
 import codecs
 import re
-import unicodedata
 from pathlib import Path
 
+# String.Trim's characters on .NET Framework 4.8, found by probing every BMP
+# character on that runtime. Fixed here so Python's Unicode tables can't drift.
+_TRIM_CHARS = "".join(
+    chr(code_point)
+    for code_point in [
+        *range(0x0009, 0x000D + 1),
+        0x0020,
+        0x0085,
+        0x00A0,
+        0x1680,
+        *range(0x2000, 0x200A + 1),
+        0x2028,
+        0x2029,
+        0x202F,
+        0x205F,
+        0x3000,
+    ]
+)
 # NumberStyles.Integer: optional white space (U+0009-U+000D, U+0020) around an
-# optional sign and ASCII digits.
-_INTEGER = re.compile(r"[\t\n\v\f\r ]*([+-]?)([0-9]+)[\t\n\v\f\r ]*")
+# optional sign and ASCII digits. .NET also ignores NULs after the trailing white space.
+_INTEGER = re.compile(r"[\t\n\v\f\r ]*([+-]?)([0-9]+)[\t\n\v\f\r ]*\x00*")
 
 
 def read_lines(path: Path) -> list[str]:
@@ -48,21 +66,25 @@ def read_lines(path: Path) -> list[str]:
     return lines
 
 
-def _is_dotnet_white_space(char: str) -> bool:
-    """``Char.IsWhiteSpace``: Unicode space separators plus \\t-\\r and U+0085."""
-    return char in "\t\n\v\f\r\x85" or unicodedata.category(char) in ("Zs", "Zl", "Zp")
-
-
 def dotnet_trim(text: str) -> str:
     """``String.Trim()``."""
-    start = 0
-    end = len(text)
-    while start < end and _is_dotnet_white_space(text[start]):
-        start += 1
-    while end > start and _is_dotnet_white_space(text[end - 1]):
-        end -= 1
-    trimmed = text[start:end]
+    trimmed = text.strip(_TRIM_CHARS)
     return trimmed
+
+
+def _check_remove_quotes(field: str) -> None:
+    """Raise where ``Utility::RemoveQuotes`` (Common.cpp:12-19) would throw.
+
+    It trims the field, then reads its first character and, after dropping
+    a leading quote, its last character, without checking the length: a
+    field that trims to nothing or to a lone quote throws
+    IndexOutOfRangeException.
+    """
+    if field == "":
+        return
+    trimmed = dotnet_trim(field)
+    if trimmed == "" or trimmed == '"':
+        raise ValueError(f"field {field!r} makes the original's RemoveQuotes fail")
 
 
 def split_fields(line: str, separator: str = ",") -> list[str]:
@@ -70,9 +92,11 @@ def split_fields(line: str, separator: str = ",") -> list[str]:
 
     Trims the whole line, then splits on ``separator``. The original calls
     ``RemoveQuotes`` on each field but discards the result, so quotes and
-    per-field white space are kept.
+    per-field white space are kept; the call still fails on some fields.
     """
     fields = dotnet_trim(line).split(separator)
+    for field in fields:
+        _check_remove_quotes(field)
     return fields
 
 
