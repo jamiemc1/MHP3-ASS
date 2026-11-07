@@ -42,6 +42,7 @@ harness\Release\Harness.exe                      # prints usage
 | `dump-charms --lang <language> --out <file>` | `CharmDatabase::GenerateCharmTable()` output |
 | `decrypt-save <save.bin> --lang <language> --out <file>` | SHA-256 after each decryption layer, every charm per character, the "Select Best" choice, and the `mycharms.txt` an import would write |
 | `search <query.json> --out <prefix>` | `<prefix>.manifest.json` and `<prefix>.solutions.txt.gz` for one corpus query (schema in `tests/corpus/README.md`) |
+| `search <query.json> --out <prefix> --candidates` | Also `<prefix>.candidates.txt.gz`: every solution each worker found before duplicate removal, as `<worker>\t<charm name>\t<solution line>`. `generate-goldens.ps1` passes it for `gui_order_dependent` queries |
 
 `<language>` is a folder under `legacy/Run/Data/Languages`. The GUI defaults
 to `English (TeamHGG)` on first run.
