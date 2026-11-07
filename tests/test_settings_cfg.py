@@ -7,13 +7,6 @@ import pytest
 from mhp3ass.settings_cfg import SkillSelection, read_settings_cfg
 
 
-def _skill_rows(count: int) -> list[str]:
-    rows = []
-    for row in range(count):
-        rows += ["0", str(row * 10), "1", "-1"]
-    return rows
-
-
 @pytest.fixture
 def option_lines():
     """Lines 2-14, as SaveConfig writes them."""
@@ -37,30 +30,43 @@ def option_lines():
 
 @pytest.fixture
 def solution_lines():
-    return ["1 2 3 4 5 0 0 0 0 0 0 ", "6 7 8 9 10 1 1 0 0 0 0 1 2 1 4 12 "]
+    return ("1 2 3 4 5 0 0 0 0 0 0 ", "6 7 8 9 10 1 1 0 0 0 0 1 2 1 4 12 ")
 
 
 @pytest.fixture
-def version_2_settings_cfg(tmp_path, option_lines, solution_lines):
-    path = tmp_path / "settings.cfg"
-    lines = ["2", *option_lines, *_skill_rows(6), *solution_lines]
-    path.write_text("\r\n".join(lines) + "\r\n", encoding="utf-8")
-    return path
+def write_settings_cfg(tmp_path, option_lines):
+    """Write a settings.cfg as SaveConfig does (CRLF), with ``skill_rows`` drop-down rows."""
+
+    def write(version: str, skill_rows: int, solutions: tuple[str, ...]):
+        rows = []
+        for row in range(skill_rows):
+            rows += ["0", str(row * 10), "1", "-1"]
+        path = tmp_path / "settings.cfg"
+        lines = [version, *option_lines, *rows, *solutions]
+        path.write_text("\r\n".join(lines) + "\r\n", encoding="utf-8")
+        return path
+
+    return write
 
 
 @pytest.fixture
-def version_1_settings_cfg(tmp_path, option_lines, solution_lines):
-    path = tmp_path / "settings.cfg"
-    lines = ["1", *option_lines, *_skill_rows(5), *solution_lines]
-    path.write_text("\r\n".join(lines) + "\r\n", encoding="utf-8")
-    return path
+def version_2_settings_cfg(write_settings_cfg, solution_lines):
+    return write_settings_cfg(version="2", skill_rows=6, solutions=solution_lines)
 
 
 @pytest.fixture
-def version_2_settings_cfg_missing_a_skill_row(tmp_path, option_lines):
-    path = tmp_path / "settings.cfg"
-    path.write_text("\n".join(["2", *option_lines, *_skill_rows(5)]) + "\n", encoding="utf-8")
-    return path
+def version_1_settings_cfg(write_settings_cfg, solution_lines):
+    return write_settings_cfg(version="1", skill_rows=5, solutions=solution_lines)
+
+
+@pytest.fixture
+def version_2_settings_cfg_missing_a_skill_row(write_settings_cfg):
+    return write_settings_cfg(version="2", skill_rows=5, solutions=())
+
+
+@pytest.fixture
+def settings_cfg_with_blank_solution_line(write_settings_cfg, solution_lines):
+    return write_settings_cfg(version="2", skill_rows=6, solutions=(solution_lines[0], ""))
 
 
 def test_reads_options_in_save_order(version_2_settings_cfg):
@@ -113,3 +119,8 @@ def test_rejects_versions_load_config_ignores(tmp_path):
 def test_rejects_a_file_ending_inside_the_header(version_2_settings_cfg_missing_a_skill_row):
     with pytest.raises(ValueError, match="ends inside its header"):
         read_settings_cfg(version_2_settings_cfg_missing_a_skill_row)
+
+
+def test_rejects_a_blank_solution_line(settings_cfg_with_blank_solution_line):
+    with pytest.raises(ValueError, match="blank solution line"):
+        read_settings_cfg(settings_cfg_with_blank_solution_line)

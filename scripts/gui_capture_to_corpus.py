@@ -55,6 +55,8 @@ def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
     gunner = settings.last_search_gunner
     # The Charms drop-down, in its item order (Form1.h:1293-1373).
     charm_modes = ["none", "my_charms", "slotted", "one_skill", "two_skill"]
+    if not 0 <= settings.charm_select_index < len(charm_modes):
+        raise ValueError(f"no Charms drop-down item {settings.charm_select_index}")
     charm_mode = charm_modes[settings.charm_select_index]
 
     selected = [
