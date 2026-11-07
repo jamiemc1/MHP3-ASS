@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Headless harness over the original sources in ../legacy. It compiles the
+  legacy core (data loading, search, charm database, save decryption)
+  unchanged, leaves out the WinForms UI, and adds its own entry point.
+  Release only: the shipped application is a Release build, where the
+  legacy Assert macro compiles to nothing.
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{6B1E4C1A-3E0B-4C5E-9F6A-6F2B8C1D9A01}</ProjectGuid>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>Harness</RootNamespace>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)Release\</OutDir>
+    <IntDir>$(ProjectDir)obj\Release\</IntDir>
+    <TargetName>Harness</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)..\legacy;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\legacy\Armor.cpp" />
+    <ClCompile Include="..\legacy\CharmDatabase.cpp" />
+    <ClCompile Include="..\legacy\Common.cpp" />
+    <ClCompile Include="..\legacy\Decoration.cpp" />
+    <ClCompile Include="..\legacy\LoadedData.cpp" />
+    <ClCompile Include="..\legacy\PSPCryptoEngine.cpp" />
+    <ClCompile Include="..\legacy\SaveDataEncryption.cpp" />
+    <ClCompile Include="..\legacy\Skill.cpp" />
+    <ClCompile Include="..\legacy\Solution.cpp" />
+    <ClCompile Include="..\legacy\StringManipulation.cpp" />
+    <ClCompile Include="src\DataDump.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\SaveDump.cpp" />
+    <ClCompile Include="src\SearchDump.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\DataDump.h" />
+    <ClInclude Include="src\Fixtures.h" />
+    <ClInclude Include="src\Json.h" />
+    <ClInclude Include="src\SaveDump.h" />
+    <ClInclude Include="src\SearchDump.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

@@ -20,6 +20,13 @@ repos:
     rev: v6.0.0
     hooks:
       - id: check-added-large-files
+        exclude: ^tests/golden/
+      # Golden fixtures are deliberately large (full charm tables, full search
+      # results) and change only when the harness is re-run.
+      - id: check-added-large-files
+        name: check for added large golden fixtures
+        files: ^tests/golden/
+        args: [--maxkb=2048]
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
