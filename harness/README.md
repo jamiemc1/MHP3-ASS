@@ -12,6 +12,7 @@ fixtures for the Python port.
 | `src/Main.cpp` | Command-line entry point. Loads data in the GUI's startup order (`Form1.h:309-322`) |
 | `src/DataDump.cpp` | L1 dumps of game data, charm tables and per-language names |
 | `src/SaveDump.cpp` | L1 dump of save decryption and charm import |
+| `src/ModelDump.cpp` | L1 record behaviour that needs no query (skills, decorations, charm validity, my-charms file, charm comparisons) |
 | `src/SearchDump.cpp` | L3 Quick Search: query, charm dispatch, search loop and duplicate removal |
 | `src/Fixtures.h` | Serialisation shared by every fixture (charms, ability pairs, hex) |
 | `src/Json.h` | Deterministic JSON writer (gzip when the output ends in `.gz`) |
@@ -40,6 +41,7 @@ harness\Release\Harness.exe                      # prints usage
 | `dump-data --out <file>` | Abilities, skills, armour, decorations and materials, including list and dictionary enumeration order |
 | `dump-data --names-only --lang <language> --out <file>` | Display names per record after loading a language |
 | `dump-charms --lang <language> --out <file>` | `CharmDatabase::GenerateCharmTable()` output |
+| `dump-models [<mycharms.txt>...] --lang <language> --out <file>` | Query-independent record behaviour: `Ability::GetSkill` thresholds, `Decoration::IsBetterThan` for every pair, `CharmExists`/`CharmIsIllegal` on a charm sample, `LoadCustom`/`SaveCustom` over each given file (inputs in `tests/models/`), and charm `==`, `StrictlyBetterThan`, `BasicallyTheSameAs` and `AddCharmToOptimalList` under several `relevant` ability flag sets |
 | `decrypt-save <save.bin> --lang <language> --out <file>` | SHA-256 after each decryption layer, every charm per character, the "Select Best" choice, and the `mycharms.txt` an import would write |
 | `search <query.json> --out <prefix>` | `<prefix>.manifest.json` and `<prefix>.solutions.txt.gz` for one corpus query (schema in `tests/corpus/README.md`) |
 | `search <query.json> --out <prefix> --candidates` | Also `<prefix>.candidates.txt.gz`: every solution each worker found before duplicate removal, as `<worker>\t<charm name>\t<solution line>`. `generate-goldens.ps1` passes it for `gui_order_dependent` queries |

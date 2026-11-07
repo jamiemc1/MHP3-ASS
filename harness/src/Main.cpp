@@ -2,6 +2,7 @@
 #include "CharmDatabase.h"
 #include "DataDump.h"
 #include "LoadedData.h"
+#include "ModelDump.h"
 #include "SaveDump.h"
 #include "SearchDump.h"
 
@@ -15,6 +16,7 @@ namespace
 		Console::Error->WriteLine( L"Usage:" );
 		Console::Error->WriteLine( L"  Harness dump-data    --out <file.json[.gz]> [--lang <language>] [--names-only] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness dump-charms  --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness dump-models  [<mycharms.txt>...] --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness decrypt-save <save.bin> --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness search       <query.json> --out <prefix> [--candidates] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
@@ -142,6 +144,11 @@ int main( array< String^ >^ args )
 	{
 		LoadGameData( options );
 		DataDump::WriteCharmDatabase( out_path );
+	}
+	else if( options->command == L"dump-models" )
+	{
+		LoadGameData( options );
+		ModelDump::Write( inputs, out_path );
 	}
 	else if( options->command == L"decrypt-save" && inputs->Count == 1 )
 	{

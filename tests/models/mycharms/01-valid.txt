@@ -1,0 +1,9 @@
+#Format: NumSlots,Skill1,Points1,Skill2,Points2
+1,Attack,3,,
+0,Attack,3,Expert,5
+
+2,,,,
+1,,,Expert,4
+3,Attack,13,Expert,13
+1,Attack,-3,,
+  0,Sharpness,2,,
