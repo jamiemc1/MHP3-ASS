@@ -34,7 +34,8 @@ $headerLines = 38
 
 # Number after the highest existing capture, so gaps and non-numeric folders never lead to an overwrite.
 $numbered = @(Get-ChildItem -Directory $capturesDir | Where-Object { $_.Name -match '^\d+$' } | ForEach-Object { [int]$_.Name })
-$next = 1 + ($numbered | Measure-Object -Maximum).Maximum
+# Measure-Object returns a double (or null when there are none); "{0:D2}" needs an integer.
+$next = 1 + [int]($numbered | Measure-Object -Maximum).Maximum
 Write-Output "Captures go to $capturesDir"
 Write-Output "Press Enter after each search has finished (progress bar full). Type q then Enter to stop."
 Write-Output "Don't change the Options menu before capturing: it re-saves settings.cfg with the new options."
