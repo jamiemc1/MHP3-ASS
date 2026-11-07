@@ -1,14 +1,16 @@
 """Write ``src/mhp3ass/charms/tables.py`` from ``OmaSkill`` in ``legacy/CharmDatabase.cpp``.
 
-The tables are committed so the port never reads the C++ at runtime. Re-run
-this to check them against the source; the output must not change.
+The tables are committed so the port never reads the C++ at runtime. The
+output is already ruff-formatted; ``--check`` compares it with the committed
+module instead of writing it (a test runs this).
 
 Usage:
-    uv run python scripts/extract_charm_tables.py
+    uv run python scripts/extract_charm_tables.py [--check]
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 from dataclasses import dataclass
@@ -68,14 +70,28 @@ SKILL_TABLES: {table_type} = {tuple_literal(skill_tables.values, 0)}
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("--check", action="store_true", help="fail if the committed module differs")
+    args = parser.parse_args()
+
     repo_root = Path(__file__).resolve().parent.parent
     source = (repo_root / "legacy" / "CharmDatabase.cpp").read_bytes().decode("utf-16")
     lines = source.splitlines()
     slot_thresholds = parse_initialiser(lines, "FURUSLO")
     skill_tables = parse_initialiser(lines, "SKILL")
+    module = render_module(slot_thresholds, skill_tables)
     output = repo_root / "src" / "mhp3ass" / "charms" / "tables.py"
-    output.write_text(render_module(slot_thresholds, skill_tables), encoding="utf-8")
-    print(f"wrote {output.relative_to(repo_root)}; run ruff format on it")
+    if args.check:
+        if output.read_text(encoding="utf-8") != module:
+            raise SystemExit(
+                f"{output.relative_to(repo_root)} differs from legacy/CharmDatabase.cpp"
+            )
+        print(f"{output.relative_to(repo_root)} matches legacy/CharmDatabase.cpp")
+        return
+    output.write_text(module, encoding="utf-8")
+    print(f"wrote {output.relative_to(repo_root)}")
 
 
 if __name__ == "__main__":
