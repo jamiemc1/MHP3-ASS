@@ -10,6 +10,13 @@ namespace QueryFile
 
 	JsonObject^ Read( System::String^ path );
 
+	// The query as read, for goldens to echo so tests can tell when the file
+	// changed after the golden was generated.
+	System::String^ Serialize( JsonObject^ spec );
+
+	// The Data/Languages folder the query was written for. Charm names depend on it.
+	System::String^ Language( System::String^ path );
+
 	int GetInt( JsonObject^ spec, System::String^ key );
 	bool GetBool( JsonObject^ spec, System::String^ key );
 	System::String^ GetString( JsonObject^ spec, System::String^ key );

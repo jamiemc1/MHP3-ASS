@@ -77,6 +77,11 @@ Invoke-Searches (Join-Path $repoRoot "tests\corpus") (Join-Path $repoRoot "tests
 Invoke-Searches (Join-Path $repoRoot "tests\savefile\corpus") (Join-Path $repoRoot "tests\savefile\golden\search")
 
 function Invoke-Relevance([string[]]$queryDirs, [string]$outDir) {
+    # Start clean so results of renamed or deleted queries don't linger, even
+    # when no queries are left.
+    if (Test-Path $outDir) {
+        Get-ChildItem -File -Filter "*.json.gz" $outDir | Remove-Item
+    }
     $queries = @(foreach ($queryDir in $queryDirs) {
         if (Test-Path $queryDir) { Get-ChildItem -File -Filter "*.json" $queryDir }
     })
@@ -84,8 +89,6 @@ function Invoke-Relevance([string[]]$queryDirs, [string]$outDir) {
         return
     }
     New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-    # Start clean so results of renamed or deleted queries don't linger.
-    Get-ChildItem -File -Filter "*.json.gz" $outDir | Remove-Item
     foreach ($query in $queries) {
         $out = Join-Path $outDir "$($query.BaseName).json.gz"
         if (Test-Path $out) {

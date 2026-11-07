@@ -162,13 +162,13 @@ int main( array< String^ >^ args )
 	}
 	else if( options->command == L"search" && inputs->Count == 1 )
 	{
-		options->language = SearchDump::QueryLanguage( inputs[ 0 ] );
+		options->language = QueryFile::Language( inputs[ 0 ] );
 		LoadGameData( options );
 		SearchDump::Run( inputs[ 0 ], out_path, options->candidates );
 	}
 	else if( options->command == L"relevance" && inputs->Count == 1 )
 	{
-		options->language = QueryFile::GetString( QueryFile::Read( inputs[ 0 ] ), L"language" );
+		options->language = QueryFile::Language( inputs[ 0 ] );
 		LoadGameData( options );
 		RelevanceDump::Run( inputs[ 0 ], out_path );
 	}
