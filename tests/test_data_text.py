@@ -106,7 +106,11 @@ def test_to_boolean_ignores_case_and_surrounding_space():
     assert [to_boolean("True"), to_boolean(" false\x00"), to_boolean("TRUE")] == [True, False, True]
 
 
-@pytest.mark.parametrize("text", ["1", "", "yes", "Tru e"])
+@pytest.mark.parametrize(
+    "text",
+    # Non-ASCII letters whose case mappings are ASCII: long s (U+017F), dotted capital I (U+0130).
+    ["1", "", "yes", "Tru e", "fal" + chr(0x017F) + "e", "tru" + chr(0x0130)],
+)
 def test_to_boolean_rejects_what_boolean_parse_rejects(text):
     with pytest.raises(ValueError):
         to_boolean(text)

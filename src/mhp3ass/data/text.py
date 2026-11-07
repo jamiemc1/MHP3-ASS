@@ -127,7 +127,8 @@ def to_boolean(text: str) -> bool:
     """``Convert::ToBoolean( String^ )``, which is ``Boolean.Parse``.
 
     "True" or "False" in any ASCII case, after trimming white space and NULs.
-    Non-ASCII case variants are rejected; whether .NET accepts any is unprobed.
+    Non-ASCII letters that case-map to ASCII ones (U+017F long s, U+0130
+    dotted capital I) are rejected, as probed on .NET Framework 4.8.
     """
     trimmed = text.strip(_TRIM_CHARS + "\x00")
     lowered = trimmed.lower() if trimmed.isascii() else trimmed
