@@ -7,6 +7,7 @@ import pytest
 
 from data_rows import armor_row, decoration_row
 from goldens import SearchGolden, read_golden, read_search_goldens
+from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.data import GameData, apply_language, load_game_data
 
 
@@ -106,6 +107,12 @@ def teamhgg_game(legacy_data_dir: Path) -> GameData:
     game = load_game_data(legacy_data_dir)
     apply_language(game, legacy_data_dir / "Languages" / "English (TeamHGG)")
     return game
+
+
+@pytest.fixture(scope="session")
+def charm_tables(teamhgg_game: GameData) -> CharmTables:
+    """Generated charm tables for ``teamhgg_game`` (about a second). Tests must not mutate them."""
+    return generate_charm_tables(teamhgg_game)
 
 
 @pytest.fixture(scope="session")

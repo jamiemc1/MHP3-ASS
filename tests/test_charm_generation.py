@@ -4,16 +4,9 @@ from __future__ import annotations
 
 from typing import Any
 
-import pytest
-
-from mhp3ass.charms.generation import CharmTables, generate_charm_tables, rank_point, rnd
+from mhp3ass.charms.generation import CharmTables, rank_point, rnd
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.model import Charm
-
-
-@pytest.fixture(scope="module")
-def charm_tables(teamhgg_game):
-    return generate_charm_tables(teamhgg_game)
 
 
 def _charm_entry(charm: Charm) -> dict[str, Any]:
