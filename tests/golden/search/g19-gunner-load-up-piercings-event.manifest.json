@@ -1,0 +1,23 @@
+{
+  "id": "g19",
+  "query_json": "{\"id\":\"g19\",\"description\":\"Gunner Load Up + Accuracy+1, slotted charms, piercings and event armour on (Barrage Piercing alone gives Load Up)\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[35,49],\"skill_names\":[\"Load Up\",\"Accuracy+1\"],\"my_charms\":[],\"gui_solution_count\":3282,\"gui_capture\":\"19\"}",
+  "my_charms_loaded": 0,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    6,
+    4,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 3292,
+      "added": 3282
+    }
+  ],
+  "solution_count": 3282
+}
