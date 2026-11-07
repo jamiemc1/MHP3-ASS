@@ -6,7 +6,8 @@ For each charm kind and each of the 12 charm tables, the simulator walks the
 game's RNG cycle from the table's seed and records every charm it yields.
 
 Charm types index the results as ``2 - omakbn``: 0 mystery, 1 shining,
-2 timeworn.
+2 timeworn. Where the original's ``Assert`` would fire (a no-op in its
+Release build), this raises instead; on the shipped tables none fires.
 """
 
 from __future__ import annotations
@@ -20,12 +21,10 @@ from mhp3ass.charms.tables import SKILL_TABLES, SLOT_THRESHOLDS
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, AbilityPair, Charm
 
-_SINGLE = struct.Struct("<f")
-
 
 def f32(value: float) -> float:
     """Round to IEEE single precision, as a C++ ``float`` stores it."""
-    rounded = _SINGLE.unpack(_SINGLE.pack(value))[0]
+    rounded = struct.unpack("<f", struct.pack("<f", value))[0]
     return rounded
 
 
@@ -35,6 +34,8 @@ def rnd(n: int) -> int:
     Every intermediate is non-negative, so Python's floor division matches
     C++'s truncation.
     """
+    if not 0 <= n < 65536:
+        raise ValueError(f"rnd needs 0 <= n < 65536, got {n}")
     if n == 0:
         return 176
     x = n * 16 - n * 4 - n
@@ -139,24 +140,27 @@ class _CharmSimulator:
     def _slots(self, n: int, skill1: int, point1: int, skill2: int, point2: int) -> int:
         """``getSlot`` (CharmDatabase.cpp:761-771)."""
         roll = rnd_change(n)
+        second_row = self._distinct_second_row(skill1=skill1, skill2=skill2)
+        # getRankPoint counts the second skill only with points (CharmDatabase.cpp:778).
+        counts_second = second_row is not None and point2 > 0
         rank = rank_point(
             max1=self.skill1[skill1][2],
             point1=point1,
-            max2=self._counted_second_max(skill1=skill1, skill2=skill2, point2=point2),
-            point2=point2,
+            max2=second_row[2] if second_row is not None and counts_second else None,
+            point2=point2 if counts_second else 0,
         )
         thresholds = SLOT_THRESHOLDS[self.kind][rank]
         slots = next((index for index, limit in enumerate(thresholds) if roll <= limit), 0)
         return slots
 
-    def _counted_second_max(self, skill1: int, skill2: int, point2: int) -> int | None:
-        """The second skill's max when ``getRankPoint`` counts it (CharmDatabase.cpp:778)."""
-        if self.skill2 is None or skill2 < 0 or point2 <= 0:
+    def _distinct_second_row(self, skill1: int, skill2: int) -> tuple[int, ...] | None:
+        """The second skill's table row, if it rolled one with a different ability."""
+        if self.skill2 is None or skill2 < 0:
             return None
-        if self.skill1[skill1][0] == self.skill2[skill2][0]:
+        second_row = self.skill2[skill2]
+        if second_row[0] == self.skill1[skill1][0]:
             return None
-        second_max = self.skill2[skill2][2]
-        return second_max
+        return second_row
 
     def _update_table(self, skill1: int, point1: int, skill2: int, point2: int, slots: int) -> None:
         """``UpdateTable`` (CharmDatabase.cpp:854-878).
@@ -168,13 +172,9 @@ class _CharmSimulator:
         ability1 = ordered[self.skill1[skill1][0]]
         ability2 = None
         self._report_single(ability=ability1, points=point1, slots=slots)
-        has_other_second = (
-            self.skill2 is not None
-            and skill2 >= 0
-            and self.skill1[skill1][0] != self.skill2[skill2][0]
-        )
-        if self.skill2 is not None and has_other_second:
-            ability2 = ordered[self.skill2[skill2][0]]
+        second_row = self._distinct_second_row(skill1=skill1, skill2=skill2)
+        if second_row is not None:
+            ability2 = ordered[second_row[0]]
             if point2 > 0:
                 self._report_single(ability=ability2, points=point2, slots=slots)
                 self._report_pair(
@@ -197,6 +197,8 @@ class _CharmSimulator:
 
     def _report_single(self, ability: Ability, points: int, slots: int) -> None:
         """``ReportAbilityScore`` for one skill (CharmDatabase.cpp:794-808): keep the max."""
+        if points >= 14:
+            raise ValueError(f"{points} points for {ability.name}: the original asserts < 14")
         best = self.tables.max_points[2 - self.kind][slots]
         if ability in best:
             best[ability] = max(best[ability], points)
@@ -212,9 +214,16 @@ class _CharmSimulator:
         charm is at least as good. List order matters.
         """
         charms = self.tables.two_skill[ability1][ability2]
+        if charms is not self.tables.two_skill[ability2][ability1]:
+            raise ValueError(
+                f"two-skill table not symmetrical for {ability1.name}, {ability2.name}"
+            )
         index = 0
         while index < len(charms):
             charm = charms[index]
+            listed = [pair.ability for pair in charm.abilities]
+            if listed not in ([ability1, ability2], [ability2, ability1]):
+                raise ValueError(f"listed charm doesn't match {ability1.name}, {ability2.name}")
             end1 = 1 if charm.abilities[0].ability is not ability1 else 0
             end2 = 1 - end1
             amount1 = charm.abilities[end1].amount
