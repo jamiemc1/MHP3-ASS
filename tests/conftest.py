@@ -92,6 +92,12 @@ def charm_database_golden(golden_data_dir: Path) -> Any:
 
 
 @pytest.fixture(scope="session")
+def models_golden(golden_data_dir: Path) -> Any:
+    """Harness dump-models output (ModelDump.cpp), names in English (TeamHGG)."""
+    return read_golden(golden_data_dir / "models.json.gz")
+
+
+@pytest.fixture(scope="session")
 def teamhgg_game(legacy_data_dir: Path) -> GameData:
     """Game data in English (TeamHGG), the GUI's default language and the charm golden's.
 
