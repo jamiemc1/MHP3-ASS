@@ -44,6 +44,27 @@ class SearchGolden:
     candidates: list[Candidate] | None
 
 
+@dataclass(frozen=True)
+class RelevanceGolden:
+    """Harness relevance output for one query."""
+
+    query: dict[str, Any]
+    relevance: dict[str, Any]
+
+
+def read_relevance_goldens(query_dirs: list[Path], golden_dir: Path) -> list[RelevanceGolden]:
+    """Pair each query in ``query_dirs`` with ``<golden_dir>/<name>.json.gz``."""
+    goldens = [
+        RelevanceGolden(
+            query=read_golden(query_path),
+            relevance=read_golden(golden_dir / f"{query_path.stem}.json.gz"),
+        )
+        for query_dir in query_dirs
+        for query_path in sorted(query_dir.glob("*.json"))
+    ]
+    return goldens
+
+
 def read_search_goldens(corpus_dir: Path, golden_dir: Path) -> list[SearchGolden]:
     """Pair each corpus query with the harness output generated from it."""
     goldens = []

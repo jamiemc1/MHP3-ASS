@@ -7,7 +7,13 @@ from typing import Any
 import pytest
 
 from data_rows import armor_row, decoration_row
-from goldens import SearchGolden, read_golden, read_search_goldens
+from goldens import (
+    RelevanceGolden,
+    SearchGolden,
+    read_golden,
+    read_relevance_goldens,
+    read_search_goldens,
+)
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
@@ -154,6 +160,22 @@ def search_goldens(repo_root: Path) -> list[SearchGolden]:
 
 
 @pytest.fixture(scope="session")
+def relevance_goldens(repo_root: Path) -> list[RelevanceGolden]:
+    """Relevance output for every committed corpus and relevance-only query."""
+    tests_dir = repo_root / "tests"
+    return read_relevance_goldens(
+        query_dirs=[tests_dir / "corpus", tests_dir / "relevance"],
+        golden_dir=tests_dir / "golden" / "relevance",
+    )
+
+
+@pytest.fixture(scope="session")
+def best_decorations_golden(golden_data_dir: Path) -> Any:
+    """Harness best-decorations output: the query-based GetBestDecoration grid."""
+    return read_golden(golden_data_dir / "best-decorations.json.gz")
+
+
+@pytest.fixture(scope="session")
 def savefile_dir(repo_root: Path) -> Path:
     """Gitignored folder holding the user's own save and reference outputs."""
     return repo_root / "tests" / "savefile"
@@ -166,6 +188,17 @@ def personal_search_goldens(savefile_dir: Path) -> list[SearchGolden]:
     if not corpus_dir.is_dir():
         pytest.skip("no personal corpus in tests/savefile/corpus")
     return read_search_goldens(corpus_dir=corpus_dir, golden_dir=savefile_dir / "golden" / "search")
+
+
+@pytest.fixture(scope="session")
+def personal_relevance_goldens(savefile_dir: Path) -> list[RelevanceGolden]:
+    """Relevance output for the personal corpus queries (their charm fields aren't read)."""
+    corpus_dir = savefile_dir / "corpus"
+    if not corpus_dir.is_dir():
+        pytest.skip("no personal corpus in tests/savefile/corpus")
+    return read_relevance_goldens(
+        query_dirs=[corpus_dir], golden_dir=savefile_dir / "golden" / "relevance"
+    )
 
 
 @pytest.fixture(scope="session")

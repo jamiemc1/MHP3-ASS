@@ -14,6 +14,8 @@ the corpus and re-run `scripts/windows/generate-goldens.ps1` (see
 | `data/charm-database.json.gz` | Charm tables built by `CharmDatabase::GenerateCharmTable()`, with names in the GUI's default language |
 | `data/names/<language>.json.gz` | Display names per record for each language |
 | `data/models.json.gz` | `dump-models` output in the GUI's default language (inputs in `tests/models/`) |
+| `data/best-decorations.json.gz` | `best-decorations` output: `best[hr - 1][village - 1][max slots]` per ability, a decoration index, `-1` for none, or `-2` where the call threw (the entry's `exception`) |
+| `relevance/<query>.json.gz` | `relevance` output for each query in `tests/corpus/` and `tests/relevance/`: armour and decorations as list indices in list order, charms as in `data/models.json.gz` |
 | `search/<query>.manifest.json` | Per-worker charm, solutions found and kept after duplicate removal, total |
 | `search/<query>.solutions.txt.gz` | Every solution, in `settings.cfg` line format (see `tests/corpus/README.md`) |
 | `search/<query>.candidates.txt.gz` | `gui_order_dependent` queries only: every solution found before duplicate removal, as `<worker>\t<charm name>\t<solution line>` |

@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from goldens import Candidate, SearchGolden
+from goldens import Candidate, RelevanceGolden, SearchGolden
 from mhp3ass.settings_cfg import read_settings_cfg
 
 
@@ -230,3 +230,106 @@ def test_personal_duplicate_removal_over_candidates_reproduces_solutions(
     personal_search_goldens: list[SearchGolden],
 ):
     assert _candidates_disagreeing_with_solutions(personal_search_goldens) == []
+
+
+def _stale_relevance_goldens(goldens: list[RelevanceGolden]) -> list[str]:
+    """Queries whose file changed after their relevance golden was generated."""
+    stale = [
+        golden.query["id"]
+        for golden in goldens
+        if json.loads(golden.relevance["query_json"]) != golden.query
+    ]
+    return stale
+
+
+def test_relevance_goldens_are_current(relevance_goldens: list[RelevanceGolden]):
+    assert _stale_relevance_goldens(relevance_goldens) == []
+
+
+def test_personal_relevance_goldens_are_current(personal_relevance_goldens: list[RelevanceGolden]):
+    assert _stale_relevance_goldens(personal_relevance_goldens) == []
+
+
+def test_every_relevance_golden_has_a_query(repo_root: Path):
+    tests_dir = repo_root / "tests"
+    query_names = {
+        path.stem
+        for folder in ("corpus", "relevance")
+        for path in (tests_dir / folder).glob("*.json")
+    }
+    golden_names = {
+        path.name.removesuffix(".json.gz")
+        for path in (tests_dir / "golden" / "relevance").glob("*.json.gz")
+    }
+
+    assert golden_names == query_names
+
+
+def _relevant_also_inferior(listing: dict[str, list[Any]]) -> bool:
+    relevant = [json.dumps(entry) for entry in listing["relevant"]]
+    inferior = {json.dumps(entry) for entry in listing["inferior"]}
+    return all(entry in inferior for entry in relevant)
+
+
+def _inconsistent_relevance(goldens: list[RelevanceGolden], game_data: Any) -> list[str]:
+    """Queries whose relevance output breaks an invariant of GetRelevantData.
+
+    The relevant abilities are the query skills' abilities in order, exactly
+    those flagged relevant; every relevant armour piece and decoration is also
+    on its inferior list (AddToList adds to both, LoadedData.cpp:56-57, :80-81).
+    """
+    inconsistent = []
+    for golden in goldens:
+        relevance = golden.relevance
+        skill_abilities = [
+            game_data["skills"][index]["ability"] for index in golden.query["skills"]
+        ]
+        listings = [relevance["decorations"], *relevance["armor"].values()]
+        relevant_listed = all(_relevant_also_inferior(listing) for listing in listings)
+        if not (
+            relevance["rel_abilities"] == skill_abilities
+            and relevance["relevant_flags"] == sorted(skill_abilities)
+            and relevant_listed
+        ):
+            inconsistent.append(golden.query["id"])
+    return inconsistent
+
+
+def test_relevance_goldens_are_consistent(relevance_goldens: list[RelevanceGolden], game_data: Any):
+    assert _inconsistent_relevance(relevance_goldens, game_data) == []
+
+
+def test_personal_relevance_goldens_are_consistent(
+    personal_relevance_goldens: list[RelevanceGolden], game_data: Any
+):
+    assert _inconsistent_relevance(personal_relevance_goldens, game_data) == []
+
+
+def test_best_decoration_throws_exactly_for_abilities_without_decorations(
+    best_decorations_golden: Any, game_data: Any
+):
+    """Quirk 8: the lookup indexes static_decoration_ability_map unchecked (Decoration.cpp:110)."""
+    with_decorations = {entry["ability"] for entry in game_data["decorations_by_ability"]}
+    throwing = {
+        entry["ability"]: entry["exception"]
+        for entry in best_decorations_golden["abilities"]
+        if entry["exception"] is not None
+    }
+    without_decorations = {
+        ability["static_index"]: "KeyNotFoundException"
+        for ability in game_data["abilities"]
+        if ability["static_index"] not in with_decorations
+    }
+
+    assert throwing == without_decorations
+
+
+def test_best_decoration_grid_marks_throws_only_where_they_happen(best_decorations_golden: Any):
+    misplaced = [
+        entry["ability"]
+        for entry in best_decorations_golden["abilities"]
+        if (entry["exception"] is not None)
+        != any(value == -2 for by_hr in entry["best"] for by_elder in by_hr for value in by_elder)
+    ]
+
+    assert misplaced == []
