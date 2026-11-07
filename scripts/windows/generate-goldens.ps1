@@ -38,6 +38,10 @@ New-Item -ItemType Directory -Force -Path $namesDir | Out-Null
 Invoke-Harness dump-data --out (Join-Path $dataDir "game-data.json.gz")
 # Charm names come from ability names, so use the language the GUI runs in.
 Invoke-Harness dump-charms --lang $Language --out (Join-Path $dataDir "charm-database.json.gz")
+# My-charms files name skills, so they load in the same language.
+$mycharmsFiles = @(Get-ChildItem -File -Filter "*.txt" (Join-Path $repoRoot "tests\models\mycharms") |
+    Sort-Object Name | ForEach-Object { $_.FullName })
+Invoke-Harness dump-models @mycharmsFiles --lang $Language --out (Join-Path $dataDir "models.json.gz")
 
 $languagesDir = Join-Path $repoRoot "legacy\Run\Data\Languages"
 # PowerShell variable names are case-insensitive: don't reuse $Language here.

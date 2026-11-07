@@ -68,6 +68,7 @@
     <ClCompile Include="..\legacy\StringManipulation.cpp" />
     <ClCompile Include="src\DataDump.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\ModelDump.cpp" />
     <ClCompile Include="src\SaveDump.cpp" />
     <ClCompile Include="src\SearchDump.cpp" />
   </ItemGroup>
@@ -75,6 +76,7 @@
     <ClInclude Include="src\DataDump.h" />
     <ClInclude Include="src\Fixtures.h" />
     <ClInclude Include="src\Json.h" />
+    <ClInclude Include="src\ModelDump.h" />
     <ClInclude Include="src\SaveDump.h" />
     <ClInclude Include="src\SearchDump.h" />
   </ItemGroup>

@@ -1,0 +1,9 @@
+1,Attack,3,,
+1,Attack,3
+1,Attack,3,,,
+1,Atack,3,,
+1, Attack,3,,
+1,Attack,x,,
+1,Attack,3,Expert,
+1,Attack,99999999999,,
+0,Expert,2,,
