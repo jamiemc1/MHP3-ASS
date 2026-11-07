@@ -1,7 +1,7 @@
 """Game records, mirroring the legacy reference types.
 
-Ported from ``legacy/Skill.h``, ``legacy/Armor.h``, ``legacy/Decoration.h``
-and ``legacy/Common.h``. The original's records are .NET reference types:
+Ported from ``legacy/Skill.h``, ``legacy/Armor.h`` (including ``Charm``),
+``legacy/Decoration.h`` and ``legacy/Common.h``. The original's records are .NET reference types:
 dictionaries key them by identity and loaders mutate them in place (a
 language load renames them). These dataclasses keep that: ``eq=False`` gives
 identity equality and hashing, and fields are mutable.
@@ -126,3 +126,29 @@ class Decoration:
     components: list[MaterialComponent] = field(default_factory=list)
     # The alternative recipe: it adds neither difficulty nor the event flag.
     components2: list[MaterialComponent] = field(default_factory=list)
+
+
+@dataclass(eq=False)
+class Charm:
+    """``Charm`` (Armor.h:32-50).
+
+    Equality is identity; ``charms.naming.charms_equal`` is the original's ``==``.
+    """
+
+    num_slots: int = 0
+    abilities: list[AbilityPair] = field(default_factory=list)
+    # Entered by the user (my charms) rather than generated.
+    custom: bool = False
+    hacked: bool = False
+
+    def copy(self) -> Charm:
+        """``Charm( Charm^ other )`` (Armor.cpp:231-237): new pairs; ``hacked`` is reset."""
+        copied = Charm(
+            num_slots=self.num_slots,
+            abilities=[
+                AbilityPair(ability=pair.ability, amount=pair.amount) for pair in self.abilities
+            ],
+            custom=self.custom,
+            hacked=False,
+        )
+        return copied
