@@ -6,6 +6,8 @@ because no shipped file triggers them, so each gets a small synthetic file.
 
 from __future__ import annotations
 
+import pytest
+
 from data_rows import armor_row, decoration_row
 from mhp3ass.data import apply_language, load_game_data
 from mhp3ass.model import ArmorType
@@ -118,5 +120,26 @@ def test_ordered_skill_file_renames_in_ability_order(
 
     apply_language(game, write_files(minimal_language_files, folder_name="Language"))
 
-    names_in_load_order = [(ability.order, ability.name) for ability in game.abilities]
-    assert names_in_load_order == [(0, "T Torso"), (2, "T Defense"), (1, "T Attack")]
+    ability_names = [(ability.order, ability.name) for ability in game.abilities]
+    skill_names = [(skill.ability.order, skill.name) for skill in game.skills]
+    assert [ability_names, skill_names] == [
+        [(0, "T Torso"), (2, "T Defense"), (1, "T Attack")],
+        [(2, "T Defense Up"), (1, "T Attack Up")],
+    ]
+
+
+def test_repeated_skill_name_maps_to_the_last_row(minimal_data_files, write_files):
+    # Skill.cpp:129 assigns through the indexer, so a later row with the same name wins.
+    minimal_data_files["skills.txt"] += "Attack Up,j,Attack,j,15,0\n"
+
+    game = load_game_data(write_files(minimal_data_files))
+
+    assert game.skill_map["Attack Up"].points_required == 15
+
+
+def test_armor_name_in_two_slots_fails(minimal_data_files, write_files):
+    # One armour map for all slots, filled with Dictionary::Add, which throws on a repeat.
+    minimal_data_files["body.txt"] = armor_row("Cap") + "\n"
+
+    with pytest.raises(ValueError):
+        load_game_data(write_files(minimal_data_files))

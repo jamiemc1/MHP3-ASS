@@ -55,20 +55,24 @@ class GameData:
     decorations_by_ability: dict[Ability, list[Decoration]] = field(default_factory=dict)
 
 
+# The armour file for each slot, in the order the original loads and translates them.
+_ARMOR_FILES = {
+    ArmorType.HEAD: "head.txt",
+    ArmorType.BODY: "body.txt",
+    ArmorType.ARMS: "arms.txt",
+    ArmorType.WAIST: "waist.txt",
+    ArmorType.LEGS: "legs.txt",
+}
+
+
 def load_game_data(data_dir: Path) -> GameData:
     """``LoadedData::ImportTextFiles`` (LoadedData.cpp:26-42)."""
     game = GameData(armors={armor_type: [] for armor_type in ArmorType})
     load_materials(game, data_dir / "components.txt")
     load_skill_tags(game, data_dir / "tags.txt")
     load_skills(game, data_dir / "skills.txt")
-    for armor_type, file_name in [
-        (ArmorType.HEAD, "head.txt"),
-        (ArmorType.BODY, "body.txt"),
-        (ArmorType.ARMS, "arms.txt"),
-        (ArmorType.WAIST, "waist.txt"),
-        (ArmorType.LEGS, "legs.txt"),
-    ]:
-        load_armors(game, data_dir / file_name, armor_type)
+    for armor_type, file_name in _ARMOR_FILES.items():
+        load_armors(game=game, path=data_dir / file_name, armor_type=armor_type)
     load_decorations(game, data_dir / "decorations.txt")
     return game
 
@@ -94,7 +98,7 @@ def load_materials(game: GameData, path: Path) -> None:
         game.materials.append(material)
     game.material_map.clear()
     for material in game.materials:
-        _add_unique(game.material_map, material.name, material)
+        _add_unique(game.material_map, key=material.name, value=material)
 
 
 def load_skill_tags(game: GameData, path: Path) -> None:
@@ -254,7 +258,7 @@ def load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
                 if pair.ability is game.torso_inc:
                     armor.torso_inc = True
         armors.append(armor)
-        _add_unique(game.armor_map, armor.name, armor)
+        _add_unique(game.armor_map, key=armor.name, value=armor)
 
 
 def load_decorations(game: GameData, path: Path) -> None:
@@ -303,7 +307,7 @@ def load_decorations(game: GameData, path: Path) -> None:
         game.decorations_by_ability.setdefault(decoration.abilities[0].ability, []).append(
             decoration
         )
-        _add_unique(game.decoration_map, decoration.name, decoration)
+        _add_unique(game.decoration_map, key=decoration.name, value=decoration)
 
 
 def _add_unique[T](mapping: dict[str, T], key: str, value: T) -> None:
@@ -316,9 +320,9 @@ def _add_unique[T](mapping: dict[str, T], key: str, value: T) -> None:
 class _LanguageFile:
     """Reads a language file line by line, skipping blank and ``#`` lines."""
 
-    def __init__(self, path: Path) -> None:
+    def __init__(self, path: Path, lines: list[str] | None = None) -> None:
         self.path = path
-        self.lines: Iterator[str] = iter(read_lines(path))
+        self.lines: Iterator[str] = iter(read_lines(path) if lines is None else lines)
 
     def next_name(self) -> str:
         for line in self.lines:
@@ -342,18 +346,12 @@ def apply_language(game: GameData, language_dir: Path) -> None:
     game.material_map.clear()
     for material in game.materials:
         material.name = materials.next_name()
-        _add_unique(game.material_map, material.name, material)
+        _add_unique(game.material_map, key=material.name, value=material)
 
     # One map shared by all five slots: a name already taken by an earlier
     # armour (in any slot) is skipped and the next line is used instead.
     game.armor_map.clear()
-    for armor_type, file_name in [
-        (ArmorType.HEAD, "head.txt"),
-        (ArmorType.BODY, "body.txt"),
-        (ArmorType.ARMS, "arms.txt"),
-        (ArmorType.WAIST, "waist.txt"),
-        (ArmorType.LEGS, "legs.txt"),
-    ]:
+    for armor_type, file_name in _ARMOR_FILES.items():
         names = _LanguageFile(language_dir / file_name)
         for armor in game.armors[armor_type]:
             name = names.next_name()
@@ -366,7 +364,7 @@ def apply_language(game: GameData, language_dir: Path) -> None:
     game.decoration_map.clear()
     for decoration in game.decorations:
         decoration.name = decorations.next_name()
-        _add_unique(game.decoration_map, decoration.name, decoration)
+        _add_unique(game.decoration_map, key=decoration.name, value=decoration)
 
     _apply_skill_language(game, language_dir / "skills.txt")
 
@@ -379,25 +377,32 @@ def _apply_skill_language(game: GameData, path: Path) -> None:
     """
     lines = read_lines(path)
     ordered = False
-    names = _LanguageFile(path)
     if lines and lines[0].startswith("#"):
         # The original consumes the first line whenever it is a comment.
         ordered = lines[0] == "#ordered"
-        names.lines = iter(lines[1:])
+        lines = lines[1:]
+    names = _LanguageFile(path, lines=lines)
 
     abilities = game.ordered_abilities if ordered else game.abilities
     skills = game.ordered_skills if ordered else game.skills
-    # The original renames static_abilities.Count / static_skills.Count entries of
-    # whichever list applies, and fails if that list is shorter.
-    if len(abilities) < len(game.abilities) or len(skills) < len(game.skills):
-        raise ValueError(f"{path.name}: ordered lists are shorter than the loaded data")
 
+    # Renames static_abilities.Count entries, then static_skills.Count entries,
+    # of whichever list applies. An ordered list that is shorter fails partway,
+    # after the earlier renames, as the original's indexing does.
     game.ability_map.clear()
-    for ability in abilities[: len(game.abilities)]:
+    for i in range(len(game.abilities)):
+        ability = _entry(abilities, index=i, path=path)
         ability.name = names.next_name()
-        _add_unique(game.ability_map, ability.name, ability)
+        _add_unique(game.ability_map, key=ability.name, value=ability)
 
     game.skill_map.clear()
-    for skill in skills[: len(game.skills)]:
+    for i in range(len(game.skills)):
+        skill = _entry(skills, index=i, path=path)
         skill.name = names.next_name()
-        _add_unique(game.skill_map, skill.name, skill)
+        _add_unique(game.skill_map, key=skill.name, value=skill)
+
+
+def _entry[T](records: list[T], index: int, path: Path) -> T:
+    if index >= len(records):
+        raise ValueError(f"{path.name}: the ordered list has only {len(records)} entries")
+    return records[index]

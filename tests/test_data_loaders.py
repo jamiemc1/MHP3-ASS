@@ -57,6 +57,37 @@ def _load_in_language(legacy_data_dir: Path, language_dir: Path) -> GameData:
     return game
 
 
+def _inconsistent_maps(game: GameData) -> list[str]:
+    """Name maps that don't map exactly every record's current name to that record."""
+    expected = {
+        "material_map": {material.name: material for material in game.materials},
+        "ability_map": {ability.name: ability for ability in game.abilities},
+        "skill_map": {skill.name: skill for skill in game.skills},
+        "armor_map": {armor.name: armor for armors in game.armors.values() for armor in armors},
+        "decoration_map": {decoration.name: decoration for decoration in game.decorations},
+    }
+    inconsistent = [name for name, mapping in expected.items() if getattr(game, name) != mapping]
+    return inconsistent
+
+
+def test_name_maps_cover_every_record(legacy_data_dir: Path):
+    game = load_game_data(legacy_data_dir)
+
+    assert _inconsistent_maps(game) == []
+
+
+def test_name_maps_cover_every_record_in_every_language(
+    legacy_data_dir: Path, language_dirs: list[Path]
+):
+    inconsistent = {
+        language_dir.name: maps
+        for language_dir in language_dirs
+        if (maps := _inconsistent_maps(_load_in_language(legacy_data_dir, language_dir)))
+    }
+
+    assert inconsistent == {}
+
+
 def test_every_language_matches_original(
     legacy_data_dir: Path, language_dirs: list[Path], language_names: dict[str, Any]
 ):
