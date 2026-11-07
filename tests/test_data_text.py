@@ -11,6 +11,7 @@ from mhp3ass.data.text import (
     dotnet_trim,
     read_lines,
     split_fields,
+    to_boolean,
     to_int32,
     to_uint32,
 )
@@ -99,6 +100,16 @@ def test_to_int32_range():
 def test_to_uint32_rejects_negative():
     with pytest.raises(OverflowError):
         to_uint32("-1")
+
+
+def test_to_boolean_ignores_case_and_surrounding_space():
+    assert [to_boolean("True"), to_boolean(" false\x00"), to_boolean("TRUE")] == [True, False, True]
+
+
+@pytest.mark.parametrize("text", ["1", "", "yes", "Tru e"])
+def test_to_boolean_rejects_what_boolean_parse_rejects(text):
+    with pytest.raises(ValueError):
+        to_boolean(text)
 
 
 def test_as_unsigned_wraps_like_cpp():
