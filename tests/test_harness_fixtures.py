@@ -14,7 +14,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from goldens import Candidate, SearchGolden, read_gui_capture_solutions
+from goldens import Candidate, SearchGolden
+from mhp3ass.settings_cfg import read_settings_cfg
 
 
 def test_save_import_matches_gui_output(save_golden: Any, gui_imported_mycharms: list[str]):
@@ -169,7 +170,7 @@ def _gui_mismatches(goldens: list[SearchGolden], captures_dir: Path) -> list[str
         if not (captures_dir / capture).is_dir():
             mismatched.append(f"{golden.query['id']} (no capture {capture})")
             continue
-        gui_lines = read_gui_capture_solutions(captures_dir / capture)
+        gui_lines = read_settings_cfg(captures_dir / capture / "settings.cfg").solution_lines
         if golden.query.get("gui_order_dependent"):
             if golden.candidates is None or not _survivor_choice_differs_only(
                 golden.candidates, gui_lines

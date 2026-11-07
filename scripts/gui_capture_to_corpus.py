@@ -25,6 +25,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from mhp3ass.settings_cfg import read_settings_cfg
+
 
 @dataclass(frozen=True)
 class CapturedSearch:
@@ -44,34 +46,22 @@ def language_folders(languages_dir: Path) -> list[str]:
     return folders
 
 
-def read_bool(line: str) -> bool:
-    if line not in ("True", "False"):
-        raise ValueError(f"expected True or False, got {line!r}")
-    return line == "True"
-
-
 def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
-    """Read a capture's settings.cfg (version 2, Form1.h:464-493).
-
-    Lines 1-14 are options. Lines 15-38 hold, for each of the 6 skill
-    drop-downs: blademaster filter, blademaster skill, gunner filter, gunner
-    skill, where skills are indices into Skill::static_skills (-1 if empty).
-    Every later line is a solution.
-    """
-    lines = (capture_dir / "settings.cfg").read_text(encoding="utf-8").splitlines()
-    if lines[0] != "2":
-        raise ValueError(f"unsupported settings.cfg version {lines[0]!r}")
-
-    language = language_folders(repo_root / "legacy" / "Run" / "Data" / "Languages")[int(lines[1])]
-    # Line 3 records which tab the last search ran on; line 4 is merely the tab now showing.
-    gunner = read_bool(lines[2])
+    """Build a corpus query from a capture's settings.cfg."""
+    settings = read_settings_cfg(capture_dir / "settings.cfg")
+    languages_dir = repo_root / "legacy" / "Run" / "Data" / "Languages"
+    language = language_folders(languages_dir)[settings.language_index]
+    # The tab the last search ran on, not the one showing when the file was saved.
+    gunner = settings.last_search_gunner
     # The Charms drop-down, in its item order (Form1.h:1293-1373).
-    charm_mode = ["none", "my_charms", "slotted", "one_skill", "two_skill"][int(lines[10])]
+    charm_modes = ["none", "my_charms", "slotted", "one_skill", "two_skill"]
+    charm_mode = charm_modes[settings.charm_select_index]
 
-    skill_lines = lines[14:38]
-    skill_column = 3 if gunner else 1
-    skills = [int(skill_lines[i * 4 + skill_column]) for i in range(6)]
-    skills = [index for index in skills if index >= 0]
+    selected = [
+        selection.gunner_skill if gunner else selection.blademaster_skill
+        for selection in settings.skill_selections
+    ]
+    skills = [index for index in selected if index >= 0]
 
     golden_data = repo_root / "tests" / "golden" / "data"
     with gzip.open(golden_data / "names" / f"{language}.json.gz", "rt", encoding="utf-8") as handle:
@@ -95,23 +85,22 @@ def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
         my_charms_text = (capture_dir / "mycharms.txt").read_text(encoding="utf-8")
         my_charms = [line for line in my_charms_text.splitlines() if line]
 
-    solution_count = sum(1 for line in lines[38:] if line)
     query = {
         "language": language,
         "hunter_type": "gunner" if gunner else "blademaster",
-        "gender": "male" if read_bool(lines[4]) else "female",
-        "hr": int(lines[11]),
-        "elder_star": int(lines[12]),
-        "weapon_slots": int(lines[13]),
-        "allow_bad": read_bool(lines[5]),
-        "include_piercings": read_bool(lines[6]),
-        "allow_event": read_bool(lines[7]),
-        "allow_low_rank": read_bool(lines[8]),
+        "gender": "male" if settings.male else "female",
+        "hr": settings.hr,
+        "elder_star": settings.elder_star,
+        "weapon_slots": settings.weapon_slots,
+        "allow_bad": settings.allow_bad,
+        "include_piercings": settings.allow_piercings,
+        "allow_event": settings.allow_event,
+        "allow_low_rank": settings.allow_low_rank,
         "charm_mode": charm_mode,
         "skills": skills,
         "skill_names": [names["skills"][index] for index in skills],
         "my_charms": my_charms,
-        "gui_solution_count": solution_count,
+        "gui_solution_count": len(settings.solution_lines),
         "gui_capture": capture_dir.name,
     }
     if order_dependent:
