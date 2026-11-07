@@ -61,13 +61,28 @@ namespace
 		array< Object^ >^ skill_names = GetArray( spec, L"skill_names" );
 		if( skills->Length != skill_names->Length )
 			throw gcnew FormatException( L"skills and skill_names must be the same length" );
+		// Only queries the GUI could build: at most NumSkills (6) drop-downs
+		// (Form1.h:95), each offering skills with positive points
+		// (InitSkills, :224-247) and excluding abilities already chosen (:1527-1537).
+		if( skills->Length > 6 )
+			throw gcnew FormatException( L"The GUI allows at most 6 skills" );
 		for( int i = 0; i < skills->Length; ++i )
 		{
-			Skill^ skill = data->FindSkill( Convert::ToUInt32( skills[ i ] ) );
+			const unsigned index = Convert::ToUInt32( skills[ i ] );
+			if( index >= unsigned( Skill::static_skills.Count ) )
+				throw gcnew FormatException( L"skill index " + Convert::ToString( index ) + L" out of range" );
+			Skill^ skill = data->FindSkill( index );
 			// Names are for readers; the index is what the GUI uses. Catch typos early.
 			String^ expected_name = Convert::ToString( skill_names[ i ] );
 			if( skill->name != expected_name )
-				throw gcnew FormatException( L"skill " + Convert::ToString( skills[ i ] ) + L" is \"" + skill->name + L"\", not \"" + expected_name + L"\"" );
+				throw gcnew FormatException( L"skill " + Convert::ToString( index ) + L" is \"" + skill->name + L"\", not \"" + expected_name + L"\"" );
+			if( skill->points_required <= 0 )
+				throw gcnew FormatException( L"skill \"" + skill->name + L"\" has no positive points; the GUI does not offer it" );
+			for each( Skill^ chosen in query->skills )
+			{
+				if( chosen->ability == skill->ability )
+					throw gcnew FormatException( L"skills \"" + chosen->name + L"\" and \"" + skill->name + L"\" share an ability; the GUI allows one per ability" );
+			}
 			query->skills.Add( skill );
 		}
 		data->GetRelevantData( query );
@@ -358,29 +373,12 @@ namespace
 		return line->ToString();
 	}
 
-	void WriteGzipLines( String^ path, List< String^ >^ lines )
+	void WriteLines( String^ path, List< String^ >^ lines )
 	{
 		Text::StringBuilder^ text = gcnew Text::StringBuilder;
 		for each( String^ line in lines )
 			text->Append( line )->Append( L'\n' );
-		array< Byte >^ bytes = ( gcnew Text::UTF8Encoding( false ) )->GetBytes( text->ToString() );
-		IO::FileStream^ file = IO::File::Create( path );
-		try
-		{
-			IO::Compression::GZipStream^ gzip = gcnew IO::Compression::GZipStream( file, IO::Compression::CompressionLevel::Optimal );
-			try
-			{
-				gzip->Write( bytes, 0, bytes->Length );
-			}
-			finally
-			{
-				delete gzip;
-			}
-		}
-		finally
-		{
-			delete file;
-		}
+		FixtureFiles::WriteText( path, text->ToString() );
 	}
 }
 
@@ -401,6 +399,9 @@ void SearchDump::Run( String^ query_path, String^ out_prefix )
 	JsonWriter^ json = gcnew JsonWriter;
 	json->BeginObject();
 	json->Field( L"id", GetString( spec, L"id" ) );
+	// The query exactly as the harness parsed it, so tests can tell when the
+	// corpus file has changed since this golden was generated.
+	json->Field( L"query_json", ( gcnew Web::Script::Serialization::JavaScriptSerializer )->Serialize( spec ) );
 	json->Field( L"my_charms_loaded", CharmDatabase::mycharms.Count );
 	json->Field( L"my_charms_illegal", illegal_my_charms );
 
@@ -437,5 +438,5 @@ void SearchDump::Run( String^ query_path, String^ out_prefix )
 	json->EndObject();
 
 	json->WriteToFile( out_prefix + L".manifest.json" );
-	WriteGzipLines( out_prefix + L".solutions.txt.gz", lines );
+	WriteLines( out_prefix + L".solutions.txt.gz", lines );
 }

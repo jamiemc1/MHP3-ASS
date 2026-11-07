@@ -51,6 +51,8 @@ function Invoke-Searches([string]$corpusDir, [string]$outDir) {
         return
     }
     New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+    # Start clean so results of renamed or deleted queries don't linger.
+    Get-ChildItem -File $outDir -Include "*.manifest.json", "*.solutions.txt.gz" -Recurse | Remove-Item
     foreach ($query in Get-ChildItem -File -Filter "*.json" $corpusDir) {
         Invoke-Harness search $query.FullName --out (Join-Path $outDir $query.BaseName)
     }

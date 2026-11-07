@@ -47,9 +47,11 @@ harness\Release\Harness.exe                      # prints usage
 to `English (TeamHGG)` on first run.
 
 The search runs the GUI's workers one at a time in the order `StartSearch`
-starts them. The GUI runs them in parallel, so its results arrive in a
-different order, but the set is the same: query 1b's 34,153 solutions match
-the GUI's `settings.cfg` line for line.
+starts them: each worker's solutions in loop order, then the next worker's.
+The GUI runs them in parallel and adds solutions in per-(head, body)
+progress batches as each thread reaches them, so its order differs. The set
+is the same: query 1b's 34,153 solution lines equal the GUI's `settings.cfg`
+lines as a set.
 
 The legacy loaders show a message box on some malformed input (a short
 `strings.txt`, an unknown skill in a charm file). Over SSH that blocks

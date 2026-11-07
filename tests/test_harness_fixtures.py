@@ -8,7 +8,9 @@ consistent.
 
 from __future__ import annotations
 
+import json
 from collections import Counter
+from dataclasses import dataclass
 from typing import Any
 
 from goldens import SearchGolden
@@ -54,13 +56,40 @@ def test_record_indices_match_list_positions(game_data: Any):
     assert misplaced == []
 
 
-def _count_mismatches(goldens: list[SearchGolden]) -> dict[str, tuple[int, int]]:
+@dataclass(frozen=True)
+class CountMismatch:
+    harness_count: int
+    gui_count: int
+
+
+def _count_mismatches(goldens: list[SearchGolden]) -> dict[str, CountMismatch]:
     mismatches = {}
     for golden in goldens:
         gui_count = golden.query.get("gui_solution_count")
-        if gui_count is not None and golden.manifest["solution_count"] != gui_count:
-            mismatches[golden.query["id"]] = (golden.manifest["solution_count"], gui_count)
+        harness_count = golden.manifest["solution_count"]
+        if gui_count is not None and harness_count != gui_count:
+            mismatches[golden.query["id"]] = CountMismatch(
+                harness_count=harness_count, gui_count=gui_count
+            )
     return mismatches
+
+
+def _stale_goldens(goldens: list[SearchGolden]) -> list[str]:
+    """Queries whose corpus file changed after their golden was generated."""
+    stale = [
+        golden.query["id"]
+        for golden in goldens
+        if json.loads(golden.manifest["query_json"]) != golden.query
+    ]
+    return stale
+
+
+def test_search_goldens_are_current(search_goldens: list[SearchGolden]):
+    assert _stale_goldens(search_goldens) == []
+
+
+def test_personal_search_goldens_are_current(personal_search_goldens: list[SearchGolden]):
+    assert _stale_goldens(personal_search_goldens) == []
 
 
 def test_search_counts_match_gui(search_goldens: list[SearchGolden]):
@@ -88,7 +117,10 @@ def test_search_manifests_are_consistent(search_goldens: list[SearchGolden]):
 def test_query_1b_matches_gui_solutions(
     personal_search_goldens: list[SearchGolden], gui_query_1b_solution_lines: list[str]
 ):
-    golden_1b = next(golden for golden in personal_search_goldens if golden.query["id"] == "1b")
+    goldens_by_id = {golden.query["id"]: golden for golden in personal_search_goldens}
+    assert "1b" in goldens_by_id, (
+        "settings.cfg for query 1b exists but tests/savefile/corpus has no query 1b"
+    )
 
-    # Same solutions; order differs because the GUI's search threads report as they finish.
-    assert Counter(golden_1b.solution_lines) == Counter(gui_query_1b_solution_lines)
+    # Same solutions; order differs because the GUI's search threads interleave their batches.
+    assert Counter(goldens_by_id["1b"].solution_lines) == Counter(gui_query_1b_solution_lines)

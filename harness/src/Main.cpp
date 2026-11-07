@@ -105,6 +105,16 @@ int main( array< String^ >^ args )
 	}
 	if( options->command == nullptr || options->out_path == nullptr )
 		return Usage();
+	if( options->names_only && options->command != L"dump-data" )
+	{
+		Console::Error->WriteLine( L"--names-only only applies to dump-data" );
+		return Usage();
+	}
+	if( options->command == L"search" && options->language != nullptr )
+	{
+		Console::Error->WriteLine( L"search takes its language from the query file; remove --lang" );
+		return Usage();
+	}
 
 	// Resolve paths before LoadGameData changes the working directory.
 	String^ out_path = IO::Path::GetFullPath( options->out_path );
@@ -130,7 +140,7 @@ int main( array< String^ >^ args )
 		LoadGameData( options );
 		SaveDump::Write( inputs[ 0 ], out_path );
 	}
-	else if( options->command == L"search" && inputs->Count == 1 && options->language == nullptr )
+	else if( options->command == L"search" && inputs->Count == 1 )
 	{
 		options->language = SearchDump::QueryLanguage( inputs[ 0 ] );
 		LoadGameData( options );
