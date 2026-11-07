@@ -1,0 +1,24 @@
+# Python port. Visual Studio ignores for the original live in legacy/.gitignore.
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+*.egg-info/
+.ty_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Harness build output (C++/CLI, built on Windows)
+harness/[Dd]ebug/
+harness/[Rr]elease/
+harness/.vs/
+harness/*.user
+
+# PSP save files are personal data: tests read them from here when present
+tests/savefile/*
+!tests/savefile/README.md
+
+.DS_Store
