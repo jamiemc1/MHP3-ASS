@@ -1,5 +1,38 @@
 #pragma once
 
+namespace FixtureFiles
+{
+	// Writes text as UTF-8 without a BOM; gzip-compressed when the path ends in
+	// ".gz". Every fixture goes through here so all files share one encoding.
+	inline void WriteText( System::String^ path, System::String^ text )
+	{
+		array< System::Byte >^ bytes = ( gcnew System::Text::UTF8Encoding( false ) )->GetBytes( text );
+		if( !path->EndsWith( L".gz" ) )
+		{
+			System::IO::File::WriteAllBytes( path, bytes );
+			return;
+		}
+		System::IO::FileStream^ file = System::IO::File::Create( path );
+		try
+		{
+			System::IO::Compression::GZipStream^ gzip =
+				gcnew System::IO::Compression::GZipStream( file, System::IO::Compression::CompressionLevel::Optimal );
+			try
+			{
+				gzip->Write( bytes, 0, bytes->Length );
+			}
+			finally
+			{
+				delete gzip;
+			}
+		}
+		finally
+		{
+			delete file;
+		}
+	}
+}
+
 // Minimal JSON writer for harness output. Keys appear in the order the caller
 // writes them and non-ASCII characters are \u-escaped, so the same input
 // always produces byte-identical output.
@@ -52,33 +85,9 @@ public:
 		return sb->ToString() + L"\n";
 	}
 
-	// Writes UTF-8 without a BOM; gzip-compressed when the path ends in ".gz".
 	void WriteToFile( System::String^ path )
 	{
-		array< System::Byte >^ bytes = ( gcnew System::Text::UTF8Encoding( false ) )->GetBytes( ToString() );
-		if( !path->EndsWith( L".gz" ) )
-		{
-			System::IO::File::WriteAllBytes( path, bytes );
-			return;
-		}
-		System::IO::FileStream^ file = System::IO::File::Create( path );
-		try
-		{
-			System::IO::Compression::GZipStream^ gzip =
-				gcnew System::IO::Compression::GZipStream( file, System::IO::Compression::CompressionLevel::Optimal );
-			try
-			{
-				gzip->Write( bytes, 0, bytes->Length );
-			}
-			finally
-			{
-				delete gzip;
-			}
-		}
-		finally
-		{
-			delete file;
-		}
+		FixtureFiles::WriteText( path, ToString() );
 	}
 
 private:
