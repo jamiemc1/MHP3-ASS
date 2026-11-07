@@ -84,7 +84,7 @@ void RelevanceDump::Run( String^ query_path, String^ out_path )
 	json->Field( L"id", QueryFile::GetString( spec, L"id" ) );
 	// The query exactly as the harness parsed it, so tests can tell when the
 	// query file has changed since this golden was generated.
-	json->Field( L"query_json", ( gcnew Web::Script::Serialization::JavaScriptSerializer )->Serialize( spec ) );
+	json->Field( L"query_json", QueryFile::Serialize( spec ) );
 
 	json->Key( L"rel_abilities" );
 	json->BeginArray();

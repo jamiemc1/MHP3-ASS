@@ -8,11 +8,39 @@
 using namespace System;
 using namespace System::Collections::Generic;
 
+namespace
+{
+	// One configuration for both directions, so any query that reads can be echoed.
+	Web::Script::Serialization::JavaScriptSerializer^ MakeSerializer()
+	{
+		Web::Script::Serialization::JavaScriptSerializer^ serializer = gcnew Web::Script::Serialization::JavaScriptSerializer;
+		serializer->MaxJsonLength = Int32::MaxValue;
+		return serializer;
+	}
+
+	// The GUI's NumericUpDown ranges (Form1.h:655-656, :681, :708-709).
+	unsigned GetRanged( QueryFile::JsonObject^ spec, String^ key, const int minimum, const int maximum )
+	{
+		const int value = QueryFile::GetInt( spec, key );
+		if( value < minimum || value > maximum )
+			throw gcnew FormatException( key + L" must be " + minimum + L"-" + maximum + L" as in the GUI, got " + value );
+		return unsigned( value );
+	}
+}
+
 QueryFile::JsonObject^ QueryFile::Read( String^ path )
 {
-	Web::Script::Serialization::JavaScriptSerializer^ serializer = gcnew Web::Script::Serialization::JavaScriptSerializer;
-	serializer->MaxJsonLength = Int32::MaxValue;
-	return safe_cast< JsonObject^ >( serializer->DeserializeObject( IO::File::ReadAllText( path ) ) );
+	return safe_cast< JsonObject^ >( MakeSerializer()->DeserializeObject( IO::File::ReadAllText( path ) ) );
+}
+
+String^ QueryFile::Serialize( JsonObject^ spec )
+{
+	return MakeSerializer()->Serialize( spec );
+}
+
+String^ QueryFile::Language( String^ path )
+{
+	return GetString( Read( path ), L"language" );
 }
 
 int QueryFile::GetInt( JsonObject^ spec, String^ key ) { return Convert::ToInt32( spec[ key ] ); }
@@ -29,9 +57,9 @@ Query^ QueryFile::FormulateQuery( LoadedData^ data, JsonObject^ spec )
 		query->rel_armor.Add( gcnew List_t< Armor^ >() );
 		query->inf_armor.Add( gcnew List_t< Armor^ >() );
 	}
-	query->weapon_slots_allowed = GetInt( spec, L"weapon_slots" );
-	query->elder_star = GetInt( spec, L"elder_star" );
-	query->hr = GetInt( spec, L"hr" );
+	query->weapon_slots_allowed = GetRanged( spec, L"weapon_slots", 0, 3 );
+	query->elder_star = GetRanged( spec, L"elder_star", 1, 6 );
+	query->hr = GetRanged( spec, L"hr", 1, 6 );
 
 	String^ gender = GetString( spec, L"gender" );
 	if( gender != L"male" && gender != L"female" )

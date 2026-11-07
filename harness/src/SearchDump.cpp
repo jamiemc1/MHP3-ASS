@@ -308,11 +308,6 @@ namespace
 	}
 }
 
-String^ SearchDump::QueryLanguage( String^ query_path )
-{
-	return GetString( Read( query_path ), L"language" );
-}
-
 void SearchDump::Run( String^ query_path, String^ out_prefix, bool write_candidates )
 {
 	JsonObject^ spec = Read( query_path );
@@ -327,7 +322,7 @@ void SearchDump::Run( String^ query_path, String^ out_prefix, bool write_candida
 	json->Field( L"id", GetString( spec, L"id" ) );
 	// The query exactly as the harness parsed it, so tests can tell when the
 	// corpus file has changed since this golden was generated.
-	json->Field( L"query_json", ( gcnew Web::Script::Serialization::JavaScriptSerializer )->Serialize( spec ) );
+	json->Field( L"query_json", Serialize( spec ) );
 	json->Field( L"my_charms_loaded", CharmDatabase::mycharms.Count );
 	json->Field( L"my_charms_illegal", illegal_my_charms );
 
