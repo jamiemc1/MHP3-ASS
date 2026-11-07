@@ -1,0 +1,115 @@
+"""settings.cfg reading against the layout SaveConfig writes (Form1.h:464-540)."""
+
+from __future__ import annotations
+
+import pytest
+
+from mhp3ass.settings_cfg import SkillSelection, read_settings_cfg
+
+
+def _skill_rows(count: int) -> list[str]:
+    rows = []
+    for row in range(count):
+        rows += ["0", str(row * 10), "1", "-1"]
+    return rows
+
+
+@pytest.fixture
+def option_lines():
+    """Lines 2-14, as SaveConfig writes them."""
+    lines = [
+        "2",  # language index
+        "True",  # last search gunner
+        "0",  # hunter tab showing
+        "False",  # male
+        "True",  # allow bad
+        "False",  # piercings
+        "True",  # event
+        "False",  # low rank
+        "3",  # sort
+        "4",  # charm select
+        "7",  # HR
+        "6",  # elder star
+        "2",  # weapon slots
+    ]
+    return lines
+
+
+@pytest.fixture
+def solution_lines():
+    return ["1 2 3 4 5 0 0 0 0 0 0 ", "6 7 8 9 10 1 1 0 0 0 0 1 2 1 4 12 "]
+
+
+@pytest.fixture
+def version_2_settings_cfg(tmp_path, option_lines, solution_lines):
+    path = tmp_path / "settings.cfg"
+    lines = ["2", *option_lines, *_skill_rows(6), *solution_lines]
+    path.write_text("\r\n".join(lines) + "\r\n", encoding="utf-8")
+    return path
+
+
+@pytest.fixture
+def version_1_settings_cfg(tmp_path, option_lines, solution_lines):
+    path = tmp_path / "settings.cfg"
+    lines = ["1", *option_lines, *_skill_rows(5), *solution_lines]
+    path.write_text("\r\n".join(lines) + "\r\n", encoding="utf-8")
+    return path
+
+
+@pytest.fixture
+def version_2_settings_cfg_missing_a_skill_row(tmp_path, option_lines):
+    path = tmp_path / "settings.cfg"
+    path.write_text("\n".join(["2", *option_lines, *_skill_rows(5)]) + "\n", encoding="utf-8")
+    return path
+
+
+def test_reads_options_in_save_order(version_2_settings_cfg):
+    settings = read_settings_cfg(version_2_settings_cfg)
+
+    assert [
+        settings.language_index,
+        settings.last_search_gunner,
+        settings.hunter_tab,
+        settings.male,
+        settings.allow_bad,
+        settings.allow_piercings,
+        settings.allow_event,
+        settings.allow_low_rank,
+        settings.sort_index,
+        settings.charm_select_index,
+        settings.hr,
+        settings.elder_star,
+        settings.weapon_slots,
+    ] == [2, True, 0, False, True, False, True, False, 3, 4, 7, 6, 2]
+
+
+def test_reads_six_skill_rows_from_version_2(version_2_settings_cfg):
+    settings = read_settings_cfg(version_2_settings_cfg)
+
+    assert len(settings.skill_selections) == 6
+    assert settings.skill_selections[5] == SkillSelection(
+        blademaster_filter=0, blademaster_skill=50, gunner_filter=1, gunner_skill=-1
+    )
+
+
+def test_solutions_follow_the_header(version_2_settings_cfg, solution_lines):
+    assert read_settings_cfg(version_2_settings_cfg).solution_lines == solution_lines
+
+
+def test_version_1_has_five_skill_rows(version_1_settings_cfg, solution_lines):
+    settings = read_settings_cfg(version_1_settings_cfg)
+
+    assert [len(settings.skill_selections), settings.solution_lines] == [5, solution_lines]
+
+
+def test_rejects_versions_load_config_ignores(tmp_path):
+    path = tmp_path / "settings.cfg"
+    path.write_text("3\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="unsupported"):
+        read_settings_cfg(path)
+
+
+def test_rejects_a_file_ending_inside_the_header(version_2_settings_cfg_missing_a_skill_row):
+    with pytest.raises(ValueError, match="ends inside its header"):
+        read_settings_cfg(version_2_settings_cfg_missing_a_skill_row)
