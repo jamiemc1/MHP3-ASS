@@ -1,0 +1,20 @@
+{
+  "id": "r17",
+  "description": "Auto-Guard alone at HR 3, village 4",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    119
+  ],
+  "skill_names": [
+    "Auto-Guard"
+  ]
+}

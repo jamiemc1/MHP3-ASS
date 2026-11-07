@@ -1,0 +1,26 @@
+{
+  "id": "r18",
+  "description": "Four skills at HR 3, village 4",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    1,
+    16,
+    6,
+    104
+  ],
+  "skill_names": [
+    "Attack Up [Med]",
+    "Sharpness +1",
+    "Reckless Abandon +1",
+    "Evade +1"
+  ]
+}

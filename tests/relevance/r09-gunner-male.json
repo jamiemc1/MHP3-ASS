@@ -1,0 +1,24 @@
+{
+  "id": "r09",
+  "description": "Gunner, male: Reload Speed +2, Recoil Reduction +1, NormalS/RapidBowUp",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    38,
+    43,
+    53
+  ],
+  "skill_names": [
+    "Reload Speed +2",
+    "Recoil Reduction +1",
+    "NormalS/RapidBowUp"
+  ]
+}

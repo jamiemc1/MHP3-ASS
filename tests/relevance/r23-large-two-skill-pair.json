@@ -1,0 +1,22 @@
+{
+  "id": "r23",
+  "description": "Quick Eating +1 + Attack Up [Med]: a pair with many two-skill charms",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    180,
+    1
+  ],
+  "skill_names": [
+    "Quick Eating +1",
+    "Attack Up [Med]"
+  ]
+}

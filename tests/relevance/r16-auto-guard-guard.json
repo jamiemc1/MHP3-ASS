@@ -1,0 +1,22 @@
+{
+  "id": "r16",
+  "description": "Auto-Guard (no decorations, quirk 8's ability) + Guard +1",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    119,
+    115
+  ],
+  "skill_names": [
+    "Auto-Guard",
+    "Guard +1"
+  ]
+}

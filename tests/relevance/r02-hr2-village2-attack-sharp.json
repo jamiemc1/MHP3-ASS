@@ -1,0 +1,22 @@
+{
+  "id": "r02",
+  "description": "Attack Up [Med] + Sharp Sword at HR 2, village 2: charm types by HR, low-rank and rank-gated armour",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    1,
+    12
+  ],
+  "skill_names": [
+    "Attack Up [Med]",
+    "Sharp Sword"
+  ]
+}

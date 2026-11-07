@@ -1,0 +1,22 @@
+{
+  "id": "r22",
+  "description": "Resilience + Attack Up [Med]: a pair with no two-skill charms",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "skills": [
+    34,
+    1
+  ],
+  "skill_names": [
+    "Resilience",
+    "Attack Up [Med]"
+  ]
+}
