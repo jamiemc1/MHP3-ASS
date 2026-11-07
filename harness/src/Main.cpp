@@ -3,6 +3,8 @@
 #include "DataDump.h"
 #include "LoadedData.h"
 #include "ModelDump.h"
+#include "QueryFile.h"
+#include "RelevanceDump.h"
 #include "SaveDump.h"
 #include "SearchDump.h"
 
@@ -19,8 +21,11 @@ namespace
 		Console::Error->WriteLine( L"  Harness dump-models  [<mycharms.txt>...] --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness decrypt-save <save.bin> --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness search       <query.json> --out <prefix> [--candidates] [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness relevance    <query.json> --out <file.json[.gz]> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness best-decorations --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
 		Console::Error->WriteLine( L"search writes <prefix>.manifest.json and <prefix>.solutions.txt.gz, in the query's language." );
+		Console::Error->WriteLine( L"search and relevance take their language from the query file." );
 		Console::Error->WriteLine( L"<language> is a folder name under Data/Languages, e.g. \"English (TeamHGG)\"." );
 		Console::Error->WriteLine( L"Output ending in .gz is gzip-compressed." );
 		Console::Error->WriteLine( L"--run-dir defaults to legacy/Run beside this harness." );
@@ -120,9 +125,9 @@ int main( array< String^ >^ args )
 		Console::Error->WriteLine( L"--candidates only applies to search" );
 		return Usage();
 	}
-	if( options->command == L"search" && options->language != nullptr )
+	if( ( options->command == L"search" || options->command == L"relevance" ) && options->language != nullptr )
 	{
-		Console::Error->WriteLine( L"search takes its language from the query file; remove --lang" );
+		Console::Error->WriteLine( options->command + L" takes its language from the query file; remove --lang" );
 		return Usage();
 	}
 
@@ -160,6 +165,17 @@ int main( array< String^ >^ args )
 		options->language = SearchDump::QueryLanguage( inputs[ 0 ] );
 		LoadGameData( options );
 		SearchDump::Run( inputs[ 0 ], out_path, options->candidates );
+	}
+	else if( options->command == L"relevance" && inputs->Count == 1 )
+	{
+		options->language = QueryFile::GetString( QueryFile::Read( inputs[ 0 ] ), L"language" );
+		LoadGameData( options );
+		RelevanceDump::Run( inputs[ 0 ], out_path );
+	}
+	else if( options->command == L"best-decorations" && inputs->Count == 0 )
+	{
+		LoadGameData( options );
+		RelevanceDump::WriteBestDecorations( out_path );
 	}
 	else
 		return Usage();
