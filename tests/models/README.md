@@ -15,5 +15,6 @@ Synthetic inputs for the harness's `dump-models` command
 | `02-errors.txt` | Wrong field counts, unknown skills (including a leading space, which fields keep), unreadable and overflowing points, a skill with no points |
 | `03-bad-slots.txt` | An unreadable slot count, which the original doesn't catch: loading stops there |
 | `04-four-slots.txt` | Four slots, which the original's validity check can't index: loading stops there |
+| `05-bad-quotes.txt` | A field of only white space, which `Utility::RemoveQuotes` can't index: loading stops there |
 
 These are made up; none comes from a real save.

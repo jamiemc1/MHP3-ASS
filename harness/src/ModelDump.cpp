@@ -359,6 +359,8 @@ namespace
 		json->EndArray();
 	}
 
+	void WriteRelevantSets( JsonWriter^ json, List< Charm^ >^ charms );
+
 	void WriteCharmComparisons( JsonWriter^ json )
 	{
 		List< Charm^ >^ charms = ComparisonCharms();
@@ -386,10 +388,26 @@ namespace
 		}
 		json->EndArray();
 
+		// The comparisons read the global relevant flags; put them back however this ends.
 		array< bool >^ saved_flags = gcnew array< bool >( Ability::static_abilities.Count );
 		for( int i = 0; i < saved_flags->Length; ++i )
 			saved_flags[ i ] = Ability::static_abilities[ i ]->relevant;
+		try
+		{
+			WriteRelevantSets( json, charms );
+		}
+		finally
+		{
+			for( int i = 0; i < saved_flags->Length; ++i )
+				Ability::static_abilities[ i ]->relevant = saved_flags[ i ];
+		}
+		json->EndObject();
+	}
 
+	// For each relevant-flag set: the flag-dependent comparisons over every
+	// pair of charms, and the optimal list built in both orders.
+	void WriteRelevantSets( JsonWriter^ json, List< Charm^ >^ charms )
+	{
 		array< array< int >^ >^ relevant_sets = { gcnew array< int >{}, gcnew array< int >{ 0 }, gcnew array< int >{ 2 },
 												  gcnew array< int >{ 0, 1 }, gcnew array< int >{ 0, 1, 2 } };
 		List< Charm^ >^ reversed = gcnew List< Charm^ >( charms );
@@ -437,10 +455,6 @@ namespace
 			json->EndObject();
 		}
 		json->EndArray();
-		json->EndObject();
-
-		for( int i = 0; i < saved_flags->Length; ++i )
-			Ability::static_abilities[ i ]->relevant = saved_flags[ i ];
 	}
 }
 
