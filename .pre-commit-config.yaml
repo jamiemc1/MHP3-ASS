@@ -1,0 +1,55 @@
+# legacy/ and the upstream repo-wide files are kept byte-identical to the original.
+exclude: ^(legacy/|LICENSE$|\.gitattributes$)
+default_install_hook_types: [pre-commit, commit-msg]
+
+repos:
+  # Public repo: block private network details and personal email addresses
+  # in files and in commit messages. See "Never commit" in CLAUDE.md.
+  - repo: local
+    hooks:
+      - id: no-private-details
+        name: no private network details or personal emails
+        language: pygrep
+        args: [--ignore-case]
+        entry: '\b(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b|\b(?:DESKTOP|LAPTOP)-[A-Z0-9]{7,8}\b|@(?:hotmail|gmail|outlook|live|yahoo|icloud|me)\.'
+        stages: [pre-commit, commit-msg]
+        exclude: ^uv\.lock$
+
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+        exclude: ^tests/golden/
+      - id: trailing-whitespace
+        exclude: ^tests/golden/
+
+  # Tool versions come from uv.lock so pre-commit and `uv run` always agree.
+  - repo: local
+    hooks:
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+      - id: ty
+        name: ty check
+        entry: uv run ty check
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: pytest
+        name: pytest
+        entry: uv run pytest -q
+        language: system
+        types: [python]
+        pass_filenames: false
