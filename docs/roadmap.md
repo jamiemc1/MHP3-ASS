@@ -9,7 +9,7 @@ Target: parity with every feature of the original, then a better UX on top.
 | 0 | Scaffold: layout, tooling, docs | No | Done |
 | 1 | Harness + first query corpus → golden fixtures | Yes | Done (L2 traces deferred) |
 | 2 | Data loaders (skills, armour, decorations, components, tags, languages) | No | Done |
-| 3 | Domain models: abilities/skills, decorations, charms | Yes (3b fixtures) | In progress (3a: charm tables) |
+| 3 | Domain models: abilities/skills, decorations, charms | Yes (3b fixtures) | Done |
 | 4 | Relevance filtering (`GetRelevantData`) + charms for a query (`CharmDatabase::GetCharms`) | No | Not started |
 | 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | No | Not started |
 | 6 | Search loop, charm modes, CLI | No | Not started |
