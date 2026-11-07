@@ -126,7 +126,10 @@ namespace
 			}
 		}
 
-		// A negative first skill: CharmIsIllegal holds it as unsigned.
+		// A negative first skill: CharmIsIllegal holds it as unsigned, so it
+		// can only match a generated charm that has the ability second.
+		for each( Ability^ ability in Ability::static_abilities )
+			cases->Add( MakeCharm( 0, ability, -1, nullptr, 0 ) );
 		Ability^ first = Ability::static_abilities[ 0 ];
 		Ability^ second = Ability::static_abilities[ 1 ];
 		cases->Add( MakeCharm( 1, first, -3, nullptr, 0 ) );
