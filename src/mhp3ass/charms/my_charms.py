@@ -54,19 +54,27 @@ class MyCharmsFileError(Exception):
         self.cause = cause
 
 
-def _read_points(fields: list[str], game: GameData) -> list[AbilityPair] | LineOutcome:
-    """The skill columns (CharmDatabase.cpp:129-156), or the line's failure outcome."""
+class _SkillColumnsFailed(Exception):
+    """A skill column the original answers with a message box, then skips the line."""
+
+    def __init__(self, outcome: LineOutcome):
+        super().__init__(outcome.value)
+        self.outcome = outcome
+
+
+def _read_points(fields: list[str], game: GameData) -> list[AbilityPair]:
+    """The skill columns (CharmDatabase.cpp:129-156); raises ``_SkillColumnsFailed``."""
     pairs = []
     for name_field, points_field in ((1, 2), (3, 4)):
         if fields[name_field] == "":
             continue
         ability = game.ability_map.get(fields[name_field])
         if ability is None:
-            return LineOutcome.NO_SUCH_SKILL
+            raise _SkillColumnsFailed(LineOutcome.NO_SUCH_SKILL)
         try:
             amount = to_int32(fields[points_field])
         except ValueError, OverflowError:
-            return LineOutcome.BAD_POINTS
+            raise _SkillColumnsFailed(LineOutcome.BAD_POINTS) from None
         pairs.append(AbilityPair(ability=ability, amount=amount))
     return pairs
 
@@ -92,9 +100,10 @@ def load_my_charms(path: Path, game: GameData, validity: CharmValidity) -> Loade
             num_slots = to_uint32(fields[0])
         except (ValueError, OverflowError) as error:
             raise MyCharmsFileError(line, error) from error
-        pairs = _read_points(fields, game)
-        if isinstance(pairs, LineOutcome):
-            loaded.lines.append(LoadedLine(line=line, outcome=pairs))
+        try:
+            pairs = _read_points(fields, game)
+        except _SkillColumnsFailed as failure:
+            loaded.lines.append(LoadedLine(line=line, outcome=failure.outcome))
             continue
         charm = Charm(num_slots=num_slots, abilities=pairs)
         try:

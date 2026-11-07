@@ -13,11 +13,6 @@ from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Charm
 
 
-@pytest.fixture(scope="module")
-def validity(charm_tables, teamhgg_game):
-    return build_charm_validity(charm_tables, ability_count=len(teamhgg_game.abilities))
-
-
 def _golden_charm(case: dict[str, Any], game: GameData) -> Charm:
     pairs = [
         AbilityPair(ability=game.abilities[pair["ability"]], amount=pair["amount"])

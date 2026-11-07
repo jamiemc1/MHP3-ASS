@@ -13,16 +13,29 @@ from mhp3ass.charms.comparison import (
     strictly_better_than,
 )
 from mhp3ass.charms.naming import charm_name, charms_equal
-from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import AbilityPair, Charm
 
 
 @pytest.fixture(scope="module")
-def flag_game(legacy_data_dir):
+def flag_game(load_teamhgg_game):
     """A game of its own: these tests set the abilities' relevant flags."""
-    game = load_game_data(legacy_data_dir)
-    apply_language(game, legacy_data_dir / "Languages" / "English (TeamHGG)")
-    return game
+    return load_teamhgg_game()
+
+
+@pytest.fixture
+def set_relevant(flag_game):
+    """Sets exactly the given abilities relevant; restores the loaded flags afterwards."""
+    loaded_flags = [ability.relevant for ability in flag_game.abilities]
+
+    def apply(indices: list[int]) -> None:
+        for ability in flag_game.abilities:
+            ability.relevant = False
+        for index in indices:
+            flag_game.abilities[index].relevant = True
+
+    yield apply
+    for ability, flag in zip(flag_game.abilities, loaded_flags, strict=True):
+        ability.relevant = flag
 
 
 @pytest.fixture(scope="module")
@@ -58,13 +71,6 @@ def _optimal_indices(charms: list[Charm], order: list[Charm]) -> list[int]:
     return indices
 
 
-def _set_relevant(game: GameData, indices: list[int]) -> None:
-    for ability in game.abilities:
-        ability.relevant = False
-    for index in indices:
-        game.abilities[index].relevant = True
-
-
 def test_sample_names_match_golden(comparisons, sample_charms):
     assert [charm_name(charm) for charm in sample_charms] == [
         entry["name"] for entry in comparisons["charms"]
@@ -75,10 +81,10 @@ def test_value_equality_matches_golden(comparisons, sample_charms):
     assert _matrix(sample_charms, charms_equal) == comparisons["equal"]
 
 
-def test_comparisons_match_golden_for_each_relevant_set(comparisons, sample_charms, flag_game):
+def test_comparisons_match_golden_for_each_relevant_set(comparisons, sample_charms, set_relevant):
     mismatched: list[Any] = []
     for relevant_set in comparisons["relevant_sets"]:
-        _set_relevant(flag_game, relevant_set["relevant"])
+        set_relevant(relevant_set["relevant"])
         ours = {
             "strictly_better_than": _matrix(sample_charms, strictly_better_than),
             "basically_the_same_as": _matrix(sample_charms, basically_the_same_as),
@@ -90,14 +96,13 @@ def test_comparisons_match_golden_for_each_relevant_set(comparisons, sample_char
             mismatched.append(
                 {"relevant": relevant_set["relevant"], "ours": ours, "golden": golden}
             )
-    _set_relevant(flag_game, [])
 
     assert [len(comparisons["relevant_sets"]), mismatched] == [5, []]
 
 
-def test_optimal_list_keeps_the_first_of_two_basically_same_charms(flag_game):
+def test_optimal_list_keeps_the_first_of_two_basically_same_charms(flag_game, set_relevant):
     # Only Attack is relevant, so the charms differ only in an ability the search ignores.
-    _set_relevant(flag_game, [0])
+    set_relevant([0])
     attack, expert = flag_game.abilities[0], flag_game.abilities[1]
     first = Charm(
         num_slots=1,
@@ -110,6 +115,5 @@ def test_optimal_list_keeps_the_first_of_two_basically_same_charms(flag_game):
     optimal: list[Charm] = []
     for charm in (first, more_irrelevant_points):
         add_charm_to_optimal_list(optimal, charm)
-    _set_relevant(flag_game, [])
 
     assert [len(optimal), optimal[0] is first] == [1, True]
