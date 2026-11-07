@@ -7,6 +7,7 @@ import pytest
 
 from data_rows import armor_row, decoration_row
 from goldens import SearchGolden, read_golden, read_search_goldens
+from mhp3ass.data import GameData, apply_language, load_game_data
 
 
 @pytest.fixture(scope="session")
@@ -82,6 +83,23 @@ def golden_data_dir(repo_root: Path) -> Path:
 def game_data(golden_data_dir: Path) -> Any:
     """Harness dump of every loaded table, before any language is applied."""
     return read_golden(golden_data_dir / "game-data.json.gz")
+
+
+@pytest.fixture(scope="session")
+def charm_database_golden(golden_data_dir: Path) -> Any:
+    """Harness dump of CharmDatabase::GenerateCharmTable, names in English (TeamHGG)."""
+    return read_golden(golden_data_dir / "charm-database.json.gz")
+
+
+@pytest.fixture(scope="session")
+def teamhgg_game(legacy_data_dir: Path) -> GameData:
+    """Game data in English (TeamHGG), the GUI's default language and the charm golden's.
+
+    Shared across the session: tests must not mutate it.
+    """
+    game = load_game_data(legacy_data_dir)
+    apply_language(game, legacy_data_dir / "Languages" / "English (TeamHGG)")
+    return game
 
 
 @pytest.fixture(scope="session")
