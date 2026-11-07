@@ -86,6 +86,9 @@ def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
         game_data["skills"][index]["ability"] in auto_guard_abilities for index in skills
     )
     depends_on_my_charms = charm_mode == "my_charms" or (charm_mode != "none" and has_auto_guard)
+    # One- and two-skill modes run many workers whose duplicates collide across threads (quirk 5);
+    # Auto-Guard replaces them with a single worker.
+    order_dependent = charm_mode in ("one_skill", "two_skill") and not has_auto_guard
 
     my_charms: list[str] = []
     if depends_on_my_charms:
@@ -111,6 +114,8 @@ def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
         "gui_solution_count": solution_count,
         "gui_capture": capture_dir.name,
     }
+    if order_dependent:
+        query["gui_order_dependent"] = True
     captured = CapturedSearch(query=query, depends_on_my_charms=depends_on_my_charms)
     return captured
 
