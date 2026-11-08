@@ -148,7 +148,10 @@ def stage_mismatches(
             run_stage(data)
             ours = snapshot(solution, data, skill_index)
             expected = case.states[name]
-            differing = sorted(key for key in expected if ours.get(key) != expected[key])
+            # Every field on both sides: a field the trace never wrote counts as a
+            # difference, not as unchecked.
+            fields = expected.keys() | ours.keys()
+            differing = sorted(key for key in fields if ours.get(key) != expected.get(key))
             if differing:
                 mismatches.append(f"{case.label} {name}: {differing}")
                 break
