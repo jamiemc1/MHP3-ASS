@@ -13,11 +13,14 @@ from mhp3ass.solution.fill import (
     add_decorations1,
     add_decorations23,
     best_possible_decoration,
+    calculate_decorations,
     get_score,
     is_charm_ability,
     point_score,
 )
+from mhp3ass.solution.initial import get_initial_data
 from mhp3ass.solution.state import Solution, new_calculation_data
+from solution_trace import stage_mismatches
 
 
 def _dense_ranks(values: list[int]) -> list[int]:
@@ -221,3 +224,146 @@ def test_charm_ability_is_the_first_charm_ability_only(attack, defense):
     )
 
     assert checks == (True, False, False, False)
+
+
+def _fill_as_matches_query(data):
+    """MatchesQuery's filling pass (Solution.cpp:673): both flags set, whatever the query."""
+    calculate_decorations(data, allow_bad=True, allow_detrimental=True)
+
+
+def test_decorated_stage_matches_every_trace(trace_goldens, scratch_game):
+    stages = [("initial", get_initial_data), ("decorated", _fill_as_matches_query)]
+
+    assert stage_mismatches(trace_goldens, scratch_game, stages) == []
+
+
+def test_personal_decorated_stage_matches_every_trace(personal_trace_goldens, scratch_game):
+    stages = [("initial", get_initial_data), ("decorated", _fill_as_matches_query)]
+
+    assert stage_mismatches(personal_trace_goldens, scratch_game, stages) == []
+
+
+@pytest.fixture
+def make_slotted_data(make_data):
+    """CalculationData after a GetInitialData-like setup: slot groups by size,
+    torso slots, and the total."""
+
+    def make(rel_decorations, need, abilities, slots_spare, torso_slots_spare=0, multiplier=1):
+        data = make_data(rel_decorations, need=need, abilities=abilities)
+        solution = data.solution
+        solution.slots_spare = list(slots_spare)
+        solution.torso_slots_spare = torso_slots_spare
+        solution.torso_multiplier = multiplier
+        solution.total_slots_spare = (
+            slots_spare[1] + 2 * slots_spare[2] + 3 * slots_spare[3] + torso_slots_spare
+        )
+        return data
+
+    return make
+
+
+def _calculate(data):
+    calculate_decorations(data, allow_bad=True, allow_detrimental=True)
+    groups = data.solution.slots_spare
+    return groups
+
+
+def test_two_slot_decorations_beyond_two_slot_groups_take_three_slot_groups(
+    make_slotted_data, attack
+):
+    # Two Attack[2] in one 2-slot group and one 3-slot group: the 3 is used
+    # as a 2 and leaves a 1 (Solution.cpp:437-443).
+    jewel = _jewel("Attack[2]", attack, 3, slots=2)
+    data = make_slotted_data([jewel], {attack: 6}, {attack: 0}, slots_spare=[0, 0, 1, 1])
+
+    groups = _calculate(data)
+
+    assert data.solution.decorations == [jewel, jewel]
+    assert groups == [0, 1, 0, 0]
+
+
+def test_one_slot_decorations_spill_into_a_three_through_the_unsigned_wrap(
+    make_slotted_data, attack
+):
+    # Four 1-slot jewels in groups 0/1/1 leave one slot free. On the way,
+    # extra = 4 converts one 3 (extra 1, num_2_slots 1), and slots_spare[1]
+    # loses 1 - 2 * 1 = -1 (Solution.cpp:478): right only modulo 2**32.
+    jewel = _jewel("Attack[1]", attack, 1)
+    data = make_slotted_data([jewel], {attack: 4}, {attack: 0}, slots_spare=[0, 0, 1, 1])
+
+    groups = _calculate(data)
+
+    assert len(data.solution.decorations) == 4
+    assert groups == [0, 1, 0, 0]
+
+
+def test_one_slot_decorations_filling_a_three_exactly_leave_the_two(make_slotted_data, attack):
+    # Three 1-slot jewels in groups 0/1/1: extra 3 converts one 3 exactly (:470-474).
+    jewel = _jewel("Attack[1]", attack, 1)
+    data = make_slotted_data([jewel], {attack: 3}, {attack: 0}, slots_spare=[0, 0, 1, 1])
+
+    groups = _calculate(data)
+
+    assert len(data.solution.decorations) == 3
+    assert groups == [0, 0, 1, 0]
+
+
+def test_one_slot_decorations_part_filling_a_three_return_the_rest(make_slotted_data, attack):
+    # Two 1-slot jewels in one 3-slot group: the third slot comes back as a
+    # 1-slot group (:462-468).
+    jewel = _jewel("Attack[1]", attack, 1)
+    data = make_slotted_data([jewel], {attack: 2}, {attack: 0}, slots_spare=[0, 0, 0, 1])
+
+    groups = _calculate(data)
+
+    assert len(data.solution.decorations) == 2
+    assert groups == [0, 1, 0, 0]
+
+
+def test_one_slot_decorations_within_one_slot_groups_just_use_them(make_slotted_data, attack):
+    jewel = _jewel("Attack[1]", attack, 1)
+    data = make_slotted_data([jewel], {attack: 1}, {attack: 0}, slots_spare=[0, 2, 0, 0])
+
+    groups = _calculate(data)
+
+    assert groups == [0, 1, 0, 0]
+
+
+def test_body_three_slots_take_smaller_decorations_with_the_multiplier(make_slotted_data, attack):
+    # A 3-slot body at multiplier 2: one Attack[2] (6 points) then one
+    # Attack[1] (2 points) on the body; nothing is left in the torso.
+    two = _jewel("Attack[2]", attack, 3, slots=2)
+    one = _jewel("Attack[1]", attack, 1)
+    data = make_slotted_data(
+        [one, two],
+        {attack: 8},
+        {attack: 0},
+        slots_spare=[0, 0, 0, 0],
+        torso_slots_spare=3,
+        multiplier=2,
+    )
+
+    _calculate(data)
+
+    solution = data.solution
+    assert solution.body_decorations == [two, one]
+    assert (solution.abilities[attack], solution.torso_slots_spare) == (8, 0)
+
+
+def test_body_one_slot_pass_retries_with_overkill(make_slotted_data, attack):
+    # At multiplier 2 a 2-point jewel overshoots 9 -> 13 against need 10, so
+    # the no-overkill pass skips it and the overkill pass adds it (:449, :481-482).
+    jewel = _jewel("Attack[1]", attack, 2)
+    data = make_slotted_data(
+        [jewel],
+        {attack: 10},
+        {attack: 9},
+        slots_spare=[0, 0, 0, 0],
+        torso_slots_spare=1,
+        multiplier=2,
+    )
+
+    _calculate(data)
+
+    assert data.solution.body_decorations == [jewel]
+    assert data.solution.torso_slots_spare == 0

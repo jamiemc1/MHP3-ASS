@@ -9,7 +9,7 @@ and compares each stage's state with the trace's (format in
 
 from __future__ import annotations
 
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterator, Sequence
 from dataclasses import dataclass
 from typing import Any
 
@@ -128,7 +128,7 @@ def snapshot(solution: Solution, data: CalculationData, skill_index: dict[Skill,
 def stage_mismatches(
     goldens: list[TraceGolden],
     game: GameData,
-    stages: list[tuple[str, Callable[[CalculationData], None]]],
+    stages: Sequence[tuple[str, Callable[[CalculationData], None]]],
 ) -> list[str]:
     """Replays ``stages`` (name, port function) in order for every sample and lists
     each stage whose state differs from the trace's, with the differing fields.
