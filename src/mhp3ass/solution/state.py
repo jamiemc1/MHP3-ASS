@@ -13,6 +13,13 @@ from mhp3ass.model import Ability, Armor, Charm, Decoration, Skill
 from mhp3ass.query import Query
 
 
+class LegacyNullReferenceError(AttributeError):
+    """Where the original dereferences a null handle (.NET ``NullReferenceException``).
+
+    The port raises this at the same point instead of carrying on with ``None``.
+    """
+
+
 @dataclass(slots=True, eq=False)
 class Solution:
     """``Solution``: one armour combination with its charm, and what ``MatchesQuery``
