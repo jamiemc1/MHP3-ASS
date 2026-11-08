@@ -16,26 +16,33 @@
       "worker": 0,
       "charm": "+3 Attack O--",
       "found": 1183,
-      "added": 1183
+      "added": 1183,
+      "added_sha256": "456f40b1cd71fd1e8e5c741d23ecd03e9e193c73e79baa7ea6e5b4b763ad113e"
     },
     {
       "worker": 1,
       "charm": "+4 Attack ---",
       "found": 1183,
-      "added": 1073
+      "added": 1073,
+      "added_sha256": "62e18ec18cf96f3be9d8bb7f928f46d9db2b0150cab22ec08ed2a96038f0a31f"
     },
     {
       "worker": 2,
       "charm": "+6 Health O--",
       "found": 1136,
-      "added": 1129
+      "added": 1129,
+      "added_sha256": "e91e460ec59c7d3de44ccc228bed1c8fbc5a72b9f0e902f248527467526d6d60"
     },
     {
       "worker": 3,
       "charm": "+8 Health ---",
       "found": 1092,
-      "added": 1059
+      "added": 1059,
+      "added_sha256": "c2efe6a9f9db24e351a51fe74e9a0eea25e6b5046e8c3d55b1e451e6916ca265"
     }
   ],
-  "solution_count": 4444
+  "solution_count": 4444,
+  "solutions_sha256": "33b59fb70b4a33433eea05dded6314fe507cffe6314eb4486f89befdb9bbf53a",
+  "solution_set_sha256": "e8ac994fccd38ad19ae0addcf9c671586cd6a57ae556f16ef1be7145a55d2e98",
+  "solutions_file": true
 }

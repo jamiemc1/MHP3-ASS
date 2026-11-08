@@ -16,32 +16,40 @@
       "worker": 0,
       "charm": "+2 Sharpness, +4 Attack O--",
       "found": 9581,
-      "added": 9578
+      "added": 9578,
+      "added_sha256": "0d1451ec7dec16f08a72b5ea5576366cbd7ac36a6ee10c50c9190851ce738ff5"
     },
     {
       "worker": 1,
       "charm": "+5 Sharpness, +2 Attack ---",
       "found": 9428,
-      "added": 8133
+      "added": 8133,
+      "added_sha256": "5cdfb2ddaca30a9bd81c0a049a6896ab4086c3f47fac076757ad63993698e675"
     },
     {
       "worker": 2,
       "charm": "+2 Sharpness, +2 Attack OO-",
       "found": 9638,
-      "added": 8301
+      "added": 8301,
+      "added_sha256": "823455e2084e347c2e86196c5c72399d04cb041727d3f2a0fa3e5fb3af930396"
     },
     {
       "worker": 3,
       "charm": "+4 Sharpness, +8 Attack ---",
       "found": 9744,
-      "added": 8086
+      "added": 8086,
+      "added_sha256": "9701ff99efbfd91c52f7f9b32092dcfda013c66f037513dd5a64a13827de1afb"
     },
     {
       "worker": 4,
       "charm": "OOO",
       "found": 9523,
-      "added": 9456
+      "added": 9456,
+      "added_sha256": "dd45573f0e39257da9e67195906941d8f1ac5f193860d3923399743811a34c07"
     }
   ],
-  "solution_count": 43554
+  "solution_count": 43554,
+  "solutions_sha256": "2071945c0385abbd7a89f7a56ca8d3261f97d0910612a641e602feefda5bb2aa",
+  "solution_set_sha256": "aa257e5af842d7902b18c3c9aab1c0ab16f3eb799e2c61d35f42ca1d8a75b0f3",
+  "solutions_file": true
 }

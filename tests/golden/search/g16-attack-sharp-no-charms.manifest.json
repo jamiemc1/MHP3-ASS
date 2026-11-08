@@ -16,8 +16,12 @@
       "worker": 0,
       "charm": null,
       "found": 7241,
-      "added": 7241
+      "added": 7241,
+      "added_sha256": "95de226df823178ffa15b7bba2b58f5643846798cc4a20d07d2f25b69064177b"
     }
   ],
-  "solution_count": 7241
+  "solution_count": 7241,
+  "solutions_sha256": "95de226df823178ffa15b7bba2b58f5643846798cc4a20d07d2f25b69064177b",
+  "solution_set_sha256": "cff178e37105e1ec75aadb68cad3283ab709799be9179cb42b8fb4428fdc3b32",
+  "solutions_file": true
 }

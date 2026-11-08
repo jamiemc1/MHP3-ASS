@@ -16,38 +16,47 @@
       "worker": 0,
       "charm": null,
       "found": 7241,
-      "added": 7241
+      "added": 7241,
+      "added_sha256": "95de226df823178ffa15b7bba2b58f5643846798cc4a20d07d2f25b69064177b"
     },
     {
       "worker": 1,
       "charm": "+1 Rec Level, -1 Sheathe OOO",
       "found": 9523,
-      "added": 9336
+      "added": 9336,
+      "added_sha256": "c637eab3e4881663983b79ae0c00fad6ec821002b7f6710ed6d7a0185cb7b13f"
     },
     {
       "worker": 2,
       "charm": "+2 Sharpness, +1 Blight Res OO-",
       "found": 9412,
-      "added": 9231
+      "added": 9231,
+      "added_sha256": "2940ff64a667f5906970cddaa355bf6df655744aba9562907356a8ea84859ec1"
     },
     {
       "worker": 3,
       "charm": "+3 Loading, +5 Attack O--",
       "found": 9316,
-      "added": 9138
+      "added": 9138,
+      "added_sha256": "c48943848eaabc9c0212ff909537e76fa35a4819a49cbd7ee679a88570c07c76"
     },
     {
       "worker": 4,
       "charm": "+5 Sharpness, +5 Expert ---",
       "found": 9127,
-      "added": 8969
+      "added": 8969,
+      "added_sha256": "395a7a864b6c8dac078f599c441e3172560a1dd7a249b6b12dc721d10f83935b"
     },
     {
       "worker": 5,
       "charm": "+4 WindPress, +7 Attack ---",
       "found": 9069,
-      "added": 8897
+      "added": 8897,
+      "added_sha256": "bd97a35eab5dac98a485c5922d1d51559c94bc611a4c614972a86da4ba64f77e"
     }
   ],
-  "solution_count": 52812
+  "solution_count": 52812,
+  "solutions_sha256": "21991f09de0606f60f7d85c4b744d7164777ffa70edacc0338b4b7b2c98de569",
+  "solution_set_sha256": "0525f5d07fd84e82fa9e4eee49fb82b201653d43e22d1646581f05c9f7c8d810",
+  "solutions_file": true
 }

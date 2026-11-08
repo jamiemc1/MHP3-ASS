@@ -16,8 +16,12 @@
       "worker": 0,
       "charm": "OOO",
       "found": 3292,
-      "added": 3282
+      "added": 3282,
+      "added_sha256": "2f0788e92a30cdeeb76c5a75b28585e7dad269d08471afaed0835450a1ba31e6"
     }
   ],
-  "solution_count": 3282
+  "solution_count": 3282,
+  "solutions_sha256": "2f0788e92a30cdeeb76c5a75b28585e7dad269d08471afaed0835450a1ba31e6",
+  "solution_set_sha256": "3bf91e1d65d3d43def835e526e162b0848ce00a21cc8f847ecb5caf4b1251696",
+  "solutions_file": true
 }
