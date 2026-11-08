@@ -72,7 +72,8 @@ class Stage:
     applies: Callable[[CalculationData, dict[str, dict[str, Any]]], bool] | None = None
 
 
-def _template_charm(template: dict[str, Any] | None, game: GameData) -> Charm | None:
+def template_charm(template: dict[str, Any] | None, game: GameData) -> Charm | None:
+    """A worker's charm template as a trace header records it (``None`` for no charm)."""
     if template is None:
         return None
     charm = Charm(
@@ -118,7 +119,7 @@ def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCas
         # DoWork's nullptr piece for an empty slot (Form1.h:1865-1869).
         slots: list[list[Armor | None]] = [list(slot) or [None] for slot in query.rel_armor]
         templates = [
-            _template_charm(worker["template"], game) for worker in golden.header["workers"]
+            template_charm(worker["template"], game) for worker in golden.header["workers"]
         ]
         for sample in golden.samples:
             armors = [
