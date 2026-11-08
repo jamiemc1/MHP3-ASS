@@ -23,13 +23,17 @@ def decrypt_game_layer(data: bytes) -> bytes:
     """``DecryptSaveData`` (SaveDataEncryption.cpp:91-122).
 
     The original reads each word as a signed 32-bit ``long``, so a word with
-    bit 31 set is negative. That never shows: the generator offsets are masked
-    to 16 bits and only the low 32 bits of each XOR are written back, so
-    reading unsigned gives the same bytes. The seed is written back
-    substituted twice.
+    bit 31 set is negative and sign-extends into the 64-bit XOR. That never
+    shows: only the low 32 bits of the XOR are written back, and those don't
+    depend on the sign extension, so reading unsigned gives the same bytes.
+    (This reasoning holds for XOR-and-truncate only, not for comparisons or
+    right shifts.) The seed is written back substituted twice. If the length
+    isn't a multiple of 4 the last word overlaps the seed, which is then
+    overwritten, as in the original.
     """
-    if len(data) < 4 or len(data) % 4:
-        raise ValueError(f"the game layer works on whole 4-byte words, got {len(data)} bytes")
+    if len(data) < 4:
+        # Array::Copy from a negative offset (SaveDataEncryption.cpp:93-95).
+        raise ValueError(f"the game layer needs its 4-byte seed, got {len(data)} bytes")
     lower_multiplier, upper_multiplier = 0x215F, 0xDFA3
     lower_modulus, upper_modulus = 0xFF8F, 0xFFEF
     decrypted = bytearray(data)

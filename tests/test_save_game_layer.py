@@ -32,21 +32,49 @@ def test_seed_is_written_back_substituted_twice():
     assert decrypted[-4:] == bytes(SUBSTITUTION_TABLE[SUBSTITUTION_TABLE[byte]] for byte in seed)
 
 
-def test_zero_seed_halves_fall_back_to_the_multipliers():
-    """SaveDataEncryption.cpp:104-108: a zero half acts as 0x215F (lower) or 0xDFA3
-    (upper), so the bodies decrypt alike under either seed."""
+@pytest.mark.parametrize(
+    ("seed_value", "fallback_value"),
+    [
+        (0x00000000, 0xDFA3215F),
+        (0x12340000, 0x1234215F),
+        (0x00005678, 0xDFA35678),
+    ],
+)
+def test_a_zero_seed_half_falls_back_to_its_multiplier(seed_value: int, fallback_value: int):
+    """SaveDataEncryption.cpp:104-108: a zero lower half acts as 0x215F and a zero upper
+    half as 0xDFA3, so the body decrypts as under a seed with that value."""
     body = bytes(range(32))
-    zero_seed = _seed_for(bytes(4))
-    fallback_seed = _seed_for((0xDFA3215F).to_bytes(4, "little"))
 
-    from_zero = decrypt_game_layer(body + zero_seed)
-    from_fallback = decrypt_game_layer(body + fallback_seed)
+    from_zero = decrypt_game_layer(body + _seed_for(seed_value.to_bytes(4, "little")))
+    from_fallback = decrypt_game_layer(body + _seed_for(fallback_value.to_bytes(4, "little")))
 
     assert from_zero[:-4] == from_fallback[:-4]
-    assert from_zero[:-4] != decrypt_game_layer(body + _seed_for(bytes([1, 0, 0, 0])))[:-4]
 
 
-@pytest.mark.parametrize("length", [0, 3, 10])
-def test_rejects_partial_words(length: int):
-    with pytest.raises(ValueError, match="whole 4-byte words"):
+def test_body_matches_known_answer():
+    """Fixed bytes from this port after it matched the harness's hash on a real save,
+    so CI checks the generator constants and both substitutions without one."""
+    body = bytes((index * 5 + 7) % 256 for index in range(32))
+
+    decrypted = decrypt_game_layer(body + bytes([0x12, 0x34, 0x56, 0x78]))
+
+    assert decrypted.hex() == (
+        "07031bfcfedbbee485ceebbc58d5824ce641a0381b79bf2d38a64db2cfeb7b3db9ff4ba8"
+    )
+
+
+def test_a_partial_last_word_overlaps_the_seed():
+    """With 10 bytes the second word covers the seed's first two bytes; the seed is
+    written back over them afterwards (SaveDataEncryption.cpp:110-121)."""
+    seed = bytes([0x00, 0x01, 0x80, 0xFF])
+
+    decrypted = decrypt_game_layer(bytes(6) + seed)
+
+    assert len(decrypted) == 10
+    assert decrypted[-4:] == bytes(SUBSTITUTION_TABLE[SUBSTITUTION_TABLE[byte]] for byte in seed)
+
+
+@pytest.mark.parametrize("length", [0, 3])
+def test_rejects_input_without_a_seed(length: int):
+    with pytest.raises(ValueError, match="4-byte seed"):
         decrypt_game_layer(bytes(length))

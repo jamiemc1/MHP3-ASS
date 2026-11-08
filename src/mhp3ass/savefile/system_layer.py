@@ -6,10 +6,11 @@ reaches (``legacy/PSPCryptoEngine.cpp:177-224``, ``:311-436``, ``:532-561``).
 
 The first 16 bytes are a header; the rest is XORed with a keystream made by
 AES-decrypting numbered counter blocks under a key derived from the header.
-``hleSdRemoveValue`` is left out: the original calls it twice, but only for
-an integrity hash that nothing reads (the check is commented out at
-``:556-558``), and its control flow can't fail on a save-sized input, so it
-changes no output.
+
+``hleSdRemoveValue`` (:261-309) only feeds an integrity hash nothing reads
+(the check is commented out at :556-558), so its computation is left out.
+Its one observable effect is kept: for a body of 16 to 0x800 bytes it copies
+16 bytes from ``blockSize + 4`` (:302), past the end of its buffer, and throws.
 """
 
 from __future__ import annotations
@@ -18,8 +19,16 @@ from mhp3ass.savefile.aes import cbc_decrypt_zero_iv
 from mhp3ass.savefile.tables import AES_KEY_0X12, AES_KEY_0X64, GAME_KEY, SD_KEY_6, SD_KEY_7
 
 
+class SystemLayerError(ValueError):
+    """An input the original's system-layer decryption throws on."""
+
+
 def _xor(first: bytes, second: bytes) -> bytes:
-    combined = bytes(a ^ b for a, b in zip(first, second, strict=True))
+    if len(first) != len(second):
+        raise ValueError(f"XOR of {len(first)} and {len(second)} bytes")
+    combined = (int.from_bytes(first, "big") ^ int.from_bytes(second, "big")).to_bytes(
+        len(first), "big"
+    )
     return combined
 
 
@@ -47,14 +56,21 @@ def decrypt_system_layer(data: bytes) -> bytes:
     """``PSPCryptoEngine::DecryptSaveData``: the decrypted body, without the header.
 
     The input is zero-padded to whole 16-byte blocks first, as the original
-    copies it into an aligned buffer (PSPCryptoEngine.cpp:541-546).
+    copies it into an aligned buffer (PSPCryptoEngine.cpp:541-546). Like the
+    original, an input of 1-16 bytes gives an empty body, and an empty input
+    or a body of 16-0x800 bytes raises (``SystemLayerError``).
     """
-    if len(data) < 0x10:
-        raise ValueError(f"a save needs at least its 16-byte header, got {len(data)} bytes")
+    if not data:
+        # The output buffer would be 16 bytes shorter than nothing (:542).
+        raise SystemLayerError("an empty file has no header")
     aligned_size = (len(data) + 0xF) >> 4 << 4
     padded = data + bytes(aligned_size - len(data))
     header = padded[:0x10]
     body = padded[0x10:]
+    if 0 < len(body) <= 0x800:
+        raise SystemLayerError(
+            f"a {len(body)}-byte body is too short for hleSdRemoveValue (needs over 0x800)"
+        )
     keystream = cbc_decrypt_zero_iv(AES_KEY_0X64, _counter_blocks(_key_block(header), len(body)))
     decrypted = _xor(body, keystream)
     return decrypted
