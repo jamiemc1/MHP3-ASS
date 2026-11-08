@@ -148,7 +148,7 @@ def test_parser_records_cover_every_language_and_exception(
     exceptions = {record["exception"] for record in records} - {None}
 
     assert languages == set(games_by_language)
-    assert exceptions == {"FormatException", "OverflowException"}
+    assert exceptions == {"ArgumentOutOfRangeException", "FormatException", "OverflowException"}
 
 
 def test_two_skill_name_drops_first_points_and_second_sign(teamhgg_game: GameData):
@@ -213,3 +213,23 @@ def test_unnamed_ability_at_ten_points_counts_nothing(
 
     assert any(any(row) for row in named.counts)
     assert unnamed_location == CharmLocation(counts=[[0, 0, 0] for _ in range(12)], example=None)
+
+
+def test_second_amount_wraps_to_int_like_findcharm2s_parameter(teamhgg_game: GameData):
+    """ToUInt32's result goes into FindCharm2's ``const int points2`` (CharmDatabase.cpp:1006)."""
+    query = parse_charm_name("+4 Attack, +3000000000 Sharpness ---", teamhgg_game)
+
+    assert query.points2 == 3_000_000_000 - 2**32
+
+
+def test_ability_names_fit_in_single_utf16_units(games_by_language: dict[str, GameData]):
+    """The parser slices by code point; .NET by UTF-16 unit. They agree while no
+    ability name has a character outside the BMP."""
+    outside_bmp = [
+        ability.name
+        for game in games_by_language.values()
+        for ability in game.abilities
+        if any(ord(character) > 0xFFFF for character in ability.name)
+    ]
+
+    assert outside_bmp == []

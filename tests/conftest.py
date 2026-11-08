@@ -162,7 +162,7 @@ def validity(charm_tables: CharmTables, teamhgg_game: GameData) -> CharmValidity
 @pytest.fixture(scope="session")
 def charm_location_index(charm_tables: CharmTables, teamhgg_game: GameData) -> CharmLocationIndex:
     """FindCharm2's table entries grouped by ability, over ``charm_tables``."""
-    return CharmLocationIndex.build(charm_tables, abilities=teamhgg_game.abilities)
+    return CharmLocationIndex.build(charm_tables, game=teamhgg_game)
 
 
 @pytest.fixture(scope="session")
@@ -307,10 +307,16 @@ def charm_location_golden(golden_data_dir: Path) -> Any:
 
 
 @pytest.fixture(scope="session")
-def games_by_language(legacy_data_dir: Path) -> dict[str, GameData]:
-    """A game in each shipped language. Tests must not mutate them."""
+def games_by_language(legacy_data_dir: Path, teamhgg_game: GameData) -> dict[str, GameData]:
+    """A game in each shipped language, ``teamhgg_game`` for English (TeamHGG).
+
+    Tests must not mutate them.
+    """
     games = {}
     for language_dir in sorted((legacy_data_dir / "Languages").iterdir()):
+        if language_dir.name == "English (TeamHGG)":
+            games[language_dir.name] = teamhgg_game
+            continue
         game = load_game_data(legacy_data_dir)
         apply_language(game, language_dir)
         games[language_dir.name] = game
