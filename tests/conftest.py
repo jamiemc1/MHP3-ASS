@@ -17,6 +17,8 @@ from goldens import (
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
+from mhp3ass.query import Query
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
 
@@ -169,6 +171,73 @@ def relevance_goldens(repo_root: Path) -> list[RelevanceGolden]:
         query_dirs=[tests_dir / "corpus", tests_dir / "relevance"],
         golden_dir=tests_dir / "golden" / "relevance",
     )
+
+
+@pytest.fixture
+def attack() -> Ability:
+    return Ability(name="Attack", static_index=0)
+
+
+@pytest.fixture
+def defense() -> Ability:
+    return Ability(name="Defense", static_index=1)
+
+
+@pytest.fixture
+def make_armor() -> Callable[..., Armor]:
+    """Builds an armour piece for pure-logic tests: HR 1, both genders and hunter types,
+    no slots and no skills unless given."""
+
+    def make(
+        name: str = "Piece", abilities: list[tuple[Ability, int]] | None = None, **fields: Any
+    ):
+        values: dict[str, Any] = {
+            "index": 0,
+            "gender": Gender.BOTH_GENDERS,
+            "hunter_type": HunterType.BOTH_TYPES,
+            "rarity": 1,
+            "num_slots": 0,
+            "hr": 1,
+            "elder_star": 1,
+            "defence": 10,
+            "max_defence": 20,
+            "fire_res": 0,
+            "water_res": 0,
+            "ice_res": 0,
+            "thunder_res": 0,
+            "dragon_res": 0,
+            "is_piercing": False,
+        }
+        values.update(fields)
+        pairs = [AbilityPair(ability=ability, amount=amount) for ability, amount in abilities or []]
+        armor = Armor(name=name, abilities=pairs, **values)
+        return armor
+
+    return make
+
+
+@pytest.fixture
+def make_query() -> Callable[..., Query]:
+    """Builds a Blademaster, male, HR 6 / village 6 query with every armour toggle on."""
+
+    def make(rel_abilities: list[Ability] | None = None, **fields: Any):
+        values: dict[str, Any] = {
+            "skills": [],
+            "hunter_type": HunterType.BLADEMASTER,
+            "gender": Gender.MALE,
+            "hr": 6,
+            "elder_star": 6,
+            "weapon_slots_allowed": 0,
+            "include_piercings": True,
+            "allow_bad": False,
+            "allow_event": True,
+            "allow_low_rank": True,
+        }
+        values.update(fields)
+        query = Query(rel_abilities=list(rel_abilities or []), **values)
+        return query
+
+    return make
 
 
 @pytest.fixture
