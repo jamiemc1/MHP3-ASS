@@ -23,6 +23,7 @@ from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
 from mhp3ass.query import Query
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
+from mhp3ass.solution.state import Solution, new_calculation_data
 
 
 @pytest.fixture(scope="session")
@@ -255,6 +256,22 @@ def make_query() -> Callable[..., Query]:
         values.update(fields)
         query = Query(rel_abilities=list(rel_abilities or []), **values)
         return query
+
+    return make
+
+
+@pytest.fixture
+def make_data(make_query):
+    """CalculationData for a solution with no armour, over ``rel_decorations``, with
+    the given needs and ability totals."""
+
+    def make(rel_decorations, need, abilities, charm=None, **query_fields):
+        solution = Solution(armors=[None] * 5, charm=charm)
+        solution.abilities = dict(abilities)
+        query = make_query(rel_decorations=rel_decorations, **query_fields)
+        data = new_calculation_data(solution, query)
+        data.need = dict(need)
+        return data
 
     return make
 
