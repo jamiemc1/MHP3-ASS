@@ -17,6 +17,7 @@ from goldens import (
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
 
 
@@ -242,3 +243,9 @@ def gui_captures_dir(savefile_dir: Path) -> Path:
     if not captures_dir.is_dir():
         pytest.skip("no GUI captures in tests/savefile/gui-captures")
     return captures_dir
+
+
+@pytest.fixture(scope="session")
+def save_game_layer(save_system_layer: bytes) -> bytes:
+    """The save with both layers decrypted."""
+    return decrypt_game_layer(save_system_layer)
