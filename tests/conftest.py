@@ -17,6 +17,7 @@ from goldens import (
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.savefile.system_layer import decrypt_system_layer
 
 
 @pytest.fixture(scope="session")
@@ -200,6 +201,21 @@ def personal_relevance_goldens(savefile_dir: Path) -> list[RelevanceGolden]:
     if not golden_dir.is_dir():
         pytest.skip("no personal relevance goldens; run scripts/windows/generate-goldens.ps1")
     return read_relevance_goldens(query_dirs=[corpus_dir], golden_dir=golden_dir)
+
+
+@pytest.fixture(scope="session")
+def save_bytes(savefile_dir: Path) -> bytes:
+    """Your MHP3rd save file, as the import dialog reads it."""
+    path = savefile_dir / "MHP3RD.BIN"
+    if not path.is_file():
+        pytest.skip("no save file in tests/savefile/MHP3RD.BIN")
+    return path.read_bytes()
+
+
+@pytest.fixture(scope="session")
+def save_system_layer(save_bytes: bytes) -> bytes:
+    """The save with its system layer decrypted (about a second)."""
+    return decrypt_system_layer(save_bytes)
 
 
 @pytest.fixture(scope="session")
