@@ -12,13 +12,6 @@ using namespace System::Collections::Generic;
 
 namespace
 {
-	String^ Sha256Hex( array< Byte >^ data )
-	{
-		Security::Cryptography::SHA256^ sha = Security::Cryptography::SHA256::Create();
-		array< Byte >^ digest = sha->ComputeHash( data );
-		return Fixtures::HexLower( digest );
-	}
-
 	ref struct ImportedCharm
 	{
 		Charm^ charm;
@@ -139,12 +132,12 @@ void SaveDump::Write( String^ save_path, String^ out_path )
 	if( raw->Length != 0x121010 )
 		throw gcnew InvalidOperationException( L"Not an MHP3rd save file: expected 0x121010 bytes, got " + raw->Length );
 
-	String^ raw_sha256 = Sha256Hex( raw );
+	String^ raw_sha256 = Fixtures::Sha256Hex( raw );
 	PSPCryptoEngine engine;
 	array< Byte >^ data = engine.DecryptSaveData( safe_cast< array< Byte >^ >( raw->Clone() ) );
-	String^ system_layer_sha256 = Sha256Hex( data );
+	String^ system_layer_sha256 = Fixtures::Sha256Hex( data );
 	DecryptSaveData( data );
-	String^ game_layer_sha256 = Sha256Hex( data );
+	String^ game_layer_sha256 = Fixtures::Sha256Hex( data );
 
 	JsonWriter^ json = gcnew JsonWriter;
 	json->BeginObject();
