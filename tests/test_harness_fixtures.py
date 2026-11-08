@@ -350,3 +350,19 @@ def test_best_decoration_throws_in_every_cell_or_none(best_decorations_golden: A
             partial.append(entry["ability"])
 
     assert partial == []
+
+
+def test_point_score_in_bounds_is_the_initialiser(solution_probes_golden: Any):
+    """Solution.cpp:326 initialises point_score to { 0, 1, 2, 3, 4, 3 }."""
+    assert solution_probes_golden["point_score_in_bounds"] == [0, 1, 2, 3, 4, 3]
+
+
+def test_point_score_out_of_bounds_outranks_and_increases(solution_probes_golden: Any):
+    """Past the array, this build reads load-time method thunks: each above every
+    in-bounds score, and higher for a higher index. The port relies on this order."""
+    ranks = solution_probes_golden["point_score_rank"]
+    in_bounds, out_of_bounds = ranks[:6], ranks[6:]
+
+    assert in_bounds == [0, 1, 2, 3, 4, 3]
+    assert out_of_bounds == list(range(5, 5 + len(out_of_bounds)))
+    assert len(ranks) == 23
