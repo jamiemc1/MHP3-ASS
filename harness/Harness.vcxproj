@@ -47,6 +47,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <!-- Names the statics around Solution.cpp's point_score (see SolutionProbe.h). -->
+      <GenerateMapFile>true</GenerateMapFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -73,16 +75,19 @@
     <ClCompile Include="src\RelevanceDump.cpp" />
     <ClCompile Include="src\SaveDump.cpp" />
     <ClCompile Include="src\SearchDump.cpp" />
+    <ClCompile Include="src\SolutionProbe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DataDump.h" />
     <ClInclude Include="src\Fixtures.h" />
     <ClInclude Include="src\Json.h" />
+    <ClInclude Include="src\LegacySolution.h" />
     <ClInclude Include="src\ModelDump.h" />
     <ClInclude Include="src\QueryFile.h" />
     <ClInclude Include="src\RelevanceDump.h" />
     <ClInclude Include="src\SaveDump.h" />
     <ClInclude Include="src\SearchDump.h" />
+    <ClInclude Include="src\SolutionProbe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

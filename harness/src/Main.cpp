@@ -7,6 +7,7 @@
 #include "RelevanceDump.h"
 #include "SaveDump.h"
 #include "SearchDump.h"
+#include "SolutionProbe.h"
 
 using namespace System;
 using namespace System::Collections::Generic;
@@ -23,6 +24,7 @@ namespace
 		Console::Error->WriteLine( L"  Harness search       <query.json> --out <prefix> [--candidates] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness relevance    <query.json> --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness best-decorations --out <file.json[.gz]> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness solution-probes  --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
 		Console::Error->WriteLine( L"search writes <prefix>.manifest.json and <prefix>.solutions.txt.gz, in the query's language." );
 		Console::Error->WriteLine( L"search and relevance take their language from the query file." );
@@ -176,6 +178,11 @@ int main( array< String^ >^ args )
 	{
 		LoadGameData( options );
 		RelevanceDump::WriteBestDecorations( out_path );
+	}
+	else if( options->command == L"solution-probes" && inputs->Count == 0 )
+	{
+		LoadGameData( options );
+		SolutionProbe::Write( out_path );
 	}
 	else
 		return Usage();
