@@ -28,7 +28,7 @@ namespace
 		Console::Error->WriteLine( L"  Harness best-decorations --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness solution-probes  --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness traces       <spec.json> --out <file.jsonl[.gz]> [--run-dir <dir>]" );
-		Console::Error->WriteLine( L"  Harness charm-location --lang <language> --out <file.json[.gz]> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness charm-location --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
 		Console::Error->WriteLine( L"search writes <prefix>.manifest.json and <prefix>.solutions.txt.gz, in the query's language." );
 		Console::Error->WriteLine( L"search, relevance and traces take their language from the query file." );
@@ -136,6 +136,11 @@ int main( array< String^ >^ args )
 		Console::Error->WriteLine( options->command + L" takes its language from the query file; remove --lang" );
 		return Usage();
 	}
+	if( options->command == L"charm-location" && options->language != nullptr )
+	{
+		Console::Error->WriteLine( L"charm-location covers every language itself; remove --lang" );
+		return Usage();
+	}
 
 	// Resolve paths before LoadGameData changes the working directory.
 	String^ out_path = IO::Path::GetFullPath( options->out_path );
@@ -196,12 +201,9 @@ int main( array< String^ >^ args )
 	}
 	else if( options->command == L"charm-location" && inputs->Count == 0 )
 	{
-		// The hand-written names and the first parser pass are in this language.
-		if( options->language != L"English (TeamHGG)" )
-		{
-			Console::Error->WriteLine( L"charm-location needs --lang \"English (TeamHGG)\"" );
-			return Usage();
-		}
+		// The GUI's default language: the hand-written names and the first
+		// parser pass are in it, and the command switches to the others itself.
+		options->language = L"English (TeamHGG)";
 		LoadGameData( options );
 		CharmLocationDump::Write( out_path );
 	}

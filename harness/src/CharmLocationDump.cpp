@@ -195,9 +195,11 @@ void CharmLocationDump::Write( String^ out_path )
 	named->Add( MakeCharm( 0, attack, 4, sharpness, -3 ) );
 	named->Add( MakeCharm( 1, attack, 4, sharpness, 0 ) );
 	named->Add( MakeCharm( 0, attack, -3, nullptr, 0 ) );
+	// Then names the GUI never writes, for the parser's String range checks.
 	array< String^ >^ literal_names = {
 		L"OOO", L"OO-", L"O--",
-		L"+4 No Such Skill ---", L"+4 No Such Skill, +3 Sharpness O--", L"+4 Attack, +3 No Such Skill O--" };
+		L"+4 No Such Skill ---", L"+4 No Such Skill, +3 Sharpness O--", L"+4 Attack, +3 No Such Skill O--",
+		L"", L"O-", L"+4", L"+4 ---", L"+4 Attack,", L"+4 Attack, ", L"+4 Attack, +3", L"+4 Attack, +3 Sharpness" };
 
 	json->Key( L"parse_and_find" );
 	json->BeginArray();
