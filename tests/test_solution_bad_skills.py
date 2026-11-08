@@ -24,19 +24,9 @@ from mhp3ass.solution.bad_skills import (
 from mhp3ass.solution.extra_skills import calculate_extra_skills
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution, new_calculation_data
 from solution_builders import make_jewel
-from solution_trace import matches_query_stages, stage_mismatches
 
-
-def test_bad_skill_stages_match_every_trace(trace_goldens, scratch_game):
-    stages = matches_query_stages(scratch_game)
-
-    assert stage_mismatches(trace_goldens, scratch_game, stages) == []
-
-
-def test_personal_bad_skill_stages_match_every_trace(personal_trace_goldens, scratch_game):
-    stages = matches_query_stages(scratch_game)
-
-    assert stage_mismatches(personal_trace_goldens, scratch_game, stages) == []
+# The bad-skill stages are checked against every trace with the rest of
+# MatchesQuery's stages, in test_matches_query.py.
 
 
 @dataclass(frozen=True)
