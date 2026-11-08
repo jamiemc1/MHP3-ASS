@@ -9,11 +9,18 @@
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1
+
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1 -CharmLocation
 #>
 param(
     # The language the GUI defaults to on first run, and the one goldens use
     # wherever names matter (charm names, imported charm lists).
-    [string]$Language = "English (TeamHGG)"
+    [string]$Language = "English (TeamHGG)",
+    # Also regenerate data\charm-location.json.gz (about 9 minutes). Rerun
+    # with it whenever CharmLocationDump.cpp, CharmDatabase.cpp or Common.cpp
+    # change: the golden can't tell it's stale.
+    [switch]$CharmLocation
 )
 
 $ErrorActionPreference = "Stop"
@@ -44,6 +51,9 @@ $mycharmsFiles = @(Get-ChildItem -File -Filter "*.txt" (Join-Path $repoRoot "tes
 Invoke-Harness dump-models @mycharmsFiles --lang $Language --out (Join-Path $dataDir "models.json.gz")
 Invoke-Harness best-decorations --out (Join-Path $dataDir "best-decorations.json.gz")
 Invoke-Harness solution-probes --out (Join-Path $dataDir "solution-probes.json.gz")
+if ($CharmLocation) {
+    Invoke-Harness charm-location --lang $Language --out (Join-Path $dataDir "charm-location.json.gz")
+}
 
 $languagesDir = Join-Path $repoRoot "legacy\Run\Data\Languages"
 # PowerShell variable names are case-insensitive: don't reuse $Language here.

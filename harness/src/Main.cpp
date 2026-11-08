@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CharmDatabase.h"
+#include "CharmLocationDump.h"
 #include "DataDump.h"
 #include "LoadedData.h"
 #include "ModelDump.h"
@@ -27,6 +28,7 @@ namespace
 		Console::Error->WriteLine( L"  Harness best-decorations --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness solution-probes  --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness traces       <spec.json> --out <file.jsonl[.gz]> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness charm-location --lang <language> --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
 		Console::Error->WriteLine( L"search writes <prefix>.manifest.json and <prefix>.solutions.txt.gz, in the query's language." );
 		Console::Error->WriteLine( L"search, relevance and traces take their language from the query file." );
@@ -191,6 +193,17 @@ int main( array< String^ >^ args )
 		options->language = QueryFile::Language( TraceDump::QueryPath( inputs[ 0 ] ) );
 		LoadGameData( options );
 		TraceDump::Run( inputs[ 0 ], out_path );
+	}
+	else if( options->command == L"charm-location" && inputs->Count == 0 )
+	{
+		// The hand-written names and the first parser pass are in this language.
+		if( options->language != L"English (TeamHGG)" )
+		{
+			Console::Error->WriteLine( L"charm-location needs --lang \"English (TeamHGG)\"" );
+			return Usage();
+		}
+		LoadGameData( options );
+		CharmLocationDump::Write( out_path );
 	}
 	else
 		return Usage();
