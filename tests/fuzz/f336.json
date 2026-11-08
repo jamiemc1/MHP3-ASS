@@ -1,25 +1,32 @@
 {
   "id": "f336",
-  "description": "uniform sampler, charm mode two_skill, 1 skill, 1 workers, 108 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
-  "language": "Deutsch (Vuze)",
+  "description": "armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up",
+  "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "male",
   "hr": 4,
-  "elder_star": 4,
-  "weapon_slots": 3,
+  "elder_star": 2,
+  "weapon_slots": 2,
   "allow_bad": false,
-  "include_piercings": false,
+  "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "one_skill",
   "skills": [
-    30
+    1,
+    22
   ],
   "skill_names": [
-    "Entbändigung +2"
+    "Attack Up [Med]",
+    "Exploiter"
   ],
   "my_charms": [
-    "0,Schn. lad.,1,Entbädigen,4",
-    "0,Entbädigen,4,SchrotHoch,-2"
+    "3,,,,",
+    "0,PierceS Up,1,BombStrUp,4",
+    "1,,,,",
+    "0,Attack,3,NormalSAdd,-2",
+    "0,Debilitate,3,Water Atk,5",
+    "0,Attack,2,SleepCAdd,1",
+    "0,ThunderRes,2,Attack,-5"
   ]
 }

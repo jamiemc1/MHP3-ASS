@@ -1,25 +1,51 @@
 {
   "id": "f498",
-  "description": "uniform sampler, charm mode one_skill, 1 skill, 1 workers, 12 evaluations (port estimate); quotas: auto_guard_charm, torso_up",
+  "description": "uniform sampler, charm mode one_skill, 3 skills; quotas: auto_guard_charm, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 6,
-  "elder_star": 1,
-  "weapon_slots": 3,
+  "hr": 5,
+  "elder_star": 4,
+  "weapon_slots": 2,
   "allow_bad": false,
-  "include_piercings": false,
+  "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": true,
+  "allow_low_rank": false,
   "charm_mode": "one_skill",
   "skills": [
-    119
+    119,
+    187,
+    75
   ],
   "skill_names": [
-    "Auto-Guard"
+    "Auto-Guard",
+    "Cold Eliminate",
+    "Element Atk Up"
   ],
   "my_charms": [
+    "0,Elemental,3,Ice Res,-10",
+    "0,Precision,2,Cold Res,-8",
+    "1,PierceS Up,1,Elemental,-2",
     "0,Auto-Guard,10,,",
-    "0,Auto-Guard,10,,"
+    "0,Fencing,4,Elemental,1",
+    "0,Ice Res,1,Antiseptic,-10",
+    "0,Rapid Fire,5,Will Recov,-1",
+    "0,Water Atk,4,Fire Res,-1",
+    "0,Elemental,4,Guard,1",
+    "0,CutterSAdd,6,Dragon Res,-2",
+    "0,Elemental,1,Horn,8",
+    "2,Potential,1,Horn,-1",
+    "1,WindPress,1,ParalyCAdd,7",
+    "0,Sharpener,4,BombStrUp,-5",
+    "0,Rec Level,6,ParalyCAdd,4",
+    "0,Stun,5,Crag S Add,9",
+    "0,PierceS Up,4,Elemental,2",
+    "0,Fire Res,3,Cold Res,-6",
+    "0,Crit Draw,2,Rec Level,2",
+    "1,Status,2,Perception,2",
+    "0,Water Res,1,NormalSAdd,6",
+    "2,Debilitate,1,PunishDraw,-3",
+    "0,Will Recov,4,Ice Res,10",
+    "0,Elemental,2,Health,7"
   ]
 }

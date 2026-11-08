@@ -1,35 +1,43 @@
 {
   "id": "f302",
-  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 1 workers, 1 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
-  "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
+  "description": "uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
   "gender": "male",
-  "hr": 1,
-  "elder_star": 4,
-  "weapon_slots": 2,
-  "allow_bad": true,
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
   "include_piercings": true,
-  "allow_event": false,
-  "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
   "skills": [
-    112
+    75,
+    140,
+    178,
+    30,
+    119,
+    7
   ],
   "skill_names": [
-    "Recovery Speed +2"
+    "Elementang. hoch",
+    "Best. Ohrstöpsel",
+    "Feinschmecker",
+    "Entbändigung +2",
+    "Autoblock",
+    "Krit. Auge +2"
   ],
   "my_charms": [
-    "0,Fate,5,Rec Speed,10",
-    "0,Loading,2,Rec Speed,10",
-    "2,Guard,2,Rec Speed,-8",
-    "0,Rec Speed,1,SleepCAdd,-6",
-    "1,Rec Speed,1,Gluttony,-7",
-    "2,Artisan,2,Rec Speed,-1",
-    "0,Rec Speed,6,Status,-4",
-    "0,Fire Res,1,Expert,-1",
-    "1,Eating,1,Evasion,-3",
-    "0,Eating,4,Rec Speed,-1",
-    "0,Rec Level,2,Rec Speed,-2",
-    "0,Rec Speed,4,Backpackng,-1"
+    "1,Rückstoß,3,Element,-1",
+    "0,Autoblock,10,,",
+    "0,Element,2,Kapazität,3",
+    "0,Gehör,1,Beruhigung,-3",
+    "1,Dungmeist.,1,,",
+    "1,Element,4,Eisabwehr,-10",
+    "0,BombStärk.,1,Schlemmen,-4",
+    "0,Konstitutn,4,Element,-1",
+    "0,Asweichdst,4,Entbädigen,4",
+    "0,Element,2,Kapazität,3"
   ]
 }

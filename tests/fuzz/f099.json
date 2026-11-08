@@ -1,46 +1,35 @@
 {
   "id": "f099",
-  "description": "uniform sampler, charm mode one_skill, 4 skills, 14 workers, 201600 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode two_skill, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "female",
-  "hr": 5,
-  "elder_star": 6,
-  "weapon_slots": 2,
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "two_skill",
   "skills": [
-    93,
-    84,
     120,
-    203
+    6
   ],
   "skill_names": [
-    "Constitution +2",
-    "Thunder Element +2",
     "Divine Protection",
-    "Rewards Celeb"
+    "Reckless Abandon +1"
   ],
   "my_charms": [
-    "0,Thundr Atk,1,Rec Speed,0",
-    "0,Fortitude,5,BombStrUp,-7",
-    "1,Protection,6,Sharpener,-9",
-    "2,Rewards,2,Status,3",
-    "0,PierceS Up,2,Thundr Atk,6",
-    "0,Thundr Atk,6,CutterSAdd,9",
-    "0,Constitutn,2,Rapid Fire,3",
-    "1,Thundr Atk,1,Artisan,-3",
-    "0,ClustS Add,5,ThunderRes,3",
-    "0,KO,1,Recoil,1",
-    "0,WindPress,2,Psychic,-10",
-    "1,Eating,1,Rewards,0",
-    "0,Constitutn,1,Poison,0",
-    "0,Thundr Atk,2,Evasion,3",
-    "0,Protection,1,Precision,-3",
-    "0,Crit Draw,4,Rewards,0",
-    "0,Potential,2,Quake Res,-5"
+    "0,Fencing,5,Protection,7",
+    "2,BombStrUp,1,PowerCAdd,6",
+    "0,Evasion,5,Defense,-1",
+    "1,Fire Atk,6,Thundr Atk,-9",
+    "0,Evasion,6,BombStrUp,-8",
+    "3,,,,",
+    "0,Dragon Atk,3,Attack,-6",
+    "0,Evade Dist,6,Mud/Snow,-7",
+    "0,Protection,4,Gluttony,-5",
+    "0,Rec Level,5,Guard Up,4"
   ]
 }

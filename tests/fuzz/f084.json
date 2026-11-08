@@ -1,35 +1,35 @@
 {
   "id": "f084",
-  "description": "uniform sampler, charm mode two_skill, 3 skills, 5 workers, 160380 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 5 skills; quotas: cross_type, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 6,
+  "hr": 3,
   "elder_star": 1,
   "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": true,
+  "allow_event": false,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "none",
   "skills": [
-    77,
-    93,
-    147
+    172,
+    55,
+    98,
+    107,
+    109
   ],
   "skill_names": [
-    "Fire Element +1",
-    "Constitution +2",
-    "Def Up (L)"
+    "Autotracker",
+    "PelletS/ScatterBowUp",
+    "Stamina Recov Up",
+    "Evasion Up",
+    "Sneak"
   ],
   "my_charms": [
-    "0,Constitutn,4,Combo Rate,3",
-    "0,Protection,1,Defense,5",
-    "0,SpeedSetup,8,Gunnery,1",
-    "0,Wide Area,6,Defense,6",
-    "0,Poison,1,Health,5",
-    "0,Ice Attack,5,Fire Atk,-6",
-    "0,BombStrUp,1,Psychic,9",
-    "0,Crag S Add,6,Defense,-4"
+    "1,Crag S Add,4,Gathering,-7",
+    "1,Protection,1,ClustS Add,2",
+    "0,Rec Level,3,Heat Res,-9",
+    "0,Fire Atk,1,SpeedSetup,7"
   ]
 }

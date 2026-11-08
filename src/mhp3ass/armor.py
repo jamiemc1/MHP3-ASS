@@ -16,7 +16,7 @@ def armor_skill_at(armor: Armor, ability: Ability) -> int:
     return points
 
 
-def _meets_requirements(armor: Armor, query: Query) -> bool:
+def armor_available(armor: Armor, query: Query) -> bool:
     """The availability checks at the top of ``MatchesQuery`` (Armor.cpp:108-114).
 
     A piece needs only one of HR and village stars to be high enough.
@@ -47,7 +47,7 @@ def armor_matches_query(
     Quirk 6: ``bad_skills`` is only ever set to ``False`` (Armor.cpp:140), so
     a piece whose relevant points are all negative counts as skill-less.
     """
-    if not _meets_requirements(armor, query):
+    if not armor_available(armor, query):
         return False
     if armor.torso_inc:
         return True

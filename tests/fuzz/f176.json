@@ -1,38 +1,34 @@
 {
   "id": "f176",
-  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 48 evaluations (port estimate); quotas: cross_type, torso_up",
+  "description": "uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
-  "gender": "female",
-  "hr": 1,
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
   "elder_star": 1,
-  "weapon_slots": 2,
-  "allow_bad": true,
+  "weapon_slots": 0,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
   "skills": [
-    61,
-    183,
-    126,
-    157
+    70
   ],
   "skill_names": [
-    "Crag S LV1 Add",
-    "Huntsman's Life",
-    "Sleep Negated",
-    "Thunder Res (S)"
+    "Close Range Coating Add"
   ],
   "my_charms": [
-    "0,NormalS Up,2,Blight Res,2",
-    "0,Slam,1,Reload Spd,4",
-    "2,Will Recov,1,FatigeCAdd,2",
-    "0,Fencing,4,PunishDraw,3",
-    "0,KO,3,SpeedSetup,-3",
-    "0,Protection,1,Precision,6",
-    "0,Ice Res,2,Whim,-7",
-    "1,Hunger,6,Huntsman,-5",
-    "0,FatigueAtk,1,Dragon Res,-6"
+    "0,Precision,4,Fortitude,2",
+    "0,Wide Area,1,Expert,3",
+    "0,PunishDraw,1,Attack,-5",
+    "0,FatigueAtk,2,Evasion,-2",
+    "0,Will Recov,1,NormalSAdd,3",
+    "0,Crag S Add,5,Status,-2",
+    "0,Rec Level,5,Evasion,-3",
+    "0,Poison,3,Backpackng,7",
+    "0,Hunger,4,Huntsman,8",
+    "1,Gunnery,2,RazorCAdd,-5",
+    "0,FatigueAtk,5,RazorCAdd,-3"
   ]
 }

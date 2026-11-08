@@ -1,35 +1,40 @@
 {
   "id": "f466",
-  "description": "uniform sampler, charm mode two_skill, 1 skill, 1 workers, 18 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "description": "armour-seeded sampler, charm mode none, 1 skill; quotas: empty_slot",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "male",
-  "hr": 4,
+  "hr": 3,
   "elder_star": 4,
-  "weapon_slots": 1,
+  "weapon_slots": 3,
   "allow_bad": false,
-  "include_piercings": false,
-  "allow_event": true,
+  "include_piercings": true,
+  "allow_event": false,
   "allow_low_rank": false,
-  "charm_mode": "two_skill",
+  "charm_mode": "none",
   "skills": [
-    151
+    23
   ],
   "skill_names": [
-    "Fire Res (S)"
+    "Ruiner"
   ],
   "my_charms": [
-    "0,Constitutn,3,Recoil,2",
-    "0,Water Atk,6,Defense,-9",
-    "2,Loading,3,Attack,0",
-    "1,Potential,1,Psychic,2",
-    "0,Dragon Res,3,Rec Speed,4",
-    "0,Rec Level,1,Gunnery,7",
-    "0,FastCharge,4,Guard Up,-2",
-    "3,Loading,3,ThunderRes,-4",
-    "0,Stun,2,Fire Res,-10",
-    "0,WindPress,4,Perception,4",
-    "0,Wide Area,8,NormalSAdd,7",
-    "0,Thundr Atk,3,PelletS Up,3"
+    "1,Potential,1,NormalS Up,0",
+    "0,Evade Dist,2,Slam,1",
+    "0,Slam,1,WindPress,3",
+    "0,Slam,3,Fire Atk,2",
+    "0,Rewards,1,Slam,3",
+    "0,Slam,5,Guard Up,0",
+    "0,PierceS Up,3,WindPress,-5",
+    "0,Slam,2,FatigueAtk,2",
+    "0,Slam,1,Thundr Atk,8",
+    "0,Constitutn,2,Health,-3",
+    "0,Rec Level,1,Shot Mix,10",
+    "1,Slam,1,Blight Res,-1",
+    "0,Status,3,Slam,-1",
+    "0,Ice Res,1,Backpackng,4",
+    "0,Slam,1,Rewards,2",
+    "1,Slam,2,Fencing,3",
+    "0,Water Atk,5,NormalSAdd,-5"
   ]
 }

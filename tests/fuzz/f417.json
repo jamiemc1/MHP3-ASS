@@ -1,30 +1,47 @@
 {
   "id": "f417",
-  "description": "uniform sampler, charm mode one_skill, 3 skills, 5 workers, 1440 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
-  "language": "English (TMO)",
+  "description": "armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up",
+  "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "female",
-  "hr": 1,
-  "elder_star": 4,
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 5,
   "weapon_slots": 0,
   "allow_bad": false,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
   "skills": [
-    201,
-    8,
-    184
+    179,
+    180,
+    108
   ],
   "skill_names": [
-    "Carving Master",
-    "Critical Eye +3",
-    "Pro Transporter"
+    "Picky Eater",
+    "Quick Eating +1",
+    "Fast Sheathe"
   ],
   "my_charms": [
-    "0,Psychic,6,Transportr,7",
-    "0,Psychic,6,Transportr,7",
-    "0,Psychic,6,Transportr,7"
+    "0,Slam,1,Eating,-1",
+    "0,Artisan,2,Reload Spd,-2",
+    "0,Potential,6,HearProtct,3",
+    "1,Thundr Atk,2,Psychic,6",
+    "0,Guard Up,2,Stamina,2",
+    "0,Potential,4,Defense,2",
+    "0,Water Res,6,Fire Res,4",
+    "1,Rec Level,2,Rapid Fire,-2",
+    "1,Rec Level,2,Artisan,-3",
+    "0,HearProtct,4,Water Res,-2",
+    "0,Potential,6,Health,1",
+    "0,NormalS Up,5,Evasion,4",
+    "1,Rec Speed,1,RazorCAdd,-3",
+    "0,Quake Res,5,Shot Mix,9",
+    "0,NormalS Up,1,Ice Res,7",
+    "0,Water Res,2,Shot Mix,6",
+    "0,Sharpness,4,ThunderRes,-4",
+    "0,Thundr Atk,1,Shot Mix,9",
+    "1,Water Res,3,Quake Res,2",
+    "0,Thundr Atk,6,Fire Atk,-2"
   ]
 }

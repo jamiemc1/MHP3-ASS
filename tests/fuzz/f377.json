@@ -1,43 +1,30 @@
 {
   "id": "f377",
-  "description": "uniform sampler, charm mode my_charms, 4 skills, 3 workers, 17640 evaluations (port estimate); quotas: torso_up",
-  "language": "Español (Team Hunters 404)",
-  "hunter_type": "gunner",
+  "description": "armour-seeded sampler, charm mode two_skill, 2 skills; quotas: two_skill_hr_below_5, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 4,
-  "elder_star": 1,
-  "weapon_slots": 0,
-  "allow_bad": true,
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "my_charms",
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
   "skills": [
-    187,
-    131,
-    157,
-    167
+    8,
+    174
   ],
   "skill_names": [
-    "Cancelar frio",
-    "Niega Barr/Nieve",
-    "Res. Trueno[pq]",
-    "Area Amplia +2"
+    "Reckless Abandon +3",
+    "Recovery Up"
   ],
   "my_charms": [
-    "2,Resist.,1,Destino,-3",
-    "0,Evadir,1,Res. Frio,-9",
-    "0,Desenv. KO,4,VisPsíquic,1",
-    "2,,,,",
-    "0,Captura,3,Fuego Inc,8",
-    "2,Fuego Inc,6,,",
-    "1,Prot. oido,1,Afilador,0",
-    "0,PresViento,4,Anti-robo,0",
-    "0,Fuego Inc,4,Evadir,1",
-    "0,Prot. oido,2,R. trueno,2",
-    "0,Yoga,5,Artillería,3",
-    "0,SubirDPerd,1,Desen.crit,0",
-    "1,R. hielo,1,VisPsíquic,7",
-    "0,Retroceso,1,Artesano,2"
+    "0,Expert,4,Poison,6",
+    "1,Rec Level,1,Psychic,-9",
+    "0,Expert,2,FatigeCAdd,2",
+    "1,,,,",
+    "0,Rec Level,6,Gunnery,-1"
   ]
 }

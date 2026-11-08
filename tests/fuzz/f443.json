@@ -1,44 +1,34 @@
 {
   "id": "f443",
-  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 2 workers, 60 evaluations (port estimate); quotas: torso_up",
-  "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 4,
-  "elder_star": 3,
-  "weapon_slots": 3,
+  "description": "uniform sampler, charm mode slotted, 2 skills; quotas: torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 2,
   "allow_bad": false,
-  "include_piercings": false,
+  "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "slotted",
   "skills": [
-    35
+    23,
+    201
   ],
   "skill_names": [
-    "Load Up"
+    "Partbreaker",
+    "Carving Master"
   ],
   "my_charms": [
-    "0,Crag S Add,4,Cold Res,6",
-    "0,Loading,4,Expert,-7",
-    "0,FastCharge,3,Loading,0",
-    "0,Rapid Fire,1,Slam,2",
-    "2,Loading,1,Fire Atk,0",
-    "0,Awaken,6,Loading,1",
-    "0,Evade Dist,1,Protection,-3",
-    "0,Loading,6,Dragon Atk,9",
-    "0,WindPress,3,Sharpener,-3",
-    "0,Loading,6,Evasion,-3",
-    "1,Slam,1,Loading,0",
-    "0,Constitutn,4,Sheathe,4",
-    "0,Fate,1,Water Res,7",
-    "0,Loading,2,Water Atk,-5",
-    "1,Ice Attack,6,Backpackng,-9",
-    "0,PierceSAdd,1,Ice Res,-1",
-    "0,Loading,2,Fencing,1",
-    "1,Guard,4,BombStrUp,-3",
-    "0,Guard,6,Thundr Atk,-4",
-    "0,Rec Level,4,Eating,-2",
-    "1,Loading,1,Guard,0"
+    "0,Wind Res,5,Sharpener,8",
+    "0,Carving,1,Ice Res,6",
+    "0,Water Atk,6,Transportr,-3",
+    "0,Wide-Range,1,Rec Speed,4",
+    "0,Carving,1,Pierce Up,2",
+    "0,Eating,1,PunishDraw,0",
+    "0,Blight Res,4,Handicraft,1",
+    "0,Fire Res,4,Attack,-3",
+    "0,Antiseptic,1,Mud/Snow,-5"
   ]
 }

@@ -1,11 +1,11 @@
 {
   "id": "f207",
-  "description": "armour-seeded sampler, charm mode none, 6 skills, 1 workers, 1 evaluations (port estimate); quotas: cross_type, empty_slot",
+  "description": "armour-seeded sampler, charm mode none, 2 skills; quotas: empty_slot",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 3,
-  "elder_star": 1,
+  "hr": 1,
+  "elder_star": 3,
   "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
@@ -13,32 +13,12 @@
   "allow_low_rank": false,
   "charm_mode": "none",
   "skills": [
-    62,
-    205,
-    193,
-    142,
-    208,
-    96
+    132,
+    14
   ],
   "skill_names": [
-    "Crag S All Add",
-    "Combine Success+45%",
-    "Spirit's Whim",
-    "Health +50",
-    "Bullet Limit",
-    "Runner"
+    "Quake Res",
+    "Speed Sharpening"
   ],
-  "my_charms": [
-    "2,Eating,1,Water Atk,-1",
-    "1,WindPress,1,Eating,1",
-    "0,Stamina,3,Reload Spd,3",
-    "0,Will Recov,6,Antiseptic,2",
-    "0,Constitutn,4,Whim,11",
-    "0,Artisan,5,Thundr Atk,7",
-    "0,Wide Area,1,Shot Mix,8",
-    "0,Sleep,2,Heat Res,-1",
-    "0,Eating,4,Elemental,1",
-    "0,Will Recov,6,Antiseptic,2",
-    "0,Stamina,4,Eating,-1"
-  ]
+  "my_charms": []
 }

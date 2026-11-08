@@ -1,43 +1,35 @@
 {
   "id": "f054",
-  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 6 workers, 6 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "description": "armour-seeded sampler, charm mode my_charms, 4 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 1,
-  "elder_star": 4,
-  "weapon_slots": 3,
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 1,
   "allow_bad": true,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "charm_mode": "my_charms",
   "skills": [
-    201,
-    174,
-    29,
-    6,
-    35
+    28,
+    140,
+    179,
+    96
   ],
   "skill_names": [
-    "Carving Expert",
-    "Recovery Up",
-    "Unleashed +1",
-    "Reckless Abandon +1",
-    "Load Up"
+    "Gunnery King",
+    "HighGradeEarplug",
+    "Picky Eater",
+    "Runner"
   ],
   "my_charms": [
-    "0,Water Atk,7,Ice Res,6",
-    "1,Loading,6,Rec Level,0",
-    "0,NormalSAdd,4,RazorCAdd,9",
-    "0,Gunnery,5,Cold Res,1",
-    "0,Psychic,6,Expert,-4",
-    "0,Debilitate,2,WindPress,-5",
-    "0,Ice Attack,4,Sharpener,1",
-    "0,Sharpness,2,Ice Attack,6",
-    "0,ThunderRes,3,Quake Res,-8",
-    "0,Protection,1,Health,13",
-    "0,Rec Level,5,ClustS Add,2",
-    "1,Rewards,2,Thundr Atk,1"
+    "0,WindPress,1,Gunnery,0",
+    "0,Gunnery,1,Cold Res,-10",
+    "0,Gunnery,2,Attack,3",
+    "0,Gunnery,6,Shot Mix,7",
+    "0,Awaken,3,Ice Res,1",
+    "0,Gunnery,6,Stun,2"
   ]
 }

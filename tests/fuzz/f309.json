@@ -1,48 +1,33 @@
 {
   "id": "f309",
-  "description": "armour-seeded sampler, charm mode one_skill, 2 skills, 7 workers, 6720 evaluations (port estimate); quotas: torso_up",
-  "language": "Español (Team Hunters 404)",
-  "hunter_type": "blademaster",
+  "description": "uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
   "gender": "female",
-  "hr": 6,
-  "elder_star": 5,
+  "hr": 1,
+  "elder_star": 4,
   "weapon_slots": 3,
   "allow_bad": true,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "my_charms",
   "skills": [
-    135,
-    116
+    174,
+    185,
+    100
   ],
   "skill_names": [
-    "Antiséptico",
-    "Guardia +2"
+    "Recovery Up",
+    "Heat Cancel",
+    "Hunger Halved"
   ],
   "my_charms": [
-    "0,R. dragón,6,Artillería,-2",
-    "0,Niv. recup,2,Guardia,0",
-    "0,Vel. recup,3,Ataque,0",
-    "0,Ataque,1,Cuerno,1",
-    "0,Potencial,2,Hambre,-8",
-    "0,Guardia,2,Desenv. KO,3",
-    "0,Trueno Inc,4,Cazador,9",
-    "0,Hielo Inc,3,Observar,7",
-    "1,Guardia,6,PresViento,-6",
-    "0,Fuego Inc,2,Resist.,2",
-    "0,Experto,1,Estiercol,-3",
-    "1,Res. Plaga,5,SubirDNorm,-2",
-    "0,Guardia,6,Cuerno,0",
-    "0,Guardia,1,Res. Calor,9",
-    "0,Precisión,4,Salud,6",
-    "0,Defensa,1,Antisept.,-1",
-    "0,Guardia,6,Afilador,-8",
-    "0,Guardia,5,Paralisis,7",
-    "0,Antisept.,7,TrampaRap.,-8",
-    "0,Resist.,3,Área ampl.,2",
-    "1,Guardia,1,Destino,3",
-    "1,Evadir,2,Guardia,3",
-    "1,SubFueBomb,2,Antisept.,-6"
+    "0,Rec Level,1,Gunnery,4",
+    "0,Blight Res,4,Rec Level,-3",
+    "0,Sharpener,2,Hunger,8",
+    "1,Hunger,1,Sense,-1",
+    "0,Expert,1,Heat Res,-8",
+    "0,Guard,6,Hunger,2"
   ]
 }

@@ -1,42 +1,37 @@
 {
   "id": "f230",
-  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 8 workers, 1728 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode slotted, 5 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
-  "gender": "female",
+  "gender": "male",
   "hr": 4,
-  "elder_star": 4,
-  "weapon_slots": 3,
+  "elder_star": 6,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
   "skills": [
-    55,
-    8,
-    60
+    169,
+    134,
+    67,
+    54,
+    111
   ],
   "skill_names": [
-    "PelletS/ScatterBowUp",
-    "Reckless Abandon +3",
-    "Pellet S All Add"
+    "Trap Master",
+    "Wind Anchor",
+    "Parlysis Coating Add",
+    "PierceS/PierceBowUp",
+    "Recovery Speed +1"
   ],
   "my_charms": [
-    "0,Antiseptic,1,PoisonCAdd,3",
-    "0,ClustS Add,5,Expert,-3",
-    "0,Constitutn,5,Gunnery,3",
-    "0,PelletS Up,1,Psychic,-4",
-    "0,PelletS Up,1,Elemental,2",
-    "0,Poison,3,PelletSAdd,8",
-    "0,Sheathe,3,Thundr Atk,-5",
-    "0,CutterSAdd,5,BombStrUp,-4",
-    "0,PelletS Up,1,Constitutn,-1",
-    "0,PelletS Up,1,Constitutn,-1",
-    "0,Guard,1,Psychic,9",
-    "1,Protection,2,PelletS Up,-1",
-    "0,Guard Up,1,PelletS Up,3",
-    "0,Wide Area,7,Expert,-1",
-    "0,PelletS Up,3,HearProtct,3"
+    "0,Psychic,5,Status,1",
+    "0,Will Recov,1,Whim,13",
+    "0,Sleep,1,ParalyCAdd,2",
+    "0,Poison,2,Precision,6",
+    "0,Guard,1,PierceS Up,3",
+    "0,Psychic,5,Status,1"
   ]
 }

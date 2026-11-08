@@ -1,45 +1,35 @@
 {
   "id": "f137",
-  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 4 workers, 480 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode two_skill, 5 skills; quotas: cross_type, two_skill_hr_below_5, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
-  "gender": "male",
-  "hr": 3,
-  "elder_star": 5,
-  "weapon_slots": 3,
-  "allow_bad": true,
-  "include_piercings": false,
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "my_charms",
+  "charm_mode": "two_skill",
   "skills": [
-    96,
-    86
+    21,
+    203,
+    157,
+    8,
+    140
   ],
   "skill_names": [
-    "Runner",
-    "Ice Element +1"
+    "ESP",
+    "Rewards Celeb",
+    "Thunder Res (S)",
+    "Reckless Abandon +3",
+    "HighGradeEarplug"
   ],
   "my_charms": [
-    "0,PelletSAdd,6,PoisonCAdd,5",
-    "0,Health,7,Expert,-2",
-    "1,Crag S Add,2,Sleep,-5",
-    "1,Sheathe,1,Eating,0",
-    "2,KO,1,Psychic,-2",
-    "0,Guard,3,Combo Rate,8",
-    "1,Potential,4,ParalyCAdd,-10",
-    "1,Blight Res,5,Sharpener,-10",
-    "0,PierceSAdd,2,HiSpdGathr,-3",
-    "0,PelletSAdd,2,CutterSAdd,-8",
-    "0,PelletSAdd,4,Gathering,8",
-    "0,Sheathe,5,Quake Res,3",
-    "1,Eating,1,WindPress,-3",
-    "0,Crag S Add,5,Attack,5",
-    "1,Stamina,1,ThunderRes,-4",
-    "0,Evade Dist,2,Slam,-1",
-    "0,Stamina,3,Dragon Atk,4",
-    "0,Stun,5,,",
-    "0,Blight Res,5,Elemental,-3",
-    "0,HearProtct,3,Crit Draw,3"
+    "0,Rewards,4,Gunnery,5",
+    "0,Fencing,3,PierceS Up,3",
+    "1,Ice Res,2,Water Res,1",
+    "1,Dragon Res,3,ThunderRes,-6"
   ]
 }

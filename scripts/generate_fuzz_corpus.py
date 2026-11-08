@@ -31,6 +31,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from mhp3ass.armor import armor_available
 from mhp3ass.charms.comparison import add_charm_to_optimal_list
 from mhp3ass.charms.for_query import get_charms
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
@@ -42,8 +43,8 @@ from mhp3ass.charms.validity import (
     generated_charm,
 )
 from mhp3ass.data import GameData, apply_language, load_game_data
-from mhp3ass.data.loaders import read_skill_types
-from mhp3ass.model import Ability, AbilityPair, Armor, ArmorType, Charm, Gender, HunterType
+from mhp3ass.data.loaders import other_hunter_types_skill, read_skill_types
+from mhp3ass.model import Ability, AbilityPair, ArmorType, Charm, Gender, HunterType
 from mhp3ass.query import Query, QuerySpec, build_query, offered_skills
 from mhp3ass.relevance import formulate_query
 
@@ -203,14 +204,6 @@ def build_catalogue(data_dir: Path) -> Catalogue:
     return catalogue
 
 
-def cross_type(skill_type: int, hunter_type: HunterType) -> bool:
-    """A skill the unused type column assigns to the other hunter type."""
-    mismatched = (skill_type == 1 and hunter_type is HunterType.GUNNER) or (
-        skill_type == 2 and hunter_type is HunterType.BLADEMASTER
-    )
-    return mismatched
-
-
 def uniform_skills(
     rng: Rng, catalogue: Catalogue, hunter_type: HunterType, count: int, cross_weight: float = 0.3
 ) -> list[int]:
@@ -224,7 +217,9 @@ def uniform_skills(
             if catalogue.game.skills[index].ability not in chosen
         ]
         weights = [
-            cross_weight if cross_type(catalogue.skill_types[index], hunter_type) else 1.0
+            cross_weight
+            if other_hunter_types_skill(catalogue.skill_types[index], hunter_type)
+            else 1.0
             for index in available
         ]
         index = available[rng.weighted_index(weights)]
@@ -233,37 +228,28 @@ def uniform_skills(
     return skills
 
 
-def wearable(armor: Armor, hunter_type: HunterType, gender: Gender) -> bool:
-    fits = armor.hunter_type in (HunterType.BOTH_TYPES, hunter_type) and armor.gender in (
-        Gender.BOTH_GENDERS,
-        gender,
-    )
-    return fits
-
-
 def armour_seeded_skills(
-    rng: Rng,
-    catalogue: Catalogue,
-    hunter_type: HunterType,
-    gender: Gender,
-    count: int,
-    torso_up_weight: float = 3.0,
+    rng: Rng, catalogue: Catalogue, settings: Query, count: int, torso_up_weight: float = 3.0
 ) -> list[int]:
-    """One offered skill per positive ability of a random wearable piece, topped up from
-    decoration abilities, in random order."""
+    """One offered skill per positive ability of a random piece available to ``settings``
+    (hunter type, gender, rank and the armour toggles), topped up from decoration
+    abilities, in random order."""
     pieces = [
         armor
         for armor_type in ArmorType
         for armor in catalogue.game.armors[armor_type]
-        if wearable(armor, hunter_type=hunter_type, gender=gender)
+        if armor_available(armor, settings)
     ]
-    weights = [torso_up_weight if armor.torso_inc else 1.0 for armor in pieces]
-    seed_piece = pieces[rng.weighted_index(weights)]
-    abilities = [
-        pair.ability
-        for pair in seed_piece.abilities
-        if pair.amount > 0 and pair.ability in catalogue.offered_by_ability
-    ]
+    # With no piece available (low rank off at a low HR), every skill comes from decorations.
+    abilities: list[Ability] = []
+    if pieces:
+        weights = [torso_up_weight if armor.torso_inc else 1.0 for armor in pieces]
+        seed_piece = pieces[rng.weighted_index(weights)]
+        abilities = [
+            pair.ability
+            for pair in seed_piece.abilities
+            if pair.amount > 0 and pair.ability in catalogue.offered_by_ability
+        ]
     rng.shuffle(abilities)
     abilities = abilities[:count]
     top_up = [ability for ability in catalogue.decoration_abilities if ability not in abilities]
@@ -346,9 +332,19 @@ def draw_candidate(
         skills = uniform_skills(rng, catalogue, hunter_type=hunter_type, count=skill_count)
     else:
         sampler = "armour-seeded"
-        skills = armour_seeded_skills(
-            rng, catalogue, hunter_type=hunter_type, gender=gender, count=skill_count
+        settings = Query(
+            skills=[],
+            hunter_type=hunter_type,
+            gender=gender,
+            hr=hr,
+            elder_star=elder_star,
+            weapon_slots_allowed=weapon_slots,
+            include_piercings=include_piercings,
+            allow_bad=allow_bad,
+            allow_event=allow_event,
+            allow_low_rank=allow_low_rank,
         )
+        skills = armour_seeded_skills(rng, catalogue, settings=settings, count=skill_count)
     with_illegal = rng.chance(illegal_chance)
     my_charms = draw_my_charms(rng, catalogue, skills=skills, with_illegal=with_illegal)
     illegal_charms = sum(
@@ -445,11 +441,13 @@ def candidate_features(candidate: Candidate, catalogue: Catalogue) -> list[str]:
     skills = [catalogue.game.skills[index] for index in candidate.skills]
     auto_guard = any(skill.ability.auto_guard for skill in skills)
     auto_guard_charm = has_auto_guard_charm(legal_charms(candidate, catalogue))
+    # StartSearch takes the Auto-Guard path only in these modes (Form1.h:1274).
+    auto_guard_worker = auto_guard and candidate.charm_mode in ("slotted", "one_skill", "two_skill")
     flags = {
-        "auto_guard_charm": auto_guard and auto_guard_charm,
-        "auto_guard_no_charm": auto_guard and not auto_guard_charm,
+        "auto_guard_charm": auto_guard_worker and auto_guard_charm,
+        "auto_guard_no_charm": auto_guard_worker and not auto_guard_charm,
         "cross_type": any(
-            cross_type(catalogue.skill_types[index], candidate.hunter_type)
+            other_hunter_types_skill(catalogue.skill_types[index], candidate.hunter_type)
             for index in candidate.skills
         ),
         "two_skill_hr_below_5": candidate.charm_mode == "two_skill" and candidate.hr < 5,
@@ -489,6 +487,13 @@ class Pool:
         self.candidates = candidates
         self.catalogue = catalogue
         self._measured: dict[int, Measured] = {}
+        self._cheap: dict[int, list[str]] = {}
+
+    def cheap_features(self, number: int) -> list[str]:
+        """``candidate_features``, computed once per candidate."""
+        if number not in self._cheap:
+            self._cheap[number] = candidate_features(self.candidates[number], self.catalogue)
+        return self._cheap[number]
 
     def measured(self, number: int) -> Measured:
         if number not in self._measured:
@@ -513,6 +518,9 @@ def select(pool: Pool, count: int, max_evaluations: int) -> list[Measured]:
         Quota("one_skill_hr_3_or_less", 25),
         Quota("illegal_charm_lines", 10),
     ]
+    quota_total = sum(quota.minimum for quota in quotas)
+    if count < quota_total:
+        raise ValueError(f"--count {count} is below the {quota_total} queries the quotas need")
     measured_only = {"torso_up", "empty_slot"}
     selected: list[Measured] = []
     taken: set[int] = set()
@@ -523,7 +531,7 @@ def select(pool: Pool, count: int, max_evaluations: int) -> list[Measured]:
                 break
             if candidate.number in taken:
                 continue
-            cheap = candidate_features(candidate, pool.catalogue)
+            cheap = pool.cheap_features(candidate.number)
             if "illegal_charm_lines" in cheap and quota.feature != "illegal_charm_lines":
                 continue
             if quota.feature not in measured_only and quota.feature not in cheap:
@@ -555,8 +563,7 @@ def description(measured: Measured) -> str:
     skills = "skill" if len(candidate.skills) == 1 else "skills"
     parts = [
         f"{candidate.sampler} sampler, charm mode {candidate.charm_mode}, "
-        f"{len(candidate.skills)} {skills}, {measured.workers} workers, "
-        f"{measured.evaluations} evaluations (port estimate)"
+        f"{len(candidate.skills)} {skills}"
     ]
     if measured.features:
         parts.append("quotas: " + ", ".join(measured.features))
@@ -582,14 +589,17 @@ def check_query(contents: dict, measured: Measured, game: GameData, validity: Ch
 def render(selected: list[Measured], catalogue: Catalogue, data_dir: Path) -> dict[str, str]:
     """File name -> contents, applying each language once (names change with it)."""
     files: dict[str, str] = {}
-    ids = {id(measured): f"f{number:03d}" for number, measured in enumerate(selected, start=1)}
+    ids = {
+        measured.candidate.number: f"f{position:03d}"
+        for position, measured in enumerate(selected, start=1)
+    }
     for language in catalogue.languages:
         in_language = [measured for measured in selected if measured.candidate.language == language]
         if not in_language:
             continue
         apply_language(catalogue.game, data_dir / "Languages" / language)
         for measured in in_language:
-            query_id = ids[id(measured)]
+            query_id = ids[measured.candidate.number]
             contents = query_json(
                 measured.candidate,
                 catalogue.game,

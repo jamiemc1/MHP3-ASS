@@ -1,44 +1,34 @@
 {
   "id": "f415",
-  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "description": "uniform sampler, charm mode slotted, 1 skill; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 1,
-  "elder_star": 5,
-  "weapon_slots": 2,
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "none",
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
   "skills": [
-    179,
-    193
+    140
   ],
   "skill_names": [
-    "Picky Eater",
-    "Spirit's Whim"
+    "HighGradeEarplug"
   ],
   "my_charms": [
-    "1,Will Recov,1,Fire Res,4",
-    "0,Stun,4,Gluttony,12",
-    "0,Thundr Atk,2,PelletSAdd,-1",
-    "0,Whim,9,,",
-    "1,Will Recov,1,Health,-6",
-    "0,Rapid Fire,3,Crit Draw,2",
-    "0,Evasion,3,Gluttony,-6",
-    "0,Water Atk,2,Rapid Fire,-1",
-    "0,Fire Res,4,Gluttony,10",
-    "0,KO,3,Expert,7",
-    "0,Thundr Atk,5,Mud/Snow,-6",
-    "0,Potential,5,Gluttony,-5",
-    "0,Potential,6,Whim,0",
-    "0,Sharpener,4,Whim,7",
-    "0,Guard Up,4,Gluttony,-10",
-    "0,Thundr Atk,1,Whim,2",
-    "1,Water Res,5,Quake Res,-9",
-    "0,Poison,3,Whim,5",
-    "0,Antiseptic,2,Whim,10"
+    "0,HearProtct,2,Loading,-2",
+    "0,Carving,4,Water Atk,9",
+    "0,HearProtct,3,Rec Level,4",
+    "1,Evasion,1,WindPress,1",
+    "0,Rewards,2,FatigueAtk,3",
+    "0,Eating,3,HearProtct,-3",
+    "1,HearProtct,1,Wide Area,-8",
+    "0,HearProtct,5,Sheathe,-8",
+    "0,Will Recov,1,HearProtct,3",
+    "2,HearProtct,4,Water Res,-2",
+    "0,Guard Up,4,HearProtct,-3"
   ]
 }

@@ -1,39 +1,37 @@
 {
   "id": "f180",
-  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 324 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode two_skill, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "female",
-  "hr": 2,
+  "hr": 5,
   "elder_star": 2,
-  "weapon_slots": 1,
-  "allow_bad": false,
+  "weapon_slots": 2,
+  "allow_bad": true,
   "include_piercings": true,
-  "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
   "skills": [
-    176,
-    172,
-    169,
-    19
+    36,
+    45
   ],
   "skill_names": [
-    "Item Use Up",
-    "Autotracker",
-    "Trap Master",
-    "Concentration"
+    "Rapid Shot +1",
+    "Recoil Reduction +3"
   ],
   "my_charms": [
-    "0,Gunnery,6,Sense,-2",
-    "0,Will Recov,1,Shot Mix,4",
-    "0,Rec Level,4,KO,-2",
-    "0,HearProtct,3,Ice Attack,-6",
-    "0,Fate,1,NormalS Up,3",
-    "0,Slam,2,ThunderRes,8",
-    "0,Water Res,1,Gathering,13",
-    "1,Expert,2,Stun,-2",
-    "0,Gunnery,6,Sense,-2",
-    "0,Fate,1,NormalS Up,3"
+    "0,HearProtct,4,Psychic,8",
+    "0,Fortitude,1,RazorCAdd,-7",
+    "0,Carving,4,Rapid Fire,1",
+    "0,Stamina,4,FatigueAtk,1",
+    "0,Recoil,4,Ice Attack,-2",
+    "0,Defense,2,ThunderRes,9",
+    "0,Water Atk,4,Horn,10",
+    "2,Defense,1,PowerCAdd,2",
+    "0,FatigueAtk,2,Status,3",
+    "0,Water Atk,6,Hunger,3",
+    "0,Poison,1,Attack,1",
+    "1,Guard,2,SpeedSetup,-9"
   ]
 }

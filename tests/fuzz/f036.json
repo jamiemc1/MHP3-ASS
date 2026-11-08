@@ -1,43 +1,38 @@
 {
   "id": "f036",
-  "description": "uniform sampler, charm mode my_charms, 1 skill, 2 workers, 96 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 1,
-  "elder_star": 5,
-  "weapon_slots": 1,
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 0,
   "allow_bad": false,
-  "include_piercings": false,
+  "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "my_charms",
+  "charm_mode": "one_skill",
   "skills": [
-    160
+    92,
+    163
   ],
   "skill_names": [
-    "Ice Res (S)"
+    "Constitution +1",
+    "Dragon Res (S)"
   ],
   "my_charms": [
-    "0,Carving,2,Hunger,6",
-    "0,Evasion,2,Crag S Add,-7",
-    "0,Evade Dist,1,Precision,-8",
-    "0,PelletSAdd,1,PierceSAdd,5",
-    "0,Water Atk,5,Artisan,3",
-    "0,Rec Level,3,Reload Spd,-3",
-    "0,Reload Spd,1,Rec Speed,5",
-    "0,Quake Res,1,Wide Area,4",
-    "0,Rec Level,4,PierceS Up,1",
-    "0,Reload Spd,3,Water Res,3",
-    "0,PelletSAdd,1,PierceSAdd,5",
-    "1,WindPress,1,Health,2",
-    "0,Evasion,2,Crag S Add,-7",
-    "0,Dragon Atk,2,PoisonCAdd,-4",
-    "3,KO,2,Awaken,-3",
-    "0,Water Res,5,Crag S Add,-6",
-    "0,PierceSAdd,1,LastingPwr,-5",
-    "0,Poison,2,ThunderRes,5",
-    "2,Status,3,Fire Atk,-7",
-    "0,Evade Dist,5,Backpackng,-2"
+    "2,KO,2,Constitutn,-2",
+    "0,Sharpener,4,Mud/Snow,5",
+    "0,Guard Up,6,Dragon Res,6",
+    "0,Guard,3,Constitutn,-3",
+    "0,PierceS Up,2,BombStrUp,8",
+    "0,PelletSAdd,5,Expert,3",
+    "0,Defense,4,Dragon Res,-2",
+    "1,ThunderRes,2,Sense,-4",
+    "0,KO,2,Guard Up,0",
+    "0,ThunderRes,1,Gunnery,1",
+    "3,Ice Attack,3,Dragon Res,-9",
+    "1,Constitutn,5,HearProtct,-3",
+    "1,Rewards,1,Dragon Res,-6"
   ]
 }

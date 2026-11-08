@@ -1,35 +1,30 @@
 {
   "id": "f285",
-  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 1152 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode none, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 5,
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
   "elder_star": 4,
   "weapon_slots": 0,
-  "allow_bad": false,
+  "allow_bad": true,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
   "charm_mode": "none",
   "skills": [
-    180,
-    108
+    141,
+    19,
+    80
   ],
   "skill_names": [
-    "Quick Eating +1",
-    "Fast Sheathe"
+    "Health +20",
+    "Concentration",
+    "Water Element +1"
   ],
   "my_charms": [
-    "0,Sheathe,4,Psychic,12",
-    "0,Constitutn,5,Eating,2",
-    "0,Constitutn,6,Sharpness,-1",
-    "0,Potential,1,Gathering,6",
-    "0,Backpackng,6,Fire Res,-6",
-    "0,Sheathe,5,Stun,-4",
-    "1,Sheathe,3,Horn,-1",
-    "2,Evade Dist,2,Debilitate,1",
-    "1,Sheathe,3,Horn,-1",
-    "2,Evade Dist,2,Debilitate,1"
+    "0,FastCharge,4,Constitutn,4",
+    "0,Status,3,FastCharge,1",
+    "1,,,,"
   ]
 }

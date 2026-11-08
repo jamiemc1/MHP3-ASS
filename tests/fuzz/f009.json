@@ -1,34 +1,36 @@
 {
   "id": "f009",
-  "description": "uniform sampler, charm mode one_skill, 4 skills, 6 workers, 192 evaluations (port estimate); quotas: cross_type, one_skill_hr_3_or_less",
+  "description": "armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 3,
-  "elder_star": 6,
-  "weapon_slots": 2,
-  "allow_bad": true,
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "allow_low_rank": true,
+  "charm_mode": "none",
   "skills": [
-    204,
-    36,
-    185,
-    35
+    168,
+    116,
+    98
   ],
   "skill_names": [
-    "Combine Success +20%",
-    "Rapid Shot +1",
-    "Heat Cancel",
-    "Load Up"
+    "Bombardier",
+    "Guard +2",
+    "Stamina Recov Up"
   ],
   "my_charms": [
-    "1,Status,1,ClustS Add,-1",
-    "0,WindPress,2,Loading,-1",
-    "0,Crag S Add,1,Mud/Snow,4",
-    "2,Rec Level,3,Status,-4",
-    "2,PelletSAdd,1,Combo Rate,3"
+    "0,Crit Draw,1,Fate,3",
+    "0,Hunger,1,Fortitude,6",
+    "1,Artisan,3,BombStrUp,1",
+    "0,Hunger,1,Fortitude,6",
+    "0,Rewards,1,Elemental,3",
+    "1,Carving,3,NormalS Up,-1",
+    "0,Defense,2,Hunger,-10",
+    "0,CutterSAdd,4,Heat Res,7",
+    "0,Dragon Atk,5,Evade Dist,-3"
   ]
 }

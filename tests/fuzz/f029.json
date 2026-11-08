@@ -1,31 +1,30 @@
 {
   "id": "f029",
-  "description": "uniform sampler, charm mode two_skill, 1 skill, 1 workers, 12 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "description": "armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
+  "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 2,
-  "elder_star": 5,
-  "weapon_slots": 2,
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 0,
   "allow_bad": true,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "none",
   "skills": [
-    163
+    187,
+    105,
+    161
   ],
   "skill_names": [
-    "Dragon Res (S)"
+    "Cold Eliminate",
+    "Evade +2",
+    "Ice Res (L)"
   ],
   "my_charms": [
-    "0,Guard Up,2,Dragon Res,2",
-    "0,Dragon Res,3,Status,-2",
-    "0,Dragon Res,3,Quake Res,-9",
-    "0,Slam,1,Recoil,3",
-    "0,Guard Up,2,Dragon Res,2",
-    "0,Dragon Res,6,Ice Res,-7",
-    "0,Fire Atk,2,Crit Draw,3",
-    "0,Expert,3,Dragon Res,-1"
+    "0,Sheathe,1,LastingPwr,-9",
+    "2,Crag S Add,2,SpeedSetup,-4",
+    "0,Mud/Snow,1,Dragon Res,-4"
   ]
 }

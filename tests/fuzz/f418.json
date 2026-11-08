@@ -1,33 +1,29 @@
 {
   "id": "f418",
-  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "description": "uniform sampler, charm mode none, 1 skill; quotas: cross_type, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
   "hr": 1,
-  "elder_star": 4,
-  "weapon_slots": 1,
-  "allow_bad": false,
-  "include_piercings": false,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": false,
+  "allow_low_rank": true,
   "charm_mode": "none",
   "skills": [
-    12,
-    137
+    56
   ],
   "skill_names": [
-    "Sharp Sword",
-    "Blightproof"
+    "Normal S All Add"
   ],
   "my_charms": [
-    "0,Thundr Atk,4,Blight Res,0",
-    "0,Rec Speed,5,Crag S Add,2",
-    "0,Sharpness,5,Evasion,-3",
-    "2,Blight Res,1,Gunnery,-7",
-    "0,Fencing,4,Blight Res,2",
-    "0,Sharpness,3,Potential,3",
-    "0,Fire Atk,7,Rapid Fire,0",
-    "0,Blight Res,1,Thundr Atk,-6"
+    "2,Wide Area,4,NormalSAdd,0",
+    "0,NormalSAdd,5,Shot Mix,9",
+    "0,NormalSAdd,1,HiSpdGathr,0",
+    "0,NormalSAdd,1,FatigeCAdd,-5",
+    "0,Will Recov,6,NormalSAdd,3",
+    "0,NormalSAdd,6,Paralysis,2"
   ]
 }

@@ -1,37 +1,38 @@
 {
   "id": "f359",
-  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 324 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode my_charms, 1 skill; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
-  "gender": "male",
-  "hr": 3,
+  "gender": "female",
+  "hr": 5,
   "elder_star": 4,
-  "weapon_slots": 0,
+  "weapon_slots": 1,
   "allow_bad": false,
-  "include_piercings": false,
+  "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "none",
+  "charm_mode": "my_charms",
   "skills": [
-    98,
-    50,
-    27
+    184
   ],
   "skill_names": [
-    "Stamina Recov Up",
-    "Accuracy+2",
-    "Gunnery Master"
+    "Backpacking Expert"
   ],
   "my_charms": [
-    "0,Ice Res,4,Precision,-9",
-    "1,Evasion,1,Carving,-3",
-    "0,HearProtct,3,Debilitate,1",
-    "1,Fate,1,Will Recov,3",
-    "0,Ice Attack,2,Will Recov,4",
-    "0,Constitutn,3,HearProtct,-1",
-    "0,PierceS Up,2,Sheathe,-7",
-    "0,NormalSAdd,2,Precision,-7",
-    "0,Will Recov,6,Status,-3",
-    "1,PelletS Up,2,Constitutn,-3"
+    "3,Carving,1,Dragon Atk,-5",
+    "1,FastCharge,1,Water Res,3",
+    "0,Fencing,1,Sheathe,0",
+    "0,Mud/Snow,6,SpeedSetup,-1",
+    "1,Evade Dist,1,Rec Speed,-2",
+    "0,Attack,2,CutterSAdd,10",
+    "3,Guard Up,2,Evasion,-1",
+    "0,Fire Atk,4,Backpackng,9",
+    "0,PierceSAdd,3,Gluttony,13",
+    "0,Evasion,4,RazorCAdd,0",
+    "1,Backpackng,6,PoisonCAdd,-5",
+    "0,Rec Level,2,Expert,-6",
+    "1,FatigueAtk,3,Health,-6",
+    "0,Protection,3,PierceS Up,2",
+    "0,Fortitude,1,Gluttony,10"
   ]
 }

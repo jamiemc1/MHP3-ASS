@@ -1,36 +1,46 @@
 {
   "id": "f397",
-  "description": "armour-seeded sampler, charm mode two_skill, 2 skills, 3 workers, 2304 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
-  "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
+  "description": "armour-seeded sampler, charm mode one_skill, 2 skills; quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "blademaster",
+  "gender": "female",
   "hr": 3,
-  "elder_star": 6,
-  "weapon_slots": 0,
+  "elder_star": 1,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "one_skill",
   "skills": [
-    147,
-    54
+    19,
+    176
   ],
   "skill_names": [
-    "Def Up (L)",
-    "PierceS/PierceBowUp"
+    "Focus",
+    "Item Use Up"
   ],
   "my_charms": [
-    "0,Sheathe,6,Expert,2",
-    "0,WindPress,5,Defense,-5",
-    "0,Debilitate,3,Crit Draw,2",
-    "0,Guard Up,2,Awaken,0",
-    "2,Rec Speed,2,Defense,-2",
-    "0,Will Recov,1,PierceS Up,2",
-    "0,Water Atk,1,Dragon Res,8",
-    "0,NormalS Up,2,FatigueAtk,1",
-    "0,Rec Level,5,Backpackng,-7",
-    "0,Status,5,Ice Res,12",
-    "0,Status,5,Ice Res,12"
+    "0,Sleep,4,Exhaust C+,3",
+    "0,Evasion,2,Combo Plus,2",
+    "0,Expert,4,LastingPwr,7",
+    "0,FastCharge,4,Protection,7",
+    "0,FastCharge,4,Protection,7",
+    "0,FastCharge,1,Rec Speed,-10",
+    "0,Destroyer,2,Wide-Range,0",
+    "1,Crit Draw,5,FastCharge,0",
+    "0,Guard Up,3,Expert,-5",
+    "0,Ice Atk,4,Defense,-3",
+    "0,Normal S+,1,LastingPwr,7",
+    "0,Crag S+,1,Dungmaster,3",
+    "0,Guard Up,3,Expert,-5",
+    "0,FastCharge,1,Thundr Atk,4",
+    "0,Blight Res,1,KO,-3",
+    "0,Crit Draw,1,Gloves Off,-2",
+    "0,Constitutn,5,FastCharge,0",
+    "0,Fencing,3,Status,2",
+    "0,Tremor Res,2,Clust S+,0",
+    "2,FastCharge,3,Water Atk,-2",
+    "0,Blight Res,1,FastCharge,2"
   ]
 }

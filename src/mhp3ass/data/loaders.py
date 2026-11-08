@@ -196,6 +196,14 @@ def read_skill_types(path: Path) -> list[int]:
     return types
 
 
+def other_hunter_types_skill(skill_type: int, hunter_type: HunterType) -> bool:
+    """The type column (``read_skill_types``) assigns the skill to the other hunter type."""
+    mismatched = (skill_type == 1 and hunter_type is HunterType.GUNNER) or (
+        skill_type == 2 and hunter_type is HunterType.BLADEMASTER
+    )
+    return mismatched
+
+
 def _find_ability(game: GameData, name: str) -> Ability:
     ability = game.ability_map.get(name)
     if ability is None:

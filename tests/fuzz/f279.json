@@ -1,31 +1,39 @@
 {
   "id": "f279",
-  "description": "armour-seeded sampler, charm mode slotted, 2 skills, 1 workers, 3150 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode one_skill, 6 skills; quotas: one_skill_hr_3_or_less, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
+  "hunter_type": "blademaster",
+  "gender": "female",
   "hr": 3,
-  "elder_star": 6,
-  "weapon_slots": 3,
+  "elder_star": 2,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "charm_mode": "one_skill",
   "skills": [
-    170,
-    169
+    19,
+    145,
+    152,
+    176,
+    86,
+    124
   ],
   "skill_names": [
-    "Trnquilizr Guru",
-    "Trap Master"
+    "Concentration",
+    "Def Up (S)",
+    "Fire Res (L)",
+    "Item Use Up",
+    "Ice Element +1",
+    "Parlysis Negated"
   ],
   "my_charms": [
-    "0,Fire Res,5,SpeedSetup,3",
-    "0,Rec Level,2,HearProtct,-2",
-    "0,Constitutn,6,Fate,-1",
-    "1,Rec Level,3,HearProtct,1",
-    "0,KO,1,Perception,6",
-    "0,FatigueAtk,4,KO,1"
+    "0,Sharpness,1,Rewards,0",
+    "3,,,,",
+    "3,,,,",
+    "0,KO,2,SpeedSetup,5",
+    "2,Fire Res,1,CutterSAdd,-7",
+    "0,Evasion,1,Perception,4"
   ]
 }

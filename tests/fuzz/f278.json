@@ -1,49 +1,31 @@
 {
   "id": "f278",
-  "description": "uniform sampler, charm mode one_skill, 4 skills, 7 workers, 56000 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "description": "uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
+  "hunter_type": "blademaster",
   "gender": "female",
   "hr": 3,
-  "elder_star": 5,
-  "weapon_slots": 3,
-  "allow_bad": true,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
   "include_piercings": true,
-  "allow_event": false,
+  "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "two_skill",
   "skills": [
-    100,
-    151,
-    174,
-    7
+    174
   ],
   "skill_names": [
-    "Hunger Halved",
-    "Fire Res (S)",
-    "Recovery Up",
-    "Reckless Abandon +2"
+    "Recovery Up"
   ],
   "my_charms": [
-    "1,Guard,4,Artisan,-2",
-    "1,Antiseptic,4,Huntsman,-5",
-    "0,Poison,4,Cold Res,6",
-    "0,Fire Atk,5,Dragon Res,5",
-    "0,Water Atk,1,Status,4",
-    "0,Rapid Fire,1,Loading,2",
-    "2,FatigueAtk,1,ThunderRes,5",
-    "1,Recoil,5,ThunderRes,-3",
-    "0,SpeedSetup,7,Expert,-5",
-    "0,Backpackng,3,Psychic,-1",
-    "0,Crag S Add,1,Sense,2",
-    "2,Evasion,1,PunishDraw,-3",
-    "0,Constitutn,2,Heat Res,-7",
-    "0,Constitutn,4,Fire Res,-3",
-    "0,Precision,1,Psychic,3",
-    "0,Rewards,2,Health,7",
-    "0,Poison,4,Perception,8",
-    "0,Status,2,PelletSAdd,3",
-    "0,Slam,4,NormalS Up,0",
-    "0,Water Atk,1,Status,4"
+    "0,Rec Level,4,Stun,-6",
+    "0,Rec Level,2,Thundr Atk,-8",
+    "0,Rec Level,4,Attack,6",
+    "1,Rec Level,1,Guard,3",
+    "0,Slam,5,Rec Level,-2",
+    "0,Debilitate,5,Rec Level,0",
+    "0,Rec Level,2,Artisan,3",
+    "0,Rec Level,6,Rapid Fire,0"
   ]
 }

@@ -1,35 +1,42 @@
 {
   "id": "f065",
-  "description": "uniform sampler, charm mode one_skill, 2 skills, 5 workers, 6000 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "male",
   "hr": 4,
-  "elder_star": 6,
-  "weapon_slots": 3,
+  "elder_star": 4,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": false,
-  "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
   "skills": [
-    77,
-    8
+    105,
+    160
   ],
   "skill_names": [
-    "Fire Element +1",
-    "Reckless Abandon +3"
+    "Evade +2",
+    "Ice Res (S)"
   ],
   "my_charms": [
-    "0,Guard Up,3,Expert,5",
-    "0,Expert,2,Horn,7",
-    "0,Expert,1,RazorCAdd,8",
-    "0,Quake Res,7,Expert,-6",
-    "0,Awaken,2,Expert,0",
-    "0,Backpackng,3,PoisonCAdd,3",
-    "0,Quake Res,7,Expert,6",
-    "0,Expert,3,Poison,-1",
-    "0,Rec Speed,7,Expert,1",
-    "0,Fire Atk,1,Fire Res,-2"
+    "0,WindPress,5,Water Atk,6",
+    "0,Gunnery,3,Defense,6",
+    "2,Constitutn,1,DungMaster,-5",
+    "0,ClustS Add,4,Sleep,1",
+    "0,Ice Attack,1,Expert,4",
+    "1,NormalSAdd,1,Rec Speed,-3",
+    "0,Eating,3,Whim,2",
+    "0,KO,1,Guard,-2",
+    "0,Water Atk,5,Stun,-10",
+    "0,Defense,4,Quake Res,6",
+    "0,Crit Draw,1,Rec Level,2",
+    "0,Blight Res,2,Reload Spd,-3",
+    "0,Precision,5,Huntsman,0",
+    "1,Hunger,5,Backpackng,1",
+    "0,Reload Spd,4,Hunger,6",
+    "0,Hunger,2,Mud/Snow,1",
+    "0,NormalS Up,2,PierceS Up,3"
   ]
 }

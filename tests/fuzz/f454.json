@@ -1,32 +1,39 @@
 {
   "id": "f454",
-  "description": "armour-seeded sampler, charm mode slotted, 1 skill, 1 workers, 48 evaluations (port estimate); quotas: torso_up",
-  "language": "English (TeamHGG)",
+  "description": "uniform sampler, charm mode two_skill, 1 skill; quotas: torso_up",
+  "language": "English (Athena)",
   "hunter_type": "gunner",
-  "gender": "female",
+  "gender": "male",
   "hr": 6,
-  "elder_star": 2,
+  "elder_star": 6,
   "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "charm_mode": "two_skill",
   "skills": [
-    197
+    80
   ],
   "skill_names": [
-    "Good Luck"
+    "Water Element +1"
   ],
   "my_charms": [
-    "0,KO,4,Combo Rate,6",
-    "0,Debilitate,5,,",
-    "0,Wide Area,4,Health,2",
-    "0,Slam,3,NormalS Up,3",
-    "0,Thundr Atk,4,Guard,2",
-    "2,Ice Res,1,CutterSAdd,1",
-    "0,Fate,5,Protection,2",
-    "0,Thundr Atk,3,Loading,0",
-    "0,Fate,3,Debilitate,-2"
+    "3,,,,",
+    "1,FastCharge,4,Water Atk,-4",
+    "0,PierceSAdd,1,ThunderRes,10",
+    "0,Water Atk,6,HiSpdGathr,5",
+    "0,Rewards,1,Water Atk,8",
+    "1,KO,1,Water Atk,-6",
+    "0,Water Atk,3,Hunger,-2",
+    "2,Protection,1,Hunger,7",
+    "0,Evade Dist,2,Water Atk,-4",
+    "2,,,,",
+    "1,Water Atk,2,HearProtct,-2",
+    "0,Water Atk,3,Fire Atk,-6",
+    "0,Water Atk,1,Anti-Theft,1",
+    "0,Water Atk,3,Protection,-5",
+    "0,Water Atk,4,Fire Res,3",
+    "1,Water Atk,5,PelletS Up,1"
   ]
 }

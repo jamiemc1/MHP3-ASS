@@ -1,44 +1,39 @@
 {
   "id": "f147",
-  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 4 workers, 4800 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode my_charms, 5 skills; quotas: cross_type, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
-  "gender": "female",
-  "hr": 5,
-  "elder_star": 4,
-  "weapon_slots": 2,
-  "allow_bad": true,
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
   "charm_mode": "my_charms",
   "skills": [
-    58,
-    84
+    21,
+    183,
+    73,
+    109,
+    108
   ],
   "skill_names": [
-    "Pierce S All Add",
-    "Thunder Element +2"
+    "ESP",
+    "Huntsman's Life",
+    "Abnormal Status Atk +2",
+    "Sneak",
+    "Fast Sheathe"
   ],
   "my_charms": [
-    "0,Thundr Atk,1,Slam,3",
-    "0,Defense,3,PierceSAdd,-9",
-    "0,Sharpness,2,HearProtct,3",
-    "0,Precision,2,HiSpdGathr,0",
-    "0,Debilitate,2,Thundr Atk,8",
-    "0,Guard,1,PierceSAdd,4",
-    "0,NormalSAdd,3,PierceSAdd,-3",
-    "0,KO,5,ClustS Add,-2",
-    "0,Thundr Atk,5,Fencing,-3",
-    "2,Eating,1,Crit Draw,-1",
-    "0,Ice Attack,4,PierceSAdd,6",
-    "0,Artisan,5,Thundr Atk,7",
-    "0,Sheathe,5,Status,1",
-    "0,CutterSAdd,5,Water Res,3",
-    "3,Thundr Atk,4,Slam,-3",
-    "0,Loading,4,Attack,5",
-    "0,Loading,4,Ice Attack,1",
-    "0,Thundr Atk,1,Sharpener,-10",
-    "0,Will Recov,3,SpeedSetup,0"
+    "1,Fencing,3,BombStrUp,-10",
+    "0,Sheathe,4,PelletSAdd,-10",
+    "0,Precision,4,Sense,7",
+    "0,Fire Res,1,Precision,9",
+    "0,NormalS Up,4,Sheathe,3",
+    "1,Huntsman,7,,",
+    "1,Sheathe,1,Cold Res,1",
+    "0,Sheathe,3,PelletSAdd,8"
   ]
 }

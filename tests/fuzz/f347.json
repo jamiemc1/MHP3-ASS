@@ -1,37 +1,30 @@
 {
   "id": "f347",
-  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 504 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill; quotas: cross_type, one_skill_hr_3_or_less, empty_slot",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "female",
-  "hr": 6,
-  "elder_star": 5,
-  "weapon_slots": 3,
-  "allow_bad": false,
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": true,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": false,
-  "charm_mode": "none",
+  "charm_mode": "one_skill",
   "skills": [
-    155,
-    25
+    44
   ],
   "skill_names": [
-    "Water Res (L)",
-    "Enfeebler"
+    "Recoil Reduction +2"
   ],
   "my_charms": [
-    "0,FatigueAtk,6,Perception,-4",
-    "0,Carving,5,FatigueAtk,-1",
-    "0,CutterSAdd,3,Health,9",
-    "0,Loading,1,BombStrUp,1",
-    "0,Health,8,Paralysis,-3",
-    "0,Fortitude,5,Mud/Snow,3",
-    "0,PelletSAdd,6,RazorCAdd,3",
-    "0,Water Res,6,Paralysis,-6",
-    "0,Fencing,5,FatigueAtk,2",
-    "0,Reload Spd,5,BombStrUp,9",
-    "0,Backpackng,5,Whim,13",
-    "1,Fate,1,FatigueAtk,-2"
+    "0,Water Res,2,Ice Res,-6",
+    "0,Slam,1,Ice Res,12",
+    "1,Evade Dist,5,Paralysis,0",
+    "0,Sheathe,2,Health,-4",
+    "0,KO,6,Gunnery,1",
+    "0,Carving,2,Stamina,2",
+    "0,FastCharge,4,Water Atk,6"
   ]
 }

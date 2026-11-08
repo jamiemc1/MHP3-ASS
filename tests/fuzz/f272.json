@@ -1,35 +1,39 @@
 {
   "id": "f272",
-  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 2100 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 1 skill; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 5,
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
   "elder_star": 5,
-  "weapon_slots": 1,
+  "weapon_slots": 3,
   "allow_bad": false,
-  "include_piercings": true,
-  "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "slotted",
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
   "skills": [
-    21,
-    208,
-    141,
-    205
+    80
   ],
   "skill_names": [
-    "ESP",
-    "Bullet Limit",
-    "Health +20",
-    "Combine Success+45%"
+    "Water Element +1"
   ],
   "my_charms": [
-    "1,HearProtct,1,Status,3",
-    "0,Rapid Fire,2,Crit Draw,1",
-    "0,Poison,2,Gluttony,8",
-    "0,Health,8,LastingPwr,-4",
-    "0,Potential,2,Shot Mix,-9",
-    "0,Protection,2,Huntsman,4"
+    "0,Fire Res,1,Shot Mix,-7",
+    "0,Water Res,1,Gunnery,4",
+    "0,Stamina,2,Fencing,1",
+    "0,Health,4,Horn,-5",
+    "0,Fencing,2,Stun,-2",
+    "0,Stamina,2,Fencing,1",
+    "0,Evasion,5,Gunnery,-3",
+    "0,Water Atk,3,Reload Spd,-3",
+    "0,Water Atk,6,Health,2",
+    "2,Paralysis,1,Health,-9",
+    "0,Quake Res,3,Water Res,9",
+    "0,Water Atk,6,Health,2",
+    "0,Paralysis,2,Hunger,-7",
+    "0,Reload Spd,3,Elemental,-1",
+    "0,NormalS Up,5,Rec Speed,6",
+    "0,Evade Dist,4,Quake Res,7"
   ]
 }

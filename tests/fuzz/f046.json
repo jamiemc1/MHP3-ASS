@@ -1,41 +1,38 @@
 {
   "id": "f046",
-  "description": "uniform sampler, charm mode one_skill, 6 skills, 9 workers, 9 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill; quotas: one_skill_hr_3_or_less, empty_slot",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "female",
   "hr": 3,
   "elder_star": 3,
-  "weapon_slots": 3,
-  "allow_bad": false,
+  "weapon_slots": 2,
+  "allow_bad": true,
   "include_piercings": true,
-  "allow_event": false,
+  "allow_event": true,
   "allow_low_rank": false,
   "charm_mode": "one_skill",
   "skills": [
-    197,
-    89,
-    2,
-    58,
-    193,
-    118
+    23
   ],
   "skill_names": [
-    "Good Luck",
-    "Dragon Element +1",
-    "Attack Up [Lg]",
-    "Pierce S All Add",
-    "Spirit's Whim",
-    "Guard Inc"
+    "Ruiner"
   ],
   "my_charms": [
-    "0,Awaken,4,NormalS Up,-3",
-    "0,Evasion,6,Rec Speed,2",
-    "0,Awaken,2,Will Recov,1",
-    "0,Poison,2,SleepCAdd,10",
-    "1,Dragon Res,3,RazorCAdd,-9",
-    "0,Sheathe,6,PierceS Up,-1",
-    "0,Dragon Atk,7,Recoil,3",
-    "0,Blight Res,4,Potential,4"
+    "0,Slam,4,ThunderRes,12",
+    "1,Slam,2,Reload Spd,0",
+    "0,Potential,4,Crag S Add,1",
+    "1,WindPress,3,Slam,-3",
+    "0,Awaken,4,PierceS Up,-2",
+    "0,Artisan,5,Slam,-1",
+    "0,Slam,4,ThunderRes,12",
+    "2,Constitutn,3,Perception,-10",
+    "0,Will Recov,6,BombStrUp,1",
+    "1,Fate,1,Slam,0",
+    "1,PierceS Up,2,Slam,-3",
+    "2,Blight Res,1,Slam,-1",
+    "1,Slam,1,Rapid Fire,-3",
+    "0,Protection,5,Elemental,2",
+    "0,Sheathe,1,Slam,-3"
   ]
 }

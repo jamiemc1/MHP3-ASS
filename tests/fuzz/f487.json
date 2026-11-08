@@ -1,33 +1,38 @@
 {
   "id": "f487",
-  "description": "uniform sampler, charm mode two_skill, 2 skills, 0 workers, 0 evaluations (port estimate); quotas: auto_guard_no_charm, torso_up",
+  "description": "uniform sampler, charm mode slotted, 2 skills; quotas: auto_guard_charm, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 5,
-  "elder_star": 6,
-  "weapon_slots": 3,
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "slotted",
   "skills": [
     119,
-    116
+    157
   ],
   "skill_names": [
     "Auto-Guard",
-    "Guard +2"
+    "Thunder Res (S)"
   ],
   "my_charms": [
-    "0,WindPress,5,Fire Res,7",
-    "0,Will Recov,6,HearProtct,3",
-    "0,Rec Level,5,Rec Speed,11",
-    "0,Sharpness,1,Slam,0",
-    "0,NormalSAdd,5,PierceSAdd,1",
-    "0,ClustS Add,5,NormalSAdd,-5",
-    "0,Backpackng,1,Psychic,4",
-    "1,Blight Res,1,Protection,-8"
+    "0,Rec Level,5,Poison,3",
+    "1,Awaken,1,HearProtct,0",
+    "0,PelletS Up,1,ThunderRes,11",
+    "0,ThunderRes,6,ParalyCAdd,8",
+    "0,Constitutn,5,PowerCAdd,0",
+    "0,Auto-Guard,10,,",
+    "0,PelletSAdd,4,ThunderRes,-10",
+    "0,Psychic,7,ThunderRes,1",
+    "0,Loading,1,Rec Speed,-9",
+    "0,Horn,5,Shot Mix,-4",
+    "0,PelletS Up,2,Evade Dist,4",
+    "0,Elemental,3,Will Recov,4",
+    "0,ThunderRes,4,ClustS Add,1"
   ]
 }

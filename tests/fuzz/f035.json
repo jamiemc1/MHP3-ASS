@@ -1,40 +1,36 @@
 {
   "id": "f035",
-  "description": "armour-seeded sampler, charm mode slotted, 1 skill, 1 workers, 216 evaluations (port estimate); quotas: torso_up",
-  "language": "English (TeamHGG)",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills; quotas: torso_up",
+  "language": "Japanese",
   "hunter_type": "gunner",
-  "gender": "female",
+  "gender": "male",
   "hr": 5,
-  "elder_star": 2,
-  "weapon_slots": 0,
+  "elder_star": 1,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
   "charm_mode": "slotted",
   "skills": [
-    174
+    120,
+    193,
+    147,
+    174,
+    49
   ],
   "skill_names": [
-    "Recovery Up"
+    "精霊の加護",
+    "精霊の気まぐれ",
+    "防御力UP【大】",
+    "体力回復量UP",
+    "ブレ抑制+1"
   ],
   "my_charms": [
-    "0,Rec Level,3,Gunnery,-1",
-    "0,Rec Level,5,Perception,4",
-    "1,Evasion,6,Awaken,-1",
-    "1,Quake Res,7,ThunderRes,-8",
-    "1,Ice Attack,3,Status,-10",
-    "0,Guard Up,2,PowerCAdd,5",
-    "0,Dragon Atk,4,Defense,2",
-    "0,Antiseptic,3,ThunderRes,4",
-    "2,Expert,2,Defense,-1",
-    "0,Wide Area,5,Quake Res,1",
-    "0,WindPress,1,BombStrUp,1",
-    "0,Ice Attack,7,HearProtct,-1",
-    "0,Rec Level,6,ClustS Add,-7",
-    "0,Rec Level,4,Antiseptic,-1",
-    "0,Fire Atk,7,DungMaster,5",
-    "0,Blight Res,5,Rapid Fire,-3",
-    "0,Health,3,HiSpdGathr,-6"
+    "0,斬裂弾追加,2,効果持続,2",
+    "2,風圧,2,KO,1",
+    "1,気絶,3,耐暑,-4",
+    "0,研ぎ師,1,睡眠瓶追加,7",
+    "1,加護,1,貫通弾追加,-8"
   ]
 }
