@@ -10,7 +10,7 @@ charms, or the Auto-Guard worker's) only has its gems rearranged; a
 generated charm also loses the slots and points the solution doesn't need,
 and becomes ``None`` when nothing is left. ``SwapOut`` and ``ReduceCharm``
 adjust ``abilities`` by raw amounts: the torso multiplier is ignored and the
-body/non-body lists keep the gems they had (quirk candidate L).
+body/non-body lists keep the gems they had (quirk 22 in docs/quirks.md).
 """
 
 from __future__ import annotations
@@ -56,7 +56,7 @@ def potential_spare_slots(data: CalculationData, slot_size: int) -> int:
     that size already used.
 
     Every armour piece is dereferenced, so an empty slot raises
-    ``LegacyNullReferenceError`` here (quirk candidate N).
+    ``LegacyNullReferenceError`` here (quirk 24).
     """
     solution = data.solution
     count = 0
@@ -170,8 +170,12 @@ def rearrange_decorations(data: CalculationData) -> None:
     charm = _charm(solution)
     for pair in charm.abilities:
         num1 = num_1slot_decorations(solution, pair.ability)
-        best3 = best_decoration_in_map(pair.ability, 3, data.rel_decoration_map)
-        best2 = best_decoration_in_map(pair.ability, 2, data.rel_decoration_map)
+        best3 = best_decoration_in_map(
+            pair.ability, max_slots=3, rel_decoration_map=data.rel_decoration_map
+        )
+        best2 = best_decoration_in_map(
+            pair.ability, max_slots=2, rel_decoration_map=data.rel_decoration_map
+        )
         replaced = True
         while replaced:
             replaced = False
@@ -202,7 +206,7 @@ def reduce_charm(data: CalculationData) -> None:
     solution has beyond the need (all of them at most), then drops skills
     left at 0 and the charm itself when it has neither slots nor skills.
     An ability short of its need (``extra < 0``, with the ``Assert`` compiled
-    out) gets points added instead (quirk candidate O).
+    out) gets points added instead (quirk 25).
     """
     solution = data.solution
     charm = _charm(solution)

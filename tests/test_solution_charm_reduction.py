@@ -6,6 +6,8 @@ pin the rules shipped data doesn't reach, or reaches too rarely to rely on.
 
 from __future__ import annotations
 
+from functools import partial
+
 import pytest
 
 from mhp3ass.data import GameData
@@ -50,7 +52,7 @@ def test_potential_spare_slots_counts_groups_less_decorations_of_that_size(
 
 
 def test_potential_spare_slots_dereferences_an_empty_armour_slot(make_data, five_pieces):
-    """Quirk candidate N: Solution.cpp:510-513 reads every piece's slots."""
+    """Quirk 24: Solution.cpp:510-513 reads every piece's slots."""
     data = make_data([], need={}, abilities={}, charm=Charm(num_slots=1))
     data.solution.armors = [*five_pieces[:4], None]
 
@@ -81,7 +83,7 @@ def test_num_1slot_decorations_counts_body_gems_only_at_multiplier_1(make_data, 
 
 
 def test_swap_out_uses_raw_amounts_and_leaves_the_body_list(attack, defense):
-    """Quirk candidate L: a body gem counted twice comes off once, and stays listed."""
+    """Quirk 22: a body gem counted twice comes off once, and stays listed."""
     one = make_jewel("One", attack, 1, second=defense, second_amount=-1)
     three = make_jewel("Three", attack, 5, slots=3, second=defense, second_amount=-1)
     solution = Solution(armors=[None] * 5, charm=None)
@@ -110,7 +112,7 @@ def test_swap_out_past_the_last_gem_indexes_off_the_list(attack):
 
 
 def test_swap_out_into_an_ability_not_yet_in_the_totals_raises(attack, defense):
-    """H5: Solution.cpp:555 reads before it writes, so a new ability throws."""
+    """Solution.cpp:555 reads before it writes, so a new ability throws."""
     one = make_jewel("One", attack, 1)
     solution = Solution(armors=[None] * 5, charm=None)
     solution.decorations = [one, one]
@@ -194,7 +196,7 @@ def test_reduce_charm_takes_off_only_what_isnt_needed(make_data, attack, defense
 
 
 def test_reduce_charm_short_of_the_need_adds_points(make_data, attack):
-    """Quirk candidate O: with extra < 0 (Assert compiled out), take_off is negative."""
+    """Quirk 25: with extra < 0 (Assert compiled out), take_off is negative."""
     charm = Charm(num_slots=0, abilities=[AbilityPair(ability=attack, amount=4)])
     data = make_data([], need={attack: 15}, abilities={attack: 12}, charm=charm)
 
@@ -273,30 +275,30 @@ def test_calculate_data_dereferences_an_empty_slot(make_armor):
         calculate_data(solution)
 
 
-def test_stages_before_get_initial_data_dereference_null_slots(make_data, make_armor, attack):
-    """slots_spare is allocated by GetInitialData (Solution.cpp:247): every stage
-    that reads it before then dereferences a null array, as the original would."""
+@pytest.mark.parametrize(
+    "stage",
+    ["finish", "calculate_decorations", "add_initial_armor", "fix_bad_skill", "reduce_slots"],
+)
+def test_stages_before_get_initial_data_dereference_null_slots(
+    stage, make_data, make_armor, attack
+):
+    """slots_spare is allocated by GetInitialData (Solution.cpp:247): a stage that
+    reads it before then dereferences a null array, as the original would."""
+    data = make_data([], need={}, abilities={}, charm=Charm(num_slots=1))
+    data.solution.total_slots_spare = 1
     down = Skill(name="Attack Down", points_required=-10, ability=attack)
-    charmed = Charm(num_slots=1)
-    stages = [
-        lambda data: finish(data),
-        lambda data: calculate_decorations(data, allow_bad=True, allow_detrimental=True),
-        lambda data: add_initial_armor(make_armor(), data.solution, multiplier=1),
-        lambda data: fix_bad_skill(data, GameData(), down),
-        lambda data: reduce_slots(data),
-    ]
-    raised = []
-    for stage in stages:
-        data = make_data([], need={}, abilities={}, charm=charmed.copy())
-        data.solution.total_slots_spare = 1
-        try:
-            stage(data)
-        except LegacyNullReferenceError:
-            raised.append(True)
-        else:
-            raised.append(False)
+    calls = {
+        "finish": partial(finish, data),
+        "calculate_decorations": partial(
+            calculate_decorations, data, allow_bad=True, allow_detrimental=True
+        ),
+        "add_initial_armor": partial(add_initial_armor, make_armor(), data.solution, multiplier=1),
+        "fix_bad_skill": partial(fix_bad_skill, data, GameData(), down),
+        "reduce_slots": partial(reduce_slots, data),
+    }
 
-    assert raised == [True] * len(stages)
+    with pytest.raises(LegacyNullReferenceError):
+        calls[stage]()
 
 
 def test_charm_stages_dereference_a_missing_charm(make_data):
@@ -307,7 +309,7 @@ def test_charm_stages_dereference_a_missing_charm(make_data):
 
 
 def test_reduce_slots_wraps_an_undercount_like_unsigned(make_data):
-    """H2: total_slots_spare is unsigned. It always includes the charm's own
+    """total_slots_spare is unsigned. It always includes the charm's own
     slots on real data, so this only pins the wrap a smaller count would give."""
     charm = Charm(num_slots=2)
     data = make_data([], need={}, abilities={}, charm=charm)
