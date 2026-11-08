@@ -8,6 +8,7 @@ consistent.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from collections import Counter
 from dataclasses import dataclass
@@ -114,6 +115,46 @@ def test_search_manifests_are_consistent(search_goldens: list[SearchGolden]):
     ]
 
     assert inconsistent == []
+
+
+def _lines_sha256(lines: list[str]) -> str:
+    """SearchDump's LinesSha256: SHA-256 of the uncompressed lines, each ending in a newline."""
+    text = "".join(f"{line}\n" for line in lines)
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return digest
+
+
+def _hash_mismatches(goldens: list[SearchGolden]) -> list[str]:
+    """Manifests whose hashes don't match their solutions file: in order, as a
+    sorted set, or for the lines each worker added (consecutive, in worker order)."""
+    mismatches = []
+    for golden in goldens:
+        manifest = golden.manifest
+        lines = golden.solution_lines
+        start = 0
+        workers_match = True
+        for worker in manifest["workers"]:
+            added_lines = lines[start : start + worker["added"]]
+            workers_match = workers_match and worker["added_sha256"] == _lines_sha256(added_lines)
+            start += worker["added"]
+        if not (
+            manifest["solutions_file"]
+            and manifest["solutions_sha256"] == _lines_sha256(lines)
+            and manifest["solution_set_sha256"] == _lines_sha256(sorted(lines))
+            and workers_match
+        ):
+            mismatches.append(golden.query["id"])
+    return mismatches
+
+
+def test_search_manifest_hashes_match_solution_files(search_goldens: list[SearchGolden]):
+    assert _hash_mismatches(search_goldens) == []
+
+
+def test_personal_search_manifest_hashes_match_solution_files(
+    personal_search_goldens: list[SearchGolden],
+):
+    assert _hash_mismatches(personal_search_goldens) == []
 
 
 def _armor_hash(solution_line: str) -> int:
