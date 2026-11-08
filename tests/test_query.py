@@ -18,7 +18,8 @@ def test_every_committed_query_builds(repo_root: Path, teamhgg_game: GameData):
         query = build_query(teamhgg_game, QuerySpec.from_file(path))
         built[path.stem] = [skill.name for skill in query.skills]
 
-    assert len(built) == 33
+    assert query_paths
+    assert all(built.values())
     assert built["g04-attack-sharp-two-skill"] == ["Attack Up [Med]", "Sharp Sword"]
 
 
@@ -64,6 +65,11 @@ def test_query_takes_the_spec_fields(
         ("gender", "both", "gender must be male or female"),
         ("hunter_type", "both", "hunter_type must be blademaster or gunner"),
         ("skill_names", ["Attack Up [Med]"], "same length"),
+        ("hr", 4.5, "hr must be 1-6"),
+        ("hr", "6", "hr must be 1-6"),
+        ("hr", True, "hr must be 1-6"),
+        ("allow_event", "yes", "allow_event must be true or false"),
+        ("skills", [1.0, 12], "skills must be integer indices"),
     ],
 )
 def test_spec_rejects_what_the_gui_cannot_set(
@@ -72,6 +78,14 @@ def test_spec_rejects_what_the_gui_cannot_set(
     attack_sharp_query_json[key] = value
 
     with pytest.raises(QueryError, match=message):
+        QuerySpec.from_json(attack_sharp_query_json)
+
+
+def test_spec_reports_problems_in_the_harness_order(attack_sharp_query_json: dict[str, Any]):
+    """QueryFile::FormulateQuery checks ranks before gender and hunter type."""
+    attack_sharp_query_json.update(hr=0, gender="both", hunter_type="both")
+
+    with pytest.raises(QueryError, match="hr must be 1-6"):
         QuerySpec.from_json(attack_sharp_query_json)
 
 
