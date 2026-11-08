@@ -34,14 +34,13 @@ def _import_save(args: argparse.Namespace) -> int:
         return 1
     charms = default_import(save_import, game)
     save_my_charms(args.out, charms)
-    if save_import.default_slot is None:
+    character = save_import.default_character
+    if character is None:
         print(f"No character in {args.save} has charms; wrote an empty list to {args.out}")
         return 0
-    character = save_import.characters[save_import.default_slot]
-    found = 0 if character is None else len(character.charms)
-    hacked = 0 if character is None else sum(i.charm.hacked for i in character.charms)
+    hacked = sum(imported.charm.hacked for imported in character.charms)
     print(
-        f"Character {save_import.default_slot + 1}: {found} charms, "
+        f"Character {character.slot + 1}: {len(character.charms)} charms, "
         f"{len(charms)} kept by Select Best, {hacked} hacked skipped; wrote {args.out}"
     )
     if save_import.cheats:
