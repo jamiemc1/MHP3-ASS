@@ -102,6 +102,35 @@ public:
 		FixtureFiles::WriteText( path, ToString() );
 	}
 
+	// A JSON string literal for text, quotes included, escaped as every
+	// fixture escapes strings. nullptr gives null.
+	static System::String^ Escape( System::String^ text )
+	{
+		if( text == nullptr )
+			return L"null";
+		System::Text::StringBuilder^ sb = gcnew System::Text::StringBuilder;
+		sb->Append( L'"' );
+		for each( wchar_t c in text )
+		{
+			if( c == L'"' )
+				sb->Append( L"\\\"" );
+			else if( c == L'\\' )
+				sb->Append( L"\\\\" );
+			else if( c == L'\n' )
+				sb->Append( L"\\n" );
+			else if( c == L'\r' )
+				sb->Append( L"\\r" );
+			else if( c == L'\t' )
+				sb->Append( L"\\t" );
+			else if( c < 0x20 || c > 0x7e )
+				sb->Append( L"\\u" )->Append( ( (int)c ).ToString( L"x4" ) );
+			else
+				sb->Append( c );
+		}
+		sb->Append( L'"' );
+		return sb->ToString();
+	}
+
 private:
 	System::Text::StringBuilder^ sb;
 	System::Collections::Generic::Stack< bool >^ first_in_container;
@@ -155,24 +184,6 @@ private:
 
 	void WriteString( System::String^ text )
 	{
-		sb->Append( L'"' );
-		for each( wchar_t c in text )
-		{
-			if( c == L'"' )
-				sb->Append( L"\\\"" );
-			else if( c == L'\\' )
-				sb->Append( L"\\\\" );
-			else if( c == L'\n' )
-				sb->Append( L"\\n" );
-			else if( c == L'\r' )
-				sb->Append( L"\\r" );
-			else if( c == L'\t' )
-				sb->Append( L"\\t" );
-			else if( c < 0x20 || c > 0x7e )
-				sb->Append( L"\\u" )->Append( ( (int)c ).ToString( L"x4" ) );
-			else
-				sb->Append( c );
-		}
-		sb->Append( L'"' );
+		sb->Append( Escape( text ) );
 	}
 };
