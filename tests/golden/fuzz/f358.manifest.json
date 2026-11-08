@@ -1,0 +1,148 @@
+{
+  "id": "f358",
+  "query_json": "{\"id\":\"f358\",\"description\":\"uniform sampler, charm mode two_skill, 5 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[105,72,179,122,167],\"skill_names\":[\"Evade +2\",\"Abnormal Status Atk +1\",\"Picky Eater\",\"Poison Negated\",\"Wide Area +2\"],\"my_charms\":[\"0,Guard,4,Evasion,1\",\"0,Quake Res,7,Dragon Res,2\",\"0,Water Atk,2,FatigueAtk,3\",\"1,PierceSAdd,1,RazorCAdd,-8\",\"0,Guard Up,3,Elemental,0\",\"0,Defense,1,Perception,7\",\"1,Status,1,Will Recov,1\",\"1,PierceS Up,1,Evade Dist,3\",\"0,Quake Res,6,ThunderRes,-7\",\"1,Rapid Fire,1,Psychic,-1\",\"0,Fire Res,4,Horn,3\",\"0,NormalSAdd,3,Psychic,-10\",\"0,ThunderRes,1,LastingPwr,-9\",\"2,,,,\",\"0,Guard,2,Stamina,-3\",\"0,Poison,2,Huntsman,8\",\"0,KO,5,Dragon Res,9\",\"0,HiSpdGathr,8,,\",\"1,Ice Attack,4,Slam,1\",\"0,Crag S Add,6,ThunderRes,-6\",\"0,Will Recov,6,Slam,-1\",\"0,Fencing,5,Carving,2\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    8,
+    5,
+    6,
+    8
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 18,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Evasion, +4 Status ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Status, +4 Evasion ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Status, +1 Evasion ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Evasion, +11 Gluttony ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Status, +13 Gluttony ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Evasion, +7 Poison ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+6 Evasion, +4 Poison ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+3 Status, +7 Poison ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+4 Status, +6 Poison ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+5 Poison, +12 Gluttony ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+2 Poison, +13 Gluttony ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+6 Evasion, +10 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+3 Evasion, +5 Wide Area O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+5 Evasion, +11 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+1 Status, +2 Wide Area O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+6 Status, +12 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+8 Wide Area, +9 Gluttony ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+5 Poison, +9 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f245",
+  "query_json": "{\"id\":\"f245\",\"description\":\"armour-seeded sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[19,169,176,178],\"skill_names\":[\"Concentration\",\"Trap Master\",\"Item Use Up\",\"Filled Up\"],\"my_charms\":[\"0,Rec Speed,6,SpeedSetup,4\",\"0,Dragon Atk,7,Sharpener,-3\",\"0,Carving,2,Rapid Fire,1\",\"0,WindPress,1,Fate,-3\",\"1,Constitutn,4,Protection,-5\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    5,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+8 SpeedSetup, +9 LastingPwr ---",
+      "found": 178,
+      "added": 178,
+      "added_sha256": "ac991e54ab841efa7b7bba240240c4c4bce4291ceecd88fbc20e49710ebd5a80"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 SpeedSetup, +10 LastingPwr ---",
+      "found": 146,
+      "added": 17,
+      "added_sha256": "774447e583edfa8ae65b286e3d51e7b5ecd5f7c40864130bb34792c498c9cab2"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 SpeedSetup, +4 LastingPwr O--",
+      "found": 147,
+      "added": 84,
+      "added_sha256": "54f991387228db8fe8b5abc0b607ff67556c4c811a1e9f63b8624f0dbd602b4b"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 SpeedSetup, +2 Gluttony O--",
+      "found": 92,
+      "added": 92,
+      "added_sha256": "69ef99af0466a1832fd3efa43094e449e44d8fcf0580f1f734642e844cbc4f74"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 SpeedSetup, +13 Gluttony ---",
+      "found": 188,
+      "added": 177,
+      "added_sha256": "cb3b5b2e9c0ae21a6f1ae7eb1018232170f05fb1e8ce30b42a1e6c91f0d4a047"
+    }
+  ],
+  "solution_count": 548,
+  "solutions_sha256": "7eaee15bde746131f334b999773f7b67bd2b32802d1cfe37287ea7ffb2717855",
+  "solution_set_sha256": "18a1e8b0426eb37d2003bca1a68a7cadabe10451496824d4078e709b547e35ac",
+  "solutions_file": true,
+  "exception": null
+}

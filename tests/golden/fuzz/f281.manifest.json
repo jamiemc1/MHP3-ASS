@@ -1,0 +1,29 @@
+{
+  "id": "f281",
+  "query_json": "{\"id\":\"f281\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[28],\"skill_names\":[\"Gunnery King\"],\"my_charms\":[\"0,Evasion,2,Ice Attack,4\",\"0,Gunnery,4,Antiseptic,3\",\"0,Thundr Atk,5,Gunnery,5\",\"0,Evasion,3,Thundr Atk,5\",\"0,Eating,3,Gunnery,-2\",\"0,ThunderRes,2,Gunnery,-6\",\"1,Sheathe,1,Gunnery,6\",\"0,Eating,2,HearProtct,-3\",\"0,Backpackng,7,SleepCAdd,-2\",\"0,Health,6,Gunnery,-5\",\"1,HearProtct,1,Rec Level,-3\",\"0,Constitutn,5,Rec Level,1\",\"0,Blight Res,3,Rapid Fire,0\",\"0,Water Res,5,Gunnery,-1\",\"0,Eating,2,HearProtct,-3\",\"2,Eating,1,,\",\"0,Gunnery,1,PierceSAdd,10\",\"0,CutterSAdd,1,Stun,-9\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "95f3e80eb88e18568251d6fc057fe57567df216db5fad0832329f581f9611736"
+    }
+  ],
+  "solution_count": 48,
+  "solutions_sha256": "95f3e80eb88e18568251d6fc057fe57567df216db5fad0832329f581f9611736",
+  "solution_set_sha256": "02b692295dd1cf8e457c0a85cfe5d2abd87da32310455a0c37100394c5df9427",
+  "solutions_file": true,
+  "exception": null
+}

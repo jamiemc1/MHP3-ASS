@@ -1,0 +1,29 @@
+{
+  "id": "f072",
+  "query_json": "{\"id\":\"f072\",\"description\":\"armour-seeded sampler, charm mode slotted, 4 skills; quotas: cross_type, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[39,118,27,100],\"skill_names\":[\"Reload Speed +3\",\"Guard Inc\",\"Gunnery Master\",\"Hunger Halved\"],\"my_charms\":[\"0,Guard Up,4,BombStrUp,8\",\"0,Paralysis,4,SleepCAdd,-3\",\"0,Thundr Atk,3,Sharpener,1\",\"0,Potential,3,Gathering,-3\",\"2,Eating,1,Fencing,-1\",\"0,Poison,5,Gunnery,-3\",\"1,Guard Up,3,BombStrUp,-7\",\"0,Quake Res,3,Hunger,-4\",\"0,Blight Res,3,Reload Spd,-2\",\"0,Slam,2,Fencing,-3\",\"0,Evade Dist,6,Guard Up,1\",\"0,Blight Res,1,Health,-2\",\"0,Evade Dist,1,Hunger,-3\",\"2,Ice Res,5,Gunnery,-2\",\"1,Thundr Atk,2,Rec Level,0\",\"0,Hunger,6,Status,3\",\"0,Gunnery,1,ThunderRes,2\",\"0,Guard Up,5,Fire Res,0\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

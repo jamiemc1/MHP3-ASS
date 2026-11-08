@@ -1,0 +1,21 @@
+{
+  "id": "f484",
+  "query_json": "{\"id\":\"f484\",\"description\":\"uniform sampler, charm mode slotted, 4 skills; quotas: auto_guard_no_charm, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[119,71,66,25],\"skill_names\":[\"Auto-Guard\",\"Fatigue Coating Add\",\"Poison Coating Add\",\"Enfeebler\"],\"my_charms\":[\"0,Guard,4,PowerCAdd,10\",\"1,Eating,3,ClustS Add,-10\",\"0,Defense,1,FatigeCAdd,-7\",\"0,Status,4,Thundr Atk,7\",\"0,Fortitude,5,Attack,7\",\"0,FatigueAtk,3,Carving,1\",\"1,Precision,4,PowerCAdd,-7\",\"0,Slam,1,Artisan,-2\",\"0,Slam,3,PierceS Up,0\",\"0,FatigueAtk,1,,\",\"1,Ice Attack,4,Eating,0\",\"0,Poison,4,Paralysis,-4\",\"0,WindPress,5,Rec Speed,-4\",\"0,Status,4,Water Res,3\",\"1,FatigueAtk,1,PierceS Up,0\",\"0,FatigueAtk,1,Slam,-2\",\"0,Stamina,2,BombStrUp,8\",\"0,FatigueAtk,6,PunishDraw,3\",\"0,Ice Attack,4,Horn,2\",\"0,Fortitude,3,Sense,-2\",\"0,Water Res,3,ThunderRes,-7\",\"0,Status,3,Psychic,11\",\"0,Paralysis,3,Gunnery,-5\",\"0,Ice Res,3,Defense,-1\",\"0,Artisan,2,Dragon Res,-5\",\"0,FastCharge,1,Fencing,3\"]}",
+  "my_charms_loaded": 26,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

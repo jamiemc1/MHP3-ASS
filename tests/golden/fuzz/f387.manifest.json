@@ -1,0 +1,50 @@
+{
+  "id": "f387",
+  "query_json": "{\"id\":\"f387\",\"description\":\"armour-seeded sampler, charm mode one_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[204],\"skill_names\":[\"Combination +20%\"],\"my_charms\":[\"1,Attack,2,Combo Rate,2\",\"0,Tremor Res,1,Combo Rate,12\",\"0,Stamina,4,Evade Dist,4\",\"1,Ice Atk,6,Clust S+,-10\",\"0,ElementAtk,2,Sheathing,1\",\"0,Transportr,3,Psychic,6\",\"0,Destroyer,4,Stamina,-3\",\"0,Dragon Atk,2,Bomb Boost,4\",\"0,Artillery,1,LastingPwr,9\",\"0,Rec Speed,7,Sense,6\",\"0,Water Res,1,Gathering,13\",\"0,KO,4,Combo Rate,0\",\"0,Blight Res,1,Tenderizer,2\",\"0,Stam Drain,2,Stam Recov,0\",\"1,Defense,3,Combo Rate,-4\",\"0,Wide-Range,3,Clust S+,8\",\"0,Ice Atk,3,Dragon Atk,6\",\"0,Protection,1,Wind Res,-5\",\"0,Reload Speed,4,Combo Plus,6\",\"0,Dragon Atk,2,Bomb Boost,4\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 96,
+      "added": 96,
+      "added_sha256": "27325acb992726d802d8a0d1e71f3b8e6142fbf1667f93e5045063ac3992fed8"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Combo Rate OO-",
+      "found": 96,
+      "added": 96,
+      "added_sha256": "4545b7614425eee5dabaaaeeaf68bfff30b40ef10a5d1b9d97242278a5090a02"
+    },
+    {
+      "worker": 2,
+      "charm": "+9 Combo Rate O--",
+      "found": 96,
+      "added": 96,
+      "added_sha256": "27325acb992726d802d8a0d1e71f3b8e6142fbf1667f93e5045063ac3992fed8"
+    },
+    {
+      "worker": 3,
+      "charm": "+13 Combo Rate ---",
+      "found": 96,
+      "added": 96,
+      "added_sha256": "27325acb992726d802d8a0d1e71f3b8e6142fbf1667f93e5045063ac3992fed8"
+    }
+  ],
+  "solution_count": 384,
+  "solutions_sha256": "523adab0770837fd8e4dc6557ebaecc44740eeb844635c010750b8baefb3af59",
+  "solution_set_sha256": "f30d781979ea40ecff07dc54f819337aa1a80695bf8cdd7ee1b946419455412f",
+  "solutions_file": true,
+  "exception": null
+}

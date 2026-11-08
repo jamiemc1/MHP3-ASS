@@ -1,0 +1,29 @@
+{
+  "id": "f098",
+  "query_json": "{\"id\":\"f098\",\"description\":\"armour-seeded sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[132],\"skill_names\":[\"Quake Res\"],\"my_charms\":[\"0,Fate,5,Sheathe,-9\",\"0,Will Recov,2,Quake Res,4\",\"0,Constitutn,6,Wide Area,-8\",\"2,Ice Attack,4,Rapid Fire,-1\",\"0,Sharpness,2,FastCharge,2\",\"2,HearProtct,1,Stun,-5\",\"0,Fire Res,6,Paralysis,0\",\"0,Water Res,5,Paralysis,3\",\"0,Protection,3,FatigueAtk,1\",\"0,Thundr Atk,6,ThunderRes,-10\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    4,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OO-",
+      "found": 480,
+      "added": 480,
+      "added_sha256": "3277597df7c7bca13ca7f87de846f46dc3fc2741305d71b866ea434a5f445437"
+    }
+  ],
+  "solution_count": 480,
+  "solutions_sha256": "3277597df7c7bca13ca7f87de846f46dc3fc2741305d71b866ea434a5f445437",
+  "solution_set_sha256": "747603d57edfb637a77c54ac862ca4c4e276aeaf523b30dfd24df06681b22831",
+  "solutions_file": true,
+  "exception": null
+}

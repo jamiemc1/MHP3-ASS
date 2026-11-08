@@ -1,0 +1,36 @@
+{
+  "id": "f199",
+  "query_json": "{\"id\":\"f199\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[105,108],\"skill_names\":[\"Evade +2\",\"Fast Sheathe\"],\"my_charms\":[\"0,Sheathe,5,Psychic,-5\",\"0,Elemental,1,Sheathe,-10\",\"0,WindPress,4,Evasion,4\",\"0,Evasion,3,Sheathe,4\",\"0,KO,5,DungMaster,4\",\"0,Sheathe,1,FatigueAtk,4\",\"0,Stamina,4,Rewards,-1\",\"0,Reload Spd,4,Antiseptic,-9\",\"0,Ice Attack,1,RazorCAdd,10\",\"0,Evasion,3,ClustS Add,-3\",\"0,Sheathe,3,Health,0\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    3,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "cb3746b3f9fc5c4504849401786df1629f82e7e4988472ec9828af658b0205b2"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "cb3746b3f9fc5c4504849401786df1629f82e7e4988472ec9828af658b0205b2"
+    }
+  ],
+  "solution_count": 4,
+  "solutions_sha256": "f6c11341f0327b52e3584a2294e1b3e3cd80f2ed3e4775cf1356d3802f16f3d8",
+  "solution_set_sha256": "2112e8bf6a041b5e93a193b3dedef2daabb14f07838195fc8d28b0ff67e858b8",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,71 @@
+{
+  "id": "f350",
+  "query_json": "{\"id\":\"f350\",\"description\":\"uniform sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[24,205,142],\"skill_names\":[\"Improved KO\",\"Combine Success+45%\",\"Health +50\"],\"my_charms\":[\"0,Guard Up,6,Carving,-2\",\"0,Rec Level,1,Psychic,0\",\"0,KO,5,Health,7\",\"0,Health,5,Gathering,-2\",\"0,Guard,2,Will Recov,4\",\"0,Horn,4,Defense,5\",\"0,PunishDraw,3,Dragon Res,-2\",\"0,KO,3,Sleep,1\",\"0,Guard Up,3,SleepCAdd,-7\",\"1,KO,2,Sleep,-9\",\"0,Rapid Fire,5,PunishDraw,1\",\"0,Dragon Res,2,Water Res,-1\",\"0,Gunnery,4,Health,-9\",\"1,Rec Speed,1,BombStrUp,-7\",\"0,WindPress,3,Health,9\",\"2,Water Atk,3,Eating,2\",\"0,Reload Spd,4,Shot Mix,10\",\"1,WindPress,2,KO,-3\",\"0,Evasion,1,Rapid Fire,-1\",\"0,Stamina,1,Fire Atk,3\",\"0,Sheathe,6,Anti-Theft,10\",\"0,Protection,3,Mud/Snow,-5\",\"0,KO,2,Evade Dist,1\",\"0,Fire Atk,5,Water Res,-8\",\"0,BombStrUp,1,Health,4\",\"0,Rewards,3,,\",\"1,Expert,1,Sense,-2\",\"0,KO,1,FatigeCAdd,3\",\"1,Dragon Atk,1,Health,1\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    5,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 KO, +11 Combo Rate ---",
+      "found": 262,
+      "added": 261,
+      "added_sha256": "61f35f559a127e04a93aae838ef0768582b14a0b256843ecb4bbc57ed327f472"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 KO, +7 Combo Rate O--",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "b35e82851fa6560a23dc11277277b7001e1130f42179af4579b237dcd772fff8"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 KO, +12 Health ---",
+      "found": 238,
+      "added": 238,
+      "added_sha256": "7588a11701b64b9415eae2268c5fa38b1ec0cba2bd77728216c8f848cc19223e"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 KO, +6 Health OO-",
+      "found": 5,
+      "added": 5,
+      "added_sha256": "0300b6d29b32d21222c135bcbf7ad0cca20cc252931a7cc46efaafa8925dc6f5"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 Health, +11 Combo Rate ---",
+      "found": 5,
+      "added": 5,
+      "added_sha256": "531326d4e3ebe487baf0432c66eca9e4e000b2eae684b568d9290ff5e063b2cb"
+    },
+    {
+      "worker": 5,
+      "charm": "+8 Health, +2 Combo Rate ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 Health, +3 Combo Rate ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 510,
+  "solutions_sha256": "8f09233a1de96f282d3629106d400351fc7397519ec17584d3f168cadc52fcab",
+  "solution_set_sha256": "7954536614b16f9f9c9bfb6c87c540d6236df0069f92a9bd26167fb6510fcb9c",
+  "solutions_file": true,
+  "exception": null
+}

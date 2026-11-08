@@ -1,0 +1,36 @@
+{
+  "id": "f448",
+  "query_json": "{\"id\":\"f448\",\"description\":\"uniform sampler, charm mode one_skill, 1 skill; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[135],\"skill_names\":[\"Antiseptic\"],\"my_charms\":[\"0,Reload Spd,3,Antiseptic,-9\",\"0,Ice Attack,3,FatigeCAdd,10\",\"0,FatigueAtk,1,Shot Mix,-3\",\"0,Dragon Atk,2,Cold Res,-8\",\"3,Eating,1,Fire Res,0\",\"0,Antiseptic,1,Attack,0\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    3,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Antiseptic O--",
+      "found": 432,
+      "added": 432,
+      "added_sha256": "69a2af1f18055e4c7f151bb4616f3ce1c402a441365c269a7c45dbb988ecd344"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Antiseptic ---",
+      "found": 432,
+      "added": 432,
+      "added_sha256": "69a2af1f18055e4c7f151bb4616f3ce1c402a441365c269a7c45dbb988ecd344"
+    }
+  ],
+  "solution_count": 864,
+  "solutions_sha256": "c16ddf23684291b5f1d57da4ab47eccdb662f5881017c5767ca6457739553eca",
+  "solution_set_sha256": "477738c8677b76cc197e0f05424b781a2d9341c4bca0e870ca6a5cee593fc92e",
+  "solutions_file": true,
+  "exception": null
+}

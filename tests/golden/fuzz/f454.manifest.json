@@ -1,0 +1,29 @@
+{
+  "id": "f454",
+  "query_json": "{\"id\":\"f454\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: torso_up\",\"language\":\"English (Athena)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[80],\"skill_names\":[\"Water Element +1\"],\"my_charms\":[\"3,,,,\",\"1,FastCharge,4,Water Atk,-4\",\"0,PierceSAdd,1,ThunderRes,10\",\"0,Water Atk,6,HiSpdGathr,5\",\"0,Rewards,1,Water Atk,8\",\"1,KO,1,Water Atk,-6\",\"0,Water Atk,3,Hunger,-2\",\"2,Protection,1,Hunger,7\",\"0,Evade Dist,2,Water Atk,-4\",\"2,,,,\",\"1,Water Atk,2,HearProtct,-2\",\"0,Water Atk,3,Fire Atk,-6\",\"0,Water Atk,1,Anti-Theft,1\",\"0,Water Atk,3,Protection,-5\",\"0,Water Atk,4,Fire Res,3\",\"1,Water Atk,5,PelletS Up,1\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    4,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 480,
+      "added": 480,
+      "added_sha256": "fc15cffe672d46f90ed953c7bdca25824ec8a062121bf6030ce882b4757a925a"
+    }
+  ],
+  "solution_count": 480,
+  "solutions_sha256": "fc15cffe672d46f90ed953c7bdca25824ec8a062121bf6030ce882b4757a925a",
+  "solution_set_sha256": "4797adda01b8a11f208a0a7c546e24c77a04abfd9e5bf9f3d5220a7697ea40e9",
+  "solutions_file": true,
+  "exception": null
+}

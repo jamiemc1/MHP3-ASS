@@ -1,0 +1,29 @@
+{
+  "id": "f374",
+  "query_json": "{\"id\":\"f374\",\"description\":\"uniform sampler, charm mode slotted, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[111,138],\"skill_names\":[\"Recovery Speed +1\",\"Def Down Negate\"],\"my_charms\":[\"0,Rec Speed,1,LastingPwr,-9\",\"2,Paralysis,2,Gathering,1\",\"0,Recoil,4,KO,2\",\"0,Poison,4,Fortitude,4\",\"0,Fortitude,5,Antiseptic,-4\",\"0,Evade Dist,1,KO,2\",\"0,Poison,4,Fortitude,4\",\"0,Elemental,3,WindPress,3\",\"0,Gunnery,4,DungMaster,-6\",\"0,Rec Speed,3,Combo Rate,-4\",\"0,CutterSAdd,6,LastingPwr,7\",\"2,Elemental,1,Eating,-1\",\"2,Reload Spd,1,Gunnery,-9\",\"0,Rec Speed,6,ThunderRes,-3\",\"0,Awaken,6,Rewards,2\",\"0,Reload Spd,1,ThunderRes,0\",\"0,Fire Atk,2,Constitutn,3\",\"0,Precision,1,Horn,-4\",\"0,HearProtct,5,Water Atk,-7\",\"0,Rec Level,4,Antiseptic,-6\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    3,
+    1,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 36,
+      "added": 36,
+      "added_sha256": "750c00044a0426a7809e222886d3151a741980130187bab22bfc75d0a86004f4"
+    }
+  ],
+  "solution_count": 36,
+  "solutions_sha256": "750c00044a0426a7809e222886d3151a741980130187bab22bfc75d0a86004f4",
+  "solution_set_sha256": "7ca7444f88d9fe4047fa7aa3b3eb00dbf22deafb97a458ef8f82bfd88be4d6be",
+  "solutions_file": true,
+  "exception": null
+}

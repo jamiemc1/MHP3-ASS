@@ -1,0 +1,29 @@
+{
+  "id": "f466",
+  "query_json": "{\"id\":\"f466\",\"description\":\"armour-seeded sampler, charm mode none, 1 skill; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[23],\"skill_names\":[\"Ruiner\"],\"my_charms\":[\"1,Potential,1,NormalS Up,0\",\"0,Evade Dist,2,Slam,1\",\"0,Slam,1,WindPress,3\",\"0,Slam,3,Fire Atk,2\",\"0,Rewards,1,Slam,3\",\"0,Slam,5,Guard Up,0\",\"0,PierceS Up,3,WindPress,-5\",\"0,Slam,2,FatigueAtk,2\",\"0,Slam,1,Thundr Atk,8\",\"0,Constitutn,2,Health,-3\",\"0,Rec Level,1,Shot Mix,10\",\"1,Slam,1,Blight Res,-1\",\"0,Status,3,Slam,-1\",\"0,Ice Res,1,Backpackng,4\",\"0,Slam,1,Rewards,2\",\"1,Slam,2,Fencing,3\",\"0,Water Atk,5,NormalSAdd,-5\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

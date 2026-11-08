@@ -1,0 +1,176 @@
+{
+  "id": "f282",
+  "query_json": "{\"id\":\"f282\",\"description\":\"armour-seeded sampler, charm mode two_skill, 5 skills; quotas: cross_type, two_skill_hr_below_5, torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[101,136,14,96,80],\"skill_names\":[\"\u8179\u6e1b\u308a\u7121\u52b9\",\"\u76d7\u307f\u7121\u52b9\",\"\u7825\u77f3\u4f7f\u7528\u9ad8\u901f\u5316\",\"\u30e9\u30f3\u30ca\u30fc\",\"\u6c34\u5c5e\u6027\u653b\u6483\u5f37\u5316+1\"],\"my_charms\":[\"1,,,,\",\"0,\u65ac\u308c\u5473,3,\u52a0\u8b77,-9\",\"0,\u98a8\u5727,4,\u3053\u3084\u3057,-1\",\"0,\u6e9c\u3081\u77ed\u7e2e,2,\u9f8d\u8010\u6027,-5\",\"0,\u5e95\u529b,3,\u7832\u8853,6\",\"2,\u6563\u5f3e\u5f37\u5316,1,\u7206\u5f3e\u5f37\u5316,-4\",\"0,\u88c5\u586b\u6570,2,\u9054\u4eba,7\",\"0,\u88c5\u586b\u901f\u5ea6,4,\u6563\u5f3e\u8ffd\u52a0,6\",\"1,\u98a8\u5727,1,\u6297\u83cc,-2\",\"1,KO,2,\u7206\u5f3e\u5f37\u5316,-9\",\"0,\u7d0d\u5200,3,\u7b1b,-6\",\"0,\u56de\u907f\u8ddd\u96e2,6,\u5f37\u6483\u74f6\u8ffd\u52a0,-3\",\"0,\u30ac\u30fc\u30c9\u6027\u80fd,5,\u7761\u7720,0\",\"1,,,,\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    3,
+    4,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 22,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 \u8179\u6e1b\u308a, +10 \u76d7\u307f\u7121\u52b9 ---",
+      "found": 5,
+      "added": 5,
+      "added_sha256": "d94ddbe48d774b7a0df92ee52f3dda67f0c6222d7b8431005f10656713ba302f"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 \u7814\u304e\u5e2b, +9 \u8179\u6e1b\u308a ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 \u7814\u304e\u5e2b, +4 \u8179\u6e1b\u308a O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 \u7814\u304e\u5e2b, +3 \u8179\u6e1b\u308a ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 \u7814\u304e\u5e2b, +4 \u76d7\u307f\u7121\u52b9 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+2 \u7814\u304e\u5e2b, +9 \u76d7\u307f\u7121\u52b9 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+3 \u7814\u304e\u5e2b, +8 \u76d7\u307f\u7121\u52b9 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+1 \u7814\u304e\u5e2b, +3 \u76d7\u307f\u7121\u52b9 OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 \u30b9\u30bf\u30df\u30ca, +1 \u8179\u6e1b\u308a O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+5 \u30b9\u30bf\u30df\u30ca, +10 \u8179\u6e1b\u308a ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+1 \u30b9\u30bf\u30df\u30ca, +4 \u8179\u6e1b\u308a OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+5 \u30b9\u30bf\u30df\u30ca, +6 \u7814\u304e\u5e2b ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+1 \u30b9\u30bf\u30df\u30ca, +8 \u7814\u304e\u5e2b ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+5 \u6c34\u5c5e\u6027\u653b\u6483, +10 \u8179\u6e1b\u308a ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "dcba4dd2960a741307901125698cf2babde5b2dea15389e1c382e08204981ce0"
+    },
+    {
+      "worker": 14,
+      "charm": "+1 \u6c34\u5c5e\u6027\u653b\u6483, +2 \u8179\u6e1b\u308a OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+7 \u6c34\u5c5e\u6027\u653b\u6483, +9 \u8179\u6e1b\u308a ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "df17cd33bd4f42aad709b44fbf0baac99eb777ec29b61f1210bcde7b7bcb4f30"
+    },
+    {
+      "worker": 16,
+      "charm": "+5 \u6c34\u5c5e\u6027\u653b\u6483, +10 \u76d7\u307f\u7121\u52b9 ---",
+      "found": 10,
+      "added": 10,
+      "added_sha256": "44ead0dd43da16be76466fe94d5c968bd028a584603bada539a4ded2d7dfb466"
+    },
+    {
+      "worker": 17,
+      "charm": "+7 \u6c34\u5c5e\u6027\u653b\u6483, +2 \u76d7\u307f\u7121\u52b9 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+7 \u6c34\u5c5e\u6027\u653b\u6483, +8 \u7814\u304e\u5e2b ---",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "5ff06a06106bb68dfbca791475aa71ed426b89a372e5ba2c45377014889d62ef"
+    },
+    {
+      "worker": 19,
+      "charm": "+3 \u6c34\u5c5e\u6027\u653b\u6483, +2 \u7814\u304e\u5e2b O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+1 \u30b9\u30bf\u30df\u30ca, +9 \u6c34\u5c5e\u6027\u653b\u6483 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+5 \u30b9\u30bf\u30df\u30ca, +8 \u6c34\u5c5e\u6027\u653b\u6483 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 22,
+  "solutions_sha256": "083c3053c3e06569997ab63a41260b824ab4e50362be661d3dea85291ed36991",
+  "solution_set_sha256": "796a1d165094925b4f6d018721ef2d266e594d9c65cd6b18a23f66e24ac2f21c",
+  "solutions_file": true,
+  "exception": null
+}

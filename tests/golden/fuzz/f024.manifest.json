@@ -1,0 +1,50 @@
+{
+  "id": "f024",
+  "query_json": "{\"id\":\"f024\",\"description\":\"armour-seeded sampler, charm mode two_skill, 2 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[128,145],\"skill_names\":[\"Stun Halved\",\"Def Up (S)\"],\"my_charms\":[\"0,Potential,3,Rewards,2\",\"0,Potential,3,Rewards,2\"]}",
+  "my_charms_loaded": 2,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    5,
+    5,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Stun, +4 Defense ---",
+      "found": 2000,
+      "added": 2000,
+      "added_sha256": "d5e881a0bcc8ba74be80db19706973782b6d415987c08874e19b11768611e521"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Stun, +6 Defense ---",
+      "found": 2000,
+      "added": 1998,
+      "added_sha256": "d8e9c56bbf7ed08ac2f23e5ba19bbe86926db56dcc807b44a91c70f03f090569"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Defense, +9 Stun ---",
+      "found": 2000,
+      "added": 1998,
+      "added_sha256": "4ddb2c1849eaa3afc75bcf097e613721a8d39497032944c1acb620c1ab085d8c"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Defense, +4 Stun OO-",
+      "found": 2000,
+      "added": 1998,
+      "added_sha256": "b1cf5385949161513697d371cc501176ad9b03c867d25f5f21eef190f1682689"
+    }
+  ],
+  "solution_count": 7994,
+  "solutions_sha256": "a6e57f08437d9ff8e63bae657e326a33191d1aee2020baf62b648238ab373b1c",
+  "solution_set_sha256": "8f6429b372daf2acd1a7a91df1bc10d4c69c4951ba4b9f55e8033da9c29abaa4",
+  "solutions_file": false,
+  "exception": null
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f074",
+  "query_json": "{\"id\":\"f074\",\"description\":\"armour-seeded sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[133,169,35,145,50,173],\"skill_names\":[\"Wind Breaker\",\"Trap Master\",\"Load Up\",\"Def Up (S)\",\"Accuracy+2\",\"DungBombExpert\"],\"my_charms\":[\"0,Fate,5,Ice Attack,3\",\"0,FatigueAtk,2,Wide Area,11\"]}",
+  "my_charms_loaded": 2,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    8,
+    7,
+    7,
+    9
+  ],
+  "relevant_decoration_count": 9,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Fate, +3 Ice Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

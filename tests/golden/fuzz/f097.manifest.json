@@ -1,0 +1,43 @@
+{
+  "id": "f097",
+  "query_json": "{\"id\":\"f097\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[101,38],\"skill_names\":[\"Hunger Negated\",\"Reload Speed +2\"],\"my_charms\":[\"1,Horn,1,Gunnery,-7\",\"0,Backpackng,5,PelletSAdd,0\",\"0,Fire Res,1,Horn,3\",\"0,Rapid Fire,3,Hunger,-4\",\"1,HearProtct,4,Sheathe,-5\",\"0,Rec Speed,1,Gunnery,5\",\"0,PierceSAdd,3,Health,-8\",\"0,Reload Spd,4,ThunderRes,5\",\"0,FatigueAtk,2,Crit Draw,-2\",\"0,Precision,4,Stun,10\",\"1,Sharpness,1,HearProtct,0\",\"0,Debilitate,1,Hunger,-7\",\"2,FastCharge,1,Debilitate,0\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    2,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 86,
+      "added": 86,
+      "added_sha256": "73ffc892dd86201df3da807c4363fefa8675f261e3f359c14aca290b5ca2d077"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Reload Spd, +5 ThunderRes ---",
+      "found": 206,
+      "added": 206,
+      "added_sha256": "7a1a0bea049bd521daabf1c1dd74927d6310d6f414d36d5b41246f53baed82ed"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 FastCharge, 0 Debilitate OO-",
+      "found": 195,
+      "added": 195,
+      "added_sha256": "f7f38573197bc7bc5b34815a28bd13583644b0110d7e703cc93e8ba2b32e22b8"
+    }
+  ],
+  "solution_count": 487,
+  "solutions_sha256": "2ca1b79ffec023c74a6b0eee5653a11de1bc096136c2f36006c0707d44bd8c7f",
+  "solution_set_sha256": "7a214a528bad2b92e9949706408f132d7349c96fad2da06f9ca6827a44f7caa3",
+  "solutions_file": true,
+  "exception": null
+}

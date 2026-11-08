@@ -1,0 +1,29 @@
+{
+  "id": "f379",
+  "query_json": "{\"id\":\"f379\",\"description\":\"uniform sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[157,58],\"skill_names\":[\"Thunder Res (S)\",\"Pierce S All Add\"],\"my_charms\":[\"0,Horn,6,CutterSAdd,-7\",\"0,Stun,2,FatigeCAdd,3\",\"0,Guard,3,FatigeCAdd,3\",\"0,Potential,6,Water Res,8\",\"0,Wide Area,1,CutterSAdd,-10\",\"0,Sharpness,2,NormalS Up,-1\",\"1,CutterSAdd,6,Status,-4\",\"0,PierceS Up,1,Dragon Atk,7\",\"0,Protection,1,PelletSAdd,7\",\"0,Protection,7,Perception,-8\",\"0,Hunger,6,Antiseptic,0\",\"0,Rapid Fire,4,Hunger,2\",\"0,Water Atk,3,WindPress,2\",\"0,Crag S Add,1,Horn,2\",\"1,Reload Spd,3,Dragon Atk,-1\",\"0,Artisan,1,Ice Res,-10\",\"1,WindPress,1,PunishDraw,1\",\"0,Water Atk,6,Recoil,1\",\"0,Evade Dist,6,Rec Speed,-1\",\"0,Expert,2,Rec Speed,4\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    4,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 1152,
+      "added": 1152,
+      "added_sha256": "02093fbe758fd7f06f3af0a972ebbbcfe535e503feebcdbde84e304a9c6be89d"
+    }
+  ],
+  "solution_count": 1152,
+  "solutions_sha256": "02093fbe758fd7f06f3af0a972ebbbcfe535e503feebcdbde84e304a9c6be89d",
+  "solution_set_sha256": "8a5d6c2142b1142545ca51b9fbfd47178c573ba2d6083ae6ef9c7fc04760fef1",
+  "solutions_file": true,
+  "exception": null
+}

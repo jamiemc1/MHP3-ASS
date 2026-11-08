@@ -1,0 +1,29 @@
+{
+  "id": "f184",
+  "query_json": "{\"id\":\"f184\",\"description\":\"uniform sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[104,27],\"skill_names\":[\"Evade +1\",\"Gunnery Master\"],\"my_charms\":[\"0,Blight Res,2,Gunnery,9\",\"0,Sharpener,4,Fortitude,3\",\"1,Evasion,3,Thundr Atk,-5\",\"0,WindPress,4,BombStrUp,-7\",\"0,Evasion,5,Horn,-4\",\"0,Evasion,1,NormalS Up,-3\",\"0,Fire Atk,7,Ice Res,6\",\"1,NormalS Up,4,Evasion,-3\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 715,
+      "added": 715,
+      "added_sha256": "87757a95332de401f9ba37276bd5a5ff0cf304b802f603c96363f2f4b9dbd57e"
+    }
+  ],
+  "solution_count": 715,
+  "solutions_sha256": "87757a95332de401f9ba37276bd5a5ff0cf304b802f603c96363f2f4b9dbd57e",
+  "solution_set_sha256": "9be0f78e3b12e7b9df6493a583d6848d45c37ccef6133c4ddef263e9492225ca",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,64 @@
+{
+  "id": "f329",
+  "query_json": "{\"id\":\"f329\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[201,6],\"skill_names\":[\"Carving Expert\",\"Reckless Abandon +1\"],\"my_charms\":[\"0,Paralysis,4,Expert,1\",\"0,Sheathe,1,Wide Area,-5\",\"0,Horn,3,Expert,2\",\"0,Water Atk,3,PunishDraw,-3\",\"0,Reload Spd,5,Attack,9\",\"0,Carving,3,Evasion,4\",\"0,Fire Res,3,BombStrUp,-5\",\"0,Rapid Fire,3,Water Res,5\",\"0,Expert,2,Wide Area,9\",\"1,Dragon Atk,1,Stun,-2\",\"2,Carving,2,Health,-2\",\"0,Expert,3,Poison,-10\",\"2,,,,\",\"0,Dragon Atk,7,Paralysis,-8\",\"0,Paralysis,3,Hunger,3\",\"0,SpeedSetup,6,Expert,-1\",\"0,Expert,2,Antiseptic,-4\",\"1,Rec Level,1,SleepCAdd,-6\",\"0,Backpackng,1,Precision,2\",\"0,Expert,3,CutterSAdd,-4\",\"0,Thundr Atk,7,Reload Spd,2\",\"1,Sharpness,4,Expert,-3\",\"0,Protection,2,KO,3\",\"0,PelletS Up,1,,\",\"0,KO,6,Expert,9\",\"0,Carving,3,Rewards,3\",\"0,Rapid Fire,4,FastCharge,1\",\"2,,,,\",\"0,Evasion,3,Antiseptic,-4\",\"0,FastCharge,1,Expert,10\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    5,
+    6,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Carving OOO",
+      "found": 2996,
+      "added": 2996,
+      "added_sha256": "7204b7411603f56ed8daf2eb0a9e7673419e65e89a7733a2e0756f5354babd7a"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Carving OO-",
+      "found": 2979,
+      "added": 2472,
+      "added_sha256": "8f83bfe3128ddf0ccaa54e161a032487105591e6fb3b8ff01ad165b23824ba3b"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Carving O--",
+      "found": 2933,
+      "added": 964,
+      "added_sha256": "50d3096a22406aed9f14cf9e25908df7933423436d20e29e595622fade8ba56d"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Expert OOO",
+      "found": 2779,
+      "added": 2171,
+      "added_sha256": "8fd7656e8e1ccad46e6ed91aa5f4bfb0614aed257d3ebd3ad7a5995f2549fce9"
+    },
+    {
+      "worker": 4,
+      "charm": "+10 Expert OO-",
+      "found": 2442,
+      "added": 2411,
+      "added_sha256": "e4567c34a2edf6ec5c42c7ab22840b80a339309c554416ba0c593d719ee39482"
+    },
+    {
+      "worker": 5,
+      "charm": "+10 Expert O--",
+      "found": 2207,
+      "added": 2032,
+      "added_sha256": "89f1a513df7646ca4ca988faa27b7b1658191211b377d755cb1fe8a9a6c05c37"
+    }
+  ],
+  "solution_count": 13046,
+  "solutions_sha256": "621cbedc454433606707d37ed9d390ebc38d1d7e7034fa41da5ba27af9626f44",
+  "solution_set_sha256": "088ff5eb2b7387fc8ef692bc45603008b6007bbb96e58600901767cb98a7d201",
+  "solutions_file": false,
+  "exception": null
+}

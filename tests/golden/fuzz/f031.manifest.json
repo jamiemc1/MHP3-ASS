@@ -1,0 +1,29 @@
+{
+  "id": "f031",
+  "query_json": "{\"id\":\"f031\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[170,96,98],\"skill_names\":[\"Trnquilizr Guru\",\"Runner\",\"Stamina Recov Up\"],\"my_charms\":[\"0,Rec Speed,1,Stun,3\",\"0,Evade Dist,2,PelletS Up,1\",\"0,PierceSAdd,3,Paralysis,5\",\"0,Ice Attack,4,Fire Atk,-10\",\"0,Awaken,6,Rec Speed,8\",\"0,Poison,3,Psychic,-3\",\"0,WindPress,1,Antiseptic,7\",\"0,Reload Spd,1,Horn,0\",\"0,Rapid Fire,3,Loading,-2\",\"0,KO,4,ClustS Add,7\",\"3,Evasion,5,,\",\"0,Guard Up,3,Potential,2\",\"0,Constitutn,4,Stun,7\",\"0,Thundr Atk,1,Stamina,1\",\"1,Evade Dist,2,PunishDraw,0\",\"2,Crag S Add,2,,\",\"0,FatigueAtk,1,Mud/Snow,2\",\"0,Mud/Snow,1,Shot Mix,0\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    4,
+    3,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 565,
+      "added": 565,
+      "added_sha256": "ee74f322a11aba2b607641a6ade117d06fe06b78ff5aa771d1bcac93acffa4fb"
+    }
+  ],
+  "solution_count": 565,
+  "solutions_sha256": "ee74f322a11aba2b607641a6ade117d06fe06b78ff5aa771d1bcac93acffa4fb",
+  "solution_set_sha256": "89753d20d4b3c8cc50b793c18cfeeeac3d5ef44b1156f99a37585a6794e1cb83",
+  "solutions_file": true,
+  "exception": null
+}

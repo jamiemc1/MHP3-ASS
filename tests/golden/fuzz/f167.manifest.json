@@ -1,0 +1,29 @@
+{
+  "id": "f167",
+  "query_json": "{\"id\":\"f167\",\"description\":\"uniform sampler, charm mode none, 3 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[54,198,169],\"skill_names\":[\"PierceS/PierceBowUp\",\"Luck Booster\",\"Trap Master\"],\"my_charms\":[\"0,WindPress,4,Attack,6\",\"0,Fate,1,Hunger,7\",\"0,Guard Up,1,NormalSAdd,-5\",\"2,Potential,4,Elemental,0\",\"0,Loading,5,NormalS Up,-2\",\"0,Protection,6,Rec Speed,12\",\"0,KO,5,Loading,0\",\"0,Fortitude,1,BombStrUp,6\",\"0,Wide Area,5,ParalyCAdd,-6\",\"0,FastCharge,3,Ice Attack,-2\",\"0,WindPress,4,Attack,6\",\"0,HearProtct,3,Ice Attack,-6\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    3,
+    3,
+    4,
+    7
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

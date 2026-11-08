@@ -1,0 +1,29 @@
+{
+  "id": "f485",
+  "query_json": "{\"id\":\"f485\",\"description\":\"uniform sampler, charm mode two_skill, 5 skills; quotas: auto_guard_charm, two_skill_hr_below_5, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[174,23,119,183,122],\"skill_names\":[\"Recovery Up\",\"Ruiner\",\"Auto-Guard\",\"Huntsman\\u0027s Life\",\"Poison Negated\"],\"my_charms\":[\"0,NormalSAdd,1,DungMaster,9\",\"0,Rec Level,3,ClustS Add,-4\",\"0,Precision,3,Huntsman,-5\",\"0,Auto-Guard,10,,\",\"0,Rec Level,3,Status,-6\",\"0,Slam,2,PunishDraw,3\",\"0,Rec Level,1,Expert,3\",\"0,SpeedSetup,8,Poison,1\",\"0,Dragon Atk,1,FatigueAtk,2\",\"0,Guard Up,4,Poison,-4\",\"2,Guard,2,Slam,-2\",\"0,Debilitate,2,Rec Level,3\",\"0,Evasion,6,Recoil,-2\",\"1,Fortitude,5,Huntsman,-5\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

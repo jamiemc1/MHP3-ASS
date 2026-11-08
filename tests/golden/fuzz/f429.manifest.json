@@ -1,0 +1,36 @@
+{
+  "id": "f429",
+  "query_json": "{\"id\":\"f429\",\"description\":\"uniform sampler, charm mode one_skill, 1 skill; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[101],\"skill_names\":[\"Hunger Negated\"],\"my_charms\":[\"0,Hunger,8,Status,4\",\"0,NormalSAdd,5,Hunger,-10\",\"0,Horn,5,Combo Rate,4\",\"0,Crit Draw,3,Hunger,10\",\"0,Hunger,3,SleepCAdd,-6\",\"0,Evade Dist,4,Carving,2\",\"0,Sharpener,1,Hunger,2\",\"1,Protection,4,Horn,-2\",\"0,Guard Up,2,Hunger,-1\",\"0,Defense,1,Crag S Add,-4\",\"0,Status,1,Awaken,-2\",\"0,Sheathe,5,Hunger,-10\",\"0,Evade Dist,1,Hunger,3\",\"0,Hunger,6,Huntsman,3\",\"0,PierceS Up,4,,\",\"0,Will Recov,2,FatigeCAdd,-8\",\"2,BombStrUp,1,Rec Speed,1\",\"1,Antiseptic,3,Hunger,-3\",\"0,Expert,4,Attack,3\",\"2,Potential,3,Hunger,2\",\"0,Expert,4,PoisonCAdd,-3\",\"0,Fortitude,5,Heat Res,8\",\"1,Artisan,1,Gunnery,-2\",\"0,Will Recov,2,FatigeCAdd,-8\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Hunger O--",
+      "found": 270,
+      "added": 270,
+      "added_sha256": "4f3912e054bf62b1149ab29f0e73e401184c7d3d23ada015aff9faa4a668bc74"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Hunger ---",
+      "found": 270,
+      "added": 270,
+      "added_sha256": "6e866a46d9cde5b635d3b0e2873330009e1782b6dca14b98771c5c9e21f42c99"
+    }
+  ],
+  "solution_count": 540,
+  "solutions_sha256": "3c39c984b501523b1982bcb006be608b026ef2f2a1c33d18418c60b2f56a6142",
+  "solution_set_sha256": "73bc860a83d60197630ba57e89d676740d784269126fc1d9ab15aaba290fb1e4",
+  "solutions_file": true,
+  "exception": null
+}

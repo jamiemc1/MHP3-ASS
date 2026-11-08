@@ -1,0 +1,29 @@
+{
+  "id": "f412",
+  "query_json": "{\"id\":\"f412\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[16,132,141,120,57],\"skill_names\":[\"Sharpness +1\",\"Quake Res\",\"Health +20\",\"Divine Protection\",\"Pierce S LV1 Add\"],\"my_charms\":[\"0,Artisan,3,Water Res,-1\",\"0,Artisan,1,Psychic,7\",\"1,Hunger,2,Sense,-1\",\"0,Health,4,Wide Area,-3\",\"0,Stamina,2,Health,0\",\"0,Health,4,Wide Area,-3\",\"0,Protection,6,Crag S Add,-4\",\"0,Artisan,5,BombStrUp,-7\",\"0,Protection,6,,\",\"0,PierceSAdd,4,Expert,7\",\"0,KO,6,Attack,1\",\"1,Hunger,2,Sense,-1\",\"0,Sleep,2,Health,9\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    5,
+    6,
+    3,
+    2
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

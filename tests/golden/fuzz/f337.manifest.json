@@ -1,0 +1,50 @@
+{
+  "id": "f337",
+  "query_json": "{\"id\":\"f337\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[170,1],\"skill_names\":[\"Trnquilizr Guru\",\"Attack Up [Med]\"],\"my_charms\":[\"1,WindPress,1,Perception,2\",\"0,PierceSAdd,5,CutterSAdd,7\",\"0,Guard,3,Attack,0\",\"0,Fencing,3,Recoil,-3\",\"0,Sleep,1,Precision,5\",\"1,Sleep,1,SleepCAdd,5\",\"3,Dragon Atk,2,Recoil,-2\",\"0,Fire Res,2,ClustS Add,7\",\"1,Fencing,4,Ice Res,-2\",\"0,KO,4,Potential,4\",\"0,Evade Dist,5,Attack,-4\",\"0,Expert,4,PierceSAdd,1\",\"0,Attack,1,ClustS Add,-5\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    3,
+    3,
+    2,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Perception O--",
+      "found": 507,
+      "added": 507,
+      "added_sha256": "bd915bca25c5e2118255aaebf291f273e3563f80683ff7ff065919a1e8ca4937"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Perception ---",
+      "found": 480,
+      "added": 398,
+      "added_sha256": "66ef9bad61570c00ede49f0c4631af5df795070e26f4ae13d6724660bd56e19a"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Attack O--",
+      "found": 538,
+      "added": 533,
+      "added_sha256": "a274628070fd3fa46550fb7d27f5003df28db43c2f81b70d29e0cf06e674a457"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Attack ---",
+      "found": 538,
+      "added": 414,
+      "added_sha256": "5195c77ed04769de0ce36d90b82242bb3737c60bccce91fd9f259131f7c98cdb"
+    }
+  ],
+  "solution_count": 1852,
+  "solutions_sha256": "675b95e19c7778cdb3ef3087f9bdba9e51ebe0d3ccc82caf335b6286b8f80a58",
+  "solution_set_sha256": "2688393a6da9c9f9994ee09703f6a164cf684f4a219b2a2f2f06f38aecb4c23b",
+  "solutions_file": true,
+  "exception": null
+}

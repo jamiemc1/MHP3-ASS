@@ -1,0 +1,43 @@
+{
+  "id": "f427",
+  "query_json": "{\"id\":\"f427\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[179,181],\"skill_names\":[\"Picky Eater\",\"Quick Eating +2\"],\"my_charms\":[\"0,Eating,4,ParalyCAdd,-10\",\"0,Eating,4,Ice Res,5\",\"0,Quake Res,5,ClustS Add,-8\",\"0,Water Res,4,RazorCAdd,0\",\"0,Eating,1,Fortitude,2\",\"0,Eating,5,Water Atk,2\",\"0,Will Recov,1,FatigueAtk,-1\",\"1,Eating,1,Rec Speed,-8\",\"0,Sheathe,4,Gluttony,10\",\"0,Eating,4,Gunnery,-9\",\"0,Debilitate,3,FatigueAtk,1\",\"2,Guard,3,Eating,-1\",\"1,Eating,3,Dragon Res,-5\",\"0,Fencing,5,Eating,-3\",\"0,Rapid Fire,3,Guard,2\",\"0,NormalS Up,2,Eating,0\",\"0,Reload Spd,6,Eating,3\",\"0,HearProtct,1,Psychic,10\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    4,
+    6,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Eating, +13 Gluttony ---",
+      "found": 3588,
+      "added": 3588,
+      "added_sha256": "8b25a5faac6624918c44d3f5c8cbe138962c2b0e3abec5c174a9a188e5262405"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Eating, +5 Gluttony O--",
+      "found": 3554,
+      "added": 3339,
+      "added_sha256": "83300fb79c0586ef66cb4ff3c4546de76cca7cbf813f5ad7f281d09048b7486b"
+    },
+    {
+      "worker": 2,
+      "charm": "OOO",
+      "found": 3547,
+      "added": 3545,
+      "added_sha256": "a682b8a7d1437b243769c6758227cf4326844ac8aedbcbef53a1b23313b9a8fc"
+    }
+  ],
+  "solution_count": 10472,
+  "solutions_sha256": "cfae01c579af622a60776c1771c1d113069e39a7e2d8c2e565d5c35c85586e7c",
+  "solution_set_sha256": "28dcfa70dbb9a086008cb2af2eecaf7d3f5687a6c67f9f25895388eb1ac4f6a1",
+  "solutions_file": false,
+  "exception": null
+}

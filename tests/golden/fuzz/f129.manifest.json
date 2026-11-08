@@ -1,0 +1,29 @@
+{
+  "id": "f129",
+  "query_json": "{\"id\":\"f129\",\"description\":\"armour-seeded sampler, charm mode slotted, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[8,139],\"skill_names\":[\"Reckless Abandon +3\",\"Earplug\"],\"my_charms\":[\"1,Rec Level,1,Horn,7\",\"0,Stamina,1,Artisan,1\",\"1,HearProtct,5,Ice Attack,-4\",\"0,SpeedSetup,2,CutterSAdd,9\",\"0,Dragon Atk,5,Quake Res,-6\",\"2,SpeedSetup,5,,\",\"0,WindPress,4,NormalS Up,3\",\"0,Rewards,4,Protection,5\",\"1,Thundr Atk,1,Expert,-1\",\"0,PelletSAdd,1,Fire Res,4\",\"0,Expert,3,Anti-Theft,4\",\"0,Expert,4,Whim,7\",\"0,Horn,5,Dragon Res,-3\",\"0,FastCharge,3,Water Atk,6\",\"0,Wide Area,1,Expert,-6\",\"0,Wide Area,8,NormalSAdd,7\",\"0,Evade Dist,5,Will Recov,-3\",\"0,Water Atk,5,HearProtct,2\",\"0,Rec Level,4,Stamina,0\",\"0,Loading,4,Carving,0\",\"0,Guard,2,Whim,9\",\"0,HearProtct,1,Slam,-3\",\"0,ThunderRes,6,Quake Res,0\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    6,
+    4,
+    7,
+    9
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 7483,
+      "added": 7457,
+      "added_sha256": "d9247a840dbfbc32c171e460ca30fec6c1b1e6263e36a1874fa272577da6e849"
+    }
+  ],
+  "solution_count": 7457,
+  "solutions_sha256": "d9247a840dbfbc32c171e460ca30fec6c1b1e6263e36a1874fa272577da6e849",
+  "solution_set_sha256": "68e795e49fab310b1456b14c5989842ac5339cf017bb049bf5b7ea648372db0a",
+  "solutions_file": false,
+  "exception": null
+}

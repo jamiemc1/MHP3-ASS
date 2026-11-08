@@ -1,0 +1,29 @@
+{
+  "id": "f445",
+  "query_json": "{\"id\":\"f445\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[28,72,189,6,135,90],\"skill_names\":[\"Gunnery King\",\"Abnormal Status Atk +1\",\"Gathering +1\",\"Reckless Abandon +1\",\"Antiseptic\",\"Dragon Element +2\"],\"my_charms\":[\"0,Status,4,Rapid Fire,1\",\"0,Paralysis,3,Poison,3\",\"0,Protection,3,Status,-2\",\"3,Elemental,3,Constitutn,-3\",\"2,Expert,1,ParalyCAdd,3\",\"1,Expert,2,PowerCAdd,-9\",\"2,Expert,1,ParalyCAdd,3\",\"1,Protection,6,Expert,-2\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    9,
+    10,
+    11,
+    11
+  ],
+  "relevant_decoration_count": 9,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

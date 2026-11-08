@@ -1,0 +1,50 @@
+{
+  "id": "f391",
+  "query_json": "{\"id\":\"f391\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[205,201],\"skill_names\":[\"Combine Success+45%\",\"Carving Expert\"],\"my_charms\":[\"0,NormalS Up,4,Rapid Fire,2\",\"0,Expert,1,Combo Rate,-9\",\"1,Carving,1,BombStrUp,5\",\"0,Carving,3,Dragon Atk,-9\",\"2,Guard,3,Eating,-2\",\"0,Horn,2,Combo Rate,5\",\"2,Carving,1,Evade Dist,-2\",\"1,Dragon Atk,1,Combo Rate,6\",\"0,Carving,1,Evasion,3\",\"0,Sheathe,4,RazorCAdd,-9\",\"0,KO,6,ThunderRes,0\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    2,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Carving, -9 Dragon Atk ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Carving, -2 Evade Dist OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Dragon Atk, +6 Combo Rate O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

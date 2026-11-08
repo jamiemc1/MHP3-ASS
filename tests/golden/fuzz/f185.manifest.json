@@ -1,0 +1,29 @@
+{
+  "id": "f185",
+  "query_json": "{\"id\":\"f185\",\"description\":\"uniform sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[27,100,194],\"skill_names\":[\"Gunnery Master\",\"Hunger Halved\",\"Divine Whim\"],\"my_charms\":[\"0,Water Atk,3,Carving,-1\",\"0,Evasion,3,Attack,-7\",\"0,Elemental,3,Ice Attack,-9\",\"2,Guard Up,3,KO,-1\",\"1,FatigueAtk,3,Gunnery,-5\",\"2,Sheathe,3,FatigueAtk,-1\",\"0,Will Recov,1,HiSpdGathr,-3\",\"1,Artisan,3,Recoil,-3\",\"0,FatigueAtk,1,Hunger,-2\",\"1,PierceSAdd,2,Health,1\",\"1,Will Recov,1,Hunger,-6\",\"0,Sheathe,3,Water Atk,-9\",\"2,Evade Dist,1,Psychic,0\",\"0,Hunger,8,Stun,-4\",\"0,Protection,3,Gunnery,7\",\"0,Crit Draw,5,Blight Res,2\",\"1,Constitutn,5,Hunger,0\",\"0,Eating,5,FatigueAtk,2\",\"3,Constitutn,5,PelletS Up,-1\",\"1,Fire Atk,2,Whim,2\",\"0,Hunger,1,SleepCAdd,-6\",\"0,Crit Draw,3,Gunnery,-3\",\"0,Evade Dist,4,Gunnery,-7\",\"0,PunishDraw,4,Stun,5\",\"1,Sheathe,4,Elemental,-1\",\"2,Debilitate,1,Gunnery,5\",\"0,HearProtct,2,Gunnery,4\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    5,
+    4,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 1064,
+      "added": 1064,
+      "added_sha256": "733b652446f958ec15c98a70766afad5489beccb694d34b7ae5a19ee9804006b"
+    }
+  ],
+  "solution_count": 1064,
+  "solutions_sha256": "733b652446f958ec15c98a70766afad5489beccb694d34b7ae5a19ee9804006b",
+  "solution_set_sha256": "b0d39807de6bfce590b7d6c0dc04085099fbad702c523d90c7db38a4eccb8bad",
+  "solutions_file": true,
+  "exception": null
+}

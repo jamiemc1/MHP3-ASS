@@ -1,0 +1,85 @@
+{
+  "id": "f270",
+  "query_json": "{\"id\":\"f270\",\"description\":\"armour-seeded sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[146,128,178],\"skill_names\":[\"Def Up (M)\",\"Stun Halved\",\"Filled Up\"],\"my_charms\":[\"0,Dragon Res,4,Stun,2\",\"1,ThunderRes,4,Defense,-7\",\"1,Dragon Res,1,Stun,0\",\"0,Crit Draw,4,Stun,9\",\"0,Status,3,Stun,0\",\"0,Stun,6,Antiseptic,8\",\"1,FatigueAtk,3,Stun,-8\",\"0,ThunderRes,3,Gluttony,4\",\"0,Recoil,2,Constitutn,2\",\"0,Defense,1,Ice Res,7\",\"0,Stun,5,LastingPwr,8\",\"2,Quake Res,1,Defense,-7\",\"1,Ice Attack,3,Defense,0\",\"0,Evasion,3,PelletSAdd,-7\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    4,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 9,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Stun, +4 Defense ---",
+      "found": 275,
+      "added": 275,
+      "added_sha256": "966a482733c2db65a929e33f59a9215641e48f63bf71b3758635e52c79cc1e37"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Stun, +6 Defense ---",
+      "found": 393,
+      "added": 174,
+      "added_sha256": "3fc4c8d5ce046a19cb9205f16e0923746bd2b38799afc84a743f560510cb855a"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Defense, +9 Stun ---",
+      "found": 199,
+      "added": 150,
+      "added_sha256": "55db8738595f9adb755942c30915ba2769f921c0e99149bbc9de6e8219d664e4"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Defense, +4 Stun OO-",
+      "found": 143,
+      "added": 92,
+      "added_sha256": "b4299bf0ff51d956a6b8820f6abfcf53eb0ce2c796553680e4433f9c553da77a"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Defense, +3 Gluttony O--",
+      "found": 128,
+      "added": 127,
+      "added_sha256": "4aa89e031885b536632f7f70e625708bc1d177ce38780747920eb273b2352e81"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 Defense, +11 Gluttony ---",
+      "found": 209,
+      "added": 162,
+      "added_sha256": "28bcd27d223262b577d9bae6096df02b86208ad7fff2d4ed88525023ab1106b8"
+    },
+    {
+      "worker": 6,
+      "charm": "+8 Stun, +12 Gluttony ---",
+      "found": 157,
+      "added": 103,
+      "added_sha256": "8aeeee053cc9ce2471bf682163f994821f5cd2826a8a0fcfb1478b21c18dd004"
+    },
+    {
+      "worker": 7,
+      "charm": "+7 Stun, +13 Gluttony ---",
+      "found": 152,
+      "added": 10,
+      "added_sha256": "334f3e2558e77c5717f8f2441910156c6603352f8c6fd875e79bb1eb6a7f25f8"
+    },
+    {
+      "worker": 8,
+      "charm": "+1 Stun, +4 Gluttony OO-",
+      "found": 111,
+      "added": 69,
+      "added_sha256": "f659dfb11e3ae0aadfe5ac3a5d2555e735a681293e13473fdaca213c85b2bb4b"
+    }
+  ],
+  "solution_count": 1162,
+  "solutions_sha256": "ff3aeafaea05929ba49244eb8d84af97f36256a046c11a86022908f4a9bc3562",
+  "solution_set_sha256": "ce7c8b2a1a734948ca45efd3ab9371c4aaf810fc34bdda22e274461e06dac397",
+  "solutions_file": true,
+  "exception": null
+}

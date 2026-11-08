@@ -1,0 +1,29 @@
+{
+  "id": "f023",
+  "query_json": "{\"id\":\"f023\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[133,86,25,80,187,112],\"skill_names\":[\"Wind Breaker\",\"Ice Element +1\",\"Enfeebler\",\"Water Element +1\",\"Cold Eliminate\",\"Recovery Speed +2\"],\"my_charms\":[\"1,FatigueAtk,2,Shot Mix,-7\",\"0,WindPress,1,Artisan,-2\",\"0,WindPress,2,Blight Res,0\",\"0,Potential,4,Evade Dist,-1\",\"0,Loading,4,Dragon Atk,-3\",\"1,Will Recov,1,Rec Speed,5\",\"1,Precision,1,Defense,1\",\"0,PunishDraw,2,Constitutn,-2\",\"0,Dragon Res,3,HiSpdGathr,-10\",\"0,Status,6,Eating,-2\",\"0,Sleep,1,ParalyCAdd,2\",\"0,Fencing,1,Rapid Fire,-1\",\"0,Dragon Res,5,Antiseptic,-3\",\"0,WindPress,3,NormalSAdd,-6\",\"3,Ice Attack,2,Constitutn,0\",\"0,Ice Attack,7,Hunger,8\",\"0,Constitutn,2,Status,-3\",\"0,FatigueAtk,6,Psychic,2\",\"0,Water Res,4,SpeedSetup,1\",\"0,Water Atk,3,Water Res,-10\",\"0,Psychic,4,SpeedSetup,-4\",\"0,WindPress,4,Water Atk,2\",\"0,Evade Dist,5,Sense,2\",\"0,Crit Draw,3,Fire Atk,-2\",\"1,FatigueAtk,2,Shot Mix,-7\",\"0,Constitutn,6,PierceSAdd,-3\",\"0,Rec Speed,6,Whim,-3\",\"0,Fencing,4,Carving,2\",\"0,Evasion,3,PelletSAdd,-7\",\"0,KO,4,Rec Speed,-5\",\"0,FatigueAtk,4,Gunnery,-1\",\"0,WindPress,1,Artisan,-2\"]}",
+  "my_charms_loaded": 32,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    6,
+    7,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

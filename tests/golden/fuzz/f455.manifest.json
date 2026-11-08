@@ -1,0 +1,50 @@
+{
+  "id": "f455",
+  "query_json": "{\"id\":\"f455\",\"description\":\"uniform sampler, charm mode my_charms, 1 skill; quotas: empty_slot\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[2],\"skill_names\":[\"Att. augm. (gd)\"],\"my_charms\":[\"0,Att. augm.,2,R\u00e9s.trmbl,6\",\"1,D\u00e9gainage,3,Pique,-3\",\"0,Att. augm.,2,Faim,10\",\"2,S\u00e9rieux,4,Att. augm.,-5\",\"0,Protection,3,D\u00e9pe\u00e7age,-2\",\"0,R\u00e9tVigAug.,2,Att. augm.,-4\",\"2,Pr\u00e9cision,1,Att. augm.,3\",\"0,R\u00e9s.trmbl,4,Expert,0\",\"0,Recharge,3,Att. augm.,-2\",\"1,Att. augm.,1,Vol ineff.,-7\",\"0,Clairvoy.,1,Paralysie,3\",\"3,Escrime,1,Att. augm.,1\",\"0,Garde +,1,Att. augm.,6\",\"0,Inst.rap.,8,Att. augm.,6\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Pr\u00e9cision, +3 Att. augm. OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Escrime, +1 Att. augm. OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Garde +, +6 Att. augm. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f255",
+  "query_json": "{\"id\":\"f255\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[194,72,204,138],\"skill_names\":[\"Divine Whim\",\"Abnormal Status Atk +1\",\"Combine Success +20%\",\"Def Down Negate\"],\"my_charms\":[\"0,ClustS Add,3,Whim,-4\",\"0,CutterSAdd,3,Whim,-8\",\"0,Reload Spd,5,Status,-6\",\"0,Attack,3,PoisonCAdd,4\",\"1,KO,3,Sheathe,-10\",\"0,Status,2,SleepCAdd,10\",\"0,Water Atk,4,Combo Rate,-4\",\"0,Sharpness,5,Psychic,-2\",\"0,Paralysis,1,Poison,0\",\"0,ClustS Add,3,Whim,-4\",\"0,CutterSAdd,3,Whim,-8\",\"0,Thundr Atk,3,HearProtct,1\",\"0,Rec Level,2,Quake Res,-4\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

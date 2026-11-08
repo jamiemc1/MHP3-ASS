@@ -1,0 +1,29 @@
+{
+  "id": "f335",
+  "query_json": "{\"id\":\"f335\",\"description\":\"armour-seeded sampler, charm mode none, 6 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[104,1,96,161,164,56],\"skill_names\":[\"Evade +1\",\"Attack Up [Med]\",\"Runner\",\"Ice Res (L)\",\"Dragon Res (L)\",\"Normal S All Add\"],\"my_charms\":[\"1,WindPress,1,NormalS Up,0\",\"0,Crag S Add,1,Sense,9\",\"2,Water Atk,2,Awaken,-1\",\"0,Fortitude,6,Anti-Theft,-9\",\"0,Sleep,1,Ice Res,-10\",\"0,Crag S Add,2,Hunger,6\",\"0,Artisan,1,Status,-3\",\"0,Rec Level,6,Water Res,8\",\"2,PunishDraw,1,Health,0\",\"0,Recoil,5,Fire Res,-10\",\"0,Guard,3,Health,8\",\"0,Ice Res,2,Heat Res,5\",\"0,Water Atk,2,Horn,0\",\"0,Hunger,8,Ice Res,7\",\"1,BombStrUp,1,Stun,1\",\"0,Status,2,Anti-Theft,-6\",\"0,NormalS Up,4,Dragon Atk,7\",\"0,Potential,2,Rec Speed,-3\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    13,
+    10,
+    8,
+    10,
+    10
+  ],
+  "relevant_decoration_count": 11,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

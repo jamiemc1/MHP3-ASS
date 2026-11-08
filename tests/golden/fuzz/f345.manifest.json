@@ -1,0 +1,78 @@
+{
+  "id": "f345",
+  "query_json": "{\"id\":\"f345\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[154,198,73,27,171],\"skill_names\":[\"Water Res (S)\",\"Luck Booster\",\"Abnormal Status Atk +2\",\"Gunnery Master\",\"Detect\"],\"my_charms\":[\"2,Fencing,1,Sharpener,-3\",\"0,Protection,2,Evade Dist,2\",\"1,Blight Res,3,Fire Atk,-9\",\"3,Rec Level,4,Health,-4\",\"0,Hunger,6,Fire Res,4\",\"0,Reload Spd,3,Defense,-4\",\"0,Constitutn,4,PierceSAdd,-10\",\"0,Attack,4,ThunderRes,1\",\"0,Stun,8,DungMaster,3\",\"0,Status,1,Wide Area,8\",\"1,PierceS Up,2,Slam,-3\",\"0,KO,6,Hunger,2\",\"0,Gunnery,3,Poison,7\",\"1,Fire Atk,4,,\",\"0,Debilitate,5,PierceS Up,2\",\"2,Blight Res,2,Guard Up,-3\",\"1,Will Recov,3,Water Res,-7\",\"0,Protection,1,Ice Attack,-8\",\"0,BombStrUp,1,Water Res,0\",\"0,NormalS Up,4,Status,-6\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 8,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Water Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Gunnery O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Gunnery ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+6 Psychic O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+8 Psychic ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f285",
+  "query_json": "{\"id\":\"f285\",\"description\":\"uniform sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[141,19,80],\"skill_names\":[\"Health +20\",\"Concentration\",\"Water Element +1\"],\"my_charms\":[\"0,FastCharge,4,Constitutn,4\",\"0,Status,3,FastCharge,1\",\"1,,,,\"]}",
+  "my_charms_loaded": 3,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    4,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

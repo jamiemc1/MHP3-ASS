@@ -1,0 +1,29 @@
+{
+  "id": "f017",
+  "query_json": "{\"id\":\"f017\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[187],\"skill_names\":[\"Cold Eliminate\"],\"my_charms\":[\"0,Cold Res,10,,\",\"0,Stamina,4,Artisan,1\",\"0,Evade Dist,4,ClustS Add,-5\",\"2,Ice Attack,4,Cold Res,-3\",\"0,Fire Atk,2,Sense,2\",\"0,Loading,3,Rewards,-2\",\"0,Quake Res,3,Cold Res,-7\",\"0,Will Recov,6,PierceSAdd,-3\",\"0,WindPress,4,Hunger,-7\",\"0,Fate,1,Wide Area,-4\",\"0,Horn,1,Cold Res,7\",\"1,PelletS Up,3,Horn,-2\",\"0,Horn,4,Cold Res,-7\",\"1,,,,\",\"2,,,,\",\"0,Water Res,2,Defense,-6\",\"0,Will Recov,3,Cold Res,0\",\"0,Ice Res,4,SpeedSetup,5\",\"0,Loading,3,Thundr Atk,-10\",\"0,Protection,4,Fencing,1\",\"0,Guard,5,Mud/Snow,-6\",\"0,Horn,2,Cold Res,5\",\"0,Water Res,6,Cold Res,-2\",\"1,Sheathe,2,Hunger,-9\",\"0,NormalSAdd,2,PelletSAdd,-2\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 72,
+      "added": 72,
+      "added_sha256": "f871f40756da36e8cebbae64eeb2eb7136accbeba8acb2673b22250efc743913"
+    }
+  ],
+  "solution_count": 72,
+  "solutions_sha256": "f871f40756da36e8cebbae64eeb2eb7136accbeba8acb2673b22250efc743913",
+  "solution_set_sha256": "f871f40756da36e8cebbae64eeb2eb7136accbeba8acb2673b22250efc743913",
+  "solutions_file": true,
+  "exception": null
+}

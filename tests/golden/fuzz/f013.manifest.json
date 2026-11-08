@@ -1,0 +1,36 @@
+{
+  "id": "f013",
+  "query_json": "{\"id\":\"f013\",\"description\":\"uniform sampler, charm mode one_skill, 1 skill; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[18],\"skill_names\":[\"Unsheathe Critical\"],\"my_charms\":[\"0,Crit Draw,5,PunishDraw,3\",\"2,Thundr Atk,2,Artisan,-1\",\"1,Will Recov,3,Expert,0\",\"3,,,,\",\"0,KO,3,Attack,-2\",\"0,Potential,4,Wide Area,-1\",\"1,Dragon Atk,1,NormalS Up,2\",\"0,Will Recov,4,ThunderRes,-6\",\"0,WindPress,1,Ice Res,-8\",\"3,,,,\",\"2,Guard Up,1,Paralysis,-1\",\"1,Loading,1,Fire Res,-4\",\"3,Crit Draw,2,Dragon Atk,0\",\"1,Dragon Atk,1,NormalS Up,2\",\"0,Potential,4,Wide Area,-1\",\"0,Fire Atk,7,Antiseptic,5\",\"0,FatigueAtk,5,NormalSAdd,2\",\"0,Debilitate,1,Evasion,0\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    1,
+    2,
+    1,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OO-",
+      "found": 30,
+      "added": 30,
+      "added_sha256": "eb3e5f5b97439be46df0ac8a1bb6805c7d16cb8d9303be750275b8ab17f91c5c"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 30,
+      "added": 30,
+      "added_sha256": "815a511697548a512b4ce8cc23d7750b5461fb981ce795ff6d11da4476b48607"
+    }
+  ],
+  "solution_count": 60,
+  "solutions_sha256": "7df9cb0b18ee40a86b7b99a4380da6756b53d1e371c92be9db272b7c84b22a09",
+  "solution_set_sha256": "58da2d9db0d7403a5750784501cdaff982dbad8550807c0762677b17d22675b3",
+  "solutions_file": true,
+  "exception": null
+}

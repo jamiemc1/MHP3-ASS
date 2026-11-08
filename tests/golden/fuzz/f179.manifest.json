@@ -1,0 +1,36 @@
+{
+  "id": "f179",
+  "query_json": "{\"id\":\"f179\",\"description\":\"armour-seeded sampler, charm mode one_skill, 1 skill; quotas: cross_type, one_skill_hr_3_or_less, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[60],\"skill_names\":[\"Pellet S All Add\"],\"my_charms\":[\"1,PelletSAdd,1,Whim,-8\",\"0,Guard,2,RazorCAdd,1\",\"0,Fire Atk,6,PierceS Up,-1\",\"0,SpeedSetup,1,Gluttony,11\",\"0,Dragon Atk,2,Quake Res,2\",\"0,Rapid Fire,5,Eating,-1\",\"1,Precision,3,Horn,-8\",\"3,Debilitate,4,,\",\"1,Debilitate,5,Horn,-1\",\"0,Recoil,4,Water Atk,-9\",\"0,Rewards,3,Ice Res,-1\",\"0,Artisan,4,Sheathe,-6\",\"0,ClustS Add,4,RazorCAdd,2\",\"0,Wide Area,8,Rec Speed,1\",\"2,FatigueAtk,1,Horn,3\",\"0,Hunger,1,Health,-8\",\"1,Poison,1,,\",\"0,Rec Speed,4,Hunger,8\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 PelletSAdd O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 PelletSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

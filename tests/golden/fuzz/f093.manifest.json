@@ -1,0 +1,29 @@
+{
+  "id": "f093",
+  "query_json": "{\"id\":\"f093\",\"description\":\"uniform sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[167,108,38],\"skill_names\":[\"Area Amplia +2\",\"Envaine veloz\",\"Vel.Recarga +2\"],\"my_charms\":[\"1,Mochilero,2,A\u00f1DispBomb,0\",\"0,A\u00f1DPerf,2,Experto,-7\",\"0,Fuego Inc,1,SubFueBomb,6\",\"0,Vel. recup,1,,\",\"0,SubirDPerf,2,VisPs\u00edquic,-4\",\"0,Atq espec.,3,SubirDPerf,3\",\"0,Determin.,5,Aturdir,6\",\"0,R. agua,1,NieDefBaja,7\",\"3,Determin.,2,\u00c1rea ampl.,-7\",\"0,KO,6,R. fuego,3\",\"0,Trueno Inc,2,Vel.recarg,2\",\"0,Vel.recarg,4,Glotoneria,9\",\"0,R. drag\u00f3n,1,\u00c1rea ampl.,2\",\"0,Trueno Inc,1,Res. Plaga,2\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    5,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

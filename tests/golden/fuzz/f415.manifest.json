@@ -1,0 +1,29 @@
+{
+  "id": "f415",
+  "query_json": "{\"id\":\"f415\",\"description\":\"uniform sampler, charm mode slotted, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[140],\"skill_names\":[\"HighGradeEarplug\"],\"my_charms\":[\"0,HearProtct,2,Loading,-2\",\"0,Carving,4,Water Atk,9\",\"0,HearProtct,3,Rec Level,4\",\"1,Evasion,1,WindPress,1\",\"0,Rewards,2,FatigueAtk,3\",\"0,Eating,3,HearProtct,-3\",\"1,HearProtct,1,Wide Area,-8\",\"0,HearProtct,5,Sheathe,-8\",\"0,Will Recov,1,HearProtct,3\",\"2,HearProtct,4,Water Res,-2\",\"0,Guard Up,4,HearProtct,-3\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 126,
+      "added": 126,
+      "added_sha256": "1874cc687e027b6ce12cdaae9f62bcec7bba0cadb640c41048b3a08a5e4eec55"
+    }
+  ],
+  "solution_count": 126,
+  "solutions_sha256": "1874cc687e027b6ce12cdaae9f62bcec7bba0cadb640c41048b3a08a5e4eec55",
+  "solution_set_sha256": "6d70bc9f27c4c5b1e947bfae0e8b6346b1db4137afe0ed74f4592b853e949258",
+  "solutions_file": true,
+  "exception": null
+}

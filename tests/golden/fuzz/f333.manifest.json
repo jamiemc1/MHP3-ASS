@@ -1,0 +1,50 @@
+{
+  "id": "f333",
+  "query_json": "{\"id\":\"f333\",\"description\":\"armour-seeded sampler, charm mode my_charms, 3 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[201,134,135],\"skill_names\":[\"Carving Expert\",\"Wind Anchor\",\"Antiseptic\"],\"my_charms\":[\"0,Fate,1,Horn,6\",\"2,Evade Dist,1,Fate,0\",\"0,Ice Attack,1,Gathering,-1\",\"0,PierceS Up,3,Loading,2\",\"0,Hunger,7,Precision,8\",\"0,Huntsman,5,,\",\"0,Awaken,5,FatigueAtk,-2\",\"0,Carving,1,Crit Draw,1\",\"0,Fortitude,7,RazorCAdd,2\",\"1,Thundr Atk,4,PunishDraw,1\",\"0,Crit Draw,2,WindPress,3\",\"1,Gunnery,5,Defense,-1\",\"0,Fortitude,1,Precision,9\",\"0,WindPress,2,Fencing,1\",\"0,PierceSAdd,3,Antiseptic,1\",\"0,ClustS Add,5,Backpackng,7\",\"0,Fortitude,1,Gunnery,3\",\"0,Antiseptic,1,Heat Res,-3\",\"2,Carving,2,Water Res,-8\",\"0,WindPress,1,Backpackng,-1\",\"0,WindPress,1,DungMaster,-4\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Crit Draw, +3 WindPress ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 PierceSAdd, +1 Antiseptic ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Carving, -8 Water Res OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

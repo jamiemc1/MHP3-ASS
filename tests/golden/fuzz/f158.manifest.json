@@ -1,0 +1,29 @@
+{
+  "id": "f158",
+  "query_json": "{\"id\":\"f158\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[26],\"skill_names\":[\"Flute Expert\"],\"my_charms\":[\"0,Water Res,1,Shot Mix,3\",\"0,CutterSAdd,6,Perception,10\",\"0,Gunnery,5,HiSpdGathr,3\",\"1,Water Res,3,PoisonCAdd,-7\",\"0,Guard,2,Huntsman,10\",\"0,BombStrUp,6,PelletSAdd,-9\",\"0,Crag S Add,1,Gluttony,-9\",\"0,Sheathe,6,Horn,2\",\"0,ClustS Add,3,Water Res,-5\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 216,
+      "added": 216,
+      "added_sha256": "ac809711fb80935ee3c6618b57773381ee7e85cba7fbab5a183ba412a5f021ae"
+    }
+  ],
+  "solution_count": 216,
+  "solutions_sha256": "ac809711fb80935ee3c6618b57773381ee7e85cba7fbab5a183ba412a5f021ae",
+  "solution_set_sha256": "bb9a66a7058403a99fe1afc0c95f04d17336c893be73397a93ac61b1f6064e45",
+  "solutions_file": true,
+  "exception": null
+}

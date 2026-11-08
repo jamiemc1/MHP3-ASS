@@ -1,0 +1,29 @@
+{
+  "id": "f265",
+  "query_json": "{\"id\":\"f265\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[179,192,140,96],\"skill_names\":[\"Gourmand\",\"Speed Gatherer\",\"HG Earplugs\",\"Marathon Runner\"],\"my_charms\":[\"0,Recoil,3,Fate,1\",\"0,Health,6,ThunderRes,-10\",\"0,Eating,1,Precision,3\",\"0,Normal Up,3,Pierce Up,2\",\"0,SpeedSetup,2,Gluttony,-1\",\"0,Stam Drain,1,Spd Gather,-8\",\"0,Stamina,3,Protection,9\",\"0,Wide-Range,6,Gluttony,5\",\"0,Hearing,3,Reload Speed,1\",\"0,Evasion,4,Carving,-1\",\"1,Slice S+,4,Precision,-7\",\"0,Sheathing,1,Potential,-1\",\"0,Evasion,5,Stamina,2\",\"1,Reload Speed,1,Rec Speed,0\",\"0,Hearing,3,Rec Speed,-9\",\"0,Tranquilzr,1,Stamina,3\",\"0,Constitutn,6,Maestro,-5\",\"0,Stamina,2,Blight Res,3\",\"1,Tranquilzr,1,Stamina,-3\",\"1,Evasion,1,Stamina,0\",\"0,SpeedSetup,1,Gluttony,7\",\"0,Eating,4,Para C+,-10\",\"1,Paralysis,3,Psychic,2\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    13,
+    11,
+    9,
+    13,
+    8
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 22,
+      "added": 22,
+      "added_sha256": "90004653f1c0902b9c35289423424d197f0068966c40712d50f93891b2321720"
+    }
+  ],
+  "solution_count": 22,
+  "solutions_sha256": "90004653f1c0902b9c35289423424d197f0068966c40712d50f93891b2321720",
+  "solution_set_sha256": "c2986ad654d896704fff838d1ed047e45551e9c20be904699b7115cf7f6ae501",
+  "solutions_file": true,
+  "exception": null
+}

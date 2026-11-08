@@ -1,0 +1,29 @@
+{
+  "id": "f068",
+  "query_json": "{\"id\":\"f068\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[81,179,168,180],\"skill_names\":[\"Water Element +2\",\"Picky Eater\",\"Bombardier\",\"Quick Eating +1\"],\"my_charms\":[\"2,Guard Up,6,,\",\"0,Attack,3,Backpackng,1\",\"0,Protection,6,Sharpener,-4\",\"0,PierceSAdd,6,Whim,7\",\"0,ClustS Add,6,BombStrUp,0\",\"0,WindPress,2,FatigueAtk,4\",\"0,ThunderRes,1,Water Res,-3\",\"0,Ice Attack,7,Fortitude,-5\",\"0,WindPress,3,Water Atk,-4\",\"0,Water Atk,6,Reload Spd,-2\",\"1,Water Atk,1,Horn,-9\",\"0,Water Atk,6,Reload Spd,-2\",\"2,Dragon Atk,2,Water Atk,0\",\"0,Crit Draw,2,Slam,2\",\"0,Thundr Atk,5,Potential,0\",\"0,Constitutn,3,BombStrUp,-7\",\"0,Quake Res,5,ThunderRes,1\",\"0,Rec Level,4,Defense,-9\",\"0,PierceSAdd,5,Paralysis,-2\",\"0,Dragon Atk,7,Mud/Snow,3\",\"0,Fire Atk,4,Eating,-3\",\"0,Evade Dist,4,Crit Draw,1\",\"0,Quake Res,4,Precision,-1\",\"0,Slam,1,Attack,1\",\"0,Protection,5,Mud/Snow,-1\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    4,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

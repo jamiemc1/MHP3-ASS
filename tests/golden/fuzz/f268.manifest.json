@@ -1,0 +1,29 @@
+{
+  "id": "f268",
+  "query_json": "{\"id\":\"f268\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[128,80,96],\"skill_names\":[\"Stun Halved\",\"Water Element +1\",\"Runner\"],\"my_charms\":[\"0,Expert,2,SleepCAdd,-10\",\"0,Evasion,2,Awaken,4\",\"0,Water Atk,5,Rapid Fire,-1\",\"0,Water Res,1,HiSpdGathr,3\",\"0,Artisan,4,Gunnery,-9\",\"0,Mud/Snow,1,Stun,10\",\"2,Evasion,4,Water Atk,-5\",\"0,Loading,6,Blight Res,-2\",\"0,Artisan,4,Expert,9\",\"0,Stamina,4,Artisan,3\",\"0,Stun,5,SpeedSetup,6\",\"0,Constitutn,5,Anti-Theft,0\",\"0,Rapid Fire,4,Ice Attack,9\",\"0,Awaken,5,PunishDraw,-3\",\"1,Debilitate,1,Potential,1\",\"1,,,,\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    6,
+    5,
+    7,
+    11
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 8905,
+      "added": 8905,
+      "added_sha256": "ddb15a78fcf81ad881fc19c9dfe01524af36f7583dbad807a18d4570d2b8161c"
+    }
+  ],
+  "solution_count": 8905,
+  "solutions_sha256": "ddb15a78fcf81ad881fc19c9dfe01524af36f7583dbad807a18d4570d2b8161c",
+  "solution_set_sha256": "09b4036c00ed69fe974a3b4f01c197d5763a6f539022124dfaad62045fec2e7d",
+  "solutions_file": false,
+  "exception": null
+}

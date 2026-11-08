@@ -1,0 +1,134 @@
+{
+  "id": "f121",
+  "query_json": "{\"id\":\"f121\",\"description\":\"armour-seeded sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[185,135,147,14],\"skill_names\":[\"Heat Cancel\",\"Antiseptic\",\"Def Up (L)\",\"Speed Sharpening\"],\"my_charms\":[\"1,Sharpener,1,Hunger,4\",\"0,Stamina,2,FatigueAtk,-3\",\"0,Fire Atk,7,Defense,6\",\"1,Sharpener,3,Gathering,-3\",\"0,Dragon Res,1,Defense,4\",\"0,Antiseptic,7,Fortitude,8\",\"0,Ice Attack,5,Potential,1\",\"2,Sharpener,2,HiSpdGathr,-5\",\"1,Defense,2,Cold Res,-3\",\"1,Eating,2,Sharpener,0\",\"1,Sharpener,3,Gathering,-3\",\"0,Quake Res,3,Antiseptic,6\",\"0,Defense,1,Water Res,10\",\"0,Psychic,5,Heat Res,2\",\"0,Loading,1,Defense,-6\",\"0,Defense,3,Expert,5\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    4,
+    5,
+    2
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 16,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Antiseptic, +8 Heat Res ---",
+      "found": 21,
+      "added": 21,
+      "added_sha256": "5f93048c23e4e7210ce83ba05ee9e88bce8ccfc6115223558b600c622111adaa"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Antiseptic, +10 Heat Res ---",
+      "found": 9,
+      "added": 5,
+      "added_sha256": "106b8f182a25162d8f0d5abdd4c7a1c6e937456622ad27f0e05314b2442e545c"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Defense, +7 Heat Res ---",
+      "found": 25,
+      "added": 25,
+      "added_sha256": "8a71bf2523cae5761d9960bc613bf525bc9160b8603acf3490476e7d189a5ba4"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Defense, +10 Heat Res ---",
+      "found": 32,
+      "added": 26,
+      "added_sha256": "129c313e7c8eb1d01a51ba56b34638c0f01f028809b70bdcba35dd5eb014ee17"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Antiseptic, +6 Defense ---",
+      "found": 27,
+      "added": 27,
+      "added_sha256": "72bae5159e6e48c4d636830156adfa81c3395f91e495c2e80293fb2694000f86"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 Antiseptic, +1 Defense OO-",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "2a4597f3d4b59b7346c37d6118852795d42217f7b0ce95a73e8711ca98dcc337"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 Antiseptic, +5 Defense ---",
+      "found": 33,
+      "added": 19,
+      "added_sha256": "b266de7d5f8fd7ac93aa6f5d20ed1348f29a56a3fa36d4ebbc85935f1b1c1c3c"
+    },
+    {
+      "worker": 7,
+      "charm": "+2 Antiseptic, +1 Defense O--",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "23629142afa4e54de6b5b42aac8399b69746fe414cc81f70867ef1af493a1ebd"
+    },
+    {
+      "worker": 8,
+      "charm": "+3 Sharpener, +9 Heat Res ---",
+      "found": 6,
+      "added": 6,
+      "added_sha256": "5c3b5cc86dc8b238376a1b9b010ca5741c9ff3adb3cd574d5fd5b7c166e2d74f"
+    },
+    {
+      "worker": 9,
+      "charm": "+1 Sharpener, +4 Heat Res O--",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "0aea0c1767cbfaf5262dd479830bb3695f9e52389784ddbf1a226ffded1ac943"
+    },
+    {
+      "worker": 10,
+      "charm": "+4 Sharpener, +7 Heat Res ---",
+      "found": 4,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+1 Sharpener, +10 Heat Res ---",
+      "found": 9,
+      "added": 5,
+      "added_sha256": "c4e62b09a199e23e6d9797ee20deceb39c7735a8e9fb57e4d6a13dc960a481cf"
+    },
+    {
+      "worker": 12,
+      "charm": "+3 Sharpener, +4 Antiseptic ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+2 Sharpener, +8 Antiseptic ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "f90878e3a254b9edc396281bb8b001468998da94f0ddfd1bc546324a207c98e4"
+    },
+    {
+      "worker": 14,
+      "charm": "+4 Sharpener, +1 Antiseptic ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+4 Sharpener, +3 Defense ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 142,
+  "solutions_sha256": "eca84add6139c1aeea246b631afdb21072c1b7d8c2ca205489900f782397cb6a",
+  "solution_set_sha256": "511c0a034021f3e0e431ef0620de1d78205342eb23479283cbe7fb1e3dee6004",
+  "solutions_file": true,
+  "exception": null
+}

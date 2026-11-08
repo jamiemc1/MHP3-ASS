@@ -1,0 +1,50 @@
+{
+  "id": "f242",
+  "query_json": "{\"id\":\"f242\",\"description\":\"armour-seeded sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[2,111],\"skill_names\":[\"Attack Up [Lg]\",\"Recovery Speed +1\"],\"my_charms\":[\"0,Fate,4,Attack,-7\",\"1,Crit Draw,1,Rec Speed,-8\",\"0,Rec Speed,1,Paralysis,1\",\"0,Reload Spd,6,Rapid Fire,1\",\"0,PelletSAdd,3,Whim,-1\",\"0,Attack,2,Fire Res,8\",\"0,PierceSAdd,3,Shot Mix,-9\",\"0,Attack,1,Backpackng,8\",\"1,Constitutn,6,Rec Speed,-3\",\"0,Attack,4,CutterSAdd,1\",\"0,Rapid Fire,4,Guard,-2\",\"0,Attack,2,Gathering,-5\",\"0,Rec Speed,5,ThunderRes,3\",\"0,PelletSAdd,4,Water Res,1\",\"0,Attack,2,Perception,4\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 19,
+      "added": 19,
+      "added_sha256": "2a586808904efb05495d629db8f62de03516d6ba8b535ce2e01dfb35d3f87e2f"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Constitutn, -3 Rec Speed O--",
+      "found": 15,
+      "added": 15,
+      "added_sha256": "cb164c35f1314e8abcc5c9fbe411748c8a32b72d12f70f3da673da916b39aed3"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Attack, +1 CutterSAdd ---",
+      "found": 37,
+      "added": 37,
+      "added_sha256": "7e6a390e66cb90ea5fbdd8aa4e4a4ad0584ce5ac836bad5f7dda1a469ee55217"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Rec Speed, +3 ThunderRes ---",
+      "found": 26,
+      "added": 26,
+      "added_sha256": "735c33310614c6e293bdb1550fddc9de30bb4e8f8c0e639d552d35048e20f009"
+    }
+  ],
+  "solution_count": 97,
+  "solutions_sha256": "86075c66ada0b8379689d4328238c26afa278ad6b2f47ff36bf98dc60b1c84a9",
+  "solution_set_sha256": "68e6b960c5e535110c6c71aeb76d813d81c8f0abb7a9951c3376f0781680f637",
+  "solutions_file": true,
+  "exception": null
+}

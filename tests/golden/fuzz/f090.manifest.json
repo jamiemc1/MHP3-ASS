@@ -1,0 +1,64 @@
+{
+  "id": "f090",
+  "query_json": "{\"id\":\"f090\",\"description\":\"armour-seeded sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[141,29,77,54,120],\"skill_names\":[\"Health +20\",\"Latent Power +1\",\"Fire Atk +1\",\"Pierce/Pierce Up\",\"Divine Blessing\"],\"my_charms\":[\"0,Maestro,1,ThunderRes,4\",\"0,Thundr Atk,3,Gloves Off,-2\",\"0,Potential,6,Maestro,-9\",\"0,Hearing,5,Ice Atk,9\",\"0,Status,3,Hunger,-1\",\"0,Stamina,2,Pierce Up,2\",\"1,Health,2,Heat Res,5\",\"1,Gloves Off,1,Sharpener,-10\",\"2,Health,4,Mud/Snow,-2\",\"2,Handicraft,2,Health,-8\",\"0,Defense,1,Health,10\",\"0,Guard Up,1,Health,-7\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    5,
+    6,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Health O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Health ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f277",
+  "query_json": "{\"id\":\"f277\",\"description\":\"armour-seeded sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[24,174],\"skill_names\":[\"Improved KO\",\"Recovery Up\"],\"my_charms\":[\"2,Protection,3,Blight Res,1\",\"0,Expert,2,Hunger,-1\",\"0,Guard Up,3,Perception,6\",\"1,PierceS Up,3,BombStrUp,-8\",\"0,FatigueAtk,3,Attack,4\",\"2,Constitutn,1,RazorCAdd,-1\",\"0,CutterSAdd,5,Cold Res,-8\",\"1,Will Recov,1,CutterSAdd,-1\",\"0,Blight Res,1,Evade Dist,-3\",\"0,Crag S Add,1,Attack,-7\",\"0,Potential,6,Sharpness,1\",\"0,BombStrUp,2,PierceSAdd,9\",\"0,Potential,2,Gunnery,6\",\"0,Guard Up,6,BombStrUp,-8\",\"0,NormalSAdd,2,PoisonCAdd,-7\",\"0,Slam,4,Potential,3\",\"0,Expert,2,Hunger,-1\",\"0,Fire Res,3,Crag S Add,8\",\"0,Ice Attack,4,Dragon Res,8\",\"0,Evade Dist,3,Gunnery,-9\",\"0,Rec Level,3,Backpackng,9\",\"1,Stun,5,Water Res,1\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    4,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Rec Level, +4 KO ---",
+      "found": 2880,
+      "added": 2880,
+      "added_sha256": "f7a1b87a7b62ee94d92757f4139625a8717e33e7de1688f51654d654a1e982a5"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 KO, +3 Rec Level ---",
+      "found": 2880,
+      "added": 2865,
+      "added_sha256": "ef2c03f74efb1cde902c4a274b450aa2f4afde397a1f9bb780446dc5f5ffe05f"
+    },
+    {
+      "worker": 2,
+      "charm": "OOO",
+      "found": 2880,
+      "added": 2878,
+      "added_sha256": "a5e5024a67837969c63db108c2c7d435dc318bf760a2469f5443db9ecc56b1cf"
+    }
+  ],
+  "solution_count": 8623,
+  "solutions_sha256": "b27168c0bbd3d120ebc9427644a0b1700444457ddc84b7c7f5ffc92520bce334",
+  "solution_set_sha256": "4da1cab5dd641e540f3879e8e073f9a1e836b803d39319dbc061ede50bc0b32d",
+  "solutions_file": false,
+  "exception": null
+}

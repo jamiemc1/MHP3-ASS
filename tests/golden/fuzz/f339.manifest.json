@@ -1,0 +1,43 @@
+{
+  "id": "f339",
+  "query_json": "{\"id\":\"f339\",\"description\":\"armour-seeded sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[155,112,53],\"skill_names\":[\"Water Res (L)\",\"Recovery Speed +2\",\"NormalS/RapidBowUp\"],\"my_charms\":[\"0,Protection,5,LastingPwr,-1\",\"1,Hunger,6,CutterSAdd,-4\",\"0,Evade Dist,5,DungMaster,10\",\"0,PierceSAdd,4,Ice Res,-10\",\"1,Crit Draw,1,Elemental,0\",\"0,Dragon Atk,5,PunishDraw,0\",\"0,Will Recov,3,PunishDraw,0\",\"0,Artisan,3,Sheathe,4\",\"2,FatigueAtk,5,Rewards,0\",\"0,ThunderRes,6,Sense,0\",\"0,Precision,4,Psychic,-10\",\"0,Fate,2,PunishDraw,1\",\"0,Mud/Snow,4,Hunger,6\",\"1,PierceS Up,3,PunishDraw,-2\",\"0,Evade Dist,3,Rec Speed,4\",\"0,Status,5,Slam,1\",\"0,Constitutn,3,CutterSAdd,-1\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    8,
+    3,
+    5,
+    7
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 31,
+      "added": 31,
+      "added_sha256": "771a903227e087ac60a22b060ba8f25241f5a560e0338f0898f82f8b3a1f4f45"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 FatigueAtk, 0 Rewards OO-",
+      "found": 259,
+      "added": 258,
+      "added_sha256": "cf67a928adf37991e5114dc49e70e3cd1d00026ec48d56408b68bec2246026d6"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Evade Dist, +4 Rec Speed ---",
+      "found": 401,
+      "added": 399,
+      "added_sha256": "b96346cec716d7084d5fc59754061b92803e8296418d67310c8a16c0e8390adb"
+    }
+  ],
+  "solution_count": 688,
+  "solutions_sha256": "cf594cddef2ee4066787649c875de2aa53ffbfde5c17822f6128e87188af4cb8",
+  "solution_set_sha256": "b9ee87399e05433208a59fb5a047bcc72a1ee3079634f4b870050eb4e34bae6f",
+  "solutions_file": true,
+  "exception": null
+}

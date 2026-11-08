@@ -1,0 +1,78 @@
+{
+  "id": "f112",
+  "query_json": "{\"id\":\"f112\",\"description\":\"uniform sampler, charm mode two_skill, 3 skills; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[136,146,73],\"skill_names\":[\"Anti-Theft\",\"Defense Up (M)\",\"Status Atk +2\"],\"my_charms\":[\"0,Tenderizer,4,Gloves Off,-1\",\"0,Hearing,5,Status,1\",\"1,Psychic,4,Gathering,-2\",\"1,Poison,1,Defense,-2\",\"0,Ice Atk,5,Evasion,4\",\"0,Protection,2,Para C+,-3\",\"0,Eating,1,Spd Gather,5\",\"0,Thundr Atk,7,Status,4\",\"0,Destroyer,4,Status,-6\",\"0,Thundr Atk,7,Status,4\",\"2,Status,1,FastCharge,-3\",\"0,Destroyer,2,Status,2\",\"0,Tenderizer,4,Gloves Off,-1\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    6,
+    4,
+    6,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 8,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Defense, +6 Anti-Theft ---",
+      "found": 1284,
+      "added": 1284,
+      "added_sha256": "1d6e6a1f22a67b82ed73958d31385dc0e44e6798859e9a18d824921f2a896d17"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Defense, +8 Anti-Theft ---",
+      "found": 1399,
+      "added": 998,
+      "added_sha256": "19104b41211291af9d18102d203e81ebd56a52414a62287519672005d997331b"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Status, +6 Anti-Theft ---",
+      "found": 1252,
+      "added": 1222,
+      "added_sha256": "3bbd98aabbf81491735b22021f3e6857c6a32d291ba3063caf1ea58d243b6739"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Status, +7 Anti-Theft ---",
+      "found": 631,
+      "added": 517,
+      "added_sha256": "a9bb6846d26ade3859ff80477b957720ad6e286858c6119f06b7c1df51f06f94"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 Status, +8 Defense ---",
+      "found": 2268,
+      "added": 2169,
+      "added_sha256": "d5dd0e1c84db33cc47901fd4f4718e2c1a82e580549b90b0e09b260c2a276bdc"
+    },
+    {
+      "worker": 5,
+      "charm": "+2 Status, +4 Defense OO-",
+      "found": 1640,
+      "added": 1461,
+      "added_sha256": "3d2e3643cb2c761a9dea118481abcd2c0407ae7bcb32ff2d8dd4647de49e40d6"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Status, +10 Defense ---",
+      "found": 2192,
+      "added": 1113,
+      "added_sha256": "491a55be468ad439f7295622584e738f3e9f764679098de9026a72357d44a080"
+    },
+    {
+      "worker": 7,
+      "charm": "OOO",
+      "found": 317,
+      "added": 317,
+      "added_sha256": "91710b97901dce847dadc361076838dc68644011515ecb439a89167bcf08fdc8"
+    }
+  ],
+  "solution_count": 9081,
+  "solutions_sha256": "425de1b22db409a31f090c0686309f047a274f9607a86717c2f0aa0f112905f7",
+  "solution_set_sha256": "1759bdbf87b1c3ae721fb9591f5b58e61388f562e8748b5dfd0efb08b867d43b",
+  "solutions_file": false,
+  "exception": null
+}

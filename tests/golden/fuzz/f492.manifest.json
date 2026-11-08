@@ -1,0 +1,29 @@
+{
+  "id": "f492",
+  "query_json": "{\"id\":\"f492\",\"description\":\"uniform sampler, charm mode two_skill, 6 skills; quotas: auto_guard_charm, two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[157,147,59,197,69,119],\"skill_names\":[\"Thunder Res (S)\",\"Def Up (L)\",\"Pellet S LV1 Add\",\"Good Luck\",\"Power Coating Add\",\"Auto-Guard\"],\"my_charms\":[\"0,Awaken,4,Ice Attack,5\",\"0,Auto-Guard,10,,\",\"0,Fire Atk,1,Dragon Res,2\",\"0,Fate,4,Evasion,1\",\"0,Defense,1,,\",\"0,Evasion,3,Poison,1\",\"0,Elemental,1,Health,13\",\"0,SpeedSetup,2,Defense,5\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    5,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

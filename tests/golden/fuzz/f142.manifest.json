@@ -1,0 +1,43 @@
+{
+  "id": "f142",
+  "query_json": "{\"id\":\"f142\",\"description\":\"armour-seeded sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[2,111],\"skill_names\":[\"Attack Up [Lg]\",\"Recovery Speed +1\"],\"my_charms\":[\"0,PelletSAdd,6,PoisonCAdd,5\",\"0,Health,7,Expert,-2\",\"1,Crag S Add,2,Sleep,-5\",\"1,Sheathe,1,Eating,0\",\"2,KO,1,Psychic,-2\",\"0,Guard,3,Combo Rate,8\",\"1,Potential,4,ParalyCAdd,-10\",\"1,Blight Res,5,Sharpener,-10\",\"0,PierceSAdd,2,HiSpdGathr,-3\",\"0,PelletSAdd,2,CutterSAdd,-8\",\"0,PelletSAdd,4,Gathering,8\",\"0,Sheathe,5,Quake Res,3\",\"1,Eating,1,WindPress,-3\",\"0,Crag S Add,5,Attack,5\",\"1,Stamina,1,ThunderRes,-4\",\"0,Evade Dist,2,Slam,-1\",\"0,Stamina,3,Dragon Atk,4\",\"0,Stun,5,,\",\"0,Blight Res,5,Elemental,-3\",\"0,HearProtct,3,Crit Draw,3\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 65,
+      "added": 65,
+      "added_sha256": "bcb36426761aac5913cbfec48bb46871eba3daad5d091db8ff4aed6f799a7631"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 KO, -2 Psychic OO-",
+      "found": 106,
+      "added": 106,
+      "added_sha256": "7b837d41478adec6c585a47ec2d418ef0128f7699985866d1fd7a8cb16978d35"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Crag S Add, +5 Attack ---",
+      "found": 128,
+      "added": 128,
+      "added_sha256": "500e0149095900ec5c1164b8377af526fd580df63d9047ee795c9949d036a054"
+    }
+  ],
+  "solution_count": 299,
+  "solutions_sha256": "8dbc4ea16901800276b54a27c185291286d17c984355717f403ba62767f08025",
+  "solution_set_sha256": "cb994df1ba7829cb150d9ce4c583f76c2b2be4eaca4286817e0106d2cca78f6a",
+  "solutions_file": true,
+  "exception": null
+}

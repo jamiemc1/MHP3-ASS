@@ -1,0 +1,57 @@
+{
+  "id": "f136",
+  "query_json": "{\"id\":\"f136\",\"description\":\"armour-seeded sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[161,104,187],\"skill_names\":[\"Ice Res (L)\",\"Evade +1\",\"Cold Eliminate\"],\"my_charms\":[\"1,SpeedSetup,4,Horn,-3\",\"0,Evasion,5,Carving,3\",\"0,Evade Dist,2,Cold Res,3\",\"0,Evasion,3,CutterSAdd,8\",\"0,Recoil,3,Carving,1\",\"1,Elemental,3,Sheathe,-2\",\"2,Dragon Res,1,Ice Res,-4\",\"0,Guard Up,4,Ice Res,-2\",\"0,Will Recov,4,Evasion,-3\",\"0,Evasion,3,HearProtct,3\",\"0,Rec Level,4,Eating,-1\",\"0,Evasion,5,Wide Area,8\",\"1,SpeedSetup,1,Ice Res,8\",\"0,Blight Res,1,Debilitate,-3\",\"0,Evasion,2,Fire Atk,1\",\"1,Slam,2,Reload Spd,0\",\"2,Sheathe,5,Evasion,0\",\"0,Evasion,5,Stun,-4\",\"0,Gunnery,3,DungMaster,-3\",\"0,Carving,1,Evade Dist,1\",\"0,Dragon Res,1,SleepCAdd,10\",\"0,Hunger,8,Backpackng,0\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 29,
+      "added": 29,
+      "added_sha256": "6e42babdc5a027e9bfe5cea7cdacc8d3b086c7cf2b561777ae9873836a6617d7"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Evasion, +3 Carving ---",
+      "found": 66,
+      "added": 66,
+      "added_sha256": "59b7d3c894b6dc258c5e5258be012379bdd3e13afabb709259642294b35d2537"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Evade Dist, +3 Cold Res ---",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "2b92d4b0d808109b3596136b0ac5ef2c3649cbf3d22a102fdfe93ac69331f526"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 SpeedSetup, +8 Ice Res O--",
+      "found": 95,
+      "added": 95,
+      "added_sha256": "5e9df1dc5b25dff870c9cdd2c0614f77261c8fb209132b165e238e21e276dac5"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Sheathe, 0 Evasion OO-",
+      "found": 54,
+      "added": 54,
+      "added_sha256": "3ee854d326fdda7dbdf83751d4ae29c8199fa01487c4057f530859e74e7c8416"
+    }
+  ],
+  "solution_count": 292,
+  "solutions_sha256": "6817b34a688b414c00406c71fe7ec2cc69d70b676c6b66805bbc63401c44451e",
+  "solution_set_sha256": "65d9c118d261ab92492e40bf1152e266c1f750499fb0899f852d1aa9033e4b38",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,71 @@
+{
+  "id": "f169",
+  "query_json": "{\"id\":\"f169\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[178,139],\"skill_names\":[\"Filled Up\",\"Earplug\"],\"my_charms\":[\"0,KO,1,Gluttony,1\",\"0,HearProtct,4,Constitutn,0\",\"1,,,,\",\"0,Paralysis,4,Huntsman,-6\",\"0,CutterSAdd,4,Gluttony,12\",\"0,Gunnery,4,Gluttony,-4\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    3,
+    6,
+    6,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 3407,
+      "added": 3389,
+      "added_sha256": "bf9e4078c31f30fcfd626b14ad3fc86e5b341f9e1e8cf8b452e7680440e58e4a"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Gluttony OO-",
+      "found": 3370,
+      "added": 3370,
+      "added_sha256": "dfd73c19102d9f801ddb693635581b525c015224954d08de772b414dcd0a582d"
+    },
+    {
+      "worker": 2,
+      "charm": "+11 Gluttony O--",
+      "found": 3293,
+      "added": 3089,
+      "added_sha256": "885c65631a6208fcd486e8ef885f60180a2a906dd0690c04bfed2e9b5c70de32"
+    },
+    {
+      "worker": 3,
+      "charm": "+13 Gluttony ---",
+      "found": 3175,
+      "added": 2971,
+      "added_sha256": "624403eb80d6b33b5e1945a2d7d5f794e3a8a078069c72cd7d00931b64c0d98b"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 HearProtct OOO",
+      "found": 3456,
+      "added": 3431,
+      "added_sha256": "cc672f92a7de90a25622b52361725589d379c2eb969892d99b62f0e3d934ec0b"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 HearProtct OO-",
+      "found": 3456,
+      "added": 2417,
+      "added_sha256": "2ffeded41c207a897a452f4d081bb630f5db836616aa2b1d7f16c45aa0b9d4d4"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 HearProtct O--",
+      "found": 3456,
+      "added": 2413,
+      "added_sha256": "ab55a2d3ff3d9cc77428901b223747f0864f407a1ef1794305a2469abebe60d3"
+    }
+  ],
+  "solution_count": 21080,
+  "solutions_sha256": "a9d7e1f7aad2340293b2f269518daf0ef234fbca6a24e6ecb2de89e0b818c04b",
+  "solution_set_sha256": "1ea605a783ec30eaf24a36833b6b05faacd03d412ffa26c0b3fb517826c8c8f9",
+  "solutions_file": false,
+  "exception": null
+}

@@ -1,0 +1,64 @@
+{
+  "id": "f014",
+  "query_json": "{\"id\":\"f014\",\"description\":\"uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (Athena)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[201,21],\"skill_names\":[\"Carving Expert\",\"ESP\"],\"my_charms\":[\"0,Constitutn,4,Fire Res,-9\",\"0,Fencing,3,Sheathe,4\",\"0,Fire Res,5,Combo Rate,1\",\"0,Will Recov,1,PunishDraw,-1\",\"1,Protection,5,Rewards,-2\",\"0,Fate,5,HearProtct,-3\",\"2,Horn,1,Fire Res,5\",\"0,Constitutn,3,Whim,12\",\"1,WindPress,1,Carving,-3\",\"2,KO,1,Hunger,-1\",\"0,Carving,4,WindPress,-2\",\"0,Gunnery,3,PowerCAdd,8\",\"0,Dragon Atk,6,Fortitude,-10\",\"0,FatigueAtk,4,Combo Rate,12\",\"0,Constitutn,6,Gunnery,0\",\"0,Slam,3,ThunderRes,13\",\"0,Stamina,4,Carving,3\",\"0,Carving,2,FastCharge,-1\",\"0,Fencing,5,Gunnery,-6\",\"0,Carving,1,Water Res,10\",\"1,Evade Dist,1,Sheathe,-10\",\"0,Poison,2,Quake Res,-8\",\"0,Evasion,3,Water Res,4\",\"0,Reload Spd,6,Fencing,1\",\"1,Fencing,5,Slam,-2\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    2,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Carving OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Carving OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Carving O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Fencing OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Fencing OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Fencing O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

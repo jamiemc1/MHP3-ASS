@@ -1,0 +1,29 @@
+{
+  "id": "f066",
+  "query_json": "{\"id\":\"f066\",\"description\":\"armour-seeded sampler, charm mode none, 5 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[208,39,50,25,141],\"skill_names\":[\"Bullet Limit\",\"Reload Speed +3\",\"Accuracy+2\",\"Enfeebler\",\"Health +20\"],\"my_charms\":[\"0,KO,2,ParalyCAdd,-4\",\"0,Wide Area,1,BombStrUp,5\",\"1,FatigueAtk,1,PierceS Up,0\",\"0,Guard Up,1,SpeedSetup,-10\",\"0,Elemental,5,Crit Draw,2\",\"0,Loading,5,Stun,10\",\"2,Rapid Fire,5,Sharpness,-3\",\"0,Fire Res,4,Gunnery,7\",\"0,Hunger,6,Psychic,-7\",\"0,Rec Speed,2,Wide Area,-9\",\"0,Backpackng,6,Health,4\",\"0,Guard Up,4,Potential,1\",\"0,NormalSAdd,5,Status,-4\",\"0,Stun,5,Combo Rate,1\",\"0,Health,2,PoisonCAdd,10\",\"0,Paralysis,4,DungMaster,2\",\"0,Evade Dist,1,Huntsman,-8\",\"0,Poison,4,Defense,-6\",\"0,WindPress,1,Attack,7\",\"0,Crit Draw,3,WindPress,-4\",\"1,Loading,1,HearProtct,-3\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    5,
+    5,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,50 @@
+{
+  "id": "f356",
+  "query_json": "{\"id\":\"f356\",\"description\":\"armour-seeded sampler, charm mode one_skill, 3 skills; quotas: one_skill_hr_3_or_less, illegal_charm_lines, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[1,112,86],\"skill_names\":[\"Attack Up [Med]\",\"Recovery Speed +2\",\"Ice Element +1\"],\"my_charms\":[\"1,Reload Spd,5,Ice Attack,2\",\"0,Elemental,15,,\",\"0,PierceS Up,15,,\",\"0,FatigueAtk,15,,\"]}",
+  "my_charms_loaded": 1,
+  "my_charms_illegal": 3,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+3 Attack O--",
+      "found": 28,
+      "added": 28,
+      "added_sha256": "b482559af61323d0152533f878c87d9453b408793253275e7649a02a72d66420"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Attack ---",
+      "found": 25,
+      "added": 16,
+      "added_sha256": "33e57411fe27c6eb721a2cd58b626300d4307519ed06b1b65560e987bbd0277e"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 16,
+      "added": 16,
+      "added_sha256": "ab5826b834d1fd7126e2737b880445f2597fe66acb9977023757a7526f2d0c53"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 16,
+      "added": 12,
+      "added_sha256": "d1164dce042de73cd02eb5304c1bb8602440bce2e57cfe7245d6a2270385e208"
+    }
+  ],
+  "solution_count": 72,
+  "solutions_sha256": "4e7c347876ad7bc8b86421b43d3861b15f0eb346dadafe79ef277f3a008094ec",
+  "solution_set_sha256": "8f24c1ea5edb0bdba6397ddc59226fc25e61168c4eedc5ea94752ddfa8457dd6",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f290",
+  "query_json": "{\"id\":\"f290\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[170,166],\"skill_names\":[\"Trnquilizr Guru\",\"Wide Area +1\"],\"my_charms\":[\"0,Potential,1,Carving,-2\",\"0,Status,5,Wide Area,-8\",\"2,Wide Area,1,PoisonCAdd,5\",\"3,Fire Atk,2,Wide Area,-1\",\"0,Wide Area,3,Huntsman,8\",\"0,FatigueAtk,4,Wide Area,4\",\"0,Precision,2,Wide Area,8\",\"1,Poison,4,Wide Area,-1\",\"1,Wide Area,3,Backpackng,-6\",\"0,Protection,1,Wide Area,11\",\"0,Wide Area,2,PelletSAdd,3\",\"0,WindPress,2,Perception,0\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    4,
+    6,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 2005,
+      "added": 2005,
+      "added_sha256": "fc5fd17d953b6d59522af60c643560559f283c91d5c29eb563f517c183030200"
+    }
+  ],
+  "solution_count": 2005,
+  "solutions_sha256": "fc5fd17d953b6d59522af60c643560559f283c91d5c29eb563f517c183030200",
+  "solution_set_sha256": "cc4e96fc1a818f485a07bf81d2ffe03392579fa052c56a76a094c76ac3f99bc5",
+  "solutions_file": true,
+  "exception": null
+}

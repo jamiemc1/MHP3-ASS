@@ -8,14 +8,13 @@ consistent.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from goldens import Candidate, RelevanceGolden, SearchGolden
+from goldens import Candidate, RelevanceGolden, SearchGolden, lines_sha256
 from mhp3ass.settings_cfg import read_settings_cfg
 
 
@@ -117,13 +116,6 @@ def test_search_manifests_are_consistent(search_goldens: list[SearchGolden]):
     assert inconsistent == []
 
 
-def _lines_sha256(lines: list[str]) -> str:
-    """SearchDump's LinesSha256: SHA-256 of the uncompressed lines, each ending in a newline."""
-    text = "".join(f"{line}\n" for line in lines)
-    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
-    return digest
-
-
 def _hash_mismatches(goldens: list[SearchGolden]) -> list[str]:
     """Manifests whose hashes don't match their solutions file: in order, as a
     sorted set, or for the lines each worker added (consecutive, in worker order).
@@ -136,14 +128,14 @@ def _hash_mismatches(goldens: list[SearchGolden]) -> list[str]:
         workers_match = True
         for worker in manifest["workers"]:
             added_lines = lines[start : start + worker["added"]]
-            workers_match = workers_match and worker.get("added_sha256") == _lines_sha256(
+            workers_match = workers_match and worker.get("added_sha256") == lines_sha256(
                 added_lines
             )
             start += worker["added"]
         if not (
             manifest.get("solutions_file") is True
-            and manifest.get("solutions_sha256") == _lines_sha256(lines)
-            and manifest.get("solution_set_sha256") == _lines_sha256(sorted(lines))
+            and manifest.get("solutions_sha256") == lines_sha256(lines)
+            and manifest.get("solution_set_sha256") == lines_sha256(sorted(lines))
             and manifest.get("worker_count") == len(manifest["workers"])
             and workers_match
         ):

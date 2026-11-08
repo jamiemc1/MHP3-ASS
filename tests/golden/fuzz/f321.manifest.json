@@ -1,0 +1,29 @@
+{
+  "id": "f321",
+  "query_json": "{\"id\":\"f321\",\"description\":\"uniform sampler, charm mode slotted, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[174,197],\"skill_names\":[\"Recovery Up\",\"Good Luck\"],\"my_charms\":[\"0,Protection,1,PowerCAdd,-6\",\"0,Rec Level,1,SleepCAdd,10\",\"2,Fate,2,Defense,3\",\"1,Gunnery,1,Heat Res,0\",\"0,Fate,5,PierceS Up,-1\",\"0,Fencing,3,Fire Atk,9\",\"1,Eating,1,Water Res,-8\",\"1,Loading,5,Fate,-2\",\"0,Status,4,Wide Area,-1\",\"0,Sheathe,2,Combo Rate,-3\",\"3,Loading,3,Rec Level,-1\",\"0,Poison,5,BombStrUp,-7\",\"0,Evasion,6,Rec Level,-2\",\"2,Guard,3,Eating,-2\",\"0,Fate,1,Protection,8\",\"0,Ice Attack,2,Psychic,1\",\"0,Rec Level,2,Attack,3\",\"0,Elemental,5,Rec Level,-3\",\"0,Mud/Snow,6,Expert,1\",\"0,CutterSAdd,5,Gluttony,-1\",\"0,Evasion,3,ClustS Add,0\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    4,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 192,
+      "added": 192,
+      "added_sha256": "e1fe91b86ad401782389f50bdd054eedb6942224fd6e3b57f1ede4e82afe2f32"
+    }
+  ],
+  "solution_count": 192,
+  "solutions_sha256": "e1fe91b86ad401782389f50bdd054eedb6942224fd6e3b57f1ede4e82afe2f32",
+  "solution_set_sha256": "2563ba3f772e41ac36cda5bec637e5ed33b66d23aed965b20920ed828c6248fd",
+  "solutions_file": true,
+  "exception": null
+}

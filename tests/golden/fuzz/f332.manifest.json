@@ -1,0 +1,43 @@
+{
+  "id": "f332",
+  "query_json": "{\"id\":\"f332\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[204,56],\"skill_names\":[\"Combine Success +20%\",\"Normal S All Add\"],\"my_charms\":[\"0,NormalSAdd,6,RazorCAdd,8\",\"0,Water Res,1,PowerCAdd,-3\",\"0,ThunderRes,4,SleepCAdd,5\",\"0,Water Atk,3,Combo Rate,-3\",\"0,Dragon Atk,2,Huntsman,-9\",\"2,Precision,3,NormalSAdd,1\",\"0,Evasion,1,NormalSAdd,-3\",\"0,Sharpness,3,Constitutn,-2\",\"1,Fire Atk,4,Combo Rate,-1\",\"0,NormalSAdd,5,Gathering,2\",\"1,NormalSAdd,1,Horn,-4\",\"0,NormalSAdd,3,Whim,-9\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    3,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 NormalSAdd, +8 RazorCAdd ---",
+      "found": 95,
+      "added": 95,
+      "added_sha256": "b9d4b64653b6fe935f166f8e8cc8dd61f906a1d5d0312d69717bb4aebb104ea1"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Precision, +1 NormalSAdd OO-",
+      "found": 5,
+      "added": 5,
+      "added_sha256": "c3cf62f54f5f4ced6ab0c612def057b8d774d3937019ecb4a25bfd3a10a91378"
+    }
+  ],
+  "solution_count": 100,
+  "solutions_sha256": "a82bc35970fb1777d59fd2052412e2a398da43f9f82586a671346873a87afbdd",
+  "solution_set_sha256": "d75ddf80dc61956f4037632775fcfb89ee814b45133dc8c42177848ac69de59f",
+  "solutions_file": true,
+  "exception": null
+}

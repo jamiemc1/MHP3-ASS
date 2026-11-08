@@ -1,0 +1,57 @@
+{
+  "id": "f302",
+  "query_json": "{\"id\":\"f302\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[75,140,178,30,119,7],\"skill_names\":[\"Elementang. hoch\",\"Best. Ohrst\u00f6psel\",\"Feinschmecker\",\"Entb\u00e4ndigung +2\",\"Autoblock\",\"Krit. Auge +2\"],\"my_charms\":[\"1,R\u00fccksto\u00df,3,Element,-1\",\"0,Autoblock,10,,\",\"0,Element,2,Kapazit\u00e4t,3\",\"0,Geh\u00f6r,1,Beruhigung,-3\",\"1,Dungmeist.,1,,\",\"1,Element,4,Eisabwehr,-10\",\"0,BombSt\u00e4rk.,1,Schlemmen,-4\",\"0,Konstitutn,4,Element,-1\",\"0,Asweichdst,4,Entb\u00e4digen,4\",\"0,Element,2,Kapazit\u00e4t,3\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    15,
+    13,
+    9,
+    10,
+    10
+  ],
+  "relevant_decoration_count": 10,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+10 Autoblock ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Geh\u00f6r, -3 Beruhigung ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Element, -10 Eisabwehr O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Asweichdst, +4 Entb\u00e4digen ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

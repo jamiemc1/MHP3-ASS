@@ -1,0 +1,29 @@
+{
+  "id": "f426",
+  "query_json": "{\"id\":\"f426\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: auto_guard_charm, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[36,193,119,197,152,50],\"skill_names\":[\"Rapid Shot +1\",\"Spirit\\u0027s Whim\",\"Auto-Guard\",\"Good Luck\",\"Fire Res (L)\",\"Accuracy+2\"],\"my_charms\":[\"0,Antiseptic,1,Gathering,2\",\"0,Sheathe,5,Protection,-2\",\"0,Rapid Fire,1,Ice Attack,1\",\"0,Rapid Fire,4,Health,5\",\"0,Auto-Guard,10,,\",\"0,WindPress,2,Anti-Theft,8\",\"0,Backpackng,5,Health,4\",\"0,Eating,1,Rec Speed,10\",\"0,Fire Atk,5,Stamina,-1\",\"0,Fate,1,BombStrUp,6\",\"0,Rapid Fire,3,Fire Res,-4\",\"0,Backpackng,2,Shot Mix,2\",\"0,Sheathe,5,Loading,-1\",\"0,Attack,1,Mud/Snow,5\",\"0,Loading,2,Awaken,4\",\"0,Artisan,1,Fate,2\",\"1,Fate,2,Defense,3\",\"2,Status,3,Dragon Res,6\",\"0,Sheathe,4,BombStrUp,-10\",\"1,Fortitude,3,Whim,3\",\"3,Recoil,1,Fate,-1\",\"0,Fire Res,6,CutterSAdd,-1\",\"0,Sleep,2,CutterSAdd,0\",\"0,BombStrUp,2,Mud/Snow,2\",\"0,Protection,3,Stamina,3\",\"0,Ice Attack,3,Heat Res,-10\"]}",
+  "my_charms_loaded": 26,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

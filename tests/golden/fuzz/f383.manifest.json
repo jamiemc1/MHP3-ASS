@@ -1,0 +1,71 @@
+{
+  "id": "f383",
+  "query_json": "{\"id\":\"f383\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[80,180],\"skill_names\":[\"Water Element +1\",\"Quick Eating +1\"],\"my_charms\":[\"0,FastCharge,4,Fire Res,1\",\"1,PunishDraw,1,Stamina,0\",\"2,Status,3,Water Atk,-9\",\"0,Water Atk,3,Evasion,4\",\"0,Antiseptic,3,BombStrUp,-7\",\"0,Slam,1,Evade Dist,3\",\"0,Fate,2,Expert,-7\",\"2,Poison,1,Status,0\",\"0,Potential,4,Stun,-3\",\"0,Water Atk,2,Gluttony,3\",\"0,Constitutn,2,Crag S Add,4\",\"0,Evasion,4,PoisonCAdd,2\",\"3,Water Atk,2,Eating,-1\",\"0,Ice Attack,1,Fire Atk,4\",\"0,Water Res,4,Poison,2\",\"0,NormalS Up,5,Rec Speed,5\",\"2,FastCharge,3,Water Atk,-2\",\"1,Potential,3,Fencing,2\",\"0,Eating,4,Gunnery,4\",\"0,Constitutn,6,Water Atk,-1\",\"0,Eating,3,ThunderRes,-8\",\"2,Constitutn,3,Water Atk,2\",\"0,NormalS Up,5,Rec Level,-2\",\"2,Guard,4,Eating,-3\",\"0,Eating,5,Guard,4\",\"0,Fortitude,1,Dragon Res,-2\",\"0,Status,4,Shot Mix,7\",\"0,Expert,1,Stun,9\",\"1,Water Atk,3,Sharpener,-5\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    4,
+    4,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Water Atk OOO",
+      "found": 5182,
+      "added": 5153,
+      "added_sha256": "f6097803b07ae2bd76411dcb8f4eaac5b983af12e3aa66e6edaf72139d314f58"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Water Atk OO-",
+      "found": 5140,
+      "added": 5130,
+      "added_sha256": "f695e3967b02e7f4b0bba371cf79be940d028e81008a1ae28abc2847a47d1bed"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 Water Atk O--",
+      "found": 5081,
+      "added": 5054,
+      "added_sha256": "624a28f0cf7c767509080cc0197d1b7d4b0f6bfaa6abd825b4d52062160bcc9d"
+    },
+    {
+      "worker": 3,
+      "charm": "+9 Water Atk ---",
+      "found": 4982,
+      "added": 4957,
+      "added_sha256": "62a001b1470c65d11c65aac32966ebb3b145001190ae966366e8a469a0024d53"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Eating OOO",
+      "found": 5184,
+      "added": 4826,
+      "added_sha256": "7edd385154481b55e1ddaee70d47b9b974ab0bb3ede51cf896141df3b6d2cfd6"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Eating OO-",
+      "found": 5184,
+      "added": 5142,
+      "added_sha256": "dab9c213e06785d0bbb9675027ea55846c2ed2298aa34becffb00733ed782e4a"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Eating O--",
+      "found": 5184,
+      "added": 4889,
+      "added_sha256": "d12f450bc5d801e6e33dab7e66bfcab69d15696b8175bd57beb8f62589803565"
+    }
+  ],
+  "solution_count": 35151,
+  "solutions_sha256": "7c10d6e6fc33d2b18a934f4d566b56186fde6e146869e0b3a2c823e96da186c8",
+  "solution_set_sha256": "dbdf4fdb8c4649567305e46cef855ae752952f34bb509974b5ab949658b4060c",
+  "solutions_file": false,
+  "exception": null
+}

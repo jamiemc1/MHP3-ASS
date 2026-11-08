@@ -1,0 +1,29 @@
+{
+  "id": "f395",
+  "query_json": "{\"id\":\"f395\",\"description\":\"uniform sampler, charm mode none, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[132,155,50,105,157],\"skill_names\":[\"Quake Res\",\"Water Res (L)\",\"Accuracy+2\",\"Evade +2\",\"Thunder Res (S)\"],\"my_charms\":[\"0,Loading,2,FatigueAtk,3\",\"0,WindPress,1,Hunger,-2\",\"0,Evasion,4,Dragon Res,-10\",\"0,Guard Up,2,Precision,0\",\"0,Precision,6,Hunger,-10\",\"1,Quake Res,2,Health,2\",\"0,PunishDraw,5,Carving,-2\",\"0,Ice Attack,5,Ice Res,-3\",\"3,Crit Draw,3,Horn,-1\",\"1,Sharpener,1,Quake Res,-10\",\"0,Ice Attack,4,Fire Res,10\",\"0,PunishDraw,1,Debilitate,-1\",\"0,PunishDraw,5,Carving,-2\",\"1,Rec Speed,4,Attack,-3\",\"0,Reload Spd,1,ThunderRes,-9\",\"0,Status,1,PunishDraw,-2\",\"3,Constitutn,2,Stamina,-2\",\"0,Stamina,5,FatigueAtk,1\",\"0,Sharpness,1,Water Atk,-8\",\"0,Loading,2,Evasion,-2\",\"0,Protection,2,ThunderRes,8\",\"0,Constitutn,1,Dragon Res,-9\",\"0,Constitutn,1,Antiseptic,2\",\"1,,,,\",\"1,Rec Level,1,Paralysis,1\",\"1,Precision,4,Heat Res,-3\",\"1,Precision,4,Heat Res,-3\",\"0,Artisan,2,Slam,3\",\"0,Fate,1,Evasion,0\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    8,
+    6,
+    7,
+    10
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

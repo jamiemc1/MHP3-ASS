@@ -1,0 +1,50 @@
+{
+  "id": "f085",
+  "query_json": "{\"id\":\"f085\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[201,19],\"skill_names\":[\"Carving Expert\",\"Concentration\"],\"my_charms\":[\"0,Antiseptic,3,Attack,-1\",\"0,Fortitude,1,PowerCAdd,-5\",\"2,Sharpener,1,DungMaster,-1\",\"0,Loading,1,,\"]}",
+  "my_charms_loaded": 4,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    3,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Carving, +3 FastCharge ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 FastCharge, +2 Carving OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Carving, +2 FastCharge O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 FastCharge, +3 Carving ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

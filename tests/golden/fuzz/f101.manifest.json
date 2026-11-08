@@ -1,0 +1,50 @@
+{
+  "id": "f101",
+  "query_json": "{\"id\":\"f101\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[96,80],\"skill_names\":[\"Corredor\",\"Atrib. Agua +1\"],\"my_charms\":[\"0,TrampaRap.,2,NieDefBaja,7\",\"0,Dragon Inc,6,Desenv. KO,-2\",\"0,Aguij\u00f3n,1,Agua Inc,-7\",\"0,Artiller\u00eda,5,Cuerno,-7\",\"0,Fuego Inc,2,Cortar,3\",\"1,R. trueno,2,R. hielo,-5\",\"0,Agua Inc,7,Subir prot,3\",\"0,SubirDPerd,1,R. fuego,8\",\"0,KO,3,A\u00f1DNormal,-8\",\"0,A\u00f1DNormal,6,Bot.Cont.,4\",\"1,Artiller\u00eda,4,R. hielo,-6\",\"1,Atq.Fatiga,1,Res. Frio,-9\",\"0,Guardia,5,R. fuego,-7\",\"3,Determin.,1,Afilado,0\",\"0,Niv. recup,1,Resist.,-3\",\"1,Protecci\u00f3n,5,Agua Inc,3\",\"0,Agua Inc,1,A\u00f1DPerd,-1\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    3,
+    4,
+    3,
+    6
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OO-",
+      "found": 1296,
+      "added": 1296,
+      "added_sha256": "78ce71818589a08c1da221b226bb12f7132304847e0f7d76dcabd2cd24914956"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 1296,
+      "added": 1296,
+      "added_sha256": "46e1df94fc4fdee1c1911bd30911f52dd3d0865f245668ff17554b44b6ae407c"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Agua Inc OO-",
+      "found": 1296,
+      "added": 1296,
+      "added_sha256": "2455d67e4b1575a8aa851074900d9a885efb694644bf52087c0f599e27862518"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 Agua Inc O--",
+      "found": 1296,
+      "added": 1204,
+      "added_sha256": "8c9a2a3ad57e43b21f64f6944bf4258d9bb56bf6f45fb07fde6181f8fcc47a2a"
+    }
+  ],
+  "solution_count": 5092,
+  "solutions_sha256": "22972ee4021c282e9752014332f6bcfc670d0dd84567e0ab17d0d615e11263cb",
+  "solution_set_sha256": "75c62bd3b892cd64fc0dc7c29c1f3610adac23f5b46e2e039d8e582dfd9244eb",
+  "solutions_file": false,
+  "exception": null
+}

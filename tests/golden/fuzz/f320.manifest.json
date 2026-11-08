@@ -1,0 +1,29 @@
+{
+  "id": "f320",
+  "query_json": "{\"id\":\"f320\",\"description\":\"armour-seeded sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[35,86,134,1,164,112],\"skill_names\":[\"Load Up\",\"Ice Element +1\",\"Wind Anchor\",\"Attack Up [Med]\",\"Dragon Res (L)\",\"Recovery Speed +2\"],\"my_charms\":[\"0,Protection,1,Loading,-2\",\"0,Protection,1,Loading,-2\",\"0,Attack,1,Cold Res,3\",\"0,Expert,4,Rec Speed,-4\",\"2,Protection,4,,\",\"0,Rec Level,2,Status,3\",\"0,FatigueAtk,2,Horn,6\",\"0,Ice Attack,3,Whim,4\",\"0,FatigueAtk,6,Whim,7\",\"0,Quake Res,4,Sleep,-9\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    2,
+    6,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

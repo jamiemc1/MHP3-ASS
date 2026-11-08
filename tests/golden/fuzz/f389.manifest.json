@@ -1,0 +1,29 @@
+{
+  "id": "f389",
+  "query_json": "{\"id\":\"f389\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[167,147,19,26,89,8],\"skill_names\":[\"Wide Area +2\",\"Def Up (L)\",\"Concentration\",\"Flute Expert\",\"Dragon Element +1\",\"Reckless Abandon +3\"],\"my_charms\":[\"0,Defense,3,SleepCAdd,8\",\"0,Stun,2,Horn,6\",\"0,Dragon Atk,4,WindPress,3\",\"0,Horn,4,Precision,3\",\"0,Recoil,1,Crit Draw,2\",\"0,Sharpener,2,Wide Area,-10\",\"0,WindPress,1,Gluttony,4\",\"0,Horn,6,BombStrUp,6\",\"0,Dragon Atk,2,Crag S Add,1\",\"0,Dragon Atk,2,Hunger,6\",\"0,Debilitate,5,Guard Up,3\",\"0,Will Recov,4,Ice Res,-3\",\"0,Thundr Atk,5,NormalSAdd,-2\",\"0,Dragon Atk,2,SleepCAdd,1\",\"0,Reload Spd,3,Dragon Atk,6\",\"0,Fire Res,3,Horn,-5\",\"0,Water Atk,3,Status,4\",\"0,Carving,1,FastCharge,-1\",\"0,Water Atk,7,Stun,12\",\"0,Evasion,2,Attack,-2\",\"0,Wide Area,3,Fire Res,9\",\"0,Guard Up,1,Gunnery,0\",\"0,Status,3,ParalyCAdd,1\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    12,
+    7,
+    11,
+    12,
+    9
+  ],
+  "relevant_decoration_count": 10,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

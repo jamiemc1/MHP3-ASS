@@ -1,0 +1,29 @@
+{
+  "id": "f212",
+  "query_json": "{\"id\":\"f212\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[92,87],\"skill_names\":[\"Constitution +1\",\"Ice Element +2\"],\"my_charms\":[\"0,Reload Spd,3,Constitutn,0\",\"0,Constitutn,3,ThunderRes,3\",\"0,Dragon Res,4,Ice Res,9\",\"0,Horn,3,Anti-Theft,-6\",\"0,Constitutn,1,Dragon Atk,2\",\"3,Ice Attack,2,FatigueAtk,-1\",\"0,Constitutn,5,Horn,-6\",\"0,Stamina,1,Ice Attack,-7\",\"1,Constitutn,3,Dragon Atk,1\",\"0,Constitutn,5,Horn,-6\",\"0,Blight Res,3,Constitutn,4\",\"0,Fire Atk,7,SleepCAdd,-5\",\"0,Sharpener,1,PierceSAdd,0\",\"0,Will Recov,6,Debilitate,-2\",\"0,Sleep,1,Rec Speed,-3\",\"0,PelletS Up,1,Ice Res,-7\",\"1,Eating,1,Wide Area,-10\",\"0,Constitutn,3,ThunderRes,3\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 99,
+      "added": 99,
+      "added_sha256": "f4d0279f6dc0b0465d5bb84a9407e19bb291e019b9f7de3495a45940669e01c9"
+    }
+  ],
+  "solution_count": 99,
+  "solutions_sha256": "f4d0279f6dc0b0465d5bb84a9407e19bb291e019b9f7de3495a45940669e01c9",
+  "solution_set_sha256": "1a7ec69a88efd9ffc56d35f86ca7e49c0325e8a2e3994ce13557bcc658da5304",
+  "solutions_file": true,
+  "exception": null
+}

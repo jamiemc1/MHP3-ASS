@@ -1,0 +1,29 @@
+{
+  "id": "f442",
+  "query_json": "{\"id\":\"f442\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[92,77,163,161,107],\"skill_names\":[\"Constitution +1\",\"Fire Element +1\",\"Dragon Res (S)\",\"Ice Res (L)\",\"Evasion Up\"],\"my_charms\":[\"0,Dragon Atk,1,Recoil,-2\",\"0,Sharpener,2,PierceSAdd,0\",\"1,Constitutn,2,Horn,0\",\"2,Dragon Res,2,Mud/Snow,-5\",\"0,Protection,1,Sleep,4\",\"0,Fire Res,2,PowerCAdd,0\",\"0,Backpackng,7,SpeedSetup,-9\",\"1,KO,1,Evasion,-1\",\"1,Ice Attack,5,Sharpness,-1\",\"0,Ice Attack,7,Constitutn,-1\",\"0,Sharpener,4,Psychic,4\",\"0,Fate,5,BombStrUp,2\",\"2,Potential,1,Water Res,-4\",\"0,PierceSAdd,6,Gathering,8\",\"0,Constitutn,5,Rec Speed,2\",\"0,Ice Res,5,HiSpdGathr,1\",\"1,Fire Atk,1,Horn,-6\",\"1,BombStrUp,2,Antiseptic,-6\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    7,
+    5,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

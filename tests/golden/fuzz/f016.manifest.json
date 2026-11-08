@@ -1,0 +1,29 @@
+{
+  "id": "f016",
+  "query_json": "{\"id\":\"f016\",\"description\":\"uniform sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[137,77],\"skill_names\":[\"Blightproof\",\"Fire Element +1\"],\"my_charms\":[\"0,PelletSAdd,2,Status,3\",\"3,Sheathe,4,Attack,-2\",\"0,Guard,5,ClustS Add,7\",\"0,Guard Up,2,Cold Res,-8\",\"0,Rec Speed,6,BombStrUp,-3\",\"1,Recoil,3,Evade Dist,1\",\"0,Blight Res,3,KO,4\",\"0,Evasion,1,Paralysis,2\",\"0,ThunderRes,1,Poison,-9\",\"0,Crit Draw,4,HearProtct,0\",\"1,Sleep,3,Crag S Add,-9\",\"2,Fire Atk,3,Slam,-2\",\"0,Loading,6,Evade Dist,3\",\"0,Fire Atk,7,Psychic,8\",\"0,Ice Attack,4,PunishDraw,0\",\"0,Hunger,1,Fire Res,-5\",\"3,Reload Spd,2,Blight Res,-1\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

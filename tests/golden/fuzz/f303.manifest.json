@@ -1,0 +1,29 @@
+{
+  "id": "f303",
+  "query_json": "{\"id\":\"f303\",\"description\":\"armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[93,86,96],\"skill_names\":[\"Constitution +2\",\"Ice Element +1\",\"Runner\"],\"my_charms\":[\"0,Dragon Atk,3,Stamina,2\",\"0,Constitutn,1,Dragon Res,-4\",\"0,Ice Attack,4,PierceS Up,3\",\"0,Ice Attack,7,Paralysis,2\",\"0,Ice Attack,6,CutterSAdd,-6\",\"0,Ice Attack,5,HiSpdGathr,5\",\"0,Sheathe,5,Ice Attack,-9\",\"0,NormalS Up,5,Ice Attack,-2\",\"0,Constitutn,6,Evasion,2\",\"0,ClustS Add,5,DungMaster,-2\",\"0,Protection,3,Backpackng,-1\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    6,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 36,
+      "added": 36,
+      "added_sha256": "0a7c45ad8a41875efcd720d495f666dc80ff62781a539a8d8cc9c0f9cf5f85f8"
+    }
+  ],
+  "solution_count": 36,
+  "solutions_sha256": "0a7c45ad8a41875efcd720d495f666dc80ff62781a539a8d8cc9c0f9cf5f85f8",
+  "solution_set_sha256": "ca4a21d8979132f97ccdf752b6c884c4f73a83f60c887411ef09243bb064fe5b",
+  "solutions_file": true,
+  "exception": null
+}

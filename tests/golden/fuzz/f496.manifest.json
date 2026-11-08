@@ -1,0 +1,21 @@
+{
+  "id": "f496",
+  "query_json": "{\"id\":\"f496\",\"description\":\"uniform sampler, charm mode two_skill, 5 skills; quotas: auto_guard_no_charm, two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[178,119,197,60,92],\"skill_names\":[\"Filled Up\",\"Auto-Guard\",\"Good Luck\",\"Pellet S All Add\",\"Constitution +1\"],\"my_charms\":[\"0,Sheathe,3,BombStrUp,-10\",\"0,Evade Dist,5,Constitutn,4\",\"0,Awaken,4,Evade Dist,1\",\"0,Recoil,4,Slam,0\",\"0,Water Atk,4,Guard Up,-1\",\"0,PelletS Up,2,Fire Atk,7\",\"0,Quake Res,7,Wide Area,9\",\"1,Sheathe,1,Rewards,0\",\"1,Artisan,1,Slam,-2\",\"0,Stamina,3,Sharpness,3\",\"0,Poison,3,Gathering,10\",\"1,PunishDraw,3,Stun,2\",\"1,Fencing,4,HearProtct,0\",\"0,Constitutn,4,HearProtct,1\",\"0,Dragon Atk,5,Fate,3\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    7,
+    6,
+    6,
+    7
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

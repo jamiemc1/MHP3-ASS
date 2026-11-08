@@ -1,0 +1,29 @@
+{
+  "id": "f452",
+  "query_json": "{\"id\":\"f452\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[35,142,180,161],\"skill_names\":[\"Kapazit\u00e4t hoch\",\"Gesundheit +50\",\"Schnellessen +1\",\"Eisabwehr ++\"],\"my_charms\":[\"3,,,,\",\"0,WssrAngHch,1,Sch\u00e4rfe,2\",\"0,Schn. lad.,2,DnnrAngHch,3\",\"2,Hunger,2,Gesundheit,-9\",\"0,R\u00fccksto\u00df,2,Eisabwehr,7\",\"0,FeurAngHch,2,Immerw\u00e4hrd,-9\",\"0,Schlaf,1,Rucksack,3\",\"0,Erm\u00fcdSchlg,1,Angriff,0\",\"0,Geh\u00f6r,4,FeurAngHch,-7\",\"2,Essen,1,Schlemmen,-2\",\"0,KO,3,Angriff,1\",\"0,EisAngrHch,7,Kombi-Rate,4\",\"0,Essen,2,Vision,3\",\"0,Brandabw.,5,Vision,6\",\"0,Block hoch,4,Status,-1\",\"0,Essen,2,Windabwehr,-1\",\"0,Essen,4,DnnrAngHch,-1\",\"0,Konstitutn,3,Eisabwehr,12\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    13,
+    10,
+    8,
+    9,
+    7
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

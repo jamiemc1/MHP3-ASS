@@ -1,0 +1,29 @@
+{
+  "id": "f071",
+  "query_json": "{\"id\":\"f071\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[170,2,6,111],\"skill_names\":[\"Trnquilizr Guru\",\"Attack Up [Lg]\",\"Reckless Abandon +1\",\"Recovery Speed +1\"],\"my_charms\":[\"1,Fire Atk,2,Rec Speed,-2\",\"0,WindPress,1,Attack,7\",\"0,Constitutn,2,Rec Speed,4\",\"0,Expert,3,Perception,6\",\"1,Fire Atk,2,Rec Speed,-2\",\"1,SpeedSetup,1,Attack,-7\",\"0,Expert,1,Precision,0\",\"0,Psychic,3,Attack,2\",\"0,Slam,1,Expert,-3\",\"2,Evade Dist,2,Rec Speed,-3\",\"0,NormalS Up,1,Expert,3\",\"0,Slam,1,Expert,-3\",\"2,NormalS Up,1,Expert,-4\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    4,
+    6,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

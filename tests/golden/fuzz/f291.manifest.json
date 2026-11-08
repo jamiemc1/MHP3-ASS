@@ -1,0 +1,50 @@
+{
+  "id": "f291",
+  "query_json": "{\"id\":\"f291\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[66,87,112,2],\"skill_names\":[\"Poison Coating Add\",\"Ice Element +2\",\"Recovery Speed +2\",\"Attack Up [Lg]\"],\"my_charms\":[\"0,FastCharge,5,Status,-10\",\"0,Attack,2,Anti-Theft,3\",\"0,Backpackng,5,Cold Res,8\",\"0,Eating,3,Attack,5\",\"0,Constitutn,1,Perception,-4\",\"0,WindPress,3,Fire Atk,4\",\"0,Sleep,3,PoisonCAdd,-4\",\"0,Psychic,8,Backpackng,-2\",\"0,Ice Attack,3,Rec Level,1\",\"0,Protection,5,Stun,9\",\"1,FatigueAtk,1,Rec Speed,0\",\"0,Thundr Atk,7,Will Recov,4\",\"0,PelletS Up,1,Rec Level,3\",\"0,Sharpness,5,Blight Res,1\",\"0,Constitutn,4,Psychic,9\",\"2,Water Atk,1,Shot Mix,-1\",\"0,Dragon Atk,7,Guard Up,4\",\"2,FatigueAtk,3,PelletSAdd,-10\",\"0,Elemental,5,Thundr Atk,7\",\"2,Rapid Fire,2,Water Res,0\",\"0,Fencing,4,Sheathe,1\",\"0,Sharpness,5,Protection,4\",\"1,HearProtct,2,Will Recov,-1\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    5,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Eating, +5 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Ice Attack, +1 Rec Level ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Water Atk, -1 Shot Mix OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

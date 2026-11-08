@@ -1,0 +1,106 @@
+{
+  "id": "f044",
+  "query_json": "{\"id\":\"f044\",\"description\":\"armour-seeded sampler, charm mode one_skill, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[126,2,22,36],\"skill_names\":[\"Sleep Negated\",\"Attack Up [Lg]\",\"Exploiter\",\"Rapid Shot +1\"],\"my_charms\":[\"0,Fortitude,6,Gathering,-3\",\"0,Water Atk,4,Debilitate,-2\",\"1,Fire Atk,5,PoisonCAdd,-5\",\"0,Will Recov,2,Gathering,-7\",\"1,Constitutn,2,PierceSAdd,2\",\"0,Potential,1,Horn,4\",\"0,Gunnery,6,NormalSAdd,-3\",\"0,Awaken,2,Evasion,-3\",\"0,WindPress,3,Mud/Snow,-7\",\"1,Mud/Snow,1,Sleep,-3\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    3,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 9,
+  "worker_count": 12,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 113,
+      "added": 113,
+      "added_sha256": "f9d38d3634de3798aa6e4e7d4e909b8299e3d10175d05f92ef5fce239dc17c05"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Sleep OO-",
+      "found": 398,
+      "added": 398,
+      "added_sha256": "14478d32594e92e5fbedca9555be97ec5453e597db119d97ea46b080952e5060"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 Sleep O--",
+      "found": 519,
+      "added": 441,
+      "added_sha256": "328c48b1e94e722a8da289e1c546ed02e23d59fadf1b2690e5fedb6bddda0605"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Attack OOO",
+      "found": 166,
+      "added": 56,
+      "added_sha256": "2cbe019c75295cc7ab636392c03d86856067388201c4ea2ba5c41199ebb213f6"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Attack OO-",
+      "found": 681,
+      "added": 678,
+      "added_sha256": "666d78e5d728b003f5a4c9912a558c92f97b2daf6daa1b73d2fb0cab227e6827"
+    },
+    {
+      "worker": 5,
+      "charm": "+10 Attack O--",
+      "found": 775,
+      "added": 636,
+      "added_sha256": "278b18f1b15e12a9906ee08cde49b574d0dd45bb138b4f85aea79e64738969c5"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Debilitate OOO",
+      "found": 335,
+      "added": 225,
+      "added_sha256": "ff24a95a060222baa7bbafee7ff1b68f207b2ccc0ff7e44610dd064e2a04245b"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 Debilitate OO-",
+      "found": 179,
+      "added": 174,
+      "added_sha256": "2fadaab90cefd5e6fc1475764a55473e405fdf4eb47b0cfdf1145b436ace19fa"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 Debilitate O--",
+      "found": 28,
+      "added": 25,
+      "added_sha256": "3e69b5221777cfb8dcab7b3e6f84d3088d5c9c4b57a90562537b92fac565c36a"
+    },
+    {
+      "worker": 9,
+      "charm": "+3 Rapid Fire OOO",
+      "found": 332,
+      "added": 245,
+      "added_sha256": "08afaddf69165266e7743d4583c7eb817ab05ed1ef4fc7effc5890c699455283"
+    },
+    {
+      "worker": 10,
+      "charm": "+5 Rapid Fire OO-",
+      "found": 284,
+      "added": 238,
+      "added_sha256": "36bc17d47e9fc7549291ffd1d15fcfe5a6c41a866d895eec2e679f6a8e2c55be"
+    },
+    {
+      "worker": 11,
+      "charm": "+5 Rapid Fire O--",
+      "found": 125,
+      "added": 69,
+      "added_sha256": "71d7f37f57271554a82cf11aa497ecd5a4f3e9c1f3e765b3cc7ce9e3f4c22c99"
+    }
+  ],
+  "solution_count": 3298,
+  "solutions_sha256": "78f659a7514350786b967bc4f771aae23adbc5b8e185987ad8ad56cb9ad985e0",
+  "solution_set_sha256": "857d9e4fa8aafe344a1ac5ce9f2c9adb86219826f5f6c7c3aac0769ccc26bd26",
+  "solutions_file": true,
+  "exception": null
+}

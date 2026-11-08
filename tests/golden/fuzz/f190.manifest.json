@@ -1,0 +1,43 @@
+{
+  "id": "f190",
+  "query_json": "{\"id\":\"f190\",\"description\":\"armour-seeded sampler, charm mode my_charms, 1 skill; quotas: torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[21],\"skill_names\":[\"PSI\"],\"my_charms\":[\"0,Garde,4,End.par.,-10\",\"0,S\u00e9rieux,3,Escrime,3\",\"0,Escrime,2,\u00c9p\u00e9e aig. ,2\",\"0,AtEl. eau,4,Escrime,2\",\"1,Protection,3,Escrime,-1\",\"0,Escrime,3,D\u00e9pe\u00e7age,1\",\"0,At.horiz.,1,Escrime,1\",\"0,Escrime,4,D\u00e9gainage,3\",\"0,Escrime,4,D\u00e9gainage,3\",\"0,Escrime,3,Garde,2\",\"0,Escrime,2,Tir asso.,-2\",\"0,Escrime,5,Repas rap.,1\",\"0,Artisan ,2,Garde,-1\",\"0,Escrime,1,Prot. aud.,-2\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    1,
+    3,
+    6,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 288,
+      "added": 288,
+      "added_sha256": "8e0477e4cdbdbf35e89c46f2e81645eb3126cc065c49f27ac441ef340d4fd044"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Protection, -1 Escrime O--",
+      "found": 288,
+      "added": 288,
+      "added_sha256": "09e966aeebbb3342e970feb523bcddb349e46b5b6ca573ed45bc500dfa321e7d"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Escrime, +1 Repas rap. ---",
+      "found": 288,
+      "added": 288,
+      "added_sha256": "605a520277a3c4550531031f8355c36b39924e3bf9b1b28ef6a63950587aeeb7"
+    }
+  ],
+  "solution_count": 864,
+  "solutions_sha256": "9c8b9bf457730e21350873340e785bc3294922389b35240bea6d51f4c9ff4cd7",
+  "solution_set_sha256": "8160c4b06b318fad94ea28f3f6a42106e45c09bc656b252f8b16d0ad3986d0c7",
+  "solutions_file": true,
+  "exception": null
+}

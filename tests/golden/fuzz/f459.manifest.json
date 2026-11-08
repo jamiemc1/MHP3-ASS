@@ -1,0 +1,113 @@
+{
+  "id": "f459",
+  "query_json": "{\"id\":\"f459\",\"description\":\"armour-seeded sampler, charm mode one_skill, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[134,6,55,14],\"skill_names\":[\"Wind Anchor\",\"Reckless Abandon +1\",\"PelletS/ScatterBowUp\",\"Speed Sharpening\"],\"my_charms\":[\"0,PelletS Up,1,Stun,-3\",\"0,Status,3,Attack,-3\",\"0,Water Atk,2,Expert,5\",\"0,Eating,3,Health,7\",\"0,Artisan,1,Sharpness,-1\",\"0,Mud/Snow,6,Expert,-2\",\"0,Water Atk,5,WindPress,-1\",\"0,Loading,2,Evasion,2\",\"0,PelletS Up,2,Loading,3\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    3,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 13,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 WindPress OOO",
+      "found": 1010,
+      "added": 1010,
+      "added_sha256": "b4f87e7647a4f3d5873fde39d018a5c361f99306b0ab01d5d9da77590b1f8769"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 WindPress OO-",
+      "found": 672,
+      "added": 632,
+      "added_sha256": "b3ad541019ef76a8760b63266f77a5b3e5113204f479aefbc79d8c7ecbd346ae"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 WindPress O--",
+      "found": 369,
+      "added": 199,
+      "added_sha256": "6a6d9267c3e8f2f315e16b6bf6afd5efe5b2302870a4ecb510d42bca3a55afb9"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Expert OOO",
+      "found": 659,
+      "added": 441,
+      "added_sha256": "7e7e5fc1f0f207b3430ba402d84c1b1d84a95f93b99c6556534ae34ca085f425"
+    },
+    {
+      "worker": 4,
+      "charm": "+10 Expert OO-",
+      "found": 275,
+      "added": 265,
+      "added_sha256": "0ea38381869b0c3c69a7982c61691c77b6dd0f46153021d845b92e7fb4a405e8"
+    },
+    {
+      "worker": 5,
+      "charm": "+10 Expert O--",
+      "found": 74,
+      "added": 67,
+      "added_sha256": "b4deb14cab7710e95977212944f4d80e606af8e5f3582e16f228fa7f21ef0a28"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 PelletS Up OOO",
+      "found": 1215,
+      "added": 1147,
+      "added_sha256": "3838f7d9572b1e520711afefd87e5c18bf8e7b51dba1f0a1a6700146a1719246"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 PelletS Up OO-",
+      "found": 1085,
+      "added": 904,
+      "added_sha256": "6a81930870120f87d1b5c3ee0a8ba72f58e5bc18a57e72c5bfe7856fee169f76"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 PelletS Up O--",
+      "found": 642,
+      "added": 290,
+      "added_sha256": "c4d7a2287a502e63e5536135d47c5745198b3b47de7f833c467185d29b94a7e5"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 Sharpener OOO",
+      "found": 461,
+      "added": 216,
+      "added_sha256": "d1c87bbd2818b458e0fafe516e23e449ad49007a9014f6b222dd8fa0c1d036f5"
+    },
+    {
+      "worker": 10,
+      "charm": "+6 Sharpener OO-",
+      "found": 190,
+      "added": 137,
+      "added_sha256": "00cbddd0145ba10a4cd6d8755f517d2aa88f20340fbd12401125729f496091a2"
+    },
+    {
+      "worker": 11,
+      "charm": "+6 Sharpener O--",
+      "found": 82,
+      "added": 43,
+      "added_sha256": "b8b3782c963d47c6d0ace367f98e00e37c2129dca851ca0364d31119c7ef7499"
+    },
+    {
+      "worker": 12,
+      "charm": "+8 Sharpener ---",
+      "found": 41,
+      "added": 5,
+      "added_sha256": "a79f21780c412f49feeed6a731c8e3c2c8b189ac0ab2bf7a7337eba9429aaf3f"
+    }
+  ],
+  "solution_count": 5356,
+  "solutions_sha256": "c0df92977508eff9b8cb405bd713950421262f3c74bfc16ae91777c1f90f7579",
+  "solution_set_sha256": "43082aceee8fd89f5711b82f453a77ae3e9e43d07f1bfe7b555be28a95cd0e4e",
+  "solutions_file": false,
+  "exception": null
+}

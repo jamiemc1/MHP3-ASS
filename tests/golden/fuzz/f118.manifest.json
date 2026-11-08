@@ -1,0 +1,29 @@
+{
+  "id": "f118",
+  "query_json": "{\"id\":\"f118\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[154,138,69,66,93],\"skill_names\":[\"Water Res (S)\",\"Def Down Negate\",\"Power Coating Add\",\"Poison Coating Add\",\"Constitution +2\"],\"my_charms\":[\"0,PelletS Up,5,NormalS Up,3\",\"1,Horn,1,Quake Res,-2\",\"0,Reload Spd,3,Paralysis,-3\",\"2,Ice Res,1,Backpackng,-6\",\"0,Hunger,7,Defense,-7\",\"0,PelletSAdd,3,Perception,-7\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    4,
+    3,
+    2,
+    5
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

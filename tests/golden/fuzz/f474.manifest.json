@@ -1,0 +1,29 @@
+{
+  "id": "f474",
+  "query_json": "{\"id\":\"f474\",\"description\":\"armour-seeded sampler, charm mode slotted, 3 skills; quotas: cross_type, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[54,21,170],\"skill_names\":[\"PierceS/PierceBowUp\",\"ESP\",\"Trnquilizr Guru\"],\"my_charms\":[\"1,Sheathe,1,FatigueAtk,3\",\"0,Potential,1,PelletSAdd,1\",\"0,Potential,5,Fire Res,3\",\"1,Evasion,4,Psychic,9\",\"0,Evade Dist,2,CutterSAdd,0\",\"0,Carving,5,Debilitate,1\",\"0,WindPress,2,PelletSAdd,-3\",\"0,Status,4,Quake Res,2\",\"1,Will Recov,2,NormalSAdd,-7\",\"0,Precision,4,Stun,10\",\"2,Recoil,2,Stamina,-3\",\"0,Crag S Add,1,Sense,8\",\"0,Slam,3,,\",\"1,Fire Atk,2,,\",\"2,,,,\",\"1,Fire Atk,4,Precision,-1\",\"0,Mud/Snow,4,BombStrUp,-4\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

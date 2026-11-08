@@ -1,0 +1,29 @@
+{
+  "id": "f233",
+  "query_json": "{\"id\":\"f233\",\"description\":\"armour-seeded sampler, charm mode slotted, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[0,172,111,86],\"skill_names\":[\"Attack Up [Sm]\",\"Autotracker\",\"Recovery Speed +1\",\"Ice Element +1\"],\"my_charms\":[\"0,Ice Res,5,Fortitude,7\",\"0,Elemental,1,Psychic,-7\",\"0,PelletSAdd,1,Rec Speed,0\",\"1,Antiseptic,1,Psychic,0\",\"0,Stamina,4,Guard,3\",\"0,Psychic,5,Perception,-4\",\"0,Dragon Atk,3,Rec Speed,6\",\"0,Fire Atk,4,Psychic,-10\",\"1,Eating,2,Attack,5\",\"0,Psychic,8,Defense,1\",\"1,Guard,1,Fate,3\",\"0,PunishDraw,3,Attack,6\",\"1,Guard,1,Attack,-3\",\"0,Attack,3,Perception,10\",\"0,Artisan,1,Sharpener,3\",\"0,PunishDraw,5,Attack,-3\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    8,
+    9,
+    8,
+    9
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 1433,
+      "added": 1419,
+      "added_sha256": "a38dfc21cb6daae7f20071fd46ad711784023675323ac57820938b75dac64b2c"
+    }
+  ],
+  "solution_count": 1419,
+  "solutions_sha256": "a38dfc21cb6daae7f20071fd46ad711784023675323ac57820938b75dac64b2c",
+  "solution_set_sha256": "923028fde963fd169a09a149a86281b83e83a901ae6bc27c010f7ac4db7324fd",
+  "solutions_file": true,
+  "exception": null
+}

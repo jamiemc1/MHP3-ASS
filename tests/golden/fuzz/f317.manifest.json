@@ -1,0 +1,29 @@
+{
+  "id": "f317",
+  "query_json": "{\"id\":\"f317\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[173],\"skill_names\":[\"DungBombExpert\"],\"my_charms\":[\"2,Rec Speed,5,Backpackng,-7\",\"0,PierceS Up,4,Ice Res,11\",\"0,BombStrUp,3,Gathering,5\",\"0,Dragon Res,3,DungMaster,0\",\"0,Sharpener,4,DungMaster,-5\",\"0,Carving,4,Guard,-1\",\"0,ClustS Add,2,DungMaster,-1\",\"2,Fencing,3,Stamina,-1\",\"0,Sheathe,1,Gathering,13\",\"0,ThunderRes,6,DungMaster,-10\",\"0,Defense,2,DungMaster,-1\",\"0,Wide Area,5,DungMaster,-3\",\"0,NormalSAdd,4,DungMaster,-4\",\"0,Potential,1,DungMaster,8\",\"0,Water Atk,1,Sharpener,8\",\"0,Dragon Res,1,Sleep,-8\",\"0,Stun,4,DungMaster,-5\",\"0,Constitutn,1,DungMaster,-6\",\"0,Defense,4,PoisonCAdd,2\",\"0,Rapid Fire,1,Water Atk,5\",\"0,Water Atk,5,Reload Spd,-2\",\"0,Artisan,2,HearProtct,1\",\"0,Guard Up,1,BombStrUp,-2\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    1,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 8,
+      "added": 8,
+      "added_sha256": "9813ea64e9651997aba95a19ff5a99afdbc208bc62bb1c2fa8d7d7f820d6fced"
+    }
+  ],
+  "solution_count": 8,
+  "solutions_sha256": "9813ea64e9651997aba95a19ff5a99afdbc208bc62bb1c2fa8d7d7f820d6fced",
+  "solution_set_sha256": "9813ea64e9651997aba95a19ff5a99afdbc208bc62bb1c2fa8d7d7f820d6fced",
+  "solutions_file": true,
+  "exception": null
+}

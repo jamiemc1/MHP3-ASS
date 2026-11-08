@@ -1,0 +1,50 @@
+{
+  "id": "f042",
+  "query_json": "{\"id\":\"f042\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[140,81,35],\"skill_names\":[\"HighGradeEarplug\",\"Water Element +2\",\"Load Up\"],\"my_charms\":[\"0,Gunnery,1,Fire Res,0\",\"0,Stun,1,Crag S Add,8\",\"0,Rec Level,1,Artisan,-3\",\"0,Mud/Snow,1,,\",\"0,FatigueAtk,1,Protection,3\",\"0,Fire Res,1,Sense,3\",\"0,Evasion,1,Dragon Res,12\",\"0,Status,2,Carving,1\",\"1,BombStrUp,1,Gunnery,-2\",\"0,Sharpness,3,Water Atk,7\",\"0,Water Atk,2,Potential,0\",\"3,Guard,2,Sharpness,0\",\"0,FatigueAtk,2,PoisonCAdd,-7\",\"1,,,,\",\"0,Carving,3,Dragon Res,-8\",\"0,Potential,1,Perception,6\",\"0,Eating,1,HearProtct,3\",\"0,Blight Res,2,Debilitate,1\",\"0,Slam,1,Attack,-6\",\"1,Rapid Fire,4,FatigueAtk,3\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Sharpness, +7 Water Atk ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Guard, 0 Sharpness OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Eating, +3 HearProtct ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

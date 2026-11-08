@@ -1,0 +1,92 @@
+{
+  "id": "f280",
+  "query_json": "{\"id\":\"f280\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[160,189,128,155,131],\"skill_names\":[\"Ice Res (S)\",\"Gathering +1\",\"Stun Halved\",\"Water Res (L)\",\"Mud/Snow Res\"],\"my_charms\":[\"0,Ice Res,6,Paralysis,-4\",\"0,Crag S Add,5,Ice Res,1\",\"0,Crag S Add,1,Sense,2\",\"0,Rapid Fire,2,Loading,2\",\"0,Water Res,2,Whim,-9\",\"2,Evasion,1,PunishDraw,-3\",\"0,Expert,4,Stun,10\",\"0,Poison,2,Perception,8\",\"0,Water Res,5,BombStrUp,-2\",\"0,Water Atk,3,Status,4\",\"1,Recoil,5,ThunderRes,-3\",\"0,Poison,2,Cold Res,6\",\"2,FatigueAtk,1,ThunderRes,5\",\"0,Status,1,PelletSAdd,3\",\"1,Guard,4,Artisan,-2\",\"0,Slam,5,NormalS Up,0\",\"0,Precision,1,Psychic,3\",\"0,Rewards,2,Health,7\",\"0,Precision,1,Psychic,3\",\"0,Backpackng,2,Psychic,-1\",\"0,SpeedSetup,7,Expert,-5\",\"1,Antiseptic,4,Huntsman,-5\",\"0,Fire Atk,4,Dragon Res,5\",\"0,Constitutn,2,Heat Res,-7\",\"0,CutterSAdd,3,Water Res,8\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    7,
+    3,
+    9,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 10,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Ice Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Ice Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 Gathering O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+10 Gathering ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Stun O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+8 Stun ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Water Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+6 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 Mud/Snow O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+7 Mud/Snow ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f055",
+  "query_json": "{\"id\":\"f055\",\"description\":\"armour-seeded sampler, charm mode one_skill, 1 skill; quotas: one_skill_hr_3_or_less, empty_slot\",\"language\":\"Japanese\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[198],\"skill_names\":[\"\u6fc0\u904b\"],\"my_charms\":[\"0,\u9f8d\u5c5e\u6027\u653b\u6483,6,\u904b\u6c17,1\",\"0,\u5e95\u529b,6,KO,-1\",\"0,\u30ac\u30fc\u30c9\u5f37\u5316,1,\u904b\u6c17,-3\",\"0,\u904b\u6c17,4,\u672c\u6c17,-3\",\"0,\u65ac\u88c2\u5f3e\u8ffd\u52a0,1,\u5f37\u6483\u74f6\u8ffd\u52a0,6\",\"0,\u904b\u6c17,3,\u6c37\u8010\u6027,9\",\"0,\u6563\u5f3e\u5f37\u5316,5,\u904b\u6c17,1\",\"1,\u6c17\u529b\u56de\u5fa9,1,\u98df\u4e8b,0\",\"0,\u904b\u6c17,3,\u9f8d\u5c5e\u6027\u653b\u6483,2\",\"0,\u5e95\u529b,5,\u98df\u3044\u3057\u3093\u574a,4\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 0,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

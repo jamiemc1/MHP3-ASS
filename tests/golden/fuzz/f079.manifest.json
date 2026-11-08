@@ -1,0 +1,71 @@
+{
+  "id": "f079",
+  "query_json": "{\"id\":\"f079\",\"description\":\"uniform sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[204,57,71,189],\"skill_names\":[\"Combine Success +20%\",\"Pierce S LV1 Add\",\"Fatigue Coating Add\",\"Gathering +1\"],\"my_charms\":[\"1,Potential,3,Sheathe,-1\",\"0,Constitutn,3,PelletS Up,3\",\"0,Loading,4,Fencing,-1\",\"1,Awaken,1,Attack,6\",\"0,Rec Level,1,SpeedSetup,3\",\"0,HearProtct,2,Rewards,0\",\"0,Dragon Res,1,Paralysis,3\",\"0,Rec Level,3,Gunnery,4\",\"1,WindPress,2,Rapid Fire,2\",\"0,Water Atk,7,KO,-3\",\"2,Recoil,2,Rec Level,0\",\"0,Constitutn,5,FatigeCAdd,1\",\"2,PierceS Up,2,Ice Attack,-7\",\"0,Expert,2,Backpackng,9\",\"0,Sleep,4,FatigeCAdd,3\",\"0,Awaken,3,BombStrUp,4\",\"0,PunishDraw,1,Thundr Atk,5\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    5,
+    6,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 PierceSAdd, +10 Combo Rate ---",
+      "found": 2951,
+      "added": 2950,
+      "added_sha256": "de18a6770729edc5eaac90b26e83cb671b18388096ab217d95a4619feedcb398"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 PierceSAdd, +9 FatigeCAdd ---",
+      "found": 1493,
+      "added": 1492,
+      "added_sha256": "fd5b403856b050b84efe50b7668a4a46ac2a8918dedebac459ef36006737987e"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 PierceSAdd, +8 FatigeCAdd ---",
+      "found": 3510,
+      "added": 2021,
+      "added_sha256": "587aa5211dca93a3d8d86369cf35889659a75cc6a101313854037ea3306a1796"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 PierceSAdd, +5 Gathering O--",
+      "found": 114,
+      "added": 114,
+      "added_sha256": "334d85448f3a6eda1a77170381ae8ea1143e3c17e7971144432371d92bcde26e"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 PierceSAdd, +8 Gathering ---",
+      "found": 2310,
+      "added": 2310,
+      "added_sha256": "9cc1f4c6de4f9b515802247d1f0913a33064972b08767fd467a70eb516a96b7c"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 PierceSAdd, +9 Gathering ---",
+      "found": 1665,
+      "added": 11,
+      "added_sha256": "24cf5b0eb53b0d3d82dca2bb2d6df99529493f45b04ea1988bfba1c77feb5337"
+    },
+    {
+      "worker": 6,
+      "charm": "OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 8898,
+  "solutions_sha256": "56fc555634f5e9357cee6c88d90e898b93e79eeef160a33be2f51a8554f31435",
+  "solution_set_sha256": "29811701ac64997600c6f87da8d9d6669ef31faff6ce66c4f784e244ed6eafe9",
+  "solutions_file": false,
+  "exception": null
+}

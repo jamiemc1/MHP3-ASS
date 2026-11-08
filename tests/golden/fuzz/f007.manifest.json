@@ -1,0 +1,29 @@
+{
+  "id": "f007",
+  "query_json": "{\"id\":\"f007\",\"description\":\"uniform sampler, charm mode none, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[8,2,179,157,92],\"skill_names\":[\"Reckless Abandon +3\",\"Attack Up [Lg]\",\"Picky Eater\",\"Thunder Res (S)\",\"Constitution +1\"],\"my_charms\":[\"0,Guard Up,6,Evasion,-3\",\"0,Fire Res,2,Gluttony,-7\",\"0,Sleep,1,Heat Res,2\",\"0,ThunderRes,2,Water Res,-6\",\"0,Hunger,1,Shot Mix,-8\",\"0,Artisan,3,Sharpness,-1\",\"0,Constitutn,5,Health,0\",\"0,PelletS Up,1,Status,3\",\"0,Rec Level,2,Attack,3\",\"0,Status,1,SpeedSetup,6\",\"0,Dragon Res,6,ThunderRes,-9\",\"0,Loading,2,Constitutn,-3\",\"0,Fire Res,6,CutterSAdd,9\",\"0,Precision,1,Dragon Res,10\",\"0,WindPress,5,Slam,1\",\"0,Paralysis,1,SleepCAdd,6\",\"0,Mud/Snow,6,Poison,6\",\"0,Fire Res,2,Gluttony,-7\",\"0,Constitutn,5,Guard Up,3\",\"0,Status,5,Expert,7\",\"0,PelletSAdd,3,Heat Res,4\",\"0,Wide Area,6,ThunderRes,7\",\"1,Constitutn,2,Expert,-10\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    11,
+    9,
+    7,
+    10
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

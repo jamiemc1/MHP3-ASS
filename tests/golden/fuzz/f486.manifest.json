@@ -1,0 +1,29 @@
+{
+  "id": "f486",
+  "query_json": "{\"id\":\"f486\",\"description\":\"uniform sampler, charm mode two_skill, 6 skills; quotas: auto_guard_charm, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[26,132,131,119,105,78],\"skill_names\":[\"Flute Expert\",\"Quake Res\",\"Mud/Snow Res\",\"Auto-Guard\",\"Evade +2\",\"Fire Element +2\"],\"my_charms\":[\"0,Status,1,Wide Area,-8\",\"0,Reload Spd,1,Gathering,-1\",\"0,PierceS Up,1,WindPress,2\",\"0,Crag S Add,5,Health,-4\",\"0,Auto-Guard,10,,\",\"0,Mud/Snow,6,Heat Res,4\",\"0,Potential,5,Guard,4\",\"0,Sharpener,4,Quake Res,6\",\"0,FatigueAtk,5,PunishDraw,-3\",\"0,Water Res,5,Horn,-2\",\"0,Fire Atk,7,Carving,0\",\"0,Fire Atk,6,Sharpness,0\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    12,
+    8,
+    7,
+    8,
+    8
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

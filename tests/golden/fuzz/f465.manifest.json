@@ -1,0 +1,71 @@
+{
+  "id": "f465",
+  "query_json": "{\"id\":\"f465\",\"description\":\"uniform sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[176,38,208,122],\"skill_names\":[\"Tps obj augment\u00e9\",\"Vit. Recharg. +2\",\"Alchimiste\",\"Poison annul\u00e9\"],\"my_charms\":[\"0,Vit. rech.,1,At.horiz.,0\",\"0,Vit. rech.,4,R\u00e9s. fdr,-9\",\"0,Escrime,3,Cor,-3\",\"0,Artisan ,2,Coureur,3\",\"2,Vit. rech.,3,En.b.port.,-2\",\"0,Vit. rech.,2,AtEl. eau,9\",\"0,Poison,2,Ninja,6\",\"0,Neige/boue,6,Inst.rap.,-1\",\"0,Vit. rech.,1,At.horiz.,0\",\"1,,,,\",\"0,Tir rap.,5,Constit.,2\",\"0,AtEl. fdr,5,Alchimie,3\",\"1,\u00c9p\u00e9e aig. ,1,R\u00e9s. drgn,10\",\"0,Repas rap.,3,Alchimie,9\",\"0,KO,5,Vit. rech.,2\",\"1,Poison,2,Vol ineff.,-9\",\"0,Repas rap.,5,Vit. rech.,-2\",\"0,Escrime,3,Cor,-3\",\"0,R\u00e9s. glc,5,Poison,2\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    3,
+    6,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 TpsObjAugm. O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 TpsObjAugm. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 Alchimie O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 Alchimie ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+4 Poison O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Poison ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

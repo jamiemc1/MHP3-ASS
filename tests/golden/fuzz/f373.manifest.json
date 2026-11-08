@@ -1,0 +1,127 @@
+{
+  "id": "f373",
+  "query_json": "{\"id\":\"f373\",\"description\":\"uniform sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[45,112,184,98],\"skill_names\":[\"Recoil Reduction +3\",\"Recovery Speed +2\",\"Backpacking Expert\",\"Stamina Recov Up\"],\"my_charms\":[\"0,Rec Speed,1,Anti-Theft,9\",\"0,Guard,5,RazorCAdd,2\",\"0,Evasion,4,Recoil,2\",\"0,NormalS Up,3,Thundr Atk,8\",\"0,Evade Dist,2,Fire Res,12\",\"0,Status,1,Gunnery,6\",\"1,Fortitude,7,Rec Speed,-2\",\"0,Thundr Atk,3,Guard,-2\",\"0,Fire Atk,6,Protection,8\",\"0,Horn,2,Hunger,-10\",\"0,Slam,4,Potential,0\",\"0,Sheathe,4,PierceSAdd,9\",\"0,Attack,2,Combo Rate,-9\",\"0,Ice Res,6,SleepCAdd,2\",\"0,Loading,4,PelletS Up,1\",\"0,Potential,1,Fencing,-2\",\"0,BombStrUp,5,PowerCAdd,1\",\"0,Awaken,4,Debilitate,2\",\"0,Recoil,2,Sheathe,0\",\"0,Potential,1,Rec Speed,-2\",\"0,Constitutn,4,Wide Area,11\",\"1,Guard,1,Whim,-6\",\"0,Precision,2,Backpackng,4\",\"0,NormalSAdd,6,HiSpdGathr,7\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    7,
+    5,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 15,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+3 Recoil, +8 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Recoil, +12 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Recoil, +2 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Backpackng, +1 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Rec Speed, +10 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+2 Rec Speed, +8 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+6 Rec Speed, +5 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 Rec Speed, +7 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 Recoil, +2 Will Recov ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 Will Recov, +3 Recoil ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+3 Will Recov, +1 Rec Speed OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+5 Will Recov, +11 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+6 Will Recov, +7 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+1 Will Recov, +5 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+6 Will Recov, +10 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

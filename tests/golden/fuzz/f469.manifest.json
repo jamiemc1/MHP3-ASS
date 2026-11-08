@@ -1,0 +1,162 @@
+{
+  "id": "f469",
+  "query_json": "{\"id\":\"f469\",\"description\":\"uniform sampler, charm mode two_skill, 4 skills; quotas: cross_type, two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[181,104,61,93],\"skill_names\":[\"Quick Eating +2\",\"Evade +1\",\"Crag S LV1 Add\",\"Constitution +2\"],\"my_charms\":[\"0,Eating,4,Fate,1\",\"0,Evasion,1,Sheathe,0\",\"0,Loading,3,Eating,3\",\"0,Constitutn,2,Paralysis,6\",\"0,Backpackng,8,Expert,-4\",\"0,Eating,2,Expert,-3\",\"0,Will Recov,1,Dragon Atk,-4\",\"0,Evasion,5,Backpackng,5\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    6,
+    4,
+    7
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 20,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+2 Evasion, +1 Eating OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Eating, +4 Evasion ---",
+      "found": 7,
+      "added": 7,
+      "added_sha256": "10b84320c0ced5ca3ddce74ea110b41e2bfb53f4bc6f39f53c92ff7ced451bf5"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Evasion, +3 Eating ---",
+      "found": 26,
+      "added": 26,
+      "added_sha256": "6f747097173990a6c321340d83440b44201cfe13d74b99d2290178b60109c15a"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Evasion, +3 Eating O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Eating, +10 Crag S Add ---",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "c4d176b1b066b2c0d4fcc2d97ec4644334dad6131281e25d53bc99bea362757c"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 Eating, +8 Crag S Add ---",
+      "found": 3,
+      "added": 3,
+      "added_sha256": "45e6b1585c7338b1e6ce80b2472963c3e7a6addfc4ab4214316d2d0cfd5e409b"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Eating, +7 Crag S Add ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "3e3329a4193a90eb0baf40e7cac1cdb5eb1515961aedbe9f1172fabb9344e002"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 Evasion, +10 Crag S Add ---",
+      "found": 88,
+      "added": 88,
+      "added_sha256": "11470004eee7a061aae4f3906c335b26abac4109424abe71ddecd09c57dff8f0"
+    },
+    {
+      "worker": 8,
+      "charm": "+6 Evasion, +7 Crag S Add ---",
+      "found": 44,
+      "added": 44,
+      "added_sha256": "cc38727713739f26b145caed9545a1a9bb1a34e616325a011d2db45a4092d49c"
+    },
+    {
+      "worker": 9,
+      "charm": "+5 Eating, +3 Constitutn ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+6 Constitutn, +3 Eating ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "cf44b1dee510576bb5c475ded46c03826d437d097b623d2ccd7fa1495c21d5b3"
+    },
+    {
+      "worker": 11,
+      "charm": "+4 Eating, +4 Constitutn ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "9ea34be0092fa6a6a8db1f6258c0b28c6c79a5923e42507b135fa988fca8a73c"
+    },
+    {
+      "worker": 12,
+      "charm": "+2 Constitutn, +1 Eating O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+1 Constitutn, +1 Evasion O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+6 Evasion, +2 Constitutn ---",
+      "found": 9,
+      "added": 9,
+      "added_sha256": "05acf0ca24518d7f3859037128f51f2bdd81ccf5a096536065046a674b507457"
+    },
+    {
+      "worker": 15,
+      "charm": "+6 Constitutn, +3 Evasion ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "ac4e16963f41e39b1bc2e6cdbe2786052a2bfbeb4023bd46291e8111e940df68"
+    },
+    {
+      "worker": 16,
+      "charm": "+5 Constitutn, +4 Evasion ---",
+      "found": 4,
+      "added": 2,
+      "added_sha256": "e60692dd9fa2c5fd2802b2628d95dec52914f4dd2434039a916d2cf913316b5f"
+    },
+    {
+      "worker": 17,
+      "charm": "+6 Constitutn, +5 Crag S Add ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "fc8035cc3f38add67bc197304f4a905e14010e844de2f9d999b131ae667e480b"
+    },
+    {
+      "worker": 18,
+      "charm": "+5 Constitutn, +2 Crag S Add O--",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "e5e07e6b0ee47bb15b61a65c0c2b32b687c2db991f34d096c78224b630229408"
+    },
+    {
+      "worker": 19,
+      "charm": "+5 Constitutn, +9 Crag S Add ---",
+      "found": 8,
+      "added": 7,
+      "added_sha256": "a52d60d64c012966393802d883c1866776b81165644476f7aba712cdf4681594"
+    }
+  ],
+  "solution_count": 197,
+  "solutions_sha256": "e6c21f51b5dd99733abb92dfd60ef00755378d95522436f16628de87f322fa23",
+  "solution_set_sha256": "a20d5c58f95ad46256c059a3f461c177261a0319f7a1ed882e62ecc08000972d",
+  "solutions_file": true,
+  "exception": null
+}

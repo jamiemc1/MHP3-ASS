@@ -1,0 +1,50 @@
+{
+  "id": "f300",
+  "query_json": "{\"id\":\"f300\",\"description\":\"armour-seeded sampler, charm mode my_charms, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[112],\"skill_names\":[\"Recovery Speed +2\"],\"my_charms\":[\"0,Sheathe,1,WindPress,1\",\"2,Fire Atk,2,Protection,-6\",\"0,FastCharge,3,Rec Speed,10\",\"0,Health,1,Rec Speed,-2\",\"0,BombStrUp,3,Ice Res,-3\",\"0,Dragon Atk,7,RazorCAdd,-8\",\"0,Ice Attack,6,PoisonCAdd,-8\",\"0,Evasion,5,Water Res,-7\",\"1,Sleep,3,Backpackng,-7\",\"1,Rec Level,1,Rec Speed,-1\",\"0,Status,4,Rec Speed,3\",\"0,Crag S Add,3,Paralysis,-6\",\"1,NormalS Up,2,Rec Speed,-5\",\"0,Protection,6,Fire Res,4\",\"0,Rec Speed,7,PoisonCAdd,-4\",\"0,Evasion,1,Rec Speed,7\",\"0,Ice Res,2,Expert,4\",\"1,PelletS Up,4,Rec Speed,3\",\"0,Water Res,4,NormalSAdd,-6\",\"0,Elemental,2,Rec Speed,-10\",\"1,Psychic,4,ThunderRes,-3\",\"2,Crit Draw,1,FastCharge,2\",\"0,Rapid Fire,1,PelletS Up,2\",\"0,Sheathe,1,Defense,-3\",\"0,Crit Draw,1,WindPress,-6\",\"0,Will Recov,1,Rec Speed,-6\",\"0,Protection,3,Horn,10\",\"1,Ice Attack,1,Rec Speed,1\",\"0,Rewards,3,Rec Speed,4\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    2,
+    2,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 317,
+      "added": 317,
+      "added_sha256": "789b8946441338bf99b61aaffcd7b07cbf2a5c14a1d04c4f16d5bb11abbf441f"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Fire Atk, -6 Protection OO-",
+      "found": 320,
+      "added": 300,
+      "added_sha256": "56edcf8311fae034142e308b6b17258c72ed1dad915f04ca84e548c71e6ba6c0"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 FastCharge, +10 Rec Speed ---",
+      "found": 320,
+      "added": 300,
+      "added_sha256": "e9f291d78e10689bb6396cecb7309380ec4801257918987a34b2b429dd1770aa"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 PelletS Up, +3 Rec Speed O--",
+      "found": 320,
+      "added": 300,
+      "added_sha256": "ed899ac96bd55176a3834919431b31dedd48c73916f09a0c07793d227dc058a5"
+    }
+  ],
+  "solution_count": 1217,
+  "solutions_sha256": "348681aa9d8341f67a8f182868b7cfb060fbdb6627fd213da0dc394d87a07da9",
+  "solution_set_sha256": "44086866d5a238d364e06cac893d6368ad5d51c2ed6aa657b616d90b3018bef3",
+  "solutions_file": true,
+  "exception": null
+}

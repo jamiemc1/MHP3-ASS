@@ -1,0 +1,29 @@
+{
+  "id": "f160",
+  "query_json": "{\"id\":\"f160\",\"description\":\"armour-seeded sampler, charm mode slotted, 6 skills; quotas: cross_type, torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[2,132,70,50,174,161],\"skill_names\":[\"Angriff +++\",\"Bebensicher\",\"KomboBeschHinzu\",\"Ruhige Hand +2\",\"Erholung hoch\",\"Eisabwehr ++\"],\"my_charms\":[\"2,Armieren,4,SchrSchlag,-3\",\"0,Verteidig.,3,Eisabwehr,-7\",\"0,Drachenabw,1,Rucksack,-4\",\"0,Ausdauer,4,Feuerabw.,9\",\"0,Eigenbr\u00f6dl,6,ErmdBschHz,8\",\"0,Experte,2,Schie\u00dferei,-2\",\"0,Element,1,KO,-3\",\"0,Pr\u00e4zision,2,K\u00e4lteabw.,4\",\"0,Asweichdst,5,ErmdBschHz,-4\",\"0,HartSchlag,5,BombSt\u00e4rk.,7\",\"0,Windabwehr,4,BombSt\u00e4rk.,-8\",\"0,Willenskft,3,ErholStufe,-1\",\"0,Schlaf,3,Sammeln,9\",\"0,Block,5,Angriff,-3\",\"2,StrafHieb,1,Vision,-8\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    14,
+    7,
+    9,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 9,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

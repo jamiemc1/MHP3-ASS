@@ -1,0 +1,29 @@
+{
+  "id": "f131",
+  "query_json": "{\"id\":\"f131\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[78,122,129,205,86],\"skill_names\":[\"Fire Element +2\",\"Poison Negated\",\"Stun Negated\",\"Combine Success+45%\",\"Ice Element +1\"],\"my_charms\":[\"0,Stun,6,Health,0\",\"0,Loading,4,Eating,2\",\"0,Wide Area,5,Combo Rate,-8\",\"0,Fire Atk,5,Expert,-2\",\"0,Rapid Fire,1,WindPress,2\",\"0,Reload Spd,6,Sheathe,-6\",\"0,Ice Attack,1,Gathering,4\",\"0,Sheathe,2,Stun,2\",\"0,Health,7,Precision,1\",\"0,Dragon Atk,1,Ice Attack,8\",\"2,Fire Res,1,CutterSAdd,-5\",\"1,Will Recov,4,Fire Atk,-4\",\"0,Debilitate,1,FatigueAtk,-2\",\"0,Artisan,4,Water Atk,2\",\"0,Sheathe,3,Stun,12\",\"0,FatigueAtk,4,Precision,5\",\"0,Evade Dist,6,Potential,4\",\"0,Will Recov,1,Status,-2\",\"2,Debilitate,3,Stun,-4\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

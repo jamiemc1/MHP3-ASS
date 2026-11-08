@@ -1,0 +1,57 @@
+{
+  "id": "f269",
+  "query_json": "{\"id\":\"f269\",\"description\":\"armour-seeded sampler, charm mode my_charms, 3 skills; quotas: illegal_charm_lines, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[166,26,174],\"skill_names\":[\"Wide Area +1\",\"Flute Expert\",\"Recovery Up\"],\"my_charms\":[\"1,Stun,4,Attack,-4\",\"1,Rec Speed,1,Precision,-10\",\"0,Quake Res,7,Wide Area,9\",\"0,NormalSAdd,3,PierceSAdd,10\",\"2,Protection,1,WindPress,-7\",\"0,Wide Area,2,PoisonCAdd,-7\",\"0,Rec Level,4,Eating,0\",\"0,Crit Draw,2,Evasion,-2\",\"2,PunishDraw,1,Wide Area,-8\",\"0,PierceSAdd,4,Horn,2\",\"0,Wide Area,5,Crag S Add,0\",\"0,Poison,5,Wide Area,1\",\"0,Psychic,15,,\",\"0,Dragon Atk,1,Horn,5\",\"1,WindPress,3,Status,-8\",\"1,Ice Attack,7,Rec Level,-1\",\"0,Carving,14,,\",\"0,Fire Atk,1,Dragon Res,5\",\"0,Crag S Add,5,PelletSAdd,5\",\"0,Evade Dist,14,,\",\"0,Status,1,CutterSAdd,6\",\"0,Precision,5,PoisonCAdd,5\",\"0,KO,3,Antiseptic,0\",\"0,Crag S Add,1,Ice Res,2\",\"0,Rec Level,1,FatigeCAdd,1\",\"0,Stun,8,CutterSAdd,-4\",\"1,Eating,2,Rec Speed,-8\",\"0,Carving,1,Crit Draw,3\",\"1,FatigueAtk,2,Carving,-1\",\"0,Fire Atk,5,Wide Area,10\",\"0,Rec Level,4,PelletS Up,-3\",\"0,Dragon Atk,5,Rec Speed,-3\",\"0,Sharpener,4,Health,-2\",\"0,Horn,4,Psychic,6\"]}",
+  "my_charms_loaded": 31,
+  "my_charms_illegal": 3,
+  "relevant_armor_counts": [
+    8,
+    5,
+    5,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 4754,
+      "added": 4754,
+      "added_sha256": "86219203c590a43f1bf9bc2bd52b93b4c5f413360071bbae31ec2b29bc068261"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Rec Level, 0 Eating ---",
+      "found": 7324,
+      "added": 7126,
+      "added_sha256": "dd9730cdd2c767d93d7b732a2f28daa30e23ef3f69bb4e4fb78f209bec0b8fdc"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 PunishDraw, -8 Wide Area OO-",
+      "found": 2431,
+      "added": 2399,
+      "added_sha256": "612b68ec1625ce0bcfcb7a14ed06989994e666ba060e747d558fe5012057838f"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Dragon Atk, +5 Horn ---",
+      "found": 7045,
+      "added": 6861,
+      "added_sha256": "c1592bc342c4dc7e7f54bb65821eaafaea5b3b18026daf45cebba1afc7c05fd9"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Fire Atk, +10 Wide Area ---",
+      "found": 6432,
+      "added": 6280,
+      "added_sha256": "fa667c4d5d38a49c08d3ccde31ed5b7417909e33a66850cbf92a947770b8bcec"
+    }
+  ],
+  "solution_count": 27420,
+  "solutions_sha256": "4fc444ecea14b7e49b021fa9a6667f3817688764af017bbbf4b4f5316d99fb52",
+  "solution_set_sha256": "4d8c859eed101f6365f3645237c28276ff5384fd49e84c68fa2933acfb55b348",
+  "solutions_file": false,
+  "exception": null
+}

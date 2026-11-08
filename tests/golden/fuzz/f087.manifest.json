@@ -1,0 +1,57 @@
+{
+  "id": "f087",
+  "query_json": "{\"id\":\"f087\",\"description\":\"uniform sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[25,154,0,64],\"skill_names\":[\"Enfeebler\",\"Water Res (S)\",\"Attack Up [Sm]\",\"Clust S All Add\"],\"my_charms\":[\"0,Water Res,5,Backpackng,9\",\"0,PelletSAdd,6,Water Res,-3\",\"0,Water Res,2,Huntsman,-9\",\"0,FatigueAtk,4,Backpackng,0\",\"0,Status,1,Backpackng,7\",\"0,Water Res,3,Whim,-4\",\"0,HearProtct,1,FatigueAtk,1\",\"0,Health,5,BombStrUp,-1\",\"0,Carving,3,Rec Speed,10\",\"1,Sharpness,2,Attack,4\",\"0,FatigueAtk,3,Psychic,4\",\"0,Crit Draw,5,Recoil,2\",\"0,Guard Up,2,FatigueAtk,0\",\"1,FatigueAtk,1,Recoil,1\",\"0,Rec Level,1,Water Res,-10\",\"1,FatigueAtk,1,Recoil,1\",\"0,Attack,4,Dragon Res,4\",\"0,Water Res,5,CutterSAdd,-8\",\"0,ThunderRes,1,Crag S Add,6\",\"0,PierceS Up,1,ThunderRes,4\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    5,
+    6,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Water Res, +9 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 FatigueAtk, 0 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Sharpness, +4 Attack O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 FatigueAtk, +1 Recoil O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

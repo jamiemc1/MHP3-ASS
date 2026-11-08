@@ -1,0 +1,29 @@
+{
+  "id": "f499",
+  "query_json": "{\"id\":\"f499\",\"description\":\"uniform sampler, charm mode two_skill, 3 skills; quotas: auto_guard_charm, two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[119,93,80],\"skill_names\":[\"Auto-Guard\",\"Constitution +2\",\"Water Element +1\"],\"my_charms\":[\"1,FatigueAtk,4,Reload Spd,-1\",\"0,Auto-Guard,10,,\",\"0,Stamina,2,Hunger,-9\",\"0,Sharpness,1,Blight Res,3\",\"0,Crit Draw,4,Artisan,0\",\"0,WindPress,3,Recoil,1\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    3,
+    2,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

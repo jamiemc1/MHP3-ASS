@@ -1,0 +1,21 @@
+{
+  "id": "f482",
+  "query_json": "{\"id\":\"f482\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: auto_guard_no_charm, one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[157,193,169,119,90],\"skill_names\":[\"Thunder Res (S)\",\"Spirit\\u0027s Whim\",\"Trap Master\",\"Auto-Guard\",\"Dragon Element +2\"],\"my_charms\":[\"0,Rec Speed,2,ThunderRes,1\",\"1,Evasion,3,Dragon Atk,-10\",\"0,SpeedSetup,7,Poison,-1\",\"0,Dragon Atk,6,LastingPwr,9\",\"0,WindPress,1,Whim,9\",\"0,Stun,6,SpeedSetup,-1\",\"0,Stamina,4,Rec Speed,-9\",\"1,WindPress,1,Protection,-10\",\"0,Sharpness,4,Rec Level,1\",\"0,Dragon Atk,1,HiSpdGathr,9\",\"0,Dragon Atk,7,HiSpdGathr,-9\",\"0,FatigueAtk,3,ThunderRes,12\",\"0,Hunger,1,SleepCAdd,4\",\"0,Gunnery,6,Whim,2\",\"0,Quake Res,2,PoisonCAdd,-1\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    5,
+    7,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

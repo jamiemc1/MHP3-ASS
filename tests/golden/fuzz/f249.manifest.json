@@ -1,0 +1,64 @@
+{
+  "id": "f249",
+  "query_json": "{\"id\":\"f249\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[180,142,134],\"skill_names\":[\"Quick Eating +1\",\"Health +50\",\"Wind Anchor\"],\"my_charms\":[\"0,Thundr Atk,2,Shot Mix,3\",\"0,Health,4,Sleep,7\",\"0,Eating,2,,\",\"0,WindPress,2,HearProtct,-1\",\"0,Fire Atk,4,Health,8\",\"3,Evasion,3,Sharpener,-1\",\"0,Recoil,1,WindPress,1\",\"0,Horn,5,Gathering,10\",\"1,Health,3,BombStrUp,-5\",\"0,WindPress,2,Quake Res,-3\",\"0,Protection,4,Heat Res,-7\",\"1,Guard,4,Evade Dist,0\",\"0,Rewards,1,Water Atk,8\",\"0,WindPress,3,Backpackng,-8\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    7,
+    5,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Eating ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Fire Atk, +8 Health ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Evasion, -1 Sharpener OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+3 Health, -5 BombStrUp O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 WindPress, -8 Backpackng ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

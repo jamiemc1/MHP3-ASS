@@ -1,0 +1,29 @@
+{
+  "id": "f201",
+  "query_json": "{\"id\":\"f201\",\"description\":\"uniform sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[23,184,192],\"skill_names\":[\"Partbreaker\",\"Pro Transporter\",\"Speed Gatherer\"],\"my_charms\":[\"1,Normal Up,3,Potential,-3\",\"2,Pierce Up,4,Hearing,-3\",\"0,Stun,3,Transportr,-1\",\"1,Gloves Off,1,Stamina,-3\",\"0,Fencing,5,Loading,-1\",\"0,Stam Drain,2,Tenderizer,-2\",\"0,Normal Up,1,Wind Res,1\",\"0,Stam Drain,5,Bomb Boost,8\",\"0,Def Lock,6,Precision,2\",\"0,Fate,3,Wide-Range,-4\",\"0,Water Res,1,Fire Res,-2\",\"0,Loading,3,Hunger,-3\",\"0,Mud/Snow,1,Ice Res,7\",\"1,Stam Drain,3,Normal Up,-1\",\"0,Potential,1,Hunger,-1\",\"1,Thundr Atk,1,Protection,0\",\"0,Eating,3,Spd Gather,-9\",\"0,Sheathing,4,Spd Gather,-10\",\"0,Guard,4,Evasion,0\",\"1,Water Atk,1,Def Lock,-4\",\"1,Thundr Atk,1,Spd Gather,-3\",\"0,Tranquilzr,1,Water Atk,8\",\"0,Potential,5,Transportr,-7\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    3,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 1034,
+      "added": 1034,
+      "added_sha256": "7ebaf7f2d6ef58290511a50dfe58cbfd85fe70092c19684503087430e3df6ffc"
+    }
+  ],
+  "solution_count": 1034,
+  "solutions_sha256": "7ebaf7f2d6ef58290511a50dfe58cbfd85fe70092c19684503087430e3df6ffc",
+  "solution_set_sha256": "50acb9556978d323d2cd586c3b0cab2173d9508ad4e2893ee1375f0cc68f36f3",
+  "solutions_file": true,
+  "exception": null
+}

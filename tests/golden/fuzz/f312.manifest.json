@@ -1,0 +1,50 @@
+{
+  "id": "f312",
+  "query_json": "{\"id\":\"f312\",\"description\":\"armour-seeded sampler, charm mode my_charms, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[14],\"skill_names\":[\"Speed Sharpening\"],\"my_charms\":[\"0,Sharpener,1,Dragon Res,-8\",\"0,Artisan,5,KO,4\",\"2,Fire Res,1,BombStrUp,-7\",\"0,PelletS Up,5,WindPress,1\",\"0,Debilitate,4,Sharpener,-9\",\"0,Stamina,4,Sharpener,1\",\"0,Sharpener,1,Rec Speed,-2\",\"0,Sharpener,1,Gunnery,-1\",\"0,Sharpener,1,ThunderRes,10\",\"0,Water Res,3,Whim,-4\",\"0,Elemental,4,ThunderRes,-1\",\"0,Debilitate,2,Sharpener,2\",\"0,Sheathe,2,Precision,4\",\"0,Evasion,1,Attack,9\",\"2,NormalS Up,1,Debilitate,-3\",\"0,Dragon Atk,6,Anti-Theft,-7\",\"0,Guard Up,3,Psychic,-6\",\"0,Sharpener,4,RazorCAdd,5\",\"0,KO,3,Eating,1\",\"1,Crit Draw,1,Sharpener,-1\",\"0,Sharpener,3,NormalSAdd,-3\",\"0,Crag S Add,3,Heat Res,2\",\"0,Water Atk,3,Anti-Theft,-1\",\"0,HearProtct,4,Sharpener,1\",\"1,Sharpener,1,Mud/Snow,-2\",\"0,Stamina,3,Awaken,3\",\"0,Constitutn,3,Defense,6\",\"0,Rapid Fire,1,Sharpener,3\"]}",
+  "my_charms_loaded": 28,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 216,
+      "added": 216,
+      "added_sha256": "04b00ad9bf8e383e7d76726c2223e061e9634b67e37b1cdfeb8ff8a3636411c9"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Fire Res, -7 BombStrUp OO-",
+      "found": 216,
+      "added": 216,
+      "added_sha256": "15c1891a5cab2afc171393808984dee5724df0347c906b2890e3cc1a6d1fa8e5"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Sharpener, +5 RazorCAdd ---",
+      "found": 216,
+      "added": 216,
+      "added_sha256": "55f8b06191b03ce17d94590bf8b4e0c001e46e084bde6d96708542ac4e13931d"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Sharpener, -2 Mud/Snow O--",
+      "found": 216,
+      "added": 216,
+      "added_sha256": "636f6e39e0a5ddd25284fd55fdd01fa2425286d3f64f737ee37c3c240434dd50"
+    }
+  ],
+  "solution_count": 864,
+  "solutions_sha256": "eb2651274f679776f618b83d43ac00767e65109e0de263288ae261f7704e6ebc",
+  "solution_set_sha256": "81dd21cfea63fbd5d4eafb3290393095c75faa6e5fd6d4d7f69e767927b4fe18",
+  "solutions_file": true,
+  "exception": null
+}

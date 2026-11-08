@@ -1,0 +1,29 @@
+{
+  "id": "f103",
+  "query_json": "{\"id\":\"f103\",\"description\":\"uniform sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[17,0,26],\"skill_names\":[\"Unsheathe Stun\",\"Attack Up [Sm]\",\"Flute Expert\"],\"my_charms\":[\"1,Fencing,1,PunishDraw,-3\",\"0,Hunger,4,Whim,-1\",\"0,Sharpener,1,Horn,-5\",\"0,Water Res,6,Hunger,2\",\"0,Fencing,3,BombStrUp,-7\",\"0,Poison,5,Status,3\",\"0,Crit Draw,5,KO,-3\",\"0,Horn,2,Health,10\",\"0,Sheathe,3,Attack,3\",\"0,Crit Draw,3,Defense,-8\",\"3,PunishDraw,2,ThunderRes,-2\",\"0,Fortitude,5,PoisonCAdd,-2\",\"0,Fortitude,6,Antiseptic,-8\",\"1,NormalSAdd,1,LastingPwr,-4\",\"0,Quake Res,7,Rec Speed,-4\",\"0,Stamina,2,Thundr Atk,7\",\"1,PierceSAdd,5,Gathering,-4\",\"0,Eating,2,RazorCAdd,4\",\"0,NormalS Up,2,HearProtct,1\",\"0,PunishDraw,3,Will Recov,1\",\"0,Dragon Atk,7,Cold Res,9\",\"0,Fate,4,Debilitate,-3\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    5,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "d7bdf5ec646ae4613918d899d3eee0217fc39e69116755c9d1caab25420ed22e"
+    }
+  ],
+  "solution_count": 1,
+  "solutions_sha256": "d7bdf5ec646ae4613918d899d3eee0217fc39e69116755c9d1caab25420ed22e",
+  "solution_set_sha256": "d7bdf5ec646ae4613918d899d3eee0217fc39e69116755c9d1caab25420ed22e",
+  "solutions_file": true,
+  "exception": null
+}

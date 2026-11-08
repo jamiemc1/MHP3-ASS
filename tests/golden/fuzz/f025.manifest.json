@@ -1,0 +1,29 @@
+{
+  "id": "f025",
+  "query_json": "{\"id\":\"f025\",\"description\":\"armour-seeded sampler, charm mode slotted, 5 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[36,194,96,176,70],\"skill_names\":[\"Rapid Shot +1\",\"Divine Whim\",\"Runner\",\"Item Use Up\",\"Close Range Coating Add\"],\"my_charms\":[\"0,ThunderRes,5,Ice Res,6\",\"0,Artisan,2,Hunger,9\",\"0,WindPress,4,Protection,-3\",\"0,Thundr Atk,7,Fire Res,11\",\"0,PierceSAdd,1,Antiseptic,-4\",\"0,Protection,2,Stun,6\",\"0,ThunderRes,3,Wide Area,-5\",\"0,Status,3,Rec Level,-1\",\"0,Fire Atk,2,HearProtct,1\",\"0,Constitutn,2,Defense,6\",\"0,Will Recov,2,Defense,9\",\"1,Loading,3,Protection,-2\",\"0,Ice Attack,7,Rewards,-3\",\"0,Thundr Atk,7,Fire Res,11\",\"0,Thundr Atk,7,Fire Res,11\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

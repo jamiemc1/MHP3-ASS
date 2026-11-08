@@ -1,0 +1,29 @@
+{
+  "id": "f187",
+  "query_json": "{\"id\":\"f187\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (Athena)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[1],\"skill_names\":[\"Attack Up [Med]\"],\"my_charms\":[\"0,Sheathe,2,Fire Res,13\",\"1,FatigueAtk,1,Crag S Add,0\",\"0,ThunderRes,3,Attack,-2\",\"0,Expert,3,Sleep,6\",\"0,PunishDraw,3,Guard Up,-3\",\"0,WindPress,5,Potential,4\",\"0,Expert,1,PierceSAdd,9\",\"0,Attack,2,Defense,2\",\"0,Attack,2,Gathering,13\",\"0,Attack,2,Paralysis,-6\",\"0,Blight Res,2,Attack,-6\",\"0,Awaken,1,PierceS Up,3\",\"3,,,,\",\"0,Water Res,4,Anti-Theft,10\",\"0,Loading,5,Attack,-2\",\"0,KO,4,Expert,-6\",\"0,Guard Up,1,Fire Atk,8\",\"0,Eating,1,Attack,10\",\"0,Blight Res,3,Potential,-3\",\"0,Water Res,3,Attack,6\",\"1,Protection,6,SleepCAdd,-10\",\"1,WindPress,2,Health,5\",\"0,Attack,2,Precision,-2\",\"0,FastCharge,1,Sharpness,3\",\"0,Evade Dist,2,Fortitude,-5\",\"0,Psychic,3,Attack,2\",\"1,,,,\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 54,
+      "added": 54,
+      "added_sha256": "caa52a225a0c2dafdc0c79020d313a7b046e210189ce769deddf254fb4e9997b"
+    }
+  ],
+  "solution_count": 54,
+  "solutions_sha256": "caa52a225a0c2dafdc0c79020d313a7b046e210189ce769deddf254fb4e9997b",
+  "solution_set_sha256": "4d6ee4535c7588dd6e63e8ef73b1c2d4036fcd6cd5108dfbe6262a07ff3e5fb3",
+  "solutions_file": true,
+  "exception": null
+}

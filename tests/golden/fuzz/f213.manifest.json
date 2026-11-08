@@ -1,0 +1,64 @@
+{
+  "id": "f213",
+  "query_json": "{\"id\":\"f213\",\"description\":\"uniform sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[86,190,111,64],\"skill_names\":[\"Ice Element +1\",\"Gathering +2\",\"Recovery Speed +1\",\"Clust S All Add\"],\"my_charms\":[\"0,FatigueAtk,6,Rec Speed,-3\",\"0,Ice Attack,5,Debilitate,3\",\"0,Ice Attack,7,HiSpdGathr,-6\",\"0,NormalSAdd,2,PowerCAdd,9\",\"0,Debilitate,1,PelletS Up,-2\",\"0,Fire Res,4,ClustS Add,5\",\"0,Reload Spd,4,ParalyCAdd,-1\",\"1,Ice Attack,3,ThunderRes,0\",\"0,Fire Atk,7,Ice Attack,3\",\"0,ClustS Add,5,Health,5\",\"0,ClustS Add,2,Stun,-3\",\"2,FastCharge,2,Crit Draw,0\",\"1,Rec Speed,1,ThunderRes,4\",\"0,Eating,5,Recoil,3\",\"0,Sharpener,1,Precision,-10\",\"0,Rec Speed,1,Heat Res,2\",\"0,Ice Attack,7,Loading,-2\",\"2,FastCharge,2,Crit Draw,0\",\"0,Loading,6,PelletS Up,2\",\"2,PierceS Up,2,Ice Attack,-3\",\"0,Antiseptic,6,ThunderRes,4\",\"0,NormalSAdd,2,PowerCAdd,9\",\"0,Protection,7,Anti-Theft,3\",\"0,Sharpness,2,FastCharge,-3\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    2,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Gathering O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+10 Gathering ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 ClustS Add O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 ClustS Add ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

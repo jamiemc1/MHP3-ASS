@@ -1,0 +1,29 @@
+{
+  "id": "f030",
+  "query_json": "{\"id\":\"f030\",\"description\":\"uniform sampler, charm mode slotted, 2 skills; quotas: torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[180,157],\"skill_names\":[\"\u65e9\u98df\u3044+1\",\"\u96f7\u8010\u6027\u3010\u5c0f\u3011\"],\"my_charms\":[\"0,\u4f53\u8853,1,\u7832\u8853,-6\",\"0,\u65ac\u308c\u5473,1,\u96f7\u8010\u6027,4\",\"0,\u53cd\u52d5,4,\u98df\u4e8b,-3\",\"0,\u904b\u642c,8,\u8010\u6ce5\u8010\u96ea,1\",\"0,\u629c\u5200\u6e1b\u6c17,4,\u6c17\u7d76,0\",\"1,\u56de\u907f\u8ddd\u96e2,2,\u6563\u5f3e\u5f37\u5316,-1\",\"0,\u98df\u4e8b,2,\u72e9\u4eba,-2\",\"2,\u98df\u4e8b,2,\u629c\u5200\u4f1a\u5fc3,-1\",\"1,\u6297\u83cc,1,\u8179\u6e1b\u308a,4\",\"0,\u9ad8\u901f\u8a2d\u7f6e,8,\u8010\u6691,2\",\"1,\u5343\u91cc\u773c,1,\u6c34\u8010\u6027,-1\",\"0,\u7cbe\u5bc6\u5c04\u6483,1,\u5343\u91cc\u773c,3\",\"0,\u7814\u304e\u5e2b,1,\u6297\u83cc,5\",\"0,\u9f8d\u5c5e\u6027\u653b\u6483,3,\u6563\u5f3e\u5f37\u5316,2\",\"0,\u96f7\u5c5e\u6027\u653b\u6483,2,\u4f53\u529b,8\",\"1,\u88c5\u586b\u901f\u5ea6,3,\u5343\u91cc\u773c,0\",\"2,\u5e95\u529b,1,\u98df\u4e8b,-1\",\"0,\u5e83\u57df,7,\u6bd2,1\",\"0,\u901a\u5e38\u5f3e\u5f37\u5316,5,\u7d0d\u5200,3\",\"0,\u65ac\u88c2\u5f3e\u8ffd\u52a0,5,\u63a1\u53d6,-2\",\"0,\u56de\u907f\u8ddd\u96e2,3,\u653b\u6483,-3\",\"0,\u9f8d\u5c5e\u6027\u653b\u6483,1,\u6c34\u8010\u6027,-3\",\"3,\u6355\u7372,3,,\",\"1,\u706b\u5c5e\u6027\u653b\u6483,5,\u6c17\u914d,-7\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    4,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 682,
+      "added": 682,
+      "added_sha256": "4c94670cba78774139c28582106bc2ed4cff81106efe127b27d47fccc45e1889"
+    }
+  ],
+  "solution_count": 682,
+  "solutions_sha256": "4c94670cba78774139c28582106bc2ed4cff81106efe127b27d47fccc45e1889",
+  "solution_set_sha256": "21721f902d6fc9d923a7177d3c1d0b1924cd943a554c53ba76357798b4d13306",
+  "solutions_file": true,
+  "exception": null
+}

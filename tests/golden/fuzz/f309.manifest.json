@@ -1,0 +1,50 @@
+{
+  "id": "f309",
+  "query_json": "{\"id\":\"f309\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[174,185,100],\"skill_names\":[\"Recovery Up\",\"Heat Cancel\",\"Hunger Halved\"],\"my_charms\":[\"0,Rec Level,1,Gunnery,4\",\"0,Blight Res,4,Rec Level,-3\",\"0,Sharpener,2,Hunger,8\",\"1,Hunger,1,Sense,-1\",\"0,Expert,1,Heat Res,-8\",\"0,Guard,6,Hunger,2\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 6,
+      "added": 6,
+      "added_sha256": "75314410d39155a639d9d592a1ead30bf5f5cf051b68315302eaeaaab77e09b3"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Rec Level, +4 Gunnery ---",
+      "found": 21,
+      "added": 21,
+      "added_sha256": "59b55a4d94b2b37482c0fa64083e69b81114a9e832f8bfd235bd21c8d0a9eb7a"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Sharpener, +8 Hunger ---",
+      "found": 113,
+      "added": 106,
+      "added_sha256": "e0a02df960c2acfbb61b5b809b39419c72b260f143e7650d5d6f55e60dd0ff89"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Hunger, -1 Sense O--",
+      "found": 39,
+      "added": 39,
+      "added_sha256": "3aa4da0ffca0ec51b1c2d09fe09fb457a4c91860c7767f43c586c1ee4a28a27d"
+    }
+  ],
+  "solution_count": 172,
+  "solutions_sha256": "474efaefb6012094b7be41bb3930d7f2eafdcbd20d5b29cf10f7859e2569cdd4",
+  "solution_set_sha256": "318d90e7df85103c3559836e99408b3a10d1aabc4a4610c1c1337e8f266f7c7a",
+  "solutions_file": true,
+  "exception": null
+}

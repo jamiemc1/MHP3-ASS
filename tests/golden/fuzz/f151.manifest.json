@@ -1,0 +1,29 @@
+{
+  "id": "f151",
+  "query_json": "{\"id\":\"f151\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[187,108,105],\"skill_names\":[\"Cancelar frio\",\"Envaine veloz\",\"Evadir +2\"],\"my_charms\":[\"0,Captura,1,Desen.crit,3\",\"0,A\u00f1DNormal,6,Aturdir,0\",\"0,Evadir,6,Sentido,-5\",\"1,Vel.Guarda,2,Yoga,2\",\"0,Dis.Evadir,2,Vel.Guarda,-6\",\"0,Hielo Inc,7,Glotoneria,0\",\"0,Experto,4,Cazador,-5\",\"3,Vel.recarg,1,SubFueBomb,0\",\"1,Aguij\u00f3n,3,Evadir,0\",\"0,Dragon Inc,2,Artiller\u00eda,-4\",\"0,Fue.Rapido,2,Guardia,4\",\"0,Esgrima,1,Captura,1\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    2,
+    5,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 1,
+      "added": 1,
+      "added_sha256": "4d73288c6506ed2030204f3423c2f57f57fd8315d719f7080544ebcc5000dc9f"
+    }
+  ],
+  "solution_count": 1,
+  "solutions_sha256": "4d73288c6506ed2030204f3423c2f57f57fd8315d719f7080544ebcc5000dc9f",
+  "solution_set_sha256": "4d73288c6506ed2030204f3423c2f57f57fd8315d719f7080544ebcc5000dc9f",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f408",
+  "query_json": "{\"id\":\"f408\",\"description\":\"uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[27,170],\"skill_names\":[\"Gunnery Master\",\"Trnquilizr Guru\"],\"my_charms\":[\"1,Crit Draw,4,Psychic,2\",\"1,Will Recov,1,Elemental,0\",\"1,PunishDraw,1,ThunderRes,-5\",\"0,Thundr Atk,2,BombStrUp,-7\",\"0,Protection,4,Guard Up,2\",\"3,Debilitate,3,Dragon Atk,1\",\"1,Expert,1,ClustS Add,-3\",\"0,PelletSAdd,2,Perception,7\",\"0,Loading,1,Fire Atk,9\",\"0,Health,8,PoisonCAdd,8\",\"0,Water Atk,5,Perception,-2\",\"0,ClustS Add,4,FatigeCAdd,5\",\"1,Recoil,3,Sharpness,-3\",\"0,Dragon Atk,3,Sharpness,3\",\"1,Gunnery,1,SpeedSetup,-3\",\"0,Gunnery,2,Hunger,9\",\"0,Dragon Res,6,Gunnery,-3\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    5,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Gunnery OO-",
+      "found": 2400,
+      "added": 2400,
+      "added_sha256": "8bdb9cf2bbfa755d454d37e221a5c546d5c20a7f77578a5223951fa088dd7199"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Gunnery O--",
+      "found": 2400,
+      "added": 2400,
+      "added_sha256": "ea12c2834cc5c12067ff6f4a11dbdd1e8baecee60c370543c46f53c33cf96cfd"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Perception OO-",
+      "found": 2400,
+      "added": 2400,
+      "added_sha256": "243548f12677de4a0faa3f500c1503e9bd432a79a54d5af00bac66a4f528edfe"
+    },
+    {
+      "worker": 3,
+      "charm": "+8 Perception O--",
+      "found": 2400,
+      "added": 2399,
+      "added_sha256": "6aaa52e939be1d2609ce656ad7e4fa5a5f67a4d243d6a9562cc7175961ec7bb8"
+    },
+    {
+      "worker": 4,
+      "charm": "+10 Perception ---",
+      "found": 2400,
+      "added": 2399,
+      "added_sha256": "6aaa52e939be1d2609ce656ad7e4fa5a5f67a4d243d6a9562cc7175961ec7bb8"
+    }
+  ],
+  "solution_count": 11998,
+  "solutions_sha256": "04e259298eda8500a43f3a5f32a83dcf52406ac534b45bc5d9e698b7137d9699",
+  "solution_set_sha256": "f560244bbb5a36abd6e5979bbd96d4734a9b859a90c900db89e4f499cb4d4d8e",
+  "solutions_file": false,
+  "exception": null
+}

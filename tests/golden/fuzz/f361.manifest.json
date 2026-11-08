@@ -1,0 +1,29 @@
+{
+  "id": "f361",
+  "query_json": "{\"id\":\"f361\",\"description\":\"armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[189,193,192],\"skill_names\":[\"Gathering +1\",\"Spirit\\u0027s Whim\",\"Hi-SpdGathering\"],\"my_charms\":[\"3,Evasion,2,Horn,-2\",\"0,Horn,2,Gathering,-8\",\"0,Expert,2,HiSpdGathr,-8\",\"0,Rewards,2,Awaken,4\",\"0,Guard Up,2,HiSpdGathr,7\",\"0,Loading,4,Slam,2\",\"0,Will Recov,5,Sharpener,7\",\"2,Precision,2,Gathering,0\",\"1,Paralysis,1,ParalyCAdd,-8\",\"1,Dragon Atk,3,Whim,-8\",\"1,Quake Res,4,Whim,-4\",\"2,ClustS Add,2,Health,-3\",\"0,Psychic,4,Gathering,13\",\"0,PierceSAdd,4,Anti-Theft,9\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 642,
+      "added": 618,
+      "added_sha256": "1084081cb19221731cca2be96df3a26c59932483dc399d4d28d1e72f3c9ae2d5"
+    }
+  ],
+  "solution_count": 618,
+  "solutions_sha256": "1084081cb19221731cca2be96df3a26c59932483dc399d4d28d1e72f3c9ae2d5",
+  "solution_set_sha256": "64fbbeda12aaac7f7317b0bbf9e4a1a5be934bd254e6a426c71e2fbc1cebbb2e",
+  "solutions_file": true,
+  "exception": null
+}

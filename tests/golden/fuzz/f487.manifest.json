@@ -1,0 +1,29 @@
+{
+  "id": "f487",
+  "query_json": "{\"id\":\"f487\",\"description\":\"uniform sampler, charm mode slotted, 2 skills; quotas: auto_guard_charm, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[119,157],\"skill_names\":[\"Auto-Guard\",\"Thunder Res (S)\"],\"my_charms\":[\"0,Rec Level,5,Poison,3\",\"1,Awaken,1,HearProtct,0\",\"0,PelletS Up,1,ThunderRes,11\",\"0,ThunderRes,6,ParalyCAdd,8\",\"0,Constitutn,5,PowerCAdd,0\",\"0,Auto-Guard,10,,\",\"0,PelletSAdd,4,ThunderRes,-10\",\"0,Psychic,7,ThunderRes,1\",\"0,Loading,1,Rec Speed,-9\",\"0,Horn,5,Shot Mix,-4\",\"0,PelletS Up,2,Evade Dist,4\",\"0,Elemental,3,Will Recov,4\",\"0,ThunderRes,4,ClustS Add,1\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    4,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 288,
+      "added": 288,
+      "added_sha256": "fc9f42b561436952a05accbea463c24737a68b85ee1004e172d8c265c2eed49d"
+    }
+  ],
+  "solution_count": 288,
+  "solutions_sha256": "fc9f42b561436952a05accbea463c24737a68b85ee1004e172d8c265c2eed49d",
+  "solution_set_sha256": "f006f663e654b33ecfc06624715b2de936849d901836e1d13058e47400d7ca34",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f005",
+  "query_json": "{\"id\":\"f005\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[147,17,151,124],\"skill_names\":[\"Def Up (L)\",\"Unsheathe Stun\",\"Fire Res (S)\",\"Parlysis Negated\"],\"my_charms\":[\"0,Reload Spd,4,PunishDraw,-3\",\"0,HearProtct,5,Debilitate,2\",\"0,Ice Res,6,Paralysis,-4\",\"0,Defense,3,PowerCAdd,-7\",\"0,SpeedSetup,4,Fire Res,-1\",\"0,Fire Res,5,FatigeCAdd,-8\",\"0,FatigueAtk,6,Fire Res,3\",\"0,WindPress,1,Defense,-2\",\"0,Fire Atk,3,PunishDraw,1\",\"0,Artisan,5,BombStrUp,-2\",\"0,SpeedSetup,2,Defense,7\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    5,
+    6,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

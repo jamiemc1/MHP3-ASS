@@ -1,0 +1,43 @@
+{
+  "id": "f326",
+  "query_json": "{\"id\":\"f326\",\"description\":\"uniform sampler, charm mode my_charms, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[126],\"skill_names\":[\"Sleep Negated\"],\"my_charms\":[\"0,Defense,4,Sleep,6\",\"0,CutterSAdd,3,Sleep,-10\",\"1,,,,\",\"0,Guard Up,2,Sleep,7\",\"0,Thundr Atk,7,Sleep,-3\",\"0,Water Res,3,Sleep,6\",\"0,Sleep,2,Stun,-8\",\"0,Potential,6,Sleep,-8\",\"0,Sleep,4,Antiseptic,5\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    1,
+    2,
+    2,
+    2
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 16,
+      "added": 16,
+      "added_sha256": "d537ea6013971a30499cb81de4017e99ffe570a345db9c856f29d273ef22a33a"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 16,
+      "added": 16,
+      "added_sha256": "737c915afad266bd92ab38d844c2cd040618788855fb34504b54e49d489cedb9"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Guard Up, +7 Sleep ---",
+      "found": 16,
+      "added": 16,
+      "added_sha256": "ad64a7eb35c7f66d5598fbc0375baa8b3d715defee7de697dc4694ee86331b02"
+    }
+  ],
+  "solution_count": 48,
+  "solutions_sha256": "baada98af7453b5fdf748a2006d1283ae793fd49709e4c8c52f9c3e761df33ea",
+  "solution_set_sha256": "3a4e7d19629fcb273508614d8dda8cdb973f2b35f87bcbf1d343422473ececf3",
+  "solutions_file": true,
+  "exception": null
+}

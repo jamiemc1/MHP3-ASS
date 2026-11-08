@@ -1,0 +1,29 @@
+{
+  "id": "f274",
+  "query_json": "{\"id\":\"f274\",\"description\":\"armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[208,205,141],\"skill_names\":[\"Bullet Limit\",\"Combine Success+45%\",\"Health +20\"],\"my_charms\":[\"0,Quake Res,1,Shot Mix,8\",\"0,Health,3,RazorCAdd,4\",\"1,PelletS Up,1,Fencing,0\",\"0,Fire Atk,7,FatigueAtk,-1\",\"0,Water Atk,5,Wide Area,6\",\"0,Guard,2,Reload Spd,1\",\"0,Crag S Add,5,Gluttony,13\",\"0,Thundr Atk,5,Fortitude,5\",\"0,Wide Area,4,PierceSAdd,0\",\"0,SpeedSetup,5,Combo Rate,-5\",\"0,PelletS Up,2,Rapid Fire,3\",\"0,Health,1,Rec Speed,2\",\"0,Reload Spd,5,KO,-3\",\"0,Reload Spd,5,Health,10\",\"0,Fire Atk,3,Eating,-1\",\"0,Hunger,1,SleepCAdd,-6\",\"0,Stun,2,Fire Res,-10\",\"0,Rewards,4,Slam,-1\",\"0,Health,1,FatigeCAdd,-8\",\"0,Rapid Fire,1,Status,-6\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 459,
+      "added": 452,
+      "added_sha256": "ddcfd08d6e8db175e428cce223f808c82f76cfa1bf306138d8316487d5261d77"
+    }
+  ],
+  "solution_count": 452,
+  "solutions_sha256": "ddcfd08d6e8db175e428cce223f808c82f76cfa1bf306138d8316487d5261d77",
+  "solution_set_sha256": "ddcfd08d6e8db175e428cce223f808c82f76cfa1bf306138d8316487d5261d77",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f421",
+  "query_json": "{\"id\":\"f421\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[147],\"skill_names\":[\"Def Up (L)\"],\"my_charms\":[\"0,Gunnery,5,Defense,6\",\"0,Defense,4,SleepCAdd,5\",\"1,Constitutn,1,Ice Attack,-6\",\"2,Will Recov,4,ThunderRes,-1\",\"0,PelletSAdd,6,Defense,-6\",\"0,Guard Up,3,Fortitude,-9\",\"1,Debilitate,5,Dragon Res,-7\",\"0,Status,4,HiSpdGathr,-10\",\"1,Rec Level,3,Fencing,-1\",\"0,Slam,2,Water Atk,8\",\"1,Debilitate,2,Defense,-9\",\"0,Defense,2,Gluttony,-4\",\"0,Paralysis,3,Sense,1\",\"0,PunishDraw,5,Rapid Fire,1\",\"1,Loading,1,FatigueAtk,-1\",\"0,Potential,1,Horn,-9\",\"0,Eating,2,Paralysis,5\",\"0,WindPress,3,Rapid Fire,2\",\"0,Potential,5,Heat Res,-5\",\"0,PierceS Up,3,Wide Area,9\",\"0,Eating,1,Attack,1\",\"0,Defense,1,Huntsman,-6\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 168,
+      "added": 168,
+      "added_sha256": "17dc4cc657aa8ebf0148d0256a9ead689095bd4d08a5a451204385a2c47ebf25"
+    }
+  ],
+  "solution_count": 168,
+  "solutions_sha256": "17dc4cc657aa8ebf0148d0256a9ead689095bd4d08a5a451204385a2c47ebf25",
+  "solution_set_sha256": "999c686e6929e21469f79384cfe426584155ccb08ac42fe7e8c5d2d33515e939",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f438",
+  "query_json": "{\"id\":\"f438\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[134,43,77,58,174,192],\"skill_names\":[\"Wind Anchor\",\"Recoil Reduction +1\",\"Fire Element +1\",\"Pierce S All Add\",\"Recovery Up\",\"Hi-SpdGathering\"],\"my_charms\":[\"1,Fate,2,Expert,4\",\"0,Mud/Snow,1,HiSpdGathr,1\",\"0,PierceSAdd,6,RazorCAdd,-4\",\"0,Reload Spd,4,Rec Level,-3\",\"1,CutterSAdd,1,PierceSAdd,-5\",\"0,Wide Area,3,PierceSAdd,0\",\"0,Water Atk,1,Psychic,10\",\"0,WindPress,1,Will Recov,2\",\"0,PierceSAdd,3,FatigeCAdd,-4\",\"0,WindPress,2,LastingPwr,6\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    5,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Mud/Snow, +1 HiSpdGathr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 PierceSAdd, -4 RazorCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 CutterSAdd, -5 PierceSAdd O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 WindPress, +6 LastingPwr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f195",
+  "query_json": "{\"id\":\"f195\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[19,7],\"skill_names\":[\"Concentration\",\"Reckless Abandon +2\"],\"my_charms\":[\"1,,,,\",\"0,Paralysis,3,Expert,0\",\"0,NormalSAdd,3,Expert,7\",\"0,Expert,4,ClustS Add,-5\",\"0,PunishDraw,3,Loading,-2\",\"0,Reload Spd,3,Debilitate,-1\",\"0,Mud/Snow,1,Expert,6\",\"0,Expert,4,ClustS Add,9\",\"0,FastCharge,4,Fire Atk,-10\",\"0,FatigueAtk,5,SpeedSetup,2\",\"0,Ice Res,5,PoisonCAdd,6\",\"0,Fortitude,1,Expert,3\",\"2,,,,\",\"0,Fencing,5,ThunderRes,-6\",\"0,KO,5,Backpackng,-4\",\"2,Constitutn,2,ThunderRes,1\",\"0,Crit Draw,3,HearProtct,0\",\"0,FastCharge,2,ThunderRes,2\",\"0,PunishDraw,5,Attack,-7\",\"0,HearProtct,5,Expert,2\",\"0,Slam,3,Blight Res,0\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    3,
+    5,
+    5,
+    7
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OO-",
+      "found": 2037,
+      "added": 2034,
+      "added_sha256": "f9d76a4d1da782761a6fac16601bca69b936dadf082a4c4791d5d6643f2a1d2f"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 1074,
+      "added": 1074,
+      "added_sha256": "184040afe287dd79ad8d918074c99e84f253851aae5c163db3c69b8dff7eef03"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Expert OO-",
+      "found": 3472,
+      "added": 3360,
+      "added_sha256": "f6b747b91071724359c41971105b60fea9cc34717eb8167e7a3f9aed769dedd7"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Expert O--",
+      "found": 3471,
+      "added": 1517,
+      "added_sha256": "1caea9595b8e1670cd0b1c322b3cd7bde9a19b418ec459cd6918fff86513f10f"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Expert ---",
+      "found": 3283,
+      "added": 628,
+      "added_sha256": "a75d973dbea66bc18316d184084c2295d9c96b96a58d6c12ae49bc255a497b60"
+    }
+  ],
+  "solution_count": 8613,
+  "solutions_sha256": "942ac1580f9e9e0dd5c47b4a18aa2ffbcd2f5a1f8782f7a651c4a1e6f4761db4",
+  "solution_set_sha256": "a874c98c5809c97d2fb50274a9c5b2639a4d1a2103ecb57215991f2bde353efe",
+  "solutions_file": false,
+  "exception": null
+}

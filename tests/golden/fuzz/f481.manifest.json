@@ -1,0 +1,29 @@
+{
+  "id": "f481",
+  "query_json": "{\"id\":\"f481\",\"description\":\"uniform sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[167,198,146],\"skill_names\":[\"Etendu +2\",\"Destin +2\",\"D\u00e9f. augm. (my)\"],\"my_charms\":[\"0,AtEl. feu,2,Collecte,-9\",\"0,Def. augm.,1,Mn Frag +,-6\",\"0,Zone,5,Clairvoy.,-2\",\"0,Sant\u00e9,1,R\u00e9uss.combo,-4\",\"0,Recharge,1,Statut,-5\",\"0,Coureur,5,Critiques,1\",\"0,Destin,5,AtEl. drg,-5\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

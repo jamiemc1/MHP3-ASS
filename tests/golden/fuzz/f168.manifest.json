@@ -1,0 +1,71 @@
+{
+  "id": "f168",
+  "query_json": "{\"id\":\"f168\",\"description\":\"armour-seeded sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[108,126,72,38,109,201],\"skill_names\":[\"Quick Sheathe\",\"Negate Sleep\",\"Status Atk +1\",\"Reload Speed +2\",\"Sneak\",\"Carving Master\"],\"my_charms\":[\"0,Sheathing,6,Mud/Snow,3\",\"0,Stam Drain,4,Sheathing,4\",\"0,Status,3,Tremor Res,-8\",\"0,Crit Draw,1,Thundr Atk,4\",\"0,Carving,1,Stam Recov,4\",\"0,Tenderizer,2,Constitutn,4\",\"0,Destroyer,3,Stam Recov,4\",\"0,Pellet Up,2,Water Atk,6\",\"0,Status,3,Gathering,-7\",\"0,Water Atk,5,Rapid Fire,3\",\"0,Hunger,2,Sleep,5\",\"0,Ice Atk,7,Psychic,0\",\"0,Psychic,2,Defense,-1\",\"0,Wind Res,1,Reload Speed,4\",\"0,Reload Speed,6,Attack,5\",\"0,Precision,5,ThunderRes,8\",\"0,Stam Recov,4,Reload Speed,3\",\"0,Hunger,2,Sleep,5\",\"0,Sheathing,2,Fire Res,5\",\"0,Health,3,Status,-4\",\"0,Gloves Off,3,Sharpness,0\",\"1,Fire Atk,2,Status,-5\",\"0,Pierce Up,4,Recoil,1\",\"0,Wide-Range,6,ThunderRes,7\",\"0,Stam Drain,4,Handicraft,3\",\"0,Sharpness,2,Psychic,7\"]}",
+  "my_charms_loaded": 26,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    2,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Sheathing, +3 Mud/Snow ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Status, -8 Tremor Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Carving, +4 Stam Recov ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Hunger, +5 Sleep ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Reload Speed, +5 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+2 Fire Atk, -5 Status O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

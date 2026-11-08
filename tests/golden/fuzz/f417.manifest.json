@@ -1,0 +1,29 @@
+{
+  "id": "f417",
+  "query_json": "{\"id\":\"f417\",\"description\":\"armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[179,180,108],\"skill_names\":[\"Picky Eater\",\"Quick Eating +1\",\"Fast Sheathe\"],\"my_charms\":[\"0,Slam,1,Eating,-1\",\"0,Artisan,2,Reload Spd,-2\",\"0,Potential,6,HearProtct,3\",\"1,Thundr Atk,2,Psychic,6\",\"0,Guard Up,2,Stamina,2\",\"0,Potential,4,Defense,2\",\"0,Water Res,6,Fire Res,4\",\"1,Rec Level,2,Rapid Fire,-2\",\"1,Rec Level,2,Artisan,-3\",\"0,HearProtct,4,Water Res,-2\",\"0,Potential,6,Health,1\",\"0,NormalS Up,5,Evasion,4\",\"1,Rec Speed,1,RazorCAdd,-3\",\"0,Quake Res,5,Shot Mix,9\",\"0,NormalS Up,1,Ice Res,7\",\"0,Water Res,2,Shot Mix,6\",\"0,Sharpness,4,ThunderRes,-4\",\"0,Thundr Atk,1,Shot Mix,9\",\"1,Water Res,3,Quake Res,2\",\"0,Thundr Atk,6,Fire Atk,-2\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    6,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 1300,
+      "added": 1252,
+      "added_sha256": "dfd062530b221bdc5b2ec1f968dc43091414a373256ab85b0b321ddd42d46bd7"
+    }
+  ],
+  "solution_count": 1252,
+  "solutions_sha256": "dfd062530b221bdc5b2ec1f968dc43091414a373256ab85b0b321ddd42d46bd7",
+  "solution_set_sha256": "dfd062530b221bdc5b2ec1f968dc43091414a373256ab85b0b321ddd42d46bd7",
+  "solutions_file": true,
+  "exception": null
+}

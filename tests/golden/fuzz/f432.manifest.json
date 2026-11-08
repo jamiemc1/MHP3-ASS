@@ -1,0 +1,85 @@
+{
+  "id": "f432",
+  "query_json": "{\"id\":\"f432\",\"description\":\"armour-seeded sampler, charm mode one_skill, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[140,23,78],\"skill_names\":[\"HighGradeEarplug\",\"Ruiner\",\"Fire Element +2\"],\"my_charms\":[\"0,PierceS Up,2,HearProtct,-1\",\"0,Blight Res,4,HearProtct,3\",\"0,Elemental,5,Slam,3\",\"1,Carving,2,Fire Atk,-5\",\"1,Will Recov,5,Slam,0\",\"0,Sheathe,3,Defense,10\",\"1,Sharpness,1,HearProtct,0\",\"1,Fire Atk,1,Horn,-6\",\"0,Will Recov,4,,\",\"1,Sharpness,1,HearProtct,0\",\"1,Fire Atk,4,BombStrUp,1\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    7,
+    8,
+    8
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 9,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 HearProtct OOO",
+      "found": 5181,
+      "added": 5153,
+      "added_sha256": "74fa3d9ee26d8120a4ca3706a21dea1f850d16dd34a761e17fa59d0d6f4f145b"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 HearProtct OO-",
+      "found": 4356,
+      "added": 3520,
+      "added_sha256": "b2c8fdc689523210cbc7233782c1067815395d63a7050acfb4f52c0ef6cbc593"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 HearProtct O--",
+      "found": 2830,
+      "added": 1130,
+      "added_sha256": "bacffd64d6f80dfba5853873037e1ce8d502f18ac9e4c33825e5d54c86576dbc"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Slam OOO",
+      "found": 4817,
+      "added": 4717,
+      "added_sha256": "d6e1f3ecdb1c3c25e6127a9b58c115b3d8c7ca517863378c2a69a0679e1a2f22"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Slam OO-",
+      "found": 3060,
+      "added": 2358,
+      "added_sha256": "dceb481b4c99ee85b8c2dc7f316b33c1fdf482bf84c4a8f9d3307671f547cbba"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Slam O--",
+      "found": 2455,
+      "added": 1556,
+      "added_sha256": "3d943163c69a5735d653413ce557e6b13d47f14a9b5bc515ae5d0c2c57d02988"
+    },
+    {
+      "worker": 6,
+      "charm": "+6 Fire Atk OOO",
+      "found": 6214,
+      "added": 5704,
+      "added_sha256": "94d18e34b8854123fb02362c2d3fa3ec5b00c4e930bbdfbe802bf52f7ebc449b"
+    },
+    {
+      "worker": 7,
+      "charm": "+7 Fire Atk OO-",
+      "found": 4542,
+      "added": 3720,
+      "added_sha256": "d875e620e63f4615b7ba8df58e6476bd9e3ae4431a85e81657fba5148c7bed69"
+    },
+    {
+      "worker": 8,
+      "charm": "+9 Fire Atk O--",
+      "found": 4436,
+      "added": 2468,
+      "added_sha256": "1e02d1845ed838a126c8687507b527c5a9cb2a97005cce08fdcbd6b617c531a3"
+    }
+  ],
+  "solution_count": 30326,
+  "solutions_sha256": "49477d3ccb8f037c511d746ee657bc3245e451d020c9efbdc135c49138ab5878",
+  "solution_set_sha256": "18da9deeaf1737b80cc13d6eeb6f426093f94e97f1e09a6c05850fbb875451b5",
+  "solutions_file": false,
+  "exception": null
+}

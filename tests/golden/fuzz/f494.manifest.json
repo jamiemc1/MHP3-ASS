@@ -1,0 +1,21 @@
+{
+  "id": "f494",
+  "query_json": "{\"id\":\"f494\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: auto_guard_no_charm, two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[119,109],\"skill_names\":[\"Auto-Guard\",\"Sneak\"],\"my_charms\":[\"0,Crag S Add,6,Sense,5\",\"0,CutterSAdd,6,Sense,5\",\"0,Stamina,3,Attack,-2\",\"0,Rapid Fire,1,Water Atk,9\",\"0,BombStrUp,2,Sense,-4\",\"0,Potential,3,Sense,-2\",\"0,Eating,4,Sense,1\",\"0,Psychic,2,Sense,-1\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    1,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

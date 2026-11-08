@@ -1,0 +1,29 @@
+{
+  "id": "f191",
+  "query_json": "{\"id\":\"f191\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[6],\"skill_names\":[\"Reckless Abandon +1\"],\"my_charms\":[\"0,Fire Atk,6,Expert,1\",\"0,Recoil,5,Expert,3\",\"0,Sheathe,1,Combo Rate,-3\",\"0,Precision,2,Fortitude,-4\",\"0,Expert,2,ThunderRes,10\",\"0,KO,2,Gunnery,-6\",\"0,Health,1,Poison,-3\",\"0,KO,2,Gunnery,-6\",\"0,Quake Res,4,Fortitude,-8\",\"0,PelletSAdd,3,Status,1\",\"0,Eating,1,PelletS Up,-2\",\"2,Potential,1,Guard Up,-2\",\"0,NormalS Up,1,Expert,-1\",\"0,Health,1,Poison,-3\",\"0,Quake Res,3,Defense,6\",\"0,Water Atk,4,Expert,-1\",\"0,SpeedSetup,2,Fortitude,8\",\"0,Rec Level,5,Gluttony,-7\",\"0,Crit Draw,1,Expert,-8\",\"1,Thundr Atk,4,Horn,-1\",\"0,PierceS Up,4,Sharpness,-3\",\"0,Backpackng,8,Cold Res,-6\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    4,
+    3,
+    5,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 540,
+      "added": 540,
+      "added_sha256": "71dda19200ad192e6cbde1524d204946785ebf4b5a0c8d70d4fec8ecf90afe6b"
+    }
+  ],
+  "solution_count": 540,
+  "solutions_sha256": "71dda19200ad192e6cbde1524d204946785ebf4b5a0c8d70d4fec8ecf90afe6b",
+  "solution_set_sha256": "243caeba4bd2b406a3b8527c3a461d83a53991d6c443c2b6024bf68538e4e8f9",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f283",
+  "query_json": "{\"id\":\"f283\",\"description\":\"armour-seeded sampler, charm mode none, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[171,169,197,183,101],\"skill_names\":[\"Detect\",\"Trap Master\",\"Good Luck\",\"Huntsman\\u0027s Life\",\"Hunger Negated\"],\"my_charms\":[\"0,Dragon Atk,6,Psychic,3\",\"0,Hunger,2,PierceSAdd,7\",\"0,PelletS Up,5,Rec Level,2\",\"0,Fortitude,1,Sleep,2\",\"0,NormalSAdd,4,Water Res,7\",\"0,Sheathe,4,Fire Res,-2\",\"2,Loading,4,Fate,-1\",\"0,Guard,1,Will Recov,-1\",\"0,Fencing,5,Carving,3\",\"0,Horn,3,SpeedSetup,1\",\"0,Poison,2,Backpackng,7\",\"0,Fire Atk,1,HearProtct,3\",\"0,Fate,3,KO,2\",\"0,Hunger,8,RazorCAdd,-3\",\"0,Fate,1,Thundr Atk,6\",\"0,Fate,2,Guard Up,4\",\"0,Loading,6,Ice Res,5\",\"0,Sheathe,4,Protection,-4\",\"0,Precision,2,Mud/Snow,-10\",\"0,Carving,3,Debilitate,0\",\"1,,,,\",\"2,,,,\",\"1,Evade Dist,1,Guard Up,3\",\"0,Stun,6,Rec Speed,0\",\"0,Constitutn,5,Ice Attack,-1\",\"0,Blight Res,5,Fire Atk,-8\",\"0,Fate,2,Stamina,0\",\"1,Crit Draw,3,Wide Area,4\"]}",
+  "my_charms_loaded": 28,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    5,
+    4,
+    3,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

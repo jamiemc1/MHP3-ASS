@@ -1,0 +1,71 @@
+{
+  "id": "f217",
+  "query_json": "{\"id\":\"f217\",\"description\":\"uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[140,49],\"skill_names\":[\"HighGradeEarplug\",\"Accuracy+1\"],\"my_charms\":[\"0,Poison,5,Whim,10\",\"0,Backpackng,2,Horn,4\",\"0,FastCharge,5,Dragon Atk,3\",\"0,Eating,3,Huntsman,-10\",\"0,NormalSAdd,6,Water Res,0\",\"0,Status,1,HearProtct,0\",\"0,Fate,2,Water Res,4\",\"0,Precision,1,Sense,2\",\"0,Potential,6,Precision,-4\",\"0,Rapid Fire,4,Attack,8\",\"1,Backpackng,3,Attack,-3\",\"0,Paralysis,4,Precision,7\",\"1,Defense,1,Sense,-2\",\"1,Will Recov,1,LastingPwr,-8\",\"1,KO,3,CutterSAdd,-6\",\"1,HearProtct,1,Horn,4\",\"0,Sleep,5,SpeedSetup,6\",\"0,Sheathe,1,Protection,5\",\"0,Potential,5,Stamina,2\",\"0,Stun,5,Dragon Res,6\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    3,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 HearProtct OOO",
+      "found": 1484,
+      "added": 1484,
+      "added_sha256": "5379bed9617514cd2f61949977b244a7e677d44a5bb2f7fa082f76361718604e"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 HearProtct OO-",
+      "found": 1484,
+      "added": 939,
+      "added_sha256": "b2c2194bee76150b59ecca8a2908eb721ffeb8957e9066a7d40c30cc31778b55"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 HearProtct O--",
+      "found": 1432,
+      "added": 160,
+      "added_sha256": "9cbeb8e6f2c74d8faed0a25ba615bf37ec743d8d26962a6b60fe03c4507f18cf"
+    },
+    {
+      "worker": 3,
+      "charm": "OOO",
+      "found": 531,
+      "added": 531,
+      "added_sha256": "385eacb725558820c04cfbdbc02522ce7f90a61c04dbe9fc4c8783443f4c1b66"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Precision OO-",
+      "found": 903,
+      "added": 903,
+      "added_sha256": "f7c3828c7c8b145719c23e867a60838400559b81b3149a6146adbdd7694c30c7"
+    },
+    {
+      "worker": 5,
+      "charm": "+7 Precision O--",
+      "found": 717,
+      "added": 458,
+      "added_sha256": "1f1135a9fda8a029cabb30d966fa62f0655d616a4d27b7e9e2965e4e99f82322"
+    },
+    {
+      "worker": 6,
+      "charm": "+10 Precision ---",
+      "found": 529,
+      "added": 92,
+      "added_sha256": "fcd4eca3d0bacf51a0670e248442c36ade714319d0ddd0c1c7fb7a5d2c8dcc71"
+    }
+  ],
+  "solution_count": 4567,
+  "solutions_sha256": "0b60f30009ee27f73e3c6bb2ef01cab1fe3bc7642aa5e8538a765687b4679803",
+  "solution_set_sha256": "bfec927897cc1084603a4efc26a8d573c1d7e3940597ce45619048fa1620ca5b",
+  "solutions_file": true,
+  "exception": null
+}

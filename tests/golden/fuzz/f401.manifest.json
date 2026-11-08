@@ -1,0 +1,29 @@
+{
+  "id": "f401",
+  "query_json": "{\"id\":\"f401\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[32,171,135,126],\"skill_names\":[\"Adrenaline +2\",\"Detect\",\"Antiseptic\",\"Sleep Negated\"],\"my_charms\":[\"1,Rapid Fire,3,Psychic,-3\",\"0,Slam,4,Recoil,2\",\"0,NormalS Up,1,Status,1\",\"1,,,,\",\"0,Antiseptic,6,PoisonCAdd,3\",\"0,Water Atk,5,Stun,-10\",\"0,Guard Up,4,Stun,8\",\"1,Artisan,3,Recoil,-3\",\"0,Recoil,1,Sharpener,4\",\"0,Evade Dist,4,Rec Speed,10\",\"0,Sleep,5,SleepCAdd,9\",\"2,PelletSAdd,4,Cold Res,-9\",\"0,Loading,2,Gunnery,-4\",\"0,Crag S Add,1,Antiseptic,2\",\"0,Elemental,5,Psychic,-4\",\"2,Water Atk,3,Attack,-6\",\"0,Horn,6,Water Res,-7\",\"0,Potential,4,Psychic,11\",\"1,Eating,1,Backpackng,-9\",\"0,Fire Atk,5,Perception,-10\",\"0,Eating,2,Will Recov,-3\",\"0,Dragon Atk,5,CutterSAdd,9\",\"0,Guard Up,4,Stun,8\",\"0,KO,2,PunishDraw,1\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    3,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

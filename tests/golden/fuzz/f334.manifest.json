@@ -1,0 +1,36 @@
+{
+  "id": "f334",
+  "query_json": "{\"id\":\"f334\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[50,193,174,120],\"skill_names\":[\"Accuracy+2\",\"Spirit\\u0027s Whim\",\"Recovery Up\",\"Divine Protection\"],\"my_charms\":[\"0,Will Recov,6,PierceS Up,-2\",\"0,Carving,1,Horn,2\",\"2,Potential,2,Fire Atk,-1\",\"1,Rec Speed,1,PowerCAdd,6\",\"3,Rewards,1,PunishDraw,-1\",\"0,CutterSAdd,1,Psychic,0\",\"1,,,,\",\"1,Water Atk,3,Potential,0\",\"2,,,,\",\"0,Slam,4,Dragon Atk,7\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    2,
+    4,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 61,
+      "added": 61,
+      "added_sha256": "1103e2bbfaceb13641f3b413db6641ddbbfd656d8191c6c0e797d1a63a637b1b"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Rewards, -1 PunishDraw OOO",
+      "found": 153,
+      "added": 153,
+      "added_sha256": "a0d2beece594c694fde275dc1b60aa9d762544c397dad3f71cc7341953cf5d8b"
+    }
+  ],
+  "solution_count": 214,
+  "solutions_sha256": "5d0e03e2da620622c99a0c0c6922dcc35346a751e397a7208bb0b1472ec6585e",
+  "solution_set_sha256": "c7114651f115267a8e3d75f436294b30c079da70b6c2a780d1d0ed19513fd536",
+  "solutions_file": true,
+  "exception": null
+}

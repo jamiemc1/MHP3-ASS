@@ -1,0 +1,29 @@
+{
+  "id": "f353",
+  "query_json": "{\"id\":\"f353\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[50,105,185,132],\"skill_names\":[\"Accuracy+2\",\"Evade +2\",\"Heat Cancel\",\"Quake Res\"],\"my_charms\":[\"3,,,,\",\"0,Evasion,6,Anti-Theft,-7\",\"3,,,,\",\"0,Health,5,Heat Res,9\",\"1,Reload Spd,1,Shot Mix,1\",\"0,Constitutn,4,Poison,7\",\"0,Evasion,4,ClustS Add,-3\",\"1,Evasion,1,Debilitate,-3\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    4,
+    4,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

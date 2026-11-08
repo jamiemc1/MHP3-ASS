@@ -1,0 +1,29 @@
+{
+  "id": "f095",
+  "query_json": "{\"id\":\"f095\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[84,14,134],\"skill_names\":[\"Thunder Element +2\",\"Speed Sharpening\",\"Wind Anchor\"],\"my_charms\":[\"0,Recoil,3,Sheathe,-8\",\"0,Fencing,4,PunishDraw,-2\",\"0,Fencing,2,Rapid Fire,3\",\"1,FastCharge,1,Rec Speed,-3\",\"0,Awaken,4,Slam,-1\",\"0,Sharpener,3,Health,-1\",\"0,Eating,4,Horn,-6\",\"0,Wide Area,7,HiSpdGathr,-8\",\"0,FatigueAtk,6,Will Recov,1\",\"1,,,,\",\"1,Hunger,1,SleepCAdd,-2\",\"0,Ice Attack,3,Thundr Atk,7\",\"0,Fortitude,5,Gunnery,3\",\"0,Eating,4,Horn,-6\",\"0,Potential,4,Dragon Atk,1\",\"0,Eating,1,PowerCAdd,3\",\"0,Sleep,5,Gathering,2\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    3,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

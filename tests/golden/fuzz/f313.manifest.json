@@ -1,0 +1,99 @@
+{
+  "id": "f313",
+  "query_json": "{\"id\":\"f313\",\"description\":\"uniform sampler, charm mode one_skill, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[147,43,189],\"skill_names\":[\"Def Up (L)\",\"Recoil Reduction +1\",\"Gathering +1\"],\"my_charms\":[\"0,Constitutn,3,Defense,6\",\"0,FastCharge,4,Will Recov,3\",\"0,Crag S Add,1,Ice Res,1\",\"0,Dragon Atk,5,Attack,1\",\"2,Loading,1,Gunnery,-4\",\"1,NormalS Up,1,Wide Area,7\",\"0,Will Recov,3,PelletS Up,0\",\"0,Rec Level,4,Expert,4\",\"1,Elemental,5,Expert,-6\",\"0,Protection,2,NormalSAdd,8\",\"1,PierceSAdd,4,Ice Res,-4\",\"0,WindPress,1,Water Atk,-4\",\"0,PelletSAdd,3,Heat Res,1\",\"0,Rec Level,6,Water Atk,4\",\"0,Dragon Atk,2,Gathering,10\",\"0,Evasion,6,ClustS Add,-9\",\"0,Evasion,4,Hunger,-9\",\"0,Paralysis,4,Mud/Snow,-3\",\"0,Will Recov,6,HearProtct,2\",\"0,Defense,3,Fortitude,6\",\"1,PelletSAdd,2,Poison,-2\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    6,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 11,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+3 Defense OOO",
+      "found": 715,
+      "added": 715,
+      "added_sha256": "70e03d5d421e2ef7c1f100d8a474d63a5e0631568fbbbd275ce735b1c3367a9d"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Defense OO-",
+      "found": 1235,
+      "added": 1174,
+      "added_sha256": "0a0ef0390f4615befecf584d991b5e98abac260cbb3a06bfd3b629bd96004044"
+    },
+    {
+      "worker": 2,
+      "charm": "+8 Defense O--",
+      "found": 1290,
+      "added": 930,
+      "added_sha256": "2343c0f4a3954f857062f772aae3a32f963e1b664686e442522654a012ed8ac4"
+    },
+    {
+      "worker": 3,
+      "charm": "+10 Defense ---",
+      "found": 1517,
+      "added": 675,
+      "added_sha256": "525787cc5e0ffacb381b44dc37e755cb23ae0880b68ace1b29c608b49527eff4"
+    },
+    {
+      "worker": 4,
+      "charm": "+3 Recoil OOO",
+      "found": 714,
+      "added": 645,
+      "added_sha256": "e4d5a517d4b429f3ef5304c149a2984dad529bc00d93e0e1b8676521be8089bd"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Recoil OO-",
+      "found": 751,
+      "added": 690,
+      "added_sha256": "37bf76b2b99b00f35239d57896164bd4bbebb1d50379d303edfcdbcc397f29aa"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Recoil O--",
+      "found": 374,
+      "added": 210,
+      "added_sha256": "effbd1624fbc4fee213077004de4a6a31b5add37d413a2e2126b8379e02c8fc6"
+    },
+    {
+      "worker": 7,
+      "charm": "OOO",
+      "found": 167,
+      "added": 30,
+      "added_sha256": "f3ce80aded7f0a871c94e7140642c50ccfb2a0763f9fdac422882aad032c4941"
+    },
+    {
+      "worker": 8,
+      "charm": "+6 Gathering OO-",
+      "found": 576,
+      "added": 563,
+      "added_sha256": "e16f13063f189960c5a5339ee109a13d09a5d9fb5a7feed68c828e8b368a19f2"
+    },
+    {
+      "worker": 9,
+      "charm": "+12 Gathering O--",
+      "found": 471,
+      "added": 371,
+      "added_sha256": "928581f5ca56a658121323de76359bbe3731ee8f872537c0607b81228517b030"
+    },
+    {
+      "worker": 10,
+      "charm": "+13 Gathering ---",
+      "found": 297,
+      "added": 4,
+      "added_sha256": "1a36022a705845aea3bda1a00a1bb2d626ada0b47322372f0903daacc772e491"
+    }
+  ],
+  "solution_count": 6007,
+  "solutions_sha256": "57c86cb3fa868341d461eb330f64ea5c8259ba776b77958f23e47a768501b7b3",
+  "solution_set_sha256": "4d9658382467eb94ccc1c883ebafc7b9d629d36e1106e41ae0c5286ef58282dc",
+  "solutions_file": false,
+  "exception": null
+}

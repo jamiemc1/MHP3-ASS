@@ -1,0 +1,106 @@
+{
+  "id": "f130",
+  "query_json": "{\"id\":\"f130\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[163,81,187,139,21],\"skill_names\":[\"R\u00e9s. drg aug.(pt)\",\"\u00c9l\u00e9ment eau +2\",\"Froid annul\u00e9 \",\"Bouchon d\\u0027oreille\",\"PSI\"],\"my_charms\":[\"0,Statut,2,R\u00e9s. froid,-7\",\"2,At.horiz.,3,,\",\"0,AtEl. eau,4,R\u00e9s. eau,10\",\"0,Escrime,2,Tir asso.,-1\",\"2,AtEl. eau,1,Mn perc. +,-1\",\"0,AtEl. eau,1,R\u00e9s. fdr,-3\",\"0,Mn perc.au.,2,Escrime,-3\",\"0,R\u00e9s. drgn,3,TpsObjAugm.,10\",\"0,Sommeil,4,Mn norm. +,-6\",\"0,AtEl. eau,2,Aig. augm.,5\",\"2,KO,1,Protection,1\",\"0,Constit.,5,Recul,-2\",\"1,AtEl. eau,2,Def. augm.,-2\",\"3,Pique,4,AtEl. fdr,-10\",\"0,R\u00e9s.trmbl,2,Chasseur,5\",\"0,Critiques,1,Recul,-2\",\"0,Prot. aud.,3,R\u00e9s. drgn,-7\",\"0,D\u00e9gainage,4,R\u00e9s. froid,9\",\"0,Constit.,2,Press. vent,1\",\"0,AtEl. fdr,7,MnTranAjt,6\",\"1,AtEl. eau,7,R\u00e9tVigAug.,-3\",\"3,S\u00e9rieux,3,Statut,-2\",\"0,KO,1,Pr\u00e9cision,8\",\"0,AtEl. eau,2,Capture,2\",\"0,Recharge,4,D\u00e9pe\u00e7age,-3\",\"0,Inst.rap.,8,Chasseur,-8\",\"3,Tir asso.,1,Repas rap.,-2\",\"0,AtEl. glc,4,Garde +,4\",\"0,Potentiel,5,R\u00e9s. feu,8\",\"0,D\u00e9pe\u00e7age,4,R\u00e9s. drgn,13\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    4,
+    3,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 12,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 R\u00e9s. drgn OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+9 R\u00e9s. drgn O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+10 R\u00e9s. drgn ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 AtEl. eau OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 AtEl. eau O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+2 R\u00e9s. froid OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+8 R\u00e9s. froid O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+10 R\u00e9s. froid ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

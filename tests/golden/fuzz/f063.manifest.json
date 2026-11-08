@@ -1,0 +1,29 @@
+{
+  "id": "f063",
+  "query_json": "{\"id\":\"f063\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[86,111,2],\"skill_names\":[\"Ice Element +1\",\"Recovery Speed +1\",\"Attack Up [Lg]\"],\"my_charms\":[\"0,BombStrUp,3,Rec Speed,-3\",\"0,Ice Attack,1,Rec Speed,-7\",\"0,HearProtct,1,Ice Attack,-6\",\"0,Ice Attack,3,Artisan,1\",\"0,Ice Attack,7,WindPress,-1\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    3,
+    6,
+    5,
+    8
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 19,
+      "added": 19,
+      "added_sha256": "7577bd90bf246630e5531d31bbce5994f0dfd85ebea90e5da33f9eeb91709fd8"
+    }
+  ],
+  "solution_count": 19,
+  "solutions_sha256": "7577bd90bf246630e5531d31bbce5994f0dfd85ebea90e5da33f9eeb91709fd8",
+  "solution_set_sha256": "f456771954e323a15f22e3576f896c01dec110369d417fefb967931709cf2304",
+  "solutions_file": true,
+  "exception": null
+}

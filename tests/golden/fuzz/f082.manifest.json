@@ -1,0 +1,43 @@
+{
+  "id": "f082",
+  "query_json": "{\"id\":\"f082\",\"description\":\"armour-seeded sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[14,22],\"skill_names\":[\"Speed Sharpening\",\"Exploiter\"],\"my_charms\":[\"0,Debilitate,1,Gunnery,8\",\"0,Poison,2,Health,1\",\"0,Debilitate,2,Gunnery,2\",\"1,Evasion,2,Rec Speed,-9\",\"1,Fate,4,Guard,-3\",\"2,Constitutn,1,BombStrUp,0\",\"0,Paralysis,4,Shot Mix,-9\",\"0,Stamina,3,Loading,1\",\"1,Psychic,1,PelletSAdd,2\",\"0,KO,5,Sharpener,3\",\"0,Debilitate,3,Evade Dist,2\",\"0,Debilitate,3,FatigueAtk,3\",\"0,HearProtct,5,Eating,1\",\"1,Ice Attack,3,Blight Res,2\",\"0,Guard,1,Whim,5\",\"0,Slam,3,,\",\"0,Debilitate,5,Hunger,-7\",\"2,PierceS Up,1,Sheathe,-7\",\"0,Rapid Fire,3,Slam,-2\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    4,
+    5,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Debilitate, +7 Sharpener ---",
+      "found": 1919,
+      "added": 1919,
+      "added_sha256": "11617df6e0e30abeadfd4d3f5b38700076b7db8f48404334698770a70f3a123c"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Debilitate, +5 Sharpener O--",
+      "found": 1901,
+      "added": 1675,
+      "added_sha256": "67c5832cceea4039ea6f66438d26ce7c78c44c88dd72853dcae33d2824b1ca46"
+    },
+    {
+      "worker": 2,
+      "charm": "OOO",
+      "found": 1906,
+      "added": 1906,
+      "added_sha256": "59d595847def36d52b455fb4c0df2946787ec88a081756b2fa77141880741a31"
+    }
+  ],
+  "solution_count": 5500,
+  "solutions_sha256": "12c4e7ff27cfdb39b47a9d7b4c00e4a082b1f3411a8cf1bb9935af35d72116fc",
+  "solution_set_sha256": "99de8a4399f7b668748da5c51e330adfbf1a9c7f574d4e795d49f370547c5b29",
+  "solutions_file": false,
+  "exception": null
+}

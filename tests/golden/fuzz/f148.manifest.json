@@ -1,0 +1,29 @@
+{
+  "id": "f148",
+  "query_json": "{\"id\":\"f148\",\"description\":\"armour-seeded sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[50,126,194,120,22,174],\"skill_names\":[\"Accuracy+2\",\"Sleep Negated\",\"Divine Whim\",\"Divine Protection\",\"Exploiter\",\"Recovery Up\"],\"my_charms\":[\"1,Rec Level,6,ThunderRes,1\",\"0,Debilitate,4,Eating,1\",\"0,Rec Level,2,Quake Res,1\",\"0,Protection,5,Loading,0\",\"1,Rec Level,6,ThunderRes,1\",\"0,Sharpness,1,Debilitate,2\",\"0,Awaken,2,Protection,7\",\"0,Debilitate,4,Eating,1\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    4,
+    6,
+    7
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

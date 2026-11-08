@@ -1,0 +1,29 @@
+{
+  "id": "f144",
+  "query_json": "{\"id\":\"f144\",\"description\":\"armour-seeded sampler, charm mode slotted, 5 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[120,30,77,71,192],\"skill_names\":[\"Divine Protection\",\"Unleashed +2\",\"Fire Element +1\",\"Fatigue Coating Add\",\"Hi-SpdGathering\"],\"my_charms\":[\"0,ClustS Add,5,PierceSAdd,-5\",\"1,Crag S Add,3,FatigeCAdd,-4\",\"1,Ice Attack,3,KO,2\",\"1,FatigueAtk,2,Shot Mix,-7\",\"0,Reload Spd,1,Horn,-6\",\"0,Guard,1,Awaken,3\",\"0,Quake Res,7,Antiseptic,7\",\"0,Sheathe,4,Ice Attack,-9\",\"0,Constitutn,2,FatigeCAdd,5\",\"0,Guard Up,5,Water Res,11\",\"0,Constitutn,2,Will Recov,-3\",\"0,Gunnery,2,Perception,-3\",\"0,Backpackng,8,Water Res,-10\",\"0,Dragon Atk,1,FatigeCAdd,-2\",\"0,Status,6,Thundr Atk,2\",\"0,Protection,7,Stamina,-2\",\"2,Stamina,4,FastCharge,0\",\"2,PunishDraw,4,Awaken,-3\",\"0,Thundr Atk,5,Protection,6\",\"0,Evasion,5,Protection,1\",\"0,Fire Atk,6,Evasion,0\",\"0,Reload Spd,3,FatigeCAdd,-10\",\"0,Carving,5,Rapid Fire,3\",\"0,Attack,2,FatigeCAdd,-8\",\"0,Fire Atk,4,Reload Spd,3\",\"0,Attack,1,SpeedSetup,5\",\"1,Fire Atk,4,Rec Speed,-2\",\"0,Awaken,2,Carving,-1\",\"1,Psychic,6,Gathering,-9\",\"0,Gunnery,6,RazorCAdd,5\",\"0,Guard Up,6,Potential,2\",\"0,PelletSAdd,4,Status,-4\"]}",
+  "my_charms_loaded": 32,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

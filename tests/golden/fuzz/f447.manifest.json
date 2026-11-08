@@ -1,0 +1,120 @@
+{
+  "id": "f447",
+  "query_json": "{\"id\":\"f447\",\"description\":\"armour-seeded sampler, charm mode two_skill, 4 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[81,100,131,96],\"skill_names\":[\"Wasser Angriff+2\",\"Halber Hunger\",\"Schl/Schn nicht.\",\"L\u00e4ufer\"],\"my_charms\":[\"0,SchrSchlag,2,DnnrAngHch,3\",\"3,,,,\",\"0,Rucksack,8,Laune,-2\",\"0,Armieren,3,Laune,-4\",\"0,EisAngrHch,6,Geh\u00f6r,2\",\"1,,,,\",\"0,Feuerabw.,4,K\u00e4lteabw.,8\",\"2,Norml Hoch,3,Hunger,-6\",\"0,Willenskft,1,Wasserabw.,11\",\"0,Handwerk,5,Essen,-3\",\"0,FeurAngHch,4,Bebenabw.,-2\",\"1,NachlGesch,2,Hunger,1\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    6,
+    6,
+    6,
+    8
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 14,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 WssrAngHch, +10 Hunger ---",
+      "found": 3719,
+      "added": 3714,
+      "added_sha256": "cbca4153473bab6b0fbce21a73b6bb06c38fb7a3d6440cf6b5761fd99e167207"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 WssrAngHch, +2 Hunger OO-",
+      "found": 491,
+      "added": 463,
+      "added_sha256": "655ce2a08662b504f523a71c51a2708ba26cfff671d577c8bb960b78368953c8"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 WssrAngHch, +9 Hunger ---",
+      "found": 5002,
+      "added": 2396,
+      "added_sha256": "fe44169f6b9fdf01112cc909e7db5e98fd01eb21351b177e9637f0308fdec6dd"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 WssrAngHch, +5 Schl/Schn. ---",
+      "found": 991,
+      "added": 990,
+      "added_sha256": "eeeffb0f5ee79a91cf22af000f4b2cc5c89847583223c0d4c7e36f722904c514"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 WssrAngHch, +6 Schl/Schn. ---",
+      "found": 767,
+      "added": 703,
+      "added_sha256": "1d40601568d733db30b9d4f1a9083abb7eff15d6b4f90e7f4c2d6487b0f8e12f"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 WssrAngHch, +4 Schl/Schn. ---",
+      "found": 2070,
+      "added": 1104,
+      "added_sha256": "700a0854d8949c2529fe9d07bb85bed49e0bbd72597475c4221c2027d9eb8774"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Schl/Schn., +10 Hunger ---",
+      "found": 1879,
+      "added": 1775,
+      "added_sha256": "2a74b42656fb55fd419cc3369bc3d9ce752faa97b3dd777a5f2dcf860c6bb2a5"
+    },
+    {
+      "worker": 7,
+      "charm": "+8 Hunger, +8 Schl/Schn. ---",
+      "found": 2757,
+      "added": 2486,
+      "added_sha256": "33c1784d94e5e91a4d5ad8d0ca47b0fc476a940103e0baf7d91b50bfe4419649"
+    },
+    {
+      "worker": 8,
+      "charm": "+3 Hunger, +5 Schl/Schn. O--",
+      "found": 676,
+      "added": 582,
+      "added_sha256": "df1d2b0baa4c5dbb0f0d2acdab78f0be89c3c32929a2a9dda95a09732a1916ac"
+    },
+    {
+      "worker": 9,
+      "charm": "+1 Ausdauer, +9 WssrAngHch ---",
+      "found": 2719,
+      "added": 2634,
+      "added_sha256": "c41c14f8796966bfc8c8e5fa534deea45ce775e9e48c8e880dfed178c8131729"
+    },
+    {
+      "worker": 10,
+      "charm": "+5 Ausdauer, +8 WssrAngHch ---",
+      "found": 6629,
+      "added": 4946,
+      "added_sha256": "99b68813b73473b78f82cce788d4b65d1bb2b5792a686db4d40f2ee0f67a3f9b"
+    },
+    {
+      "worker": 11,
+      "charm": "+5 Ausdauer, +1 Hunger O--",
+      "found": 675,
+      "added": 534,
+      "added_sha256": "6b10b790675ba5912ce0a088628b4f0524321df8fca05caaae4faa8a6c06a6dc"
+    },
+    {
+      "worker": 12,
+      "charm": "+5 Ausdauer, +10 Hunger ---",
+      "found": 2775,
+      "added": 2245,
+      "added_sha256": "69d60b8aec2c4a1c9656359e66c6f72e7ad7586c52400bb09fa785ecca83aef8"
+    },
+    {
+      "worker": 13,
+      "charm": "+1 Ausdauer, +4 Hunger OOO",
+      "found": 1809,
+      "added": 1668,
+      "added_sha256": "9e52498cc51976d98f21434a367502d86696fc92fb67f8f837a1f7e5f7a99212"
+    }
+  ],
+  "solution_count": 26240,
+  "solutions_sha256": "beaedf6f211df9a65acd3c7dc2b98cc995f38bc618e0c115a171e650287664b2",
+  "solution_set_sha256": "400acdc3518fc2834541ac31c6d61854d0bdc47bc2edd326e625632742994087",
+  "solutions_file": false,
+  "exception": null
+}

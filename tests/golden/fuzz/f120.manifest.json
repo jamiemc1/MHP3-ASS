@@ -1,0 +1,50 @@
+{
+  "id": "f120",
+  "query_json": "{\"id\":\"f120\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[111,23],\"skill_names\":[\"\u56de\u5fa9\u901f\u5ea6+1\",\"\u7834\u58ca\u738b\"],\"my_charms\":[\"2,,,,\",\"3,,,,\",\"0,\u98a8\u5727,1,\u8010\u9707,6\",\"0,\u91cd\u6483,3,\u9f8d\u8010\u6027,10\",\"0,\u5265\u304e\u53d6\u308a,4,\u56de\u5fa9\u901f\u5ea6,-5\",\"0,\u7d0d\u5200,5,\u56de\u5fa9\u901f\u5ea6,7\",\"0,\u56de\u5fa9\u901f\u5ea6,5,\u901a\u5e38\u5f3e\u8ffd\u52a0,-6\",\"0,\u8010\u9707,1,\u89b3\u5bdf\u773c,3\",\"1,\u4f53\u8853,4,KO,0\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    3,
+    3,
+    6
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 57,
+      "added": 57,
+      "added_sha256": "c9b598a473975b200dfa4e7ddcff0d0ab5e3a456810b01bc149cd6be888d832c"
+    },
+    {
+      "worker": 1,
+      "charm": "OOO",
+      "found": 739,
+      "added": 734,
+      "added_sha256": "2a617645ae39abde3a89aa0a15e4cd44efcb316f94e3ba73e6b290471ffca26d"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 \u91cd\u6483, +10 \u9f8d\u8010\u6027 ---",
+      "found": 1171,
+      "added": 1157,
+      "added_sha256": "95e36d562e9ee1e893a861f0a21e36184b07588a53dd2721c964a602aad6dcb2"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 \u7d0d\u5200, +7 \u56de\u5fa9\u901f\u5ea6 ---",
+      "found": 774,
+      "added": 756,
+      "added_sha256": "49d05b1b393323670c1b822b01dd9623fa86718d8eafb459e9b58d836add2465"
+    }
+  ],
+  "solution_count": 2704,
+  "solutions_sha256": "28e35c52d74f046e7fe6aec2bdc51b978ad41a1e1c3e96a6ab48b66467d7dc80",
+  "solution_set_sha256": "c98e4b919b058298058052f5c79919371a7c65cfe13a836d91b619d761605854",
+  "solutions_file": true,
+  "exception": null
+}

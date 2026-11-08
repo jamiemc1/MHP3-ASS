@@ -1,0 +1,71 @@
+{
+  "id": "f463",
+  "query_json": "{\"id\":\"f463\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[86,171,27],\"skill_names\":[\"Ice Element +1\",\"Detect\",\"Gunnery Master\"],\"my_charms\":[\"0,Ice Attack,7,Expert,-1\",\"0,HearProtct,1,Fate,3\",\"2,Rapid Fire,1,Evasion,-1\",\"0,Hunger,2,RazorCAdd,5\",\"1,Hunger,1,CutterSAdd,0\",\"0,Expert,4,Horn,0\",\"0,Gunnery,6,ParalyCAdd,5\",\"0,Blight Res,5,WindPress,3\",\"0,Gunnery,4,Water Res,-4\",\"2,PierceS Up,1,Psychic,-3\",\"0,Potential,5,Evade Dist,-2\",\"0,Fire Atk,5,KO,3\",\"0,Precision,1,Whim,7\",\"2,Guard Up,1,Recoil,2\",\"0,Sheathe,1,Gunnery,-3\",\"2,Guard,4,KO,-2\",\"0,Gunnery,2,Defense,7\",\"0,Evasion,1,Psychic,-2\",\"0,Artisan,3,PierceS Up,0\",\"0,PunishDraw,4,Psychic,1\",\"0,Recoil,3,Sheathe,-2\",\"1,Ice Attack,2,Fate,-1\",\"0,Ice Attack,1,Will Recov,4\",\"0,Rec Level,4,Psychic,6\",\"0,Ice Attack,6,Poison,3\",\"1,Gunnery,3,Health,-9\",\"0,Evade Dist,1,Cold Res,6\",\"1,Ice Attack,2,Horn,-2\",\"1,Loading,4,Slam,1\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    4,
+    6,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 8777,
+      "added": 8777,
+      "added_sha256": "8549222af459594e28c540b646be1889962f95613908111b3cf5fab0881bd197"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Ice Attack, -1 Expert ---",
+      "found": 8977,
+      "added": 8574,
+      "added_sha256": "4ae014ea89e288e42e40d1a250486d3513fd288eddf0dde43cbfcf5318200664"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Gunnery, +5 ParalyCAdd ---",
+      "found": 9205,
+      "added": 8778,
+      "added_sha256": "2ce6a0ef3e617eb07d72838d6def9ca8d50629cae7407b22da6dfc235f5ccf2a"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 PierceS Up, -3 Psychic OO-",
+      "found": 8870,
+      "added": 8471,
+      "added_sha256": "af4d10289e5d30bcbc21daceb79055b974fd063c6264dc5ba8b8f8e3b494d242"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Ice Attack, -1 Fate O--",
+      "found": 9167,
+      "added": 8748,
+      "added_sha256": "9d8af5cbfebfcb97b044ffce178b7daa3873ec1543eb8425b239e6d2a2639553"
+    },
+    {
+      "worker": 5,
+      "charm": "+4 Rec Level, +6 Psychic ---",
+      "found": 9305,
+      "added": 8873,
+      "added_sha256": "547341930900c2011499fae3fbe8d9aabf44aa015ee6c5c8b1d379ddaa82e32b"
+    },
+    {
+      "worker": 6,
+      "charm": "+3 Gunnery, -9 Health O--",
+      "found": 9234,
+      "added": 8809,
+      "added_sha256": "205aaa199fd04036a85988498e5ca28d4f9710adb4281726e4d94c4dbb029586"
+    }
+  ],
+  "solution_count": 61030,
+  "solutions_sha256": "47c3c370e69200ae6e4c99d2ac725b8796bbe01f9ff4ee9e2dc3bc54b6187f46",
+  "solution_set_sha256": "02b1941cf7e8cef1429b6f896f08af1167d5accddf1ffb8c689739c0d09f627f",
+  "solutions_file": false,
+  "exception": null
+}

@@ -1,0 +1,225 @@
+{
+  "id": "f471",
+  "query_json": "{\"id\":\"f471\",\"description\":\"uniform sampler, charm mode two_skill, 5 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[101,49,141,176,155],\"skill_names\":[\"Hunger Negated\",\"Accuracy+1\",\"Health +20\",\"Item Use Up\",\"Water Res (L)\"],\"my_charms\":[\"1,KO,3,Heat Res,-9\",\"0,Health,4,Rec Speed,2\",\"0,Status,1,DungMaster,-9\",\"0,Status,5,Health,7\",\"0,Health,4,Rec Speed,2\",\"0,NormalSAdd,4,BombStrUp,6\",\"0,Debilitate,3,Artisan,-3\",\"0,ClustS Add,3,Quake Res,3\",\"0,Poison,2,ParalyCAdd,-9\",\"1,Fire Atk,2,Carving,3\",\"0,Sharpener,3,Expert,5\",\"0,Fencing,1,PunishDraw,2\",\"0,Potential,6,Health,1\",\"0,Guard,2,Gluttony,4\",\"0,Sharpener,3,Anti-Theft,-1\",\"0,NormalSAdd,4,BombStrUp,6\",\"0,Ice Attack,6,Whim,-1\",\"0,Elemental,1,Sheathe,1\",\"0,BombStrUp,1,Horn,-5\",\"0,Stamina,2,,\",\"0,Status,4,Shot Mix,-5\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    7,
+    5,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 29,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Hunger, +8 Precision ---",
+      "found": 80,
+      "added": 80,
+      "added_sha256": "a08ad8d2aa4e69eab63049ed4d38b4debb824ea9d80ed83959d74ae2157ca1e8"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Hunger, +1 Precision OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Hunger, +9 Precision ---",
+      "found": 6,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Precision, +10 Hunger ---",
+      "found": 147,
+      "added": 145,
+      "added_sha256": "337ed1b2a7d06d077e417649ad1c4dc4eca4b66822a1516a4b6e8b3bc7289e2a"
+    },
+    {
+      "worker": 4,
+      "charm": "+3 Hunger, +3 Health OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 Hunger, +9 Health ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Health, +10 Hunger ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "5b286c95f683ab14f208eb49a136f3e06e8eb835edb2ab0d6c2c8d5dc7659b29"
+    },
+    {
+      "worker": 7,
+      "charm": "+8 Health, +8 Hunger ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+2 Health, +6 Hunger O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 Precision, +9 Health ---",
+      "found": 18,
+      "added": 18,
+      "added_sha256": "284442c8b19b5e494e0943f7bc366cd0c2265ea750eccde0d94c302f351b076b"
+    },
+    {
+      "worker": 10,
+      "charm": "+1 Health, +10 Precision ---",
+      "found": 33,
+      "added": 27,
+      "added_sha256": "747f8aa145935fa525e77b1554afc4baf60a29cc12f3a4b131b933e32002576d"
+    },
+    {
+      "worker": 11,
+      "charm": "+3 Hunger, +4 LastingPwr O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+8 Hunger, +8 LastingPwr ---",
+      "found": 129,
+      "added": 128,
+      "added_sha256": "3202be0376918a236d857e15a9160bf1105fa27dddb79c0cf73d9cb3ce7cf442"
+    },
+    {
+      "worker": 13,
+      "charm": "+5 Precision, +10 LastingPwr ---",
+      "found": 115,
+      "added": 110,
+      "added_sha256": "04fb4b0b746b36d6397e445e43cdbb25dedb62aa536085328d531531adc886e7"
+    },
+    {
+      "worker": 14,
+      "charm": "+6 Precision, +1 LastingPwr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+6 Health, +10 LastingPwr ---",
+      "found": 73,
+      "added": 57,
+      "added_sha256": "6ac2c96ca56131f59a00baba5c9a190f7f6c56d44ca12dc312b4d137461104f9"
+    },
+    {
+      "worker": 16,
+      "charm": "+8 Health, +5 LastingPwr ---",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "bebc3dbed01ece4bfc6f1756762a492ecedca359bad7d113ed09f19ae99528a2"
+    },
+    {
+      "worker": 17,
+      "charm": "+3 Water Res, +10 Hunger ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "285758830e5d377f030a8e198caba94aceca9274fc7767de9489ea88cf4b9437"
+    },
+    {
+      "worker": 18,
+      "charm": "+8 Hunger, +10 Water Res ---",
+      "found": 25,
+      "added": 25,
+      "added_sha256": "469808e98741d95df12e5cc42dca04c862cecd678625a41bf8700e8f8776f4b9"
+    },
+    {
+      "worker": 19,
+      "charm": "+6 Water Res, +6 Precision ---",
+      "found": 20,
+      "added": 20,
+      "added_sha256": "2a1817540a71cad18aff60ca0bbc0a0ca73bec56134d6170b9d7f4716e5a5d0e"
+    },
+    {
+      "worker": 20,
+      "charm": "+1 Water Res, +3 Precision O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+4 Precision, +9 Water Res ---",
+      "found": 25,
+      "added": 25,
+      "added_sha256": "2587c2808f860b2862a26de602a3ff8fb153bd995b00d60e07a8df62bdc5425d"
+    },
+    {
+      "worker": 22,
+      "charm": "+5 Water Res, +9 Precision ---",
+      "found": 68,
+      "added": 44,
+      "added_sha256": "01ac746bdb88e3f9b28fad9819905413591a880350020b183642a32131c605f8"
+    },
+    {
+      "worker": 23,
+      "charm": "+5 Health, +6 Water Res ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "39d3d5f38583063d984f2eabbc55d9c54871fd2e2879af916e5f414d270d6260"
+    },
+    {
+      "worker": 24,
+      "charm": "+2 Health, +10 Water Res ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "6c25e6a8e950eacda0ff33e711518191a4db66033114801ebd6bc48675c394a4"
+    },
+    {
+      "worker": 25,
+      "charm": "+5 Water Res, +10 Health ---",
+      "found": 11,
+      "added": 11,
+      "added_sha256": "9770aa547518e118a580d2e7f3aca00fe1db779b392786850e7246c7fe4ff619"
+    },
+    {
+      "worker": 26,
+      "charm": "+5 Water Res, +8 LastingPwr ---",
+      "found": 56,
+      "added": 51,
+      "added_sha256": "8bda6cb74ef7d0398ff9406a73ae5feeab67031a1f2e591c1899ab383617856d"
+    },
+    {
+      "worker": 27,
+      "charm": "+6 Water Res, +4 LastingPwr ---",
+      "found": 6,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 28,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 751,
+  "solutions_sha256": "fd0a8e9a0c1d86a9670887432698b0557782808c0c4f14d6b33820f2c1c31b98",
+  "solution_set_sha256": "00847ccd436fdff88b7645222a4f13b553adc1fe2e20c36568a6231eaf7cae81",
+  "solutions_file": true,
+  "exception": null
+}

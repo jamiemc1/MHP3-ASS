@@ -1,0 +1,29 @@
+{
+  "id": "f111",
+  "query_json": "{\"id\":\"f111\",\"description\":\"uniform sampler, charm mode slotted, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[81,104,23,24],\"skill_names\":[\"Water Element +2\",\"Evade +1\",\"Ruiner\",\"Improved KO\"],\"my_charms\":[\"0,Evasion,1,Sharpener,6\",\"1,FatigueAtk,1,Wide Area,-7\",\"0,Loading,2,Evade Dist,0\",\"0,Evasion,5,Wide Area,8\",\"0,Evasion,1,NormalSAdd,-3\",\"0,Evasion,4,Loading,-1\",\"0,KO,4,Attack,3\",\"0,KO,2,Stun,0\",\"0,Guard,1,Gunnery,7\",\"1,KO,6,Stun,-3\",\"0,Health,4,CutterSAdd,-1\",\"0,KO,4,SpeedSetup,6\",\"0,Psychic,8,Heat Res,7\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    5,
+    7,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

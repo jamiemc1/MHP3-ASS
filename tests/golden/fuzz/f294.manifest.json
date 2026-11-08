@@ -1,0 +1,29 @@
+{
+  "id": "f294",
+  "query_json": "{\"id\":\"f294\",\"description\":\"armour-seeded sampler, charm mode slotted, 5 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[0,86,78,104,54],\"skill_names\":[\"Attack Up [Sm]\",\"Ice Element +1\",\"Fire Element +2\",\"Evade +1\",\"PierceS/PierceBowUp\"],\"my_charms\":[\"0,Ice Attack,3,Water Res,3\",\"0,Thundr Atk,6,Evasion,1\",\"0,Evasion,2,Quake Res,-6\",\"0,Paralysis,4,Mud/Snow,-4\",\"0,PierceS Up,1,Will Recov,4\",\"2,Evasion,3,Elemental,-2\",\"0,Ice Attack,6,ThunderRes,10\",\"1,Fire Atk,3,Backpackng,2\",\"0,FastCharge,2,Ice Attack,-10\",\"0,Water Atk,4,Evasion,2\",\"1,Fire Atk,2,Sheathe,4\",\"0,Ice Attack,4,Guard Up,2\",\"0,Fire Atk,7,Backpackng,-2\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    16,
+    8,
+    8,
+    11,
+    11
+  ],
+  "relevant_decoration_count": 11,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

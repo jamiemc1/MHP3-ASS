@@ -1,0 +1,29 @@
+{
+  "id": "f197",
+  "query_json": "{\"id\":\"f197\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[93],\"skill_names\":[\"Constitution +2\"],\"my_charms\":[\"0,Blight Res,4,KO,0\",\"2,Constitutn,3,Slam,-3\",\"0,Constitutn,3,Loading,1\",\"0,Evade Dist,1,Backpackng,-9\",\"1,Rec Level,1,FastCharge,-1\",\"0,Fire Res,4,PelletSAdd,1\",\"0,Constitutn,4,Fortitude,4\",\"0,SpeedSetup,8,Gunnery,0\",\"0,Awaken,6,Rapid Fire,3\",\"0,Fire Res,5,Water Res,4\",\"0,Constitutn,3,Sleep,-4\",\"0,Expert,1,SpeedSetup,2\",\"1,Constitutn,1,Water Res,-4\",\"0,Constitutn,5,Sleep,5\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    2,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 239,
+      "added": 239,
+      "added_sha256": "84b76a0d32563e8cdc11b8e5dfa3f46e8e9d53f3422baf567ac421aba2eecb90"
+    }
+  ],
+  "solution_count": 239,
+  "solutions_sha256": "84b76a0d32563e8cdc11b8e5dfa3f46e8e9d53f3422baf567ac421aba2eecb90",
+  "solution_set_sha256": "51d84691831810ced2cb95ca4e40f369430fd36fa7d7f767a69b91374fb0a258",
+  "solutions_file": true,
+  "exception": null
+}

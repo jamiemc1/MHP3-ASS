@@ -1,0 +1,29 @@
+{
+  "id": "f232",
+  "query_json": "{\"id\":\"f232\",\"description\":\"uniform sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[24,115],\"skill_names\":[\"Improved KO\",\"Guard +1\"],\"my_charms\":[\"0,Fire Atk,4,Guard,1\",\"1,Elemental,1,Guard,1\",\"2,Guard,1,Defense,3\",\"0,WindPress,1,PelletS Up,3\",\"0,Dragon Atk,1,KO,4\",\"0,Crit Draw,1,Guard,-1\",\"0,Evasion,3,DungMaster,7\",\"0,Gunnery,1,Huntsman,2\",\"0,Quake Res,1,Dragon Res,-10\",\"1,Sheathe,2,Constitutn,2\",\"0,Sharpness,1,Wide Area,2\",\"0,Gunnery,6,NormalSAdd,8\",\"0,Evasion,3,HiSpdGathr,-9\",\"0,KO,5,Defense,9\",\"0,Evade Dist,4,Poison,-10\",\"0,Constitutn,2,Heat Res,-7\",\"0,KO,1,Anti-Theft,7\",\"0,Fencing,1,Will Recov,1\",\"1,Reload Spd,6,Defense,-9\",\"0,Eating,4,Rapid Fire,3\",\"0,Dragon Atk,2,Stamina,-2\",\"0,KO,6,PelletS Up,-3\",\"1,Sheathe,1,Hunger,-9\",\"0,Guard,2,Defense,-4\",\"0,Evade Dist,3,KO,-2\",\"0,Evade Dist,6,Artisan,2\",\"0,Dragon Atk,5,ParalyCAdd,1\",\"0,NormalS Up,4,Guard,3\",\"0,KO,1,Attack,-3\",\"0,Sheathe,4,Carving,3\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    3,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 4371,
+      "added": 4371,
+      "added_sha256": "e298df44329881cd223ec58457b631f4bdd119af7066dafdb1af41517eb7576c"
+    }
+  ],
+  "solution_count": 4371,
+  "solutions_sha256": "e298df44329881cd223ec58457b631f4bdd119af7066dafdb1af41517eb7576c",
+  "solution_set_sha256": "6845974892fd1256a88eddf5c808720b75b2f0256312adf55ccaaae481a61a85",
+  "solutions_file": true,
+  "exception": null
+}

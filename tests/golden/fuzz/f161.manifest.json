@@ -1,0 +1,29 @@
+{
+  "id": "f161",
+  "query_json": "{\"id\":\"f161\",\"description\":\"uniform sampler, charm mode slotted, 1 skill; quotas: torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[178],\"skill_names\":[\"\u307e\u3093\u3077\u304f\"],\"my_charms\":[\"0,\u4f53\u8853,3,\u98df\u3044\u3057\u3093\u574a,5\",\"0,\u75db\u6483,1,\u901f\u5c04,-3\",\"0,\u653b\u6483,1,\u98df\u3044\u3057\u3093\u574a,5\",\"0,\u6e1b\u6c17\u653b\u6483,4,\u98df\u3044\u3057\u3093\u574a,-9\",\"0,\u6c17\u529b\u56de\u5fa9,1,\u56de\u907f\u8ddd\u96e2,3\",\"0,\u7d0d\u5200,5,\u56de\u907f\u6027\u80fd,-2\",\"0,\u6c37\u8010\u6027,1,\u98df\u3044\u3057\u3093\u574a,6\",\"0,\u6297\u83cc,2,\u98df\u3044\u3057\u3093\u574a,0\",\"0,\u9ebb\u75fa,4,\u8cab\u901a\u5f3e\u8ffd\u52a0,-2\",\"0,\u8179\u6e1b\u308a,7,\u9054\u4eba,-5\",\"1,\u65ac\u308c\u5473,1,\u901a\u5e38\u5f3e\u5f37\u5316,0\",\"0,\u8010\u9707,5,\u52b9\u679c\u6301\u7d9a,-4\",\"1,\u96f7\u5c5e\u6027\u653b\u6483,7,\u8179\u6e1b\u308a,0\",\"3,\u5263\u8853,2,\u629c\u5200\u6e1b\u6c17,0\",\"0,\u6c34\u8010\u6027,1,\u98df\u3044\u3057\u3093\u574a,3\",\"0,\u6e1b\u6c17\u653b\u6483,4,\u7279\u6b8a\u653b\u6483,-2\",\"0,\u6c17\u7d76,3,\u52b9\u679c\u6301\u7d9a,4\",\"0,\u98df\u4e8b,3,\u72e9\u4eba,6\",\"0,\u98df\u4e8b,2,\u7761\u7720,-5\",\"0,\u7832\u8853,6,\u7cbe\u5bc6\u5c04\u6483,-6\",\"0,KO,6,\u56de\u907f\u6027\u80fd,0\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 72,
+      "added": 72,
+      "added_sha256": "296d049ff6b0008121537d44f4dd7e5b371f3a05e6caae4b4cec12df5db468fd"
+    }
+  ],
+  "solution_count": 72,
+  "solutions_sha256": "296d049ff6b0008121537d44f4dd7e5b371f3a05e6caae4b4cec12df5db468fd",
+  "solution_set_sha256": "296d049ff6b0008121537d44f4dd7e5b371f3a05e6caae4b4cec12df5db468fd",
+  "solutions_file": true,
+  "exception": null
+}

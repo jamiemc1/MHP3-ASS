@@ -1,0 +1,29 @@
+{
+  "id": "f287",
+  "query_json": "{\"id\":\"f287\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[192,189],\"skill_names\":[\"Hi-SpdGathering\",\"Gathering +1\"],\"my_charms\":[\"0,HearProtct,1,Rec Speed,3\",\"0,Fire Res,2,PowerCAdd,-8\",\"0,PelletS Up,3,Status,-6\",\"0,NormalSAdd,1,Cold Res,9\",\"0,FatigueAtk,4,Dragon Atk,-2\",\"0,Constitutn,1,ClustS Add,-4\",\"1,,,,\",\"1,Sharpness,3,Loading,-2\",\"0,Status,3,Protection,4\",\"0,Status,6,Fire Res,13\",\"0,PunishDraw,5,Rec Speed,-3\",\"0,FatigueAtk,4,Crit Draw,-2\",\"1,Constitutn,1,Sleep,6\",\"0,Will Recov,5,Sleep,4\",\"3,,,,\",\"0,Guard,6,Will Recov,-2\",\"0,Rewards,5,PelletS Up,3\",\"0,Horn,2,LastingPwr,6\",\"0,Fire Atk,1,Fire Res,-2\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 536,
+      "added": 536,
+      "added_sha256": "ee9c993d23fb6478336ce07a335eee5c1b0350e30b9693d70a191302768f4ae8"
+    }
+  ],
+  "solution_count": 536,
+  "solutions_sha256": "ee9c993d23fb6478336ce07a335eee5c1b0350e30b9693d70a191302768f4ae8",
+  "solution_set_sha256": "a01eaf412f57d90729c5c267a5a56d1bd2f8ea30f9b0e4d3cf9d1df2a6e2495f",
+  "solutions_file": true,
+  "exception": null
+}

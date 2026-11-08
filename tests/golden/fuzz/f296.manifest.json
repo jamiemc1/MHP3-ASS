@@ -1,0 +1,29 @@
+{
+  "id": "f296",
+  "query_json": "{\"id\":\"f296\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[131,70,185,151],\"skill_names\":[\"Mud/Snow Res\",\"Close Range Coating Add\",\"Heat Cancel\",\"Fire Res (S)\"],\"my_charms\":[\"0,Horn,3,Fire Res,10\",\"2,Awaken,1,Sharpener,-6\",\"0,PierceSAdd,2,ThunderRes,8\",\"0,Sheathe,6,HearProtct,1\",\"0,Fencing,4,Awaken,3\",\"0,FastCharge,4,FatigueAtk,1\",\"0,Rec Level,5,Rewards,0\",\"0,Crit Draw,1,Gunnery,10\",\"0,Eating,3,Fire Res,8\",\"0,Sharpener,1,Heat Res,-6\",\"0,Rapid Fire,5,Reload Spd,0\",\"0,Quake Res,4,RazorCAdd,-1\",\"0,Will Recov,2,ClustS Add,6\",\"0,FatigueAtk,1,Heat Res,-5\",\"0,Sharpener,3,Gathering,8\",\"1,Gunnery,1,SpeedSetup,-1\",\"0,NormalS Up,1,Constitutn,-2\",\"2,Debilitate,1,Fire Res,9\",\"0,Awaken,1,Stun,-8\",\"0,Constitutn,1,WindPress,-5\",\"0,Sheathe,3,Fire Res,9\",\"0,Water Atk,5,Fire Res,-2\",\"0,PelletS Up,5,Guard Up,4\",\"0,Evasion,3,Ice Attack,8\",\"1,Guard,1,Crag S Add,-5\",\"0,Loading,4,Will Recov,2\",\"0,Mud/Snow,7,PoisonCAdd,-4\",\"0,Sheathe,6,PierceSAdd,3\"]}",
+  "my_charms_loaded": 28,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    3,
+    3,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 32,
+      "added": 32,
+      "added_sha256": "f0830e041be1619511e193b42c21e580c45e9caa85e9d809451b6b77431824e8"
+    }
+  ],
+  "solution_count": 32,
+  "solutions_sha256": "f0830e041be1619511e193b42c21e580c45e9caa85e9d809451b6b77431824e8",
+  "solution_set_sha256": "59511288cb19cdf8d27ca4386a4dc1888ab30c6c0d12d72d89af9bf13d5efd53",
+  "solutions_file": true,
+  "exception": null
+}

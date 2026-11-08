@@ -1,0 +1,148 @@
+{
+  "id": "f325",
+  "query_json": "{\"id\":\"f325\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[86,138,34,93,65],\"skill_names\":[\"Ice Element +1\",\"Def Down Negate\",\"Resilience\",\"Constitution +2\",\"Cutter S Add\"],\"my_charms\":[\"0,Thundr Atk,3,Fire Res,4\",\"1,Guard,3,KO,-1\",\"0,Water Res,3,ThunderRes,8\",\"0,Crit Draw,1,Artisan,-2\",\"0,Sharpener,1,Fortitude,3\",\"0,Guard Up,1,PoisonCAdd,0\",\"0,Mud/Snow,2,Hunger,0\",\"0,Slam,1,Debilitate,2\",\"0,Fortitude,2,Stun,1\",\"0,Crag S Add,1,ThunderRes,-10\",\"0,Ice Attack,2,Stun,11\",\"1,Will Recov,1,ClustS Add,-5\",\"0,Status,4,Anti-Theft,-7\",\"0,Poison,1,HiSpdGathr,5\",\"0,Fortitude,7,Poison,-5\",\"0,Protection,7,Constitutn,-1\",\"0,Ice Attack,1,Psychic,4\",\"0,Status,3,Fate,-2\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    4,
+    5,
+    7
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 18,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Ice Attack OOO",
+      "found": 118,
+      "added": 118,
+      "added_sha256": "9e5f3b63ae601ffc777f36bd25de4f4eae8529d82f94968f511b7ea0700eb1bc"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Ice Attack OO-",
+      "found": 50,
+      "added": 46,
+      "added_sha256": "b51486e17a1094ff5a916a1a6d86b5ec30f450412ad3670be9fc74a92f90b838"
+    },
+    {
+      "worker": 2,
+      "charm": "+8 Ice Attack O--",
+      "found": 32,
+      "added": 28,
+      "added_sha256": "74f3adc49e0b15ae95df146b5a9fed060ad3f05bd4dfa6dbb7364f71805e438d"
+    },
+    {
+      "worker": 3,
+      "charm": "+9 Ice Attack ---",
+      "found": 4,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "OOO",
+      "found": 6,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Fortitude OO-",
+      "found": 36,
+      "added": 36,
+      "added_sha256": "036f6df00165901ce592fbd57a709946bc5fecf8969916f2047151f84fc32bf3"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 Fortitude O--",
+      "found": 36,
+      "added": 36,
+      "added_sha256": "1f54318a6306a74f69699c4e8461c225d9235391189a03948310735d2b84cf98"
+    },
+    {
+      "worker": 7,
+      "charm": "+8 Fortitude ---",
+      "found": 36,
+      "added": 30,
+      "added_sha256": "3307d6342136f9e1f4294d21dddea421d37672cb403f7be38be1366be75db041"
+    },
+    {
+      "worker": 8,
+      "charm": "OOO",
+      "found": 6,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+5 Constitutn OOO",
+      "found": 241,
+      "added": 237,
+      "added_sha256": "7d2d7112003629feeabe891cfd881ba5a34b6df2fb5d621bbdc9f1c7157f41e9"
+    },
+    {
+      "worker": 12,
+      "charm": "+6 Constitutn OO-",
+      "found": 166,
+      "added": 158,
+      "added_sha256": "ae88d157646e51723f60eaea600c55faf3bc83321370cc942efd776f410ea034"
+    },
+    {
+      "worker": 13,
+      "charm": "+6 Constitutn O--",
+      "found": 50,
+      "added": 40,
+      "added_sha256": "1ed4c8e8dbd41674bea1580040cfe8b576c39998168cc8bb91f1d1fe2be7741e"
+    },
+    {
+      "worker": 14,
+      "charm": "OOO",
+      "found": 6,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+5 CutterSAdd OO-",
+      "found": 36,
+      "added": 36,
+      "added_sha256": "d256ef19fef6f0718c8a0cb888fef631258345a3cf2f696cc2540c0a52dfc534"
+    },
+    {
+      "worker": 16,
+      "charm": "+7 CutterSAdd O--",
+      "found": 36,
+      "added": 36,
+      "added_sha256": "0dd6474fdf12266fcb0c6999a51ff0d35eef0a701015eebe3746d81835c9c3ea"
+    },
+    {
+      "worker": 17,
+      "charm": "+10 CutterSAdd ---",
+      "found": 102,
+      "added": 96,
+      "added_sha256": "72bb128fd59f3cc680a400b96326a72c989cb49cc12f5d7e119b68e4d3d78794"
+    }
+  ],
+  "solution_count": 897,
+  "solutions_sha256": "02796441babcfbf58813bdd5b5cf623956b9ce8a2ea254e6045b625a9d072036",
+  "solution_set_sha256": "ab006f99eeb040a87ac16fc1f4c8dc14161c8fcc7f1e245d41f23d3960e1e083",
+  "solutions_file": true,
+  "exception": null
+}

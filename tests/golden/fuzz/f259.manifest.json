@@ -1,0 +1,92 @@
+{
+  "id": "f259",
+  "query_json": "{\"id\":\"f259\",\"description\":\"armour-seeded sampler, charm mode two_skill, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[12,93,152],\"skill_names\":[\"Sharp Sword\",\"Constitution +2\",\"Fire Res (L)\"],\"my_charms\":[\"0,FatigueAtk,3,Anti-Theft,-3\",\"0,Fire Res,1,Water Res,9\",\"0,NormalSAdd,1,DungMaster,5\",\"0,PelletSAdd,4,Status,-1\",\"1,Sharpener,1,Fire Res,-7\",\"0,Fire Res,5,,\",\"1,Ice Attack,3,Sharpness,-1\",\"0,Fire Res,6,Shot Mix,-7\",\"2,Protection,2,Constitutn,-3\",\"0,Constitutn,2,Water Res,12\",\"1,Fire Res,3,Status,-1\",\"1,Rapid Fire,2,Hunger,-7\",\"0,Sheathe,5,Elemental,1\",\"0,Guard Up,1,Fire Res,-4\",\"0,Constitutn,5,ThunderRes,0\",\"0,Stun,4,Psychic,-10\",\"0,KO,1,Potential,2\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    7,
+    9,
+    7,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 10,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Constitutn, +3 Sharpness ---",
+      "found": 9149,
+      "added": 9116,
+      "added_sha256": "208d4a5bf7855f9cb6867903003f2de9b5b2fbb66d48e99ee1886f792a14e70a"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Sharpness, +1 Constitutn O--",
+      "found": 5991,
+      "added": 5701,
+      "added_sha256": "76d6bc7e5e498ec7926b2c39b61b4a5d709bc0f657d6772b7f36a9fbeb79aaf9"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Sharpness, +4 Constitutn ---",
+      "found": 11003,
+      "added": 8623,
+      "added_sha256": "a540bfdcc03a1f465c499259aa09152b1a89325cbaf4d1ab7442cec036669ea9"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Sharpness, +1 Constitutn OO-",
+      "found": 5218,
+      "added": 4071,
+      "added_sha256": "5e718d898ec7bea1f145337ab90b40aef4f2993044520b10ff5c3176a8bd9e4d"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Constitutn, +1 Sharpness O--",
+      "found": 2573,
+      "added": 1993,
+      "added_sha256": "6027285ab4b50c69c05c5ca5f55f5157cb01a2321e810eb08fc83038f6b155b9"
+    },
+    {
+      "worker": 5,
+      "charm": "+4 Sharpness, +1 Fire Res OO-",
+      "found": 10074,
+      "added": 9595,
+      "added_sha256": "99239cd9ece911df417175a87e2911c511240fa6afccd2fa646b87394c98a80b"
+    },
+    {
+      "worker": 6,
+      "charm": "+3 Sharpness, +6 Fire Res O--",
+      "found": 11282,
+      "added": 11030,
+      "added_sha256": "d62a77e31d17efc823d74ad7149d77b87f4d63cb3ec070e56014e629975985d7"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 Sharpness, +12 Fire Res ---",
+      "found": 16946,
+      "added": 14207,
+      "added_sha256": "9230132b0de0c10e7dcff7caf5983b0087212b1538d9ad47d9734e5b7d2bc515"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 Constitutn, +13 Fire Res ---",
+      "found": 18798,
+      "added": 12173,
+      "added_sha256": "b9fe7031f6d095b2c9e518259fd3556e713627ff57fb355028c084d88d4533f8"
+    },
+    {
+      "worker": 9,
+      "charm": "OOO",
+      "found": 2772,
+      "added": 2538,
+      "added_sha256": "16f1e9e8bc2a9f0db0f14d0436f797e262eb980ea561ca5587868f40157d0ed5"
+    }
+  ],
+  "solution_count": 79047,
+  "solutions_sha256": "065d48ca6dafa5a5618ad43d4145c6fa3036882cc30af17e35b30b36bb6f426c",
+  "solution_set_sha256": "8a3e4962a234c6e9b8f724802587d27ecea91fefe04d69ff30fc5d8939d06446",
+  "solutions_file": false,
+  "exception": null
+}

@@ -1,0 +1,148 @@
+{
+  "id": "f441",
+  "query_json": "{\"id\":\"f441\",\"description\":\"armour-seeded sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (Athena)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[53,0,50,167],\"skill_names\":[\"NormalS/RapidBowUp\",\"Attack Up [Sm]\",\"Accuracy+2\",\"Wide Area +2\"],\"my_charms\":[\"0,Artisan,3,Gunnery,10\",\"1,Sharpness,4,Wide Area,-8\",\"0,Eating,5,Sharpness,3\",\"0,Gunnery,1,Ice Res,3\",\"0,Sharpness,1,Gunnery,2\",\"2,,,,\",\"2,,,,\",\"1,Psychic,3,DungMaster,6\",\"1,Thundr Atk,3,Wide Area,-7\",\"1,BombStrUp,1,Anti-Theft,0\",\"0,Reload Spd,5,Guard,-3\",\"0,ClustS Add,3,Cold Res,-5\",\"0,Precision,5,Antiseptic,7\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    8,
+    10,
+    10,
+    10
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 18,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 NormalS Up, +7 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 NormalS Up, +4 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 NormalS Up, +8 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 NormalS Up, +3 Attack O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Attack, +5 Precision OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 Attack, +10 Precision ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Attack, +4 Precision ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+2 Precision, +5 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+1 Precision, +3 Attack OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+3 NormalS Up, +11 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+1 NormalS Up, +7 Wide Area O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+4 NormalS Up, +6 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+2 Attack, +5 Wide Area O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+4 Attack, +10 Wide Area ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "2554bdc03e30fc20252165861214ed485ce2bd3098aa84d840561cfcfb079140"
+    },
+    {
+      "worker": 14,
+      "charm": "+8 Wide Area, +7 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+6 Precision, +10 Wide Area ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "08abd02c63af9191fda8e146f7802504e2d620b0ca636c501cc1e9e0d77e16fe"
+    },
+    {
+      "worker": 16,
+      "charm": "+6 Wide Area, +8 Precision ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+5 Wide Area, +10 Precision ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 2,
+  "solutions_sha256": "f44f387bd0db6397cc25defde2ab4e8575a5178312cf1106f13b09447c1a615f",
+  "solution_set_sha256": "12ec1570a2800e91a3c61e010f4207cf1974942beb2f3472cef899658aeb454f",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f266",
+  "query_json": "{\"id\":\"f266\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[137,145,69,192],\"skill_names\":[\"Blightproof\",\"Def Up (S)\",\"Power Coating Add\",\"Hi-SpdGathering\"],\"my_charms\":[\"2,WindPress,2,Ice Res,-5\",\"0,WindPress,1,Anti-Theft,7\",\"0,Recoil,3,Fire Res,13\",\"1,Fire Atk,2,Slam,-1\",\"2,Crit Draw,1,Blight Res,-3\",\"0,Eating,3,HiSpdGathr,-7\",\"0,Evasion,3,Blight Res,-1\",\"0,Blight Res,2,Stun,-2\",\"3,Evasion,1,Defense,3\",\"0,Crag S Add,1,Dragon Res,-7\",\"0,Carving,1,Slam,2\",\"1,Debilitate,3,Blight Res,-1\",\"0,Blight Res,4,Rec Speed,5\",\"0,Guard,3,Defense,-5\",\"1,NormalS Up,4,Blight Res,0\",\"0,Stamina,4,Sharpness,1\",\"0,Perception,2,,\",\"0,Thundr Atk,7,Dragon Res,4\",\"0,Awaken,6,Fencing,2\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    4,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f113",
+  "query_json": "{\"id\":\"f113\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[0,120,18,190,155,75],\"skill_names\":[\"Attack Up [Sm]\",\"Divine Protection\",\"Unsheathe Critical\",\"Gathering +2\",\"Water Res (L)\",\"Element Atk Up\"],\"my_charms\":[\"0,Will Recov,6,PierceS Up,3\",\"0,FatigueAtk,4,PoisonCAdd,9\",\"1,Carving,1,BombStrUp,6\",\"1,Ice Res,1,Precision,-8\",\"1,KO,1,Artisan,-3\",\"0,Rewards,1,Elemental,3\",\"1,Sharpener,1,Psychic,5\",\"1,Ice Attack,6,Rec Level,-2\",\"3,,,,\",\"0,PelletS Up,4,Ice Attack,-8\",\"0,Protection,1,Horn,-4\",\"0,Rewards,1,Elemental,3\",\"0,Health,8,Huntsman,5\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    14,
+    8,
+    7,
+    10,
+    9
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

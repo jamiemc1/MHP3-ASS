@@ -1,0 +1,29 @@
+{
+  "id": "f210",
+  "query_json": "{\"id\":\"f210\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[142,72,83,119,155,124],\"skill_names\":[\"Health +50\",\"Abnormal Status Atk +1\",\"Thunder Element +1\",\"Auto-Guard\",\"Water Res (L)\",\"Parlysis Negated\"],\"my_charms\":[\"1,FastCharge,3,Slam,2\",\"0,Will Recov,3,ParalyCAdd,10\",\"0,Will Recov,3,Health,8\",\"0,PelletS Up,1,Health,9\",\"0,Slam,4,PierceS Up,1\",\"1,PierceS Up,1,Dragon Atk,-5\",\"0,Elemental,1,Reload Spd,4\",\"1,Status,2,Paralysis,-3\",\"0,Potential,1,Anti-Theft,5\",\"0,Potential,2,Status,-3\",\"2,Sheathe,1,Sharpener,-3\",\"0,Dragon Atk,7,Sleep,-2\",\"0,Water Atk,4,Attack,-7\",\"0,Recoil,3,Reload Spd,4\",\"0,Reload Spd,6,Guard,1\",\"0,Evasion,4,Stun,0\",\"1,Status,4,Rewards,-2\",\"0,Horn,1,Gathering,-10\",\"0,Thundr Atk,1,Status,-4\",\"0,Auto-Guard,10,,\",\"0,Wide Area,2,ParalyCAdd,0\",\"0,Antiseptic,4,Whim,6\",\"0,BombStrUp,3,Ice Res,10\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    8,
+    7,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

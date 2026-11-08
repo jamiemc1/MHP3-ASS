@@ -1,0 +1,29 @@
+{
+  "id": "f322",
+  "query_json": "{\"id\":\"f322\",\"description\":\"uniform sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[205,164,136],\"skill_names\":[\"Combine Success+45%\",\"Dragon Res (L)\",\"Steal No Effect\"],\"my_charms\":[\"0,Ice Attack,7,Water Res,0\",\"1,Sheathe,3,SleepCAdd,-2\",\"0,Slam,5,Carving,3\",\"0,KO,3,Guard,2\",\"3,Elemental,2,Evade Dist,-1\",\"1,Sheathe,1,Blight Res,-3\",\"1,Sheathe,3,SleepCAdd,-2\",\"0,Gunnery,2,FatigeCAdd,2\",\"0,Thundr Atk,2,Water Atk,9\",\"0,Slam,5,Carving,3\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    2,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 232,
+      "added": 232,
+      "added_sha256": "05ea9afc0cb80902685679fe3334b318188d3bb2631f221f2225dee55a1d8f22"
+    }
+  ],
+  "solution_count": 232,
+  "solutions_sha256": "05ea9afc0cb80902685679fe3334b318188d3bb2631f221f2225dee55a1d8f22",
+  "solution_set_sha256": "7f42b72fb5eeb550c3f8053d38308c020df0f0a2f549e131438ab99b5946478f",
+  "solutions_file": true,
+  "exception": null
+}

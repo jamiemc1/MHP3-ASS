@@ -1,0 +1,29 @@
+{
+  "id": "f027",
+  "query_json": "{\"id\":\"f027\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[64,111,22,60,203,204],\"skill_names\":[\"Clust S All Add\",\"Recovery Speed +1\",\"Exploiter\",\"Pellet S All Add\",\"Rewards Celeb\",\"Combine Success +20%\"],\"my_charms\":[\"0,Rewards,5,Fencing,0\",\"0,Gunnery,1,PelletSAdd,-1\",\"0,NormalS Up,5,Rewards,2\",\"0,Rewards,2,Gunnery,4\",\"0,Rewards,4,Guard,-1\",\"0,Ice Attack,2,Combo Rate,-3\",\"0,Crit Draw,1,Rec Speed,12\",\"0,Slam,4,Psychic,0\",\"0,Thundr Atk,4,Rewards,2\",\"1,Rapid Fire,3,Debilitate,1\",\"2,Thundr Atk,5,DungMaster,-3\",\"0,Fortitude,2,SleepCAdd,5\",\"0,Water Atk,4,Rec Speed,-4\",\"0,Debilitate,1,Psychic,10\",\"0,Will Recov,3,Combo Rate,8\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    3,
+    3,
+    7
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

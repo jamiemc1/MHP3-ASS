@@ -1,0 +1,29 @@
+{
+  "id": "f106",
+  "query_json": "{\"id\":\"f106\",\"description\":\"armour-seeded sampler, charm mode slotted, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[176,16,124,197,136],\"skill_names\":[\"Item Use Up\",\"Sharpness +1\",\"Parlysis Negated\",\"Good Luck\",\"Steal No Effect\"],\"my_charms\":[\"0,Antiseptic,2,Anti-Theft,-8\",\"0,Paralysis,5,RazorCAdd,2\",\"0,Guard Up,2,Crag S Add,-9\",\"1,FastCharge,2,Crit Draw,-1\",\"0,Status,2,PunishDraw,0\",\"0,Reload Spd,4,Fire Atk,4\",\"0,Crag S Add,3,SleepCAdd,7\",\"0,Paralysis,5,PoisonCAdd,6\",\"0,Quake Res,3,SpeedSetup,3\",\"3,,,,\",\"0,Debilitate,4,Elemental,3\",\"0,Guard Up,5,Fate,1\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    4,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

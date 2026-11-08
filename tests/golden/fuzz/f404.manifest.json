@@ -1,0 +1,29 @@
+{
+  "id": "f404",
+  "query_json": "{\"id\":\"f404\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[145,128,120],\"skill_names\":[\"Def Up (S)\",\"Stun Halved\",\"Divine Protection\"],\"my_charms\":[\"0,Artisan,3,Ice Res,4\",\"0,Blight Res,2,Loading,-3\",\"0,Rec Speed,5,,\",\"0,Will Recov,2,Mud/Snow,5\",\"1,WindPress,1,Health,6\",\"0,Will Recov,2,Fencing,0\",\"0,Slam,1,Elemental,2\",\"1,,,,\",\"0,Status,1,Huntsman,3\",\"1,Wide Area,1,Gunnery,-1\",\"1,Rec Level,4,Dragon Res,-6\",\"2,,,,\",\"1,WindPress,1,Dragon Res,8\",\"1,Psychic,5,Huntsman,-9\",\"0,Mud/Snow,3,Status,4\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    7,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 2873,
+      "added": 2873,
+      "added_sha256": "4f1b738486426ae2c78fa502a33ff6a8271658e71f0eb3adadb22ffae1fa8fb3"
+    }
+  ],
+  "solution_count": 2873,
+  "solutions_sha256": "4f1b738486426ae2c78fa502a33ff6a8271658e71f0eb3adadb22ffae1fa8fb3",
+  "solution_set_sha256": "a51a8dc82f1652fbb72dd634ae1eda83ffb23e7ae7178a4ce636947b568abb05",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,64 @@
+{
+  "id": "f319",
+  "query_json": "{\"id\":\"f319\",\"description\":\"uniform sampler, charm mode my_charms, 5 skills; quotas: illegal_charm_lines, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[187,18,104,116,122],\"skill_names\":[\"Cold Eliminate\",\"Unsheathe Critical\",\"Evade +1\",\"Guard +2\",\"Poison Negated\"],\"my_charms\":[\"0,Eating,4,Gunnery,5\",\"0,Guard,3,Artisan,2\",\"0,Guard,6,Ice Res,-5\",\"0,Guard Up,6,Ice Res,7\",\"0,Crit Draw,5,Carving,1\",\"1,Rapid Fire,14,,\",\"0,Evasion,5,,\",\"0,Recoil,5,Awaken,2\",\"0,Will Recov,3,Thundr Atk,-6\",\"0,Blight Res,2,Guard,-3\",\"0,Constitutn,5,Sleep,5\",\"0,Guard,5,Mud/Snow,3\",\"0,Loading,2,Crit Draw,-1\",\"0,Will Recov,5,Poison,-3\",\"0,Fire Atk,15,,\",\"1,Recoil,1,Slam,2\",\"1,Sheathe,3,Artisan,-1\",\"2,Evasion,1,PelletSAdd,-5\",\"1,Poison,4,,\",\"0,ClustS Add,15,,\",\"0,FatigueAtk,1,Evasion,2\",\"0,Health,8,Combo Rate,-8\",\"0,FatigueAtk,2,Psychic,8\",\"0,Sharpener,2,Shot Mix,8\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 3,
+  "relevant_armor_counts": [
+    6,
+    3,
+    5,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Guard, -5 Ice Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Crit Draw, +1 Carving ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Evasion ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Evasion, -5 PelletSAdd OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+4 Poison O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

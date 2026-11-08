@@ -1,0 +1,113 @@
+{
+  "id": "f348",
+  "query_json": "{\"id\":\"f348\",\"description\":\"armour-seeded sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[77,120,142],\"skill_names\":[\"Fire Element +1\",\"Divine Protection\",\"Health +50\"],\"my_charms\":[\"1,Dragon Res,1,Health,-3\",\"0,Fire Atk,6,Elemental,-3\",\"0,Sharpness,3,Fire Atk,8\",\"0,Guard Up,1,Defense,10\",\"0,Fire Atk,6,Gathering,9\",\"0,BombStrUp,3,Horn,2\",\"0,Health,3,Stun,8\",\"0,Protection,7,PelletSAdd,-9\",\"0,Elemental,4,Health,-8\",\"0,Fire Atk,6,Status,-9\",\"1,Slam,2,Potential,0\",\"0,FastCharge,4,Crit Draw,3\",\"0,NormalS Up,2,Dragon Atk,0\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    5,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 13,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Fire Atk, +8 Protection ---",
+      "found": 2497,
+      "added": 2497,
+      "added_sha256": "3154d8ad586f931acbf48c1d816d886bd7785e197908015d0912eb95b6ea998f"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Fire Atk, +6 Protection O--",
+      "found": 1920,
+      "added": 701,
+      "added_sha256": "f8755ff45f57552427730dd393473f1e5972848674fd788fc2310f541a1ddfa3"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 Protection, +9 Fire Atk ---",
+      "found": 2498,
+      "added": 1326,
+      "added_sha256": "6c51c3f82fdcea5504fa01ef5d3aeedcb0dcbec1c6687ee8fd407bf7ef49f97c"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Fire Atk, +3 Protection O--",
+      "found": 1992,
+      "added": 1261,
+      "added_sha256": "43ae466c18cc60da7aa3f3145116c4629907893c2d383279874c8c9ab6b7ecbc"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Fire Atk, +9 Protection ---",
+      "found": 1856,
+      "added": 342,
+      "added_sha256": "705707d7dfd4c6231ab8768f6ef6a7ccf182e5eae80dcbd59c4a43d221e0a4f6"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 Fire Atk, +5 Protection O--",
+      "found": 2187,
+      "added": 961,
+      "added_sha256": "5db325bec8b3b678531310fde2b747a4720835d15750adfdb458b65d7e343081"
+    },
+    {
+      "worker": 6,
+      "charm": "+2 Fire Atk, +13 Health O--",
+      "found": 1942,
+      "added": 1940,
+      "added_sha256": "d5dff3ca7324f8109357d092ae84c51548a87a82b25dab92fc82b438840110c6"
+    },
+    {
+      "worker": 7,
+      "charm": "+1 Fire Atk, +10 Health OO-",
+      "found": 1838,
+      "added": 869,
+      "added_sha256": "9a2ab1ee478d9e69ad897eff9db98209e79399fd477487e5d95282691749d208"
+    },
+    {
+      "worker": 8,
+      "charm": "+7 Fire Atk, +13 Health ---",
+      "found": 2302,
+      "added": 843,
+      "added_sha256": "2510bf3ec726d2203a78d3f0a1bd39694fcc1aaf2be0d4e75f823650e33c70ca"
+    },
+    {
+      "worker": 9,
+      "charm": "+3 Protection, +8 Health O--",
+      "found": 1898,
+      "added": 1211,
+      "added_sha256": "6882681a82fafd26b068b7b800fa215ed1b0e5003a6bc3225a65010121d66db5"
+    },
+    {
+      "worker": 10,
+      "charm": "+7 Protection, +10 Health ---",
+      "found": 2286,
+      "added": 1113,
+      "added_sha256": "bb9af5f4076bd82c8b48a2f7ccf9007d7a56095e3bf6b3b96d8ab9994da5a047"
+    },
+    {
+      "worker": 11,
+      "charm": "+4 Protection, +11 Health ---",
+      "found": 2041,
+      "added": 522,
+      "added_sha256": "4a116165ba92a5fdead27374cc7ed657cf1db887849f2a0b47a742fb4f78be8a"
+    },
+    {
+      "worker": 12,
+      "charm": "+1 Protection, +13 Health ---",
+      "found": 1496,
+      "added": 343,
+      "added_sha256": "8c3635acfa479ff37014138250b6c7086fc1e28c5942a1762e003721f030001d"
+    }
+  ],
+  "solution_count": 13929,
+  "solutions_sha256": "8c59cc88a239cce37e33a76f5ee12d2b5ea5de7b0c83195ba086a82aa25d95ce",
+  "solution_set_sha256": "bad0c097134031c7cc6f4347f05dc30dd6dd85c8ba9d52939c5ef4ff68960008",
+  "solutions_file": false,
+  "exception": null
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f397",
+  "query_json": "{\"id\":\"f397\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[19,176],\"skill_names\":[\"Focus\",\"Item Use Up\"],\"my_charms\":[\"0,Sleep,4,Exhaust C+,3\",\"0,Evasion,2,Combo Plus,2\",\"0,Expert,4,LastingPwr,7\",\"0,FastCharge,4,Protection,7\",\"0,FastCharge,4,Protection,7\",\"0,FastCharge,1,Rec Speed,-10\",\"0,Destroyer,2,Wide-Range,0\",\"1,Crit Draw,5,FastCharge,0\",\"0,Guard Up,3,Expert,-5\",\"0,Ice Atk,4,Defense,-3\",\"0,Normal S+,1,LastingPwr,7\",\"0,Crag S+,1,Dungmaster,3\",\"0,Guard Up,3,Expert,-5\",\"0,FastCharge,1,Thundr Atk,4\",\"0,Blight Res,1,KO,-3\",\"0,Crit Draw,1,Gloves Off,-2\",\"0,Constitutn,5,FastCharge,0\",\"0,Fencing,3,Status,2\",\"0,Tremor Res,2,Clust S+,0\",\"2,FastCharge,3,Water Atk,-2\",\"0,Blight Res,1,FastCharge,2\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 134,
+      "added": 134,
+      "added_sha256": "a253fa6fe11d15667f3c7960561a1e5e9180e79b55d8012358f5264407f52be5"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 LastingPwr O--",
+      "found": 146,
+      "added": 146,
+      "added_sha256": "3f20a35fa44f8b636defd7acc11156f3915bddddd78149b4a74fdd73a066254c"
+    },
+    {
+      "worker": 2,
+      "charm": "+8 LastingPwr ---",
+      "found": 142,
+      "added": 114,
+      "added_sha256": "92855135fb645f4ec1794b333a52a6f17a9a0b0b4ba7ae6a0d62fd53f5fbb67f"
+    }
+  ],
+  "solution_count": 394,
+  "solutions_sha256": "6f999fc92d8f5e1f1304dad1abf80648ec6569cd374e7c21143a095d730046be",
+  "solution_set_sha256": "5980b3fba7b91637f91ae45f600bfbb2f1f32de4aa2ca166177ba44ea9472a12",
+  "solutions_file": true,
+  "exception": null
+}

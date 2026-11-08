@@ -1,0 +1,29 @@
+{
+  "id": "f198",
+  "query_json": "{\"id\":\"f198\",\"description\":\"uniform sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[22,208,112],\"skill_names\":[\"Exploiter\",\"Bullet Limit\",\"Recovery Speed +2\"],\"my_charms\":[\"1,NormalS Up,3,Attack,-1\",\"0,Water Atk,6,Blight Res,-1\",\"0,Gunnery,5,PelletSAdd,8\",\"0,Sleep,2,Ice Res,3\",\"1,Eating,3,Shot Mix,-7\",\"0,Potential,4,Sharpener,0\",\"0,Water Atk,6,Psychic,-2\",\"0,Dragon Atk,3,Debilitate,-3\",\"0,Debilitate,5,Health,-5\",\"0,Rec Speed,5,Status,-1\",\"0,Ice Attack,4,Blight Res,-3\",\"0,Thundr Atk,6,Fire Res,2\",\"1,Rec Speed,4,ParalyCAdd,-10\",\"0,Guard Up,5,HearProtct,2\",\"0,Crit Draw,1,Rec Speed,0\",\"0,Precision,2,Water Res,8\",\"1,HearProtct,1,Debilitate,-1\",\"2,Blight Res,1,Rec Speed,-2\",\"1,ThunderRes,6,CutterSAdd,-4\",\"0,Fire Res,3,FatigeCAdd,8\",\"0,Elemental,3,,\",\"0,FatigueAtk,4,Debilitate,2\",\"0,Sheathe,6,Combo Rate,7\",\"0,Status,6,Stun,-7\",\"0,Constitutn,4,Crit Draw,1\",\"0,Artisan,5,ThunderRes,-9\",\"0,Awaken,5,PelletS Up,-2\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    3,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

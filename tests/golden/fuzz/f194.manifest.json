@@ -1,0 +1,43 @@
+{
+  "id": "f194",
+  "query_json": "{\"id\":\"f194\",\"description\":\"uniform sampler, charm mode one_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[164],\"skill_names\":[\"Dragon Res (L)\"],\"my_charms\":[\"0,Paralysis,1,Dragon Res,-3\",\"0,Dragon Res,5,ClustS Add,5\",\"2,Rapid Fire,1,Dragon Res,-6\",\"1,Dragon Res,2,Crag S Add,-9\",\"0,Will Recov,2,Dragon Res,12\",\"0,Fortitude,3,Rec Speed,-2\",\"0,Dragon Res,4,Quake Res,-5\",\"0,Dragon Res,6,HiSpdGathr,7\",\"0,Reload Spd,5,Potential,3\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    2,
+    1,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Dragon Res OO-",
+      "found": 64,
+      "added": 64,
+      "added_sha256": "a12420a1ef9d722048dce3dac798e73f63a02f89ecd8aac5a1f5605c7e07c47b"
+    },
+    {
+      "worker": 1,
+      "charm": "+9 Dragon Res O--",
+      "found": 64,
+      "added": 44,
+      "added_sha256": "565bc4811ea2ca3dd7c19af6da0e56278ea7f1a656a0ad77b7c8af29d8d705f4"
+    },
+    {
+      "worker": 2,
+      "charm": "+10 Dragon Res ---",
+      "found": 64,
+      "added": 20,
+      "added_sha256": "d61869d4ce9b8274a28c6edad927e5874174d3c76e0fd21a596df345d090fa67"
+    }
+  ],
+  "solution_count": 128,
+  "solutions_sha256": "7b7887689916a2a3d13d558b0bb7469183666599515c009b29b48ba72bc7e084",
+  "solution_set_sha256": "723601c8d70d1724024b244bf8f9f56e8ea737bd2a5e7fbbab1e6cf5ebbaf695",
+  "solutions_file": true,
+  "exception": null
+}

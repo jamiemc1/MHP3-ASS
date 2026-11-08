@@ -1,0 +1,21 @@
+{
+  "id": "f500",
+  "query_json": "{\"id\":\"f500\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: auto_guard_no_charm, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[119,176,169,107,22,179],\"skill_names\":[\"Auto-Guard\",\"Item Use Up\",\"Trap Master\",\"Evasion Up\",\"Exploiter\",\"Picky Eater\"],\"my_charms\":[\"0,Water Res,1,LastingPwr,8\",\"0,Debilitate,5,NormalS Up,0\",\"0,Dragon Res,3,SpeedSetup,3\",\"0,Evade Dist,1,Anti-Theft,8\",\"2,PelletS Up,2,FastCharge,-2\",\"0,Evade Dist,5,Fortitude,2\",\"0,KO,3,SpeedSetup,2\",\"2,Guard,1,Attack,7\",\"0,Thundr Atk,1,LastingPwr,-9\",\"0,Blight Res,1,Evade Dist,-2\",\"2,PelletS Up,2,FastCharge,-2\",\"1,Crit Draw,2,NormalS Up,1\",\"1,Debilitate,2,Evasion,-3\",\"0,Water Res,3,SpeedSetup,0\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    7,
+    6,
+    9,
+    9
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

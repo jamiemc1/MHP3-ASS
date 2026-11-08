@@ -1,0 +1,29 @@
+{
+  "id": "f174",
+  "query_json": "{\"id\":\"f174\",\"description\":\"armour-seeded sampler, charm mode none, 1 skill; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[53],\"skill_names\":[\"NormalS/RapidBowUp\"],\"my_charms\":[\"0,NormalS Up,3,Guard,3\",\"1,FastCharge,1,Slam,2\",\"1,PelletSAdd,3,Paralysis,1\",\"0,Dragon Res,4,ParalyCAdd,10\",\"0,Status,2,Debilitate,-3\",\"0,NormalS Up,1,Fencing,2\",\"0,PierceS Up,2,FastCharge,1\",\"0,Water Atk,4,Blight Res,1\",\"0,Guard Up,1,Will Recov,4\",\"1,Status,1,Antiseptic,5\",\"0,Constitutn,4,Fire Res,-3\",\"0,Fate,2,NormalS Up,-3\",\"0,FatigueAtk,4,NormalS Up,3\",\"0,Antiseptic,1,PoisonCAdd,-4\",\"1,Dragon Atk,1,Health,-2\",\"0,Evade Dist,4,NormalS Up,2\",\"0,Stun,6,DungMaster,9\",\"0,Evasion,2,Thundr Atk,6\",\"0,Potential,2,ClustS Add,6\",\"0,Gunnery,4,PelletSAdd,-8\",\"0,NormalS Up,1,Stun,12\",\"0,Protection,4,Dragon Atk,-7\",\"0,Antiseptic,7,PowerCAdd,-4\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    1,
+    1,
+    3,
+    2
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 30,
+      "added": 30,
+      "added_sha256": "be45a589f3a1d515b64355610857ca5c8646a1be8930b246b582b28f3eb0ce94"
+    }
+  ],
+  "solution_count": 30,
+  "solutions_sha256": "be45a589f3a1d515b64355610857ca5c8646a1be8930b246b582b28f3eb0ce94",
+  "solution_set_sha256": "abbbda87a311181f0debd65456406ea8a81e5452396d47bc279f5f296f008268",
+  "solutions_file": true,
+  "exception": null
+}

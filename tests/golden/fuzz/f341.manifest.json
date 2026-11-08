@@ -1,0 +1,29 @@
+{
+  "id": "f341",
+  "query_json": "{\"id\":\"f341\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[39,63,66,54,93],\"skill_names\":[\"Reload Speed +3\",\"Clust S LV1 Add\",\"Poison Coating Add\",\"PierceS/PierceBowUp\",\"Constitution +2\"],\"my_charms\":[\"0,Eating,2,Ice Res,5\",\"1,Quake Res,3,PoisonCAdd,0\",\"0,Hunger,6,ClustS Add,7\",\"0,Status,4,BombStrUp,-6\",\"0,Sharpness,4,PelletS Up,3\",\"1,Dragon Atk,6,Constitutn,-1\",\"0,PelletSAdd,2,NormalSAdd,-4\",\"0,Reload Spd,3,Gluttony,0\",\"1,Guard Up,4,Constitutn,-3\",\"0,Evasion,4,Psychic,10\",\"1,Sleep,4,Gathering,-3\",\"0,ThunderRes,2,Precision,-4\",\"0,Potential,6,PierceS Up,-1\",\"0,Blight Res,3,Protection,0\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    4,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

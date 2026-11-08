@@ -1,0 +1,57 @@
+{
+  "id": "f419",
+  "query_json": "{\"id\":\"f419\",\"description\":\"armour-seeded sampler, charm mode my_charms, 2 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[151,17],\"skill_names\":[\"Fire Res (S)\",\"Unsheathe Stun\"],\"my_charms\":[\"2,FatigueAtk,2,Fire Res,4\",\"0,Sheathe,1,Rewards,2\",\"0,Fortitude,2,Attack,1\",\"3,,,,\",\"2,,,,\",\"0,Awaken,2,Protection,2\",\"0,Status,2,Fire Res,6\",\"0,FatigueAtk,3,Health,0\",\"0,Artisan,4,Fire Res,9\",\"0,Fire Res,5,Perception,5\",\"0,CutterSAdd,6,Status,-3\",\"0,Status,4,LastingPwr,-2\",\"0,Fire Res,5,ThunderRes,-7\",\"0,Will Recov,3,Evade Dist,4\",\"0,Psychic,3,Fire Res,2\",\"0,Water Res,6,ThunderRes,-8\",\"1,PunishDraw,5,,\",\"0,NormalS Up,2,PierceS Up,3\",\"0,ThunderRes,4,Huntsman,1\",\"0,Ice Res,5,Fire Res,-2\",\"2,Fencing,3,Fire Res,-3\",\"1,Loading,1,Wide Area,-8\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    3,
+    2,
+    2,
+    2
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 15,
+      "added": 15,
+      "added_sha256": "ac702aca0a473fd36ca37d6a9691315f5ccd0322eea1ad0d9e193abea80d86cd"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 FatigueAtk, +4 Fire Res OO-",
+      "found": 23,
+      "added": 23,
+      "added_sha256": "8ad1aebf276d08154fc5778e6c76c990cb8baf7be3e69674f858cacf910beb1d"
+    },
+    {
+      "worker": 2,
+      "charm": "OOO",
+      "found": 23,
+      "added": 23,
+      "added_sha256": "8f704340bab2ad83b36c4347c0430cf0d001ea0340fc6e42ea9148083f922073"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Artisan, +9 Fire Res ---",
+      "found": 17,
+      "added": 17,
+      "added_sha256": "f3f1ce3a84190ca3b30c268b510840397dbec1386bc0dbbbc40b69b98001422e"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 PunishDraw O--",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "c510d7a16b0de12c679261ce3ca420d73dc2c20c4679f9efd295c18e0d903828"
+    }
+  ],
+  "solution_count": 126,
+  "solutions_sha256": "1ad6820d43430ee17ccc1690d2c56cd30e584a281df0d1d577d4d288fb3feafb",
+  "solution_set_sha256": "c29ff9aed8a6367c45c95de10e65c3ddfaf58a62aadf0e08d4b2a88767145904",
+  "solutions_file": true,
+  "exception": null
+}

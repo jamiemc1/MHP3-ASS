@@ -1,0 +1,29 @@
+{
+  "id": "f035",
+  "query_json": "{\"id\":\"f035\",\"description\":\"armour-seeded sampler, charm mode slotted, 5 skills; quotas: torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[120,193,147,174,49],\"skill_names\":[\"\u7cbe\u970a\u306e\u52a0\u8b77\",\"\u7cbe\u970a\u306e\u6c17\u307e\u3050\u308c\",\"\u9632\u5fa1\u529bUP\u3010\u5927\u3011\",\"\u4f53\u529b\u56de\u5fa9\u91cfUP\",\"\u30d6\u30ec\u6291\u5236+1\"],\"my_charms\":[\"0,\u65ac\u88c2\u5f3e\u8ffd\u52a0,2,\u52b9\u679c\u6301\u7d9a,2\",\"2,\u98a8\u5727,2,KO,1\",\"1,\u6c17\u7d76,3,\u8010\u6691,-4\",\"0,\u7814\u304e\u5e2b,1,\u7761\u7720\u74f6\u8ffd\u52a0,7\",\"1,\u52a0\u8b77,1,\u8cab\u901a\u5f3e\u8ffd\u52a0,-8\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    8,
+    7,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "1d4eea5a98a1a9729e59ad49631bc1e24a4c4e96cc5c4ce781664df8598931a4"
+    }
+  ],
+  "solution_count": 4,
+  "solutions_sha256": "1d4eea5a98a1a9729e59ad49631bc1e24a4c4e96cc5c4ce781664df8598931a4",
+  "solution_set_sha256": "dfa05e3694c7470a11d623c4aeff4948362e12444f21207bf5e95e0c58d1c69b",
+  "solutions_file": true,
+  "exception": null
+}

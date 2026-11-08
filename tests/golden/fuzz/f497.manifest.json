@@ -1,0 +1,21 @@
+{
+  "id": "f497",
+  "query_json": "{\"id\":\"f497\",\"description\":\"uniform sampler, charm mode two_skill, 3 skills; quotas: auto_guard_no_charm, cross_type, two_skill_hr_below_5, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[119,21,68],\"skill_names\":[\"Auto-Guard\",\"ESP\",\"Sleep Coating Add\"],\"my_charms\":[\"0,Evade Dist,2,Paralysis,-2\",\"0,Horn,4,DungMaster,-2\",\"3,Eating,1,Fire Res,0\",\"0,Hunger,6,BombStrUp,-6\",\"0,Evasion,1,Gathering,9\",\"2,Ice Attack,1,Fencing,0\",\"0,WindPress,4,SleepCAdd,2\",\"0,Constitutn,6,SleepCAdd,8\",\"0,Constitutn,6,SleepCAdd,-10\",\"0,Gunnery,1,SleepCAdd,-9\",\"0,Fencing,2,Fate,2\",\"0,Mud/Snow,7,SleepCAdd,-4\",\"0,Will Recov,5,SleepCAdd,6\",\"0,Fencing,4,NormalS Up,0\",\"0,Expert,1,LastingPwr,3\",\"0,CutterSAdd,2,SleepCAdd,2\",\"0,Fencing,1,PelletS Up,3\",\"0,PierceSAdd,1,Stun,-8\",\"1,Sheathe,4,Shot Mix,-6\",\"0,Fencing,3,KO,-2\",\"2,Psychic,3,,\",\"0,Fencing,4,Health,-4\",\"0,Artisan,1,BombStrUp,-4\",\"0,Evade Dist,2,Gluttony,-6\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

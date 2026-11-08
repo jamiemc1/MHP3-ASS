@@ -1,0 +1,57 @@
+{
+  "id": "f414",
+  "query_json": "{\"id\":\"f414\",\"description\":\"armour-seeded sampler, charm mode one_skill, 4 skills; quotas: cross_type, one_skill_hr_3_or_less, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[75,201,14,192],\"skill_names\":[\"Element Atk Up\",\"Carving Expert\",\"Speed Sharpening\",\"Hi-SpdGathering\"],\"my_charms\":[\"0,Status,4,Sleep,5\",\"1,Thundr Atk,4,NormalSAdd,1\",\"0,Dragon Atk,6,Potential,0\",\"0,Sharpener,3,SleepCAdd,0\",\"0,Ice Attack,3,Status,3\",\"0,Evasion,3,Attack,-2\",\"0,Water Atk,3,HiSpdGathr,10\",\"0,Awaken,6,Sharpener,4\",\"1,PierceSAdd,1,Gunnery,-3\",\"0,Recoil,5,Carving,1\",\"0,Carving,3,Elemental,-2\",\"0,Crit Draw,1,FatigueAtk,2\",\"0,Thundr Atk,6,HiSpdGathr,-10\",\"0,Evade Dist,4,ParalyCAdd,-2\",\"0,Sharpener,1,ThunderRes,1\",\"0,Sleep,2,Crag S Add,-5\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 HiSpdGathr O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 HiSpdGathr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f382",
+  "query_json": "{\"id\":\"f382\",\"description\":\"armour-seeded sampler, charm mode slotted, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[8,131,115,12],\"skill_names\":[\"Reckless Abandon +3\",\"Mud/Snow Res\",\"Guard +1\",\"Sharp Sword\"],\"my_charms\":[\"0,Dragon Res,4,Mud/Snow,3\",\"0,Water Atk,6,Water Res,-4\",\"0,Recoil,5,Ice Res,4\",\"0,Rapid Fire,4,Expert,-7\",\"0,Sleep,4,Expert,-4\",\"0,NormalSAdd,6,CutterSAdd,5\",\"0,Potential,3,Quake Res,-5\",\"0,Paralysis,5,Expert,6\",\"0,Rewards,2,Debilitate,-3\",\"3,Awaken,2,Expert,-2\",\"0,Mud/Snow,4,Wide Area,2\",\"0,Mud/Snow,7,PierceSAdd,-5\",\"0,Hunger,2,Sense,-7\",\"0,Expert,4,Water Res,7\",\"0,Expert,1,SleepCAdd,-2\",\"0,FatigueAtk,1,Expert,-9\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    6,
+    5,
+    7,
+    9
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

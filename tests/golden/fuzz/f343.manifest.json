@@ -1,0 +1,29 @@
+{
+  "id": "f343",
+  "query_json": "{\"id\":\"f343\",\"description\":\"armour-seeded sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[68,179,137,81,35,181],\"skill_names\":[\"Sleep Coating Add\",\"Picky Eater\",\"Blightproof\",\"Water Element +2\",\"Load Up\",\"Quick Eating +2\"],\"my_charms\":[\"0,Water Res,4,Crag S Add,0\",\"0,Elemental,3,Fate,2\",\"2,,,,\",\"3,Sharpness,2,Loading,-1\",\"0,Blight Res,5,Dragon Res,-6\",\"0,Antiseptic,4,Stun,8\",\"2,Loading,1,Dragon Atk,-9\",\"1,Fire Atk,6,FatigeCAdd,-8\",\"0,Recoil,5,ThunderRes,-8\",\"0,Loading,1,Gunnery,10\",\"0,Awaken,3,Reload Spd,-3\",\"0,Loading,2,Defense,8\",\"0,Sheathe,6,PoisonCAdd,-3\",\"0,Constitutn,5,SpeedSetup,9\",\"0,Sheathe,5,,\",\"2,Guard Up,2,Fate,-1\",\"0,Rapid Fire,3,Potential,-2\",\"0,Loading,2,Wide Area,5\",\"0,Ice Res,1,Hunger,8\",\"0,Ice Res,1,Hunger,8\",\"0,Fire Atk,1,Rec Level,-1\",\"0,Horn,2,Paralysis,1\",\"0,FatigueAtk,4,Fire Atk,8\",\"0,Sharpness,1,Water Atk,-1\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    6,
+    5,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

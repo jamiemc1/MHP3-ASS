@@ -1,0 +1,57 @@
+{
+  "id": "f304",
+  "query_json": "{\"id\":\"f304\",\"description\":\"uniform sampler, charm mode one_skill, 3 skills; quotas: one_skill_hr_3_or_less, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[18,145,138],\"skill_names\":[\"Unsheathe Critical\",\"Def Up (S)\",\"Def Down Negate\"],\"my_charms\":[\"1,Eating,3,Evasion,-3\",\"0,Evade Dist,6,Fortitude,-7\",\"0,Eating,4,Ice Attack,9\",\"0,Attack,1,Stun,-1\",\"1,Fire Atk,2,Fencing,-1\",\"0,CutterSAdd,1,Fortitude,-3\",\"0,Rec Level,1,Fate,3\",\"0,Sheathe,2,Wide Area,-5\",\"0,Psychic,3,Defense,-7\",\"0,Protection,5,Gunnery,9\",\"0,Reload Spd,4,Horn,0\",\"0,Backpackng,1,DungMaster,2\",\"0,Fire Atk,7,Whim,0\",\"0,Ice Attack,7,Dragon Res,8\",\"0,Guard Up,1,Rec Level,2\",\"1,Antiseptic,2,Crag S Add,-6\",\"0,Elemental,1,KO,3\",\"0,Fortitude,4,Whim,13\",\"0,PierceS Up,3,Crit Draw,-1\",\"0,BombStrUp,4,Fortitude,-2\",\"2,Will Recov,1,Ice Res,-3\",\"0,Gunnery,5,ClustS Add,6\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Defense O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Defense ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Fortitude O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Fortitude ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f453",
+  "query_json": "{\"id\":\"f453\",\"description\":\"uniform sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[66,180,0],\"skill_names\":[\"Poison Coating Add\",\"Quick Eating +1\",\"Attack Up [Sm]\"],\"my_charms\":[\"0,Carving,5,Rewards,2\",\"0,Ice Res,6,Fortitude,-10\",\"0,Water Res,4,Rec Speed,4\",\"0,Guard Up,4,Will Recov,0\",\"0,Crit Draw,4,Protection,-1\",\"0,Poison,1,Crag S Add,3\",\"0,Elemental,2,Rec Speed,-10\",\"0,Artisan,2,Rec Level,3\",\"0,Elemental,4,Dragon Res,12\",\"0,Antiseptic,2,Anti-Theft,0\",\"0,Sheathe,3,Whim,1\",\"0,Eating,5,Gunnery,9\",\"0,Recoil,1,Water Atk,-8\",\"0,Potential,5,Sense,-3\",\"0,Eating,1,Gunnery,-9\",\"0,Backpackng,3,Dragon Res,4\",\"0,Thundr Atk,4,Gunnery,1\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    3,
+    4,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 27,
+      "added": 27,
+      "added_sha256": "4b7dda086e1a5544b7cdeafec8e8b9dffd1e0dcfea9911e52ab8aca14d802834"
+    }
+  ],
+  "solution_count": 27,
+  "solutions_sha256": "4b7dda086e1a5544b7cdeafec8e8b9dffd1e0dcfea9911e52ab8aca14d802834",
+  "solution_set_sha256": "4b7dda086e1a5544b7cdeafec8e8b9dffd1e0dcfea9911e52ab8aca14d802834",
+  "solutions_file": true,
+  "exception": null
+}

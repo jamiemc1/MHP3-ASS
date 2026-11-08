@@ -1,0 +1,71 @@
+{
+  "id": "f340",
+  "query_json": "{\"id\":\"f340\",\"description\":\"uniform sampler, charm mode two_skill, 4 skills; quotas: torso_up\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[190,87,34,44],\"skill_names\":[\"Recogida +2\",\"Atrib. Hielo +2\",\"Fortalecer\",\"Retroc. red. +2\"],\"my_charms\":[\"1,Determin.,2,SubirDPerd,1\",\"0,VisPs\u00edquic,7,Recogida,8\",\"0,Hielo Inc,5,A\u00f1a.Corta.,4\",\"0,Hielo Inc,7,Vel. recup,7\",\"0,Hielo Inc,1,A\u00f1a.Corta.,-2\",\"0,Desenv. KO,1,Retroceso,1\",\"0,Retroceso,3,Evadir,4\",\"0,Dis.Evadir,4,Vel. recup,-3\",\"2,Retroceso,1,R. hielo,2\",\"0,Hielo Inc,6,VisPs\u00edquic,3\",\"0,Desen.crit,1,Res. Plaga,-2\",\"0,Yoga,1,Potencial,1\",\"0,Esgrima,2,Retroceso,2\",\"1,Fuego Inc,6,Vel.recarg,-2\",\"0,Hielo Inc,5,\u00c1rea ampl.,11\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    5,
+    8,
+    6,
+    7
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Hielo Inc, +10 Recogida ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Retroceso, +6 Hielo Inc O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 Hielo Inc, +2 Retroceso ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Retroceso, +5 Hielo Inc O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Hielo Inc, +2 Retroceso OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Retroceso, +6 Hielo Inc ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

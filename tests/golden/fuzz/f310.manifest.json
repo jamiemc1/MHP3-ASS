@@ -1,0 +1,106 @@
+{
+  "id": "f310",
+  "query_json": "{\"id\":\"f310\",\"description\":\"uniform sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[142,61,27],\"skill_names\":[\"Health +50\",\"Crag S LV1 Add\",\"Gunnery Master\"],\"my_charms\":[\"0,Fate,5,Constitutn,-3\",\"0,Water Atk,2,ClustS Add,7\",\"1,Health,1,Combo Rate,-9\",\"0,Precision,1,Gunnery,6\",\"0,ThunderRes,6,LastingPwr,-9\",\"0,Water Res,6,PoisonCAdd,7\",\"0,Water Atk,3,WindPress,-3\",\"2,Evade Dist,1,Crag S Add,-4\",\"2,PunishDraw,2,Artisan,-3\",\"0,WindPress,4,Crag S Add,9\",\"0,SpeedSetup,1,FatigeCAdd,8\",\"1,Rapid Fire,1,Defense,2\",\"0,Debilitate,3,Gunnery,-7\",\"0,Elemental,1,Guard Up,0\",\"0,Health,8,Hunger,-1\",\"0,Crag S Add,4,Paralysis,7\",\"0,Horn,1,LastingPwr,2\",\"0,Backpackng,1,Stun,-3\",\"0,Wide Area,6,Health,0\",\"0,Thundr Atk,7,Gunnery,5\",\"0,Crit Draw,1,Psychic,0\",\"0,Sleep,3,PelletSAdd,8\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    4,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 12,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+1 Health, +10 Crag S Add ---",
+      "found": 1781,
+      "added": 1733,
+      "added_sha256": "c61961ecde90b2332bf4273aa4e1d619dbecc4dc5a9076bb8a398357a536e526"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Health, +9 Crag S Add ---",
+      "found": 1664,
+      "added": 308,
+      "added_sha256": "aa152ffaa244c7d0c135fbc60fd3f647387ebe9e2f3252811ef65bd43b892fb3"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Health, +8 Crag S Add ---",
+      "found": 1857,
+      "added": 229,
+      "added_sha256": "3573dde8500708af41f26e16ab693b5909eaf4c1fb578331f808163dc86d2225"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Health, +3 Crag S Add OO-",
+      "found": 1530,
+      "added": 1368,
+      "added_sha256": "6bcd4fadb60ca7df388243a28169594f5839e0cd6c3a17443f661395b2c674a2"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Crag S Add, +9 Health ---",
+      "found": 1745,
+      "added": 1260,
+      "added_sha256": "52ac5330f7fadf6a47c42d5a6b7f9b5879aec07cd216f0b05e7fecb9ba018806"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Crag S Add, +7 Health ---",
+      "found": 1820,
+      "added": 886,
+      "added_sha256": "aa95bce4f04f42e92cd732c5cecadae05af28f41730302fb8076c3f789a6ed5d"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 Health, +7 Gunnery ---",
+      "found": 1636,
+      "added": 1609,
+      "added_sha256": "2b2c80d9b0c5bc5e10a61f2a775dbb844055e86c234433d41d813f85c9af3297"
+    },
+    {
+      "worker": 7,
+      "charm": "+2 Gunnery, +10 Health ---",
+      "found": 1512,
+      "added": 1263,
+      "added_sha256": "a87dba78e4eadde6ed36fcda6e4806b00f7759eecae00473704f4421395f129e"
+    },
+    {
+      "worker": 8,
+      "charm": "+6 Gunnery, +9 Health ---",
+      "found": 1734,
+      "added": 712,
+      "added_sha256": "2832218380120a9e909bc127d589bf5be9c27632edcf714b6b076c42e33b7125"
+    },
+    {
+      "worker": 9,
+      "charm": "+4 Crag S Add, +7 Gunnery ---",
+      "found": 1445,
+      "added": 593,
+      "added_sha256": "89bef4467efd68dfce394c72530d213913baac6312c5a6d59cbf429b928586ea"
+    },
+    {
+      "worker": 10,
+      "charm": "+5 Gunnery, +10 Crag S Add ---",
+      "found": 1828,
+      "added": 1137,
+      "added_sha256": "f589d37ab09054d5268897706f67900bc13c301d8e75b4cc84838caf792d7a55"
+    },
+    {
+      "worker": 11,
+      "charm": "O--",
+      "found": 168,
+      "added": 168,
+      "added_sha256": "52a21dc6a9e68be4e59313bd975b5d2d969e29c1bb8a20cb504050ae5b38f3ed"
+    }
+  ],
+  "solution_count": 11266,
+  "solutions_sha256": "3e93dd1ba4a5d23a19a575f83794f69764eed83d1ee3df5b4d566351f263c125",
+  "solution_set_sha256": "8b08f4c7010c4116a7724e9528d144fcf254d775b64d96b38f2f184f6e823b07",
+  "solutions_file": false,
+  "exception": null
+}

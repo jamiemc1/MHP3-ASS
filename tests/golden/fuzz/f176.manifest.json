@@ -1,0 +1,29 @@
+{
+  "id": "f176",
+  "query_json": "{\"id\":\"f176\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[70],\"skill_names\":[\"Close Range Coating Add\"],\"my_charms\":[\"0,Precision,4,Fortitude,2\",\"0,Wide Area,1,Expert,3\",\"0,PunishDraw,1,Attack,-5\",\"0,FatigueAtk,2,Evasion,-2\",\"0,Will Recov,1,NormalSAdd,3\",\"0,Crag S Add,5,Status,-2\",\"0,Rec Level,5,Evasion,-3\",\"0,Poison,3,Backpackng,7\",\"0,Hunger,4,Huntsman,8\",\"1,Gunnery,2,RazorCAdd,-5\",\"0,FatigueAtk,5,RazorCAdd,-3\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    1,
+    2,
+    1,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OO-",
+      "found": 18,
+      "added": 18,
+      "added_sha256": "dc72cddc599fb682683397de1a60a6d924765e39de735a9372a87b58d6fabb28"
+    }
+  ],
+  "solution_count": 18,
+  "solutions_sha256": "dc72cddc599fb682683397de1a60a6d924765e39de735a9372a87b58d6fabb28",
+  "solution_set_sha256": "08200272c071d1a674221ca14bdf3271f8a97522fa6e670de2351b6f8e93f1e8",
+  "solutions_file": true,
+  "exception": null
+}

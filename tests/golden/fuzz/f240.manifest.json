@@ -1,0 +1,64 @@
+{
+  "id": "f240",
+  "query_json": "{\"id\":\"f240\",\"description\":\"uniform sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[118,126,92,185],\"skill_names\":[\"Guard Inc\",\"Sleep Negated\",\"Constitution +1\",\"Heat Cancel\"],\"my_charms\":[\"0,Carving,4,Sheathe,-9\",\"0,Constitutn,5,Crit Draw,3\",\"0,Sharpener,4,BombStrUp,-6\",\"0,Sheathe,4,ClustS Add,8\",\"0,Poison,1,Quake Res,7\",\"3,,,,\",\"0,CutterSAdd,5,Status,-2\",\"0,Sleep,3,Psychic,-9\",\"0,Guard Up,2,Health,1\",\"0,Guard Up,5,FatigueAtk,3\",\"0,Poison,5,Sleep,-7\",\"1,Water Atk,2,FatigeCAdd,-6\",\"0,Fire Atk,7,ParalyCAdd,1\",\"0,Elemental,5,Constitutn,3\",\"0,Thundr Atk,2,ParalyCAdd,3\",\"0,Guard Up,1,Wide Area,10\",\"0,NormalS Up,1,Psychic,7\",\"0,Sheathe,3,HearProtct,-2\",\"0,Guard Up,1,Heat Res,4\",\"0,Evasion,6,Ice Res,2\",\"0,Fire Atk,2,Fate,0\",\"0,ThunderRes,2,ClustS Add,1\",\"0,Gunnery,1,Fortitude,3\",\"0,Guard Up,5,Rapid Fire,3\",\"2,,,,\",\"1,Guard,2,Horn,-2\",\"0,Rec Level,6,BombStrUp,-6\",\"0,PunishDraw,5,Constitutn,0\",\"0,Thundr Atk,2,PowerCAdd,8\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    5,
+    4,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Constitutn, +3 Crit Draw ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Sleep, -9 Psychic ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Guard Up, +3 FatigueAtk ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 Guard Up, +4 Heat Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

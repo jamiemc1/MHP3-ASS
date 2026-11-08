@@ -1,0 +1,43 @@
+{
+  "id": "f450",
+  "query_json": "{\"id\":\"f450\",\"description\":\"armour-seeded sampler, charm mode one_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[107],\"skill_names\":[\"Evasion Up\"],\"my_charms\":[\"0,Evade Dist,1,PunishDraw,1\",\"0,Evade Dist,6,Will Recov,3\",\"0,HearProtct,4,Evade Dist,4\",\"0,Rewards,4,FatigueAtk,1\",\"0,Stamina,2,Evade Dist,-2\",\"0,Loading,6,Potential,1\",\"1,Sheathe,2,Perception,-2\",\"0,Evade Dist,5,Hunger,5\",\"2,Awaken,1,Fencing,-1\",\"0,Evade Dist,4,SleepCAdd,1\",\"0,Evade Dist,2,Rec Level,4\",\"0,PunishDraw,4,Defense,10\",\"0,Evade Dist,2,Anti-Theft,7\",\"0,Ice Attack,6,SpeedSetup,-6\",\"0,Rec Level,6,Thundr Atk,-8\",\"0,Evade Dist,1,PelletSAdd,-5\",\"0,Evade Dist,5,Constitutn,-2\",\"0,Guard Up,2,Wide Area,10\",\"0,Evade Dist,5,Fire Res,4\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Evade Dist OOO",
+      "found": 144,
+      "added": 144,
+      "added_sha256": "857b565e9eaf93aabb0160926d53e560e95dce9502bb52151ef92e1689cc07fb"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Evade Dist OO-",
+      "found": 144,
+      "added": 143,
+      "added_sha256": "50b53c1ff71d3f382b63f607d54a2a55418ba8ade1334a1fa4a91d117941e682"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Evade Dist O--",
+      "found": 144,
+      "added": 141,
+      "added_sha256": "1a18756ce107f1ca9c5eba7a4d1035651e6d855a9427a2a1e835debcb322a223"
+    }
+  ],
+  "solution_count": 428,
+  "solutions_sha256": "8e1b710e3d6b055730742f3982b9f018da3010402ba67f5295108c6df27d7b6a",
+  "solution_set_sha256": "c722a50e91ad2d33a6763afe8fd2c9700c4c4446fbedd58830c628e104cae396",
+  "solutions_file": true,
+  "exception": null
+}

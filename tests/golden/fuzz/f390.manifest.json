@@ -1,0 +1,29 @@
+{
+  "id": "f390",
+  "query_json": "{\"id\":\"f390\",\"description\":\"uniform sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[86,77,124],\"skill_names\":[\"Ice Element +1\",\"Fire Element +1\",\"Parlysis Negated\"],\"my_charms\":[\"0,FatigueAtk,1,Fortitude,8\",\"0,Status,3,Anti-Theft,-7\",\"0,Artisan,2,BombStrUp,6\",\"0,Quake Res,3,Dragon Res,4\",\"0,HearProtct,1,Ice Attack,9\",\"0,Rec Level,3,Thundr Atk,-4\",\"0,Evade Dist,1,Crag S Add,-3\",\"0,Fire Atk,4,Fire Res,0\",\"1,Fire Atk,1,ParalyCAdd,8\",\"0,Rewards,1,Water Res,12\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    4,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

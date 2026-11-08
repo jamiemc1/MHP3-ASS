@@ -1,0 +1,71 @@
+{
+  "id": "f064",
+  "query_json": "{\"id\":\"f064\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[19,168,169,176],\"skill_names\":[\"Fokus\",\"Bombardier\",\"Fallenmeister\",\"Objktntzng hoch\"],\"my_charms\":[\"2,Schn. lad.,1,KO,1\",\"2,,,,\",\"0,BombSt\u00e4rk.,2,L\u00e4hmung,-3\",\"0,Pr\u00e4zision,2,Immerw\u00e4hrd,-1\",\"0,BombSt\u00e4rk.,5,SchnllAufb,7\",\"0,BombSt\u00e4rk.,2,Verteidig.,2\",\"0,HartSchlag,2,BombSt\u00e4rk.,-6\",\"0,Status,3,SchnllAufb,-6\",\"1,Schn. lad.,3,Brandabw.,1\",\"3,,,,\",\"1,SchnllAufb,3,SchnllSamm,7\",\"0,SchnllAufb,4,Sammeln,1\",\"0,Ausweichen,5,Immerw\u00e4hrd,6\",\"0,SchnllAufb,4,Eigenbr\u00f6dl,6\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    1,
+    2,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 8,
+      "added": 8,
+      "added_sha256": "09f1a7ae2dd7b78b6a5f91f63079a3140b2915ac424eb4ac48c83e400f5d416d"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Schn. lad., +1 KO OO-",
+      "found": 21,
+      "added": 21,
+      "added_sha256": "8a02274ad9674d31088625e382a8421b5374cd1558f06a47d9bc04c5980f7367"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 BombSt\u00e4rk., +7 SchnllAufb ---",
+      "found": 22,
+      "added": 22,
+      "added_sha256": "22a5eda6fd267721e3f6216aff11a731b7f4c8be51a3b7183ac59d9fd03ca1f9"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Schn. lad., +1 Brandabw. O--",
+      "found": 22,
+      "added": 22,
+      "added_sha256": "6e32768d2b482a1df980cbf6f811dd6529cab8f73ed282244de691ed31ae7540"
+    },
+    {
+      "worker": 4,
+      "charm": "OOO",
+      "found": 21,
+      "added": 21,
+      "added_sha256": "1bef1ac24c305087d5d5e2f47fc11c64a5ef83cc473ad2276f51edb7c915f2f5"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 SchnllAufb, +7 SchnllSamm O--",
+      "found": 18,
+      "added": 18,
+      "added_sha256": "74ed3a01f36ae2e8dd437ca336e3f1f5ae3226842f6c156c81b6e1448b7083e5"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Ausweichen, +6 Immerw\u00e4hrd ---",
+      "found": 19,
+      "added": 19,
+      "added_sha256": "2df8a18d5c88bd8e1d6330ad1a5c7d16da82dcf67ff720ae6041551573d1a3b4"
+    }
+  ],
+  "solution_count": 131,
+  "solutions_sha256": "5a68e0d0156505613bd710387e99bfbfcf6c0466f80ed1e9a19fb3ec2a3b96a1",
+  "solution_set_sha256": "c8a9cbafe8777dd75655639b81a201d6c29a73bb67a8ae33b53ca17d305aa495",
+  "solutions_file": true,
+  "exception": null
+}
