@@ -10,7 +10,6 @@ goldens, and that every sample's stages follow MatchesQuery's order.
 from __future__ import annotations
 
 import json
-import os
 from math import prod
 from pathlib import Path
 from typing import Any
@@ -49,9 +48,11 @@ def test_every_trace_golden_has_a_spec(repo_root: Path):
 
 
 def _golden_dir_for(golden: TraceGolden, repo_root: Path) -> Path:
-    """The golden folder for the trace's query: personal queries keep theirs in tests/savefile."""
+    """The golden folder for the trace's query: personal specs and their queries keep
+    theirs in tests/savefile. Decided by the spec's own location, because the query
+    path is resolved and tests/savefile/ may hold symlinks."""
     savefile_dir = repo_root / "tests" / "savefile"
-    if golden.query_path.is_relative_to(savefile_dir):
+    if golden.spec_path.is_relative_to(savefile_dir):
         return savefile_dir / "golden"
     return repo_root / "tests" / "golden"
 
@@ -174,9 +175,7 @@ def test_personal_trace_accepts_match_search_goldens(
 
 
 def test_every_corpus_query_is_traced(trace_goldens: list[TraceGolden], repo_root: Path):
-    corpus = {
-        Path(os.path.normpath(path)) for path in (repo_root / "tests" / "corpus").glob("*.json")
-    }
+    corpus = {path.resolve() for path in (repo_root / "tests" / "corpus").glob("*.json")}
     traced = {golden.query_path for golden in trace_goldens}
 
     assert corpus - traced == set()
