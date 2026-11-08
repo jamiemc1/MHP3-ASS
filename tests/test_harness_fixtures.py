@@ -254,8 +254,12 @@ def test_every_relevance_golden_has_a_query(repo_root: Path):
     tests_dir = repo_root / "tests"
     query_names = {
         path.stem
-        for folder in ("corpus", "relevance")
-        for path in (tests_dir / folder).glob("*.json")
+        for folder in (
+            tests_dir / "corpus",
+            tests_dir / "relevance",
+            tests_dir / "traces" / "queries",
+        )
+        for path in folder.glob("*.json")
     }
     golden_names = {
         path.name.removesuffix(".json.gz")
