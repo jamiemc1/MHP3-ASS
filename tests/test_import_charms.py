@@ -9,8 +9,8 @@ from typing import Any
 
 import pytest
 
+from golden_shapes import charm_shape
 from mhp3ass.charms.my_charms import my_charms_text, save_my_charms
-from mhp3ass.charms.naming import charm_name
 from mhp3ass.charms.validity import CharmValidity
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Charm
@@ -29,19 +29,6 @@ from mhp3ass.savefile.import_charms import (
 )
 
 
-def _charm_fields(charm: Charm) -> dict[str, Any]:
-    """``Fixtures::WriteCharmFields`` (harness/src/Fixtures.h:44-50)."""
-    fields = {
-        "name": charm_name(charm),
-        "num_slots": charm.num_slots,
-        "abilities": [
-            {"ability": pair.ability.static_index, "amount": pair.amount}
-            for pair in charm.abilities
-        ],
-    }
-    return fields
-
-
 def _pairs(charm: Charm, game: GameData) -> list[tuple[int, int]]:
     """Each skill as (index in ordered_abilities, points)."""
     pairs = [(game.ordered_abilities.index(pair.ability), pair.amount) for pair in charm.abilities]
@@ -58,7 +45,7 @@ def _character_shape(character: ImportedCharacter | None, slot: int) -> dict[str
         "charms": [
             {
                 "raw": imported.raw.hex(),
-                **_charm_fields(imported.charm),
+                **charm_shape(imported.charm),
                 "hacked": imported.charm.hacked,
             }
             for imported in charms
