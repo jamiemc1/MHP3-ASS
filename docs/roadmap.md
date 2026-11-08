@@ -13,7 +13,7 @@ Target: parity with every feature of the original, then a better UX on top.
 | 4 | Relevance filtering (`GetRelevantData`) + charms for a query (`CharmDatabase::GetCharms`) | Yes (4a fixtures) | Done |
 | 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | No | Not started |
 | 6 | Search loop, charm modes, CLI | No | Not started |
-| 7 | Save-file charm import (PSP decryption) | No | Not started |
+| 7 | Save-file charm import (PSP decryption) | No | Done |
 | 8 | Performance: per-charm multiprocessing, profiling, pruning if needed | No | Not started |
 | 9 | Differential fuzz over ~500 random queries | Yes (one run) | Not started |
 | 10 | Textual TUI | No | Not started |
