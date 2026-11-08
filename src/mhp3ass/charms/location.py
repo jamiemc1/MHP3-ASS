@@ -20,10 +20,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from mhp3ass.charms.generation import CharmTables
-from mhp3ass.charms.validity import DecodedCharm, decode_charm_hash
+from mhp3ass.charms.validity import DecodedCharm, decode_charm_hash, generated_charm
 from mhp3ass.data import GameData
-from mhp3ass.data.text import as_unsigned, to_uint32
-from mhp3ass.model import Ability, AbilityPair, Charm
+from mhp3ass.data.text import as_signed, as_unsigned, to_uint32
+from mhp3ass.model import Ability, Charm
 
 
 class CharmNameError(ValueError):
@@ -74,23 +74,18 @@ class _SlotEntries:
     list_lengths: list[list[int]] = field(default_factory=list)
 
 
-def _signed(value: int) -> int:
-    """An ``unsigned`` read as ``int``: ``(int)points1``."""
-    as_int = value - 2**32 if value >= 2**31 else value
-    return as_int
-
-
 @dataclass
 class CharmLocationIndex:
     """``table_hashes`` grouped for ``FindCharm2``, built once per set of tables."""
 
-    abilities: list[Ability]
+    # For the example charm's abilities.
+    game: GameData
     table_count: int
     type_count: int
     slots: list[_SlotEntries]
 
     @classmethod
-    def build(cls, tables: CharmTables, abilities: list[Ability]) -> CharmLocationIndex:
+    def build(cls, tables: CharmTables, game: GameData) -> CharmLocationIndex:
         table_count = len(tables.table_hashes)
         type_count = len(tables.table_hashes[0])
         slot_count = len(tables.table_hashes[0][0])
@@ -111,16 +106,14 @@ class CharmLocationIndex:
                         held = {decoded.ability1_index, decoded.ability2_index}
                         for ability_index in held:
                             entries.by_ability.setdefault(ability_index, []).append(entry)
-        index = cls(
-            abilities=abilities, table_count=table_count, type_count=type_count, slots=slots
-        )
+        index = cls(game=game, table_count=table_count, type_count=type_count, slots=slots)
         return index
 
 
 def _matches_one_skill(decoded: DecodedCharm, ability1: int, points1: int) -> bool:
     """CharmDatabase.cpp:1055-1056: first skill (unsigned compare) or second (int compare)."""
     as_first = decoded.ability1_index == ability1 and decoded.points1 >= points1
-    as_second = decoded.ability2_index == ability1 and decoded.points2 >= _signed(points1)
+    as_second = decoded.ability2_index == ability1 and decoded.points2 >= as_signed(points1)
     return as_first or as_second
 
 
@@ -138,24 +131,9 @@ def _matches_two_skills(
         decoded.ability1_index == ability2
         and decoded.points1 >= points2
         and decoded.ability2_index == ability1
-        and decoded.points2 >= _signed(points1)
+        and decoded.points2 >= as_signed(points1)
     )
     return same_order or swapped
-
-
-def _example(hashed: int, abilities: list[Ability]) -> Charm:
-    """CharmDatabase.cpp:1066-1074: the one match, with its second ability even at <= 0 points."""
-    decoded = decode_charm_hash(hashed)
-    example = Charm(num_slots=hashed & 0x3)
-    if decoded.ability1_index != len(abilities):
-        example.abilities.append(
-            AbilityPair(ability=abilities[decoded.ability1_index], amount=decoded.points1)
-        )
-    if decoded.ability2_index != len(abilities):
-        example.abilities.append(
-            AbilityPair(ability=abilities[decoded.ability2_index], amount=decoded.points2)
-        )
-    return example
 
 
 def find_charm_location(index: CharmLocationIndex, query: CharmLocationQuery) -> CharmLocation:
@@ -194,7 +172,8 @@ def find_charm_location(index: CharmLocationIndex, query: CharmLocationQuery) ->
         if is_match:
             counts[entry.table][entry.charm_type] += 1
             matched.append(entry)
-    example = _example(matched[0].hashed, index.abilities) if len(matched) == 1 else None
+    # CharmDatabase.cpp:1066-1074: the one match, its second ability kept even at <= 0 points.
+    example = generated_charm(matched[0].hashed, index.game) if len(matched) == 1 else None
     location = CharmLocation(counts=counts, example=example)
     return location
 
@@ -249,7 +228,8 @@ def parse_charm_name(name: str, game: GameData) -> CharmLocationQuery:
                     dotnet_type="ArgumentOutOfRangeException",
                 )
             space2 = name.find(" ", comma + 2)
-            points2 = _parse_points(_substring(name, comma + 3, space2 - comma - 3))
+            # Parsed unsigned, passed to FindCharm2's int points2.
+            points2 = as_signed(_parse_points(_substring(name, comma + 3, space2 - comma - 3)))
             ability2 = game.ability_map.get(_substring(name, space2 + 1, len(name) - space2 - 5))
     query = CharmLocationQuery(
         ability1=ability1,

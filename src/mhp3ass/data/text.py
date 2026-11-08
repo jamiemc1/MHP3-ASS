@@ -142,3 +142,10 @@ def as_unsigned(value: int) -> int:
     """Store ``value`` in a C++ ``unsigned`` (32-bit, wraps on overflow and underflow)."""
     wrapped = value & 0xFFFFFFFF
     return wrapped
+
+
+def as_signed(value: int) -> int:
+    """Store ``value`` in a C++ ``int`` (32-bit two's complement), as ``(int)unsigned`` does."""
+    unsigned = as_unsigned(value)
+    signed = unsigned - 2**32 if unsigned >= 2**31 else unsigned
+    return signed

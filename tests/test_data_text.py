@@ -7,6 +7,7 @@ import codecs
 import pytest
 
 from mhp3ass.data.text import (
+    as_signed,
     as_unsigned,
     dotnet_trim,
     read_lines,
@@ -118,3 +119,12 @@ def test_to_boolean_rejects_what_boolean_parse_rejects(text):
 
 def test_as_unsigned_wraps_like_cpp():
     assert [as_unsigned(-1), as_unsigned(2**32 + 5)] == [2**32 - 1, 5]
+
+
+def test_as_signed_reads_unsigned_like_cpp():
+    assert [as_signed(2**32 - 1), as_signed(2**31), as_signed(2**31 - 1), as_signed(-5)] == [
+        -1,
+        -(2**31),
+        2**31 - 1,
+        -5,
+    ]
