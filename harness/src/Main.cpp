@@ -23,7 +23,7 @@ namespace
 		Console::Error->WriteLine( L"  Harness dump-charms  --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness dump-models  [<mycharms.txt>...] --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness decrypt-save <save.bin> --out <file.json[.gz]> [--lang <language>] [--run-dir <dir>]" );
-		Console::Error->WriteLine( L"  Harness search       <query.json> --out <prefix> [--candidates] [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness search       <query.json> --out <prefix> [--candidates] [--max-solution-lines <n>] [--record-exceptions] [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness relevance    <query.json> --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness best-decorations --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness solution-probes  --out <file.json[.gz]> [--run-dir <dir>]" );
@@ -47,8 +47,12 @@ namespace
 		String^ run_dir;
 		bool names_only;
 		bool candidates;
+		int max_solution_lines;
+		bool record_exceptions;
 
-		Options() : positional( gcnew List< String^ > ), names_only( false ), candidates( false ) {}
+		Options()
+			: positional( gcnew List< String^ > ), names_only( false ), candidates( false ),
+			  max_solution_lines( -1 ), record_exceptions( false ) {}
 	};
 
 	String^ OptionValue( array< String^ >^ args, int% i )
@@ -72,6 +76,15 @@ namespace
 				options->run_dir = OptionValue( args, i );
 			else if( arg == L"--candidates" )
 				options->candidates = true;
+			else if( arg == L"--max-solution-lines" )
+			{
+				int value = 0;
+				if( !Int32::TryParse( OptionValue( args, i ), value ) || value < 0 )
+					throw gcnew ArgumentException( L"--max-solution-lines needs a whole number of at least 0" );
+				options->max_solution_lines = value;
+			}
+			else if( arg == L"--record-exceptions" )
+				options->record_exceptions = true;
 			else if( arg == L"--names-only" )
 				options->names_only = true;
 			else if( arg->StartsWith( L"--" ) )
@@ -126,9 +139,9 @@ int main( array< String^ >^ args )
 		Console::Error->WriteLine( L"--names-only only applies to dump-data" );
 		return Usage();
 	}
-	if( options->candidates && options->command != L"search" )
+	if( ( options->candidates || options->max_solution_lines >= 0 || options->record_exceptions ) && options->command != L"search" )
 	{
-		Console::Error->WriteLine( L"--candidates only applies to search" );
+		Console::Error->WriteLine( L"--candidates, --max-solution-lines and --record-exceptions only apply to search" );
 		return Usage();
 	}
 	if( ( options->command == L"search" || options->command == L"relevance" || options->command == L"traces" ) && options->language != nullptr )
@@ -175,7 +188,7 @@ int main( array< String^ >^ args )
 	{
 		options->language = QueryFile::Language( inputs[ 0 ] );
 		LoadGameData( options );
-		SearchDump::Run( inputs[ 0 ], out_path, options->candidates );
+		SearchDump::Run( inputs[ 0 ], out_path, options->candidates, options->max_solution_lines, options->record_exceptions );
 	}
 	else if( options->command == L"relevance" && inputs->Count == 1 )
 	{
