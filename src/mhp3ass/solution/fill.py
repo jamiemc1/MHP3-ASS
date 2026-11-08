@@ -219,3 +219,122 @@ def add_decorations1(
         if not added:
             i += 1
     return num_slots
+
+
+def calculate_decorations(
+    data: CalculationData, *, allow_bad: bool, allow_detrimental: bool
+) -> None:
+    """``CalculateDecorations< allow_bad, allow_detrimental >`` (Solution.cpp:406-485).
+
+    Fills the body's free slots and the other slot groups, 3-slot then 2-slot
+    then 1-slot decorations. Body decorations count ``torso_multiplier`` times.
+    A free group can take smaller decorations: ``temp_slots`` and
+    ``body_slots`` model the leftovers (a 3 becomes a 2 and a 1), and the
+    arithmetic after each size converts ``slots_spare`` back to whole groups.
+    The 1-slot conversion can leave an intermediate below zero that only the
+    unsigned wrap puts right (``:478``), so every store is ``as_unsigned``.
+    The body's 1-slot pass runs without overkill, then again with it if
+    slots remain.
+    """
+    solution = data.solution
+    slots_spare = solution.slots_spare
+    if slots_spare is None:
+        # The original dereferences the null array handle here.
+        raise ValueError("slots_spare is allocated by get_initial_data first")
+    multiplier = solution.torso_multiplier
+    flags = {"allow_bad": allow_bad, "allow_detrimental": allow_detrimental}
+    body_slots = [0, 0, 0, 0]
+    temp_slots = [0, slots_spare[1], slots_spare[2], slots_spare[3]]
+
+    # The body's free slots are one group (Solution.cpp:417).
+    body_slots[solution.torso_slots_spare] = as_unsigned(
+        body_slots[solution.torso_slots_spare] + (solution.torso_slots_spare != 0)
+    )
+
+    body_slots[3] = add_decorations23(
+        data, 3, body_slots[3], multiplier, solution.body_decorations, **flags
+    )
+    body_slots[1] = as_unsigned(body_slots[1] + body_slots[3])
+    body_slots[2] = as_unsigned(body_slots[2] + body_slots[3])
+    body_slots[3] = 0
+    temp_slots[3] = add_decorations23(
+        data, 3, temp_slots[3], 1, solution.non_body_decorations, **flags
+    )
+    slots_spare[3] = as_unsigned(slots_spare[3] - (slots_spare[3] - temp_slots[3]))
+    temp_slots[1] = as_unsigned(temp_slots[1] + temp_slots[3])
+    temp_slots[2] = as_unsigned(temp_slots[2] + temp_slots[3])
+    temp_slots[3] = 0
+
+    body_slots[2] = add_decorations23(
+        data, 2, body_slots[2], multiplier, solution.body_decorations, **flags
+    )
+    body_slots[1] = as_unsigned(body_slots[1] + 2 * body_slots[2])
+    body_slots[2] = 0
+    before = temp_slots[2]
+    temp_slots[2] = add_decorations23(
+        data, 2, temp_slots[2], 1, solution.non_body_decorations, **flags
+    )
+    num_2slot_decorations = as_unsigned(before - temp_slots[2])
+    if num_2slot_decorations > slots_spare[2]:
+        # More 2-slot decorations than 2-slot groups: the rest went into 3s.
+        to_convert = as_unsigned(num_2slot_decorations - slots_spare[2])
+        slots_spare[3] = as_unsigned(slots_spare[3] - to_convert)
+        slots_spare[2] = 0
+        slots_spare[1] = as_unsigned(slots_spare[1] + to_convert)
+    else:
+        slots_spare[2] = as_unsigned(slots_spare[2] - num_2slot_decorations)
+    temp_slots[1] = as_unsigned(temp_slots[1] + 2 * temp_slots[2])
+    temp_slots[2] = 0
+
+    body_slots[1] = add_decorations1(
+        data,
+        body_slots[1],
+        multiplier,
+        solution.body_decorations,
+        allow_bad=allow_bad,
+        allow_overkill=False,
+    )
+    before = temp_slots[1]
+    temp_slots[1] = add_decorations1(
+        data,
+        temp_slots[1],
+        1,
+        solution.non_body_decorations,
+        allow_bad=allow_bad,
+        allow_overkill=True,
+    )
+    num_1slot_decorations = as_unsigned(before - temp_slots[1])
+    if num_1slot_decorations > slots_spare[1]:
+        # More 1-slot decorations than 1-slot groups: the rest went into 2s,
+        # and past those into 3s.
+        extra = as_unsigned(num_1slot_decorations - slots_spare[1])
+        if extra > as_unsigned(slots_spare[2] * 2):
+            extra3 = as_unsigned(extra - slots_spare[2] * 2)
+            num_3_convert = as_unsigned(extra3 // 3 + (extra3 % 3 != 0))
+            slots_spare[3] = as_unsigned(slots_spare[3] - num_3_convert)
+            if as_unsigned(num_3_convert * 3) > extra:
+                super_extra = as_unsigned(num_3_convert * 3 - extra)
+                slots_spare[2] = as_unsigned(slots_spare[2] + super_extra // 2)
+                slots_spare[1] = as_unsigned(slots_spare[1] + super_extra % 2)
+                num_1slot_decorations = as_unsigned(num_1slot_decorations - extra)
+                extra = 0
+            else:
+                extra = as_unsigned(extra - num_3_convert * 3)
+                num_1slot_decorations = as_unsigned(num_1slot_decorations - num_3_convert * 3)
+        num_2_slots = as_unsigned(extra // 2 + extra % 2)
+        slots_spare[2] = as_unsigned(slots_spare[2] - num_2_slots)
+        slots_spare[1] = as_unsigned(
+            slots_spare[1] - as_unsigned(num_1slot_decorations - num_2_slots * 2)
+        )
+    else:
+        slots_spare[1] = as_unsigned(slots_spare[1] - num_1slot_decorations)
+    if body_slots[1]:
+        body_slots[1] = add_decorations1(
+            data,
+            body_slots[1],
+            multiplier,
+            solution.body_decorations,
+            allow_bad=allow_bad,
+            allow_overkill=True,
+        )
+    solution.torso_slots_spare = body_slots[1]
