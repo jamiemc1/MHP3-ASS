@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import gzip
 import json
-import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -71,6 +70,7 @@ class TraceGolden:
     """Harness traces output for one spec: a header line, then one line per sample."""
 
     name: str
+    spec_path: Path
     spec: dict[str, Any]
     query_path: Path
     query: dict[str, Any]
@@ -83,14 +83,13 @@ def read_trace_goldens(spec_dir: Path, golden_dir: Path) -> list[TraceGolden]:
     goldens = []
     for spec_path in sorted(spec_dir.glob("*.json")):
         spec = read_golden(spec_path)
-        # Normalised but not resolved: tests/savefile/ may hold symlinks, and the
-        # query must stay under it to be recognised as personal.
-        query_path = Path(os.path.normpath(spec_path.parent / spec["query"]))
+        query_path = (spec_path.parent / spec["query"]).resolve()
         rows = [
             json.loads(line) for line in _read_gzip_lines(golden_dir / f"{spec_path.stem}.jsonl.gz")
         ]
         golden = TraceGolden(
             name=spec_path.stem,
+            spec_path=spec_path,
             spec=spec,
             query_path=query_path,
             query=read_golden(query_path),
