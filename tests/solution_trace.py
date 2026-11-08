@@ -18,6 +18,10 @@ from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
+from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
+from mhp3ass.solution.extra_skills import calculate_extra_skills
+from mhp3ass.solution.fill import calculate_decorations
+from mhp3ass.solution.initial import get_initial_data
 from mhp3ass.solution.state import CalculationData, Solution, new_calculation_data
 
 
@@ -31,6 +35,25 @@ class TraceCase:
     template: Charm | None
     # Stage name -> every field as of that stage (the trace stores changes only).
     states: dict[str, dict[str, Any]]
+    # Stage name -> the stage's results (points: accepted; fix_bad: called,
+    # result; reorder: result), for the stages that have any.
+    results: dict[str, dict[str, Any]]
+
+
+# The trace fields that are a stage's results rather than solution state.
+RESULT_FIELDS = frozenset({"accepted", "called", "result"})
+
+
+@dataclass(frozen=True)
+class Stage:
+    """One replayed stage: ``run`` returns the stage's results (or ``None``), and
+    ``applies`` says, from the port's results so far, whether ``MatchesQuery``
+    runs this stage at all. A stage without ``applies`` runs whenever the trace
+    has it."""
+
+    name: str
+    run: Callable[[CalculationData], dict[str, Any] | None]
+    applies: Callable[[CalculationData, dict[str, dict[str, Any]]], bool] | None = None
 
 
 def _template_charm(template: dict[str, Any] | None, game: GameData) -> Charm | None:
@@ -49,13 +72,22 @@ def _template_charm(template: dict[str, Any] | None, game: GameData) -> Charm | 
 
 def _full_states(stages: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Each stage's complete state: the trace's deltas applied in order."""
-    results = {"stage", "accepted", "called", "result"}
+    not_state = RESULT_FIELDS | {"stage"}
     state: dict[str, Any] = {}
     states = {}
     for stage in stages:
-        state.update({key: value for key, value in stage.items() if key not in results})
+        state.update({key: value for key, value in stage.items() if key not in not_state})
         states[stage["stage"]] = dict(state)
     return states
+
+
+def _stage_results(stages: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    results = {
+        stage["stage"]: {key: value for key, value in stage.items() if key in RESULT_FIELDS}
+        for stage in stages
+        if RESULT_FIELDS & stage.keys()
+    }
+    return results
 
 
 def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCase]:
@@ -85,6 +117,7 @@ def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCas
                 armors=armors,
                 template=templates[sample["worker"]],
                 states=_full_states(sample["stages"]),
+                results=_stage_results(sample["stages"]),
             )
             yield case
 
@@ -125,34 +158,132 @@ def snapshot(solution: Solution, data: CalculationData, skill_index: dict[Skill,
     return state
 
 
+def _as_stage(stage: Stage | tuple[str, Callable[[CalculationData], None]]) -> Stage:
+    if isinstance(stage, Stage):
+        return stage
+    name, run = stage
+    as_stage = Stage(name=name, run=run)
+    return as_stage
+
+
+def _difference(
+    case: TraceCase,
+    name: str,
+    results: dict[str, Any] | None,
+    data: CalculationData,
+    skill_index: dict[Skill, int],
+) -> str | None:
+    """How the port's state and results after stage ``name`` differ from the trace's."""
+    ours = snapshot(data.solution, data, skill_index)
+    expected = case.states[name]
+    # Every field on both sides: a field the trace never wrote counts as a
+    # difference, not as unchecked.
+    fields = expected.keys() | ours.keys()
+    differing = sorted(key for key in fields if ours.get(key) != expected.get(key))
+    expected_results = case.results.get(name, {})
+    if (results or {}) != expected_results:
+        differing.append(f"results {results} != {expected_results}")
+    difference = f"{case.label} {name}: {differing}" if differing else None
+    return difference
+
+
 def stage_mismatches(
     goldens: list[TraceGolden],
     game: GameData,
-    stages: Sequence[tuple[str, Callable[[CalculationData], None]]],
+    stages: Sequence[Stage | tuple[str, Callable[[CalculationData], None]]],
 ) -> list[str]:
-    """Replays ``stages`` (name, port function) in order for every sample and lists
-    each stage whose state differs from the trace's, with the differing fields.
+    """Replays ``stages`` in order for every sample and lists each stage whose
+    state or results differ from the trace's, with the differing fields.
 
-    A sample stops at the first stage its trace doesn't have (it was rejected
-    or threw earlier).
+    A stage without ``applies`` runs when the trace has it; a sample stops at
+    the first such stage its trace lacks (it was rejected or threw earlier).
+    A stage with ``applies`` must be in the trace exactly when ``applies``
+    says ``MatchesQuery`` runs it, and is skipped when it doesn't.
     """
     skill_index = {skill: index for index, skill in enumerate(game.skills)}
+    replayed = [_as_stage(stage) for stage in stages]
     mismatches = []
     for case in trace_cases(goldens, game):
         charm = case.template.copy() if case.template is not None else None
         solution = Solution(armors=list(case.armors), charm=charm)
         data = new_calculation_data(solution, case.query)
-        for name, run_stage in stages:
-            if name not in case.states:
+        results_so_far: dict[str, dict[str, Any]] = {}
+        for stage in replayed:
+            traced = stage.name in case.states
+            if stage.applies is None:
+                if not traced:
+                    break
+            else:
+                runs = stage.applies(data, results_so_far)
+                if runs != traced:
+                    mismatches.append(f"{case.label} {stage.name}: port runs it {runs}")
+                    break
+                if not runs:
+                    continue
+            results = stage.run(data)
+            difference = _difference(case, stage.name, results, data, skill_index)
+            if difference is not None:
+                mismatches.append(difference)
                 break
-            run_stage(data)
-            ours = snapshot(solution, data, skill_index)
-            expected = case.states[name]
-            # Every field on both sides: a field the trace never wrote counts as a
-            # difference, not as unchecked.
-            fields = expected.keys() | ours.keys()
-            differing = sorted(key for key in fields if ours.get(key) != expected.get(key))
-            if differing:
-                mismatches.append(f"{case.label} {name}: {differing}")
-                break
+            results_so_far[stage.name] = results or {}
     return mismatches
+
+
+def _points_check(data: CalculationData) -> dict[str, Any]:
+    """MatchesQuery's points check (Solution.cpp:674-680): every query skill reached."""
+    abilities = data.solution.abilities
+    accepted = all(
+        abilities[skill.ability] >= data.need[skill.ability] for skill in data.query.skills
+    )
+    results = {"accepted": accepted}
+    return results
+
+
+def _fill_as_matches_query(data: CalculationData) -> None:
+    """MatchesQuery's filling pass (Solution.cpp:673): both flags set, whatever the query."""
+    calculate_decorations(data, allow_bad=True, allow_detrimental=True)
+
+
+def _extra(data: CalculationData) -> None:
+    calculate_extra_skills(data)
+
+
+def matches_query_stages(game: GameData) -> list[Stage]:
+    """MatchesQuery's stages up to its bad-skill check (Solution.cpp:672-684), with
+    CheckBadSkills' short-circuit (:114) unrolled into its two repairs, as the
+    harness traces them."""
+
+    def accepted(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
+        return results["points"]["accepted"]
+
+    def needs_fixing(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
+        fixing = (
+            accepted(data, results)
+            and not data.query.allow_bad
+            and len(data.solution.bad_skills) > 0
+        )
+        return fixing
+
+    def fix_bad(data: CalculationData) -> dict[str, Any]:
+        called = data.solution.total_slots_spare > 0
+        fixed = called and fix_bad_skills(data, game)
+        results = {"called": called, "result": fixed}
+        return results
+
+    def fix_failed(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
+        failed = "fix_bad" in results and not results["fix_bad"]["result"]
+        return failed
+
+    def reorder(data: CalculationData) -> dict[str, Any]:
+        results = {"result": reorder_gems(data, game)}
+        return results
+
+    stages = [
+        Stage(name="initial", run=get_initial_data),
+        Stage(name="decorated", run=_fill_as_matches_query),
+        Stage(name="points", run=_points_check),
+        Stage(name="extra", run=_extra, applies=accepted),
+        Stage(name="fix_bad", run=fix_bad, applies=needs_fixing),
+        Stage(name="reorder", run=reorder, applies=fix_failed),
+    ]
+    return stages
