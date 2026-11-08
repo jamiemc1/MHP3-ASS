@@ -113,6 +113,17 @@ def _boolean(spec: dict[str, Any], key: str) -> bool:
     return value
 
 
+def offered_skills(game: GameData) -> list[int]:
+    """Indices of the skills the GUI's drop-downs can offer, in skill-list order.
+
+    ``InitSkills`` (Form1.h:224-247) lists a skill only with positive points;
+    its tag filter narrows one drop-down, but filter 0 lists them all. The
+    Blademaster and Gunner tabs build the same lists (:253-254).
+    """
+    offered = [index for index, skill in enumerate(game.skills) if skill.points_required > 0]
+    return offered
+
+
 def rank_locked(hr: int, elder_star: int, query: Query) -> bool:
     """Locked only when both the HR and the village stars it needs are above the
     query's (Armor.cpp:113, Decoration.cpp:112, :129)."""

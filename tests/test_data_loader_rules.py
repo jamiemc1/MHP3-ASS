@@ -10,6 +10,7 @@ import pytest
 
 from data_rows import armor_row, decoration_row
 from mhp3ass.data import apply_language, load_game_data
+from mhp3ass.data.loaders import read_skill_types
 from mhp3ass.model import ArmorType
 
 
@@ -143,3 +144,18 @@ def test_armor_name_in_two_slots_fails(minimal_data_files, write_files):
 
     with pytest.raises(ValueError):
         load_game_data(write_files(minimal_data_files))
+
+
+def test_skill_types_skip_the_rows_load_skills_skips(minimal_data_files, write_files):
+    minimal_data_files["skills.txt"] = (
+        "#name,jname,ability,jability,points,type,tag,order\n"
+        "Attack Up,j,Attack,j,10,1,Offensive,0\n"
+        "Torso Up,j,,j,0,0,,1\n"
+        "Defense Up,j,Defense,j,10,2,,2\n"
+        "\n"
+        "Late Skill,j,Late,j,10,0,,3\n"
+    )
+
+    types = read_skill_types(write_files(minimal_data_files) / "skills.txt")
+
+    assert types == [1, 2]
