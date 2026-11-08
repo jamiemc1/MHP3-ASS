@@ -10,9 +10,11 @@ from data_rows import armor_row, decoration_row
 from goldens import (
     RelevanceGolden,
     SearchGolden,
+    TraceGolden,
     read_golden,
     read_relevance_goldens,
     read_search_goldens,
+    read_trace_goldens,
 )
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
@@ -178,10 +180,14 @@ def search_goldens(repo_root: Path) -> list[SearchGolden]:
 
 @pytest.fixture(scope="session")
 def relevance_goldens(repo_root: Path) -> list[RelevanceGolden]:
-    """Relevance output for every committed corpus and relevance-only query."""
+    """Relevance output for every committed corpus, relevance-only and trace query."""
     tests_dir = repo_root / "tests"
     return read_relevance_goldens(
-        query_dirs=[tests_dir / "corpus", tests_dir / "relevance"],
+        query_dirs=[
+            tests_dir / "corpus",
+            tests_dir / "relevance",
+            tests_dir / "traces" / "queries",
+        ],
         golden_dir=tests_dir / "golden" / "relevance",
     )
 
@@ -312,6 +318,27 @@ def personal_relevance_goldens(savefile_dir: Path) -> list[RelevanceGolden]:
     if not golden_dir.is_dir():
         pytest.skip("no personal relevance goldens; run scripts/windows/generate-goldens.ps1")
     return read_relevance_goldens(query_dirs=[corpus_dir], golden_dir=golden_dir)
+
+
+@pytest.fixture(scope="session")
+def trace_goldens(repo_root: Path) -> list[TraceGolden]:
+    """MatchesQuery traces for every committed trace spec."""
+    tests_dir = repo_root / "tests"
+    return read_trace_goldens(
+        spec_dir=tests_dir / "traces", golden_dir=tests_dir / "golden" / "traces"
+    )
+
+
+@pytest.fixture(scope="session")
+def personal_trace_goldens(savefile_dir: Path) -> list[TraceGolden]:
+    """MatchesQuery traces for the personal corpus queries."""
+    spec_dir = savefile_dir / "traces"
+    golden_dir = savefile_dir / "golden" / "traces"
+    if not spec_dir.is_dir():
+        pytest.skip("no personal trace specs in tests/savefile/traces")
+    if not golden_dir.is_dir():
+        pytest.skip("no personal trace goldens; run scripts/windows/generate-goldens.ps1")
+    return read_trace_goldens(spec_dir=spec_dir, golden_dir=golden_dir)
 
 
 @pytest.fixture(scope="session")

@@ -65,6 +65,39 @@ def read_relevance_goldens(query_dirs: list[Path], golden_dir: Path) -> list[Rel
     return goldens
 
 
+@dataclass(frozen=True)
+class TraceGolden:
+    """Harness traces output for one spec: a header line, then one line per sample."""
+
+    name: str
+    spec: dict[str, Any]
+    query_path: Path
+    query: dict[str, Any]
+    header: dict[str, Any]
+    samples: list[dict[str, Any]]
+
+
+def read_trace_goldens(spec_dir: Path, golden_dir: Path) -> list[TraceGolden]:
+    """Pair each spec in ``spec_dir`` with ``<golden_dir>/<name>.jsonl.gz`` and its query."""
+    goldens = []
+    for spec_path in sorted(spec_dir.glob("*.json")):
+        spec = read_golden(spec_path)
+        query_path = (spec_path.parent / spec["query"]).resolve()
+        rows = [
+            json.loads(line) for line in _read_gzip_lines(golden_dir / f"{spec_path.stem}.jsonl.gz")
+        ]
+        golden = TraceGolden(
+            name=spec_path.stem,
+            spec=spec,
+            query_path=query_path,
+            query=read_golden(query_path),
+            header=rows[0],
+            samples=rows[1:],
+        )
+        goldens.append(golden)
+    return goldens
+
+
 def read_search_goldens(corpus_dir: Path, golden_dir: Path) -> list[SearchGolden]:
     """Pair each corpus query with the harness output generated from it."""
     goldens = []
