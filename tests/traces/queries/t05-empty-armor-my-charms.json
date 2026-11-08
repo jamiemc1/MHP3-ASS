@@ -1,0 +1,32 @@
+{
+  "id": "t05",
+  "description": "HR 1, village 1, no low-rank armour (every armour slot empty), Poison charms: RearrangeDecorations reaches PotentialSpareSlots with no armour",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "my_charms": [
+    "1,Poison,1,,",
+    "1,Poison,2,,",
+    "1,Poison,3,,",
+    "1,Poison,4,,",
+    "1,Poison,5,,",
+    "2,Poison,1,,",
+    "2,Poison,2,,",
+    "2,Poison,3,,",
+    "2,Poison,4,,"
+  ],
+  "skills": [
+    122
+  ],
+  "skill_names": [
+    "Poison Negated"
+  ]
+}

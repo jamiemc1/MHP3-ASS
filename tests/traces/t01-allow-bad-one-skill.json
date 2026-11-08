@@ -1,0 +1,4 @@
+{
+  "query": "queries/t01-allow-bad-one-skill.json",
+  "stride": 200
+}

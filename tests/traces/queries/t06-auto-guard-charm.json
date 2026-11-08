@@ -1,0 +1,26 @@
+{
+  "id": "t06",
+  "description": "Auto-Guard + Guard +1 with the Auto-Guard charm: the Auto-Guard worker",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "my_charms": [
+    "0,Auto-Guard,10,,"
+  ],
+  "skills": [
+    119,
+    115
+  ],
+  "skill_names": [
+    "Auto-Guard",
+    "Guard +1"
+  ]
+}
