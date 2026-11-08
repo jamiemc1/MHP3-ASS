@@ -18,6 +18,19 @@ namespace Fixtures
 		return System::BitConverter::ToString( bytes )->Replace( L"-", L"" )->ToLowerInvariant();
 	}
 
+	inline System::String^ Sha256Hex( array< System::Byte >^ data )
+	{
+		System::Security::Cryptography::SHA256^ sha = System::Security::Cryptography::SHA256::Create();
+		try
+		{
+			return HexLower( sha->ComputeHash( data ) );
+		}
+		finally
+		{
+			delete sha;
+		}
+	}
+
 	inline void WriteAbilityRef( JsonWriter^ json, Ability^ ability )
 	{
 		if( !ability )

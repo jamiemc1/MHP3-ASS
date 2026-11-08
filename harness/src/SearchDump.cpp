@@ -61,19 +61,24 @@ namespace
 	public:
 		List_t< Solution^ > all_solutions;
 
-		int AddSolutions( List_t< Solution^ >^ solutions )
+		// Returns the solutions it kept, in the order it appended them.
+		List< Solution^ >^ AddSolutions( List_t< Solution^ >^ solutions )
 		{
-			const int before = all_solutions.Count;
+			List< Solution^ >^ added = gcnew List< Solution^ >;
 			for each( Solution^ sol in solutions )
 			{
 				if( sol->charm )
-					AddSolution( sol->charm->GetName(), sol );
+				{
+					if( AddSolution( sol->charm->GetName(), sol ) )
+						added->Add( sol );
+				}
 				else
 				{
 					all_solutions.Add( sol );
+					added->Add( sol );
 				}
 			}
-			return all_solutions.Count - before;
+			return added;
 		}
 
 	private:
@@ -111,10 +116,11 @@ namespace
 			}
 		}
 
-		void AddSolution( String^ charm, Solution^ sol )
+		bool AddSolution( String^ charm, Solution^ sol )
 		{
-			if( SolutionExists( charm, sol ) ) return;
+			if( SolutionExists( charm, sol ) ) return false;
 			all_solutions.Add( sol );
+			return true;
 		}
 	};
 
@@ -181,18 +187,32 @@ namespace
 
 	// SHA-256 of the lines' text as WriteText encodes it (UTF-8, no BOM),
 	// before compression, so the hash doesn't depend on the gzip encoder.
+	// Fed a line at a time, so a large result isn't copied into one string.
 	String^ LinesSha256( List< String^ >^ lines )
 	{
-		array< Byte >^ bytes = ( gcnew Text::UTF8Encoding( false ) )->GetBytes( LinesText( lines ) );
+		Text::UTF8Encoding^ utf8 = gcnew Text::UTF8Encoding( false );
 		Security::Cryptography::SHA256^ sha = Security::Cryptography::SHA256::Create();
 		try
 		{
-			return Fixtures::HexLower( sha->ComputeHash( bytes ) );
+			for each( String^ line in lines )
+			{
+				array< Byte >^ bytes = utf8->GetBytes( line + L"\n" );
+				sha->TransformBlock( bytes, 0, bytes->Length, nullptr, 0 );
+			}
+			sha->TransformFinalBlock( gcnew array< Byte >( 0 ), 0, 0 );
+			return Fixtures::HexLower( sha->Hash );
 		}
 		finally
 		{
 			delete sha;
 		}
+	}
+
+	// The harness's own failures, which are never the legacy search's result.
+	bool IsHarnessFailure( Exception^ error )
+	{
+		return dynamic_cast< OutOfMemoryException^ >( error ) != nullptr ||
+			   dynamic_cast< InsufficientExecutionStackException^ >( error ) != nullptr;
 	}
 }
 
@@ -228,30 +248,29 @@ void SearchDump::Run( String^ query_path, String^ out_prefix, const bool write_c
 	Exception^ worker_exception = nullptr;
 	int failed_worker = -1;
 	List< Charm^ >^ worker_charms = query->skills.Count > 0 ? WorkerCharms( query, charm_select ) : gcnew List< Charm^ >;
+	// Workers past a recorded exception don't run, so they're missing from "workers".
+	json->Field( L"worker_count", worker_charms->Count );
 	json->Key( L"workers" );
 	json->BeginArray();
 	for( int worker = 0; worker < worker_charms->Count; ++worker )
 	{
 		Charm^ charm = worker_charms[ worker ];
 		List< Solution^ >^ found = nullptr;
-		if( record_exceptions )
+		try
 		{
+			found = RunWorker( query, charm );
+		}
+		catch( Exception^ error )
+		{
+			if( !record_exceptions || IsHarnessFailure( error ) )
+				throw;
 			// In the GUI a throwing worker shows a message box and its result is
 			// lost, while results already reported stay, depending on timing
 			// (Form1.h:1804-1811). Nothing past the throw is contract, so stop.
-			try
-			{
-				found = RunWorker( query, charm );
-			}
-			catch( Exception^ error )
-			{
-				worker_exception = error;
-				failed_worker = worker;
-				break;
-			}
+			worker_exception = error;
+			failed_worker = worker;
+			break;
 		}
-		else
-			found = RunWorker( query, charm );
 		if( write_candidates )
 		{
 			for each( Solution^ solution in found )
@@ -260,19 +279,17 @@ void SearchDump::Run( String^ query_path, String^ out_prefix, const bool write_c
 				candidates->Add( Convert::ToString( worker ) + L"\t" + charm_name + L"\t" + SolutionLine( solution ) );
 			}
 		}
-		const int before = results.all_solutions.Count;
-		const int added = results.AddSolutions( found );
-		// AddSolutions only appends, so this worker's lines are the new tail.
+		List< Solution^ >^ added = results.AddSolutions( found );
 		List< String^ >^ added_lines = gcnew List< String^ >;
-		for( int i = before; i < results.all_solutions.Count; ++i )
-			added_lines->Add( SolutionLine( results.all_solutions[ i ] ) );
+		for each( Solution^ solution in added )
+			added_lines->Add( SolutionLine( solution ) );
 		lines->AddRange( added_lines );
 		json->BeginObject();
 		json->Field( L"worker", worker );
 		// Charm has a member operator==, so "charm == nullptr" would call it: test the handle.
 		json->Field( L"charm", charm ? charm->GetName() : nullptr );
 		json->Field( L"found", found->Count );
-		json->Field( L"added", added );
+		json->Field( L"added", added->Count );
 		json->Field( L"added_sha256", LinesSha256( added_lines ) );
 		json->EndObject();
 	}
@@ -304,8 +321,11 @@ void SearchDump::Run( String^ query_path, String^ out_prefix, const bool write_c
 	json->EndObject();
 
 	json->WriteToFile( out_prefix + L".manifest.json" );
+	String^ solutions_path = out_prefix + L".solutions.txt.gz";
 	if( write_solutions )
-		WriteLines( out_prefix + L".solutions.txt.gz", lines );
+		WriteLines( solutions_path, lines );
+	else if( IO::File::Exists( solutions_path ) )
+		IO::File::Delete( solutions_path );
 	if( write_candidates )
 		WriteLines( out_prefix + L".candidates.txt.gz", candidates );
 }
