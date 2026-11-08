@@ -8,13 +8,16 @@ namespace SolutionProbe
 	// indices up to 20 on shipped data. In this build the words after the
 	// array are CLR method thunks, patched in at load time, so their values
 	// change from run to run. GetScore's result is only ever compared
-	// (Solution.cpp:338), so the fixture records the comparisons instead: the
-	// in-bounds values, that every out-of-bounds value is above all of them,
-	// and their order (with the gaps between them). Also lists the private
-	// Solution methods the trace fixtures call through reflection, so a
-	// missing one fails here first.
+	// (Solution.cpp:338), so the fixture records the in-bounds values and the
+	// rank of every value. Also lists the private Solution methods the trace
+	// fixtures call through reflection, so a missing one fails here first.
 	void Write( System::String^ out_path );
 
 	// point_score[ 0 .. count - 1 ] as GetScore returns it.
 	array< int >^ PointScores( const unsigned count );
+
+	// Dense rank of each of PointScores( count ): equal scores share a rank, and
+	// a higher score has a higher rank. This is all GetBestDecoration's
+	// comparison can see.
+	array< int >^ PointScoreRanks( const unsigned count );
 }

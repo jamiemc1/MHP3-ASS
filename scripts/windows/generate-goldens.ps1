@@ -99,9 +99,27 @@ function Invoke-Relevance([string[]]$queryDirs, [string]$outDir) {
     }
 }
 
-Invoke-Relevance @((Join-Path $repoRoot "tests\corpus"), (Join-Path $repoRoot "tests\relevance")) `
+Invoke-Relevance @((Join-Path $repoRoot "tests\corpus"), (Join-Path $repoRoot "tests\relevance"), (Join-Path $repoRoot "tests\traces\queries")) `
     (Join-Path $repoRoot "tests\golden\relevance")
 Invoke-Relevance @(, (Join-Path $repoRoot "tests\savefile\corpus")) (Join-Path $repoRoot "tests\savefile\golden\relevance")
+
+function Invoke-Traces([string]$specDir, [string]$outDir) {
+    # Start clean so traces of renamed or deleted specs don't linger.
+    if (Test-Path $outDir) {
+        Get-ChildItem -File -Filter "*.jsonl.gz" $outDir | Remove-Item
+    }
+    if (-not (Test-Path $specDir)) {
+        return
+    }
+    New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+    foreach ($spec in Get-ChildItem -File -Filter "*.json" $specDir) {
+        Invoke-Harness traces $spec.FullName --out (Join-Path $outDir "$($spec.BaseName).jsonl.gz")
+    }
+}
+
+# The six-skill specs replay every combination twice: about 3 minutes in all.
+Invoke-Traces (Join-Path $repoRoot "tests\traces") (Join-Path $repoRoot "tests\golden\traces")
+Invoke-Traces (Join-Path $repoRoot "tests\savefile\traces") (Join-Path $repoRoot "tests\savefile\golden\traces")
 
 $save = Join-Path $repoRoot "tests\savefile\MHP3RD.BIN"
 if (Test-Path $save) {

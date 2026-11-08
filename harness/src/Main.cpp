@@ -8,6 +8,7 @@
 #include "SaveDump.h"
 #include "SearchDump.h"
 #include "SolutionProbe.h"
+#include "TraceDump.h"
 
 using namespace System;
 using namespace System::Collections::Generic;
@@ -25,9 +26,10 @@ namespace
 		Console::Error->WriteLine( L"  Harness relevance    <query.json> --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness best-decorations --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness solution-probes  --out <file.json[.gz]> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness traces       <spec.json> --out <file.jsonl[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
 		Console::Error->WriteLine( L"search writes <prefix>.manifest.json and <prefix>.solutions.txt.gz, in the query's language." );
-		Console::Error->WriteLine( L"search and relevance take their language from the query file." );
+		Console::Error->WriteLine( L"search, relevance and traces take their language from the query file." );
 		Console::Error->WriteLine( L"<language> is a folder name under Data/Languages, e.g. \"English (TeamHGG)\"." );
 		Console::Error->WriteLine( L"Output ending in .gz is gzip-compressed." );
 		Console::Error->WriteLine( L"--run-dir defaults to legacy/Run beside this harness." );
@@ -127,7 +129,7 @@ int main( array< String^ >^ args )
 		Console::Error->WriteLine( L"--candidates only applies to search" );
 		return Usage();
 	}
-	if( ( options->command == L"search" || options->command == L"relevance" ) && options->language != nullptr )
+	if( ( options->command == L"search" || options->command == L"relevance" || options->command == L"traces" ) && options->language != nullptr )
 	{
 		Console::Error->WriteLine( options->command + L" takes its language from the query file; remove --lang" );
 		return Usage();
@@ -183,6 +185,12 @@ int main( array< String^ >^ args )
 	{
 		LoadGameData( options );
 		SolutionProbe::Write( out_path );
+	}
+	else if( options->command == L"traces" && inputs->Count == 1 )
+	{
+		options->language = QueryFile::Language( TraceDump::QueryPath( inputs[ 0 ] ) );
+		LoadGameData( options );
+		TraceDump::Run( inputs[ 0 ], out_path );
 	}
 	else
 		return Usage();

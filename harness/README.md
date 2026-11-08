@@ -50,6 +50,7 @@ harness\Release\Harness.exe                      # prints usage
 | `relevance <query.json> --out <file>` | `GetRelevantData` for one query (relevant abilities and flags; relevant and inferior armour per slot, with `no_skills` and `danger`; relevant and inferior decorations) and `GetCharms` for one- and two-skill charms. Charm fields in the query are ignored |
 | `best-decorations --out <file>` | `GetBestDecoration( ability, max_slots, query )` for every ability, max slots 0-3, HR 1-6 and village 1-6 |
 | `solution-probes --out <file>` | What `GetScore`'s `point_score` returns for indices 0-22 (in bounds verbatim; all of them as dense ranks, since past the 6-element array this build reads load-time method thunks that change per run), and the private `Solution` methods reachable by reflection |
+| `traces <spec.json> --out <file.jsonl.gz>` | `Solution::MatchesQuery` stage by stage for sampled armour combinations of the spec's query (spec schema in `tests/traces/README.md`). Every combination runs through the real `MatchesQuery` and a stepped copy of it; the command throws if they end in different states |
 
 `<language>` is a folder under `legacy/Run/Data/Languages`. The GUI defaults
 to `English (TeamHGG)` on first run.
@@ -71,7 +72,7 @@ forever, so a hung run usually means bad input data.
 powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1
 ```
 
-This writes `tests/golden/data/`, `tests/golden/search/` and `tests/golden/relevance/` (committed) and,
+This writes `tests/golden/data/`, `tests/golden/search/`, `tests/golden/relevance/` and `tests/golden/traces/` (committed) and,
 for queries and saves from personal data, `tests/savefile/golden/`
 (gitignored). Output is byte-identical across runs. Copy the files back to
 the development machine and commit them there.

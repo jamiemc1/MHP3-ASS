@@ -19,16 +19,20 @@ array< int >^ SolutionProbe::PointScores( const unsigned count )
 	return scores;
 }
 
+array< int >^ SolutionProbe::PointScoreRanks( const unsigned count )
+{
+	array< int >^ scores = PointScores( count );
+	List< int >^ ordered = gcnew List< int >( gcnew SortedSet< int >( scores ) );
+	array< int >^ ranks = gcnew array< int >( count );
+	for( unsigned i = 0; i < count; ++i )
+		ranks[ i ] = ordered->IndexOf( scores[ i ] );
+	return ranks;
+}
+
 void SolutionProbe::Write( String^ out_path )
 {
 	const unsigned in_bounds = 6, count = 23;
 	array< int >^ scores = PointScores( count );
-
-	// Dense rank of each score among all of them: equal scores share a rank,
-	// and a higher score has a higher rank. This is all GetBestDecoration's
-	// comparison can see.
-	SortedSet< int >^ distinct = gcnew SortedSet< int >( scores );
-	List< int >^ ordered = gcnew List< int >( distinct );
 
 	JsonWriter^ json = gcnew JsonWriter;
 	json->BeginObject();
@@ -39,8 +43,8 @@ void SolutionProbe::Write( String^ out_path )
 	json->EndArray();
 	json->Key( L"point_score_rank" );
 	json->BeginArray();
-	for each( int score in scores )
-		json->Value( ordered->IndexOf( score ) );
+	for each( int rank in PointScoreRanks( count ) )
+		json->Value( rank );
 	json->EndArray();
 
 	array< String^ >^ methods = {

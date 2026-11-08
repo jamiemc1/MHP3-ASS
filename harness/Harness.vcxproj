@@ -53,6 +53,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Web.Extensions" />
@@ -76,6 +77,7 @@
     <ClCompile Include="src\SaveDump.cpp" />
     <ClCompile Include="src\SearchDump.cpp" />
     <ClCompile Include="src\SolutionProbe.cpp" />
+    <ClCompile Include="src\TraceDump.cpp" />
     <ClCompile Include="src\Workers.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +91,7 @@
     <ClInclude Include="src\SaveDump.h" />
     <ClInclude Include="src\SearchDump.h" />
     <ClInclude Include="src\SolutionProbe.h" />
+    <ClInclude Include="src\TraceDump.h" />
     <ClInclude Include="src\Workers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
