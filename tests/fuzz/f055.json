@@ -1,0 +1,42 @@
+{
+  "id": "f055",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 5 workers, 12000 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    146,
+    77,
+    129
+  ],
+  "skill_names": [
+    "Def Up (M)",
+    "Fire Element +1",
+    "Stun Negated"
+  ],
+  "my_charms": [
+    "0,SpeedSetup,6,Hunger,-2",
+    "1,Protection,1,FastCharge,0",
+    "1,Crag S Add,6,BombStrUp,-4",
+    "2,Debilitate,3,Hunger,4",
+    "1,Reload Spd,2,Gathering,-6",
+    "0,Sheathe,3,Whim,7",
+    "0,Evade Dist,1,,",
+    "0,Elemental,3,Expert,10",
+    "0,Loading,2,Guard Up,-3",
+    "0,Status,1,Fortitude,8",
+    "0,PelletSAdd,6,RazorCAdd,-3",
+    "0,Thundr Atk,3,Eating,1",
+    "0,Fire Atk,7,Sharpener,3",
+    "1,Rapid Fire,1,Defense,-1",
+    "1,PelletS Up,1,Carving,1"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "f073",
+  "description": "uniform sampler, charm mode two_skill, 1 skill, 1 workers, 48 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    172
+  ],
+  "skill_names": [
+    "Autotracker"
+  ],
+  "my_charms": [
+    "0,PierceSAdd,2,Psychic,2",
+    "0,WindPress,2,Psychic,7",
+    "0,Loading,2,Psychic,10",
+    "1,Quake Res,2,PoisonCAdd,-7",
+    "0,KO,1,Horn,1",
+    "0,PelletS Up,1,ThunderRes,13",
+    "3,Fire Atk,4,Dragon Atk,3",
+    "0,SpeedSetup,3,Precision,-10",
+    "0,NormalS Up,3,Evasion,3",
+    "0,Rapid Fire,2,Sheathe,-9",
+    "0,Artisan,5,Dragon Res,6",
+    "2,Ice Attack,6,Slam,0",
+    "0,Psychic,6,PelletSAdd,-3",
+    "0,Sharpener,3,Gunnery,-1",
+    "0,WindPress,2,Fortitude,-4",
+    "0,Evasion,1,Psychic,3",
+    "0,Potential,6,Psychic,-1",
+    "0,Thundr Atk,2,RazorCAdd,-5",
+    "1,,,,",
+    "0,Debilitate,4,PunishDraw,2",
+    "0,Fire Atk,1,BombStrUp,6",
+    "0,Evasion,2,Reload Spd,-3",
+    "0,Guard Up,2,Wide Area,8",
+    "0,PierceS Up,1,Rapid Fire,2"
+  ]
+}

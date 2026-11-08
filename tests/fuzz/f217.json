@@ -1,0 +1,44 @@
+{
+  "id": "f217",
+  "description": "armour-seeded sampler, charm mode none, 6 skills, 1 workers, 2160 evaluations (port estimate); quotas: torso_up",
+  "language": "Japanese",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    78,
+    164,
+    142,
+    111,
+    23,
+    24
+  ],
+  "skill_names": [
+    "火属性攻撃強化+2",
+    "龍耐性【大】",
+    "体力+50",
+    "回復速度+1",
+    "破壊王",
+    "KO術"
+  ],
+  "my_charms": [
+    "2,貫通弾強化,4,,",
+    "0,抜刀会心,5,龍耐性,-10",
+    "0,達人,1,高速収集,-10",
+    "0,装填数,5,雷耐性,-4",
+    "0,龍属性攻撃,2,風圧,-4",
+    "0,KO,4,龍属性攻撃,-8",
+    "0,龍属性攻撃,6,捕獲,-2",
+    "0,麻痺,4,通常弾追加,-8",
+    "1,笛,2,特殊攻撃,-2",
+    "1,回避距離,1,水耐性,0",
+    "0,毒,5,耐寒,0"
+  ]
+}

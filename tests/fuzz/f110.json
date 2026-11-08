@@ -1,0 +1,35 @@
+{
+  "id": "f110",
+  "description": "uniform sampler, charm mode none, 3 skills, 1 workers, 540 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    58,
+    183,
+    185
+  ],
+  "skill_names": [
+    "Pierce S All Add",
+    "Huntsman's Life",
+    "Heat Cancel"
+  ],
+  "my_charms": [
+    "0,Heat Res,8,,",
+    "0,Ice Attack,5,PierceSAdd,4",
+    "0,Heat Res,2,,",
+    "0,Potential,2,PierceSAdd,1",
+    "0,Fate,3,BombStrUp,-10",
+    "0,Psychic,6,PierceSAdd,0",
+    "0,Evade Dist,4,PierceSAdd,-10",
+    "0,Paralysis,1,Heat Res,-4"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "f418",
+  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    12,
+    137
+  ],
+  "skill_names": [
+    "Sharp Sword",
+    "Blightproof"
+  ],
+  "my_charms": [
+    "0,Thundr Atk,4,Blight Res,0",
+    "0,Rec Speed,5,Crag S Add,2",
+    "0,Sharpness,5,Evasion,-3",
+    "2,Blight Res,1,Gunnery,-7",
+    "0,Fencing,4,Blight Res,2",
+    "0,Sharpness,3,Potential,3",
+    "0,Fire Atk,7,Rapid Fire,0",
+    "0,Blight Res,1,Thundr Atk,-6"
+  ]
+}

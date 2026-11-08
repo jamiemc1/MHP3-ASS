@@ -1,0 +1,41 @@
+{
+  "id": "f322",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 13 workers, 26000 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    77,
+    70,
+    43,
+    50
+  ],
+  "skill_names": [
+    "Fire Element +1",
+    "Close Range Coating Add",
+    "Recoil Reduction +1",
+    "Accuracy+2"
+  ],
+  "my_charms": [
+    "0,RazorCAdd,2,,",
+    "0,Psychic,4,Precision,2",
+    "0,Fire Atk,2,Hunger,4",
+    "1,Crit Draw,2,Defense,-1",
+    "0,Fire Atk,2,Hunger,4",
+    "0,WindPress,5,Status,-8",
+    "0,Water Atk,4,PelletS Up,3",
+    "1,Reload Spd,1,,",
+    "0,Loading,1,Thundr Atk,1",
+    "0,HearProtct,1,Recoil,1",
+    "2,Rapid Fire,1,Elemental,-2",
+    "1,Artisan,1,Thundr Atk,-8"
+  ]
+}

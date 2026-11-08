@@ -1,0 +1,43 @@
+{
+  "id": "f074",
+  "description": "uniform sampler, charm mode none, 4 skills, 1 workers, 26880 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    19,
+    178,
+    14,
+    104
+  ],
+  "skill_names": [
+    "Concentration",
+    "Filled Up",
+    "Speed Sharpening",
+    "Evade +1"
+  ],
+  "my_charms": [
+    "1,Sharpener,2,ClustS Add,-9",
+    "1,Awaken,2,Gunnery,-8",
+    "0,KO,3,Blight Res,1",
+    "0,Awaken,2,Dragon Atk,-1",
+    "0,PierceSAdd,6,Gluttony,-7",
+    "0,Stamina,4,Debilitate,3",
+    "0,Stamina,3,Debilitate,-3",
+    "0,Evasion,3,Attack,-7",
+    "2,Thundr Atk,3,,",
+    "0,Fire Atk,6,WindPress,0",
+    "0,Thundr Atk,7,Gunnery,0",
+    "0,Fencing,5,WindPress,-6",
+    "1,KO,1,Potential,2",
+    "0,NormalSAdd,3,Hunger,-7"
+  ]
+}

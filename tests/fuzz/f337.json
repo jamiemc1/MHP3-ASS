@@ -1,0 +1,49 @@
+{
+  "id": "f337",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 4 workers, 4 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    54,
+    183,
+    19
+  ],
+  "skill_names": [
+    "PierceS/PierceBowUp",
+    "Huntsman's Life",
+    "Concentration"
+  ],
+  "my_charms": [
+    "0,Hunger,3,Paralysis,5",
+    "0,Dragon Atk,4,PunishDraw,2",
+    "1,Sheathe,2,DungMaster,-10",
+    "0,FastCharge,1,ThunderRes,2",
+    "0,Artisan,2,Sheathe,4",
+    "0,Status,1,Slam,2",
+    "0,PierceSAdd,6,SpeedSetup,5",
+    "0,Thundr Atk,4,Expert,8",
+    "0,PierceS Up,4,Sharpener,-4",
+    "1,Crit Draw,1,Elemental,0",
+    "0,FastCharge,4,FatigueAtk,1",
+    "1,Evade Dist,3,HiSpdGathr,-4",
+    "0,PierceS Up,2,Protection,2",
+    "0,Recoil,2,PierceS Up,-3",
+    "0,Sharpness,5,Fire Res,11",
+    "0,Evasion,4,Psychic,2",
+    "0,PierceSAdd,5,Huntsman,1",
+    "0,Evasion,1,FastCharge,1",
+    "0,PierceS Up,5,PunishDraw,-2",
+    "0,FastCharge,3,Psychic,0",
+    "0,Rec Level,5,Psychic,4",
+    "0,Evade Dist,4,Rec Speed,3"
+  ]
+}

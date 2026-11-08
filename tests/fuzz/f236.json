@@ -1,0 +1,43 @@
+{
+  "id": "f236",
+  "description": "armour-seeded sampler, charm mode two_skill, 6 skills, 50 workers, 196000 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    135,
+    168,
+    108,
+    154,
+    181,
+    178
+  ],
+  "skill_names": [
+    "Antiseptic",
+    "Bombardier",
+    "Fast Sheathe",
+    "Water Res (S)",
+    "Quick Eating +2",
+    "Filled Up"
+  ],
+  "my_charms": [
+    "0,Water Res,1,Horn,6",
+    "0,Paralysis,4,Backpackng,1",
+    "0,Sleep,1,Health,8",
+    "0,Awaken,1,Psychic,-8",
+    "0,Sharpener,4,Status,-1",
+    "1,Guard,2,Fire Atk,9",
+    "0,Awaken,4,PelletS Up,0",
+    "0,Crit Draw,4,Elemental,0",
+    "0,Evade Dist,4,Blight Res,-2",
+    "1,FatigueAtk,3,Status,1"
+  ]
+}

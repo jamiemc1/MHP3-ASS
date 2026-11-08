@@ -1,0 +1,46 @@
+{
+  "id": "f088",
+  "description": "uniform sampler, charm mode slotted, 5 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    28,
+    145,
+    197,
+    126,
+    118
+  ],
+  "skill_names": [
+    "Schießkönig",
+    "Verteidigung +",
+    "Glück",
+    "Schlaf nichtig",
+    "Blockstärkung"
+  ],
+  "my_charms": [
+    "3,SchrSchlag,2,Schießerei,0",
+    "1,Status,1,ErmüdSchlg,-1",
+    "1,Block hoch,1,Zerlegen,-3",
+    "0,Verteidig.,1,KmboBschHz,-5",
+    "1,Block hoch,1,Zerlegen,-3",
+    "0,Block hoch,3,Gehör,1",
+    "0,Willenskft,1,Schießerei,6",
+    "0,Windabwehr,1,Schicksal,-3",
+    "0,Schießerei,3,KmboBschHz,9",
+    "0,Schießerei,6,Spürsinn,3",
+    "0,Beruhigung,3,Schicksal,3",
+    "0,Potenzial,3,Schießerei,-2",
+    "0,Schlaf,1,SchnllSamm,8",
+    "0,StreuSzfüg,2,Schlaf,5",
+    "0,Willenskft,1,Schießerei,6"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "f478",
+  "description": "uniform sampler, charm mode none, 1 skill, 1 workers, 1 evaluations (port estimate); quotas: auto_guard_charm, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    119
+  ],
+  "skill_names": [
+    "Auto-Guard"
+  ],
+  "my_charms": [
+    "0,Ice Res,4,CutterSAdd,0",
+    "0,Water Atk,1,Perception,-10",
+    "1,,,,",
+    "0,Protection,3,Status,2",
+    "1,,,,",
+    "1,Constitutn,1,Attack,-5",
+    "0,FatigueAtk,3,Ice Res,-4",
+    "3,Water Atk,4,Eating,-3",
+    "0,Auto-Guard,10,,",
+    "0,Debilitate,4,Rapid Fire,1",
+    "2,Blight Res,1,Artisan,-1",
+    "0,Constitutn,2,Heat Res,-1",
+    "0,Attack,4,Health,9",
+    "0,Slam,5,Loading,1",
+    "0,Potential,5,Expert,-9",
+    "0,Wide Area,3,Fire Res,0",
+    "0,SleepCAdd,2,,"
+  ]
+}

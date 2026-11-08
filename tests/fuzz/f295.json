@@ -1,0 +1,53 @@
+{
+  "id": "f295",
+  "description": "uniform sampler, charm mode slotted, 6 skills, 1 workers, 9216 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    28,
+    190,
+    65,
+    154,
+    166,
+    35
+  ],
+  "skill_names": [
+    "Gunnery King",
+    "Gathering +2",
+    "Cutter S Add",
+    "Water Res (S)",
+    "Wide Area +1",
+    "Load Up"
+  ],
+  "my_charms": [
+    "0,Crit Draw,3,Loading,1",
+    "0,Artisan,4,Evasion,-1",
+    "1,Thundr Atk,1,Expert,2",
+    "1,Water Atk,1,Fire Res,-4",
+    "0,Guard Up,1,Ice Res,-4",
+    "0,Ice Attack,4,HiSpdGathr,8",
+    "0,NormalS Up,4,Loading,2",
+    "0,Hunger,2,ParalyCAdd,9",
+    "0,Health,7,SpeedSetup,2",
+    "3,,,,",
+    "2,Poison,2,Expert,2",
+    "0,FatigueAtk,1,Mud/Snow,2",
+    "0,Antiseptic,2,SleepCAdd,-5",
+    "0,PunishDraw,2,Eating,-2",
+    "0,Fire Atk,3,Poison,5",
+    "0,Crit Draw,2,Slam,0",
+    "0,Artisan,4,Evasion,-1",
+    "0,Fire Atk,5,Health,6",
+    "0,KO,4,Water Res,13",
+    "1,Thundr Atk,6,FatigeCAdd,-2"
+  ]
+}

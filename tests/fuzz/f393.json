@@ -1,0 +1,39 @@
+{
+  "id": "f393",
+  "description": "uniform sampler, charm mode one_skill, 4 skills, 10 workers, 440000 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    6,
+    31,
+    178,
+    77
+  ],
+  "skill_names": [
+    "Reckless Abandon +1",
+    "Adrenaline +1",
+    "Filled Up",
+    "Fire Element +1"
+  ],
+  "my_charms": [
+    "0,Psychic,4,FatigeCAdd,7",
+    "1,,,,",
+    "1,Potential,3,Psychic,-4",
+    "0,KO,3,Crit Draw,2",
+    "3,,,,",
+    "0,Potential,1,Debilitate,3",
+    "2,Evade Dist,4,HearProtct,-3",
+    "0,Fire Atk,6,Crag S Add,9",
+    "0,Potential,4,Health,-7",
+    "0,Ice Attack,7,Status,-4"
+  ]
+}

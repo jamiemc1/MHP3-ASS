@@ -1,0 +1,44 @@
+{
+  "id": "f375",
+  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 15 workers, 54000 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    208,
+    141,
+    68,
+    205
+  ],
+  "skill_names": [
+    "Producción Max.",
+    "Salud +20",
+    "Revest. Sueño",
+    "Combinación+45%%"
+  ],
+  "my_charms": [
+    "0,Subir prot,1,Niv. recup,4",
+    "0,Potencial,1,Veneno,6",
+    "0,SubFueBomb,4,Salud,5",
+    "1,Desenv. KO,5,Salud,-9",
+    "0,AñDispGr,3,Bot.sueño,-9",
+    "1,Subir prot,5,Experto,2",
+    "0,Vel.recarg,1,VisPsíquic,-9",
+    "0,AñDispGr,4,Bot.Cont.,-10",
+    "0,Retroceso,1,Artillería,-10",
+    "1,Trueno Inc,2,Salud,-9",
+    "0,Paralisis,2,Salud,1",
+    "0,Fue.Rapido,3,R. agua,-6",
+    "1,AñDPerd,1,Cazador,1",
+    "0,R. dragón,4,Combinador,6",
+    "0,Aguijón,1,Salud,-2"
+  ]
+}

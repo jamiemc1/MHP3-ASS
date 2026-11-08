@@ -1,0 +1,45 @@
+{
+  "id": "f423",
+  "description": "uniform sampler, charm mode my_charms, 5 skills, 6 workers, 369600 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    180,
+    109,
+    64,
+    26,
+    25
+  ],
+  "skill_names": [
+    "Quick Eating +1",
+    "Sneak",
+    "Clust S All Add",
+    "Flute Expert",
+    "Enfeebler"
+  ],
+  "my_charms": [
+    "0,Horn,2,Gathering,2",
+    "0,FatigueAtk,3,Artisan,-2",
+    "0,Paralysis,2,Horn,-6",
+    "2,Eating,1,Sharpener,4",
+    "0,Horn,5,Gathering,-8",
+    "0,ClustS Add,6,Dragon Res,9",
+    "0,Constitutn,3,Potential,-1",
+    "0,Sharpness,3,Eating,0",
+    "0,ClustS Add,1,Fortitude,-5",
+    "0,FatigueAtk,3,Evasion,4",
+    "3,,,,",
+    "0,FastCharge,5,Water Atk,-6",
+    "0,ClustS Add,6,DungMaster,-10",
+    "2,,,,"
+  ]
+}

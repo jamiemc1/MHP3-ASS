@@ -1,0 +1,41 @@
+{
+  "id": "f327",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 7000 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    164,
+    23,
+    139,
+    161,
+    77
+  ],
+  "skill_names": [
+    "Dragon Res (L)",
+    "Ruiner",
+    "Earplug",
+    "Ice Res (L)",
+    "Fire Element +1"
+  ],
+  "my_charms": [
+    "0,PelletSAdd,4,Dragon Res,0",
+    "0,Fire Atk,3,Stun,9",
+    "0,Slam,5,Protection,-1",
+    "1,Status,3,Fire Atk,-9",
+    "0,Fire Atk,6,Guard,-2",
+    "0,PierceS Up,5,Dragon Res,-6",
+    "2,Will Recov,4,Slam,-3",
+    "1,FatigueAtk,1,Fire Res,-1",
+    "0,Ice Res,1,Gluttony,6",
+    "0,Dragon Res,1,Status,-3"
+  ]
+}

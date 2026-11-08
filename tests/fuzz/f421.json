@@ -1,0 +1,43 @@
+{
+  "id": "f421",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 11 workers, 15840 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    64,
+    84,
+    190
+  ],
+  "skill_names": [
+    "Clust S All Add",
+    "Thunder Element +2",
+    "Gathering +2"
+  ],
+  "my_charms": [
+    "0,HearProtct,1,Thundr Atk,7",
+    "0,Carving,2,PunishDraw,1",
+    "0,ClustS Add,1,Cold Res,-7",
+    "0,Backpackng,4,Water Res,-2",
+    "1,FatigueAtk,1,PierceSAdd,-9",
+    "0,Rec Level,5,Anti-Theft,-8",
+    "0,Fencing,5,Thundr Atk,7",
+    "0,PierceSAdd,6,ClustS Add,-4",
+    "0,Will Recov,5,PowerCAdd,0",
+    "0,Stamina,3,Thundr Atk,6",
+    "0,Psychic,2,Water Res,-2",
+    "1,Elemental,2,HearProtct,-2",
+    "0,Thundr Atk,7,FatigueAtk,2",
+    "0,Sharpness,3,BombStrUp,1",
+    "1,Slam,1,KO,0",
+    "0,ClustS Add,4,Defense,-7"
+  ]
+}

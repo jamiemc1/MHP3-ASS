@@ -1,0 +1,52 @@
+{
+  "id": "f378",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 1 workers, 64 evaluations (port estimate); quotas: two_skill_hr_below_5, illegal_charm_lines, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    122,
+    16
+  ],
+  "skill_names": [
+    "Poison Negated",
+    "Sharpness +1"
+  ],
+  "my_charms": [
+    "0,PierceS Up,1,Carving,0",
+    "1,Guard,15,,",
+    "0,Poison,4,Heat Res,-8",
+    "0,Dragon Atk,1,Poison,4",
+    "0,Eating,3,DungMaster,4",
+    "0,Dragon Atk,6,Artisan,2",
+    "0,Protection,5,Antiseptic,-6",
+    "0,Evasion,15,,",
+    "1,FatigueAtk,3,Gunnery,-3",
+    "0,Reload Spd,3,Poison,-8",
+    "0,Awaken,3,Artisan,3",
+    "0,SpeedSetup,7,Gluttony,8",
+    "0,Health,8,Poison,0",
+    "0,WindPress,2,Poison,7",
+    "0,Sharpness,4,Artisan,3",
+    "0,Elemental,2,Slam,-2",
+    "2,WindPress,1,Fire Res,2",
+    "0,Artisan,5,FatigueAtk,-2",
+    "0,HearProtct,2,FatigueAtk,-2",
+    "0,Will Recov,1,Poison,6",
+    "0,Wide Area,8,Poison,-2",
+    "0,Sharpness,3,Water Res,-3",
+    "0,Crag S Add,2,PelletSAdd,-7",
+    "0,Sharpener,3,SpeedSetup,-5",
+    "1,Hunger,8,,",
+    "0,Artisan,1,PunishDraw,1",
+    "0,Fire Res,4,Gathering,-2"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "f188",
+  "description": "armour-seeded sampler, charm mode none, 1 skill, 1 workers, 144 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    75
+  ],
+  "skill_names": [
+    "Element Atk Up"
+  ],
+  "my_charms": [
+    "3,Elemental,2,Constitutn,-1",
+    "1,Guard,1,SleepCAdd,-7",
+    "0,CutterSAdd,5,Horn,-3",
+    "0,Elemental,4,Ice Attack,0",
+    "0,Sleep,2,Status,3",
+    "0,Thundr Atk,1,PierceSAdd,8",
+    "0,Crag S Add,4,CutterSAdd,8",
+    "0,ThunderRes,2,Attack,-2",
+    "1,Elemental,3,Guard Up,-2",
+    "0,BombStrUp,1,SleepCAdd,9",
+    "1,Rec Level,1,Elemental,-3",
+    "0,Sharpness,4,Protection,-10",
+    "1,Status,1,Will Recov,0",
+    "3,Fire Atk,1,Hunger,-3",
+    "0,Fate,1,Elemental,1",
+    "0,Fire Atk,2,KO,4",
+    "0,Psychic,4,NormalSAdd,7",
+    "1,Elemental,4,Protection,2",
+    "0,Fate,4,Fire Atk,-5",
+    "2,Rec Level,2,Huntsman,-2",
+    "0,Elemental,2,Guard Up,1",
+    "0,Debilitate,4,PunishDraw,1"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "f468",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 1200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    31,
+    23,
+    12,
+    176,
+    2
+  ],
+  "skill_names": [
+    "Adrenaline +1",
+    "Ruiner",
+    "Sharp Sword",
+    "Item Use Up",
+    "Attack Up [Lg]"
+  ],
+  "my_charms": [
+    "0,Artisan,4,Horn,-4",
+    "0,Sheathe,1,Fortitude,2",
+    "0,Fire Atk,2,Gathering,-9",
+    "0,Will Recov,3,Status,3",
+    "0,Will Recov,4,Slam,3",
+    "2,Slam,2,PierceS Up,-1",
+    "2,Loading,4,Attack,1",
+    "0,Rec Speed,4,Psychic,7",
+    "1,Gunnery,1,PelletSAdd,-9",
+    "0,Reload Spd,4,Fencing,0",
+    "0,FatigueAtk,6,Fire Res,-2",
+    "0,FastCharge,2,FatigueAtk,3",
+    "0,Health,6,Water Res,-8",
+    "3,,,,",
+    "0,Slam,2,Crit Draw,1",
+    "0,Antiseptic,2,Attack,7",
+    "0,Status,4,Artisan,-3",
+    "1,,,,",
+    "0,KO,1,Gathering,-7"
+  ]
+}

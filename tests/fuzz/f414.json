@@ -1,0 +1,53 @@
+{
+  "id": "f414",
+  "description": "armour-seeded sampler, charm mode my_charms, 6 skills, 6 workers, 2592 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    120,
+    158,
+    6,
+    183,
+    31,
+    139
+  ],
+  "skill_names": [
+    "Divine Protection",
+    "Thunder Res (L)",
+    "Reckless Abandon +1",
+    "Huntsman's Life",
+    "Adrenaline +1",
+    "Earplug"
+  ],
+  "my_charms": [
+    "1,Paralysis,1,Fire Res,-2",
+    "0,Guard,5,PierceS Up,-3",
+    "0,Rec Level,2,ParalyCAdd,-3",
+    "0,Rec Level,2,Expert,-7",
+    "1,KO,1,Fortitude,-4",
+    "0,Mud/Snow,3,CutterSAdd,4",
+    "0,Stun,3,Expert,0",
+    "0,Reload Spd,3,LastingPwr,-6",
+    "0,Potential,4,Guard Up,-1",
+    "0,Evade Dist,1,Sharpener,3",
+    "0,Rec Level,2,Crag S Add,3",
+    "0,Debilitate,3,Guard Up,1",
+    "0,Backpackng,2,Expert,-2",
+    "0,Protection,4,Sheathe,-3",
+    "0,Debilitate,1,Expert,10",
+    "0,Evade Dist,6,Recoil,3",
+    "3,Ice Attack,2,FatigueAtk,-1",
+    "2,HearProtct,3,Elemental,1",
+    "0,Blight Res,4,Will Recov,-1",
+    "0,Ice Attack,5,Gluttony,12"
+  ]
+}

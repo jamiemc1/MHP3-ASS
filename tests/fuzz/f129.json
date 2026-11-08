@@ -1,0 +1,40 @@
+{
+  "id": "f129",
+  "description": "uniform sampler, charm mode my_charms, 4 skills, 4 workers, 2880 evaluations (port estimate); quotas: torso_up",
+  "language": "Japanese",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    83,
+    101,
+    77,
+    90
+  ],
+  "skill_names": [
+    "雷属性攻撃強化+1",
+    "腹減り無効",
+    "火属性攻撃強化+1",
+    "龍属性攻撃強化+2"
+  ],
+  "my_charms": [
+    "1,雷属性攻撃,1,耐泥耐雪,-5",
+    "0,貫通弾強化,3,氷耐性,-8",
+    "0,スタミナ,4,研ぎ師,3",
+    "0,雷属性攻撃,4,効果持続,5",
+    "2,火属性攻撃,1,水耐性,8",
+    "2,,,,",
+    "2,,,,",
+    "1,捕獲,1,属性耐性,0",
+    "2,,,,",
+    "0,雷耐性,5,攻撃,-5",
+    "2,火属性攻撃,1,水耐性,8"
+  ]
+}

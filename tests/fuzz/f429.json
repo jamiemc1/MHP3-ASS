@@ -1,0 +1,49 @@
+{
+  "id": "f429",
+  "description": "uniform sampler, charm mode two_skill, 5 skills, 26 workers, 825552 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    44,
+    61,
+    168,
+    58,
+    90
+  ],
+  "skill_names": [
+    "Recoil Reduction +2",
+    "Crag S LV1 Add",
+    "Bombardier",
+    "Pierce S All Add",
+    "Dragon Element +2"
+  ],
+  "my_charms": [
+    "0,Guard,4,ClustS Add,0",
+    "0,Water Atk,6,Fortitude,6",
+    "0,Sheathe,6,Whim,-1",
+    "0,PierceSAdd,6,RazorCAdd,-4",
+    "2,Protection,3,Fire Atk,-5",
+    "0,Defense,1,CutterSAdd,8",
+    "0,KO,2,Recoil,-2",
+    "0,Will Recov,2,Health,-6",
+    "0,HearProtct,2,PunishDraw,-1",
+    "0,Evasion,5,Ice Res,4",
+    "0,Evade Dist,5,BombStrUp,8",
+    "0,ThunderRes,1,PierceSAdd,-10",
+    "0,PierceSAdd,1,Status,0",
+    "0,Ice Attack,6,Rapid Fire,2",
+    "0,SpeedSetup,4,Cold Res,-5",
+    "1,Ice Attack,2,PierceSAdd,-4",
+    "1,Dragon Atk,2,Mud/Snow,0",
+    "0,Eating,3,Cold Res,3"
+  ]
+}

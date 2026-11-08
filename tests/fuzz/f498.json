@@ -1,0 +1,25 @@
+{
+  "id": "f498",
+  "description": "uniform sampler, charm mode one_skill, 1 skill, 1 workers, 12 evaluations (port estimate); quotas: auto_guard_charm, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    119
+  ],
+  "skill_names": [
+    "Auto-Guard"
+  ],
+  "my_charms": [
+    "0,Auto-Guard,10,,",
+    "0,Auto-Guard,10,,"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "f426",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 8 workers, 107520 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    21,
+    19,
+    8
+  ],
+  "skill_names": [
+    "ESP",
+    "Concentration",
+    "Reckless Abandon +3"
+  ],
+  "my_charms": [
+    "1,,,,",
+    "1,Artisan,2,Blight Res,-2",
+    "0,Rapid Fire,5,Water Atk,8",
+    "2,Sleep,2,SpeedSetup,-8",
+    "0,Reload Spd,6,HearProtct,3",
+    "0,Water Atk,1,Horn,7",
+    "3,,,,",
+    "0,Fencing,2,Evade Dist,4",
+    "0,Fencing,2,Evade Dist,4",
+    "1,PierceS Up,2,FatigueAtk,-2",
+    "0,Expert,3,Cold Res,-7",
+    "0,Carving,2,Potential,4",
+    "0,Thundr Atk,2,Ice Attack,-2",
+    "0,Fencing,5,Guard,-1",
+    "0,Artisan,5,PelletS Up,-2",
+    "0,Potential,2,Fate,-2",
+    "0,WindPress,1,LastingPwr,9",
+    "0,Expert,1,LastingPwr,3"
+  ]
+}

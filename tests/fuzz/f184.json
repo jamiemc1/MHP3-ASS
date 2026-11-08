@@ -1,0 +1,42 @@
+{
+  "id": "f184",
+  "description": "uniform sampler, charm mode none, 3 skills, 1 workers, 2880 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    58,
+    190,
+    170
+  ],
+  "skill_names": [
+    "Pierce S All Add",
+    "Gathering +2",
+    "Trnquilizr Guru"
+  ],
+  "my_charms": [
+    "1,Water Atk,4,NormalS Up,-3",
+    "0,Protection,6,Whim,5",
+    "0,BombStrUp,4,PierceSAdd,8",
+    "0,Fire Atk,3,Stamina,0",
+    "0,PierceSAdd,3,Poison,-2",
+    "0,Rewards,3,Fate,-3",
+    "0,Rapid Fire,4,Fencing,-3",
+    "0,PierceSAdd,1,SpeedSetup,8",
+    "1,Water Atk,4,NormalS Up,-3",
+    "0,Protection,4,Recoil,-3",
+    "0,Stun,2,Perception,-2",
+    "1,Guard Up,1,Rec Speed,0",
+    "0,Fire Res,3,DungMaster,-8",
+    "1,Dragon Res,5,Stun,0",
+    "0,SpeedSetup,6,Gathering,6"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "f221",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 4 workers, 17280 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    43,
+    2,
+    77
+  ],
+  "skill_names": [
+    "Retroc. red. +1",
+    "Subir Ataque[gr]",
+    "Atrib. Fuego +1"
+  ],
+  "my_charms": [
+    "0,Fuego Inc,3,AñDispGr,4",
+    "0,AñDispBomb,3,Bot.pará.,-6",
+    "0,Fuego Inc,3,Defensa,-5",
+    "0,Res. Plaga,1,Retroceso,2",
+    "0,Protección,5,Fuego Inc,1",
+    "2,Hielo Inc,1,Aña.Fatiga,-4",
+    "0,Hambre,1,Bot.Cont.,10",
+    "1,Fuego Inc,5,Vel.Guarda,-4"
+  ]
+}

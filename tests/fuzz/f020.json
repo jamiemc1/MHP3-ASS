@@ -1,0 +1,45 @@
+{
+  "id": "f020",
+  "description": "armour-seeded sampler, charm mode two_skill, 5 skills, 21 workers, 329280 evaluations (port estimate); quotas: torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    101,
+    184,
+    35,
+    185,
+    134
+  ],
+  "skill_names": [
+    "Faim annulée",
+    "Expert Routard",
+    "Munition +1",
+    "Chaleur annulée",
+    "Annulation du vent"
+  ],
+  "my_charms": [
+    "0,Press. vent,4,RétVigAug.,-2",
+    "0,KO,3,End.par.,3",
+    "0,Neige/boue,7,Routard,8",
+    "0,Statut,4,End.psn,7",
+    "3,Mn plmb au.,1,Vit. récup.,-5",
+    "0,Repas rap.,3,Rés. chaud,-5",
+    "0,Récup.,5,Repas rap.,-3",
+    "0,Récup.,5,Repas rap.,-3",
+    "0,Récup.,6,Recul,1",
+    "0,AtEl. fdr,5,Rés. chaud,-5",
+    "0,AtEl. fdr,7,End. Sup.,7",
+    "1,Press. vent,2,Rés. fdr,5",
+    "0,Inst.rap.,4,Précision,8",
+    "0,MnTranAjt,2,Rés. feu,7"
+  ]
+}

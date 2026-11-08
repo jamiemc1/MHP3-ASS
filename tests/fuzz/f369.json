@@ -1,0 +1,53 @@
+{
+  "id": "f369",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 15 workers, 264600 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    45,
+    112,
+    184,
+    98
+  ],
+  "skill_names": [
+    "Recoil Reduction +3",
+    "Recovery Speed +2",
+    "Backpacking Expert",
+    "Stamina Recov Up"
+  ],
+  "my_charms": [
+    "0,Rec Speed,1,Anti-Theft,9",
+    "0,Guard,5,RazorCAdd,2",
+    "0,Evasion,4,Recoil,2",
+    "0,NormalS Up,3,Thundr Atk,8",
+    "0,Evade Dist,2,Fire Res,12",
+    "0,Status,1,Gunnery,6",
+    "1,Fortitude,7,Rec Speed,-2",
+    "0,Thundr Atk,3,Guard,-2",
+    "0,Fire Atk,6,Protection,8",
+    "0,Horn,2,Hunger,-10",
+    "0,Slam,4,Potential,0",
+    "0,Sheathe,4,PierceSAdd,9",
+    "0,Attack,2,Combo Rate,-9",
+    "0,Ice Res,6,SleepCAdd,2",
+    "0,Loading,4,PelletS Up,1",
+    "0,Potential,1,Fencing,-2",
+    "0,BombStrUp,5,PowerCAdd,1",
+    "0,Awaken,4,Debilitate,2",
+    "0,Recoil,2,Sheathe,0",
+    "0,Potential,1,Rec Speed,-2",
+    "0,Constitutn,4,Wide Area,11",
+    "1,Guard,1,Whim,-6",
+    "0,Precision,2,Backpackng,4",
+    "0,NormalSAdd,6,HiSpdGathr,7"
+  ]
+}

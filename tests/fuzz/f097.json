@@ -1,0 +1,41 @@
+{
+  "id": "f097",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 38808 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    107,
+    172,
+    101,
+    93,
+    109
+  ],
+  "skill_names": [
+    "Evasion Up",
+    "Autotracker",
+    "Hunger Negated",
+    "Constitution +2",
+    "Sneak"
+  ],
+  "my_charms": [
+    "0,Horn,1,Sense,7",
+    "0,Fencing,2,BombStrUp,10",
+    "0,NormalS Up,4,Hunger,2",
+    "0,PierceSAdd,5,Horn,3",
+    "0,Constitutn,4,ThunderRes,-9",
+    "0,Eating,3,Rec Level,1",
+    "0,Recoil,5,Hunger,-7",
+    "0,Hunger,5,Quake Res,1",
+    "0,Horn,6,Backpackng,-2",
+    "0,Constitutn,2,PierceSAdd,8"
+  ]
+}

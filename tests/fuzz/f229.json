@@ -1,0 +1,34 @@
+{
+  "id": "f229",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 900 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    55,
+    83,
+    38,
+    172,
+    66
+  ],
+  "skill_names": [
+    "PelletS/ScatterBowUp",
+    "Thunder Element +1",
+    "Reload Speed +2",
+    "Autotracker",
+    "Poison Coating Add"
+  ],
+  "my_charms": [
+    "0,Sleep,3,Psychic,-9",
+    "0,Thundr Atk,4,Dragon Res,7",
+    "0,PelletS Up,4,Eating,3"
+  ]
+}

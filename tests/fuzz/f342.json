@@ -1,0 +1,38 @@
+{
+  "id": "f342",
+  "description": "armour-seeded sampler, charm mode two_skill, 1 skill, 1 workers, 240 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    178
+  ],
+  "skill_names": [
+    "Filled Up"
+  ],
+  "my_charms": [
+    "0,Fortitude,2,Gluttony,-4",
+    "0,Sharpener,4,Gluttony,7",
+    "0,Quake Res,1,Gluttony,0",
+    "0,Ice Attack,7,Gluttony,-2",
+    "0,Reload Spd,1,Defense,-5",
+    "0,Blight Res,3,Guard Up,-3",
+    "1,BombStrUp,4,Water Res,-1",
+    "1,Fire Atk,4,,",
+    "1,,,,",
+    "0,Blight Res,4,Protection,-8",
+    "0,Debilitate,2,PierceS Up,3",
+    "0,Precision,3,PierceSAdd,-7",
+    "1,Will Recov,3,Water Res,-7",
+    "3,,,,",
+    "0,Protection,1,Ice Attack,-8"
+  ]
+}

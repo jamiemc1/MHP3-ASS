@@ -1,0 +1,51 @@
+{
+  "id": "f070",
+  "description": "uniform sampler, charm mode none, 3 skills, 1 workers, 3600 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    173,
+    77,
+    189
+  ],
+  "skill_names": [
+    "DungBombExpert",
+    "Fire Element +1",
+    "Gathering +1"
+  ],
+  "my_charms": [
+    "1,Evasion,4,Awaken,1",
+    "2,FatigueAtk,1,Sense,-8",
+    "1,Evade Dist,1,Water Res,0",
+    "2,Rec Level,4,DungMaster,-9",
+    "2,Stun,2,Gathering,-5",
+    "0,Health,5,Status,-2",
+    "0,Will Recov,1,Fire Atk,4",
+    "0,PelletS Up,4,Fire Atk,1",
+    "0,Fire Atk,1,Gunnery,6",
+    "0,KO,6,Poison,4",
+    "0,Fire Atk,7,Potential,-3",
+    "0,Expert,4,DungMaster,-8",
+    "0,Fire Atk,1,Heat Res,-4",
+    "0,CutterSAdd,6,Gathering,-5",
+    "0,Fire Atk,7,PierceSAdd,-2",
+    "0,Fate,3,Crit Draw,2",
+    "0,Paralysis,2,DungMaster,-2",
+    "0,Eating,3,Carving,-2",
+    "0,Reload Spd,2,Slam,0",
+    "1,Fire Atk,1,Fire Res,-10",
+    "0,Fire Atk,7,Blight Res,0",
+    "0,FatigueAtk,3,ThunderRes,12",
+    "0,Slam,2,Fire Res,10",
+    "0,ClustS Add,2,DungMaster,1"
+  ]
+}

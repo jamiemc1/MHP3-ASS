@@ -1,0 +1,37 @@
+{
+  "id": "f158",
+  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 1600 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    12,
+    108
+  ],
+  "skill_names": [
+    "Sharp Sword",
+    "Fast Sheathe"
+  ],
+  "my_charms": [
+    "1,Constitutn,1,ParalyCAdd,-3",
+    "1,HearProtct,4,ThunderRes,-2",
+    "0,Fire Atk,2,LastingPwr,2",
+    "0,Dragon Atk,7,Rapid Fire,-1",
+    "0,PelletS Up,2,FastCharge,0",
+    "0,Artisan,3,,",
+    "0,Sheathe,6,Debilitate,3",
+    "0,Ice Attack,3,Water Atk,2",
+    "2,Evade Dist,1,Rec Level,-1",
+    "0,Artisan,4,Evasion,-1",
+    "0,Sheathe,3,Thundr Atk,-5",
+    "0,Sheathe,3,BombStrUp,6"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "f239",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 180 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    169,
+    183,
+    134,
+    171,
+    69
+  ],
+  "skill_names": [
+    "Trap Master",
+    "Huntsman's Life",
+    "Wind Anchor",
+    "Detect",
+    "Power Coating Add"
+  ],
+  "my_charms": [
+    "0,Debilitate,3,Ice Attack,8",
+    "0,Status,4,Crag S Add,-3",
+    "0,Defense,2,PowerCAdd,-1",
+    "0,ClustS Add,1,Psychic,1",
+    "1,WindPress,3,FastCharge,0",
+    "1,PunishDraw,1,Attack,0",
+    "0,Guard,3,Protection,-3",
+    "2,CutterSAdd,2,SpeedSetup,0",
+    "1,Thundr Atk,1,Psychic,-1",
+    "0,Hunger,4,Psychic,-2",
+    "0,WindPress,4,Defense,0",
+    "0,Evade Dist,6,Artisan,3",
+    "0,PelletS Up,5,Fire Res,5",
+    "0,NormalS Up,1,Defense,-9",
+    "0,NormalSAdd,1,Gluttony,13",
+    "0,Poison,3,Quake Res,5",
+    "0,Artisan,1,Evasion,3"
+  ]
+}

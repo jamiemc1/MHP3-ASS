@@ -1,0 +1,46 @@
+{
+  "id": "f270",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 3500 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    190,
+    24,
+    174
+  ],
+  "skill_names": [
+    "Gathering +2",
+    "Improved KO",
+    "Recovery Up"
+  ],
+  "my_charms": [
+    "0,KO,1,Status,-2",
+    "0,Water Res,5,Fortitude,4",
+    "2,PunishDraw,2,Psychic,-10",
+    "0,Eating,3,KO,0",
+    "0,Rec Level,4,Quake Res,3",
+    "0,Reload Spd,4,Evade Dist,-2",
+    "0,KO,1,Carving,2",
+    "0,ThunderRes,5,Gathering,2",
+    "0,Dragon Atk,5,Rewards,2",
+    "0,Expert,3,Gathering,-6",
+    "0,Rec Speed,6,Poison,7",
+    "0,FastCharge,2,Water Res,8",
+    "0,Reload Spd,2,Gathering,13",
+    "2,WindPress,1,FastCharge,-2",
+    "0,Rec Level,2,HearProtct,1",
+    "0,Status,2,WindPress,-6",
+    "0,Status,2,WindPress,-6",
+    "0,Artisan,5,Rec Level,2",
+    "0,Ice Attack,1,Thundr Atk,5"
+  ]
+}

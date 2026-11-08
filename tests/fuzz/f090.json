@@ -1,0 +1,41 @@
+{
+  "id": "f090",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 7200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    107,
+    101,
+    152,
+    83,
+    29
+  ],
+  "skill_names": [
+    "Evasion Up",
+    "Hunger Negated",
+    "Fire Res (L)",
+    "Thunder Element +1",
+    "Unleashed +1"
+  ],
+  "my_charms": [
+    "0,NormalS Up,5,Fate,2",
+    "1,Evasion,2,Slam,-1",
+    "0,Guard Up,1,Expert,-5",
+    "0,Stamina,4,Recoil,1",
+    "1,Gunnery,5,PelletSAdd,0",
+    "0,Thundr Atk,2,Fencing,1",
+    "1,,,,",
+    "0,Guard Up,4,Potential,1",
+    "0,Carving,1,Awaken,1",
+    "0,Stun,8,Wide Area,9"
+  ]
+}

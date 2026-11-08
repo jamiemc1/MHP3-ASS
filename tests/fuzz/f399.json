@@ -1,0 +1,48 @@
+{
+  "id": "f399",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 3780 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    138,
+    53,
+    34,
+    109,
+    30
+  ],
+  "skill_names": [
+    "Rusticité",
+    "Flèche +",
+    "Fortification",
+    "Furtivité",
+    "Vigueur +2"
+  ],
+  "my_charms": [
+    "0,Sérieux,4,AtEl. glc,-9",
+    "0,Chrg rap.,4,At.horiz.,-2",
+    "0,Sérieux,6,Élement,-3",
+    "0,Critiques,5,AtEl. feu,-7",
+    "0,Press. vent,1,Prot.déf.,-1",
+    "0,Mn norm.au.,4,AtEl. drg,4",
+    "0,Recul,3,AtEl. drg,-9",
+    "0,Aig. augm.,3,Ninja,-7",
+    "0,Récup.,6,Dépeçage,2",
+    "0,AtEl. feu,5,Cor,2",
+    "0,Pique,3,Mn norm.au.,-2",
+    "0,Neige/boue,5,Zone,9",
+    "0,Prot. aud.,5,Dépeçage,-2",
+    "0,KO,4,Réuss.combo,5",
+    "0,Rés. fdr,4,Ninja,-2",
+    "0,Vit. rech.,3,Sérieux,-2",
+    "0,Mn norm.au.,5,Protection,-3"
+  ]
+}

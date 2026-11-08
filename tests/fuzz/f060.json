@@ -1,0 +1,38 @@
+{
+  "id": "f060",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 9 workers, 51840 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    98,
+    105,
+    90
+  ],
+  "skill_names": [
+    "Rec. Resist. Aum",
+    "Evadir +2",
+    "Atrib. Dragón +2"
+  ],
+  "my_charms": [
+    "1,R. fuego,2,R. agua,3",
+    "0,Guardia,1,Retroceso,-2",
+    "0,SubirDPerf,2,Resist.,2",
+    "0,Retroceso,1,Aguijón,3",
+    "2,Evadir,2,Comer,1",
+    "1,GolpePes.,1,Experto,-6",
+    "0,Evadir,3,Paralisis,-9",
+    "0,Aña.Corta.,4,,",
+    "1,Salud,1,VisPsíquic,6",
+    "0,Barr/Nieve,3,NieDefBaja,-5",
+    "0,AñDPerd,5,Defensa,-3"
+  ]
+}

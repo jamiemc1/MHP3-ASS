@@ -1,0 +1,41 @@
+{
+  "id": "f431",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 2 workers, 1080 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    147,
+    63
+  ],
+  "skill_names": [
+    "Def Up (L)",
+    "Clust S LV1 Add"
+  ],
+  "my_charms": [
+    "0,Fencing,5,Guard,0",
+    "1,Water Res,3,Fire Res,-9",
+    "0,Paralysis,4,Sense,6",
+    "0,Gunnery,1,Cold Res,-10",
+    "2,WindPress,1,Horn,-5",
+    "0,Water Res,3,LastingPwr,-3",
+    "0,CutterSAdd,2,PoisonCAdd,-1",
+    "1,BombStrUp,3,Precision,-7",
+    "0,Sleep,2,PowerCAdd,-2",
+    "0,PierceSAdd,2,Gathering,6",
+    "0,ThunderRes,5,Antiseptic,1",
+    "1,WindPress,1,Rapid Fire,-2",
+    "0,Crag S Add,2,Rec Speed,2",
+    "0,Fire Atk,4,Status,3",
+    "1,FastCharge,1,Rapid Fire,2",
+    "1,Status,3,Ice Attack,-9"
+  ]
+}

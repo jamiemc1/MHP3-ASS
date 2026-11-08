@@ -1,0 +1,49 @@
+{
+  "id": "f226",
+  "description": "uniform sampler, charm mode my_charms, 4 skills, 4 workers, 14400 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    187,
+    158,
+    161,
+    14
+  ],
+  "skill_names": [
+    "Cold Eliminate",
+    "Thunder Res (L)",
+    "Ice Res (L)",
+    "Speed Sharpening"
+  ],
+  "my_charms": [
+    "0,Rec Level,2,Ice Res,-5",
+    "0,Sleep,1,Heat Res,2",
+    "2,Ice Res,2,Paralysis,-5",
+    "0,PunishDraw,1,Sharpener,8",
+    "0,Guard,5,Ice Res,-2",
+    "0,Defense,2,Combo Rate,13",
+    "0,Fencing,2,Sharpener,3",
+    "0,Artisan,3,Sharpener,-7",
+    "0,Ice Attack,2,ThunderRes,-9",
+    "0,Fire Atk,4,Gunnery,8",
+    "1,Ice Attack,2,Defense,-2",
+    "0,Thundr Atk,4,Sharpener,-7",
+    "1,Recoil,3,Thundr Atk,4",
+    "0,Crit Draw,2,Elemental,3",
+    "1,Rec Level,1,Cold Res,-5",
+    "2,Rec Speed,1,Antiseptic,-1",
+    "0,Evade Dist,3,Cold Res,-9",
+    "0,Water Atk,6,Rec Speed,-10",
+    "0,Protection,6,ThunderRes,3",
+    "1,Paralysis,1,Cold Res,-9"
+  ]
+}

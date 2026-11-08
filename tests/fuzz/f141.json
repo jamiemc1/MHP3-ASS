@@ -1,0 +1,51 @@
+{
+  "id": "f141",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 1600 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    183,
+    172,
+    170
+  ],
+  "skill_names": [
+    "Huntsman's Life",
+    "Autotracker",
+    "Trnquilizr Guru"
+  ],
+  "my_charms": [
+    "0,Sleep,5,SleepCAdd,9",
+    "0,Slam,2,Psychic,1",
+    "0,Guard Up,1,Whim,10",
+    "0,Fire Atk,2,Health,-2",
+    "0,Precision,6,,",
+    "0,Health,4,Huntsman,-10",
+    "2,Rec Level,2,Hunger,-4",
+    "0,Evasion,6,Elemental,-2",
+    "2,Sharpness,1,Constitutn,1",
+    "0,Artisan,2,Defense,4",
+    "0,CutterSAdd,1,BombStrUp,6",
+    "1,Horn,3,Poison,-7",
+    "0,Stun,5,Expert,5",
+    "0,Rewards,1,NormalS Up,0",
+    "0,Evasion,4,Psychic,9",
+    "1,Psychic,1,RazorCAdd,2",
+    "1,Rec Level,1,Elemental,-2",
+    "0,PierceS Up,1,Guard Up,1",
+    "0,Potential,4,Health,-5",
+    "0,Slam,5,Attack,10",
+    "2,NormalS Up,2,Constitutn,-3",
+    "1,Ice Attack,1,Perception,-7",
+    "0,Guard Up,1,Whim,10",
+    "1,Loading,1,Guard,0"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "f269",
+  "description": "armour-seeded sampler, charm mode slotted, 2 skills, 1 workers, 54 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    179,
+    181
+  ],
+  "skill_names": [
+    "Picky Eater",
+    "Quick Eating +2"
+  ],
+  "my_charms": [
+    "0,Eating,3,ParalyCAdd,-6",
+    "0,Dragon Atk,7,FatigueAtk,3",
+    "0,Fortitude,6,Wide Area,10",
+    "0,Eating,4,Backpackng,-3",
+    "3,Fate,2,,",
+    "3,,,,",
+    "0,KO,2,Gathering,5",
+    "2,,,,"
+  ]
+}

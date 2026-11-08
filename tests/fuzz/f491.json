@@ -1,0 +1,39 @@
+{
+  "id": "f491",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 432 evaluations (port estimate); quotas: illegal_charm_lines, torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    96
+  ],
+  "skill_names": [
+    "Marathonien"
+  ],
+  "my_charms": [
+    "0,AtEl. fdr,3,Coureur,-1",
+    "0,Mn Frag +,1,Précision,-7",
+    "0,Artilleur,2,TpsObjAugm.,10",
+    "0,AtEl. fdr,7,Coureur,0",
+    "0,RétVigAug.,2,Coureur,3",
+    "0,Artisan ,2,Garde +,1",
+    "0,Pique,3,Santé,8",
+    "0,Coureur,2,Def. augm.,5",
+    "0,Mn perc.au.,15,,",
+    "0,Mn plomb +,6,TpsObjAugm.,2",
+    "1,Épée aig. ,3,Tir rap.,-1",
+    "0,Pique,4,Cor,-10",
+    "1,Paralysie,1,TpsObjAugm.,2",
+    "0,Critiques,3,Rés. feu,13",
+    "1,Récup.,3,Coureur,-2",
+    "0,Artisan ,2,Coureur,1"
+  ]
+}

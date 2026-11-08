@@ -1,0 +1,44 @@
+{
+  "id": "f011",
+  "description": "uniform sampler, charm mode two_skill, 6 skills, 25 workers, 882000 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    93,
+    205,
+    176,
+    183,
+    22,
+    73
+  ],
+  "skill_names": [
+    "Constitution +2",
+    "Combine Success+45%",
+    "Item Use Up",
+    "Huntsman's Life",
+    "Exploiter",
+    "Abnormal Status Atk +2"
+  ],
+  "my_charms": [
+    "0,KO,3,PunishDraw,-1",
+    "0,Status,1,Defense,-6",
+    "1,Rec Speed,3,LastingPwr,4",
+    "0,Status,1,Defense,-6",
+    "1,KO,1,Rapid Fire,0",
+    "1,Eating,2,Huntsman,3",
+    "0,Horn,6,Sleep,-8",
+    "1,Artisan,2,WindPress,2",
+    "2,Expert,2,DungMaster,-1",
+    "0,Will Recov,2,Dragon Res,2",
+    "0,Hunger,8,Huntsman,10"
+  ]
+}

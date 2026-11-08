@@ -1,0 +1,48 @@
+{
+  "id": "f138",
+  "description": "uniform sampler, charm mode one_skill, 6 skills, 20 workers, 36000 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    54,
+    100,
+    65,
+    90,
+    134,
+    62
+  ],
+  "skill_names": [
+    "PierceS/PierceBowUp",
+    "Hunger Halved",
+    "Cutter S Add",
+    "Dragon Element +2",
+    "Wind Anchor",
+    "Crag S All Add"
+  ],
+  "my_charms": [
+    "0,Psychic,3,Gluttony,-10",
+    "0,FatigueAtk,1,Fire Res,-1",
+    "0,FatigueAtk,1,Fire Res,-1",
+    "0,Awaken,1,Dragon Atk,7",
+    "2,,,,",
+    "0,Carving,3,Potential,0",
+    "0,Evasion,5,Wide Area,11",
+    "0,Carving,3,Potential,0",
+    "0,Guard,6,WindPress,-8",
+    "0,WindPress,4,Anti-Theft,8",
+    "2,Awaken,2,Fencing,-2",
+    "0,Guard,2,Fire Res,4",
+    "2,,,,",
+    "0,Dragon Atk,5,Rec Level,-1",
+    "1,WindPress,5,Rewards,-1"
+  ]
+}

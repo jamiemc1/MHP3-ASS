@@ -1,0 +1,48 @@
+{
+  "id": "f095",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 2 workers, 2160 evaluations (port estimate); quotas: illegal_charm_lines, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    142
+  ],
+  "skill_names": [
+    "Health +50"
+  ],
+  "my_charms": [
+    "0,Water Res,2,Psychic,3",
+    "0,Reload Spd,2,Horn,0",
+    "0,Rec Speed,1,Wide Area,-6",
+    "0,WindPress,1,Stun,11",
+    "0,Fire Atk,3,Perception,0",
+    "0,Reload Spd,5,Attack,6",
+    "0,Mud/Snow,7,Backpackng,8",
+    "0,Ice Attack,4,FastCharge,-2",
+    "0,Fire Atk,3,Perception,0",
+    "0,FastCharge,5,Ice Attack,-4",
+    "0,WindPress,4,PierceSAdd,-8",
+    "1,Sheathe,15,,",
+    "0,Dragon Res,1,Paralysis,1",
+    "0,Ice Attack,15,,",
+    "1,Mud/Snow,2,Rec Speed,-2",
+    "0,Quake Res,14,,",
+    "0,Fire Atk,3,Perception,0",
+    "0,Guard,3,PowerCAdd,1",
+    "0,Paralysis,3,Fortitude,7",
+    "0,Wide Area,2,Sense,3",
+    "0,Stun,3,Combo Rate,1",
+    "0,Reload Spd,4,Attack,2",
+    "0,Guard,1,HiSpdGathr,10",
+    "0,Wide Area,7,Mud/Snow,4",
+    "1,Reload Spd,3,Artisan,-1"
+  ]
+}

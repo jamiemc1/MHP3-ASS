@@ -1,0 +1,44 @@
+{
+  "id": "f091",
+  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 6 workers, 38880 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    183,
+    14,
+    78,
+    98,
+    22
+  ],
+  "skill_names": [
+    "Huntsman's Life",
+    "Speed Sharpening",
+    "Fire Element +2",
+    "Stamina Recov Up",
+    "Exploiter"
+  ],
+  "my_charms": [
+    "2,Will Recov,4,Fire Res,-10",
+    "1,Ice Attack,1,Huntsman,-5",
+    "0,Fire Atk,1,Elemental,2",
+    "1,Wide Area,1,Huntsman,-5",
+    "0,Will Recov,3,Combo Rate,4",
+    "2,Rapid Fire,1,Fire Atk,0",
+    "1,Fire Atk,2,Fencing,-1",
+    "0,Fire Atk,5,Water Atk,3",
+    "2,Will Recov,4,Fire Res,-10",
+    "0,Potential,4,Debilitate,2",
+    "0,Fire Atk,6,Constitutn,2",
+    "0,Will Recov,1,PowerCAdd,9",
+    "0,Will Recov,1,Gluttony,13"
+  ]
+}

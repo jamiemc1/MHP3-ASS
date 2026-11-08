@@ -1,0 +1,49 @@
+{
+  "id": "f206",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 19 workers, 19 evaluations (port estimate); quotas: two_skill_hr_below_5, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    86,
+    208,
+    73,
+    161
+  ],
+  "skill_names": [
+    "Ice Element +1",
+    "Bullet Limit",
+    "Abnormal Status Atk +2",
+    "Ice Res (L)"
+  ],
+  "my_charms": [
+    "0,WindPress,3,FatigeCAdd,-5",
+    "0,NormalSAdd,2,Status,1",
+    "0,Eating,2,Ice Res,6",
+    "0,Paralysis,5,Ice Res,10",
+    "0,NormalS Up,4,Sharpener,-2",
+    "0,Evasion,2,Cold Res,4",
+    "0,HearProtct,3,PelletS Up,-1",
+    "2,Sleep,2,Ice Res,3",
+    "0,Psychic,6,Fire Res,6",
+    "0,FastCharge,2,Stamina,1",
+    "0,KO,6,Protection,-3",
+    "0,PelletSAdd,5,Backpackng,-10",
+    "0,PierceS Up,4,Rec Level,0",
+    "0,Hunger,2,Water Res,-3",
+    "0,Fencing,3,Blight Res,1",
+    "0,Ice Attack,2,Shot Mix,-7",
+    "0,Reload Spd,1,Elemental,2",
+    "0,Ice Attack,1,ThunderRes,1",
+    "0,KO,4,Debilitate,-1",
+    "0,Constitutn,2,Status,-1"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "f114",
+  "description": "armour-seeded sampler, charm mode one_skill, 2 skills, 6 workers, 1296 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    92,
+    122
+  ],
+  "skill_names": [
+    "Constitution +1",
+    "Poison Negated"
+  ],
+  "my_charms": [
+    "0,FastCharge,1,Fire Res,1",
+    "0,Recoil,2,Dragon Atk,-7",
+    "1,Ice Attack,1,Expert,-4"
+  ]
+}

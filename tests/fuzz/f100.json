@@ -1,0 +1,38 @@
+{
+  "id": "f100",
+  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 20 workers, 609840 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    145,
+    184,
+    57,
+    128,
+    178
+  ],
+  "skill_names": [
+    "Def Up (S)",
+    "Backpacking Expert",
+    "Pierce S LV1 Add",
+    "Stun Halved",
+    "Filled Up"
+  ],
+  "my_charms": [
+    "0,Crag S Add,3,PierceSAdd,-7",
+    "0,Ice Res,6,Heat Res,-9",
+    "2,Constitutn,1,PierceSAdd,1",
+    "0,Guard Up,1,Gathering,7",
+    "1,Carving,1,Guard,3",
+    "0,Recoil,2,PunishDraw,-3",
+    "0,Evasion,2,Loading,1"
+  ]
+}

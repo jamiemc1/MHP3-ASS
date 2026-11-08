@@ -1,0 +1,31 @@
+{
+  "id": "f151",
+  "description": "armour-seeded sampler, charm mode two_skill, 2 skills, 3 workers, 8100 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    111,
+    174
+  ],
+  "skill_names": [
+    "Vitesse récup. +1",
+    "Récup. augmentée"
+  ],
+  "my_charms": [
+    "0,Recul,1,Tir asso.,0",
+    "2,Artisan ,1,AtEl. feu,-6",
+    "0,Mn norm.au.,4,Clairvoy.,-7",
+    "0,AtEl. drg,3,Mn perc. +,-6",
+    "0,AtEl. drg,1,Rés. eau,-1",
+    "2,Artisan ,1,AtEl. feu,-6"
+  ]
+}

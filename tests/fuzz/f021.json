@@ -1,0 +1,48 @@
+{
+  "id": "f021",
+  "description": "uniform sampler, charm mode one_skill, 5 skills, 9 workers, 9 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    115,
+    135,
+    168,
+    187,
+    1
+  ],
+  "skill_names": [
+    "Guard +1",
+    "Antiseptic",
+    "Bombardier",
+    "Cold Eliminate",
+    "Attack Up [Med]"
+  ],
+  "my_charms": [
+    "0,Will Recov,1,Attack,6",
+    "0,WindPress,5,Guard,2",
+    "0,Expert,2,Wide Area,-7",
+    "2,Will Recov,2,Guard,-1",
+    "0,Antiseptic,6,CutterSAdd,5",
+    "0,Antiseptic,2,Poison,7",
+    "0,Ice Attack,4,Poison,-4",
+    "0,Protection,5,Attack,5",
+    "0,Antiseptic,1,Wide Area,-7",
+    "0,Crit Draw,1,PelletS Up,1",
+    "0,Status,1,Antiseptic,1",
+    "0,Status,1,Antiseptic,1",
+    "0,Dragon Atk,6,Attack,6",
+    "1,Guard,3,,",
+    "0,Antiseptic,1,Rec Speed,-2",
+    "0,Antiseptic,3,LastingPwr,-10",
+    "0,PunishDraw,1,Reload Spd,0"
+  ]
+}

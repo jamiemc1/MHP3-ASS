@@ -1,0 +1,50 @@
+{
+  "id": "f125",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 5 workers, 1080 evaluations (port estimate); quotas: torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    77,
+    142
+  ],
+  "skill_names": [
+    "Feuer Angriff +1",
+    "Gesundheit +50"
+  ],
+  "my_charms": [
+    "1,Windabwehr,1,FeurAngHch,-2",
+    "0,FeurAngHch,3,Rückstoß,-1",
+    "0,Fechten,4,ErmüdSchlg,4",
+    "0,DrchAngHch,7,Anti-Dieb,-4",
+    "0,Gesundheit,4,Status,2",
+    "0,Norml Hoch,1,Ausdauer,3",
+    "0,Schutz,7,Donnerabw.,7",
+    "1,FeurAngHch,2,Block hoch,-1",
+    "0,FeurAngHch,4,Brandabw.,3",
+    "3,Schicksal,4,,",
+    "0,Element,2,FeurAngHch,4",
+    "0,Bebenabw.,3,Hitzeabw.,-6",
+    "0,Antiseptik,2,Schl/Schn.,8",
+    "0,Block,2,Gesundheit,-10",
+    "0,StreuSzfüg,5,Gesundheit,0",
+    "0,Block,2,Asweichdst,-2",
+    "0,Drachenabw,1,Präzision,9",
+    "0,FeurAngHch,5,Großraum,8",
+    "0,Lähmung,3,Gesundheit,3",
+    "2,Konstitutn,2,DrchAngHch,-8",
+    "0,KO,3,Rückstoß,0",
+    "0,Betäuben,2,Gesundheit,9",
+    "0,Ausweichen,5,Bebenabw.,7",
+    "0,SchnllAufb,3,Anti-Dieb,-4",
+    "0,FeurAngHch,2,PiercSzufü,-9"
+  ]
+}

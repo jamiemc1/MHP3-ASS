@@ -1,0 +1,50 @@
+{
+  "id": "f072",
+  "description": "armour-seeded sampler, charm mode slotted, 3 skills, 1 workers, 216 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    183,
+    169,
+    172
+  ],
+  "skill_names": [
+    "Huntsman's Life",
+    "Trap Master",
+    "Autotracker"
+  ],
+  "my_charms": [
+    "0,SpeedSetup,8,Heat Res,2",
+    "1,Psychic,1,Expert,0",
+    "0,Rapid Fire,1,PelletS Up,3",
+    "0,Expert,3,PelletSAdd,9",
+    "1,Status,3,WindPress,1",
+    "0,SpeedSetup,6,PierceSAdd,4",
+    "0,PelletS Up,5,Expert,-7",
+    "0,SpeedSetup,8,Anti-Theft,3",
+    "0,Water Res,4,Psychic,3",
+    "0,Constitutn,6,BombStrUp,3",
+    "0,Quake Res,1,Sense,4",
+    "2,Potential,2,Rapid Fire,-2",
+    "0,Psychic,5,Perception,10",
+    "0,SpeedSetup,8,Fortitude,6",
+    "1,Paralysis,1,Ice Res,0",
+    "0,Poison,5,SpeedSetup,2",
+    "0,Potential,6,HiSpdGathr,3",
+    "2,Psychic,2,ClustS Add,-6",
+    "0,Fire Atk,4,Health,-10",
+    "0,Elemental,3,Status,-10",
+    "1,PierceS Up,4,Evade Dist,-3",
+    "0,Water Res,4,Psychic,3",
+    "0,Psychic,4,DungMaster,7"
+  ]
+}

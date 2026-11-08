@@ -1,0 +1,39 @@
+{
+  "id": "f458",
+  "description": "armour-seeded sampler, charm mode none, 1 skill, 1 workers, 480 evaluations (port estimate); quotas: torso_up",
+  "language": "English (Athena)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    120
+  ],
+  "skill_names": [
+    "Divine Protection"
+  ],
+  "my_charms": [
+    "0,Protection,7,Recoil,0",
+    "0,Protection,3,Water Atk,-7",
+    "0,Protection,4,PowerCAdd,-2",
+    "0,Protection,5,Awaken,3",
+    "0,Protection,4,Fire Res,7",
+    "0,Protection,1,PelletS Up,-1",
+    "0,Protection,2,CutterSAdd,10",
+    "0,Protection,5,Whim,13",
+    "0,Protection,2,Rewards,0",
+    "0,Blight Res,4,Awaken,1",
+    "0,Rapid Fire,2,Evade Dist,-3",
+    "0,Elemental,1,Fire Atk,4",
+    "0,Potential,6,ParalyCAdd,10",
+    "2,Fate,1,Protection,2",
+    "0,Stamina,4,Protection,-1",
+    "0,Protection,2,Carving,2"
+  ]
+}

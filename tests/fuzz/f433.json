@@ -1,0 +1,46 @@
+{
+  "id": "f433",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 11 workers, 396 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    137,
+    75,
+    107
+  ],
+  "skill_names": [
+    "Blightproof",
+    "Element Atk Up",
+    "Evasion Up"
+  ],
+  "my_charms": [
+    "1,Ice Attack,1,Blight Res,-2",
+    "0,Precision,1,Poison,6",
+    "0,Blight Res,1,Thundr Atk,0",
+    "2,FatigueAtk,2,Elemental,-2",
+    "0,Blight Res,5,Eating,-2",
+    "0,Sheathe,5,Elemental,2",
+    "0,WindPress,2,Stamina,-2",
+    "0,Loading,3,Status,2",
+    "0,Fencing,1,Attack,-6",
+    "0,Elemental,1,Slam,3",
+    "0,Evade Dist,6,Crit Draw,1",
+    "0,Evade Dist,1,Elemental,2",
+    "0,Evasion,6,Paralysis,6",
+    "0,Evade Dist,4,HearProtct,3",
+    "0,Thundr Atk,2,Stun,-4",
+    "0,Fencing,3,Elemental,1",
+    "0,Guard Up,5,Blight Res,1",
+    "2,Evasion,1,Will Recov,1",
+    "0,Sharpener,1,Cold Res,9"
+  ]
+}

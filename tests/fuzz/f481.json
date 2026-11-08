@@ -1,0 +1,45 @@
+{
+  "id": "f481",
+  "description": "uniform sampler, charm mode two_skill, 5 skills, 0 workers, 0 evaluations (port estimate); quotas: auto_guard_no_charm, two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    108,
+    179,
+    139,
+    96,
+    119
+  ],
+  "skill_names": [
+    "Fast Sheathe",
+    "Picky Eater",
+    "Earplug",
+    "Runner",
+    "Auto-Guard"
+  ],
+  "my_charms": [
+    "0,Sheathe,4,Wide Area,-7",
+    "1,Stamina,2,,",
+    "1,Sheathe,2,Water Atk,-5",
+    "0,SpeedSetup,1,Gluttony,12",
+    "0,Sheathe,6,Rec Speed,1",
+    "1,Status,1,Recoil,-3",
+    "3,Rewards,1,Thundr Atk,0",
+    "0,Guard,1,HearProtct,1",
+    "0,Reload Spd,1,Gluttony,-9",
+    "1,Sheathe,3,Water Res,-4",
+    "0,Psychic,4,Gluttony,10",
+    "0,Sheathe,3,WindPress,3",
+    "0,Sheathe,1,NormalSAdd,-4",
+    "0,HearProtct,1,Crit Draw,0"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "f032",
+  "description": "uniform sampler, charm mode slotted, 6 skills, 1 workers, 25344 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    27,
+    154,
+    25,
+    203,
+    173,
+    172
+  ],
+  "skill_names": [
+    "Gunnery Master",
+    "Water Res (S)",
+    "Enfeebler",
+    "Rewards Celeb",
+    "DungBombExpert",
+    "Autotracker"
+  ],
+  "my_charms": [
+    "0,Eating,3,Gunnery,6",
+    "0,Rewards,5,NormalS Up,0",
+    "0,Ice Res,3,DungMaster,-10",
+    "0,Awaken,1,Expert,1",
+    "1,Thundr Atk,2,Carving,-2"
+  ]
+}

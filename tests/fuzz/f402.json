@@ -1,0 +1,43 @@
+{
+  "id": "f402",
+  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 1920 evaluations (port estimate); quotas: illegal_charm_lines, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    109,
+    93
+  ],
+  "skill_names": [
+    "Sneak",
+    "Constitution +2"
+  ],
+  "my_charms": [
+    "0,Fortitude,4,RazorCAdd,8",
+    "1,Constitutn,1,Thundr Atk,-1",
+    "0,Constitutn,6,PowerCAdd,-2",
+    "0,Status,2,Elemental,1",
+    "0,Quake Res,1,Sense,4",
+    "0,Recoil,15,,",
+    "0,Awaken,2,Blight Res,0",
+    "1,Constitutn,1,Recoil,0",
+    "0,Constitutn,1,Attack,-1",
+    "1,Constitutn,5,,",
+    "0,Artisan,2,Gunnery,10",
+    "0,Water Atk,3,Fortitude,-4",
+    "0,Rapid Fire,3,PelletS Up,-1",
+    "0,Water Atk,3,Precision,-4",
+    "1,Constitutn,1,Ice Attack,-6",
+    "0,Quake Res,1,Sense,4",
+    "2,Evade Dist,3,Fire Atk,-10",
+    "0,Rec Speed,1,Attack,-5"
+  ]
+}

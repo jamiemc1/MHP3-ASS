@@ -1,0 +1,41 @@
+{
+  "id": "f323",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 15120 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    171,
+    169,
+    164,
+    183
+  ],
+  "skill_names": [
+    "Detect",
+    "Trap Master",
+    "Dragon Res (L)",
+    "Huntsman's Life"
+  ],
+  "my_charms": [
+    "0,Evasion,5,SpeedSetup,-3",
+    "0,Sharpness,3,Ice Attack,8",
+    "1,PelletS Up,2,Sharpness,0",
+    "0,WindPress,3,Psychic,0",
+    "0,Dragon Res,1,Horn,-1",
+    "2,NormalS Up,2,Will Recov,1",
+    "0,Reload Spd,1,BombStrUp,0",
+    "1,,,,",
+    "0,PierceS Up,2,Dragon Res,-4",
+    "2,,,,",
+    "0,Rec Level,6,Psychic,-2",
+    "0,SpeedSetup,2,Stun,3"
+  ]
+}

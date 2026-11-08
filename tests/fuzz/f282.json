@@ -1,0 +1,45 @@
+{
+  "id": "f282",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 480 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    24
+  ],
+  "skill_names": [
+    "Improved KO"
+  ],
+  "my_charms": [
+    "0,KO,2,Sheathe,-4",
+    "2,KO,1,Ice Attack,3",
+    "0,Sheathe,1,Guard Up,4",
+    "0,KO,2,HearProtct,2",
+    "0,KO,6,PelletS Up,0",
+    "0,Antiseptic,5,Cold Res,7",
+    "0,Eating,4,KO,1",
+    "1,Loading,5,KO,1",
+    "1,Constitutn,1,KO,0",
+    "2,KO,1,Ice Attack,3",
+    "0,KO,2,FatigeCAdd,4",
+    "0,Eating,4,KO,1",
+    "1,Fate,2,KO,1",
+    "2,KO,2,Constitutn,-2",
+    "3,Crit Draw,3,Wide Area,3",
+    "0,Fire Atk,7,HearProtct,2",
+    "0,Loading,6,Ice Res,5",
+    "0,Poison,3,Backpackng,6",
+    "0,Evade Dist,1,Guard Up,3",
+    "0,KO,4,Thundr Atk,1",
+    "0,Fortitude,1,Sleep,2",
+    "0,Carving,3,Debilitate,0"
+  ]
+}

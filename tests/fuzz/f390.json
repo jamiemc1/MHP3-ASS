@@ -1,0 +1,40 @@
+{
+  "id": "f390",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 8064 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    129,
+    157,
+    139,
+    120,
+    136
+  ],
+  "skill_names": [
+    "Stun Negated",
+    "Thunder Res (S)",
+    "Earplug",
+    "Divine Protection",
+    "Steal No Effect"
+  ],
+  "my_charms": [
+    "0,PierceSAdd,6,SpeedSetup,5",
+    "0,Protection,1,Wide Area,-2",
+    "0,Sheathe,3,Psychic,-1",
+    "0,Potential,5,Anti-Theft,-6",
+    "0,Guard Up,6,,",
+    "0,Protection,1,WindPress,-2",
+    "0,NormalS Up,5,Psychic,1",
+    "0,Protection,4,HearProtct,-2",
+    "0,Paralysis,5,Backpackng,-1"
+  ]
+}

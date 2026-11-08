@@ -1,0 +1,50 @@
+{
+  "id": "f425",
+  "description": "uniform sampler, charm mode slotted, 5 skills, 1 workers, 11664 evaluations (port estimate); quotas: torso_up",
+  "language": "English (Athena)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    190,
+    178,
+    205,
+    135,
+    60
+  ],
+  "skill_names": [
+    "Gathering +2",
+    "Filled Up",
+    "Combine Success+45%",
+    "Antiseptic",
+    "Pellet S All Add"
+  ],
+  "my_charms": [
+    "0,Reload Spd,6,PierceS Up,-2",
+    "0,Antiseptic,4,Precision,7",
+    "1,Will Recov,2,Hunger,-4",
+    "0,PierceSAdd,5,Combo Rate,-6",
+    "0,Wide Area,2,Combo Rate,12",
+    "0,Carving,5,Fencing,1",
+    "0,Backpackng,3,Whim,4",
+    "0,Fire Res,3,Quake Res,-4",
+    "1,Defense,1,Antiseptic,-9",
+    "0,Stun,3,Gluttony,8",
+    "0,Stun,4,Antiseptic,1",
+    "0,Psychic,1,Gathering,12",
+    "0,ClustS Add,2,Gathering,13",
+    "0,WindPress,5,Blight Res,1",
+    "0,Fire Res,1,Antiseptic,-1",
+    "0,Precision,6,CutterSAdd,-6",
+    "0,Antiseptic,5,PelletSAdd,-9",
+    "0,PunishDraw,2,Slam,2",
+    "0,Guard,2,PelletSAdd,10"
+  ]
+}

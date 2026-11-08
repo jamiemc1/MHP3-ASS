@@ -1,0 +1,45 @@
+{
+  "id": "f470",
+  "description": "uniform sampler, charm mode none, 1 skill, 1 workers, 72 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    167
+  ],
+  "skill_names": [
+    "Wide Area +2"
+  ],
+  "my_charms": [
+    "0,Wide Area,5,SleepCAdd,8",
+    "1,Poison,1,Wide Area,-4",
+    "0,Sheathe,1,Precision,9",
+    "0,Loading,6,Wide Area,-5",
+    "0,Wide Area,4,PoisonCAdd,9",
+    "0,Wide Area,6,Defense,6",
+    "1,Wide Area,4,PierceSAdd,1",
+    "0,Horn,4,Gunnery,7",
+    "1,Evasion,2,Constitutn,0",
+    "0,Thundr Atk,3,CutterSAdd,-3",
+    "0,Wide Area,3,Precision,1",
+    "0,HearProtct,4,Loading,-1",
+    "0,Wide Area,6,Paralysis,-7",
+    "0,FatigueAtk,4,Wide Area,3",
+    "0,Eating,3,PierceS Up,3",
+    "2,BombStrUp,5,Heat Res,-4",
+    "0,Artisan,4,Debilitate,2",
+    "1,Dragon Atk,4,Sharpness,-3",
+    "0,Fire Atk,3,Fate,3",
+    "0,Water Atk,1,Crit Draw,1",
+    "0,Ice Res,5,Fortitude,5",
+    "0,PelletS Up,1,Wide Area,-6"
+  ]
+}

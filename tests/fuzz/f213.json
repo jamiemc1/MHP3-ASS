@@ -1,0 +1,48 @@
+{
+  "id": "f213",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 9408 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    72,
+    155,
+    96
+  ],
+  "skill_names": [
+    "Abnormal Status Atk +1",
+    "Water Res (L)",
+    "Runner"
+  ],
+  "my_charms": [
+    "0,Will Recov,4,,",
+    "0,Blight Res,5,Eating,1",
+    "0,Antiseptic,7,Rec Speed,1",
+    "1,Antiseptic,2,Combo Rate,2",
+    "0,Fire Atk,2,Cold Res,9",
+    "2,Poison,1,Status,0",
+    "0,ClustS Add,2,Ice Res,-9",
+    "0,Status,2,Stamina,-2",
+    "0,Mud/Snow,2,Anti-Theft,7",
+    "0,Elemental,4,KO,3",
+    "1,Status,1,Dragon Res,1",
+    "0,ClustS Add,2,Ice Res,-9",
+    "0,Sheathe,5,Rec Speed,4",
+    "0,Guard,4,Status,3",
+    "0,Hunger,5,ThunderRes,-4",
+    "0,Status,1,ThunderRes,-2",
+    "0,Water Res,1,BombStrUp,-8",
+    "0,Fate,3,Crit Draw,-1",
+    "0,Mud/Snow,5,Perception,-7",
+    "1,Dragon Atk,4,Dragon Res,5",
+    "0,Fire Res,6,HiSpdGathr,10"
+  ]
+}

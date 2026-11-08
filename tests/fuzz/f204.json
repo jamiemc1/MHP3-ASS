@@ -1,0 +1,32 @@
+{
+  "id": "f204",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 21 workers, 381024 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    166,
+    181,
+    6,
+    155
+  ],
+  "skill_names": [
+    "Wide Area +1",
+    "Quick Eating +2",
+    "Reckless Abandon +1",
+    "Water Res (L)"
+  ],
+  "my_charms": [
+    "0,Reload Spd,1,Sleep,-4",
+    "2,Sleep,1,PoisonCAdd,-5",
+    "0,Rapid Fire,2,Fate,1"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "f137",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 4 workers, 480 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    96,
+    86
+  ],
+  "skill_names": [
+    "Runner",
+    "Ice Element +1"
+  ],
+  "my_charms": [
+    "0,PelletSAdd,6,PoisonCAdd,5",
+    "0,Health,7,Expert,-2",
+    "1,Crag S Add,2,Sleep,-5",
+    "1,Sheathe,1,Eating,0",
+    "2,KO,1,Psychic,-2",
+    "0,Guard,3,Combo Rate,8",
+    "1,Potential,4,ParalyCAdd,-10",
+    "1,Blight Res,5,Sharpener,-10",
+    "0,PierceSAdd,2,HiSpdGathr,-3",
+    "0,PelletSAdd,2,CutterSAdd,-8",
+    "0,PelletSAdd,4,Gathering,8",
+    "0,Sheathe,5,Quake Res,3",
+    "1,Eating,1,WindPress,-3",
+    "0,Crag S Add,5,Attack,5",
+    "1,Stamina,1,ThunderRes,-4",
+    "0,Evade Dist,2,Slam,-1",
+    "0,Stamina,3,Dragon Atk,4",
+    "0,Stun,5,,",
+    "0,Blight Res,5,Elemental,-3",
+    "0,HearProtct,3,Crit Draw,3"
+  ]
+}

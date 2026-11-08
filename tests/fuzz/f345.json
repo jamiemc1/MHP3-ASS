@@ -1,0 +1,46 @@
+{
+  "id": "f345",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    189,
+    25,
+    194,
+    72,
+    192
+  ],
+  "skill_names": [
+    "Gathering +1",
+    "Enfeebler",
+    "Divine Whim",
+    "Abnormal Status Atk +1",
+    "Hi-SpdGathering"
+  ],
+  "my_charms": [
+    "0,FatigueAtk,4,Will Recov,4",
+    "2,FatigueAtk,2,,",
+    "0,Evasion,5,Elemental,1",
+    "0,FastCharge,4,HearProtct,3",
+    "0,PelletS Up,1,Evasion,4",
+    "0,Status,3,Precision,-1",
+    "0,PierceSAdd,2,Shot Mix,7",
+    "0,Evade Dist,4,Huntsman,6",
+    "0,Sheathe,3,Cold Res,-2",
+    "0,PelletS Up,3,Status,-1",
+    "0,Dragon Atk,7,Ice Res,-10",
+    "0,Wide Area,8,Status,-4",
+    "0,PunishDraw,2,ThunderRes,6",
+    "0,FatigueAtk,4,BombStrUp,-7",
+    "2,FatigueAtk,2,Elemental,-2"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "f066",
+  "description": "armour-seeded sampler, charm mode none, 4 skills, 1 workers, 24 evaluations (port estimate); quotas: torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    139,
+    176,
+    19,
+    169
+  ],
+  "skill_names": [
+    "Bouchon d'oreille",
+    "Tps obj augmenté",
+    "Concentration",
+    "Maître des pièges"
+  ],
+  "my_charms": [
+    "3,Chrg rap.,1,,",
+    "2,Rés. fdr,3,Inst.rap.,0",
+    "0,Chrg rap.,3,Capture,-1",
+    "0,Inst.rap.,7,Routard,3",
+    "0,Evasion,6,Chrg rap.,3",
+    "2,Routard,1,Rés. fdr,-2"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "f398",
+  "description": "armour-seeded sampler, charm mode slotted, 6 skills, 1 workers, 3840 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    108,
+    62,
+    132,
+    0,
+    176,
+    18
+  ],
+  "skill_names": [
+    "Fast Sheathe",
+    "Crag S All Add",
+    "Quake Res",
+    "Attack Up [Sm]",
+    "Item Use Up",
+    "Unsheathe Critical"
+  ],
+  "my_charms": [
+    "0,Rewards,2,Carving,2",
+    "0,Thundr Atk,5,Attack,2",
+    "0,ThunderRes,6,Crag S Add,10",
+    "3,,,,",
+    "0,Quake Res,3,PierceSAdd,5",
+    "0,Rewards,3,WindPress,1",
+    "0,Constitutn,3,Poison,7",
+    "2,Sheathe,2,Recoil,1",
+    "0,Carving,4,Attack,3",
+    "0,Wide Area,1,Quake Res,5",
+    "1,Carving,1,Sheathe,-9",
+    "2,,,,",
+    "2,Sheathe,1,Combo Rate,-4",
+    "0,Rewards,3,Hunger,0",
+    "1,Crag S Add,2,Whim,5",
+    "2,Ice Res,2,Paralysis,-8",
+    "0,Status,6,Stamina,-2",
+    "0,Sheathe,1,Defense,6"
+  ]
+}

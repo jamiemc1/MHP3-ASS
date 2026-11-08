@@ -1,0 +1,47 @@
+{
+  "id": "f456",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    27,
+    192,
+    53,
+    168
+  ],
+  "skill_names": [
+    "Gunnery Master",
+    "Hi-SpdGathering",
+    "NormalS/RapidBowUp",
+    "Bombardier"
+  ],
+  "my_charms": [
+    "0,Artisan,4,Water Atk,-4",
+    "2,NormalS Up,1,Fencing,0",
+    "1,Gunnery,1,Status,-3",
+    "0,PunishDraw,1,Gunnery,5",
+    "0,Rewards,3,Evade Dist,2",
+    "0,NormalS Up,4,Thundr Atk,1",
+    "0,Poison,2,Cold Res,-5",
+    "0,Water Atk,3,Eating,2",
+    "0,Status,3,Gunnery,4",
+    "0,Dragon Atk,4,Defense,-1",
+    "2,Ice Attack,5,Attack,-7",
+    "0,Evade Dist,3,Defense,-3",
+    "1,Fire Atk,1,FatigeCAdd,1",
+    "0,Debilitate,5,Gunnery,1",
+    "1,Guard,2,Shot Mix,3",
+    "3,Guard,1,Artisan,-1",
+    "0,FatigueAtk,3,Wide Area,6",
+    "0,Defense,2,DungMaster,-9"
+  ]
+}

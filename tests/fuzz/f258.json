@@ -1,0 +1,41 @@
+{
+  "id": "f258",
+  "description": "armour-seeded sampler, charm mode two_skill, 6 skills, 42 workers, 42 evaluations (port estimate); quotas: two_skill_hr_below_5, empty_slot",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    180,
+    173,
+    84,
+    167,
+    169,
+    108
+  ],
+  "skill_names": [
+    "Repas rapide +1",
+    "Expert bmb bouse",
+    "Élément foudre +2",
+    "Etendu +2",
+    "Maître des pièges",
+    "Art épée"
+  ],
+  "my_charms": [
+    "0,Repas rap.,3,Neige/boue,7",
+    "0,AtEl. fdr,6,Rés. feu,-3",
+    "0,Anti-bact.,3,ExpBmbBou.,9",
+    "2,Zone,3,Sommeil,-2",
+    "1,Sommeil,2,Zone,-1",
+    "0,Repas rap.,1,Rés. fdr,2",
+    "0,Potentiel,2,AtEl. drg,1",
+    "0,Zone,1,Mn norm. +,4"
+  ]
+}

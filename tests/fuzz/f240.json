@@ -1,0 +1,29 @@
+{
+  "id": "f240",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 2 workers, 16 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    164,
+    124
+  ],
+  "skill_names": [
+    "Dragon Res (L)",
+    "Parlysis Negated"
+  ],
+  "my_charms": [
+    "2,,,,",
+    "0,Guard Up,3,Status,-3",
+    "0,Fire Res,1,Expert,7",
+    "0,FatigueAtk,2,Artisan,-2"
+  ]
+}

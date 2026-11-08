@@ -1,0 +1,49 @@
+{
+  "id": "f044",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 378 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    181
+  ],
+  "skill_names": [
+    "Comer rápido+2"
+  ],
+  "my_charms": [
+    "0,Dis.Evadir,3,Captura,2",
+    "0,Comer,5,Resist.,-1",
+    "0,Comer,2,Bot.pará.,-1",
+    "0,SubirDPerf,4,VisPsíquic,4",
+    "0,Comer,2,R. trueno,-5",
+    "0,CargaRápid,3,Yoga,-1",
+    "0,Área ampl.,6,NieDefBaja,-6",
+    "2,CargaRápid,1,Fuego Inc,-10",
+    "2,Comer,1,Desen.crit,-2",
+    "0,Dis.Evadir,3,R. trueno,-3",
+    "1,Comer,2,Defensa,0",
+    "0,Captura,3,Protección,5",
+    "0,Comer,4,Captura,-2",
+    "0,Atq.Fatiga,4,Atq espec.,-2",
+    "1,PresViento,1,Protección,-3",
+    "2,SubFueBomb,2,Precisión,-1",
+    "0,Comer,4,Veneno,-9",
+    "0,Afilado,3,Prot. oido,3",
+    "0,Dis.Evadir,1,Precisión,-5",
+    "0,Aturdir,1,Aña.Fatiga,-5",
+    "0,Comer,4,AñDPerd,-4",
+    "0,Antisept.,7,VisPsíquic,4",
+    "0,Carga,1,Yoga,-3",
+    "0,Comer,2,Glotoneria,9",
+    "0,Precisión,1,Cazador,8",
+    "1,KO,4,Resist.,-1"
+  ]
+}

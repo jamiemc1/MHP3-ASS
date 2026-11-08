@@ -1,0 +1,40 @@
+{
+  "id": "f330",
+  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 7 workers, 7 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    69,
+    168,
+    37,
+    75,
+    55
+  ],
+  "skill_names": [
+    "Power Coating Add",
+    "Bombardier",
+    "Reload Speed +1",
+    "Element Atk Up",
+    "PelletS/ScatterBowUp"
+  ],
+  "my_charms": [
+    "0,Reload Spd,4,Water Res,-9",
+    "0,Dragon Atk,5,Defense,8",
+    "0,Rec Speed,4,PoisonCAdd,9",
+    "0,PelletS Up,4,Attack,2",
+    "2,Reload Spd,5,,",
+    "1,Status,1,ClustS Add,-4",
+    "0,Blight Res,2,Carving,0",
+    "0,BombStrUp,1,Horn,-2",
+    "0,Evasion,5,PelletS Up,1"
+  ]
+}

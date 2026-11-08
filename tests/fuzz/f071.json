@@ -1,0 +1,31 @@
+{
+  "id": "f071",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 1080 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    189
+  ],
+  "skill_names": [
+    "Gathering +1"
+  ],
+  "my_charms": [
+    "0,Health,5,ThunderRes,-3",
+    "0,Rec Level,5,CutterSAdd,-9",
+    "0,FatigueAtk,4,Gunnery,-5",
+    "0,PelletS Up,5,Wide Area,-2",
+    "1,CutterSAdd,3,Gathering,-9",
+    "0,Stun,4,Gathering,-7",
+    "0,Sharpener,4,Gathering,-4",
+    "0,Thundr Atk,5,Dragon Res,10"
+  ]
+}

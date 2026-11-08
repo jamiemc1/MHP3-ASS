@@ -1,0 +1,50 @@
+{
+  "id": "f212",
+  "description": "armour-seeded sampler, charm mode two_skill, 5 skills, 18 workers, 18 evaluations (port estimate); quotas: two_skill_hr_below_5, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    56,
+    54,
+    136,
+    60,
+    108
+  ],
+  "skill_names": [
+    "Normal S All Add",
+    "PierceS/PierceBowUp",
+    "Steal No Effect",
+    "Pellet S All Add",
+    "Fast Sheathe"
+  ],
+  "my_charms": [
+    "0,FastCharge,4,Status,4",
+    "0,PelletS Up,1,Recoil,1",
+    "0,FatigueAtk,4,PierceS Up,0",
+    "0,Guard Up,3,Sheathe,1",
+    "0,Will Recov,1,Ice Attack,8",
+    "0,Constitutn,2,NormalS Up,-1",
+    "0,PierceS Up,1,Fate,1",
+    "1,Sheathe,1,Fire Res,-8",
+    "0,Sheathe,4,Awaken,3",
+    "0,Thundr Atk,7,Hunger,5",
+    "0,PierceS Up,2,Rapid Fire,0",
+    "0,NormalSAdd,2,Psychic,3",
+    "0,ThunderRes,5,PelletSAdd,-6",
+    "0,PelletSAdd,3,Anti-Theft,3",
+    "0,Sheathe,3,LastingPwr,2",
+    "0,Wide Area,2,Precision,4",
+    "1,Sheathe,1,FastCharge,0",
+    "0,Evade Dist,3,Fire Atk,-8",
+    "0,Fire Atk,7,Ice Res,6"
+  ]
+}

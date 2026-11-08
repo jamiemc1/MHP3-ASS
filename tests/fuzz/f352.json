@@ -1,0 +1,41 @@
+{
+  "id": "f352",
+  "description": "uniform sampler, charm mode my_charms, 6 skills, 3 workers, 135168 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    105,
+    71,
+    68,
+    203,
+    16,
+    194
+  ],
+  "skill_names": [
+    "Evade +2",
+    "Fatigue Coating Add",
+    "Sleep Coating Add",
+    "Rewards Celeb",
+    "Sharpness +1",
+    "Divine Whim"
+  ],
+  "my_charms": [
+    "0,Awaken,1,ThunderRes,13",
+    "0,Reload Spd,1,Horn,-1",
+    "0,KO,3,Protection,-7",
+    "2,Artisan,1,Wide Area,-9",
+    "0,Fire Atk,5,Thundr Atk,2",
+    "0,Reload Spd,4,ParalyCAdd,-2",
+    "0,Rewards,4,Attack,-10",
+    "0,Rewards,1,Rapid Fire,-2"
+  ]
+}

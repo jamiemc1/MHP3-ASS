@@ -1,0 +1,32 @@
+{
+  "id": "f058",
+  "description": "armour-seeded sampler, charm mode none, 1 skill, 1 workers, 108 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    17
+  ],
+  "skill_names": [
+    "Unsheathe Stun"
+  ],
+  "my_charms": [
+    "0,PunishDraw,3,Loading,2",
+    "1,Gunnery,1,Quake Res,-8",
+    "2,PunishDraw,3,Guard,0",
+    "0,PunishDraw,4,Dragon Res,-4",
+    "0,PunishDraw,1,Expert,8",
+    "0,Guard Up,4,PunishDraw,-1",
+    "0,PunishDraw,2,Guard Up,2",
+    "0,PunishDraw,4,Carving,2",
+    "0,Guard Up,4,PunishDraw,-1"
+  ]
+}

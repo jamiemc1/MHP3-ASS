@@ -1,0 +1,30 @@
+{
+  "id": "f417",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 5 workers, 1440 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    201,
+    8,
+    184
+  ],
+  "skill_names": [
+    "Carving Master",
+    "Critical Eye +3",
+    "Pro Transporter"
+  ],
+  "my_charms": [
+    "0,Psychic,6,Transportr,7",
+    "0,Psychic,6,Transportr,7",
+    "0,Psychic,6,Transportr,7"
+  ]
+}

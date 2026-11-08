@@ -1,0 +1,51 @@
+{
+  "id": "f343",
+  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 15 workers, 105000 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    132,
+    147,
+    151,
+    54
+  ],
+  "skill_names": [
+    "Quake Res",
+    "Def Up (L)",
+    "Fire Res (S)",
+    "PierceS/PierceBowUp"
+  ],
+  "my_charms": [
+    "0,Quake Res,3,PierceSAdd,-4",
+    "0,Recoil,2,Hunger,-9",
+    "1,Fire Res,1,,",
+    "0,Rewards,3,Fencing,3",
+    "2,Defense,3,,",
+    "3,Evasion,1,Stamina,-2",
+    "0,Carving,2,Defense,-6",
+    "0,Fire Res,3,Health,-5",
+    "2,NormalSAdd,3,Combo Rate,-6",
+    "0,Guard,2,Rec Speed,1",
+    "1,Protection,1,Mud/Snow,-1",
+    "0,Rapid Fire,3,Awaken,0",
+    "0,Debilitate,1,Ice Res,11",
+    "0,Evade Dist,1,NormalS Up,-2",
+    "1,Quake Res,4,Psychic,-8",
+    "0,PierceS Up,4,Attack,1",
+    "0,FatigueAtk,3,Defense,3",
+    "1,Defense,1,,",
+    "1,Paralysis,1,,",
+    "0,Evade Dist,4,Fire Res,0",
+    "2,Rewards,4,Fire Atk,4",
+    "0,Loading,3,Defense,-8"
+  ]
+}

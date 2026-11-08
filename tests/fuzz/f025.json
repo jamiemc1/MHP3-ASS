@@ -1,0 +1,52 @@
+{
+  "id": "f025",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 4 workers, 128 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    137,
+    184
+  ],
+  "skill_names": [
+    "Blightproof",
+    "Backpacking Expert"
+  ],
+  "my_charms": [
+    "0,Backpackng,5,Ice Res,-4",
+    "2,Dragon Atk,2,Perception,2",
+    "0,ThunderRes,3,Wide Area,-5",
+    "0,Elemental,4,Ice Attack,8",
+    "0,Status,3,Rec Level,-1",
+    "0,Backpackng,1,ClustS Add,-10",
+    "0,Fire Atk,3,Backpackng,-2",
+    "0,Ice Attack,7,Rewards,-3",
+    "0,Horn,3,Backpackng,-6",
+    "1,Elemental,2,Health,-6",
+    "1,WindPress,1,Protection,-3",
+    "0,Protection,1,Stun,6",
+    "0,Constitutn,1,Defense,6",
+    "1,Loading,3,Protection,-2",
+    "0,FatigueAtk,6,Whim,-9",
+    "0,Blight Res,1,,",
+    "0,Defense,3,Backpackng,9",
+    "0,Evasion,5,PunishDraw,3",
+    "0,Backpackng,6,Sleep,-5",
+    "0,PelletS Up,3,FatigueAtk,-1",
+    "1,Evade Dist,2,Fortitude,-1",
+    "0,Sleep,4,Backpackng,-10",
+    "2,Backpackng,3,Anti-Theft,-7",
+    "0,Artisan,5,Hunger,9",
+    "0,Thundr Atk,4,Fire Res,11",
+    "0,Fire Atk,6,HearProtct,0",
+    "0,Backpackng,6,Combo Rate,12"
+  ]
+}

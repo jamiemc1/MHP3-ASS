@@ -1,0 +1,44 @@
+{
+  "id": "f432",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 6 workers, 5040 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    205,
+    208,
+    141
+  ],
+  "skill_names": [
+    "Combine Success+45%",
+    "Bullet Limit",
+    "Health +20"
+  ],
+  "my_charms": [
+    "0,Reload Spd,1,Fire Res,10",
+    "0,Rapid Fire,1,Water Atk,5",
+    "0,Reload Spd,4,Constitutn,4",
+    "0,Recoil,2,Attack,0",
+    "0,Mud/Snow,3,,",
+    "0,Quake Res,6,Crag S Add,8",
+    "0,Fire Atk,3,PelletSAdd,-7",
+    "0,Protection,4,Constitutn,-1",
+    "1,Recoil,3,Crit Draw,1",
+    "0,FatigueAtk,1,Precision,6",
+    "0,Protection,2,Gunnery,2",
+    "0,Rapid Fire,1,Water Res,8",
+    "0,Ice Attack,1,Perception,4",
+    "0,Guard Up,5,Rec Speed,3",
+    "0,Reload Spd,1,Fire Res,12",
+    "0,Will Recov,1,FastCharge,-2",
+    "0,Will Recov,4,Psychic,9"
+  ]
+}

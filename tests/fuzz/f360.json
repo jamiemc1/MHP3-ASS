@@ -1,0 +1,46 @@
+{
+  "id": "f360",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 5 workers, 20 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    75,
+    135
+  ],
+  "skill_names": [
+    "Element Atk Up",
+    "Antiseptic"
+  ],
+  "my_charms": [
+    "0,Ice Attack,4,Gunnery,-4",
+    "0,Protection,2,Antiseptic,-9",
+    "0,Rapid Fire,5,Elemental,-2",
+    "0,Precision,5,Antiseptic,7",
+    "0,Antiseptic,1,Precision,4",
+    "0,Dragon Res,4,Antiseptic,-6",
+    "1,Antiseptic,3,,",
+    "0,Status,1,Fortitude,3",
+    "2,Elemental,2,Loading,-2",
+    "0,Antiseptic,2,Combo Rate,-3",
+    "0,Ice Attack,3,Elemental,1",
+    "1,Elemental,1,Psychic,1",
+    "0,Health,4,Perception,-9",
+    "0,Elemental,3,Rewards,3",
+    "1,Guard,2,Dragon Atk,-6",
+    "1,FatigueAtk,3,Gunnery,-5",
+    "1,,,,",
+    "0,Antiseptic,5,DungMaster,4",
+    "0,Antiseptic,6,Hunger,-7",
+    "0,Water Res,2,Combo Rate,6",
+    "0,Fate,5,Water Atk,-3"
+  ]
+}

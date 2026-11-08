@@ -1,0 +1,47 @@
+{
+  "id": "f219",
+  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 4200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    105,
+    101
+  ],
+  "skill_names": [
+    "Evasion +2",
+    "Negate Hunger"
+  ],
+  "my_charms": [
+    "0,Crit Draw,4,Bomb Boost,4",
+    "0,Wind Res,5,Gloves Off,1",
+    "0,Evasion,1,Reload Speed,3",
+    "0,Potential,5,Hunger,-8",
+    "2,Normal Up,1,Hunger,2",
+    "0,Evasion,3,Normal Up,2",
+    "1,Gloves Off,1,Evasion,-2",
+    "0,Normal S+,4,Combo Plus,-4",
+    "1,Pellet S+,2,Crag S+,1",
+    "0,Sharpness,1,Evasion,3",
+    "0,Guard Up,2,SpeedSetup,-7",
+    "0,Evasion,5,Transportr,-6",
+    "0,Potential,2,Artillery,6",
+    "0,Recoil,5,Water Res,7",
+    "2,Sheathing,3,Stam Drain,-1",
+    "0,SpeedSetup,4,Hunger,2",
+    "0,Reload Speed,6,Sharpener,8",
+    "0,Wind Res,2,Fire Atk,-4",
+    "0,Thundr Atk,2,Guard,4",
+    "0,Rapid Fire,5,Evasion,0",
+    "0,Evasion,2,Cold Res,10",
+    "0,Poison,4,Hunger,3"
+  ]
+}

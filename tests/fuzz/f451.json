@@ -1,0 +1,29 @@
+{
+  "id": "f451",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 3 workers, 27 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    201
+  ],
+  "skill_names": [
+    "Carving Expert"
+  ],
+  "my_charms": [
+    "0,Carving,5,Thundr Atk,-5",
+    "0,Carving,1,Crit Draw,2",
+    "0,Ice Attack,2,Carving,3",
+    "0,Carving,2,Rewards,-1",
+    "0,Carving,5,FastCharge,3",
+    "0,Artisan,1,Carving,1"
+  ]
+}

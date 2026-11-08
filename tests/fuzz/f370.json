@@ -1,0 +1,45 @@
+{
+  "id": "f370",
+  "description": "uniform sampler, charm mode slotted, 2 skills, 1 workers, 36 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    111,
+    138
+  ],
+  "skill_names": [
+    "Recovery Speed +1",
+    "Def Down Negate"
+  ],
+  "my_charms": [
+    "0,Rec Speed,1,LastingPwr,-9",
+    "2,Paralysis,2,Gathering,1",
+    "0,Recoil,4,KO,2",
+    "0,Poison,4,Fortitude,4",
+    "0,Fortitude,5,Antiseptic,-4",
+    "0,Evade Dist,1,KO,2",
+    "0,Poison,4,Fortitude,4",
+    "0,Elemental,3,WindPress,3",
+    "0,Gunnery,4,DungMaster,-6",
+    "0,Rec Speed,3,Combo Rate,-4",
+    "0,CutterSAdd,6,LastingPwr,7",
+    "2,Elemental,1,Eating,-1",
+    "2,Reload Spd,1,Gunnery,-9",
+    "0,Rec Speed,6,ThunderRes,-3",
+    "0,Awaken,6,Rewards,2",
+    "0,Reload Spd,1,ThunderRes,0",
+    "0,Fire Atk,2,Constitutn,3",
+    "0,Precision,1,Horn,-4",
+    "0,HearProtct,5,Water Atk,-7",
+    "0,Rec Level,4,Antiseptic,-6"
+  ]
+}

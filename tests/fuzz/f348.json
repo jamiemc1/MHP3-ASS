@@ -1,0 +1,51 @@
+{
+  "id": "f348",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 1 workers, 256 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    124,
+    198
+  ],
+  "skill_names": [
+    "Parlysis Negated",
+    "Luck Booster"
+  ],
+  "my_charms": [
+    "0,WindPress,1,Paralysis,-7",
+    "0,Ice Attack,1,Cold Res,10",
+    "0,Crag S Add,2,Precision,-9",
+    "1,FatigueAtk,1,Rec Level,-1",
+    "0,Rapid Fire,2,Dragon Atk,2",
+    "0,Fate,1,Awaken,2",
+    "1,Fate,3,Elemental,-2",
+    "0,Paralysis,5,Fire Res,3",
+    "0,Fate,2,Expert,-7",
+    "2,Will Recov,1,Sharpener,6",
+    "0,Slam,4,KO,3",
+    "0,Elemental,1,Evade Dist,-3",
+    "0,Reload Spd,3,Status,-1",
+    "0,Eating,5,Sharpener,-9",
+    "2,Fate,2,Stamina,-1",
+    "0,BombStrUp,4,RazorCAdd,-9",
+    "0,Fate,4,Crit Draw,-3",
+    "0,Fate,2,Hunger,8",
+    "0,Paralysis,2,DungMaster,-8",
+    "0,Guard,1,Reload Spd,-1",
+    "1,NormalS Up,5,PierceS Up,-1",
+    "0,Fate,4,Horn,6",
+    "0,Water Atk,3,Fate,1",
+    "0,Guard,5,Eating,1",
+    "1,Constitutn,1,KO,0",
+    "0,Potential,6,Psychic,7"
+  ]
+}

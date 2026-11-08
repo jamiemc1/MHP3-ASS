@@ -1,0 +1,32 @@
+{
+  "id": "f083",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    203,
+    194,
+    28
+  ],
+  "skill_names": [
+    "Rewards Celeb",
+    "Divine Whim",
+    "Gunnery King"
+  ],
+  "my_charms": [
+    "0,NormalSAdd,3,Perception,7",
+    "0,Sharpness,4,Eating,0",
+    "0,Constitutn,3,BombStrUp,-6",
+    "0,Evasion,4,RazorCAdd,1",
+    "0,FatigueAtk,6,Cold Res,6"
+  ]
+}

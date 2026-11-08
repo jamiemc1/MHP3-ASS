@@ -1,0 +1,45 @@
+{
+  "id": "f460",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 4 workers, 192 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    50,
+    104,
+    118
+  ],
+  "skill_names": [
+    "Accuracy+2",
+    "Evade +1",
+    "Guard Inc"
+  ],
+  "my_charms": [
+    "0,Antiseptic,3,Whim,2",
+    "0,Paralysis,5,Gluttony,10",
+    "0,Attack,2,Anti-Theft,3",
+    "0,Reload Spd,2,Ice Attack,1",
+    "0,Fate,3,PunishDraw,3",
+    "0,Elemental,3,Blight Res,-1",
+    "0,KO,1,Fate,-1",
+    "0,PelletSAdd,4,Cold Res,-6",
+    "0,Gunnery,1,Cold Res,10",
+    "0,FastCharge,1,Guard Up,0",
+    "0,PierceS Up,5,Guard Up,2",
+    "0,Slam,5,Debilitate,0",
+    "0,Debilitate,5,Awaken,-1",
+    "0,Slam,2,Rec Level,2",
+    "1,Blight Res,2,Awaken,0",
+    "2,Crag S Add,2,,",
+    "0,Stamina,3,Hunger,10",
+    "0,Artisan,1,PelletS Up,1"
+  ]
+}

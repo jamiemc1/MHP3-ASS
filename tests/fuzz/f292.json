@@ -1,0 +1,45 @@
+{
+  "id": "f292",
+  "description": "armour-seeded sampler, charm mode none, 6 skills, 1 workers, 8400 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    26,
+    202,
+    170,
+    92,
+    73,
+    122
+  ],
+  "skill_names": [
+    "Flute Expert",
+    "Rewards Expert",
+    "Trnquilizr Guru",
+    "Constitution +1",
+    "Abnormal Status Atk +2",
+    "Poison Negated"
+  ],
+  "my_charms": [
+    "1,Status,1,Psychic,-1",
+    "1,WindPress,2,Horn,6",
+    "0,Water Atk,5,Horn,-4",
+    "0,Constitutn,4,ThunderRes,-1",
+    "0,Eating,3,Horn,-9",
+    "0,Constitutn,6,Dragon Res,-4",
+    "1,Status,1,Psychic,-10",
+    "0,Sleep,4,Status,-3",
+    "0,Attack,3,Status,3",
+    "1,Status,1,ThunderRes,4",
+    "0,Eating,3,Horn,-9",
+    "0,Poison,2,Horn,3"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "f326",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 4 workers, 576 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    126,
+    105
+  ],
+  "skill_names": [
+    "Sleep Negated",
+    "Evade +2"
+  ],
+  "my_charms": [
+    "0,Sharpener,4,Sleep,-3",
+    "0,Constitutn,6,SpeedSetup,1",
+    "1,Evasion,1,NormalS Up,-2",
+    "0,Will Recov,2,FastCharge,2",
+    "1,FastCharge,1,Rec Speed,-10",
+    "1,Reload Spd,1,Ice Res,-5",
+    "0,FatigueAtk,5,PierceS Up,2",
+    "0,Hunger,4,SpeedSetup,-9",
+    "0,Evade Dist,3,Hunger,3",
+    "1,Guard Up,2,Sense,-8",
+    "0,Sharpener,1,Hunger,2",
+    "0,Evasion,3,Potential,4",
+    "0,Constitutn,3,RazorCAdd,5",
+    "2,Elemental,1,Rec Speed,-8",
+    "0,Dragon Atk,7,Evasion,1",
+    "3,Guard,2,FatigueAtk,-2",
+    "0,Fate,5,Defense,0",
+    "0,Attack,3,Sleep,-1",
+    "0,Awaken,3,Health,13",
+    "0,Sheathe,1,Blight Res,2",
+    "0,SpeedSetup,7,Mud/Snow,4",
+    "1,Debilitate,2,Guard Up,-2",
+    "0,Water Atk,3,Evasion,2"
+  ]
+}

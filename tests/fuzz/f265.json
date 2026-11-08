@@ -1,0 +1,49 @@
+{
+  "id": "f265",
+  "description": "uniform sampler, charm mode none, 3 skills, 1 workers, 72 evaluations (port estimate)",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    108,
+    201,
+    179
+  ],
+  "skill_names": [
+    "Fast Sheathe",
+    "Carving Expert",
+    "Picky Eater"
+  ],
+  "my_charms": [
+    "0,PelletS Up,2,Sheathe,1",
+    "0,Horn,2,Shot Mix,-1",
+    "0,Sharpness,2,ThunderRes,-9",
+    "1,Potential,3,Fortitude,2",
+    "0,Blight Res,2,Sheathe,0",
+    "2,CutterSAdd,1,Gluttony,-9",
+    "0,Sheathe,5,Artisan,1",
+    "1,WindPress,1,Carving,-3",
+    "1,Protection,2,WindPress,-9",
+    "0,Sheathe,4,Attack,-2",
+    "0,Sharpener,4,Health,-2",
+    "3,,,,",
+    "0,Sheathe,2,Hunger,-1",
+    "0,Backpackng,6,Attack,-4",
+    "0,Sheathe,6,Ice Res,1",
+    "0,Sheathe,4,WindPress,0",
+    "0,Sheathe,3,BombStrUp,10",
+    "0,Reload Spd,2,Sheathe,4",
+    "0,CutterSAdd,3,,",
+    "0,Guard,6,Fencing,2",
+    "0,Gunnery,5,Gluttony,1",
+    "2,,,,"
+  ]
+}

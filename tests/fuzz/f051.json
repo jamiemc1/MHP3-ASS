@@ -1,0 +1,39 @@
+{
+  "id": "f051",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 4 workers, 6720 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    23,
+    104
+  ],
+  "skill_names": [
+    "Ruiner",
+    "Evade +1"
+  ],
+  "my_charms": [
+    "0,FastCharge,2,Evasion,4",
+    "0,Reload Spd,2,Evasion,2",
+    "0,Will Recov,1,Slam,-2",
+    "1,,,,",
+    "0,Evasion,2,Eating,-2",
+    "0,PelletS Up,5,Evasion,3",
+    "2,Slam,1,Health,-2",
+    "0,Slam,4,Stun,9",
+    "0,Slam,1,Sheathe,0",
+    "0,FastCharge,1,Evasion,-2",
+    "0,PunishDraw,5,Evasion,3",
+    "0,Evasion,4,Dragon Atk,4",
+    "1,Blight Res,1,Slam,1",
+    "1,,,,"
+  ]
+}

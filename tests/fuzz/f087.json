@@ -1,0 +1,32 @@
+{
+  "id": "f087",
+  "description": "uniform sampler, charm mode one_skill, 5 skills, 15 workers, 475200 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    64,
+    30,
+    92,
+    24,
+    198
+  ],
+  "skill_names": [
+    "Clust S All Add",
+    "Unleashed +2",
+    "Constitution +1",
+    "Improved KO",
+    "Luck Booster"
+  ],
+  "my_charms": [
+    "0,Water Atk,2,Fate,3"
+  ]
+}

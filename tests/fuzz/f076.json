@@ -1,0 +1,53 @@
+{
+  "id": "f076",
+  "description": "uniform sampler, charm mode slotted, 4 skills, 1 workers, 864 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    38,
+    184,
+    183,
+    118
+  ],
+  "skill_names": [
+    "Reload Speed +2",
+    "Backpacking Expert",
+    "Huntsman's Life",
+    "Guard Inc"
+  ],
+  "my_charms": [
+    "0,Water Res,2,Rec Speed,-3",
+    "0,FatigueAtk,5,Wide Area,11",
+    "0,Eating,2,Ice Res,13",
+    "1,Water Res,5,Defense,-4",
+    "0,Fire Res,3,Gunnery,1",
+    "0,Blight Res,2,Reload Spd,2",
+    "3,Stamina,1,Gunnery,-1",
+    "0,FatigueAtk,6,Sharpener,2",
+    "1,SleepCAdd,6,,",
+    "0,PierceSAdd,4,Dragon Res,7",
+    "0,Stamina,1,KO,1",
+    "0,FatigueAtk,1,Huntsman,1",
+    "0,Dragon Atk,3,Expert,4",
+    "0,Guard Up,4,Horn,-3",
+    "0,ClustS Add,4,CutterSAdd,2",
+    "0,Fate,1,Ice Attack,9",
+    "0,Guard,1,Blight Res,-3",
+    "0,Guard Up,2,Crag S Add,8",
+    "2,,,,",
+    "1,,,,",
+    "0,Health,8,Huntsman,5",
+    "0,Backpackng,3,Crag S Add,-4",
+    "0,Reload Spd,6,Blight Res,1",
+    "0,PunishDraw,1,Protection,-1"
+  ]
+}

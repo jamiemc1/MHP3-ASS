@@ -1,0 +1,48 @@
+{
+  "id": "f366",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 600 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    157,
+    7,
+    35,
+    139
+  ],
+  "skill_names": [
+    "Thunder Res (S)",
+    "Reckless Abandon +2",
+    "Load Up",
+    "Earplug"
+  ],
+  "my_charms": [
+    "0,Sleep,1,Defense,-6",
+    "0,Evade Dist,3,ThunderRes,6",
+    "0,Ice Attack,1,Crit Draw,3",
+    "1,Defense,1,PelletSAdd,2",
+    "2,Ice Attack,1,Stun,-7",
+    "1,FastCharge,1,Slam,-2",
+    "0,Expert,3,PierceSAdd,-8",
+    "0,Expert,1,Quake Res,-9",
+    "0,Expert,3,Hunger,10",
+    "1,Sheathe,1,Water Res,6",
+    "0,HearProtct,3,Awaken,2",
+    "0,Expert,4,Paralysis,0",
+    "0,Dragon Atk,1,PierceS Up,3",
+    "0,Expert,3,Water Res,-5",
+    "0,Psychic,4,ParalyCAdd,10",
+    "0,Mud/Snow,3,Gathering,-8",
+    "0,Psychic,4,ParalyCAdd,10",
+    "0,Slam,3,HearProtct,0",
+    "2,Expert,1,Poison,-6"
+  ]
+}

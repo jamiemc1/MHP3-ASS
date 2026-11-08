@@ -1,0 +1,46 @@
+{
+  "id": "f341",
+  "description": "uniform sampler, charm mode one_skill, 1 skill, 3 workers, 12 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    89
+  ],
+  "skill_names": [
+    "Dragon Element +1"
+  ],
+  "my_charms": [
+    "0,Loading,3,Eating,2",
+    "0,Potential,1,Poison,6",
+    "1,Dragon Atk,5,Recoil,1",
+    "0,Dragon Atk,7,Rapid Fire,1",
+    "0,Poison,4,Quake Res,2",
+    "1,Fire Atk,3,Carving,0",
+    "2,Reload Spd,1,Loading,-2",
+    "0,Paralysis,5,BombStrUp,-2",
+    "0,NormalSAdd,1,Status,4",
+    "0,Fire Atk,5,Will Recov,3",
+    "1,Status,4,Dragon Atk,-3",
+    "1,WindPress,2,BombStrUp,-3",
+    "0,Dragon Atk,3,PierceSAdd,8",
+    "0,Dragon Atk,3,Fire Atk,-9",
+    "0,Carving,4,FastCharge,2",
+    "0,Evasion,6,Rec Speed,8",
+    "1,Rec Level,6,Stun,-5",
+    "1,Dragon Atk,1,Anti-Theft,-5",
+    "0,Reload Spd,3,Awaken,-2",
+    "1,Potential,1,Gunnery,5",
+    "0,Ice Res,2,Mud/Snow,1",
+    "2,Dragon Atk,2,Thundr Atk,0",
+    "0,BombStrUp,3,ThunderRes,6"
+  ]
+}

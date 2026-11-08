@@ -1,0 +1,40 @@
+{
+  "id": "f252",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 47432 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    96,
+    185,
+    12,
+    0,
+    22
+  ],
+  "skill_names": [
+    "Runner",
+    "Heat Cancel",
+    "Sharp Sword",
+    "Attack Up [Sm]",
+    "Exploiter"
+  ],
+  "my_charms": [
+    "0,Fate,4,Debilitate,3",
+    "1,Loading,1,Sharpness,-2",
+    "0,Fencing,5,Stamina,3",
+    "0,Crag S Add,6,Attack,7",
+    "1,Sharpness,5,Evade Dist,-2",
+    "1,Stamina,4,Evade Dist,-2",
+    "0,Awaken,1,Sharpness,2",
+    "0,Stamina,4,Awaken,4",
+    "1,SpeedSetup,1,Attack,-7"
+  ]
+}

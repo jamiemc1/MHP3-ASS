@@ -1,0 +1,53 @@
+{
+  "id": "f002",
+  "description": "uniform sampler, charm mode none, 4 skills, 1 workers, 1500 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    166,
+    6,
+    164,
+    171
+  ],
+  "skill_names": [
+    "Wide Area +1",
+    "Reckless Abandon +1",
+    "Dragon Res (L)",
+    "Detect"
+  ],
+  "my_charms": [
+    "0,Dragon Res,4,Backpackng,4",
+    "0,Fortitude,4,Anti-Theft,-3",
+    "0,Guard Up,4,PelletSAdd,6",
+    "0,WindPress,5,Potential,2",
+    "0,Dragon Atk,2,Thundr Atk,-7",
+    "1,Artisan,1,Loading,-1",
+    "0,Expert,3,Horn,8",
+    "0,Rec Level,1,Psychic,-8",
+    "0,Ice Res,1,Expert,-7",
+    "0,Precision,2,Anti-Theft,0",
+    "0,Recoil,1,PunishDraw,-1",
+    "0,Sharpness,3,Artisan,3",
+    "1,Protection,6,Expert,0",
+    "0,PelletS Up,3,Psychic,0",
+    "1,Fire Atk,3,Rec Level,-2",
+    "1,KO,3,Carving,-2",
+    "1,Wide Area,1,Cold Res,6",
+    "1,PowerCAdd,4,,",
+    "2,Rec Speed,2,Precision,-6",
+    "0,Protection,1,Attack,5",
+    "1,Fire Atk,3,Rec Level,-2",
+    "0,Rewards,2,Wide Area,5",
+    "0,Guard Up,2,Expert,-4",
+    "0,Protection,1,Shot Mix,-5"
+  ]
+}

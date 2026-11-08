@@ -1,0 +1,42 @@
+{
+  "id": "f008",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    146,
+    24,
+    115
+  ],
+  "skill_names": [
+    "Def Up (M)",
+    "Improved KO",
+    "Guard +1"
+  ],
+  "my_charms": [
+    "0,Ice Attack,6,Defense,3",
+    "0,Eating,4,Defense,-2",
+    "0,KO,1,Fire Res,6",
+    "0,FastCharge,5,Rapid Fire,0",
+    "0,Crit Draw,1,Guard,-3",
+    "0,Dragon Atk,3,Fire Res,-2",
+    "0,KO,4,Gluttony,-3",
+    "0,Quake Res,2,Gunnery,8",
+    "2,Defense,1,Fire Res,-10",
+    "0,Expert,3,Defense,0",
+    "0,Dragon Atk,7,Defense,-1",
+    "0,Horn,5,Heat Res,-8",
+    "0,NormalSAdd,6,Defense,1",
+    "0,Guard,4,Ice Res,-1",
+    "0,Reload Spd,6,Guard,1"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "f298",
+  "description": "armour-seeded sampler, charm mode two_skill, 1 skill, 1 workers, 240 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    171
+  ],
+  "skill_names": [
+    "Detect"
+  ],
+  "my_charms": [
+    "1,Dragon Atk,1,SpeedSetup,-3",
+    "2,Fencing,2,Stun,-7",
+    "0,Gunnery,6,Psychic,-2",
+    "3,Crit Draw,1,,",
+    "1,Eating,1,Antiseptic,-2",
+    "0,Evade Dist,6,Sharpness,2",
+    "0,Thundr Atk,6,Psychic,7",
+    "0,Evade Dist,6,Sharpness,2",
+    "0,PierceSAdd,1,Expert,3",
+    "1,Reload Spd,4,Elemental,-3",
+    "0,Precision,4,SleepCAdd,-2",
+    "0,Guard Up,6,Artisan,0",
+    "0,Fate,1,Reload Spd,-1",
+    "0,CutterSAdd,2,Defense,3",
+    "2,Dragon Atk,4,Stun,-10",
+    "0,Will Recov,2,Constitutn,2",
+    "0,Constitutn,5,Psychic,-10"
+  ]
+}

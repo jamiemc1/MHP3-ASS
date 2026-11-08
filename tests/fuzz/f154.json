@@ -1,0 +1,38 @@
+{
+  "id": "f154",
+  "description": "armour-seeded sampler, charm mode my_charms, 4 skills, 6 workers, 40500 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    147,
+    142,
+    174,
+    58
+  ],
+  "skill_names": [
+    "Def Up (L)",
+    "Health +50",
+    "Recovery Up",
+    "Pierce S All Add"
+  ],
+  "my_charms": [
+    "1,Defense,1,NormalSAdd,-1",
+    "2,,,,",
+    "0,Fire Atk,2,PierceSAdd,-1",
+    "0,PierceSAdd,4,HiSpdGathr,3",
+    "0,Rec Level,2,WindPress,-10",
+    "2,,,,",
+    "0,Rec Level,4,Reload Spd,3",
+    "0,PierceSAdd,2,Water Res,5",
+    "0,Defense,4,Dragon Res,-5"
+  ]
+}

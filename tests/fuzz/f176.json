@@ -1,0 +1,38 @@
+{
+  "id": "f176",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 48 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    61,
+    183,
+    126,
+    157
+  ],
+  "skill_names": [
+    "Crag S LV1 Add",
+    "Huntsman's Life",
+    "Sleep Negated",
+    "Thunder Res (S)"
+  ],
+  "my_charms": [
+    "0,NormalS Up,2,Blight Res,2",
+    "0,Slam,1,Reload Spd,4",
+    "2,Will Recov,1,FatigeCAdd,2",
+    "0,Fencing,4,PunishDraw,3",
+    "0,KO,3,SpeedSetup,-3",
+    "0,Protection,1,Precision,6",
+    "0,Ice Res,2,Whim,-7",
+    "1,Hunger,6,Huntsman,-5",
+    "0,FatigueAtk,1,Dragon Res,-6"
+  ]
+}

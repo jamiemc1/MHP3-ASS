@@ -1,0 +1,51 @@
+{
+  "id": "f120",
+  "description": "uniform sampler, charm mode none, 5 skills, 1 workers, 48 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    23,
+    168,
+    75,
+    201,
+    208
+  ],
+  "skill_names": [
+    "Ruiner",
+    "Bombardier",
+    "Element Atk Up",
+    "Carving Expert",
+    "Bullet Limit"
+  ],
+  "my_charms": [
+    "1,Paralysis,2,Shot Mix,-6",
+    "0,Evade Dist,5,Rewards,1",
+    "0,Debilitate,1,BombStrUp,-10",
+    "0,Rec Level,2,Elemental,2",
+    "0,HearProtct,2,Ice Res,2",
+    "0,Crag S Add,5,Stun,-3",
+    "0,Paralysis,4,Expert,2",
+    "0,Slam,5,Sharpness,-1",
+    "0,Slam,4,Attack,-4",
+    "0,Slam,4,Attack,-4",
+    "0,Slam,2,Hunger,3",
+    "0,Guard Up,4,Evade Dist,-1",
+    "0,Psychic,3,Crag S Add,-3",
+    "1,Precision,1,BombStrUp,-4",
+    "0,Crit Draw,2,Carving,-1",
+    "0,Elemental,4,Blight Res,1",
+    "0,Slam,5,Sharpness,-1",
+    "0,Carving,3,Elemental,1",
+    "1,Hunger,1,Cold Res,1",
+    "0,Slam,5,Dragon Atk,1"
+  ]
+}

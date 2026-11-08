@@ -1,0 +1,37 @@
+{
+  "id": "f291",
+  "description": "uniform sampler, charm mode one_skill, 5 skills, 19 workers, 185250 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    28,
+    142,
+    131,
+    160,
+    132
+  ],
+  "skill_names": [
+    "Gunnery King",
+    "Health +50",
+    "Mud/Snow Res",
+    "Ice Res (S)",
+    "Quake Res"
+  ],
+  "my_charms": [
+    "0,Reload Spd,2,Ice Res,5",
+    "0,Water Atk,1,FatigueAtk,3",
+    "0,Health,7,Poison,4",
+    "2,PelletS Up,4,Water Res,-3",
+    "0,Quake Res,5,Precision,-1",
+    "0,Quake Res,3,FatigeCAdd,2"
+  ]
+}

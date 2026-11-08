@@ -1,0 +1,42 @@
+{
+  "id": "f253",
+  "description": "armour-seeded sampler, charm mode two_skill, 6 skills, 29 workers, 29 evaluations (port estimate); quotas: two_skill_hr_below_5, empty_slot",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    19,
+    201,
+    169,
+    176,
+    157,
+    185
+  ],
+  "skill_names": [
+    "Concentración",
+    "Celebridad Cort.",
+    "Experto trampas",
+    "Uso de obj. aum.",
+    "Res. Trueno[pq]",
+    "Cancelar calor"
+  ],
+  "my_charms": [
+    "3,Protección,4,CargaRápid,-3",
+    "0,CargaRápid,3,Captura,2",
+    "0,Desenv. KO,5,Cortar,1",
+    "1,Fue.Rapido,1,Cortar,-1",
+    "2,Defensa,2,Duración,-8",
+    "0,TrampaRap.,2,AñDNormal,4",
+    "0,Yoga,5,TrampaRap.,3",
+    "0,TrampaRap.,3,Vel. recup,-2",
+    "0,Sueño,3,TrampaRap.,-5"
+  ]
+}

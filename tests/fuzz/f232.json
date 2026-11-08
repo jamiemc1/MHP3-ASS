@@ -1,0 +1,41 @@
+{
+  "id": "f232",
+  "description": "uniform sampler, charm mode none, 1 skill, 1 workers, 12 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    126
+  ],
+  "skill_names": [
+    "Negate Sleep"
+  ],
+  "my_charms": [
+    "0,Water Res,5,Sleep,-5",
+    "0,Sleep,2,Status,-4",
+    "0,Water Res,6,LastingPwr,4",
+    "0,Stam Drain,1,Dragon Res,10",
+    "0,Sleep,1,Wide-Range,-5",
+    "0,Protection,5,Artillery,10",
+    "0,Rapid Fire,2,Pellet Up,0",
+    "1,Destroyer,1,Psychic,0",
+    "0,Sheathing,3,Psychic,7",
+    "0,Sleep,5,Exhaust C+,3",
+    "0,KO,5,Dragon Res,-9",
+    "0,Sleep,2,Normal S+,2",
+    "0,Sleep,1,Water Res,-2",
+    "0,Rapid Fire,2,Pellet Up,0",
+    "0,Crit Draw,5,Carving,1",
+    "0,Status,1,Sheathing,-4",
+    "0,Water Atk,3,Artillery,-2",
+    "0,Status,1,Sheathing,-4"
+  ]
+}

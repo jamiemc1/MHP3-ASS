@@ -1,0 +1,34 @@
+{
+  "id": "f052",
+  "description": "armour-seeded sampler, charm mode slotted, 3 skills, 1 workers, 13440 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    169,
+    205,
+    8
+  ],
+  "skill_names": [
+    "Trap Master",
+    "Combine Success+45%",
+    "Reckless Abandon +3"
+  ],
+  "my_charms": [
+    "0,Expert,3,Ice Res,-7",
+    "0,Crag S Add,2,Expert,0",
+    "0,Antiseptic,4,SpeedSetup,-4",
+    "0,Stamina,5,Expert,0",
+    "0,Fate,3,Hunger,1",
+    "0,Evasion,4,Protection,6",
+    "1,Sharpness,1,Protection,-9"
+  ]
+}

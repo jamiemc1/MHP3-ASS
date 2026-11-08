@@ -1,0 +1,31 @@
+{
+  "id": "f116",
+  "description": "uniform sampler, charm mode slotted, 2 skills, 1 workers, 1120 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    170,
+    35
+  ],
+  "skill_names": [
+    "Trnquilizr Guru",
+    "Load Up"
+  ],
+  "my_charms": [
+    "0,Fate,4,Ice Attack,2",
+    "0,Paralysis,5,Expert,6",
+    "0,Loading,4,Fencing,3",
+    "0,Loading,5,Thundr Atk,-5",
+    "0,Paralysis,5,Expert,6",
+    "0,Fate,4,Ice Attack,2"
+  ]
+}

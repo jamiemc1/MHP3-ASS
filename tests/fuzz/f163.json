@@ -1,0 +1,36 @@
+{
+  "id": "f163",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 3 workers, 648 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    157,
+    84
+  ],
+  "skill_names": [
+    "Thunder Res (S)",
+    "Thunder Element +2"
+  ],
+  "my_charms": [
+    "0,FatigueAtk,6,NormalSAdd,-3",
+    "1,Ice Attack,5,Fencing,-2",
+    "3,,,,",
+    "0,PierceS Up,1,Health,-4",
+    "0,Wide Area,7,Perception,-10",
+    "0,Recoil,4,Ice Res,-4",
+    "0,PierceS Up,5,Artisan,-1",
+    "0,Will Recov,3,Huntsman,6",
+    "0,Stamina,3,Fire Atk,-9",
+    "0,ThunderRes,4,Crag S Add,-10",
+    "0,Quake Res,4,Fortitude,0"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "f028",
+  "description": "armour-seeded sampler, charm mode my_charms, 6 skills, 7 workers, 12096 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    126,
+    137,
+    35,
+    169,
+    49,
+    157
+  ],
+  "skill_names": [
+    "Sleep Negated",
+    "Blightproof",
+    "Load Up",
+    "Trap Master",
+    "Accuracy+1",
+    "Thunder Res (S)"
+  ],
+  "my_charms": [
+    "0,HearProtct,3,Potential,-3",
+    "0,ThunderRes,3,Mud/Snow,5",
+    "0,Guard,1,SpeedSetup,-2",
+    "0,Rec Level,5,Carving,-2",
+    "1,Loading,3,Fate,0",
+    "0,Debilitate,5,Blight Res,-1",
+    "0,Thundr Atk,3,Rec Speed,2",
+    "0,ThunderRes,2,Mud/Snow,8",
+    "1,Loading,1,BombStrUp,-4",
+    "0,Horn,5,ThunderRes,2",
+    "0,SpeedSetup,7,Dragon Res,9",
+    "0,Sleep,1,Defense,7",
+    "0,HearProtct,4,Gunnery,-4",
+    "3,Guard,1,Rapid Fire,-3",
+    "0,Fate,5,Elemental,-3",
+    "0,Wide Area,2,Precision,3",
+    "0,PelletSAdd,1,Rec Speed,4",
+    "0,Guard Up,6,ThunderRes,13",
+    "0,BombStrUp,4,SpeedSetup,7"
+  ]
+}

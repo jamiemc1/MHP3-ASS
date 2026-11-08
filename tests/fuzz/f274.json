@@ -1,0 +1,51 @@
+{
+  "id": "f274",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 216 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    34,
+    26,
+    24,
+    190,
+    17
+  ],
+  "skill_names": [
+    "Resilience",
+    "Flute Expert",
+    "Improved KO",
+    "Gathering +2",
+    "Unsheathe Stun"
+  ],
+  "my_charms": [
+    "0,Guard,5,Fire Res,4",
+    "0,PelletSAdd,6,Gathering,-9",
+    "0,Reload Spd,4,Horn,2",
+    "0,Sharpener,1,Gluttony,-9",
+    "0,Crag S Add,5,Expert,-4",
+    "1,Fencing,2,Artisan,-2",
+    "1,Carving,2,Horn,-10",
+    "0,KO,4,Debilitate,-2",
+    "0,Water Atk,5,Wide Area,3",
+    "0,Health,5,Wide Area,2",
+    "2,PierceSAdd,1,Fire Res,0",
+    "0,HearProtct,2,ThunderRes,12",
+    "1,PierceS Up,1,PunishDraw,-3",
+    "0,Rewards,4,Dragon Res,11",
+    "1,Fate,1,Ice Res,0",
+    "0,Protection,3,Horn,4",
+    "2,KO,2,Will Recov,0",
+    "0,NormalS Up,5,Dragon Atk,9",
+    "0,SpeedSetup,3,Ice Res,3",
+    "2,Recoil,4,Dragon Res,-4"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "f034",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 11 workers, 712800 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    0,
+    120,
+    178
+  ],
+  "skill_names": [
+    "Attack Up [Sm]",
+    "Divine Protection",
+    "Filled Up"
+  ],
+  "my_charms": [
+    "0,Rec Level,4,ThunderRes,-3",
+    "1,,,,",
+    "0,Protection,6,Horn,-7",
+    "0,Fire Atk,3,Protection,5",
+    "2,Awaken,5,Attack,-3",
+    "0,Loading,6,Protection,-9",
+    "1,,,,"
+  ]
+}

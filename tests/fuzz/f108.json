@@ -1,0 +1,53 @@
+{
+  "id": "f108",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 1 evaluations (port estimate); quotas: cross_type, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    49,
+    167,
+    203,
+    120,
+    170
+  ],
+  "skill_names": [
+    "Accuracy+1",
+    "Wide Area +2",
+    "Rewards Celeb",
+    "Divine Protection",
+    "Trnquilizr Guru"
+  ],
+  "my_charms": [
+    "0,Carving,4,Rapid Fire,0",
+    "0,Wide Area,1,SleepCAdd,9",
+    "0,Will Recov,1,Precision,1",
+    "1,Mud/Snow,2,Status,0",
+    "0,NormalS Up,4,Rapid Fire,-3",
+    "0,PunishDraw,1,Horn,0",
+    "0,Precision,3,NormalSAdd,5",
+    "1,Status,1,Sharpness,0",
+    "0,Evasion,3,Protection,1",
+    "0,Protection,3,Water Atk,3",
+    "1,Potential,1,PunishDraw,1",
+    "1,Status,3,Rewards,2",
+    "0,NormalS Up,5,Crit Draw,-1",
+    "0,Rec Level,2,Thundr Atk,-2",
+    "1,Wide Area,6,ParalyCAdd,-9",
+    "0,Quake Res,2,Expert,-3",
+    "0,Evade Dist,6,PelletS Up,3",
+    "0,NormalS Up,3,Recoil,2",
+    "0,Sheathe,3,Guard Up,0",
+    "0,Elemental,3,Protection,-3",
+    "1,Antiseptic,1,Gathering,-8",
+    "0,Backpackng,8,Health,-5"
+  ]
+}

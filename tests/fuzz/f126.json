@@ -1,0 +1,53 @@
+{
+  "id": "f126",
+  "description": "armour-seeded sampler, charm mode my_charms, 6 skills, 5 workers, 725760 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    122,
+    21,
+    147,
+    178,
+    128,
+    98
+  ],
+  "skill_names": [
+    "Poison Negated",
+    "ESP",
+    "Def Up (L)",
+    "Filled Up",
+    "Stun Halved",
+    "Stamina Recov Up"
+  ],
+  "my_charms": [
+    "0,Fencing,4,Wide Area,-1",
+    "0,KO,5,Fire Atk,-3",
+    "0,Fencing,4,Attack,1",
+    "0,NormalSAdd,3,Quake Res,-8",
+    "1,Gunnery,3,Stun,0",
+    "0,Sheathe,4,Blight Res,2",
+    "0,Stamina,4,Awaken,1",
+    "1,Attack,1,Stun,-9",
+    "0,Elemental,1,Water Res,-8",
+    "0,Fencing,5,KO,-3",
+    "0,Water Res,1,Gluttony,-3",
+    "0,Sheathe,2,Heat Res,-4",
+    "0,Will Recov,4,Health,-8",
+    "0,Will Recov,2,Psychic,5",
+    "0,HearProtct,5,Rec Level,-3",
+    "0,Sheathe,6,Gluttony,6",
+    "0,Fencing,2,Stamina,-1",
+    "0,Slam,1,Fencing,1",
+    "0,Fencing,2,Gunnery,6",
+    "0,Sharpness,5,HearProtct,-3"
+  ]
+}

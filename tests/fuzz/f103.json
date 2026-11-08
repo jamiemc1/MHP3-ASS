@@ -1,0 +1,33 @@
+{
+  "id": "f103",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 1 workers, 1 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "Japanese",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    30
+  ],
+  "skill_names": [
+    "力の解放+2"
+  ],
+  "my_charms": [
+    "0,本気,4,気絶,0",
+    "0,本気,1,減気攻撃,0",
+    "0,本気,4,溜め短縮,2",
+    "0,本気,1,斬れ味,2",
+    "0,本気,6,腹減り,5",
+    "0,納刀,6,本気,-3",
+    "0,通常弾強化,5,本気,3",
+    "0,本気,6,聴覚保護,1",
+    "0,本気,2,斬れ味,-3",
+    "0,本気,2,散弾強化,0"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "f185",
+  "description": "uniform sampler, charm mode two_skill, 3 skills, 13 workers, 131040 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    72,
+    140,
+    80
+  ],
+  "skill_names": [
+    "Abnormal Status Atk +1",
+    "HighGradeEarplug",
+    "Water Element +1"
+  ],
+  "my_charms": [
+    "0,Fire Res,2,ThunderRes,-8",
+    "1,Water Atk,7,Will Recov,-3",
+    "0,Will Recov,1,Water Atk,9",
+    "0,Artisan,3,FatigueAtk,4",
+    "0,Status,2,Defense,6",
+    "0,Evade Dist,4,CutterSAdd,-4",
+    "0,PierceS Up,3,HearProtct,1",
+    "0,HearProtct,4,Artisan,0",
+    "0,Water Atk,2,ClustS Add,7",
+    "0,KO,5,Status,-1",
+    "0,Expert,1,Whim,10",
+    "0,Thundr Atk,5,Blight Res,0"
+  ]
+}

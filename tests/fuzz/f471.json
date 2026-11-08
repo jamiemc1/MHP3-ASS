@@ -1,0 +1,39 @@
+{
+  "id": "f471",
+  "description": "armour-seeded sampler, charm mode slotted, 6 skills, 1 workers, 10368 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    105,
+    201,
+    26,
+    135,
+    116,
+    14
+  ],
+  "skill_names": [
+    "Evade +2",
+    "Carving Expert",
+    "Flute Expert",
+    "Antiseptic",
+    "Guard +2",
+    "Speed Sharpening"
+  ],
+  "my_charms": [
+    "0,Precision,2,Ice Res,9",
+    "2,Thundr Atk,1,Antiseptic,2",
+    "0,Expert,2,SpeedSetup,-2",
+    "0,Crag S Add,6,Gunnery,1",
+    "0,Rewards,3,Wide Area,3",
+    "2,Fencing,2,Evasion,0"
+  ]
+}

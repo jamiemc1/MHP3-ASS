@@ -1,0 +1,42 @@
+{
+  "id": "f098",
+  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 72 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    32,
+    8
+  ],
+  "skill_names": [
+    "Adrenaline +2",
+    "Reckless Abandon +3"
+  ],
+  "my_charms": [
+    "0,Evade Dist,1,KO,-2",
+    "0,Dragon Atk,5,Expert,-4",
+    "1,Elemental,1,Potential,-1",
+    "0,NormalS Up,2,Evasion,2",
+    "0,Potential,2,ParalyCAdd,10",
+    "0,Potential,6,PowerCAdd,4",
+    "0,Sheathe,2,Expert,-1",
+    "0,NormalS Up,3,Protection,-1",
+    "2,Fire Atk,1,Potential,-2",
+    "0,Sheathe,1,NormalSAdd,-4",
+    "0,Quake Res,5,FatigeCAdd,-10",
+    "1,Gathering,1,,",
+    "0,Guard,1,Potential,3",
+    "0,Potential,4,HearProtct,3",
+    "1,Water Atk,4,Water Res,4",
+    "0,NormalSAdd,4,Expert,-2",
+    "0,Loading,1,Potential,4"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f156",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    83
+  ],
+  "skill_names": [
+    "Thunder Element +1"
+  ],
+  "my_charms": [
+    "0,Thundr Atk,5,Fate,2",
+    "0,BombStrUp,5,DungMaster,1",
+    "1,Thundr Atk,2,Paralysis,-3",
+    "0,Guard Up,5,Thundr Atk,-3",
+    "0,WindPress,4,Wide Area,9",
+    "0,HearProtct,2,Fire Res,8",
+    "0,WindPress,3,ParalyCAdd,6",
+    "0,Sharpness,3,Loading,-3",
+    "0,Thundr Atk,1,Sharpness,2",
+    "0,Recoil,5,Thundr Atk,3",
+    "0,Crit Draw,4,Fencing,-1",
+    "0,Thundr Atk,7,PoisonCAdd,-8",
+    "0,Protection,5,Sleep,4",
+    "0,Thundr Atk,7,KO,0",
+    "0,Fire Atk,7,Sleep,3",
+    "0,Thundr Atk,5,Status,-4",
+    "1,Thundr Atk,2,SpeedSetup,0",
+    "0,NormalS Up,5,Thundr Atk,9",
+    "1,Ice Res,4,Huntsman,-7",
+    "0,Dragon Atk,3,Thundr Atk,0"
+  ]
+}

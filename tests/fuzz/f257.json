@@ -1,0 +1,42 @@
+{
+  "id": "f257",
+  "description": "uniform sampler, charm mode one_skill, 5 skills, 6 workers, 29400 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    126,
+    22,
+    53,
+    111,
+    197
+  ],
+  "skill_names": [
+    "Sleep Negated",
+    "Exploiter",
+    "NormalS/RapidBowUp",
+    "Recovery Speed +1",
+    "Good Luck"
+  ],
+  "my_charms": [
+    "1,Mud/Snow,4,SpeedSetup,-3",
+    "0,FatigueAtk,3,Gathering,-4",
+    "0,CutterSAdd,6,Sense,0",
+    "0,Thundr Atk,5,Fencing,-3",
+    "0,Slam,3,Thundr Atk,-4",
+    "0,Status,3,Sharpener,-8",
+    "0,Sheathe,2,Combo Rate,6",
+    "0,PelletS Up,1,Constitutn,-3",
+    "0,Sharpener,3,BombStrUp,3",
+    "1,,,,",
+    "0,Precision,4,Gathering,-4"
+  ]
+}

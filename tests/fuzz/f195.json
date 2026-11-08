@@ -1,0 +1,49 @@
+{
+  "id": "f195",
+  "description": "uniform sampler, charm mode my_charms, 3 skills, 7 workers, 336 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    16,
+    137,
+    164
+  ],
+  "skill_names": [
+    "Sharpness +1",
+    "Blightproof",
+    "Dragon Res (L)"
+  ],
+  "my_charms": [
+    "0,Sheathe,2,Ice Attack,5",
+    "0,Mud/Snow,6,PowerCAdd,-8",
+    "0,Eating,3,Blight Res,-2",
+    "1,Dragon Res,4,,",
+    "1,Quake Res,3,Expert,-5",
+    "0,Defense,2,Huntsman,-1",
+    "0,Fencing,1,Gunnery,9",
+    "1,Artisan,1,Guard Up,-1",
+    "0,Psychic,4,Gluttony,-5",
+    "0,Blight Res,1,Health,10",
+    "0,Ice Res,1,FatigeCAdd,-5",
+    "1,Fate,2,PelletS Up,-1",
+    "0,Constitutn,6,Rec Level,2",
+    "3,Rec Level,4,,",
+    "0,Fire Atk,5,Artisan,3",
+    "2,Will Recov,1,Stun,-2",
+    "0,Wide Area,7,Dragon Res,8",
+    "0,Fate,1,Artisan,3",
+    "0,Fire Atk,1,Antiseptic,-10",
+    "0,Artisan,2,Sharpness,3",
+    "0,Evasion,6,Dragon Res,1",
+    "0,Loading,4,Artisan,2"
+  ]
+}

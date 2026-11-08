@@ -1,0 +1,51 @@
+{
+  "id": "f267",
+  "description": "uniform sampler, charm mode one_skill, 2 skills, 2 workers, 64 evaluations (port estimate); quotas: one_skill_hr_3_or_less",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    174,
+    80
+  ],
+  "skill_names": [
+    "Recovery Up",
+    "Water Element +1"
+  ],
+  "my_charms": [
+    "0,WindPress,1,Whim,9",
+    "2,FatigueAtk,4,WindPress,-10",
+    "0,Carving,5,Dragon Res,-4",
+    "0,Water Atk,6,SpeedSetup,8",
+    "0,Carving,5,Rec Speed,11",
+    "0,Hunger,5,Sleep,-10",
+    "0,PunishDraw,1,Sharpener,-2",
+    "0,FatigueAtk,5,Heat Res,3",
+    "0,PelletSAdd,1,CutterSAdd,9",
+    "0,Reload Spd,3,NormalS Up,1",
+    "1,Fate,1,Dragon Res,1",
+    "0,Rec Level,4,Fire Res,10",
+    "3,Evasion,1,Rec Level,2",
+    "0,Mud/Snow,1,Stun,5",
+    "0,Rec Level,6,Fire Atk,-2",
+    "0,HearProtct,3,Stun,13",
+    "0,Water Atk,2,Defense,2",
+    "0,Evasion,3,Quake Res,5",
+    "0,Ice Attack,7,Sense,7",
+    "1,Water Atk,4,Stamina,-1",
+    "0,Rec Level,1,FatigeCAdd,3",
+    "1,Quake Res,2,Cold Res,1",
+    "0,Elemental,5,Constitutn,3",
+    "0,FatigueAtk,3,Evasion,3",
+    "0,Carving,2,PunishDraw,-3",
+    "0,Sheathe,2,BombStrUp,6"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "f161",
+  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 16 workers, 207360 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    111,
+    25,
+    53,
+    108,
+    45
+  ],
+  "skill_names": [
+    "Recovery Speed +1",
+    "Enfeebler",
+    "NormalS/RapidBowUp",
+    "Fast Sheathe",
+    "Recoil Reduction +3"
+  ],
+  "my_charms": [
+    "0,FatigueAtk,3,Horn,-5",
+    "0,Rec Speed,1,Poison,-8",
+    "0,Loading,2,Rec Speed,-6",
+    "0,HearProtct,4,Loading,0",
+    "1,Recoil,2,Stun,9",
+    "1,Sharpness,2,Recoil,-3",
+    "0,Sheathe,1,KO,2",
+    "3,,,,",
+    "0,Sheathe,4,Dragon Res,11",
+    "0,Sheathe,2,Horn,-3",
+    "1,Elemental,5,NormalS Up,0",
+    "0,Sheathe,1,HearProtct,2",
+    "0,FatigueAtk,1,Precision,6",
+    "0,Stamina,4,Sheathe,1"
+  ]
+}

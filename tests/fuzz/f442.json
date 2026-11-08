@@ -1,0 +1,36 @@
+{
+  "id": "f442",
+  "description": "uniform sampler, charm mode none, 1 skill, 1 workers, 432 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    55
+  ],
+  "skill_names": [
+    "PelletS/ScatterBowUp"
+  ],
+  "my_charms": [
+    "0,PelletS Up,4,Blight Res,3",
+    "0,PelletS Up,2,Fire Res,8",
+    "0,PelletS Up,1,Dragon Res,-3",
+    "0,PelletS Up,5,Thundr Atk,1",
+    "0,Carving,1,PelletS Up,3",
+    "0,PelletS Up,4,Slam,-3",
+    "0,Thundr Atk,5,PelletS Up,-2",
+    "0,Elemental,2,Water Res,-8",
+    "1,Recoil,2,PelletS Up,-3",
+    "3,PelletS Up,1,Fate,0",
+    "1,Potential,3,PelletS Up,0",
+    "0,PelletS Up,4,Sharpness,1",
+    "0,HearProtct,1,PelletS Up,-1"
+  ]
+}

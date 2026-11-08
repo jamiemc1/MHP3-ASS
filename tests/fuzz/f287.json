@@ -1,0 +1,46 @@
+{
+  "id": "f287",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 9 workers, 648 evaluations (port estimate); quotas: two_skill_hr_below_5",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    6,
+    112,
+    0
+  ],
+  "skill_names": [
+    "Reckless Abandon +1",
+    "Recovery Speed +2",
+    "Attack Up [Sm]"
+  ],
+  "my_charms": [
+    "0,Stamina,3,Rec Speed,5",
+    "0,Rapid Fire,2,Rewards,-3",
+    "0,BombStrUp,3,Backpackng,-3",
+    "1,Awaken,1,Expert,-2",
+    "0,KO,2,Awaken,3",
+    "0,Eating,4,PelletSAdd,-4",
+    "2,PierceS Up,1,Expert,-4",
+    "0,SpeedSetup,5,Expert,5",
+    "3,Rewards,1,Expert,-1",
+    "0,Gunnery,3,Psychic,10",
+    "0,Sharpness,4,Blight Res,-1",
+    "1,Reload Spd,3,PierceSAdd,-4",
+    "0,PierceS Up,3,Expert,-7",
+    "0,Attack,2,Psychic,-10",
+    "0,Evade Dist,1,DungMaster,3",
+    "0,WindPress,1,PoisonCAdd,5",
+    "0,Rec Level,5,Expert,7",
+    "0,Status,6,Expert,4",
+    "0,Dragon Atk,5,Rec Speed,-3"
+  ]
+}

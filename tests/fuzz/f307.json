@@ -1,0 +1,40 @@
+{
+  "id": "f307",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 18 workers, 1250964 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    28,
+    19,
+    120,
+    141
+  ],
+  "skill_names": [
+    "Gunnery King",
+    "Concentration",
+    "Divine Protection",
+    "Health +20"
+  ],
+  "my_charms": [
+    "0,Status,2,WindPress,-3",
+    "0,Thundr Atk,4,Rec Speed,-4",
+    "1,Will Recov,5,Slam,0",
+    "0,Sheathe,3,Water Res,-10",
+    "0,Gunnery,2,Status,-1",
+    "0,KO,5,Carving,2",
+    "0,Awaken,1,Fire Res,13",
+    "1,Thundr Atk,5,Elemental,1",
+    "1,Water Atk,2,PowerCAdd,-2",
+    "1,Debilitate,1,Health,10",
+    "0,Debilitate,1,Psychic,12"
+  ]
+}

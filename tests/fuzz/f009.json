@@ -1,0 +1,34 @@
+{
+  "id": "f009",
+  "description": "uniform sampler, charm mode one_skill, 4 skills, 6 workers, 192 evaluations (port estimate); quotas: cross_type, one_skill_hr_3_or_less",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    204,
+    36,
+    185,
+    35
+  ],
+  "skill_names": [
+    "Combine Success +20%",
+    "Rapid Shot +1",
+    "Heat Cancel",
+    "Load Up"
+  ],
+  "my_charms": [
+    "1,Status,1,ClustS Add,-1",
+    "0,WindPress,2,Loading,-1",
+    "0,Crag S Add,1,Mud/Snow,4",
+    "2,Rec Level,3,Status,-4",
+    "2,PelletSAdd,1,Combo Rate,3"
+  ]
+}

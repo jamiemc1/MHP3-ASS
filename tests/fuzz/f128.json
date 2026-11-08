@@ -1,0 +1,28 @@
+{
+  "id": "f128",
+  "description": "uniform sampler, charm mode one_skill, 1 skill, 3 workers, 216 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    30
+  ],
+  "skill_names": [
+    "Unleashed +2"
+  ],
+  "my_charms": [
+    "0,Paralysis,2,Shot Mix,-5",
+    "0,Sharpness,1,Awaken,4",
+    "0,Awaken,1,HearProtct,3",
+    "0,Ice Res,4,Antiseptic,3",
+    "0,Awaken,5,Hunger,-9"
+  ]
+}

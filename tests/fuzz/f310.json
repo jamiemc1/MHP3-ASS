@@ -1,0 +1,44 @@
+{
+  "id": "f310",
+  "description": "uniform sampler, charm mode two_skill, 1 skill, 1 workers, 243 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    141
+  ],
+  "skill_names": [
+    "Health +20"
+  ],
+  "my_charms": [
+    "1,Sheathe,1,Attack,-2",
+    "0,KO,6,Sense,-1",
+    "0,Recoil,5,Potential,-1",
+    "1,Health,1,Attack,-5",
+    "0,Status,2,Combo Rate,-4",
+    "0,Fencing,3,ThunderRes,-10",
+    "1,Wide Area,2,Cold Res,-6",
+    "0,Fate,2,Health,13",
+    "0,KO,6,Fortitude,-3",
+    "0,Rewards,4,Evasion,-3",
+    "0,Potential,3,Wide Area,9",
+    "0,KO,5,Rec Speed,-3",
+    "0,Potential,5,Ice Attack,-3",
+    "0,Thundr Atk,5,ThunderRes,9",
+    "0,NormalS Up,2,Psychic,8",
+    "0,Attack,4,Horn,-1",
+    "0,Reload Spd,4,Health,10",
+    "0,Poison,3,Cold Res,3",
+    "0,Crit Draw,2,Protection,1",
+    "0,Rewards,5,Sharpener,8",
+    "0,BombStrUp,3,Health,5"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "f117",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 3 workers, 720 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (Athena)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    90,
+    23
+  ],
+  "skill_names": [
+    "Dragon Element +2",
+    "Ruiner"
+  ],
+  "my_charms": [
+    "0,Dragon Atk,3,Cold Res,-6",
+    "0,ClustS Add,1,Anti-Theft,7",
+    "0,Sleep,4,Rec Speed,0",
+    "0,Paralysis,1,Quake Res,6",
+    "1,Rec Level,2,Evade Dist,-2",
+    "0,HearProtct,5,PierceS Up,1",
+    "0,Evade Dist,6,Dragon Res,-9",
+    "0,SpeedSetup,3,Horn,7",
+    "0,Slam,4,Crit Draw,1",
+    "0,Evasion,5,Constitutn,0",
+    "0,Dragon Atk,4,Guard Up,-3",
+    "0,Slam,2,Water Res,-1",
+    "1,KO,1,Recoil,-1",
+    "0,Evade Dist,3,Slam,-2",
+    "0,Dragon Atk,1,Rec Level,1",
+    "0,Slam,4,Crit Draw,1",
+    "0,Eating,2,Sheathe,1",
+    "0,Dragon Atk,4,Fate,-3",
+    "0,PunishDraw,3,Crit Draw,-2",
+    "0,Slam,5,PierceS Up,0"
+  ]
+}

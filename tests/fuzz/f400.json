@@ -1,0 +1,47 @@
+{
+  "id": "f400",
+  "description": "uniform sampler, charm mode one_skill, 2 skills, 7 workers, 1260 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    124,
+    154
+  ],
+  "skill_names": [
+    "Parálisis anul.",
+    "Res. Agua[pq]"
+  ],
+  "my_charms": [
+    "0,PresViento,1,Área ampl.,6",
+    "0,Yoga,2,R. hielo,10",
+    "0,Dis.Evadir,2,Vel. recog,1",
+    "0,Aguijón,5,GolpePes.,-2",
+    "0,AñDPerf,5,R. agua,-10",
+    "0,R. agua,4,AñDPerf,-7",
+    "0,Salud,6,Recogida,4",
+    "0,PresViento,5,Salud,11",
+    "0,Protección,2,Observar,6",
+    "0,Dragon Inc,2,R. trueno,-10",
+    "0,Barr/Nieve,7,R. agua,-8",
+    "0,R. agua,5,Precisión,-1",
+    "0,Paralisis,4,Atq espec.,1",
+    "0,Aña.Corta.,3,AñDispBomb,1",
+    "1,Fuego Inc,1,Dragon Inc,-3",
+    "0,Aturdir,2,Capricho,10",
+    "0,Aturdir,3,Paralisis,3",
+    "2,Protección,1,Dis.Evadir,2",
+    "0,Dragon Inc,3,AñDPerd,3",
+    "0,Paralisis,2,Sentido,1",
+    "0,Hambre,3,Barr/Nieve,5",
+    "0,R. trueno,4,R. agua,7"
+  ]
+}

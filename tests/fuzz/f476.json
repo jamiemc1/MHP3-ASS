@@ -1,0 +1,47 @@
+{
+  "id": "f476",
+  "description": "uniform sampler, charm mode two_skill, 6 skills, 1 workers, 1 evaluations (port estimate); quotas: auto_guard_charm, two_skill_hr_below_5, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    119,
+    122,
+    120,
+    131,
+    164,
+    197
+  ],
+  "skill_names": [
+    "Auto-Guard",
+    "Poison Negated",
+    "Divine Protection",
+    "Mud/Snow Res",
+    "Dragon Res (L)",
+    "Good Luck"
+  ],
+  "my_charms": [
+    "0,Fate,3,PunishDraw,1",
+    "1,Thundr Atk,2,Fate,-3",
+    "0,Protection,1,ThunderRes,1",
+    "0,Auto-Guard,10,,",
+    "0,Rapid Fire,4,Dragon Res,0",
+    "0,PunishDraw,1,Protection,-7",
+    "0,Protection,2,PierceS Up,-3",
+    "0,Protection,7,Defense,2",
+    "0,Fate,3,Slam,1",
+    "2,Protection,1,Defense,-1",
+    "0,Dragon Res,3,Psychic,9",
+    "0,Loading,5,Recoil,-2",
+    "2,Recoil,1,Fate,-2",
+    "1,Protection,5,PowerCAdd,-9"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "f302",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 1 workers, 1 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    112
+  ],
+  "skill_names": [
+    "Recovery Speed +2"
+  ],
+  "my_charms": [
+    "0,Fate,5,Rec Speed,10",
+    "0,Loading,2,Rec Speed,10",
+    "2,Guard,2,Rec Speed,-8",
+    "0,Rec Speed,1,SleepCAdd,-6",
+    "1,Rec Speed,1,Gluttony,-7",
+    "2,Artisan,2,Rec Speed,-1",
+    "0,Rec Speed,6,Status,-4",
+    "0,Fire Res,1,Expert,-1",
+    "1,Eating,1,Evasion,-3",
+    "0,Eating,4,Rec Speed,-1",
+    "0,Rec Level,2,Rec Speed,-2",
+    "0,Rec Speed,4,Backpackng,-1"
+  ]
+}

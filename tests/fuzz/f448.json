@@ -1,0 +1,41 @@
+{
+  "id": "f448",
+  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 96 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    2,
+    197
+  ],
+  "skill_names": [
+    "Attack Up [Lg]",
+    "Good Luck"
+  ],
+  "my_charms": [
+    "0,FastCharge,4,Fate,1",
+    "0,Fate,1,Reload Spd,4",
+    "1,Reload Spd,2,Precision,-4",
+    "1,FatigueAtk,2,Eating,0",
+    "2,,,,",
+    "0,Attack,3,ParalyCAdd,7",
+    "0,Will Recov,1,Attack,-1",
+    "0,FatigueAtk,1,Attack,10",
+    "2,PierceS Up,1,Expert,-9",
+    "0,Recoil,3,Fate,1",
+    "0,Fencing,1,Sharpness,0",
+    "0,Thundr Atk,1,Attack,2",
+    "0,Fate,1,Evade Dist,1",
+    "0,NormalSAdd,1,Attack,6",
+    "0,Guard Up,6,Attack,3",
+    "0,Fire Atk,7,Fate,3"
+  ]
+}

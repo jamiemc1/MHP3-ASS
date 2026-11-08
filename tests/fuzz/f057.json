@@ -1,0 +1,43 @@
+{
+  "id": "f057",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 1 workers, 3000 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    194,
+    131,
+    2
+  ],
+  "skill_names": [
+    "Divine Whim",
+    "Mud/Snow Res",
+    "Attack Up [Lg]"
+  ],
+  "my_charms": [
+    "0,FastCharge,4,Sharpness,-2",
+    "0,Dragon Atk,2,Attack,10",
+    "0,Fate,3,,",
+    "0,WindPress,5,PunishDraw,1",
+    "1,PierceS Up,1,HearProtct,-3",
+    "0,Carving,3,BombStrUp,2",
+    "0,Attack,4,Hunger,-2",
+    "0,Water Res,1,,",
+    "0,Attack,4,Water Res,-5",
+    "0,Loading,3,Reload Spd,1",
+    "0,Sharpness,5,PelletS Up,2",
+    "0,BombStrUp,6,Attack,1",
+    "0,BombStrUp,6,Attack,1",
+    "0,Constitutn,1,Poison,2",
+    "0,Horn,6,Backpackng,-2",
+    "0,Dragon Atk,2,Attack,10"
+  ]
+}

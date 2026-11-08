@@ -1,0 +1,49 @@
+{
+  "id": "f441",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 24500 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    77,
+    116,
+    22,
+    1,
+    190
+  ],
+  "skill_names": [
+    "Fire Element +1",
+    "Guard +2",
+    "Exploiter",
+    "Attack Up [Med]",
+    "Gathering +2"
+  ],
+  "my_charms": [
+    "0,Guard,3,Defense,0",
+    "2,Fire Atk,1,Quake Res,-1",
+    "2,Rapid Fire,1,Fire Atk,0",
+    "0,Fire Atk,4,ClustS Add,-5",
+    "0,Backpackng,4,Whim,-2",
+    "0,Debilitate,1,Psychic,-8",
+    "1,Crit Draw,1,Dragon Atk,-9",
+    "0,Sheathe,4,Ice Attack,-9",
+    "0,Fire Atk,1,Crit Draw,3",
+    "0,Slam,4,Thundr Atk,0",
+    "0,Ice Attack,3,HearProtct,2",
+    "0,Fire Atk,4,Sheathe,-2",
+    "1,Fire Atk,2,Stun,-6",
+    "0,Fire Atk,4,Constitutn,1",
+    "0,Will Recov,2,Water Res,11",
+    "0,Fire Atk,3,NormalSAdd,4",
+    "0,Fire Atk,4,Elemental,2",
+    "0,Fire Res,4,Cold Res,8"
+  ]
+}

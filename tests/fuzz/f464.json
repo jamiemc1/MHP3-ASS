@@ -1,0 +1,49 @@
+{
+  "id": "f464",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 5 workers, 810 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    174,
+    26,
+    167
+  ],
+  "skill_names": [
+    "Recup. Vida Aum.",
+    "Flautista",
+    "Area Amplia +2"
+  ],
+  "my_charms": [
+    "2,Subir prot,2,SubirDNorm,-2",
+    "1,Evadir,3,Área ampl.,2",
+    "0,Niv. recup,2,Aturdir,4",
+    "0,Afilador,3,Barr/Nieve,0",
+    "0,R. agua,1,NieDefBaja,-2",
+    "0,Afilado,2,Potencial,-2",
+    "0,Cuerno,3,Experto,5",
+    "1,Niv. recup,2,Artesano,-1",
+    "0,PresViento,1,Combinador,6",
+    "0,Retroceso,4,Área ampl.,-3",
+    "0,Niv. recup,6,Fue.Rapido,2",
+    "0,Evadir,6,Cuerno,10",
+    "1,Vel.Guarda,4,Duración,3",
+    "0,Salud,1,Vel. recup,4",
+    "0,AñDNormal,3,Ataque,-2",
+    "0,Hielo Inc,5,Área ampl.,5",
+    "0,Comer,2,Vel. recog,10",
+    "1,Desenv. KO,4,Prot. oido,-2",
+    "0,Vel.recarg,2,Hielo Inc,-10",
+    "0,Área ampl.,1,AñDPerd,6",
+    "0,Hielo Inc,6,Experto,3",
+    "0,KO,5,Ataque,1"
+  ]
+}

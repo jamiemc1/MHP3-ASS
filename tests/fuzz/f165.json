@@ -1,0 +1,32 @@
+{
+  "id": "f165",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 2 workers, 1344 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    100,
+    137
+  ],
+  "skill_names": [
+    "Hunger Halved",
+    "Blightproof"
+  ],
+  "my_charms": [
+    "0,Loading,3,Hunger,-9",
+    "0,Sheathe,2,Hunger,-9",
+    "0,Recoil,1,Hunger,-7",
+    "0,Precision,6,SpeedSetup,9",
+    "0,Blight Res,3,Rapid Fire,3",
+    "0,Protection,1,PelletSAdd,7",
+    "0,Rec Level,5,Blight Res,-2"
+  ]
+}

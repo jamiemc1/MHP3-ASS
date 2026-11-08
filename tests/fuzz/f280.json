@@ -1,0 +1,33 @@
+{
+  "id": "f280",
+  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 7 workers, 840 evaluations (port estimate); quotas: one_skill_hr_3_or_less",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    192,
+    77,
+    189,
+    194
+  ],
+  "skill_names": [
+    "Hi-SpdGathering",
+    "Fire Element +1",
+    "Gathering +1",
+    "Divine Whim"
+  ],
+  "my_charms": [
+    "0,PelletSAdd,2,Gathering,11",
+    "2,Antiseptic,1,Health,3",
+    "0,Fire Atk,5,Fortitude,-9",
+    "0,Backpackng,1,Fire Res,7"
+  ]
+}
