@@ -15,6 +15,7 @@ from typing import Any
 
 from goldens import TraceGolden
 from mhp3ass.data import GameData
+from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
@@ -22,7 +23,12 @@ from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
 from mhp3ass.solution.extra_skills import calculate_extra_skills
 from mhp3ass.solution.fill import calculate_decorations
 from mhp3ass.solution.initial import get_initial_data
-from mhp3ass.solution.state import CalculationData, Solution, new_calculation_data
+from mhp3ass.solution.state import (
+    CalculationData,
+    LegacyNullReferenceError,
+    Solution,
+    new_calculation_data,
+)
 
 
 @dataclass(frozen=True)
@@ -38,6 +44,8 @@ class TraceCase:
     # Stage name -> the stage's results (points: accepted; fix_bad: called,
     # result; reorder: result), for the stages that have any.
     results: dict[str, dict[str, Any]]
+    # The .NET exception type the original threw, or None.
+    exception: str | None
 
 
 # The trace fields that are a stage's results rather than solution state.
@@ -118,6 +126,7 @@ def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCas
                 template=templates[sample["worker"]],
                 states=_full_states(sample["stages"]),
                 results=_stage_results(sample["stages"]),
+                exception=sample["exception"],
             )
             yield case
 
@@ -158,14 +167,6 @@ def snapshot(solution: Solution, data: CalculationData, skill_index: dict[Skill,
     return state
 
 
-def _as_stage(stage: Stage | tuple[str, Callable[[CalculationData], None]]) -> Stage:
-    if isinstance(stage, Stage):
-        return stage
-    name, run = stage
-    as_stage = Stage(name=name, run=run)
-    return as_stage
-
-
 def _difference(
     case: TraceCase,
     name: str,
@@ -187,10 +188,45 @@ def _difference(
     return difference
 
 
+def _dotnet_exception(error: Exception) -> str:
+    """The .NET exception type the port's exception stands for."""
+    if isinstance(error, LegacyNullReferenceError):
+        return "NullReferenceException"
+    if isinstance(error, (NoDecorationsError, KeyError)):
+        return "KeyNotFoundException"
+    if isinstance(error, IndexError):
+        return "IndexOutOfRangeException"
+    raise error
+
+
+def _threw_difference(
+    case: TraceCase, stage: Stage, data: CalculationData, skill_index: dict[Skill, int]
+) -> str | None:
+    """Runs a stage the original threw in: the port must raise the same exception
+    type and leave the state the trace's ``threw`` stage recorded."""
+    try:
+        stage.run(data)
+    except (LegacyNullReferenceError, LookupError) as error:
+        raised = _dotnet_exception(error)
+    else:
+        difference = f"{case.label} {stage.name}: port didn't raise {case.exception}"
+        return difference
+    differing = []
+    if raised != case.exception:
+        differing.append(f"raised {raised}, not {case.exception}")
+    ours = snapshot(data.solution, data, skill_index)
+    expected = case.states["threw"]
+    differing += sorted(
+        key for key in expected.keys() | ours.keys() if ours.get(key) != expected.get(key)
+    )
+    difference = f"{case.label} {stage.name} (threw): {differing}" if differing else None
+    return difference
+
+
 def stage_mismatches(
     goldens: list[TraceGolden],
     game: GameData,
-    stages: Sequence[Stage | tuple[str, Callable[[CalculationData], None]]],
+    stages: Sequence[Stage],
 ) -> list[str]:
     """Replays ``stages`` in order for every sample and lists each stage whose
     state or results differ from the trace's, with the differing fields.
@@ -198,28 +234,33 @@ def stage_mismatches(
     A stage without ``applies`` runs when the trace has it; a sample stops at
     the first such stage its trace lacks (it was rejected or threw earlier).
     A stage with ``applies`` must be in the trace exactly when ``applies``
-    says ``MatchesQuery`` runs it, and is skipped when it doesn't.
+    says ``MatchesQuery`` runs it, and is skipped when it doesn't. Where the
+    original threw inside a stage, the trace has a ``threw`` stage instead:
+    the port must raise there too, with the same exception type and state.
     """
     skill_index = {skill: index for index, skill in enumerate(game.skills)}
-    replayed = [_as_stage(stage) for stage in stages]
     mismatches = []
     for case in trace_cases(goldens, game):
         charm = case.template.copy() if case.template is not None else None
         solution = Solution(armors=list(case.armors), charm=charm)
         data = new_calculation_data(solution, case.query)
         results_so_far: dict[str, dict[str, Any]] = {}
-        for stage in replayed:
+        for stage in stages:
             traced = stage.name in case.states
-            if stage.applies is None:
-                if not traced:
-                    break
-            else:
-                runs = stage.applies(data, results_so_far)
-                if runs != traced:
-                    mismatches.append(f"{case.label} {stage.name}: port runs it {runs}")
-                    break
-                if not runs:
-                    continue
+            runs = traced if stage.applies is None else stage.applies(data, results_so_far)
+            threw_here = runs and not traced and "threw" in case.states
+            if threw_here:
+                difference = _threw_difference(case, stage, data, skill_index)
+                if difference is not None:
+                    mismatches.append(difference)
+                break
+            if stage.applies is None and not traced:
+                break
+            if runs != traced:
+                mismatches.append(f"{case.label} {stage.name}: port runs it {runs}")
+                break
+            if not runs:
+                continue
             results = stage.run(data)
             difference = _difference(case, stage.name, results, data, skill_index)
             if difference is not None:
@@ -239,7 +280,7 @@ def _points_check(data: CalculationData) -> dict[str, Any]:
     return results
 
 
-def _fill_as_matches_query(data: CalculationData) -> None:
+def fill_as_matches_query(data: CalculationData) -> None:
     """MatchesQuery's filling pass (Solution.cpp:673): both flags set, whatever the query."""
     calculate_decorations(data, allow_bad=True, allow_detrimental=True)
 
@@ -280,7 +321,7 @@ def matches_query_stages(game: GameData) -> list[Stage]:
 
     stages = [
         Stage(name="initial", run=get_initial_data),
-        Stage(name="decorated", run=_fill_as_matches_query),
+        Stage(name="decorated", run=fill_as_matches_query),
         Stage(name="points", run=_points_check),
         Stage(name="extra", run=_extra, applies=accepted),
         Stage(name="fix_bad", run=fix_bad, applies=needs_fixing),

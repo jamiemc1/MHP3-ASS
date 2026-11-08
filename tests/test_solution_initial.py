@@ -8,16 +8,19 @@ import pytest
 from mhp3ass.model import Ability, AbilityPair, Charm, Decoration, Skill
 from mhp3ass.solution.initial import add_decoration, detrimental, get_initial_data
 from mhp3ass.solution.state import Solution, new_calculation_data
-from solution_trace import stage_mismatches
+from solution_trace import Stage, stage_mismatches
 
 
 def test_initial_stage_matches_every_trace(trace_goldens, scratch_game):
-    assert stage_mismatches(trace_goldens, scratch_game, [("initial", get_initial_data)]) == []
+    assert (
+        stage_mismatches(trace_goldens, scratch_game, [Stage(name="initial", run=get_initial_data)])
+        == []
+    )
 
 
 def test_personal_initial_stage_matches_every_trace(personal_trace_goldens, scratch_game):
     mismatches = stage_mismatches(
-        personal_trace_goldens, scratch_game, [("initial", get_initial_data)]
+        personal_trace_goldens, scratch_game, [Stage(name="initial", run=get_initial_data)]
     )
 
     assert mismatches == []

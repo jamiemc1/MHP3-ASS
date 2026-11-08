@@ -20,7 +20,7 @@ from mhp3ass.solution.fill import (
 )
 from mhp3ass.solution.initial import get_initial_data
 from solution_builders import make_jewel
-from solution_trace import stage_mismatches
+from solution_trace import Stage, fill_as_matches_query, stage_mismatches
 
 
 def _dense_ranks(values: list[int]) -> list[int]:
@@ -204,19 +204,20 @@ def test_charm_ability_is_the_first_charm_ability_only(attack, defense):
     assert checks == (True, False, False, False)
 
 
-def _fill_as_matches_query(data):
-    """MatchesQuery's filling pass (Solution.cpp:673): both flags set, whatever the query."""
-    calculate_decorations(data, allow_bad=True, allow_detrimental=True)
-
-
 def test_decorated_stage_matches_every_trace(trace_goldens, scratch_game):
-    stages = [("initial", get_initial_data), ("decorated", _fill_as_matches_query)]
+    stages = [
+        Stage(name="initial", run=get_initial_data),
+        Stage(name="decorated", run=fill_as_matches_query),
+    ]
 
     assert stage_mismatches(trace_goldens, scratch_game, stages) == []
 
 
 def test_personal_decorated_stage_matches_every_trace(personal_trace_goldens, scratch_game):
-    stages = [("initial", get_initial_data), ("decorated", _fill_as_matches_query)]
+    stages = [
+        Stage(name="initial", run=get_initial_data),
+        Stage(name="decorated", run=fill_as_matches_query),
+    ]
 
     assert stage_mismatches(personal_trace_goldens, scratch_game, stages) == []
 
