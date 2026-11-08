@@ -52,7 +52,7 @@ Invoke-Harness dump-models @mycharmsFiles --lang $Language --out (Join-Path $dat
 Invoke-Harness best-decorations --out (Join-Path $dataDir "best-decorations.json.gz")
 Invoke-Harness solution-probes --out (Join-Path $dataDir "solution-probes.json.gz")
 if ($CharmLocation) {
-    Invoke-Harness charm-location --lang $Language --out (Join-Path $dataDir "charm-location.json.gz")
+    Invoke-Harness charm-location --out (Join-Path $dataDir "charm-location.json.gz")
 }
 
 $languagesDir = Join-Path $repoRoot "legacy\Run\Data\Languages"
