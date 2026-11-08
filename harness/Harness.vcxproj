@@ -69,6 +69,7 @@
     <ClCompile Include="..\legacy\Skill.cpp" />
     <ClCompile Include="..\legacy\Solution.cpp" />
     <ClCompile Include="..\legacy\StringManipulation.cpp" />
+    <ClCompile Include="src\CharmLocationDump.cpp" />
     <ClCompile Include="src\DataDump.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\ModelDump.cpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="src\Workers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CharmLocationDump.h" />
     <ClInclude Include="src\DataDump.h" />
     <ClInclude Include="src\Fixtures.h" />
     <ClInclude Include="src\Json.h" />
