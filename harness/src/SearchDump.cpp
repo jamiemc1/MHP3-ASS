@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SearchDump.h"
+#include "Fixtures.h"
 #include "Json.h"
 #include "Armor.h"
 #include "CharmDatabase.h"
@@ -164,16 +165,39 @@ namespace
 		return line->ToString();
 	}
 
-	void WriteLines( String^ path, List< String^ >^ lines )
+	// The text of a lines file, before compression: each line ends in '\n'.
+	String^ LinesText( List< String^ >^ lines )
 	{
 		Text::StringBuilder^ text = gcnew Text::StringBuilder;
 		for each( String^ line in lines )
 			text->Append( line )->Append( L'\n' );
-		FixtureFiles::WriteText( path, text->ToString() );
+		return text->ToString();
+	}
+
+	void WriteLines( String^ path, List< String^ >^ lines )
+	{
+		FixtureFiles::WriteText( path, LinesText( lines ) );
+	}
+
+	// SHA-256 of the lines' text as WriteText encodes it (UTF-8, no BOM),
+	// before compression, so the hash doesn't depend on the gzip encoder.
+	String^ LinesSha256( List< String^ >^ lines )
+	{
+		array< Byte >^ bytes = ( gcnew Text::UTF8Encoding( false ) )->GetBytes( LinesText( lines ) );
+		Security::Cryptography::SHA256^ sha = Security::Cryptography::SHA256::Create();
+		try
+		{
+			return Fixtures::HexLower( sha->ComputeHash( bytes ) );
+		}
+		finally
+		{
+			delete sha;
+		}
 	}
 }
 
-void SearchDump::Run( String^ query_path, String^ out_prefix, bool write_candidates )
+void SearchDump::Run( String^ query_path, String^ out_prefix, const bool write_candidates,
+					  const int max_solution_lines, const bool record_exceptions )
 {
 	JsonObject^ spec = Read( query_path );
 	LoadedData^ data = gcnew LoadedData;
@@ -199,14 +223,35 @@ void SearchDump::Run( String^ query_path, String^ out_prefix, bool write_candida
 	json->Field( L"relevant_decoration_count", query->rel_decorations.Count );
 
 	ResultSet results;
+	List< String^ >^ lines = gcnew List< String^ >;
 	List< String^ >^ candidates = gcnew List< String^ >;
+	Exception^ worker_exception = nullptr;
+	int failed_worker = -1;
 	List< Charm^ >^ worker_charms = query->skills.Count > 0 ? WorkerCharms( query, charm_select ) : gcnew List< Charm^ >;
 	json->Key( L"workers" );
 	json->BeginArray();
 	for( int worker = 0; worker < worker_charms->Count; ++worker )
 	{
 		Charm^ charm = worker_charms[ worker ];
-		List< Solution^ >^ found = RunWorker( query, charm );
+		List< Solution^ >^ found = nullptr;
+		if( record_exceptions )
+		{
+			// In the GUI a throwing worker shows a message box and its result is
+			// lost, while results already reported stay, depending on timing
+			// (Form1.h:1804-1811). Nothing past the throw is contract, so stop.
+			try
+			{
+				found = RunWorker( query, charm );
+			}
+			catch( Exception^ error )
+			{
+				worker_exception = error;
+				failed_worker = worker;
+				break;
+			}
+		}
+		else
+			found = RunWorker( query, charm );
 		if( write_candidates )
 		{
 			for each( Solution^ solution in found )
@@ -215,25 +260,52 @@ void SearchDump::Run( String^ query_path, String^ out_prefix, bool write_candida
 				candidates->Add( Convert::ToString( worker ) + L"\t" + charm_name + L"\t" + SolutionLine( solution ) );
 			}
 		}
+		const int before = results.all_solutions.Count;
 		const int added = results.AddSolutions( found );
+		// AddSolutions only appends, so this worker's lines are the new tail.
+		List< String^ >^ added_lines = gcnew List< String^ >;
+		for( int i = before; i < results.all_solutions.Count; ++i )
+			added_lines->Add( SolutionLine( results.all_solutions[ i ] ) );
+		lines->AddRange( added_lines );
 		json->BeginObject();
 		json->Field( L"worker", worker );
 		// Charm has a member operator==, so "charm == nullptr" would call it: test the handle.
 		json->Field( L"charm", charm ? charm->GetName() : nullptr );
 		json->Field( L"found", found->Count );
 		json->Field( L"added", added );
+		json->Field( L"added_sha256", LinesSha256( added_lines ) );
 		json->EndObject();
 	}
 	json->EndArray();
 
-	List< String^ >^ lines = gcnew List< String^ >;
-	for each( Solution^ solution in results.all_solutions )
-		lines->Add( SolutionLine( solution ) );
+	List< String^ >^ sorted_lines = gcnew List< String^ >( lines );
+	sorted_lines->Sort( StringComparer::Ordinal );
+	const bool write_solutions = max_solution_lines < 0 || lines->Count <= max_solution_lines;
 	json->Field( L"solution_count", lines->Count );
+	// Harness order is the contract: which duplicate survives depends on it (quirk 5).
+	json->Field( L"solutions_sha256", LinesSha256( lines ) );
+	// The same lines sorted ordinally, to tell "same set, different order" apart.
+	json->Field( L"solution_set_sha256", LinesSha256( sorted_lines ) );
+	json->Field( L"solutions_file", write_solutions );
+	if( record_exceptions )
+	{
+		json->Key( L"exception" );
+		if( worker_exception )
+		{
+			json->BeginObject();
+			json->Field( L"worker", failed_worker );
+			json->Field( L"type", worker_exception->GetType()->Name );
+			json->Field( L"message", worker_exception->Message );
+			json->EndObject();
+		}
+		else
+			json->Null();
+	}
 	json->EndObject();
 
 	json->WriteToFile( out_prefix + L".manifest.json" );
-	WriteLines( out_prefix + L".solutions.txt.gz", lines );
+	if( write_solutions )
+		WriteLines( out_prefix + L".solutions.txt.gz", lines );
 	if( write_candidates )
 		WriteLines( out_prefix + L".candidates.txt.gz", candidates );
 }
