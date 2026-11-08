@@ -1,0 +1,34 @@
+{
+  "id": "f249",
+  "description": "uniform sampler, charm mode slotted, 4 skills, 1 workers, 576 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    107,
+    111,
+    62,
+    194
+  ],
+  "skill_names": [
+    "Evasion Up",
+    "Recovery Speed +1",
+    "Crag S All Add",
+    "Divine Whim"
+  ],
+  "my_charms": [
+    "1,Thundr Atk,3,ParalyCAdd,1",
+    "1,,,,",
+    "0,Rec Speed,1,Expert,4",
+    "3,,,,",
+    "2,Evade Dist,2,DungMaster,-7"
+  ]
+}

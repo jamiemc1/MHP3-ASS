@@ -1,0 +1,36 @@
+{
+  "id": "f489",
+  "description": "uniform sampler, charm mode one_skill, 2 skills, 1 workers, 432 evaluations (port estimate); quotas: auto_guard_charm, torso_up",
+  "language": "Japanese",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    119,
+    133
+  ],
+  "skill_names": [
+    "オートガード",
+    "風圧無効"
+  ],
+  "my_charms": [
+    "0,風圧,2,高速収集,8",
+    "0,風圧,4,龍属性攻撃,-9",
+    "0,雷耐性,3,達人,-4",
+    "0,風圧,2,ガード強化,-2",
+    "1,風圧,4,気絶,-6",
+    "0,風圧,3,斬れ味,1",
+    "1,,,,",
+    "0,自動防御,10,,",
+    "0,風圧,3,ガード強化,-3",
+    "0,風圧,1,調合数,-3",
+    "1,,,,"
+  ]
+}

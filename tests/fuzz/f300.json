@@ -1,0 +1,52 @@
+{
+  "id": "f300",
+  "description": "uniform sampler, charm mode two_skill, 6 skills, 32 workers, 268800 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    118,
+    205,
+    17,
+    183,
+    92,
+    203
+  ],
+  "skill_names": [
+    "Guard Inc",
+    "Combine Success+45%",
+    "Unsheathe Stun",
+    "Huntsman's Life",
+    "Constitution +1",
+    "Rewards Celeb"
+  ],
+  "my_charms": [
+    "0,Protection,2,PierceS Up,-3",
+    "0,Guard Up,6,Slam,3",
+    "0,Crit Draw,5,PunishDraw,3",
+    "1,PunishDraw,1,Stun,2",
+    "0,Constitutn,3,PoisonCAdd,-3",
+    "0,NormalS Up,1,Ice Res,3",
+    "0,NormalS Up,3,Elemental,3",
+    "0,PierceS Up,1,Water Res,11",
+    "0,WindPress,3,Carving,-1",
+    "0,Constitutn,4,Gunnery,-6",
+    "0,WindPress,3,Constitutn,1",
+    "0,NormalS Up,1,Ice Res,3",
+    "0,Guard Up,1,Blight Res,1",
+    "0,PunishDraw,3,Rec Speed,-5",
+    "0,FatigueAtk,5,Gunnery,-3",
+    "0,SpeedSetup,4,Huntsman,1",
+    "0,WindPress,2,Paralysis,-6",
+    "0,Guard Up,6,Stamina,-2",
+    "0,Guard,2,Ice Res,10"
+  ]
+}

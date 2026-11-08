@@ -1,0 +1,33 @@
+{
+  "id": "f271",
+  "description": "armour-seeded sampler, charm mode slotted, 1 skill, 1 workers, 48 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    72
+  ],
+  "skill_names": [
+    "Abnormal Status Atk +1"
+  ],
+  "my_charms": [
+    "0,Thundr Atk,2,Status,-2",
+    "1,FastCharge,3,Status,-10",
+    "0,PelletSAdd,5,CutterSAdd,5",
+    "0,WindPress,3,Slam,-1",
+    "0,Fire Res,6,Poison,-1",
+    "0,Will Recov,1,Expert,-7",
+    "0,Reload Spd,4,Status,-8",
+    "0,Protection,1,Mud/Snow,-10",
+    "2,Poison,1,Status,0",
+    "0,PierceSAdd,1,SpeedSetup,10"
+  ]
+}

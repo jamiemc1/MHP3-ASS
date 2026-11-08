@@ -1,0 +1,37 @@
+{
+  "id": "f347",
+  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 504 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    155,
+    25
+  ],
+  "skill_names": [
+    "Water Res (L)",
+    "Enfeebler"
+  ],
+  "my_charms": [
+    "0,FatigueAtk,6,Perception,-4",
+    "0,Carving,5,FatigueAtk,-1",
+    "0,CutterSAdd,3,Health,9",
+    "0,Loading,1,BombStrUp,1",
+    "0,Health,8,Paralysis,-3",
+    "0,Fortitude,5,Mud/Snow,3",
+    "0,PelletSAdd,6,RazorCAdd,3",
+    "0,Water Res,6,Paralysis,-6",
+    "0,Fencing,5,FatigueAtk,2",
+    "0,Reload Spd,5,BombStrUp,9",
+    "0,Backpackng,5,Whim,13",
+    "1,Fate,1,FatigueAtk,-2"
+  ]
+}

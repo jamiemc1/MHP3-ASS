@@ -1,0 +1,38 @@
+{
+  "id": "f198",
+  "description": "uniform sampler, charm mode none, 3 skills, 1 workers, 13608 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    176,
+    194,
+    87
+  ],
+  "skill_names": [
+    "Item Use Up",
+    "Divine Whim",
+    "Ice Element +2"
+  ],
+  "my_charms": [
+    "0,Carving,1,Fate,2",
+    "1,Ice Attack,2,Loading,0",
+    "0,Guard,2,Whim,5",
+    "0,Rec Speed,6,Gunnery,1",
+    "1,Rec Level,3,Protection,-10",
+    "0,Dragon Atk,3,Carving,-3",
+    "0,PierceSAdd,1,Backpackng,-5",
+    "0,Ice Attack,2,ClustS Add,-1",
+    "1,Eating,1,Slam,1",
+    "0,Fencing,2,Ice Attack,3",
+    "0,Fire Res,4,Cold Res,-2"
+  ]
+}

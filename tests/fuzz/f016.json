@@ -1,0 +1,45 @@
+{
+  "id": "f016",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 16128 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    166,
+    6,
+    171,
+    65,
+    170
+  ],
+  "skill_names": [
+    "Wide Area +1",
+    "Reckless Abandon +1",
+    "Detect",
+    "Cutter S Add",
+    "Trnquilizr Guru"
+  ],
+  "my_charms": [
+    "0,Water Res,2,Expert,-1",
+    "0,Sheathe,2,Expert,-5",
+    "0,CutterSAdd,1,Antiseptic,-3",
+    "0,Stamina,4,Constitutn,-3",
+    "0,Expert,2,Psychic,6",
+    "0,Mud/Snow,7,BombStrUp,1",
+    "1,Perception,1,,",
+    "1,Horn,6,Wide Area,-5",
+    "0,Ice Attack,1,Psychic,-1",
+    "0,Fire Atk,2,Wide Area,4",
+    "0,CutterSAdd,4,Dragon Res,10",
+    "0,Rapid Fire,3,Wide Area,6",
+    "0,Evade Dist,6,Psychic,6",
+    "0,Water Res,5,CutterSAdd,4"
+  ]
+}

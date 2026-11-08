@@ -1,0 +1,41 @@
+{
+  "id": "f286",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 17 workers, 71400 evaluations (port estimate); quotas: cross_type, two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    197,
+    105,
+    14,
+    167
+  ],
+  "skill_names": [
+    "Good Luck",
+    "Evade +2",
+    "Speed Sharpening",
+    "Wide Area +2"
+  ],
+  "my_charms": [
+    "0,Evasion,2,RazorCAdd,3",
+    "0,Wide Area,7,LastingPwr,0",
+    "0,Backpackng,5,Quake Res,5",
+    "0,ClustS Add,5,Anti-Theft,-2",
+    "1,Rec Level,1,Elemental,-2",
+    "0,Defense,4,Sense,7",
+    "0,Wide Area,7,Water Res,6",
+    "0,Crit Draw,2,Fate,1",
+    "0,PunishDraw,2,Evasion,1",
+    "1,Thundr Atk,3,Loading,-3",
+    "0,ThunderRes,3,Gluttony,4",
+    "0,Recoil,2,Rapid Fire,-1"
+  ]
+}

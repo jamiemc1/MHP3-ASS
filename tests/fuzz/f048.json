@@ -1,0 +1,36 @@
+{
+  "id": "f048",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 4 workers, 1152 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    166
+  ],
+  "skill_names": [
+    "Wide Area +1"
+  ],
+  "my_charms": [
+    "0,BombStrUp,4,Wide Area,6",
+    "0,Wide Area,4,RazorCAdd,10",
+    "0,Eating,1,PelletSAdd,-2",
+    "0,SpeedSetup,3,Hunger,-4",
+    "0,Horn,4,PowerCAdd,9",
+    "0,PelletSAdd,1,Wide Area,9",
+    "0,Wide Area,2,Huntsman,4",
+    "1,Reload Spd,4,Evasion,-2",
+    "0,Poison,3,Wide Area,4",
+    "0,Guard Up,1,Whim,10",
+    "1,Paralysis,3,Wide Area,-10",
+    "2,Defense,2,Health,-8",
+    "1,Wide Area,2,Combo Rate,-3"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "f494",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 6 workers, 21000 evaluations (port estimate); quotas: one_skill_hr_3_or_less, illegal_charm_lines, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    192,
+    100,
+    193
+  ],
+  "skill_names": [
+    "Hi-SpdGathering",
+    "Hunger Halved",
+    "Spirit's Whim"
+  ],
+  "my_charms": [
+    "0,Defense,3,LastingPwr,-8",
+    "0,Reload Spd,4,Whim,13",
+    "0,Rec Level,1,Poison,-3",
+    "0,Thundr Atk,1,BombStrUp,-6",
+    "1,KO,2,PelletS Up,2",
+    "1,Fencing,2,Status,0",
+    "0,Fire Res,2,Combo Rate,5",
+    "1,Loading,14,,",
+    "0,KO,2,BombStrUp,0",
+    "0,Rec Level,1,Whim,7",
+    "1,Mud/Snow,15,,",
+    "1,Water Atk,1,Hunger,-8"
+  ]
+}

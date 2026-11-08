@@ -1,0 +1,46 @@
+{
+  "id": "f497",
+  "description": "uniform sampler, charm mode my_charms, 5 skills, 4 workers, 14112 evaluations (port estimate); quotas: auto_guard_charm, cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    203,
+    73,
+    59,
+    119,
+    141
+  ],
+  "skill_names": [
+    "Rewards Celeb",
+    "Abnormal Status Atk +2",
+    "Pellet S LV1 Add",
+    "Auto-Guard",
+    "Health +20"
+  ],
+  "my_charms": [
+    "0,Water Atk,1,Crit Draw,-1",
+    "0,Rewards,1,PierceS Up,2",
+    "0,Recoil,4,Horn,1",
+    "0,Precision,6,Horn,-1",
+    "0,Evasion,3,Stun,13",
+    "1,Attack,2,Paralysis,-1",
+    "0,Auto-Guard,10,,",
+    "0,BombStrUp,2,Backpackng,4",
+    "0,Sharpness,2,Fate,-1",
+    "0,Water Atk,4,BombStrUp,-8",
+    "0,Fire Atk,5,Dragon Res,-3",
+    "0,Elemental,4,Protection,-6",
+    "2,Ice Attack,2,Reload Spd,-1",
+    "0,Stamina,5,PierceS Up,0",
+    "0,Guard,4,Sharpness,0"
+  ]
+}

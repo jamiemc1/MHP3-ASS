@@ -1,0 +1,44 @@
+{
+  "id": "f152",
+  "description": "uniform sampler, charm mode my_charms, 6 skills, 8 workers, 9600 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    75,
+    194,
+    27,
+    66,
+    35,
+    161
+  ],
+  "skill_names": [
+    "Element Atk Up",
+    "Divine Whim",
+    "Gunnery Master",
+    "Poison Coating Add",
+    "Load Up",
+    "Ice Res (L)"
+  ],
+  "my_charms": [
+    "0,Loading,5,Potential,0",
+    "0,Gunnery,1,Whim,10",
+    "0,Elemental,1,Psychic,-2",
+    "0,Elemental,4,Artisan,3",
+    "2,CutterSAdd,1,Ice Res,-9",
+    "0,Potential,1,Ice Res,-3",
+    "1,Rapid Fire,3,Ice Res,2",
+    "0,Backpackng,4,Gunnery,6",
+    "0,Gunnery,3,LastingPwr,2",
+    "0,Rec Level,4,Ice Res,5",
+    "0,PelletS Up,4,Loading,-2"
+  ]
+}

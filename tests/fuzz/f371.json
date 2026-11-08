@@ -1,0 +1,35 @@
+{
+  "id": "f371",
+  "description": "uniform sampler, charm mode slotted, 2 skills, 1 workers, 4032 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    139,
+    176
+  ],
+  "skill_names": [
+    "Earplug",
+    "Item Use Up"
+  ],
+  "my_charms": [
+    "0,HearProtct,5,FastCharge,-3",
+    "1,HearProtct,3,NormalS Up,-2",
+    "0,Eating,2,HearProtct,-3",
+    "0,HearProtct,2,FastCharge,3",
+    "0,Constitutn,4,HearProtct,1",
+    "0,Will Recov,3,Rapid Fire,2",
+    "0,HearProtct,1,FatigueAtk,0",
+    "0,HearProtct,3,PierceS Up,-1",
+    "0,Eating,1,Horn,2",
+    "0,HearProtct,5,Psychic,-6"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "f499",
+  "description": "uniform sampler, charm mode two_skill, 6 skills, 1 workers, 1200 evaluations (port estimate); quotas: auto_guard_charm, two_skill_hr_below_5, torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    7,
+    203,
+    119,
+    184,
+    137,
+    138
+  ],
+  "skill_names": [
+    "Critical Eye +2",
+    "Capture Master",
+    "Auto-Guard",
+    "Pro Transporter",
+    "Blights Negated",
+    "Iron Skin"
+  ],
+  "my_charms": [
+    "0,Carving,3,Tranquilzr,3",
+    "0,Crag S+,5,Spd Gather,-7",
+    "0,Water Atk,7,Thundr Atk,2",
+    "0,Sheathing,4,Def Lock,4",
+    "0,Tranquilzr,3,Normal Up,-2",
+    "2,,,,",
+    "0,Expert,1,Antiseptic,-7",
+    "2,Water Res,1,Mud/Snow,-3",
+    "0,Auto-Guard,10,,",
+    "0,Ice Atk,7,Def Lock,1",
+    "0,Def Lock,1,Stun,10",
+    "0,Water Atk,4,Tranquilzr,1",
+    "0,Ice Atk,7,Evasion,2",
+    "0,Water Atk,4,Tranquilzr,1",
+    "0,Guard Up,2,Hunger,3",
+    "0,Mud/Snow,6,Expert,-2",
+    "0,Crag S+,1,Poison,-9",
+    "3,,,,",
+    "0,Transportr,7,Expert,-2",
+    "1,Ice Res,4,Hunger,-9"
+  ]
+}

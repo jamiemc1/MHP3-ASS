@@ -1,0 +1,48 @@
+{
+  "id": "f162",
+  "description": "armour-seeded sampler, charm mode one_skill, 2 skills, 7 workers, 13440 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    151,
+    54
+  ],
+  "skill_names": [
+    "Res. Fuego[pq]",
+    "Subir perf/Perf"
+  ],
+  "my_charms": [
+    "0,Guardia,2,R. fuego,4",
+    "0,R. dragón,6,Antisept.,-6",
+    "0,Evadir,3,R. fuego,-9",
+    "0,SubFueBomb,1,Defensa,7",
+    "0,Niv. recup,2,R. fuego,-3",
+    "0,R. fuego,6,TrampaRap.,-10",
+    "0,SubFueBomb,5,R. fuego,-5",
+    "0,R. dragón,6,Antisept.,-6",
+    "0,AñDispGr,4,Bot.Veneno,4",
+    "2,Comer,3,Atq espec.,1",
+    "0,R. fuego,6,Bot.pará.,0",
+    "0,Afilado,1,SubirDPerd,2",
+    "0,Trueno Inc,7,Defensa,0",
+    "0,Prot. oido,5,SubirDPerf,0",
+    "0,SubirDNorm,5,Esgrima,-1",
+    "1,SubirDPerf,3,VisPsíquic,6",
+    "2,Evadir,2,VisPsíquic,-5",
+    "1,,,,",
+    "1,Trueno Inc,1,R. fuego,4",
+    "0,Comer,5,Evadir,-3",
+    "0,Dis.Evadir,6,Rec.Resist,-2",
+    "2,R. fuego,1,SubFueBomb,-7",
+    "2,Comer,3,Atq espec.,1"
+  ]
+}

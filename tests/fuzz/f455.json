@@ -1,0 +1,39 @@
+{
+  "id": "f455",
+  "description": "uniform sampler, charm mode one_skill, 6 skills, 14 workers, 10080 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    72,
+    17,
+    30,
+    62,
+    151,
+    133
+  ],
+  "skill_names": [
+    "Abnormal Status Atk +1",
+    "Unsheathe Stun",
+    "Unleashed +2",
+    "Crag S All Add",
+    "Fire Res (S)",
+    "Wind Breaker"
+  ],
+  "my_charms": [
+    "0,Rec Level,1,CutterSAdd,-2",
+    "1,Rewards,1,Horn,-5",
+    "0,Evasion,5,Ice Res,0",
+    "0,Rec Level,6,Health,0",
+    "0,Dragon Atk,6,Rec Speed,4",
+    "0,PunishDraw,5,Stamina,3"
+  ]
+}

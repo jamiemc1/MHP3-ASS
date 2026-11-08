@@ -1,0 +1,38 @@
+{
+  "id": "f387",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 5 workers, 2880 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    158,
+    6,
+    140
+  ],
+  "skill_names": [
+    "Thunder Res (L)",
+    "Reckless Abandon +1",
+    "HighGradeEarplug"
+  ],
+  "my_charms": [
+    "2,Expert,3,,",
+    "0,Ice Res,5,Attack,3",
+    "0,Blight Res,1,WindPress,-6",
+    "0,Expert,1,Precision,-7",
+    "1,FatigueAtk,1,ThunderRes,-4",
+    "0,Fencing,2,Slam,-1",
+    "0,ThunderRes,5,Gathering,2",
+    "0,Eating,3,Status,-4",
+    "0,Expert,4,PoisonCAdd,-6",
+    "0,Fate,5,Expert,4",
+    "0,Health,2,Shot Mix,3"
+  ]
+}

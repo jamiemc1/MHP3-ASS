@@ -1,0 +1,42 @@
+{
+  "id": "f043",
+  "description": "armour-seeded sampler, charm mode my_charms, 3 skills, 4 workers, 43200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    108,
+    73,
+    109
+  ],
+  "skill_names": [
+    "Fast Sheathe",
+    "Abnormal Status Atk +2",
+    "Sneak"
+  ],
+  "my_charms": [
+    "0,Horn,1,Defense,1",
+    "2,,,,",
+    "0,Status,2,Poison,-2",
+    "0,Status,2,RazorCAdd,6",
+    "3,Thundr Atk,2,Stamina,-3",
+    "0,Status,4,Paralysis,-7",
+    "0,Water Atk,1,Wide Area,-3",
+    "0,Sheathe,1,Wide Area,4",
+    "1,Fire Res,2,Psychic,-6",
+    "0,PierceSAdd,1,Status,2",
+    "0,Sheathe,1,Mud/Snow,-7",
+    "0,Status,4,Psychic,10",
+    "3,,,,",
+    "0,Sharpness,4,Status,3",
+    "0,Horn,5,Precision,-10"
+  ]
+}

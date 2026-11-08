@@ -1,0 +1,35 @@
+{
+  "id": "f304",
+  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 5 workers, 25200 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    98,
+    83,
+    116,
+    168
+  ],
+  "skill_names": [
+    "Stamina Recov Up",
+    "Thunder Element +1",
+    "Guard +2",
+    "Bombardier"
+  ],
+  "my_charms": [
+    "0,Evade Dist,5,Anti-Theft,4",
+    "0,Constitutn,3,Sharpener,7",
+    "0,PierceS Up,1,Fire Atk,3",
+    "1,FastCharge,1,Fire Atk,-10",
+    "1,Carving,1,BombStrUp,5",
+    "0,Sheathe,5,Water Res,10"
+  ]
+}

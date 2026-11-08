@@ -1,0 +1,50 @@
+{
+  "id": "f006",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 5 workers, 3360 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    141,
+    197
+  ],
+  "skill_names": [
+    "Health +20",
+    "Good Luck"
+  ],
+  "my_charms": [
+    "0,BombStrUp,1,Status,3",
+    "2,PelletS Up,2,Status,1",
+    "0,PunishDraw,5,ThunderRes,1",
+    "0,Stamina,4,Fate,2",
+    "0,Sleep,1,Heat Res,2",
+    "0,Precision,2,Health,4",
+    "0,Wide Area,4,Water Res,-2",
+    "2,FatigueAtk,1,FastCharge,-2",
+    "0,ThunderRes,1,Water Res,10",
+    "1,Precision,2,Mud/Snow,-1",
+    "1,Health,1,SleepCAdd,-7",
+    "0,Health,6,Cold Res,-6",
+    "0,Health,2,NormalSAdd,-5",
+    "0,Ice Attack,4,Fate,-2",
+    "0,Fencing,4,PunishDraw,3",
+    "0,Fate,4,Guard,-2",
+    "0,Constitutn,2,Guard Up,2",
+    "0,Health,3,PelletSAdd,10",
+    "0,Guard Up,2,Guard,4",
+    "0,Guard Up,6,Rec Level,2",
+    "0,Status,4,Defense,6",
+    "2,Thundr Atk,1,Elemental,1",
+    "0,Slam,4,ThunderRes,10",
+    "0,Reload Spd,1,Stun,8",
+    "0,Evasion,6,Health,-6"
+  ]
+}

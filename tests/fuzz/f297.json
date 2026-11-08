@@ -1,0 +1,44 @@
+{
+  "id": "f297",
+  "description": "armour-seeded sampler, charm mode two_skill, 4 skills, 21 workers, 2520 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    107,
+    75,
+    137,
+    134
+  ],
+  "skill_names": [
+    "Evasion Up",
+    "Element Atk Up",
+    "Blightproof",
+    "Wind Anchor"
+  ],
+  "my_charms": [
+    "1,Water Atk,1,Horn,-5",
+    "1,Fate,1,Defense,-2",
+    "0,Sheathe,1,Health,1",
+    "0,Will Recov,1,Cold Res,9",
+    "2,Water Atk,2,Will Recov,-2",
+    "0,Fate,1,Ice Attack,3",
+    "0,Antiseptic,6,Sense,-4",
+    "0,Gunnery,4,Hunger,-4",
+    "0,Backpackng,4,Huntsman,-1",
+    "0,Constitutn,3,Status,-1",
+    "1,Guard Up,4,Dragon Atk,-6",
+    "0,Recoil,1,FastCharge,2",
+    "0,Recoil,3,Rec Speed,2",
+    "0,Fire Res,5,Quake Res,-2",
+    "0,Protection,1,Slam,-3"
+  ]
+}

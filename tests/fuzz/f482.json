@@ -1,0 +1,51 @@
+{
+  "id": "f482",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 0 workers, 0 evaluations (port estimate); quotas: auto_guard_no_charm, torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    119,
+    1,
+    115
+  ],
+  "skill_names": [
+    "Garde auto.",
+    "Att. augm. (myn)",
+    "Garde +1"
+  ],
+  "my_charms": [
+    "0,Bombardier,3,Att. augm.,-4",
+    "0,Paralysie,3,Rés. glc,-4",
+    "1,Dégainage,2,Rés. feu,-10",
+    "0,Critiques,5,Att. augm.,6",
+    "0,Att. augm.,4,Inst.rap.,-3",
+    "0,Garde,5,Assaut lourd,-2",
+    "0,At.horiz.,2,Rés. drgn,-6",
+    "3,Press. vent,1,Att. augm.,-4",
+    "0,Garde,6,Collecte,-1",
+    "2,MnTranAjt,2,Inst.rap.,0",
+    "0,Protection,7,Dépeçage,-1",
+    "0,Expert,1,Att. augm.,1",
+    "0,AtEl. feu,2,Glouton,6",
+    "0,AtEl. fdr,1,Zone,10",
+    "0,Statut,2,Repas rap.,0",
+    "0,Att. augm.,3,End.psn,-9",
+    "0,Rés. feu,5,Rés. drgn,9",
+    "0,Statut,1,Précision,-3",
+    "0,Chrg rap.,2,At.horiz.,2",
+    "2,Garde,2,AtEl. drg,0",
+    "1,Evasion,1,Constit.,-1",
+    "0,Garde,1,AtEl. eau,5",
+    "0,Sommeil,3,Att. augm.,3",
+    "3,AtEl. glc,1,Épée aig. ,1"
+  ]
+}

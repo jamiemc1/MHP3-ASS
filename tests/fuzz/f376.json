@@ -1,0 +1,32 @@
+{
+  "id": "f376",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 2 workers, 3000 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    44,
+    38
+  ],
+  "skill_names": [
+    "Recoil Reduction +2",
+    "Reload Speed +2"
+  ],
+  "my_charms": [
+    "0,Attack,1,Gluttony,11",
+    "1,Evasion,2,Psychic,-3",
+    "0,Precision,6,Antiseptic,-9",
+    "0,Dragon Res,4,FatigeCAdd,-3",
+    "0,Potential,1,Constitutn,4",
+    "3,,,,",
+    "2,,,,"
+  ]
+}

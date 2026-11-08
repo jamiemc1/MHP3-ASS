@@ -1,0 +1,40 @@
+{
+  "id": "f383",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 96 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    35,
+    139,
+    198,
+    142,
+    135
+  ],
+  "skill_names": [
+    "Load Up",
+    "Earplug",
+    "Luck Booster",
+    "Health +50",
+    "Antiseptic"
+  ],
+  "my_charms": [
+    "1,Loading,2,Horn,4",
+    "0,Health,4,Stun,-10",
+    "0,Loading,4,Awaken,2",
+    "0,Guard Up,1,Health,4",
+    "0,Health,5,Water Res,6",
+    "1,Loading,2,Horn,4",
+    "0,Antiseptic,1,Perception,-3",
+    "0,KO,2,HearProtct,2",
+    "0,HearProtct,2,KO,1"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "f145",
+  "description": "armour-seeded sampler, charm mode slotted, 6 skills, 1 workers, 145200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    129,
+    53,
+    185,
+    151,
+    37,
+    49
+  ],
+  "skill_names": [
+    "Stun Negated",
+    "NormalS/RapidBowUp",
+    "Heat Cancel",
+    "Fire Res (S)",
+    "Reload Speed +1",
+    "Accuracy+1"
+  ],
+  "my_charms": [
+    "0,Health,2,Stun,0",
+    "1,Slam,2,Dragon Atk,2",
+    "2,Guard Up,1,Dragon Res,-9",
+    "0,Precision,6,Status,2",
+    "0,NormalS Up,3,Crit Draw,1",
+    "0,NormalS Up,5,Fire Res,-10",
+    "0,Ice Attack,4,PoisonCAdd,-8",
+    "0,Reload Spd,4,Rewards,1",
+    "0,NormalS Up,3,Expert,-6",
+    "0,Health,1,Attack,3",
+    "0,Rec Level,5,Precision,-6",
+    "0,Sleep,1,Fire Res,-7"
+  ]
+}

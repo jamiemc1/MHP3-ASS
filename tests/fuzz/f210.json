@@ -1,0 +1,37 @@
+{
+  "id": "f210",
+  "description": "armour-seeded sampler, charm mode two_skill, 4 skills, 18 workers, 64800 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    7,
+    107,
+    194,
+    120
+  ],
+  "skill_names": [
+    "Reckless Abandon +2",
+    "Evasion Up",
+    "Divine Whim",
+    "Divine Protection"
+  ],
+  "my_charms": [
+    "0,Evade Dist,2,Backpackng,-6",
+    "0,Evade Dist,2,Dragon Res,10",
+    "0,CutterSAdd,3,Horn,7",
+    "1,Expert,1,Paralysis,1",
+    "0,Constitutn,1,ClustS Add,3",
+    "0,Crag S Add,1,Antiseptic,1",
+    "2,Fire Res,1,Psychic,-3",
+    "0,Fire Atk,4,Guard,1"
+  ]
+}

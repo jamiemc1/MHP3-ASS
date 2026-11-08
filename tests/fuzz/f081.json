@@ -1,0 +1,41 @@
+{
+  "id": "f081",
+  "description": "uniform sampler, charm mode none, 6 skills, 1 workers, 10080 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    166,
+    173,
+    183,
+    34,
+    19,
+    50
+  ],
+  "skill_names": [
+    "Area Amplia +1",
+    "Exp. Estiercol",
+    "Vida del cazador",
+    "Fortalecer",
+    "Concentración",
+    "Precisión+2"
+  ],
+  "my_charms": [
+    "0,AñDPerd,4,Bot.Veneno,-3",
+    "0,AñDPerd,1,Recogida,-4",
+    "0,NieDefBaja,6,Aña.Fatiga,0",
+    "0,Hielo Inc,5,Estiercol,9",
+    "1,,,,",
+    "0,Prot. oido,1,Esgrima,1",
+    "0,Vel.Guarda,1,Aturdir,7",
+    "0,PresViento,1,Res. Calor,-1"
+  ]
+}

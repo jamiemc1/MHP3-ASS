@@ -1,0 +1,44 @@
+{
+  "id": "f144",
+  "description": "armour-seeded sampler, charm mode two_skill, 2 skills, 3 workers, 9000 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    157,
+    72
+  ],
+  "skill_names": [
+    "Thunder Res (S)",
+    "Abnormal Status Atk +1"
+  ],
+  "my_charms": [
+    "2,Recoil,5,Protection,-4",
+    "0,Attack,2,PoisonCAdd,-3",
+    "0,Sheathe,1,Blight Res,3",
+    "0,Potential,5,Gathering,-4",
+    "0,Status,1,RazorCAdd,-10",
+    "0,Status,3,Fencing,-3",
+    "0,Fortitude,7,Poison,6",
+    "0,Fate,3,Stun,-9",
+    "0,ThunderRes,3,SleepCAdd,-9",
+    "0,Artisan,3,PelletS Up,-2",
+    "1,Status,2,Sheathe,-5",
+    "2,FastCharge,2,Sheathe,-10",
+    "0,Debilitate,3,Elemental,-2",
+    "1,Guard,1,Health,-10",
+    "1,Status,2,Sheathe,-5",
+    "0,Reload Spd,3,Status,1",
+    "0,Status,1,RazorCAdd,-10",
+    "0,Rapid Fire,1,Potential,2",
+    "1,Fire Res,2,Stun,-2"
+  ]
+}

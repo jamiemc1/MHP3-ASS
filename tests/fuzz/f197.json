@@ -1,0 +1,40 @@
+{
+  "id": "f197",
+  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 4 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    67,
+    124
+  ],
+  "skill_names": [
+    "Parlysis Coating Add",
+    "Parlysis Negated"
+  ],
+  "my_charms": [
+    "0,Water Atk,3,Paralysis,7",
+    "1,Evasion,1,ParalyCAdd,-10",
+    "0,WindPress,4,ParalyCAdd,6",
+    "1,Paralysis,2,RazorCAdd,-7",
+    "0,Gunnery,4,Paralysis,3",
+    "0,SpeedSetup,3,Fire Res,3",
+    "0,Guard Up,1,ParalyCAdd,-8",
+    "0,Stun,5,Paralysis,-9",
+    "0,Paralysis,4,Horn,4",
+    "0,Wide Area,3,ParalyCAdd,2",
+    "0,Fire Atk,3,Paralysis,-2",
+    "0,Mud/Snow,1,Paralysis,6",
+    "2,,,,",
+    "0,Paralysis,5,Dragon Res,-2",
+    "3,,,,"
+  ]
+}

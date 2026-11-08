@@ -1,0 +1,40 @@
+{
+  "id": "f475",
+  "description": "uniform sampler, charm mode none, 5 skills, 1 workers, 4320 evaluations (port estimate); quotas: auto_guard_no_charm, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    119,
+    180,
+    6,
+    171,
+    187
+  ],
+  "skill_names": [
+    "Auto-Guard",
+    "Quick Eating +1",
+    "Reckless Abandon +1",
+    "Detect",
+    "Cold Eliminate"
+  ],
+  "my_charms": [
+    "3,Rapid Fire,1,Rewards,-1",
+    "0,PierceSAdd,3,Psychic,1",
+    "1,Fencing,1,Gunnery,1",
+    "0,Ice Attack,6,Psychic,-6",
+    "0,FastCharge,1,Horn,8",
+    "0,Rec Level,4,Paralysis,-2",
+    "0,Eating,1,Fire Res,0",
+    "0,Gunnery,4,SpeedSetup,3",
+    "0,PunishDraw,3,Guard Up,-1"
+  ]
+}

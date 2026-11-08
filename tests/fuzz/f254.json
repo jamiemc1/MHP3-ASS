@@ -1,0 +1,31 @@
+{
+  "id": "f254",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 1 workers, 32 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    140
+  ],
+  "skill_names": [
+    "HighGradeEarplug"
+  ],
+  "my_charms": [
+    "0,PierceS Up,3,HearProtct,3",
+    "0,HearProtct,1,Debilitate,1",
+    "0,Water Atk,5,Thundr Atk,6",
+    "0,Hunger,4,Backpackng,-8",
+    "0,Precision,3,LastingPwr,2",
+    "0,HearProtct,1,Stamina,0",
+    "0,Guard Up,1,RazorCAdd,-9",
+    "0,HearProtct,5,Loading,2"
+  ]
+}

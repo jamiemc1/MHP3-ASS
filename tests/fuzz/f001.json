@@ -1,0 +1,48 @@
+{
+  "id": "f001",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 9408 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    72,
+    96,
+    155
+  ],
+  "skill_names": [
+    "Abnormal Status Atk +1",
+    "Runner",
+    "Water Res (L)"
+  ],
+  "my_charms": [
+    "3,,,,",
+    "0,KO,1,CutterSAdd,5",
+    "0,Constitutn,3,Backpackng,6",
+    "0,Stun,3,Perception,-8",
+    "0,Fire Atk,2,Rec Speed,5",
+    "2,Reload Spd,2,Water Atk,-5",
+    "0,Sleep,2,Cold Res,10",
+    "0,Water Atk,4,Stamina,3",
+    "1,Hunger,1,Crag S Add,-7",
+    "1,,,,",
+    "0,Water Res,3,Defense,0",
+    "0,Mud/Snow,1,Precision,-7",
+    "0,Stamina,3,Eating,0",
+    "0,Dragon Atk,6,Artisan,-3",
+    "0,PierceS Up,1,Recoil,2",
+    "0,Crit Draw,1,Status,3",
+    "0,Status,6,Expert,-5",
+    "0,Rec Level,1,Stamina,2",
+    "1,Guard,2,Fencing,0",
+    "1,Status,1,Fire Atk,-7",
+    "0,Sleep,1,Huntsman,3"
+  ]
+}

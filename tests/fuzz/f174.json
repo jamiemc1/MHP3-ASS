@@ -1,0 +1,41 @@
+{
+  "id": "f174",
+  "description": "armour-seeded sampler, charm mode my_charms, 6 skills, 3 workers, 42336 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    44,
+    70,
+    107,
+    96,
+    25,
+    72
+  ],
+  "skill_names": [
+    "Recoil Reduction +2",
+    "Close Range Coating Add",
+    "Evasion Up",
+    "Runner",
+    "Enfeebler",
+    "Abnormal Status Atk +1"
+  ],
+  "my_charms": [
+    "0,Ice Attack,4,Constitutn,2",
+    "0,FastCharge,1,Status,-2",
+    "0,Stun,6,Ice Res,10",
+    "0,FatigueAtk,1,Guard Up,-3",
+    "0,KO,5,Fire Res,-6",
+    "0,Health,6,FatigeCAdd,-6",
+    "0,Thundr Atk,6,Ice Attack,-3",
+    "2,Ice Attack,2,FatigueAtk,-1"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "f181",
+  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 960 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    176,
+    185
+  ],
+  "skill_names": [
+    "Item Use Up",
+    "Heat Cancel"
+  ],
+  "my_charms": [
+    "0,WindPress,1,Water Atk,7",
+    "0,Crit Draw,4,Blight Res,0",
+    "0,Precision,5,LastingPwr,10",
+    "0,FatigueAtk,6,Dragon Atk,-7",
+    "0,Ice Attack,7,Crag S Add,-3",
+    "0,Quake Res,5,Whim,12",
+    "0,WindPress,2,LastingPwr,3",
+    "2,Debilitate,2,Status,0",
+    "0,Water Atk,2,BombStrUp,8",
+    "0,Rec Level,4,Expert,4",
+    "0,KO,2,Hunger,-10",
+    "0,Evade Dist,4,LastingPwr,-6",
+    "0,Water Atk,1,Carving,1",
+    "0,Dragon Res,4,Heat Res,4",
+    "0,Antiseptic,1,Combo Rate,5",
+    "0,Crag S Add,3,Wide Area,-4",
+    "0,Backpackng,8,LastingPwr,6",
+    "0,Sharpener,1,LastingPwr,-1",
+    "0,Fencing,3,NormalS Up,-2",
+    "0,Recoil,1,HearProtct,3",
+    "0,Mud/Snow,4,Shot Mix,2",
+    "1,Will Recov,3,Water Res,-7",
+    "0,Crit Draw,3,Awaken,1",
+    "1,Stamina,1,Fate,-2"
+  ]
+}

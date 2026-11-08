@@ -1,0 +1,33 @@
+{
+  "id": "f039",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 2 workers, 72 evaluations (port estimate); quotas: cross_type, two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    7,
+    56
+  ],
+  "skill_names": [
+    "Reckless Abandon +2",
+    "Normal S All Add"
+  ],
+  "my_charms": [
+    "0,Expert,3,Wide Area,-5",
+    "1,PierceSAdd,1,Expert,-3",
+    "0,Fortitude,1,FatigeCAdd,5",
+    "0,Status,3,HearProtct,1",
+    "0,NormalSAdd,4,Paralysis,-2",
+    "0,Expert,4,DungMaster,10",
+    "0,Expert,2,Attack,6",
+    "0,Debilitate,1,Gunnery,8"
+  ]
+}

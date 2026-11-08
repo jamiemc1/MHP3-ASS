@@ -1,0 +1,48 @@
+{
+  "id": "f334",
+  "description": "uniform sampler, charm mode slotted, 5 skills, 1 workers, 1440 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    86,
+    19,
+    135,
+    90,
+    21
+  ],
+  "skill_names": [
+    "Ice Element +1",
+    "Concentration",
+    "Antiseptic",
+    "Dragon Element +2",
+    "ESP"
+  ],
+  "my_charms": [
+    "0,Carving,5,Rec Speed,-7",
+    "0,Will Recov,6,Potential,2",
+    "1,Recoil,2,Dragon Res,-10",
+    "0,WindPress,4,PunishDraw,-3",
+    "0,Crag S Add,6,Antiseptic,7",
+    "0,Fencing,3,Hunger,6",
+    "1,FastCharge,3,PelletS Up,-3",
+    "0,WindPress,3,Sharpness,-1",
+    "0,Crag S Add,6,Gathering,12",
+    "0,Heat Res,2,,",
+    "0,Crag S Add,1,PowerCAdd,3",
+    "1,Recoil,4,Dragon Atk,6",
+    "1,Dragon Atk,7,Loading,-1",
+    "0,Antiseptic,1,Anti-Theft,-1",
+    "0,KO,2,Rec Speed,-3",
+    "0,Slam,2,Hunger,3",
+    "0,Ice Res,1,Hunger,9"
+  ]
+}

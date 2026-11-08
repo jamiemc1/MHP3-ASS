@@ -1,0 +1,50 @@
+{
+  "id": "f412",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 3 workers, 1296 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    14,
+    22,
+    77
+  ],
+  "skill_names": [
+    "Speed Sharpening",
+    "Exploiter",
+    "Fire Element +1"
+  ],
+  "my_charms": [
+    "0,ClustS Add,4,Whim,12",
+    "0,Eating,1,Ice Attack,-4",
+    "0,Dragon Atk,5,Precision,4",
+    "0,WindPress,1,Loading,1",
+    "1,Fire Atk,1,Rec Level,-3",
+    "0,FatigueAtk,5,Sharpener,-10",
+    "1,Ice Attack,1,KO,-2",
+    "0,Fire Atk,7,Attack,6",
+    "0,Elemental,1,Health,3",
+    "1,Dragon Atk,3,NormalS Up,-2",
+    "0,Precision,3,Cold Res,7",
+    "0,Recoil,4,Water Atk,-9",
+    "0,Crag S Add,5,SpeedSetup,2",
+    "0,Constitutn,6,Fire Res,-9",
+    "0,Eating,2,Evade Dist,-1",
+    "0,Reload Spd,5,Sharpener,2",
+    "0,Attack,3,Anti-Theft,0",
+    "0,Fire Atk,1,ParalyCAdd,-3",
+    "0,Poison,2,Antiseptic,4",
+    "0,Fire Res,6,Backpackng,2",
+    "0,PelletS Up,4,Sharpness,0",
+    "0,Rewards,2,Stun,2",
+    "0,Protection,5,Ice Res,-6"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "f068",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 10 workers, 5760 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    98,
+    55,
+    168
+  ],
+  "skill_names": [
+    "Rtbl. vig. rapide",
+    "Flèche difus. +",
+    "Poseur de bombes"
+  ],
+  "my_charms": [
+    "0,Précision,1,Statut,-3",
+    "0,Inst.rap.,7,Précision,3",
+    "0,Neige/boue,1,Cllcte rap.,7",
+    "0,Recul,3,Étourd.,-6",
+    "0,Mn perc. +,4,Clairvoy.,-9",
+    "1,Dist.évas.,2,Mn Frag +,4",
+    "0,Récup.,3,Recharge,2",
+    "2,Étourd.,1,End.éner.,6",
+    "0,Mn plomb +,2,End. Sup.,5",
+    "1,Dégainage,4,Mn plmb au.,-2",
+    "0,Routard,1,Rés. drgn,-10",
+    "0,Def. augm.,3,Bombardier,1",
+    "1,AtEl. drg,1,Destin,-1",
+    "0,AtEl. eau,4,AtEl. feu,-1",
+    "0,AtEl. fdr,6,Bombardier,6",
+    "0,Bombardier,5,Réuss.combo,-4",
+    "0,Mn plmb au.,4,Garde,2",
+    "0,AtEl. fdr,7,Clairvoy.,5",
+    "0,Dégainage,6,Rés. drgn,-4",
+    "0,Repas rap.,4,Statut,3",
+    "0,AtEl. glc,5,Rés. fdr,-6"
+  ]
+}

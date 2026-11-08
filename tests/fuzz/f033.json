@@ -1,0 +1,44 @@
+{
+  "id": "f033",
+  "description": "armour-seeded sampler, charm mode two_skill, 5 skills, 29 workers, 9744 evaluations (port estimate); quotas: cross_type, two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    180,
+    50,
+    108,
+    54,
+    56
+  ],
+  "skill_names": [
+    "Quick Eating +1",
+    "Accuracy+2",
+    "Fast Sheathe",
+    "PierceS/PierceBowUp",
+    "Normal S All Add"
+  ],
+  "my_charms": [
+    "0,Precision,2,PierceSAdd,-10",
+    "0,Rec Speed,6,Precision,-3",
+    "0,Sheathe,6,Water Atk,0",
+    "0,NormalSAdd,2,Whim,9",
+    "0,NormalSAdd,3,PoisonCAdd,-7",
+    "0,NormalSAdd,3,PoisonCAdd,-7",
+    "0,HearProtct,1,Sheathe,2",
+    "0,Precision,4,Combo Rate,8",
+    "2,Precision,2,Sleep,0",
+    "0,NormalSAdd,4,PowerCAdd,-10",
+    "0,Sheathe,5,Paralysis,6",
+    "0,Eating,2,Gunnery,1",
+    "1,Precision,2,Ice Res,-1"
+  ]
+}

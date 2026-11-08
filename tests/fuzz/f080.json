@@ -1,0 +1,50 @@
+{
+  "id": "f080",
+  "description": "uniform sampler, charm mode none, 5 skills, 1 workers, 324 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    78,
+    132,
+    138,
+    87,
+    164
+  ],
+  "skill_names": [
+    "Fire Element +2",
+    "Quake Res",
+    "Def Down Negate",
+    "Ice Element +2",
+    "Dragon Res (L)"
+  ],
+  "my_charms": [
+    "0,Quake Res,1,Mud/Snow,1",
+    "0,Fire Atk,5,Stun,9",
+    "0,Ice Attack,1,SpeedSetup,-10",
+    "0,Fire Atk,4,Water Atk,9",
+    "3,,,,",
+    "2,Dragon Res,1,FatigeCAdd,-5",
+    "0,Fire Atk,4,Water Atk,9",
+    "1,Guard,4,Artisan,-2",
+    "0,Hunger,1,Sleep,-2",
+    "3,,,,",
+    "0,HearProtct,2,Protection,1",
+    "0,Ice Attack,2,Loading,-2",
+    "0,Ice Attack,4,NormalS Up,1",
+    "0,Water Atk,4,Quake Res,7",
+    "0,Dragon Res,4,Fortitude,4",
+    "1,PelletSAdd,2,Fortitude,-10",
+    "0,PelletSAdd,1,Dragon Res,3",
+    "1,Crit Draw,2,Reload Spd,-1",
+    "0,Fire Atk,1,PierceSAdd,-8"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "f201",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 1 workers, 192 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    111,
+    22,
+    17
+  ],
+  "skill_names": [
+    "Recovery Speed +1",
+    "Exploiter",
+    "Unsheathe Stun"
+  ],
+  "my_charms": [
+    "0,Thundr Atk,2,PunishDraw,0",
+    "0,FatigueAtk,3,Gathering,11",
+    "0,Carving,1,Debilitate,1",
+    "0,Carving,1,Debilitate,1",
+    "0,Potential,1,Anti-Theft,3",
+    "0,Rec Speed,4,Hunger,0",
+    "1,PierceS Up,5,Dragon Atk,-7",
+    "0,Water Atk,4,Attack,-7"
+  ]
+}

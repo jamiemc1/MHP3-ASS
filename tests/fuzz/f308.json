@@ -1,0 +1,50 @@
+{
+  "id": "f308",
+  "description": "uniform sampler, charm mode one_skill, 2 skills, 4 workers, 216 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    56,
+    124
+  ],
+  "skill_names": [
+    "Normal S All Add",
+    "Parlysis Negated"
+  ],
+  "my_charms": [
+    "0,NormalSAdd,1,Sleep,7",
+    "0,Antiseptic,7,Defense,-2",
+    "1,Paralysis,3,Precision,-8",
+    "0,Rec Speed,2,Quake Res,1",
+    "0,Expert,3,Paralysis,-8",
+    "0,PelletS Up,3,Evasion,0",
+    "0,Rec Level,1,NormalSAdd,4",
+    "0,Quake Res,2,Horn,-6",
+    "0,WindPress,2,Slam,3",
+    "0,Paralysis,1,LastingPwr,6",
+    "0,Thundr Atk,3,WindPress,-4",
+    "1,Thundr Atk,3,Fire Res,-7",
+    "0,Potential,3,Guard Up,1",
+    "0,Sleep,4,Expert,1",
+    "0,Sharpener,1,Psychic,3",
+    "1,Mud/Snow,1,Rec Speed,0",
+    "0,PelletSAdd,6,PoisonCAdd,-2",
+    "0,Dragon Res,1,Huntsman,-7",
+    "0,Quake Res,3,Status,-3",
+    "0,Sharpener,1,NormalSAdd,-8",
+    "0,Guard Up,1,Sleep,1",
+    "0,Dragon Atk,6,Ice Res,-10",
+    "0,Thundr Atk,2,Eating,3",
+    "0,ThunderRes,2,SpeedSetup,5",
+    "0,KO,1,Backpackng,2"
+  ]
+}

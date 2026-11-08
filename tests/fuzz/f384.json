@@ -1,0 +1,47 @@
+{
+  "id": "f384",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 16 workers, 9216 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    197,
+    138,
+    6,
+    167
+  ],
+  "skill_names": [
+    "Good Luck",
+    "Def Down Negate",
+    "Reckless Abandon +1",
+    "Wide Area +2"
+  ],
+  "my_charms": [
+    "0,FastCharge,4,Sharpener,8",
+    "0,Rec Level,3,ThunderRes,5",
+    "0,Sharpness,1,Horn,1",
+    "0,Mud/Snow,3,Paralysis,-10",
+    "0,Slam,2,Defense,9",
+    "2,Loading,1,Sharpness,1",
+    "0,Precision,5,ClustS Add,6",
+    "1,HearProtct,1,Potential,3",
+    "0,Precision,2,Dragon Res,9",
+    "0,FastCharge,4,Evasion,1",
+    "0,Sharpener,4,Perception,5",
+    "0,Fire Atk,3,FastCharge,-1",
+    "0,ThunderRes,2,BombStrUp,5",
+    "0,Wide Area,4,Cold Res,7",
+    "0,WindPress,2,Water Atk,3",
+    "0,Gunnery,3,Sleep,0",
+    "0,Fire Res,1,Expert,5",
+    "0,Sharpness,4,FastCharge,3"
+  ]
+}

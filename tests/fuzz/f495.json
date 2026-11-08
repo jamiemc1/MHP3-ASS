@@ -1,0 +1,32 @@
+{
+  "id": "f495",
+  "description": "armour-seeded sampler, charm mode my_charms, 3 skills, 2 workers, 3840 evaluations (port estimate); quotas: cross_type, illegal_charm_lines, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    105,
+    152,
+    56
+  ],
+  "skill_names": [
+    "Evade +2",
+    "Fire Res (L)",
+    "Normal S All Add"
+  ],
+  "my_charms": [
+    "0,Debilitate,4,Health,-2",
+    "0,Sharpness,3,Water Atk,7",
+    "0,Evasion,15,,",
+    "1,Dragon Atk,2,Carving,1",
+    "0,Water Res,14,,"
+  ]
+}

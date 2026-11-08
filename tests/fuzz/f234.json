@@ -1,0 +1,40 @@
+{
+  "id": "f234",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 432 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    108
+  ],
+  "skill_names": [
+    "Fast Sheathe"
+  ],
+  "my_charms": [
+    "0,Elemental,5,Constitutn,2",
+    "0,Sharpener,4,BombStrUp,-6",
+    "0,Sheathe,2,Fire Atk,1",
+    "0,Sheathe,3,Hunger,2",
+    "0,Sheathe,2,Ice Attack,5",
+    "0,Gunnery,1,Fortitude,3",
+    "0,Rewards,2,Sheathe,2",
+    "0,Constitutn,5,Crit Draw,3",
+    "0,Sheathe,5,Anti-Theft,2",
+    "0,Sheathe,1,Heat Res,10",
+    "0,ThunderRes,6,ClustS Add,2",
+    "0,Gunnery,1,Fortitude,3",
+    "0,Thundr Atk,2,PowerCAdd,8",
+    "1,Guard,3,Horn,-1",
+    "0,Sheathe,5,Rec Level,4",
+    "0,Sheathe,1,Heat Res,10",
+    "1,WindPress,2,Sheathe,-2"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "f153",
+  "description": "armour-seeded sampler, charm mode my_charms, 6 skills, 6 workers, 380160 evaluations (port estimate); quotas: torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    107,
+    109,
+    116,
+    180,
+    92,
+    173
+  ],
+  "skill_names": [
+    "AusweichDist hoch",
+    "Schleichen",
+    "Block +2",
+    "Schnellessen +1",
+    "Konstitution +1",
+    "Dungbomben-Exp."
+  ],
+  "my_charms": [
+    "1,Konstitutn,1,Verteidig.,-5",
+    "0,Asweichdst,1,Rucksack,2",
+    "0,WssrAngHch,1,Schlemmen,-8",
+    "0,Asweichdst,5,Gift,-1",
+    "0,Gift,5,Experte,-3",
+    "0,Block,5,KritHieb,3",
+    "0,Fechten,3,Essen,2",
+    "0,Element,5,Gesundheit,-8",
+    "2,Element,3,Potenzial,0",
+    "0,Rucksack,4,Angriff,4",
+    "1,DnnrAngHch,2,Konstitutn,-1",
+    "0,Handwerk,2,Essen,3",
+    "0,ErmüdSchlg,3,Schl/Schn.,-3",
+    "0,Essen,1,Element,-1",
+    "0,Konstitutn,1,Beruhigung,3",
+    "0,Essen,2,Schärfe,3",
+    "0,Feuerabw.,1,Angriff,5",
+    "0,DrchAngHch,5,KO,-2",
+    "1,Vision,3,Dungmeist.,-3",
+    "0,Asweichdst,2,Schnellfeu,3"
+  ]
+}

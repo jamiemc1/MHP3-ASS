@@ -1,0 +1,40 @@
+{
+  "id": "f408",
+  "description": "armour-seeded sampler, charm mode my_charms, 3 skills, 5 workers, 810 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    167,
+    26,
+    174
+  ],
+  "skill_names": [
+    "Wide Area +2",
+    "Flute Expert",
+    "Recovery Up"
+  ],
+  "my_charms": [
+    "2,Protection,2,Wide Area,-10",
+    "1,Horn,5,Gunnery,-6",
+    "0,Awaken,1,Rec Level,4",
+    "0,Wide Area,3,Precision,1",
+    "1,Quake Res,3,PoisonCAdd,0",
+    "0,Awaken,1,Psychic,-8",
+    "0,Horn,1,ParalyCAdd,-4",
+    "0,Rec Level,6,Dragon Res,-5",
+    "0,Water Atk,5,Wide Area,6",
+    "0,Protection,7,FatigeCAdd,-6",
+    "0,Rec Level,5,Combo Rate,10",
+    "1,Thundr Atk,2,WindPress,-4",
+    "0,Rec Level,2,SleepCAdd,4"
+  ]
+}

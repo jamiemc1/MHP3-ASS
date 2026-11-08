@@ -1,0 +1,36 @@
+{
+  "id": "f450",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 6 workers, 43200 evaluations (port estimate); quotas: torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    80,
+    43,
+    87
+  ],
+  "skill_names": [
+    "Élément eau +1",
+    "Recul +1",
+    "Élément glace +2"
+  ],
+  "my_charms": [
+    "0,Statut,6,Mn norm.au.,3",
+    "0,Vit. rech.,3,Mn norm. +,0",
+    "0,AtEl. drg,7,ExpBmbBou.,8",
+    "2,Potentiel,2,AtEl. fdr,2",
+    "0,Tir rap.,4,AtEl. glc,8",
+    "1,Bombardier,5,Alchimie,-1",
+    "0,Rés. drgn,3,Paralysie,2",
+    "0,AtEl. eau,1,Rés. chaud,9",
+    "0,AtEl. eau,4,Escrime,2"
+  ]
+}

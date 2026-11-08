@@ -1,0 +1,42 @@
+{
+  "id": "f042",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 5 workers, 2400 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    176,
+    169,
+    19
+  ],
+  "skill_names": [
+    "Item Use Up",
+    "Trap Master",
+    "Concentration"
+  ],
+  "my_charms": [
+    "0,Will Recov,1,FastCharge,2",
+    "0,FastCharge,1,Fate,1",
+    "0,Debilitate,3,Water Atk,5",
+    "0,Protection,3,ParalyCAdd,-7",
+    "0,Dragon Res,4,Sense,2",
+    "0,PierceS Up,5,Dragon Res,-6",
+    "2,FastCharge,3,Rewards,-1",
+    "0,Thundr Atk,1,Attack,-4",
+    "0,Rec Level,5,Thundr Atk,-2",
+    "0,Crit Draw,2,Horn,8",
+    "0,Mud/Snow,3,Cold Res,5",
+    "0,Precision,5,Mud/Snow,4",
+    "0,Thundr Atk,4,SpeedSetup,-4",
+    "0,Wide Area,8,PelletSAdd,8",
+    "0,Protection,2,Sense,-4"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "f321",
+  "description": "uniform sampler, charm mode none, 1 skill, 1 workers, 480 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    170
+  ],
+  "skill_names": [
+    "Trnquilizr Guru"
+  ],
+  "my_charms": [
+    "3,Guard,1,Eating,-2",
+    "0,Psychic,1,Crag S Add,-9",
+    "0,Gunnery,1,Heat Res,0",
+    "0,CutterSAdd,3,Perception,2",
+    "0,Sharpener,2,Psychic,-7",
+    "1,Water Res,4,,",
+    "0,Water Res,4,Perception,-9",
+    "0,Dragon Atk,2,NormalS Up,3",
+    "0,Sheathe,1,Combo Rate,-3",
+    "0,Ice Res,2,Perception,-8",
+    "0,Protection,7,Expert,-7",
+    "0,NormalS Up,4,Artisan,-3",
+    "0,Fire Atk,1,Perception,10",
+    "0,Backpackng,2,Heat Res,4",
+    "0,Status,3,Wide Area,1",
+    "0,Ice Attack,6,Perception,-2",
+    "1,Hunger,1,SleepCAdd,-10",
+    "0,Wide Area,1,Perception,-6",
+    "0,Precision,1,DungMaster,6",
+    "0,Expert,3,Perception,8",
+    "0,Status,6,PierceS Up,0"
+  ]
+}

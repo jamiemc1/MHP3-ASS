@@ -1,0 +1,49 @@
+{
+  "id": "f256",
+  "description": "uniform sampler, charm mode my_charms, 5 skills, 4 workers, 4 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    107,
+    6,
+    25,
+    83,
+    128
+  ],
+  "skill_names": [
+    "Evasion Up",
+    "Reckless Abandon +1",
+    "Enfeebler",
+    "Thunder Element +1",
+    "Stun Halved"
+  ],
+  "my_charms": [
+    "2,Ice Res,2,Paralysis,-8",
+    "0,Thundr Atk,6,Blight Res,0",
+    "0,Thundr Atk,6,PelletS Up,-2",
+    "0,WindPress,4,Water Atk,2",
+    "0,ParalyCAdd,2,,",
+    "1,Protection,1,RazorCAdd,-1",
+    "0,ClustS Add,4,Cold Res,7",
+    "0,PelletS Up,4,PunishDraw,1",
+    "0,Reload Spd,5,Water Res,-5",
+    "0,FatigueAtk,2,BombStrUp,7",
+    "0,Ice Attack,7,PoisonCAdd,-1",
+    "1,Attack,3,Water Res,-2",
+    "1,Dragon Res,6,Stun,-6",
+    "2,Loading,4,,",
+    "0,FastCharge,3,Blight Res,3",
+    "0,CutterSAdd,5,Fortitude,8",
+    "1,KO,1,Dragon Res,0",
+    "0,Horn,5,PierceSAdd,6"
+  ]
+}

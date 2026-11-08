@@ -1,0 +1,28 @@
+{
+  "id": "f276",
+  "description": "armour-seeded sampler, charm mode two_skill, 1 skill, 1 workers, 48 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    167
+  ],
+  "skill_names": [
+    "Wide-Range +2"
+  ],
+  "my_charms": [
+    "0,Sheathing,6,Wide-Range,0",
+    "0,Crit Draw,5,Wide-Range,5",
+    "0,Wide-Range,3,ThunderRes,-10",
+    "0,Dragon Res,1,Wide-Range,6",
+    "0,Sheathing,6,Wide-Range,0"
+  ]
+}

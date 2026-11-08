@@ -1,0 +1,37 @@
+{
+  "id": "f063",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 4 workers, 4 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    26,
+    24,
+    174
+  ],
+  "skill_names": [
+    "Flute Expert",
+    "Improved KO",
+    "Recovery Up"
+  ],
+  "my_charms": [
+    "1,,,,",
+    "0,Water Atk,3,SleepCAdd,2",
+    "0,KO,4,SleepCAdd,7",
+    "0,Ice Res,2,Psychic,8",
+    "1,FatigueAtk,4,Horn,-3",
+    "0,PunishDraw,1,Rec Level,-2",
+    "0,PierceS Up,5,Horn,-10",
+    "0,Thundr Atk,5,Stamina,1",
+    "0,KO,5,PunishDraw,3",
+    "2,Status,1,Horn,-4"
+  ]
+}

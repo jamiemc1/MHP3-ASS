@@ -1,0 +1,53 @@
+{
+  "id": "f317",
+  "description": "armour-seeded sampler, charm mode two_skill, 5 skills, 19 workers, 476672 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    83,
+    55,
+    35,
+    193,
+    163
+  ],
+  "skill_names": [
+    "Thunder Element +1",
+    "PelletS/ScatterBowUp",
+    "Load Up",
+    "Spirit's Whim",
+    "Dragon Res (S)"
+  ],
+  "my_charms": [
+    "0,Sheathe,4,Whim,7",
+    "0,Loading,4,Ice Attack,1",
+    "1,Loading,2,Dragon Res,-4",
+    "0,Thundr Atk,1,BombStrUp,-6",
+    "0,Stamina,2,Attack,-6",
+    "0,Thundr Atk,3,Status,-3",
+    "0,Protection,7,Antiseptic,-5",
+    "0,FatigueAtk,2,Dragon Res,-3",
+    "0,Thundr Atk,7,Psychic,-9",
+    "2,Loading,1,Stun,-9",
+    "0,KO,1,ThunderRes,-5",
+    "1,Potential,2,Attack,-3",
+    "2,Eating,2,Thundr Atk,-1",
+    "1,Stamina,1,PelletS Up,2",
+    "0,PelletS Up,4,ThunderRes,3",
+    "1,Water Res,1,Quake Res,-5",
+    "1,Sheathe,3,Sense,-3",
+    "0,Thundr Atk,2,Paralysis,3",
+    "0,KO,3,Crag S Add,4",
+    "2,Expert,1,Poison,-6",
+    "0,Loading,3,Water Res,-6",
+    "3,Awaken,2,Dragon Res,3"
+  ]
+}

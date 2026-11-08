@@ -1,0 +1,38 @@
+{
+  "id": "f266",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 3 workers, 864 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    60,
+    111
+  ],
+  "skill_names": [
+    "Pellet S All Add",
+    "Recovery Speed +1"
+  ],
+  "my_charms": [
+    "0,Dragon Atk,7,Rec Speed,11",
+    "0,Dragon Atk,6,Rec Speed,-8",
+    "0,ThunderRes,2,Rec Speed,-4",
+    "2,Rec Speed,2,Antiseptic,3",
+    "0,Rec Speed,1,Huntsman,-6",
+    "1,Rec Level,4,SleepCAdd,-9",
+    "0,Rec Speed,7,Sense,6",
+    "0,SpeedSetup,1,Antiseptic,0",
+    "2,,,,",
+    "0,NormalSAdd,1,Whim,9",
+    "1,Evasion,1,Rec Speed,-7",
+    "0,Rec Speed,6,Defense,1",
+    "0,Rec Speed,2,NormalSAdd,-2"
+  ]
+}

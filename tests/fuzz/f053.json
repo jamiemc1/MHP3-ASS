@@ -1,0 +1,24 @@
+{
+  "id": "f053",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 1 workers, 1350 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    174,
+    26
+  ],
+  "skill_names": [
+    "Recovery Up",
+    "Flute Expert"
+  ],
+  "my_charms": []
+}

@@ -1,0 +1,39 @@
+{
+  "id": "f180",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 324 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    176,
+    172,
+    169,
+    19
+  ],
+  "skill_names": [
+    "Item Use Up",
+    "Autotracker",
+    "Trap Master",
+    "Concentration"
+  ],
+  "my_charms": [
+    "0,Gunnery,6,Sense,-2",
+    "0,Will Recov,1,Shot Mix,4",
+    "0,Rec Level,4,KO,-2",
+    "0,HearProtct,3,Ice Attack,-6",
+    "0,Fate,1,NormalS Up,3",
+    "0,Slam,2,ThunderRes,8",
+    "0,Water Res,1,Gathering,13",
+    "1,Expert,2,Stun,-2",
+    "0,Gunnery,6,Sense,-2",
+    "0,Fate,1,NormalS Up,3"
+  ]
+}

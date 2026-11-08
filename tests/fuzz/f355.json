@@ -1,0 +1,38 @@
+{
+  "id": "f355",
+  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 13 workers, 303264 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    104,
+    109,
+    101,
+    107
+  ],
+  "skill_names": [
+    "Evade +1",
+    "Sneak",
+    "Hunger Negated",
+    "Evasion Up"
+  ],
+  "my_charms": [
+    "0,Status,4,Protection,2",
+    "2,Awaken,1,Eating,-2",
+    "0,Evasion,1,Rec Speed,4",
+    "0,Evasion,5,Rec Speed,1",
+    "0,Mud/Snow,6,Wide Area,7",
+    "0,Water Atk,1,Heat Res,9",
+    "0,Evade Dist,3,Guard Up,3",
+    "0,Guard,3,ParalyCAdd,10",
+    "0,Guard,3,ParalyCAdd,10"
+  ]
+}

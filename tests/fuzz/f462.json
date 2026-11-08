@@ -1,0 +1,41 @@
+{
+  "id": "f462",
+  "description": "uniform sampler, charm mode none, 3 skills, 1 workers, 108 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    134,
+    126,
+    21
+  ],
+  "skill_names": [
+    "Wind Anchor",
+    "Sleep Negated",
+    "ESP"
+  ],
+  "my_charms": [
+    "0,Sleep,2,Health,9",
+    "0,PunishDraw,3,Fencing,-3",
+    "0,Fortitude,4,Backpackng,1",
+    "0,WindPress,5,Wide Area,4",
+    "3,Fencing,1,Sharpness,-1",
+    "0,PunishDraw,3,Guard Up,-1",
+    "0,Rewards,1,WindPress,-4",
+    "0,Sleep,5,Gathering,2",
+    "0,CutterSAdd,2,Antiseptic,4",
+    "0,Eating,4,Sleep,-6",
+    "0,Reload Spd,1,Sleep,-1",
+    "0,PunishDraw,3,Fencing,-3",
+    "1,Guard,4,WindPress,1",
+    "0,Sleep,2,Health,9"
+  ]
+}

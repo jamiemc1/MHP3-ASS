@@ -1,0 +1,43 @@
+{
+  "id": "f377",
+  "description": "uniform sampler, charm mode my_charms, 4 skills, 3 workers, 17640 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    187,
+    131,
+    157,
+    167
+  ],
+  "skill_names": [
+    "Cancelar frio",
+    "Niega Barr/Nieve",
+    "Res. Trueno[pq]",
+    "Area Amplia +2"
+  ],
+  "my_charms": [
+    "2,Resist.,1,Destino,-3",
+    "0,Evadir,1,Res. Frio,-9",
+    "0,Desenv. KO,4,VisPsíquic,1",
+    "2,,,,",
+    "0,Captura,3,Fuego Inc,8",
+    "2,Fuego Inc,6,,",
+    "1,Prot. oido,1,Afilador,0",
+    "0,PresViento,4,Anti-robo,0",
+    "0,Fuego Inc,4,Evadir,1",
+    "0,Prot. oido,2,R. trueno,2",
+    "0,Yoga,5,Artillería,3",
+    "0,SubirDPerd,1,Desen.crit,0",
+    "1,R. hielo,1,VisPsíquic,7",
+    "0,Retroceso,1,Artesano,2"
+  ]
+}

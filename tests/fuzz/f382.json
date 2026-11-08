@@ -1,0 +1,42 @@
+{
+  "id": "f382",
+  "description": "uniform sampler, charm mode two_skill, 6 skills, 18 workers, 21600 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    136,
+    202,
+    173,
+    174,
+    96,
+    109
+  ],
+  "skill_names": [
+    "Steal No Effect",
+    "Rewards Expert",
+    "DungBombExpert",
+    "Recovery Up",
+    "Runner",
+    "Sneak"
+  ],
+  "my_charms": [
+    "0,Will Recov,6,Rec Level,3",
+    "0,Rewards,5,Reload Spd,3",
+    "0,Stun,1,Anti-Theft,-10",
+    "0,Expert,2,DungMaster,9",
+    "0,Rewards,3,Awaken,-1",
+    "0,WindPress,3,Anti-Theft,-2",
+    "0,Sharpener,3,Sense,-4",
+    "1,Attack,4,DungMaster,-8",
+    "0,BombStrUp,4,DungMaster,5"
+  ]
+}

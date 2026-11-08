@@ -1,0 +1,35 @@
+{
+  "id": "f246",
+  "description": "uniform sampler, charm mode one_skill, 2 skills, 2 workers, 4800 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    25,
+    80
+  ],
+  "skill_names": [
+    "Enfeebler",
+    "Water Element +1"
+  ],
+  "my_charms": [
+    "0,FatigueAtk,6,Antiseptic,7",
+    "0,Water Atk,3,RazorCAdd,7",
+    "1,FatigueAtk,1,Ice Res,3",
+    "0,Rewards,5,Status,-3",
+    "2,PelletSAdd,3,,",
+    "2,Artisan,1,,",
+    "0,Water Atk,6,Fortitude,-6",
+    "2,Artisan,1,,",
+    "0,Water Atk,6,Fortitude,-6",
+    "0,FatigueAtk,5,Fencing,3"
+  ]
+}

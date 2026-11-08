@@ -1,0 +1,51 @@
+{
+  "id": "f215",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 13 workers, 1872 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    78,
+    141,
+    120
+  ],
+  "skill_names": [
+    "Fire Element +2",
+    "Health +20",
+    "Divine Protection"
+  ],
+  "my_charms": [
+    "1,Loading,1,Fire Atk,-5",
+    "0,Slam,2,HearProtct,-1",
+    "0,Sheathe,4,Fate,1",
+    "0,Fencing,3,Evasion,2",
+    "0,Fire Atk,7,HiSpdGathr,-9",
+    "0,Evasion,2,Combo Rate,0",
+    "0,KO,2,Horn,4",
+    "2,ClustS Add,3,Wide Area,-5",
+    "0,PelletS Up,3,Fire Atk,-6",
+    "0,Fire Atk,7,Fortitude,-8",
+    "0,Evasion,5,Quake Res,7",
+    "0,Fire Atk,7,LastingPwr,9",
+    "2,Artisan,2,Recoil,-2",
+    "0,Water Atk,4,,",
+    "0,Fencing,5,Protection,-2",
+    "0,PunishDraw,1,Fencing,1",
+    "0,Potential,3,Health,2",
+    "0,Ice Res,2,Horn,8",
+    "2,Defense,2,Health,-8",
+    "0,Fire Atk,1,Recoil,-1",
+    "0,Potential,3,Fire Atk,-4",
+    "0,Evasion,2,WindPress,-7",
+    "0,Guard,3,Fire Atk,7",
+    "0,Protection,4,Combo Rate,10"
+  ]
+}

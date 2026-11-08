@@ -1,0 +1,42 @@
+{
+  "id": "f358",
+  "description": "uniform sampler, charm mode my_charms, 6 skills, 7 workers, 28224 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    170,
+    193,
+    23,
+    126,
+    157,
+    98
+  ],
+  "skill_names": [
+    "Trnquilizr Guru",
+    "Spirit's Whim",
+    "Ruiner",
+    "Sleep Negated",
+    "Thunder Res (S)",
+    "Stamina Recov Up"
+  ],
+  "my_charms": [
+    "1,Will Recov,2,Rapid Fire,-1",
+    "0,KO,4,Will Recov,4",
+    "0,Slam,4,Evade Dist,-2",
+    "1,Gunnery,4,Whim,-9",
+    "0,ThunderRes,1,Ice Res,-10",
+    "0,Will Recov,3,Guard,1",
+    "0,Health,5,Perception,9",
+    "0,Constitutn,4,Whim,11",
+    "0,Guard,6,ThunderRes,10"
+  ]
+}

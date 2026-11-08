@@ -1,0 +1,44 @@
+{
+  "id": "f436",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 180 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    16,
+    161,
+    180
+  ],
+  "skill_names": [
+    "Sharpness +1",
+    "Ice Res (L)",
+    "Quick Eating +1"
+  ],
+  "my_charms": [
+    "3,Dragon Atk,2,Recoil,-2",
+    "1,Ice Attack,5,Sharpness,-1",
+    "0,Protection,7,Sleep,4",
+    "2,Sharpener,1,PierceSAdd,1",
+    "0,Eating,5,Thundr Atk,5",
+    "1,Fire Res,5,PowerCAdd,0",
+    "0,Artisan,4,Wide Area,11",
+    "0,Constitutn,3,Horn,0",
+    "0,Fire Atk,6,Horn,-6",
+    "0,Fate,4,BombStrUp,5",
+    "0,Artisan,3,Horn,-2",
+    "0,Potential,4,Water Res,-4",
+    "0,Dragon Atk,4,Eating,3",
+    "2,Elemental,1,Eating,-1",
+    "0,KO,6,Evasion,-1",
+    "0,Eating,4,Defense,-2",
+    "0,Backpackng,1,SpeedSetup,-5"
+  ]
+}

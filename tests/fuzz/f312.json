@@ -1,0 +1,39 @@
+{
+  "id": "f312",
+  "description": "armour-seeded sampler, charm mode my_charms, 1 skill, 2 workers, 1440 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    6
+  ],
+  "skill_names": [
+    "Reckless Abandon +1"
+  ],
+  "my_charms": [
+    "0,ClustS Add,3,Crag S Add,2",
+    "2,,,,",
+    "0,KO,6,Eating,-1",
+    "0,Evade Dist,5,Shot Mix,9",
+    "2,Defense,1,ParalyCAdd,-10",
+    "0,Attack,3,SleepCAdd,-10",
+    "0,NormalS Up,4,Fate,3",
+    "0,Wide Area,5,Sense,-8",
+    "0,Attack,3,DungMaster,6",
+    "0,PierceS Up,2,Protection,-6",
+    "2,,,,",
+    "0,BombStrUp,1,PowerCAdd,2",
+    "0,Fate,4,Ice Attack,2",
+    "0,Will Recov,1,PelletSAdd,6",
+    "0,Rapid Fire,5,Fate,-3",
+    "0,Sheathe,2,Attack,7"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "f272",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 2100 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    21,
+    208,
+    141,
+    205
+  ],
+  "skill_names": [
+    "ESP",
+    "Bullet Limit",
+    "Health +20",
+    "Combine Success+45%"
+  ],
+  "my_charms": [
+    "1,HearProtct,1,Status,3",
+    "0,Rapid Fire,2,Crit Draw,1",
+    "0,Poison,2,Gluttony,8",
+    "0,Health,8,LastingPwr,-4",
+    "0,Potential,2,Shot Mix,-9",
+    "0,Protection,2,Huntsman,4"
+  ]
+}

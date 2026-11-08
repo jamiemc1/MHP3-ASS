@@ -1,0 +1,47 @@
+{
+  "id": "f136",
+  "description": "armour-seeded sampler, charm mode none, 4 skills, 1 workers, 1500 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    172,
+    78,
+    185,
+    166
+  ],
+  "skill_names": [
+    "Autotracker",
+    "Fire Element +2",
+    "Heat Cancel",
+    "Wide Area +1"
+  ],
+  "my_charms": [
+    "1,WindPress,1,Horn,-6",
+    "0,KO,2,Rec Speed,-3",
+    "0,Rec Level,1,Perception,7",
+    "2,Potential,5,Fire Atk,-1",
+    "1,Fortitude,6,Wide Area,-1",
+    "1,Fortitude,6,Wide Area,-1",
+    "0,Status,5,Dragon Res,-4",
+    "0,Sharpness,1,Psychic,7",
+    "0,Will Recov,1,Hunger,8",
+    "1,Dragon Atk,7,Sharpener,-1",
+    "1,Fire Atk,3,Guard Up,-2",
+    "0,Ice Attack,4,LastingPwr,5",
+    "0,Thundr Atk,3,Wide Area,8",
+    "0,Slam,3,Loading,3",
+    "0,Fire Atk,5,Health,-2",
+    "0,Dragon Res,6,Wide Area,-7",
+    "0,Fate,2,BombStrUp,2",
+    "0,Health,8,Hunger,8"
+  ]
+}

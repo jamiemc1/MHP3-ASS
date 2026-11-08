@@ -1,0 +1,49 @@
+{
+  "id": "f335",
+  "description": "uniform sampler, charm mode two_skill, 3 skills, 8 workers, 10240 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    26,
+    166,
+    24
+  ],
+  "skill_names": [
+    "Flute Expert",
+    "Wide Area +1",
+    "Improved KO"
+  ],
+  "my_charms": [
+    "0,Mud/Snow,3,Combo Rate,13",
+    "1,Will Recov,4,Horn,-5",
+    "0,Horn,4,PowerCAdd,9",
+    "1,SpeedSetup,8,FatigeCAdd,-2",
+    "2,KO,1,PoisonCAdd,-6",
+    "0,Evasion,1,Evade Dist,4",
+    "0,Reload Spd,2,ThunderRes,-4",
+    "0,Recoil,4,Evade Dist,4",
+    "0,Dragon Res,2,Wide Area,-10",
+    "1,Evasion,4,Horn,-4",
+    "0,Horn,1,Status,-4",
+    "0,Reload Spd,4,ClustS Add,-6",
+    "0,Artisan,1,Crit Draw,-1",
+    "0,Ice Attack,7,Heat Res,-9",
+    "0,Sharpness,2,Wide Area,-8",
+    "0,SpeedSetup,5,PierceSAdd,7",
+    "2,Crit Draw,2,Fire Res,-10",
+    "0,BombStrUp,2,Fire Res,-2",
+    "0,KO,2,Health,6",
+    "0,Psychic,5,Fortitude,5",
+    "0,KO,1,Horn,-1",
+    "0,Sheathe,4,Fire Res,-2"
+  ]
+}

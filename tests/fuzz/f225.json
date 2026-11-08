@@ -1,0 +1,43 @@
+{
+  "id": "f225",
+  "description": "armour-seeded sampler, charm mode slotted, 2 skills, 1 workers, 480 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    155,
+    53
+  ],
+  "skill_names": [
+    "Water Res (L)",
+    "NormalS/RapidBowUp"
+  ],
+  "my_charms": [
+    "0,Recoil,1,NormalS Up,2",
+    "0,Attack,1,Huntsman,-8",
+    "0,Guard Up,2,NormalS Up,3",
+    "2,Rec Speed,1,Antiseptic,-9",
+    "2,Awaken,1,NormalS Up,-2",
+    "0,FastCharge,2,Fate,-3",
+    "0,Water Res,5,BombStrUp,-2",
+    "0,Stamina,1,Will Recov,1",
+    "1,Dragon Atk,1,Elemental,-1",
+    "0,PelletS Up,1,Health,9",
+    "0,Water Atk,1,Attack,3",
+    "0,KO,5,ClustS Add,5",
+    "0,ThunderRes,6,Psychic,-6",
+    "0,Hunger,4,Sleep,6",
+    "0,FatigueAtk,3,Mud/Snow,-3",
+    "1,Constitutn,1,NormalS Up,2",
+    "0,Health,1,PierceSAdd,8",
+    "0,Dragon Atk,2,Reload Spd,4"
+  ]
+}

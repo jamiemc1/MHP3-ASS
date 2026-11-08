@@ -1,0 +1,41 @@
+{
+  "id": "f318",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 384 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    98
+  ],
+  "skill_names": [
+    "Stamina Recov Up"
+  ],
+  "my_charms": [
+    "0,Will Recov,5,Attack,3",
+    "0,Stamina,2,Will Recov,2",
+    "0,Ice Attack,1,Will Recov,2",
+    "0,Will Recov,5,Dragon Res,-5",
+    "0,Reload Spd,1,Mud/Snow,7",
+    "0,Will Recov,1,Poison,-9",
+    "0,Status,3,BombStrUp,6",
+    "0,Will Recov,5,Slam,2",
+    "0,Protection,6,ClustS Add,1",
+    "2,Will Recov,3,Rec Level,-2",
+    "0,Eating,2,Gunnery,5",
+    "0,Protection,6,ClustS Add,1",
+    "0,FatigueAtk,1,Health,5",
+    "0,Awaken,1,Will Recov,3",
+    "0,Combo Rate,1,,",
+    "0,Will Recov,4,Gunnery,6",
+    "0,PierceS Up,4,Will Recov,0",
+    "0,Eating,1,ThunderRes,12"
+  ]
+}

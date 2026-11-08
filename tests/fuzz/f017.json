@@ -1,0 +1,35 @@
+{
+  "id": "f017",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 96 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    78
+  ],
+  "skill_names": [
+    "Fire Element +2"
+  ],
+  "my_charms": [
+    "0,PunishDraw,3,Water Res,2",
+    "0,Protection,1,Hunger,-7",
+    "0,Rec Level,2,Fire Atk,7",
+    "0,WindPress,5,Water Atk,6",
+    "0,Loading,6,Water Res,-2",
+    "0,Sharpness,4,Fire Atk,-8",
+    "0,Fencing,2,Wide Area,9",
+    "0,Debilitate,1,Fate,-2",
+    "1,Sharpener,1,Wide Area,-9",
+    "0,Artisan,4,PunishDraw,-2",
+    "0,Fire Atk,6,Health,-5",
+    "1,Fate,1,Will Recov,3"
+  ]
+}

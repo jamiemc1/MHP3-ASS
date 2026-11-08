@@ -1,0 +1,33 @@
+{
+  "id": "f487",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 0 workers, 0 evaluations (port estimate); quotas: auto_guard_no_charm, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    119,
+    116
+  ],
+  "skill_names": [
+    "Auto-Guard",
+    "Guard +2"
+  ],
+  "my_charms": [
+    "0,WindPress,5,Fire Res,7",
+    "0,Will Recov,6,HearProtct,3",
+    "0,Rec Level,5,Rec Speed,11",
+    "0,Sharpness,1,Slam,0",
+    "0,NormalSAdd,5,PierceSAdd,1",
+    "0,ClustS Add,5,NormalSAdd,-5",
+    "0,Backpackng,1,Psychic,4",
+    "1,Blight Res,1,Protection,-8"
+  ]
+}

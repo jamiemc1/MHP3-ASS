@@ -1,0 +1,46 @@
+{
+  "id": "f012",
+  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 810 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    180,
+    160
+  ],
+  "skill_names": [
+    "Quick Eating +1",
+    "Ice Res (S)"
+  ],
+  "my_charms": [
+    "0,Protection,2,Ice Res,9",
+    "0,Ice Res,6,PowerCAdd,-7",
+    "0,Rec Level,2,Rec Speed,-2",
+    "0,Eating,3,PelletSAdd,-9",
+    "0,FatigueAtk,1,Eating,1",
+    "2,Ice Attack,1,Sharpener,0",
+    "0,Quake Res,2,Ice Res,6",
+    "1,Carving,1,Water Res,3",
+    "0,Crit Draw,4,Artisan,3",
+    "0,Eating,5,HearProtct,1",
+    "2,Eating,2,,",
+    "0,Evasion,4,Blight Res,-3",
+    "0,KO,1,Ice Res,10",
+    "0,FatigueAtk,2,Artisan,-1",
+    "0,FastCharge,2,Ice Res,1",
+    "0,Wide Area,7,Poison,-1",
+    "1,Eating,3,Shot Mix,-7",
+    "0,Guard Up,4,ThunderRes,0",
+    "0,Fate,1,Eating,0",
+    "1,Sharpness,1,Fencing,0",
+    "3,FatigueAtk,2,KO,-3"
+  ]
+}

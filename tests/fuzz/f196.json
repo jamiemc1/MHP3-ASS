@@ -1,0 +1,48 @@
+{
+  "id": "f196",
+  "description": "uniform sampler, charm mode none, 4 skills, 1 workers, 1800 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    18,
+    118,
+    55,
+    43
+  ],
+  "skill_names": [
+    "Kritischer Hieb",
+    "Blockstärkung",
+    "Schrot/ScttrBg h",
+    "Rück. runter +1"
+  ],
+  "my_charms": [
+    "0,Armieren,3,PiercSzufü,7",
+    "0,ErmüdSchlg,1,ErholGschw,9",
+    "0,StreuSzfüg,2,Feuerabw.,3",
+    "0,Lähmung,3,Hunger,-10",
+    "0,SchrSchlag,3,SchrotHoch,-3",
+    "3,SchrotHoch,2,,",
+    "3,,,,",
+    "0,Handwerk,3,SchrotHoch,2",
+    "2,Schn. lad.,1,NachlGesch,-2",
+    "1,SchnllAufb,6,CragSzufüg,-4",
+    "0,Wasserabw.,4,Lähmung,-1",
+    "0,Gesundheit,1,Angriff,0",
+    "0,Drachenabw,4,SchntSHinz,-4",
+    "0,Entbädigen,2,SchrotHoch,3",
+    "1,Block hoch,3,Gesundheit,-5",
+    "0,Status,6,Drachenabw,11",
+    "0,PierceHoch,5,Gehör,-1",
+    "1,Rückstoß,1,Block,0",
+    "0,Asweichdst,1,Sammeln,7"
+  ]
+}

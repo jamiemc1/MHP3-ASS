@@ -1,0 +1,51 @@
+{
+  "id": "f102",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    24,
+    107,
+    140,
+    135,
+    187
+  ],
+  "skill_names": [
+    "Improved KO",
+    "Evasion Up",
+    "HighGradeEarplug",
+    "Antiseptic",
+    "Cold Eliminate"
+  ],
+  "my_charms": [
+    "0,Thundr Atk,7,ParalyCAdd,2",
+    "0,KO,3,Backpackng,-1",
+    "2,KO,1,ThunderRes,3",
+    "0,Sheathe,6,Reload Spd,-1",
+    "0,Fate,2,Sheathe,-9",
+    "0,Sharpener,1,SleepCAdd,-7",
+    "1,FastCharge,3,Evasion,-3",
+    "0,Fire Atk,6,Precision,-2",
+    "0,Recoil,3,Artisan,3",
+    "0,HearProtct,2,Crit Draw,3",
+    "2,Protection,2,Sheathe,0",
+    "0,Health,5,Expert,1",
+    "0,Sharpener,4,PelletSAdd,1",
+    "0,Wide Area,1,Cold Res,-1",
+    "0,FastCharge,4,Debilitate,2",
+    "2,Eating,2,Hunger,-4",
+    "0,Paralysis,1,Status,1",
+    "0,NormalS Up,5,Rec Speed,-5",
+    "0,Potential,1,Health,8",
+    "0,HearProtct,1,NormalS Up,1"
+  ]
+}

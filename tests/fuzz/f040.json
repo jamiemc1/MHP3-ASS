@@ -1,0 +1,46 @@
+{
+  "id": "f040",
+  "description": "armour-seeded sampler, charm mode one_skill, 2 skills, 3 workers, 2160 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    77,
+    172
+  ],
+  "skill_names": [
+    "Fire Element +1",
+    "Autotracker"
+  ],
+  "my_charms": [
+    "0,Elemental,1,Health,-3",
+    "0,Thundr Atk,7,Perception,-2",
+    "0,PunishDraw,1,Thundr Atk,3",
+    "0,Fire Atk,4,Quake Res,6",
+    "3,,,,",
+    "0,Will Recov,6,ThunderRes,-7",
+    "0,Fire Atk,1,Dragon Atk,4",
+    "0,Stun,2,ParalyCAdd,3",
+    "0,Stun,5,Backpackng,-8",
+    "0,Elemental,1,Fire Atk,-4",
+    "0,Sheathe,5,Quake Res,5",
+    "0,Awaken,4,Psychic,-8",
+    "0,Recoil,4,Fire Atk,0",
+    "0,Slam,2,Water Res,-5",
+    "0,Paralysis,1,Whim,-9",
+    "0,Fencing,2,Fire Atk,4",
+    "0,Paralysis,1,Psychic,3",
+    "0,PelletS Up,3,Guard,-1",
+    "0,Dragon Atk,3,Fire Atk,6",
+    "1,,,,",
+    "1,Fire Atk,1,ThunderRes,2"
+  ]
+}

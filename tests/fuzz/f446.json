@@ -1,0 +1,40 @@
+{
+  "id": "f446",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 24 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    25
+  ],
+  "skill_names": [
+    "Enfeebler"
+  ],
+  "my_charms": [
+    "0,Thundr Atk,1,Whim,5",
+    "0,Slam,4,FatigueAtk,0",
+    "0,FatigueAtk,6,NormalSAdd,7",
+    "0,Paralysis,1,Precision,5",
+    "0,Rapid Fire,1,Status,4",
+    "0,Dragon Res,4,RazorCAdd,-2",
+    "0,Dragon Res,4,RazorCAdd,-2",
+    "2,Eating,1,Attack,-8",
+    "0,Antiseptic,1,Expert,6",
+    "0,Elemental,5,Stun,-5",
+    "0,FatigueAtk,1,Slam,2",
+    "0,FatigueAtk,3,Protection,1",
+    "0,FatigueAtk,1,ParalyCAdd,8",
+    "0,FatigueAtk,5,Antiseptic,-2",
+    "0,Defense,3,PierceSAdd,0",
+    "0,FatigueAtk,2,Horn,-3",
+    "0,FatigueAtk,6,Guard Up,3"
+  ]
+}

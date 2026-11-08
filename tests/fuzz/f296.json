@@ -1,0 +1,46 @@
+{
+  "id": "f296",
+  "description": "uniform sampler, charm mode none, 3 skills, 1 workers, 10080 evaluations (port estimate); quotas: torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    167,
+    16,
+    77
+  ],
+  "skill_names": [
+    "Etendu +2",
+    "Tranchant +1",
+    "Élément feu +1"
+  ],
+  "my_charms": [
+    "1,Vit. rech.,2,Rés. eau,-2",
+    "0,Mn perc.au.,4,Constit.,4",
+    "0,AtEl. feu,2,End.psn,9",
+    "0,AtEl. feu,2,Artilleur,6",
+    "0,Vit. rech.,2,Zone,-6",
+    "0,Zone,5,TpsObjAugm.,-7",
+    "1,Élement,1,AtEl. feu,-4",
+    "1,Rés.fléaux,5,Aig. augm.,-10",
+    "0,Recharge,6,Rés. feu,5",
+    "0,Rés. drgn,6,MnTranAjt,-9",
+    "0,Protection,7,End.par.,9",
+    "0,Inst.rap.,2,Rés. glc,10",
+    "2,Santé,3,Routard,-5",
+    "0,Cor,3,Santé,4",
+    "0,Anti-bact.,5,Alchimie,1",
+    "0,AtEl. feu,1,Anti-bact.,7",
+    "0,Vit. rech.,1,Rés. eau,11",
+    "1,Artisan ,1,AtEl. drg,8",
+    "0,Garde,3,AtEl. feu,7"
+  ]
+}

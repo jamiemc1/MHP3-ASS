@@ -1,0 +1,37 @@
+{
+  "id": "f404",
+  "description": "uniform sampler, charm mode one_skill, 4 skills, 5 workers, 61740 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    115,
+    19,
+    14,
+    138
+  ],
+  "skill_names": [
+    "Guard +1",
+    "Concentration",
+    "Speed Sharpening",
+    "Def Down Negate"
+  ],
+  "my_charms": [
+    "1,Recoil,4,Reload Spd,-3",
+    "0,Loading,5,Reload Spd,3",
+    "0,FastCharge,4,PunishDraw,-2",
+    "0,Guard,6,PierceS Up,1",
+    "0,Thundr Atk,1,Health,5",
+    "2,Guard Up,1,Fortitude,-4",
+    "1,Sheathe,2,Backpackng,1",
+    "1,Backpackng,1,Crag S Add,0"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f259",
+  "description": "armour-seeded sampler, charm mode my_charms, 6 skills, 3 workers, 26250 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    145,
+    61,
+    151,
+    56,
+    178,
+    129
+  ],
+  "skill_names": [
+    "Def Up (S)",
+    "Crag S LV1 Add",
+    "Fire Res (S)",
+    "Normal S All Add",
+    "Filled Up",
+    "Stun Negated"
+  ],
+  "my_charms": [
+    "0,Defense,1,SpeedSetup,-9",
+    "1,NormalSAdd,1,PowerCAdd,-9",
+    "0,PelletS Up,2,Fire Res,-5"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "f273",
+  "description": "uniform sampler, charm mode one_skill, 5 skills, 17 workers, 1974720 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    193,
+    86,
+    37,
+    93,
+    137
+  ],
+  "skill_names": [
+    "Spirit's Whim",
+    "Ice Element +1",
+    "Reload Speed +1",
+    "Constitution +2",
+    "Blightproof"
+  ],
+  "my_charms": [
+    "0,Rec Level,4,FatigueAtk,1",
+    "0,Constitutn,5,Crit Draw,3",
+    "2,Constitutn,2,Rec Speed,2",
+    "0,Defense,2,Backpackng,2",
+    "0,Gunnery,4,PoisonCAdd,-3",
+    "1,,,,",
+    "0,Ice Attack,7,Eating,-1",
+    "0,Stamina,4,Ice Attack,-7",
+    "0,FatigueAtk,6,Dragon Res,4",
+    "0,Ice Attack,7,Carving,-1",
+    "0,Rec Level,2,Gathering,11",
+    "0,Constitutn,2,Will Recov,-3",
+    "0,Recoil,1,Potential,4",
+    "0,BombStrUp,3,Sense,3",
+    "1,WindPress,4,Psychic,3",
+    "0,Precision,4,Stun,2",
+    "0,Constitutn,4,Stun,7",
+    "1,Guard Up,2,Fire Atk,6",
+    "0,Rec Level,5,Status,4",
+    "1,,,,"
+  ]
+}

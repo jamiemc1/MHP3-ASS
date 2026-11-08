@@ -1,0 +1,43 @@
+{
+  "id": "f061",
+  "description": "armour-seeded sampler, charm mode none, 4 skills, 1 workers, 96 evaluations (port estimate)",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    189,
+    29,
+    120,
+    83
+  ],
+  "skill_names": [
+    "Gathering +1",
+    "Unleashed +1",
+    "Divine Protection",
+    "Thunder Element +1"
+  ],
+  "my_charms": [
+    "0,PunishDraw,2,Protection,-7",
+    "0,Fire Atk,3,Awaken,4",
+    "1,,,,",
+    "0,Fire Atk,3,Awaken,4",
+    "1,FatigueAtk,3,Awaken,1",
+    "0,Fire Atk,3,Awaken,4",
+    "0,Fire Res,1,Gathering,-4",
+    "0,Protection,5,Constitutn,0",
+    "0,Ice Attack,3,Thundr Atk,-8",
+    "0,Thundr Atk,6,Gluttony,9",
+    "0,Thundr Atk,3,Guard,4",
+    "0,Thundr Atk,5,ThunderRes,8",
+    "0,Thundr Atk,6,ThunderRes,-1",
+    "0,Backpackng,7,Gathering,5"
+  ]
+}

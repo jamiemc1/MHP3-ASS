@@ -1,0 +1,48 @@
+{
+  "id": "f260",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 108 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    136,
+    98,
+    61,
+    27,
+    49
+  ],
+  "skill_names": [
+    "Steal No Effect",
+    "Stamina Recov Up",
+    "Crag S LV1 Add",
+    "Gunnery Master",
+    "Accuracy+1"
+  ],
+  "my_charms": [
+    "0,Expert,2,Huntsman,-7",
+    "0,PierceSAdd,4,Mud/Snow,-10",
+    "0,Defense,3,Hunger,7",
+    "0,Water Atk,3,Thundr Atk,5",
+    "0,Ice Attack,3,Defense,4",
+    "1,Expert,1,Gunnery,-8",
+    "0,Will Recov,1,Antiseptic,-1",
+    "1,Guard,1,PelletS Up,1",
+    "1,Fire Atk,5,Crag S Add,2",
+    "0,Ice Res,1,Crag S Add,8",
+    "0,Will Recov,3,Hunger,-9",
+    "0,Backpackng,3,PoisonCAdd,3",
+    "0,Gunnery,2,Antiseptic,-4",
+    "0,Elemental,5,Rewards,2",
+    "0,Stamina,3,Psychic,1",
+    "1,Thundr Atk,5,Wide Area,-1",
+    "0,Poison,5,Anti-Theft,-5"
+  ]
+}

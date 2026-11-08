@@ -1,0 +1,51 @@
+{
+  "id": "f444",
+  "description": "uniform sampler, charm mode slotted, 6 skills, 1 workers, 24192 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    135,
+    138,
+    58,
+    35,
+    172,
+    136
+  ],
+  "skill_names": [
+    "Antiseptic",
+    "Iron Skin",
+    "Use Any Pierce S",
+    "Load Up",
+    "Autotracker",
+    "Anti-Theft"
+  ],
+  "my_charms": [
+    "0,Eating,4,Perception,-4",
+    "0,Normal Up,2,Eating,2",
+    "0,Defense,3,Dragon Res,6",
+    "0,Guard Up,4,Anti-Theft,7",
+    "0,Protection,3,Dragon Atk,-1",
+    "0,Fencing,5,Stam Drain,4",
+    "0,Protection,5,Psychic,8",
+    "0,Eating,4,Water Atk,-8",
+    "0,Carving,5,Thundr Atk,9",
+    "0,Defense,1,Anti-Theft,3",
+    "1,Def Lock,1,Poison C+,-9",
+    "3,,,,",
+    "0,Potential,1,Whim,-6",
+    "0,Fencing,3,Bomb Boost,4",
+    "0,Pierce Up,1,Ice Res,0",
+    "0,Psychic,6,Clust S+,5",
+    "0,Fire Atk,7,Attack,6",
+    "2,,,,"
+  ]
+}

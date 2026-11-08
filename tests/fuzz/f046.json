@@ -1,0 +1,41 @@
+{
+  "id": "f046",
+  "description": "uniform sampler, charm mode one_skill, 6 skills, 9 workers, 9 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    197,
+    89,
+    2,
+    58,
+    193,
+    118
+  ],
+  "skill_names": [
+    "Good Luck",
+    "Dragon Element +1",
+    "Attack Up [Lg]",
+    "Pierce S All Add",
+    "Spirit's Whim",
+    "Guard Inc"
+  ],
+  "my_charms": [
+    "0,Awaken,4,NormalS Up,-3",
+    "0,Evasion,6,Rec Speed,2",
+    "0,Awaken,2,Will Recov,1",
+    "0,Poison,2,SleepCAdd,10",
+    "1,Dragon Res,3,RazorCAdd,-9",
+    "0,Sheathe,6,PierceS Up,-1",
+    "0,Dragon Atk,7,Recoil,3",
+    "0,Blight Res,4,Potential,4"
+  ]
+}

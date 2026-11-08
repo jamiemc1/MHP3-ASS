@@ -1,0 +1,41 @@
+{
+  "id": "f437",
+  "description": "uniform sampler, charm mode slotted, 2 skills, 1 workers, 48 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    68,
+    154
+  ],
+  "skill_names": [
+    "Sleep Coating Add",
+    "Water Res (S)"
+  ],
+  "my_charms": [
+    "2,Sheathe,4,Rec Speed,-9",
+    "0,Dragon Atk,4,LastingPwr,7",
+    "0,Artisan,4,Fire Atk,2",
+    "2,Fortitude,1,Dragon Res,-4",
+    "0,Guard,3,Status,3",
+    "0,Protection,2,PowerCAdd,2",
+    "0,Fire Atk,5,ClustS Add,0",
+    "0,Crag S Add,5,Whim,-9",
+    "0,Evasion,1,Quake Res,6",
+    "0,Fire Atk,4,Defense,-3",
+    "0,Status,3,Mud/Snow,-9",
+    "0,Will Recov,3,FatigueAtk,4",
+    "1,PelletS Up,1,Sharpener,2",
+    "1,KO,1,Fire Atk,-4",
+    "0,FatigueAtk,3,ThunderRes,-2",
+    "0,Paralysis,3,Sense,1"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "f419",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 8 workers, 864 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    28,
+    131,
+    98
+  ],
+  "skill_names": [
+    "Gunnery King",
+    "Mud/Snow Res",
+    "Stamina Recov Up"
+  ],
+  "my_charms": [
+    "0,Will Recov,6,Perception,-8",
+    "0,Fencing,5,Blight Res,-1",
+    "0,Fate,3,Will Recov,-2",
+    "0,Will Recov,3,Wide Area,-4",
+    "0,Mud/Snow,4,Rec Speed,4",
+    "0,Mud/Snow,2,Health,4",
+    "0,ClustS Add,2,DungMaster,-1",
+    "0,Blight Res,1,Gunnery,-7",
+    "1,Sheathe,1,Will Recov,-1",
+    "0,Ice Res,4,Mud/Snow,1",
+    "1,HearProtct,1,Gunnery,-6",
+    "0,Will Recov,1,Shot Mix,4",
+    "0,Expert,3,Mud/Snow,-2",
+    "0,Sheathe,6,Gunnery,-7"
+  ]
+}

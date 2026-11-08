@@ -1,0 +1,31 @@
+{
+  "id": "f279",
+  "description": "armour-seeded sampler, charm mode slotted, 2 skills, 1 workers, 3150 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    170,
+    169
+  ],
+  "skill_names": [
+    "Trnquilizr Guru",
+    "Trap Master"
+  ],
+  "my_charms": [
+    "0,Fire Res,5,SpeedSetup,3",
+    "0,Rec Level,2,HearProtct,-2",
+    "0,Constitutn,6,Fate,-1",
+    "1,Rec Level,3,HearProtct,1",
+    "0,KO,1,Perception,6",
+    "0,FatigueAtk,4,KO,1"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f264",
+  "description": "armour-seeded sampler, charm mode my_charms, 5 skills, 3 workers, 22050 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    98,
+    157,
+    170,
+    96,
+    104
+  ],
+  "skill_names": [
+    "Stamina Recov Up",
+    "Thunder Res (S)",
+    "Trnquilizr Guru",
+    "Runner",
+    "Evade +1"
+  ],
+  "my_charms": [
+    "3,PierceS Up,3,Status,-9",
+    "0,CutterSAdd,1,Wide Area,2",
+    "0,Recoil,2,Carving,2",
+    "2,Artisan,2,Gunnery,-9",
+    "0,Debilitate,1,Potential,1",
+    "0,Status,1,Dragon Res,7",
+    "0,Will Recov,6,Wide Area,3",
+    "0,Ice Attack,2,PelletS Up,1",
+    "0,Rewards,1,Reload Spd,1",
+    "0,FatigueAtk,2,NormalSAdd,8",
+    "0,Blight Res,2,Slam,0",
+    "1,HearProtct,1,Protection,-2"
+  ]
+}

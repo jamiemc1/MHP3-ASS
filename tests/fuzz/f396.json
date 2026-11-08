@@ -1,0 +1,51 @@
+{
+  "id": "f396",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 6 workers, 9600 evaluations (port estimate); quotas: torso_up",
+  "language": "Japanese",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    133,
+    43,
+    140
+  ],
+  "skill_names": [
+    "風圧無効",
+    "反動軽減+1",
+    "高級耳栓"
+  ],
+  "my_charms": [
+    "0,捕獲,2,風圧,2",
+    "0,斬裂弾追加,4,榴弾追加,-10",
+    "0,痛撃,4,捕獲,1",
+    "0,捕獲,2,反動,-1",
+    "0,回避距離,3,雷耐性,4",
+    "0,斬れ味,1,痛撃,0",
+    "0,麻痺,3,貫通弾追加,1",
+    "0,風圧,1,スタミナ,3",
+    "0,毒,1,雷耐性,-10",
+    "0,風圧,2,調合数,6",
+    "1,気力回復,3,風圧,-8",
+    "0,底力,6,風圧,-1",
+    "0,KO,6,聴覚保護,3",
+    "2,龍耐性,2,貫通弾追加,6",
+    "2,,,,",
+    "1,,,,",
+    "0,散弾追加,1,腹減り,4",
+    "0,溜め短縮,5,聴覚保護,2",
+    "0,風圧,1,腹減り,9",
+    "0,風圧,4,攻撃,-8",
+    "0,底力,1,火耐性,9",
+    "1,龍属性攻撃,6,剥ぎ取り,-2",
+    "0,底力,6,広域,7",
+    "0,気力回復,1,風圧,3"
+  ]
+}

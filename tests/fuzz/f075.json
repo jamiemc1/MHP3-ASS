@@ -1,0 +1,52 @@
+{
+  "id": "f075",
+  "description": "armour-seeded sampler, charm mode my_charms, 5 skills, 5 workers, 2160 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    170,
+    35,
+    132,
+    55,
+    84
+  ],
+  "skill_names": [
+    "Trnquilizr Guru",
+    "Load Up",
+    "Quake Res",
+    "PelletS/ScatterBowUp",
+    "Thunder Element +2"
+  ],
+  "my_charms": [
+    "0,Eating,3,Perception,-9",
+    "0,Crit Draw,3,Awaken,1",
+    "0,HearProtct,1,Rewards,2",
+    "0,Fire Atk,5,Gunnery,3",
+    "2,Status,5,Guard,0",
+    "1,Sharpener,1,Fortitude,-7",
+    "0,Rapid Fire,2,Fate,-1",
+    "0,Evasion,2,Dragon Res,2",
+    "1,Evasion,4,Stun,-7",
+    "0,Sleep,4,Combo Rate,-10",
+    "0,PelletS Up,3,Sheathe,2",
+    "1,Loading,1,Ice Res,-4",
+    "0,Thundr Atk,3,Defense,-2",
+    "0,Potential,4,Attack,-7",
+    "0,Fire Atk,7,Sharpness,3",
+    "1,Guard,4,Will Recov,0",
+    "0,Paralysis,3,Sleep,-10",
+    "0,Elemental,4,Gunnery,1",
+    "0,Recoil,5,Elemental,-2",
+    "0,Guard Up,2,Dragon Res,2",
+    "1,Debilitate,1,Fate,-3"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "f089",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 2 workers, 36 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    21
+  ],
+  "skill_names": [
+    "ESP"
+  ],
+  "my_charms": [
+    "1,Ice Attack,2,Sharpener,-9",
+    "2,,,,",
+    "3,,,,",
+    "0,Antiseptic,5,Paralysis,7"
+  ]
+}

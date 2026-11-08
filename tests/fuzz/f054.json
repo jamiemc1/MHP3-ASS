@@ -1,0 +1,43 @@
+{
+  "id": "f054",
+  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 6 workers, 6 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    201,
+    174,
+    29,
+    6,
+    35
+  ],
+  "skill_names": [
+    "Carving Expert",
+    "Recovery Up",
+    "Unleashed +1",
+    "Reckless Abandon +1",
+    "Load Up"
+  ],
+  "my_charms": [
+    "0,Water Atk,7,Ice Res,6",
+    "1,Loading,6,Rec Level,0",
+    "0,NormalSAdd,4,RazorCAdd,9",
+    "0,Gunnery,5,Cold Res,1",
+    "0,Psychic,6,Expert,-4",
+    "0,Debilitate,2,WindPress,-5",
+    "0,Ice Attack,4,Sharpener,1",
+    "0,Sharpness,2,Ice Attack,6",
+    "0,ThunderRes,3,Quake Res,-8",
+    "0,Protection,1,Health,13",
+    "0,Rec Level,5,ClustS Add,2",
+    "1,Rewards,2,Thundr Atk,1"
+  ]
+}

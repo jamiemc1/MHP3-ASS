@@ -1,0 +1,42 @@
+{
+  "id": "f230",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 8 workers, 1728 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    55,
+    8,
+    60
+  ],
+  "skill_names": [
+    "PelletS/ScatterBowUp",
+    "Reckless Abandon +3",
+    "Pellet S All Add"
+  ],
+  "my_charms": [
+    "0,Antiseptic,1,PoisonCAdd,3",
+    "0,ClustS Add,5,Expert,-3",
+    "0,Constitutn,5,Gunnery,3",
+    "0,PelletS Up,1,Psychic,-4",
+    "0,PelletS Up,1,Elemental,2",
+    "0,Poison,3,PelletSAdd,8",
+    "0,Sheathe,3,Thundr Atk,-5",
+    "0,CutterSAdd,5,BombStrUp,-4",
+    "0,PelletS Up,1,Constitutn,-1",
+    "0,PelletS Up,1,Constitutn,-1",
+    "0,Guard,1,Psychic,9",
+    "1,Protection,2,PelletS Up,-1",
+    "0,Guard Up,1,PelletS Up,3",
+    "0,Wide Area,7,Expert,-1",
+    "0,PelletS Up,3,HearProtct,3"
+  ]
+}

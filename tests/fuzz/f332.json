@@ -1,0 +1,39 @@
+{
+  "id": "f332",
+  "description": "armour-seeded sampler, charm mode my_charms, 3 skills, 4 workers, 4 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    120,
+    194,
+    50
+  ],
+  "skill_names": [
+    "Divine Protection",
+    "Divine Whim",
+    "Accuracy+2"
+  ],
+  "my_charms": [
+    "1,HearProtct,2,Protection,-5",
+    "1,Precision,1,Heat Res,-2",
+    "0,Protection,1,Carving,2",
+    "0,Protection,3,Artisan,-2",
+    "0,Fire Res,1,Whim,-8",
+    "1,Precision,2,,",
+    "1,,,,",
+    "0,Protection,6,Fire Atk,2",
+    "2,Precision,1,Attack,3",
+    "0,Fortitude,1,Gunnery,1",
+    "1,,,,",
+    "0,Ice Res,3,Precision,1"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "f325",
+  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 10 workers, 115200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    131,
+    25,
+    155,
+    96
+  ],
+  "skill_names": [
+    "Mud/Snow Res",
+    "Enfeebler",
+    "Water Res (L)",
+    "Runner"
+  ],
+  "my_charms": [
+    "0,Backpackng,6,Rec Speed,-2",
+    "0,NormalSAdd,5,Hunger,-10",
+    "1,Dragon Atk,1,Rec Level,-3",
+    "0,Crit Draw,3,Recoil,1",
+    "1,Expert,1,Defense,-5",
+    "0,Paralysis,4,Attack,-5",
+    "0,Mud/Snow,1,Paralysis,6",
+    "0,FatigueAtk,3,Evade Dist,-2",
+    "0,FatigueAtk,3,PoisonCAdd,-2",
+    "0,Reload Spd,1,FatigueAtk,4",
+    "0,Water Atk,5,FatigueAtk,0",
+    "0,Attack,1,CutterSAdd,9",
+    "0,Potential,1,Gunnery,5",
+    "0,Constitutn,6,Stamina,0",
+    "0,FatigueAtk,5,Backpackng,2",
+    "0,WindPress,5,Evade Dist,0",
+    "1,Guard Up,3,Health,-5",
+    "0,FatigueAtk,1,KO,4"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "f394",
+  "description": "uniform sampler, charm mode none, 5 skills, 1 workers, 36288 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 4,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    189,
+    2,
+    193,
+    173,
+    203
+  ],
+  "skill_names": [
+    "Gathering +1",
+    "Attack Up [Lg]",
+    "Spirit's Whim",
+    "DungBombExpert",
+    "Rewards Celeb"
+  ],
+  "my_charms": [
+    "0,Rapid Fire,4,Water Atk,7",
+    "0,Debilitate,3,Water Res,10",
+    "1,Defense,1,ParalyCAdd,-7",
+    "0,Fortitude,4,Anti-Theft,5",
+    "0,Stamina,4,Water Atk,1",
+    "0,Evade Dist,2,Gathering,-8",
+    "0,Dragon Atk,1,Awaken,0",
+    "0,Poison,4,Huntsman,-5",
+    "0,Water Atk,1,Rapid Fire,2",
+    "0,Potential,2,Sense,3",
+    "0,Water Atk,7,Stun,-3",
+    "0,Sleep,2,Wide Area,2",
+    "1,Guard,2,Carving,-1",
+    "0,Elemental,5,Fate,1",
+    "0,Dragon Atk,6,Fortitude,4",
+    "0,BombStrUp,1,Gathering,8",
+    "0,Stamina,4,Elemental,-2",
+    "1,Crit Draw,3,Psychic,4",
+    "0,Dragon Atk,7,Rec Speed,-4"
+  ]
+}

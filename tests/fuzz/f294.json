@@ -1,0 +1,51 @@
+{
+  "id": "f294",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 24 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    25
+  ],
+  "skill_names": [
+    "Enfeebler"
+  ],
+  "my_charms": [
+    "0,FatigueAtk,3,PierceS Up,-2",
+    "0,FatigueAtk,6,Evasion,-1",
+    "1,Thundr Atk,2,KO,-3",
+    "2,Ice Res,2,LastingPwr,-6",
+    "0,FatigueAtk,5,Anti-Theft,9",
+    "1,Precision,6,SleepCAdd,-1",
+    "0,NormalS Up,1,FatigueAtk,4",
+    "0,FatigueAtk,6,Water Res,8",
+    "0,SpeedSetup,1,HiSpdGathr,8",
+    "0,Ice Attack,6,WindPress,-7",
+    "0,FatigueAtk,1,Fire Res,9",
+    "0,Sharpener,2,ClustS Add,-1",
+    "3,Reload Spd,1,Sheathe,1",
+    "0,FatigueAtk,3,NormalSAdd,8",
+    "1,Sheathe,6,FatigueAtk,0",
+    "0,Water Atk,3,Water Res,10",
+    "1,Guard Up,1,SleepCAdd,-6",
+    "2,KO,2,Constitutn,-2",
+    "0,FatigueAtk,6,Perception,-4",
+    "0,Antiseptic,1,Dragon Res,-9",
+    "0,Slam,1,FatigueAtk,0",
+    "0,Constitutn,6,Rewards,1",
+    "0,FatigueAtk,5,Water Res,6",
+    "0,Awaken,4,Crit Draw,0",
+    "0,Poison,2,Dragon Res,-2",
+    "0,Debilitate,1,Dragon Res,10",
+    "0,Defense,1,Water Res,1",
+    "0,Fire Atk,2,Poison,4"
+  ]
+}

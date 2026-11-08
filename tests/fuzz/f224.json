@@ -1,0 +1,43 @@
+{
+  "id": "f224",
+  "description": "armour-seeded sampler, charm mode my_charms, 5 skills, 7 workers, 95256 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    96,
+    170,
+    138,
+    98,
+    132
+  ],
+  "skill_names": [
+    "Runner",
+    "Trnquilizr Guru",
+    "Def Down Negate",
+    "Stamina Recov Up",
+    "Quake Res"
+  ],
+  "my_charms": [
+    "1,Stamina,3,Ice Attack,-4",
+    "0,Hunger,2,Quake Res,5",
+    "0,Will Recov,1,Stun,0",
+    "0,Will Recov,4,Wide Area,6",
+    "0,Rec Level,1,Fortitude,0",
+    "0,Stamina,5,PelletS Up,-3",
+    "0,Will Recov,2,PoisonCAdd,-3",
+    "0,Backpackng,5,Perception,5",
+    "0,Debilitate,1,Will Recov,1",
+    "0,Fortitude,1,Crag S Add,2",
+    "0,Evade Dist,6,Stamina,0",
+    "0,Fortitude,1,Crag S Add,2"
+  ]
+}

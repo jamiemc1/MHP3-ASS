@@ -1,0 +1,48 @@
+{
+  "id": "f227",
+  "description": "uniform sampler, charm mode slotted, 5 skills, 1 workers, 1200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    31,
+    184,
+    151,
+    174,
+    142
+  ],
+  "skill_names": [
+    "Adrenaline +1",
+    "Backpacking Expert",
+    "Fire Res (S)",
+    "Recovery Up",
+    "Health +50"
+  ],
+  "my_charms": [
+    "0,WindPress,5,Gunnery,0",
+    "0,Ice Attack,6,Heat Res,6",
+    "1,Dragon Res,2,Paralysis,-4",
+    "1,Health,5,Rec Speed,0",
+    "0,Fire Atk,4,Health,10",
+    "1,PunishDraw,1,Fencing,-1",
+    "0,Status,6,Will Recov,-3",
+    "0,WindPress,2,Backpackng,-1",
+    "0,Rec Level,1,PierceSAdd,4",
+    "0,Fire Res,3,CutterSAdd,8",
+    "0,Fire Atk,4,Water Atk,-9",
+    "1,Potential,2,Stamina,-3",
+    "0,Thundr Atk,6,Health,-2",
+    "3,Debilitate,2,Hunger,-7",
+    "1,Rec Level,2,HearProtct,3",
+    "0,Loading,6,Psychic,10",
+    "1,Potential,2,Water Res,-1"
+  ]
+}

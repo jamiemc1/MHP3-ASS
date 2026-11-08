@@ -1,0 +1,46 @@
+{
+  "id": "f022",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 0 workers, 0 evaluations (port estimate); quotas: auto_guard_no_charm, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    105,
+    119,
+    166
+  ],
+  "skill_names": [
+    "Evade +2",
+    "Auto-Guard",
+    "Wide Area +1"
+  ],
+  "my_charms": [
+    "0,Evasion,1,BombStrUp,-7",
+    "0,Artisan,2,PunishDraw,-3",
+    "0,Mud/Snow,6,PowerCAdd,7",
+    "0,ThunderRes,6,Wide Area,6",
+    "0,Evasion,4,HiSpdGathr,10",
+    "0,Horn,1,Wide Area,6",
+    "1,ThunderRes,3,Ice Res,-5",
+    "1,KO,4,FastCharge,-1",
+    "2,WindPress,2,Hunger,-2",
+    "0,Wide Area,8,Status,1",
+    "1,Potential,1,Defense,0",
+    "3,Awaken,3,Wide Area,-7",
+    "0,Loading,3,Potential,1",
+    "0,HearProtct,3,Artisan,-3",
+    "1,Evasion,3,Protection,-5",
+    "0,Evade Dist,4,Wide Area,-4",
+    "1,Potential,1,Wide Area,-10",
+    "0,Potential,2,Sharpness,2",
+    "0,Evasion,2,Expert,9"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f438",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 12 workers, 20160 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    164,
+    21,
+    73
+  ],
+  "skill_names": [
+    "Dragon Res (L)",
+    "ESP",
+    "Abnormal Status Atk +2"
+  ],
+  "my_charms": [
+    "1,Loading,4,Ice Attack,-1",
+    "0,Wide Area,1,Rec Speed,4",
+    "0,KO,6,FatigueAtk,3",
+    "1,Water Atk,1,Dragon Res,-9",
+    "0,Blight Res,4,Artisan,1",
+    "0,WindPress,5,Sharpener,8",
+    "0,PierceS Up,1,Dragon Res,-8",
+    "2,Status,1,Psychic,1",
+    "0,Dragon Res,1,ThunderRes,5"
+  ]
+}

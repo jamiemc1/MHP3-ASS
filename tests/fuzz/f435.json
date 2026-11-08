@@ -1,0 +1,42 @@
+{
+  "id": "f435",
+  "description": "armour-seeded sampler, charm mode two_skill, 4 skills, 20 workers, 77760 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (Athena)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    107,
+    109,
+    98,
+    172
+  ],
+  "skill_names": [
+    "Evasion Up",
+    "Sneak",
+    "Stamina Recov Up",
+    "Autotracker"
+  ],
+  "my_charms": [
+    "0,Sharpness,1,Gunnery,2",
+    "1,BombStrUp,1,Anti-Theft,0",
+    "0,Eating,5,Sharpness,3",
+    "0,Gunnery,2,Ice Res,3",
+    "0,Gunnery,2,Ice Res,3",
+    "0,Reload Spd,3,Guard,-3",
+    "1,Psychic,3,DungMaster,6",
+    "0,CutterSAdd,1,Psychic,-8",
+    "0,Artisan,1,Gunnery,10",
+    "0,Gunnery,2,Ice Res,3",
+    "1,Sharpness,4,Wide Area,-8",
+    "0,Will Recov,5,Water Res,5",
+    "0,ClustS Add,6,Cold Res,-5"
+  ]
+}

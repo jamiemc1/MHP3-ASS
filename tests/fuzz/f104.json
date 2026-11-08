@@ -1,0 +1,50 @@
+{
+  "id": "f104",
+  "description": "uniform sampler, charm mode one_skill, 1 skill, 2 workers, 8 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    66
+  ],
+  "skill_names": [
+    "Poison Coating Add"
+  ],
+  "my_charms": [
+    "0,Guard Up,2,Perception,6",
+    "0,SpeedSetup,6,Perception,6",
+    "0,Rapid Fire,3,Crit Draw,-3",
+    "0,Precision,5,PoisonCAdd,5",
+    "0,Will Recov,4,PoisonCAdd,-5",
+    "0,PelletSAdd,2,PoisonCAdd,0",
+    "1,FatigueAtk,2,Ice Res,-8",
+    "0,Horn,3,PoisonCAdd,-6",
+    "1,Rec Level,6,Evade Dist,-3",
+    "1,Awaken,2,Potential,0",
+    "0,WindPress,3,PoisonCAdd,0",
+    "0,Guard,4,PoisonCAdd,7",
+    "0,Stamina,4,Protection,1",
+    "1,Carving,4,Thundr Atk,-7",
+    "0,Wide Area,6,RazorCAdd,5",
+    "1,Loading,3,Sharpness,0",
+    "0,Ice Attack,2,Attack,4",
+    "0,Status,3,Heat Res,5",
+    "0,BombStrUp,6,Rec Speed,2",
+    "0,Protection,6,PoisonCAdd,6",
+    "0,Sheathe,4,PoisonCAdd,6",
+    "0,Protection,3,PoisonCAdd,2",
+    "0,Fortitude,6,Whim,11",
+    "0,PoisonCAdd,1,,",
+    "0,Eating,3,PoisonCAdd,2",
+    "0,PierceS Up,1,Gunnery,5",
+    "0,Defense,4,PoisonCAdd,2"
+  ]
+}

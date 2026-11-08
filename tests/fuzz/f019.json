@@ -1,0 +1,36 @@
+{
+  "id": "f019",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 4 workers, 576 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    73,
+    109
+  ],
+  "skill_names": [
+    "Abnormal Status Atk +2",
+    "Sneak"
+  ],
+  "my_charms": [
+    "0,Status,3,Shot Mix,6",
+    "0,Status,3,Fire Atk,-1",
+    "0,Loading,4,Eating,1",
+    "1,Fate,1,Status,-5",
+    "0,Status,5,Wide Area,-5",
+    "0,Wide Area,7,Status,1",
+    "1,Paralysis,2,Sense,-2",
+    "0,Sheathe,1,Sense,7",
+    "0,Expert,4,Sense,8",
+    "0,Hunger,5,Sense,2",
+    "0,Status,1,Attack,5"
+  ]
+}

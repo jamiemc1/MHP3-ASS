@@ -1,0 +1,40 @@
+{
+  "id": "f035",
+  "description": "armour-seeded sampler, charm mode slotted, 1 skill, 1 workers, 216 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    174
+  ],
+  "skill_names": [
+    "Recovery Up"
+  ],
+  "my_charms": [
+    "0,Rec Level,3,Gunnery,-1",
+    "0,Rec Level,5,Perception,4",
+    "1,Evasion,6,Awaken,-1",
+    "1,Quake Res,7,ThunderRes,-8",
+    "1,Ice Attack,3,Status,-10",
+    "0,Guard Up,2,PowerCAdd,5",
+    "0,Dragon Atk,4,Defense,2",
+    "0,Antiseptic,3,ThunderRes,4",
+    "2,Expert,2,Defense,-1",
+    "0,Wide Area,5,Quake Res,1",
+    "0,WindPress,1,BombStrUp,1",
+    "0,Ice Attack,7,HearProtct,-1",
+    "0,Rec Level,6,ClustS Add,-7",
+    "0,Rec Level,4,Antiseptic,-1",
+    "0,Fire Atk,7,DungMaster,5",
+    "0,Blight Res,5,Rapid Fire,-3",
+    "0,Health,3,HiSpdGathr,-6"
+  ]
+}

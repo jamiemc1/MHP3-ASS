@@ -1,0 +1,43 @@
+{
+  "id": "f182",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 2 workers, 384 evaluations (port estimate); quotas: torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    112
+  ],
+  "skill_names": [
+    "ErholGeschw +2"
+  ],
+  "my_charms": [
+    "0,ErholStufe,6,SchntSHinz,-4",
+    "0,PiercSzufü,2,Donnerabw.,5",
+    "0,NachlGesch,3,Schnellfeu,2",
+    "0,SchrtSzufü,1,Status,2",
+    "0,Bebenabw.,3,Verteidig.,6",
+    "0,SchnllAufb,6,Eigenbrödl,8",
+    "3,,,,",
+    "0,Gesundheit,4,Gift,0",
+    "1,DnnrAngHch,4,Horn,-1",
+    "0,KO,3,Schießerei,-7",
+    "0,Armieren,4,Kombi-Rate,0",
+    "0,Potenzial,3,Block hoch,-2",
+    "0,Essen,1,SchrotHoch,-1",
+    "0,Rucksack,3,Kälteabw.,-6",
+    "1,ErholStufe,3,Schlemmen,-6",
+    "3,,,,",
+    "0,PierceHoch,4,Schärfe,-3",
+    "0,ErholStufe,5,NachlGesch,4",
+    "0,Bebenabw.,4,Eigenbrödl,-8",
+    "0,Präzision,2,Eigenbrödl,-4"
+  ]
+}

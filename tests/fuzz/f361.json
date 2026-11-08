@@ -1,0 +1,39 @@
+{
+  "id": "f361",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 11 workers, 880 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    132,
+    64,
+    146
+  ],
+  "skill_names": [
+    "Quake Res",
+    "Clust S All Add",
+    "Def Up (M)"
+  ],
+  "my_charms": [
+    "0,ThunderRes,3,Mud/Snow,6",
+    "0,ClustS Add,2,Ice Res,-2",
+    "1,Water Atk,2,Fire Atk,-4",
+    "0,Evade Dist,2,ThunderRes,-1",
+    "3,Rec Level,1,Water Res,-1",
+    "0,Water Atk,6,Carving,-2",
+    "2,,,,",
+    "3,,,,",
+    "0,Expert,3,Mud/Snow,-2",
+    "0,Rec Speed,1,Health,-5",
+    "0,Mud/Snow,2,Status,-3",
+    "0,Water Res,1,ThunderRes,10"
+  ]
+}

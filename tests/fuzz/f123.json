@@ -1,0 +1,52 @@
+{
+  "id": "f123",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills, 1 workers, 5184 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    16,
+    8,
+    19,
+    35
+  ],
+  "skill_names": [
+    "Sharpness +1",
+    "Reckless Abandon +3",
+    "Concentration",
+    "Load Up"
+  ],
+  "my_charms": [
+    "0,PierceSAdd,1,FatigeCAdd,3",
+    "1,Slam,4,Health,-10",
+    "0,Will Recov,1,Hunger,0",
+    "1,Fire Atk,1,FastCharge,1",
+    "0,PelletS Up,5,Water Res,12",
+    "1,WindPress,1,Expert,-10",
+    "0,Crit Draw,1,Ice Attack,3",
+    "0,Stamina,4,KO,0",
+    "0,Loading,4,Expert,-6",
+    "0,Sheathe,2,Gathering,12",
+    "0,Evade Dist,1,Hunger,5",
+    "0,Crag S Add,3,Paralysis,-9",
+    "0,Will Recov,2,Perception,0",
+    "0,Fate,5,Artisan,-3",
+    "0,Loading,2,Health,5",
+    "0,Ice Attack,6,Defense,4",
+    "0,Gunnery,3,Expert,-4",
+    "1,Sharpness,1,Dragon Res,8",
+    "0,Gunnery,6,Sleep,7",
+    "1,Awaken,1,Potential,0",
+    "0,Water Res,3,LastingPwr,-3",
+    "0,Artisan,1,Stun,11",
+    "0,Rec Speed,7,Dragon Res,4"
+  ]
+}

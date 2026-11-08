@@ -1,0 +1,50 @@
+{
+  "id": "f488",
+  "description": "uniform sampler, charm mode slotted, 4 skills, 0 workers, 0 evaluations (port estimate); quotas: auto_guard_no_charm, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    192,
+    119,
+    194,
+    151
+  ],
+  "skill_names": [
+    "Hi-SpdGathering",
+    "Auto-Guard",
+    "Divine Whim",
+    "Fire Res (S)"
+  ],
+  "my_charms": [
+    "1,Fire Res,1,Poison,-9",
+    "0,Dragon Atk,1,Sleep,7",
+    "0,Health,1,HiSpdGathr,8",
+    "0,Eating,5,Loading,2",
+    "0,Fire Res,4,Rec Speed,0",
+    "1,Recoil,1,PunishDraw,-3",
+    "1,Rec Level,1,Antiseptic,-7",
+    "0,Fire Atk,3,HiSpdGathr,-3",
+    "0,Crit Draw,2,Protection,1",
+    "0,Ice Attack,4,Fire Res,13",
+    "0,BombStrUp,6,Health,-10",
+    "0,Fire Res,5,ParalyCAdd,10",
+    "0,Rapid Fire,1,Constitutn,-2",
+    "0,WindPress,2,Expert,-3",
+    "0,Ice Res,2,Fire Res,-10",
+    "0,Fire Res,5,Shot Mix,-6",
+    "0,Psychic,3,Health,6",
+    "0,Awaken,1,Slam,3",
+    "1,BombStrUp,1,HiSpdGathr,-10",
+    "0,Sheathe,1,Ice Res,13",
+    "0,Fire Res,1,Health,4"
+  ]
+}

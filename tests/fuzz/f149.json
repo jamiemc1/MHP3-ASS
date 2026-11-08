@@ -1,0 +1,38 @@
+{
+  "id": "f149",
+  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 3 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    203
+  ],
+  "skill_names": [
+    "Rewards Celeb"
+  ],
+  "my_charms": [
+    "0,Rewards,3,Rec Level,2",
+    "0,Will Recov,1,Wide Area,1",
+    "1,Rewards,5,Evade Dist,0",
+    "0,Guard,1,Attack,7",
+    "0,WindPress,3,Rewards,1",
+    "2,Rewards,2,BombStrUp,-5",
+    "0,Rewards,4,Wide Area,5",
+    "2,Status,5,Rewards,-2",
+    "0,Evasion,5,Ice Attack,4",
+    "0,HearProtct,2,Rewards,2",
+    "0,NormalS Up,2,Rewards,2",
+    "0,Rewards,1,Hunger,2",
+    "0,HearProtct,5,Rewards,-1",
+    "0,Rewards,4,Ice Attack,-6",
+    "2,Rewards,2,Will Recov,-3"
+  ]
+}

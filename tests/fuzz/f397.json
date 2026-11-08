@@ -1,0 +1,36 @@
+{
+  "id": "f397",
+  "description": "armour-seeded sampler, charm mode two_skill, 2 skills, 3 workers, 2304 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    147,
+    54
+  ],
+  "skill_names": [
+    "Def Up (L)",
+    "PierceS/PierceBowUp"
+  ],
+  "my_charms": [
+    "0,Sheathe,6,Expert,2",
+    "0,WindPress,5,Defense,-5",
+    "0,Debilitate,3,Crit Draw,2",
+    "0,Guard Up,2,Awaken,0",
+    "2,Rec Speed,2,Defense,-2",
+    "0,Will Recov,1,PierceS Up,2",
+    "0,Water Atk,1,Dragon Res,8",
+    "0,NormalS Up,2,FatigueAtk,1",
+    "0,Rec Level,5,Backpackng,-7",
+    "0,Status,5,Ice Res,12",
+    "0,Status,5,Ice Res,12"
+  ]
+}

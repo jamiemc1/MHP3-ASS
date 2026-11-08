@@ -1,0 +1,51 @@
+{
+  "id": "f328",
+  "description": "uniform sampler, charm mode one_skill, 5 skills, 19 workers, 437760 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    129,
+    111,
+    23,
+    66,
+    49
+  ],
+  "skill_names": [
+    "Stun Negated",
+    "Recovery Speed +1",
+    "Ruiner",
+    "Poison Coating Add",
+    "Accuracy+1"
+  ],
+  "my_charms": [
+    "0,Defense,3,PowerCAdd,-10",
+    "0,Debilitate,4,Defense,-6",
+    "2,Protection,2,Stun,4",
+    "0,Rewards,1,Water Res,12",
+    "0,Rewards,1,Slam,-3",
+    "1,Evasion,1,PoisonCAdd,-8",
+    "1,KO,5,HiSpdGathr,-5",
+    "0,Ice Res,5,FatigeCAdd,-10",
+    "0,PierceSAdd,3,Stun,3",
+    "0,Awaken,1,Rec Speed,3",
+    "1,Constitutn,5,Rec Speed,-3",
+    "0,SpeedSetup,8,Precision,-10",
+    "0,Slam,5,PierceS Up,3",
+    "0,Rewards,1,Slam,-3",
+    "0,Water Res,6,Stun,2",
+    "1,Fire Res,2,Whim,4",
+    "0,Defense,2,Precision,2",
+    "1,Stun,4,Fortitude,3",
+    "0,Fortitude,6,Stun,0",
+    "0,Slam,5,PierceS Up,3"
+  ]
+}

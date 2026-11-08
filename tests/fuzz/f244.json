@@ -1,0 +1,35 @@
+{
+  "id": "f244",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills, 9 workers, 8100 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    141,
+    32,
+    23
+  ],
+  "skill_names": [
+    "Health +20",
+    "Adrenaline +2",
+    "Ruiner"
+  ],
+  "my_charms": [
+    "0,Fortitude,5,Hunger,-8",
+    "0,KO,1,Water Res,-7",
+    "0,Fire Atk,7,Whim,-2",
+    "0,PelletSAdd,4,Rec Speed,0",
+    "0,KO,3,Gathering,1",
+    "0,Guard Up,1,Hunger,9",
+    "0,Precision,1,DungMaster,10",
+    "0,CutterSAdd,4,Poison,6"
+  ]
+}

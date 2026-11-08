@@ -1,0 +1,38 @@
+{
+  "id": "f416",
+  "description": "uniform sampler, charm mode one_skill, 3 skills, 6 workers, 12960 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    171,
+    122,
+    28
+  ],
+  "skill_names": [
+    "Detect",
+    "Poison Negated",
+    "Gunnery King"
+  ],
+  "my_charms": [
+    "1,Poison,1,PoisonCAdd,-10",
+    "0,Rec Speed,2,Gunnery,-4",
+    "0,Evade Dist,5,Sharpener,-1",
+    "2,PunishDraw,2,Psychic,-10",
+    "0,Poison,1,Gunnery,-8",
+    "0,Gunnery,6,Poison,-9",
+    "0,Psychic,1,PierceSAdd,3",
+    "0,Dragon Atk,5,Gunnery,-4",
+    "0,Gunnery,2,Quake Res,8",
+    "0,Poison,1,Dragon Res,-8",
+    "0,Sheathe,4,Poison,-8"
+  ]
+}

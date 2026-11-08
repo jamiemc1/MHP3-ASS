@@ -1,0 +1,44 @@
+{
+  "id": "f194",
+  "description": "uniform sampler, charm mode two_skill, 6 skills, 29 workers, 397880 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    201,
+    194,
+    154,
+    203,
+    132,
+    167
+  ],
+  "skill_names": [
+    "Carving Expert",
+    "Divine Whim",
+    "Water Res (S)",
+    "Rewards Celeb",
+    "Quake Res",
+    "Wide Area +2"
+  ],
+  "my_charms": [
+    "1,KO,1,Crag S Add,-6",
+    "0,Rec Speed,1,Quake Res,1",
+    "0,Protection,7,Carving,-3",
+    "0,KO,2,Wide Area,7",
+    "0,Carving,5,Guard,0",
+    "0,Fortitude,3,Heat Res,7",
+    "0,Slam,4,Wide Area,8",
+    "0,Quake Res,7,Sleep,3",
+    "0,Ice Attack,2,Artisan,-2",
+    "0,Psychic,1,Quake Res,5",
+    "0,Sheathe,1,Water Res,8"
+  ]
+}

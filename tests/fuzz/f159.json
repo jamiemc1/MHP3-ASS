@@ -1,0 +1,49 @@
+{
+  "id": "f159",
+  "description": "uniform sampler, charm mode none, 5 skills, 1 workers, 135520 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    161,
+    145,
+    57,
+    96,
+    107
+  ],
+  "skill_names": [
+    "Ice Res (L)",
+    "Def Up (S)",
+    "Pierce S LV1 Add",
+    "Runner",
+    "Evasion Up"
+  ],
+  "my_charms": [
+    "0,CutterSAdd,2,ParalyCAdd,-6",
+    "0,Dragon Res,1,Ice Res,-7",
+    "1,PunishDraw,3,Rec Level,-2",
+    "0,Fire Res,5,Defense,-7",
+    "0,Reload Spd,1,Shot Mix,7",
+    "0,Sharpener,1,PierceSAdd,6",
+    "0,PierceSAdd,5,ClustS Add,10",
+    "0,Reload Spd,2,ClustS Add,-2",
+    "0,Psychic,5,FatigeCAdd,-10",
+    "0,Sheathe,1,Evade Dist,4",
+    "0,Status,3,Water Res,12",
+    "0,Stamina,1,Fate,3",
+    "1,Fire Atk,2,Stamina,-1",
+    "0,Rec Level,4,Heat Res,7",
+    "1,Sheathe,5,Constitutn,1",
+    "0,Water Res,6,Ice Res,6",
+    "0,Ice Res,6,Status,3",
+    "0,Health,8,Backpackng,-7"
+  ]
+}

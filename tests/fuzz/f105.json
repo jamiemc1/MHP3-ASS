@@ -1,0 +1,48 @@
+{
+  "id": "f105",
+  "description": "armour-seeded sampler, charm mode none, 1 skill, 1 workers, 8 evaluations (port estimate); quotas: torso_up",
+  "language": "Français (Team MHP2)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    107
+  ],
+  "skill_names": [
+    "Dist. évas. aug.  "
+  ],
+  "my_charms": [
+    "0,Rés. fdr,3,Vol ineff.,-7",
+    "0,Récup.,6,AtEl. eau,4",
+    "0,Routard,3,Def. augm.,2",
+    "2,Critiques,2,Mn norm.au.,-1",
+    "0,Aig. augm.,1,Alchimie,10",
+    "0,KO,6,Ninja,-1",
+    "0,AtEl. drg,3,Santé,2",
+    "0,Dist.évas.,5,AtEl. fdr,3",
+    "0,Artisan ,1,Dégainage,2",
+    "0,KO,1,Anti-bact.,7",
+    "1,Dist.évas.,1,Mn perc.au.,2",
+    "1,Dist.évas.,2,Cor,-9",
+    "0,At.horiz.,5,Mn plomb +,5",
+    "0,Rés.trmbl,1,End.éner.,10",
+    "0,Artilleur,4,Def. augm.,6",
+    "1,Dist.évas.,1,Bombardier,7",
+    "0,AtEl. fdr,6,Vol ineff.,8",
+    "0,Escrime,4,Étourd.,7",
+    "0,Critiques,1,Dist.évas.,4",
+    "0,Dist.évas.,2,Neige/boue,-4",
+    "0,Potentiel,3,Dist.évas.,-1",
+    "2,Garde +,4,AtEl. eau,-9",
+    "0,Mn norm.au.,5,Rés. fdr,-1",
+    "3,Tir rap.,3,,",
+    "0,Potentiel,4,Constit.,-2"
+  ]
+}

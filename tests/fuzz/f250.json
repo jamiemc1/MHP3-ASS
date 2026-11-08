@@ -1,0 +1,35 @@
+{
+  "id": "f250",
+  "description": "uniform sampler, charm mode two_skill, 2 skills, 4 workers, 288 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    154,
+    90
+  ],
+  "skill_names": [
+    "Water Res (S)",
+    "Dragon Element +2"
+  ],
+  "my_charms": [
+    "0,Dragon Atk,4,Attack,-6",
+    "2,,,,",
+    "0,Dragon Atk,4,Attack,-6",
+    "0,FatigueAtk,4,Anti-Theft,2",
+    "1,Dragon Atk,2,Health,-1",
+    "1,,,,",
+    "0,KO,1,Water Res,13",
+    "0,Dragon Atk,2,Health,3",
+    "0,PelletS Up,1,Water Res,2",
+    "0,NormalSAdd,1,Health,-9"
+  ]
+}

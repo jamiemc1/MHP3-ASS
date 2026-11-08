@@ -1,0 +1,35 @@
+{
+  "id": "f050",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 32 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    124
+  ],
+  "skill_names": [
+    "Parlysis Negated"
+  ],
+  "my_charms": [
+    "2,Loading,1,Water Atk,5",
+    "0,Gunnery,3,Paralysis,6",
+    "1,Paralysis,1,HiSpdGathr,-4",
+    "0,Paralysis,5,Expert,6",
+    "0,Paralysis,3,Gluttony,5",
+    "0,Paralysis,1,RazorCAdd,3",
+    "0,Paralysis,1,BombStrUp,1",
+    "0,Paralysis,5,Sense,-1",
+    "1,FatigueAtk,1,Health,0",
+    "2,Fortitude,2,Gathering,4",
+    "0,Paralysis,1,PoisonCAdd,8",
+    "0,Fate,5,Psychic,2"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f473",
+  "description": "armour-seeded sampler, charm mode my_charms, 3 skills, 4 workers, 35280 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    128,
+    120,
+    145
+  ],
+  "skill_names": [
+    "Stun Halved",
+    "Divine Protection",
+    "Def Up (S)"
+  ],
+  "my_charms": [
+    "0,PierceSAdd,2,Anti-Theft,9",
+    "2,Fortitude,1,,",
+    "0,NormalS Up,5,Expert,3",
+    "3,,,,",
+    "0,Stun,2,SpeedSetup,5",
+    "0,Hunger,1,ParalyCAdd,8",
+    "1,Rec Level,5,Horn,-6",
+    "3,,,,",
+    "0,PelletSAdd,6,Psychic,7",
+    "0,Constitutn,2,Defense,6",
+    "0,Water Atk,1,KO,2",
+    "0,Fencing,2,BombStrUp,8",
+    "0,Water Res,4,ThunderRes,8",
+    "0,Artisan,5,Constitutn,-1",
+    "0,Dragon Atk,6,Fortitude,-8",
+    "1,Water Res,1,Dragon Res,0"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f427",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 6 workers, 3456 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    120,
+    180
+  ],
+  "skill_names": [
+    "Protec. divina",
+    "Comer rápido+1"
+  ],
+  "my_charms": [
+    "1,Comer,2,R. dragón,-5",
+    "1,Comer,1,Cuerno,3",
+    "0,Comer,3,Atq. Elem.,-3",
+    "0,Comer,2,Cuerno,9",
+    "0,Comer,4,Atq espec.,-3",
+    "0,Protección,5,Comer,3",
+    "1,Protección,1,Anti-robo,-10",
+    "2,Comer,1,NieDefBaja,-9",
+    "1,KO,1,Comer,-3",
+    "0,Protección,2,AñDispGr,10",
+    "0,Protección,2,Mochilero,-4"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f243",
+  "description": "armour-seeded sampler, charm mode two_skill, 6 skills, 44 workers, 388080 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    167,
+    17,
+    172,
+    170,
+    142,
+    192
+  ],
+  "skill_names": [
+    "Großraum +2",
+    "Strafender Hieb",
+    "Auto-Aufspürer",
+    "Fang-Meister",
+    "Gesundheit +50",
+    "Schnellsammler"
+  ],
+  "my_charms": [
+    "0,StrafHieb,3,Fechten,2",
+    "0,Präzision,6,Angriff,-4",
+    "1,WssrAngHch,1,Eigenbrödl,-7",
+    "0,DnnrAngHch,6,Gesundheit,7",
+    "0,DrchAngHch,1,EisAngrHch,-2",
+    "0,DrchAngHch,3,Großraum,0",
+    "1,ErmdBschHz,3,,",
+    "0,Schnellfeu,2,Großraum,8",
+    "1,Schutz,1,SchrotHoch,-3",
+    "0,Status,2,Block,-3"
+  ]
+}

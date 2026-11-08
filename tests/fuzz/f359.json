@@ -1,0 +1,37 @@
+{
+  "id": "f359",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 324 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    98,
+    50,
+    27
+  ],
+  "skill_names": [
+    "Stamina Recov Up",
+    "Accuracy+2",
+    "Gunnery Master"
+  ],
+  "my_charms": [
+    "0,Ice Res,4,Precision,-9",
+    "1,Evasion,1,Carving,-3",
+    "0,HearProtct,3,Debilitate,1",
+    "1,Fate,1,Will Recov,3",
+    "0,Ice Attack,2,Will Recov,4",
+    "0,Constitutn,3,HearProtct,-1",
+    "0,PierceS Up,2,Sheathe,-7",
+    "0,NormalSAdd,2,Precision,-7",
+    "0,Will Recov,6,Status,-3",
+    "1,PelletS Up,2,Constitutn,-3"
+  ]
+}

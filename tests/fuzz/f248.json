@@ -1,0 +1,45 @@
+{
+  "id": "f248",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 1 workers, 720 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    104,
+    37,
+    116
+  ],
+  "skill_names": [
+    "Evade +1",
+    "Reload Speed +1",
+    "Guard +2"
+  ],
+  "my_charms": [
+    "0,Status,4,Attack,7",
+    "0,Eating,4,Fencing,2",
+    "0,Fire Atk,3,Sense,-3",
+    "0,Guard,4,PunishDraw,-2",
+    "0,Guard,4,Fortitude,2",
+    "0,ClustS Add,1,Fire Res,7",
+    "0,ClustS Add,1,Stun,-7",
+    "0,HearProtct,3,Stamina,-1",
+    "0,CutterSAdd,1,Expert,5",
+    "0,BombStrUp,1,Whim,2",
+    "0,PelletSAdd,2,PoisonCAdd,7",
+    "0,Stamina,4,Health,11",
+    "0,Dragon Res,3,Anti-Theft,7",
+    "0,SpeedSetup,4,Fire Res,-1",
+    "0,FastCharge,2,Fire Atk,5",
+    "0,FastCharge,3,Guard Up,4",
+    "0,Debilitate,3,Elemental,-2",
+    "1,Quake Res,2,ThunderRes,-1"
+  ]
+}

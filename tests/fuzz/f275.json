@@ -1,0 +1,35 @@
+{
+  "id": "f275",
+  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 48 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    138,
+    172
+  ],
+  "skill_names": [
+    "Def Down Negate",
+    "Autotracker"
+  ],
+  "my_charms": [
+    "1,Ice Attack,2,Ice Res,-2",
+    "0,CutterSAdd,6,Gathering,6",
+    "3,,,,",
+    "0,Guard,5,SpeedSetup,-4",
+    "0,FastCharge,1,Defense,3",
+    "0,Fire Res,2,Fortitude,1",
+    "0,Water Res,3,SleepCAdd,-1",
+    "0,Quake Res,7,Rec Speed,-4",
+    "0,Crit Draw,1,FatigueAtk,-3",
+    "1,Dragon Res,6,,"
+  ]
+}

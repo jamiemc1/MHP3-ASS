@@ -1,0 +1,37 @@
+{
+  "id": "f331",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 3 workers, 324 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    204,
+    56
+  ],
+  "skill_names": [
+    "Combine Success +20%",
+    "Normal S All Add"
+  ],
+  "my_charms": [
+    "0,NormalSAdd,6,RazorCAdd,8",
+    "0,Water Res,1,PowerCAdd,-3",
+    "0,ThunderRes,4,SleepCAdd,5",
+    "0,Water Atk,3,Combo Rate,-3",
+    "0,Dragon Atk,2,Huntsman,-9",
+    "2,Precision,3,NormalSAdd,1",
+    "0,Evasion,1,NormalSAdd,-3",
+    "0,Sharpness,3,Constitutn,-2",
+    "1,Fire Atk,4,Combo Rate,-1",
+    "0,NormalSAdd,5,Gathering,2",
+    "1,NormalSAdd,1,Horn,-4",
+    "0,NormalSAdd,3,Whim,-9"
+  ]
+}

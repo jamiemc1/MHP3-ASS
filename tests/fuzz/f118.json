@@ -1,0 +1,47 @@
+{
+  "id": "f118",
+  "description": "uniform sampler, charm mode my_charms, 4 skills, 5 workers, 19200 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    161,
+    96,
+    75,
+    108
+  ],
+  "skill_names": [
+    "Ice Res (L)",
+    "Runner",
+    "Element Atk Up",
+    "Fast Sheathe"
+  ],
+  "my_charms": [
+    "0,Slam,4,Rec Speed,10",
+    "0,Fortitude,7,Backpackng,10",
+    "0,KO,5,Evasion,1",
+    "1,Will Recov,4,Ice Res,-10",
+    "1,Sheathe,1,HiSpdGathr,-2",
+    "1,BombStrUp,2,Huntsman,-4",
+    "0,Protection,5,Guard,1",
+    "0,Horn,5,Gathering,-8",
+    "0,PelletS Up,3,PunishDraw,2",
+    "0,Crit Draw,1,Ice Res,10",
+    "0,PierceS Up,1,Fencing,-3",
+    "0,Blight Res,1,Elemental,0",
+    "0,Health,7,Fortitude,-4",
+    "0,Sharpener,1,ThunderRes,10",
+    "0,Elemental,4,Gunnery,5",
+    "0,Loading,2,Sheathe,-5",
+    "1,Guard,1,ParalyCAdd,7",
+    "3,Recoil,1,Sheathe,-4"
+  ]
+}

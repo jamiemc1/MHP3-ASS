@@ -1,0 +1,33 @@
+{
+  "id": "f231",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 576 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    73
+  ],
+  "skill_names": [
+    "Abnormal Status Atk +2"
+  ],
+  "my_charms": [
+    "0,Status,5,Attack,4",
+    "0,Wide Area,5,PoisonCAdd,-6",
+    "1,Status,4,Gathering,-3",
+    "0,FatigueAtk,3,Mud/Snow,1",
+    "0,Reload Spd,2,Status,-8",
+    "0,Status,5,Fire Atk,7",
+    "0,Crit Draw,1,Rec Level,0",
+    "0,Antiseptic,6,Fortitude,2",
+    "1,Protection,3,Poison,-8",
+    "0,Constitutn,3,Status,4"
+  ]
+}

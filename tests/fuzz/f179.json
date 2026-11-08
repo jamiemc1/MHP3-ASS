@@ -1,0 +1,43 @@
+{
+  "id": "f179",
+  "description": "armour-seeded sampler, charm mode two_skill, 4 skills, 17 workers, 89250 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 3,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    184,
+    185,
+    133,
+    171
+  ],
+  "skill_names": [
+    "Backpacking Expert",
+    "Heat Cancel",
+    "Wind Breaker",
+    "Detect"
+  ],
+  "my_charms": [
+    "0,WindPress,3,KO,1",
+    "0,Evasion,1,Backpackng,4",
+    "0,Will Recov,5,Rewards,-2",
+    "0,Defense,1,PoisonCAdd,-9",
+    "0,Fencing,5,Guard,-2",
+    "3,Protection,5,Evasion,0",
+    "1,Psychic,1,Expert,-2",
+    "0,Evade Dist,6,PowerCAdd,4",
+    "0,Backpackng,6,Fire Res,-6",
+    "1,Stamina,2,Protection,-8",
+    "0,PierceS Up,4,Water Atk,5",
+    "0,Psychic,1,PoisonCAdd,5",
+    "0,Debilitate,1,Thundr Atk,8",
+    "0,Status,2,Poison,7"
+  ]
+}

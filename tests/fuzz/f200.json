@@ -1,0 +1,37 @@
+{
+  "id": "f200",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 3 workers, 3 evaluations (port estimate); quotas: empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    136,
+    120
+  ],
+  "skill_names": [
+    "Steal No Effect",
+    "Divine Protection"
+  ],
+  "my_charms": [
+    "0,Protection,5,Awaken,-3",
+    "0,Guard Up,2,Shot Mix,-7",
+    "0,Will Recov,6,Stamina,3",
+    "0,Protection,3,BombStrUp,-8",
+    "2,WindPress,1,Health,-10",
+    "0,Ice Attack,5,Gluttony,12",
+    "0,Slam,5,Hunger,-4",
+    "0,Expert,4,Anti-Theft,-10",
+    "0,Sharpness,3,Protection,9",
+    "0,NormalS Up,4,Protection,-6",
+    "0,Expert,3,SpeedSetup,-6",
+    "3,Loading,1,KO,-3"
+  ]
+}

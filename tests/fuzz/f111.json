@@ -1,0 +1,50 @@
+{
+  "id": "f111",
+  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 72 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    2,
+    22
+  ],
+  "skill_names": [
+    "Attack Up [Lg]",
+    "Exploiter"
+  ],
+  "my_charms": [
+    "0,Dragon Atk,7,Rec Speed,-8",
+    "0,Attack,3,Sleep,5",
+    "0,Will Recov,4,Debilitate,-2",
+    "0,FatigueAtk,1,Attack,-2",
+    "0,KO,1,Whim,11",
+    "0,Elemental,5,Attack,1",
+    "0,Sharpener,1,Attack,2",
+    "0,Debilitate,3,BombStrUp,2",
+    "0,Guard,4,Attack,-10",
+    "0,Eating,5,WindPress,2",
+    "2,Evade Dist,2,Quake Res,-4",
+    "0,Debilitate,5,Slam,-2",
+    "1,Paralysis,3,CutterSAdd,-9",
+    "0,Evade Dist,6,Attack,2",
+    "0,Loading,1,Slam,0",
+    "0,Debilitate,1,Fencing,3",
+    "1,Thundr Atk,3,HiSpdGathr,-3",
+    "0,Evade Dist,2,Health,-4",
+    "0,Hunger,2,Horn,-4",
+    "0,Fire Atk,7,SleepCAdd,-2",
+    "1,Debilitate,1,Slam,0",
+    "0,PelletSAdd,3,Expert,7",
+    "0,Potential,3,PierceSAdd,-2",
+    "0,Loading,3,Attack,0",
+    "0,Protection,2,Psychic,10"
+  ]
+}

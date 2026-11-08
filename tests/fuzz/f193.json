@@ -1,0 +1,39 @@
+{
+  "id": "f193",
+  "description": "uniform sampler, charm mode one_skill, 4 skills, 10 workers, 2880 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
+  "skills": [
+    172,
+    39,
+    132,
+    185
+  ],
+  "skill_names": [
+    "Autotracker",
+    "Reload Speed +3",
+    "Quake Res",
+    "Heat Cancel"
+  ],
+  "my_charms": [
+    "0,Reload Spd,4,Ice Attack,-8",
+    "0,Quake Res,6,Fortitude,5",
+    "0,Quake Res,7,Whim,-2",
+    "0,Rec Level,2,Psychic,0",
+    "0,Fire Res,6,Heat Res,7",
+    "0,Sharpness,1,Reload Spd,3",
+    "0,NormalSAdd,1,Heat Res,10",
+    "1,Sharpener,2,Quake Res,-2",
+    "0,Antiseptic,7,Quake Res,-1",
+    "0,Potential,5,Psychic,-9"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "f424",
+  "description": "uniform sampler, charm mode my_charms, 6 skills, 7 workers, 408240 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    171,
+    14,
+    147,
+    198,
+    118,
+    101
+  ],
+  "skill_names": [
+    "Detect",
+    "Speed Sharpening",
+    "Def Up (L)",
+    "Luck Booster",
+    "Guard Inc",
+    "Hunger Negated"
+  ],
+  "my_charms": [
+    "1,Guard,2,Psychic,5",
+    "0,Sharpener,3,ParalyCAdd,1",
+    "0,Ice Attack,3,Guard Up,2",
+    "0,Recoil,3,ThunderRes,3",
+    "0,Hunger,7,HiSpdGathr,6",
+    "0,Sleep,4,Defense,2",
+    "0,Guard Up,2,Paralysis,-9",
+    "0,Rec Level,4,Defense,1",
+    "0,Evasion,5,HiSpdGathr,-7",
+    "1,Water Atk,7,Defense,-1",
+    "0,Guard Up,1,Recoil,2",
+    "0,Guard Up,2,Quake Res,6",
+    "3,Stamina,1,Hunger,0",
+    "2,Stamina,2,Psychic,-7"
+  ]
+}

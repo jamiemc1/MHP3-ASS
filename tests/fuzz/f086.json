@@ -1,0 +1,32 @@
+{
+  "id": "f086",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 2 workers, 324 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    83
+  ],
+  "skill_names": [
+    "Thunder Element +1"
+  ],
+  "my_charms": [
+    "0,Sharpener,1,Mud/Snow,4",
+    "0,Thundr Atk,7,SpeedSetup,0",
+    "0,Thundr Atk,4,ThunderRes,-6",
+    "0,Thundr Atk,5,Artisan,1",
+    "0,Thundr Atk,6,PoisonCAdd,-5",
+    "0,Thundr Atk,1,Expert,2",
+    "0,Loading,5,Thundr Atk,-1",
+    "1,Thundr Atk,3,Fire Res,-6",
+    "2,Thundr Atk,1,Perception,0"
+  ]
+}

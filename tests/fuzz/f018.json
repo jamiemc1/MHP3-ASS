@@ -1,0 +1,42 @@
+{
+  "id": "f018",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 25872 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    115,
+    98,
+    168,
+    142,
+    100
+  ],
+  "skill_names": [
+    "Guard +1",
+    "Stamina Recov Up",
+    "Bombardier",
+    "Health +50",
+    "Hunger Halved"
+  ],
+  "my_charms": [
+    "0,HearProtct,1,Fate,3",
+    "1,Artisan,4,PelletS Up,0",
+    "0,Hunger,8,HiSpdGathr,7",
+    "0,Will Recov,2,Attack,5",
+    "0,Elemental,5,PelletS Up,3",
+    "1,Guard,3,Attack,1",
+    "0,Protection,5,Anti-Theft,8",
+    "0,Guard,2,Mud/Snow,-4",
+    "0,FatigueAtk,2,Stun,-1",
+    "0,Status,1,FastCharge,1",
+    "0,Dragon Res,2,Hunger,-5"
+  ]
+}

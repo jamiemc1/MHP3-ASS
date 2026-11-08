@@ -1,0 +1,37 @@
+{
+  "id": "f003",
+  "description": "armour-seeded sampler, charm mode two_skill, 1 skill, 1 workers, 288 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    96
+  ],
+  "skill_names": [
+    "Runner"
+  ],
+  "my_charms": [
+    "0,Crit Draw,1,Stamina,3",
+    "0,Fencing,3,Rewards,3",
+    "0,Thundr Atk,7,Stamina,0",
+    "0,FatigueAtk,5,WindPress,2",
+    "1,ClustS Add,1,DungMaster,-2",
+    "0,Stamina,1,Rec Speed,3",
+    "0,Stamina,1,Rapid Fire,1",
+    "0,Precision,1,BombStrUp,7",
+    "0,WindPress,4,Shot Mix,-8",
+    "0,Stamina,4,Crit Draw,-1",
+    "0,Stamina,1,Sharpness,1",
+    "1,RazorCAdd,4,,",
+    "0,PierceS Up,1,Stamina,2",
+    "0,Constitutn,6,Attack,-4"
+  ]
+}

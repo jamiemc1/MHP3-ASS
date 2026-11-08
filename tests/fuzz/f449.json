@@ -1,0 +1,45 @@
+{
+  "id": "f449",
+  "description": "uniform sampler, charm mode slotted, 5 skills, 1 workers, 3750 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    141,
+    163,
+    6,
+    75,
+    84
+  ],
+  "skill_names": [
+    "Health +20",
+    "Dragon Res (S)",
+    "Reckless Abandon +1",
+    "Element Atk Up",
+    "Thunder Element +2"
+  ],
+  "my_charms": [
+    "0,Precision,4,Gunnery,7",
+    "1,Constitutn,3,FatigueAtk,-3",
+    "0,Thundr Atk,6,KO,2",
+    "1,Wide Area,1,ParalyCAdd,-4",
+    "1,Guard,2,Expert,-8",
+    "0,Constitutn,1,Fencing,3",
+    "0,SpeedSetup,4,Combo Rate,9",
+    "0,Backpackng,5,Hunger,-5",
+    "0,KO,1,Hunger,5",
+    "0,Crag S Add,2,Gathering,-6",
+    "0,Antiseptic,5,PierceSAdd,-4",
+    "0,Psychic,8,Expert,-7",
+    "1,NormalS Up,2,Guard,-1",
+    "2,Status,2,,"
+  ]
+}

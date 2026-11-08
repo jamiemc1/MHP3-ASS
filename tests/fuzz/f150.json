@@ -1,0 +1,42 @@
+{
+  "id": "f150",
+  "description": "armour-seeded sampler, charm mode two_skill, 4 skills, 16 workers, 72576 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    108,
+    178,
+    181,
+    136
+  ],
+  "skill_names": [
+    "Fast Sheathe",
+    "Filled Up",
+    "Quick Eating +2",
+    "Steal No Effect"
+  ],
+  "my_charms": [
+    "0,KO,5,Ice Res,13",
+    "0,Precision,3,Gluttony,0",
+    "0,BombStrUp,6,Shot Mix,-9",
+    "2,Water Atk,2,Anti-Theft,-2",
+    "2,Sheathe,1,Health,-3",
+    "0,Crag S Add,2,Gluttony,-6",
+    "0,Dragon Res,4,NormalSAdd,2",
+    "0,Eating,5,,",
+    "0,NormalSAdd,6,Gluttony,12",
+    "0,Eating,1,Defense,8",
+    "0,Sheathe,6,Status,-2",
+    "0,Ice Attack,3,Eating,2",
+    "0,Water Res,2,Shot Mix,3"
+  ]
+}

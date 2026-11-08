@@ -1,0 +1,43 @@
+{
+  "id": "f079",
+  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 124416 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    8,
+    116,
+    27,
+    129,
+    12
+  ],
+  "skill_names": [
+    "Reckless Abandon +3",
+    "Guard +2",
+    "Gunnery Master",
+    "Stun Negated",
+    "Sharp Sword"
+  ],
+  "my_charms": [
+    "0,Guard,5,Elemental,-2",
+    "0,Guard,3,Rec Level,-3",
+    "0,Health,8,Gunnery,3",
+    "0,Loading,4,Expert,-9",
+    "0,Ice Attack,5,Guard,1",
+    "1,Rec Speed,1,Gunnery,-7",
+    "0,Fate,1,Gunnery,-2",
+    "1,Carving,1,Sharpness,-3",
+    "1,Fire Atk,3,Expert,-7",
+    "0,Fire Atk,1,Expert,4",
+    "0,PierceS Up,5,Guard,-1",
+    "2,Guard,2,DungMaster,-2"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "f329",
+  "description": "uniform sampler, charm mode none, 6 skills, 1 workers, 544544 evaluations (port estimate); quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    8,
+    115,
+    30,
+    18,
+    92,
+    14
+  ],
+  "skill_names": [
+    "Ab. Temerario+3",
+    "Guardia +1",
+    "Fuer. desatada+2",
+    "Desenvaine crit.",
+    "En forma",
+    "Afilado rapido"
+  ],
+  "my_charms": [
+    "0,Captura,4,Destino,-3",
+    "0,Captura,4,Destino,-3",
+    "0,Vel. recup,3,AñDispGr,7",
+    "0,Desen.crit,3,Atq. Elem.,2",
+    "1,Yoga,1,Desen.crit,-3",
+    "0,Área ampl.,2,Mochilero,-2",
+    "0,AñDPerd,3,Duración,1"
+  ]
+}

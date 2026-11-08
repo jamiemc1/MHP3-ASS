@@ -1,0 +1,51 @@
+{
+  "id": "f131",
+  "description": "armour-seeded sampler, charm mode two_skill, 2 skills, 1 workers, 720 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
+  "skills": [
+    190,
+    193
+  ],
+  "skill_names": [
+    "Gathering +2",
+    "Spirit's Whim"
+  ],
+  "my_charms": [
+    "0,Paralysis,5,Precision,-6",
+    "0,Paralysis,1,Gathering,-4",
+    "0,Attack,1,Fortitude,3",
+    "0,ThunderRes,1,Wide Area,10",
+    "0,PelletS Up,4,Blight Res,3",
+    "1,Guard Up,2,Gathering,-5",
+    "0,Will Recov,3,KO,-3",
+    "0,Protection,3,Status,2",
+    "0,Guard,1,Fire Atk,6",
+    "0,FastCharge,3,Fate,2",
+    "0,Sheathe,1,Thundr Atk,9",
+    "0,Horn,2,ParalyCAdd,-10",
+    "0,Potential,6,Stun,9",
+    "0,Mud/Snow,3,Gathering,-4",
+    "0,PierceS Up,3,Debilitate,-1",
+    "0,Mud/Snow,5,Gathering,-8",
+    "1,Guard,1,ThunderRes,-7",
+    "1,Rec Level,1,Eating,0",
+    "0,Guard,6,PelletS Up,1",
+    "0,Ice Res,2,Quake Res,-10",
+    "0,Ice Res,3,ThunderRes,-2",
+    "0,Water Atk,5,Whim,-2",
+    "0,Horn,3,Whim,-9",
+    "0,Guard Up,4,Gathering,13",
+    "0,Defense,2,Whim,-5",
+    "0,KO,4,Wide Area,-8"
+  ]
+}

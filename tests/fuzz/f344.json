@@ -1,0 +1,44 @@
+{
+  "id": "f344",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 64 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TMO)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    31
+  ],
+  "skill_names": [
+    "Adrenaline +1"
+  ],
+  "my_charms": [
+    "0,Potential,1,Poison C+,7",
+    "3,Fencing,1,Thundr Atk,3",
+    "0,Sharpness,2,Potential,3",
+    "0,Eating,1,Pierce Up,2",
+    "0,Transportr,4,Gathering,-3",
+    "0,Potential,6,FastCharge,-1",
+    "0,Potential,1,Fire Res,8",
+    "0,Ice Res,4,Sleep C+,3",
+    "0,ElementAtk,4,,",
+    "0,FastCharge,3,Pellet Up,2",
+    "0,Fencing,1,Sheathing,-6",
+    "0,Potential,3,Crag S+,10",
+    "0,Defense,2,Combo Rate,4",
+    "1,Sheathing,1,Sharpener,-6",
+    "0,Potential,6,Carving,3",
+    "0,Potential,2,Water Atk,-6",
+    "0,Water Res,1,Crag S+,2",
+    "0,ThunderRes,4,Status,2",
+    "0,Potential,4,Sheathing,-10",
+    "1,Stam Recov,2,Bomb Boost,1",
+    "0,Stam Drain,2,Sheathing,4"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "f453",
+  "description": "uniform sampler, charm mode slotted, 6 skills, 1 workers, 38880 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    0,
+    136,
+    68,
+    67,
+    86,
+    138
+  ],
+  "skill_names": [
+    "Attack Up [Sm]",
+    "Steal No Effect",
+    "Sleep Coating Add",
+    "Parlysis Coating Add",
+    "Ice Element +1",
+    "Def Down Negate"
+  ],
+  "my_charms": [
+    "2,Loading,1,Attack,1",
+    "0,Fortitude,5,SpeedSetup,4",
+    "0,Potential,3,Attack,7",
+    "0,Ice Attack,3,PierceSAdd,4",
+    "0,Guard Up,1,Antiseptic,2",
+    "0,Artisan,5,Attack,4",
+    "2,Potential,1,Horn,2",
+    "0,Reload Spd,5,Sheathe,-8",
+    "0,Awaken,5,Fencing,-3",
+    "1,Fortitude,6,Wide Area,-1",
+    "0,PierceS Up,3,Ice Attack,6",
+    "0,Horn,1,ParalyCAdd,-4",
+    "1,Ice Attack,4,Water Res,-7",
+    "1,Constitutn,5,Debilitate,-1",
+    "0,Backpackng,5,ClustS Add,1",
+    "0,Attack,3,Cold Res,-6",
+    "0,Guard,6,Constitutn,-3"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "f140",
+  "description": "armour-seeded sampler, charm mode two_skill, 5 skills, 11 workers, 242550 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    101,
+    190,
+    192,
+    109,
+    194
+  ],
+  "skill_names": [
+    "Hunger Negated",
+    "Gathering +2",
+    "Hi-SpdGathering",
+    "Sneak",
+    "Divine Whim"
+  ],
+  "my_charms": [
+    "0,Rewards,3,Rec Level,-1",
+    "0,Rewards,3,Rec Level,-1",
+    "2,,,,"
+  ]
+}

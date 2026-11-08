@@ -1,0 +1,25 @@
+{
+  "id": "f336",
+  "description": "uniform sampler, charm mode two_skill, 1 skill, 1 workers, 108 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 4,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    30
+  ],
+  "skill_names": [
+    "Entbändigung +2"
+  ],
+  "my_charms": [
+    "0,Schn. lad.,1,Entbädigen,4",
+    "0,Entbädigen,4,SchrotHoch,-2"
+  ]
+}

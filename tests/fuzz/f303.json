@@ -1,0 +1,29 @@
+{
+  "id": "f303",
+  "description": "uniform sampler, charm mode one_skill, 2 skills, 7 workers, 20160 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    179,
+    21
+  ],
+  "skill_names": [
+    "Picky Eater",
+    "ESP"
+  ],
+  "my_charms": [
+    "0,Quake Res,4,Gluttony,2",
+    "1,Fencing,1,Guard Up,0",
+    "0,HearProtct,5,Fencing,2",
+    "1,NormalS Up,2,Guard,-3"
+  ]
+}

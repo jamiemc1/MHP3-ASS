@@ -1,0 +1,36 @@
+{
+  "id": "f045",
+  "description": "armour-seeded sampler, charm mode two_skill, 4 skills, 17 workers, 734400 evaluations (port estimate); quotas: torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 3,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    31,
+    112,
+    155,
+    53
+  ],
+  "skill_names": [
+    "Adrenalin +1",
+    "ErholGeschw +2",
+    "Wasserabwehr ++",
+    "Norml/SchnllBg h"
+  ],
+  "my_charms": [
+    "0,Schn. lad.,2,Willenskft,-3",
+    "0,Block hoch,6,Schärfer,6",
+    "2,Schn. lad.,1,Schutz,-6",
+    "0,KO,4,Laune,1",
+    "0,Willenskft,5,Potenzial,3",
+    "0,Potenzial,6,Schärfe,1",
+    "0,StreuSzfüg,1,Bebenabw.,3"
+  ]
+}

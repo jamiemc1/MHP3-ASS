@@ -1,0 +1,45 @@
+{
+  "id": "f420",
+  "description": "armour-seeded sampler, charm mode one_skill, 6 skills, 9 workers, 72000 evaluations (port estimate); quotas: cross_type, one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 5,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    109,
+    108,
+    72,
+    50,
+    134,
+    101
+  ],
+  "skill_names": [
+    "Sneak",
+    "Fast Sheathe",
+    "Abnormal Status Atk +1",
+    "Accuracy+2",
+    "Wind Anchor",
+    "Hunger Negated"
+  ],
+  "my_charms": [
+    "0,WindPress,2,,",
+    "0,WindPress,4,Loading,1",
+    "0,Status,4,Backpackng,4",
+    "0,Gunnery,4,Precision,4",
+    "0,Water Res,5,RazorCAdd,-6",
+    "0,KO,6,Status,-8",
+    "0,Thundr Atk,1,WindPress,2",
+    "0,Status,3,Quake Res,2",
+    "0,Status,5,Crit Draw,-2",
+    "0,Constitutn,1,Guard,-2",
+    "0,Rec Level,2,Status,3",
+    "0,Sheathe,2,Status,1"
+  ]
+}

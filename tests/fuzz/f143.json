@@ -1,0 +1,39 @@
+{
+  "id": "f143",
+  "description": "uniform sampler, charm mode slotted, 2 skills, 1 workers, 12 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 5,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
+  "skills": [
+    187,
+    31
+  ],
+  "skill_names": [
+    "Cold Eliminate",
+    "Adrenaline +1"
+  ],
+  "my_charms": [
+    "0,Status,4,Potential,2",
+    "0,Expert,3,PierceSAdd,-3",
+    "1,PelletSAdd,1,Cold Res,-2",
+    "0,ClustS Add,4,Cold Res,1",
+    "0,KO,6,Cold Res,1",
+    "0,Potential,1,Hunger,-6",
+    "0,Will Recov,2,Cold Res,-10",
+    "0,Thundr Atk,3,Loading,0",
+    "0,Sharpness,2,NormalS Up,-1",
+    "0,Potential,5,SleepCAdd,5",
+    "2,Defense,2,Health,-8",
+    "0,Potential,1,Precision,4",
+    "0,PelletSAdd,5,Stun,-5",
+    "0,Water Res,5,Cold Res,-10"
+  ]
+}

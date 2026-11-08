@@ -1,0 +1,49 @@
+{
+  "id": "f315",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 23 workers, 119232 evaluations (port estimate); quotas: two_skill_hr_below_5, illegal_charm_lines, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    87,
+    90,
+    179,
+    78
+  ],
+  "skill_names": [
+    "Ice Element +2",
+    "Dragon Element +2",
+    "Picky Eater",
+    "Fire Element +2"
+  ],
+  "my_charms": [
+    "0,HearProtct,1,Crit Draw,3",
+    "0,Wide Area,6,SleepCAdd,1",
+    "1,Loading,1,Dragon Atk,-1",
+    "0,Rapid Fire,2,Sharpener,1",
+    "0,KO,3,PelletS Up,3",
+    "0,Carving,4,Constitutn,-2",
+    "3,KO,1,NormalS Up,-2",
+    "1,Blight Res,1,Guard Up,1",
+    "0,Crit Draw,4,Ice Res,-10",
+    "0,Rewards,2,WindPress,2",
+    "0,Auto-Guard,3,,",
+    "1,Crag S Add,5,CutterSAdd,2",
+    "0,Reload Spd,4,Mud/Snow,-4",
+    "0,Reload Spd,1,Water Res,4",
+    "0,BombStrUp,4,Ice Res,-10",
+    "1,Health,1,Fortitude,-6",
+    "0,Potential,1,Debilitate,-1",
+    "0,Mud/Snow,3,Backpackng,-2",
+    "1,PelletS Up,1,Guard Up,-3",
+    "0,Dragon Atk,2,FatigueAtk,-1"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "f440",
+  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 2 workers, 192 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    122
+  ],
+  "skill_names": [
+    "Poison Negated"
+  ],
+  "my_charms": [
+    "0,Status,1,Poison,-4",
+    "0,Poison,1,Gathering,10",
+    "0,Poison,5,LastingPwr,8",
+    "0,Water Atk,5,Poison,1",
+    "0,Water Res,1,Poison,-9",
+    "0,BombStrUp,3,Poison,1",
+    "0,Poison,3,FatigeCAdd,4",
+    "0,BombStrUp,2,Poison,5",
+    "0,Reload Spd,1,Poison,-4",
+    "0,Rec Level,5,Slam,1",
+    "1,Poison,2,Gunnery,-2",
+    "0,Guard Up,1,Perception,4",
+    "0,Evasion,2,Poison,5",
+    "0,Elemental,5,Constitutn,-3",
+    "0,Paralysis,1,Poison,4",
+    "0,Poison,2,Gunnery,1",
+    "0,Fire Res,5,Poison,-4",
+    "0,Eating,1,Precision,10"
+  ]
+}

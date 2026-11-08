@@ -1,0 +1,44 @@
+{
+  "id": "f127",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 1 workers, 960 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    62,
+    129,
+    37
+  ],
+  "skill_names": [
+    "Crag S All Add",
+    "Stun Negated",
+    "Reload Speed +1"
+  ],
+  "my_charms": [
+    "0,Dragon Atk,2,Combo Rate,0",
+    "0,Will Recov,4,Crag S Add,10",
+    "2,NormalSAdd,4,,",
+    "2,Crit Draw,3,Health,-4",
+    "0,Sleep,1,Stun,-1",
+    "0,Stun,2,Huntsman,5",
+    "0,Stun,5,LastingPwr,8",
+    "0,Sheathe,2,Ice Res,6",
+    "1,PunishDraw,2,Recoil,-2",
+    "0,PierceSAdd,4,Huntsman,-7",
+    "0,Potential,3,Reload Spd,-2",
+    "0,Stun,1,Water Res,2",
+    "0,Potential,5,PunishDraw,-3",
+    "0,Ice Res,1,Crag S Add,8",
+    "0,Fire Atk,4,Reload Spd,4",
+    "0,Stun,3,Heat Res,-7",
+    "2,Elemental,2,Dragon Res,-7"
+  ]
+}

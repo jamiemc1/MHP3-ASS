@@ -1,0 +1,41 @@
+{
+  "id": "f175",
+  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 7 workers, 1512 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (Athena)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    104,
+    134,
+    163,
+    89,
+    124
+  ],
+  "skill_names": [
+    "Evade +1",
+    "Wind Anchor",
+    "Dragon Res (S)",
+    "Dragon Element +1",
+    "Parlysis Negated"
+  ],
+  "my_charms": [
+    "0,Eating,1,ThunderRes,12",
+    "0,Ice Res,5,Paralysis,-9",
+    "0,Paralysis,1,Gluttony,5",
+    "0,Dragon Atk,3,Guard Up,4",
+    "0,Evasion,5,Cold Res,-5",
+    "0,Eating,1,ThunderRes,12",
+    "0,Evasion,5,CutterSAdd,3",
+    "1,Rapid Fire,1,Sheathe,-6",
+    "1,Guard Up,1,WindPress,-5",
+    "0,Paralysis,1,Gluttony,5"
+  ]
+}

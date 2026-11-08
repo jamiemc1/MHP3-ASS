@@ -1,0 +1,37 @@
+{
+  "id": "f277",
+  "description": "uniform sampler, charm mode my_charms, 2 skills, 3 workers, 3 evaluations (port estimate); quotas: cross_type, empty_slot",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
+  "elder_star": 2,
+  "weapon_slots": 1,
+  "allow_bad": true,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
+  "skills": [
+    71,
+    128
+  ],
+  "skill_names": [
+    "Fatigue Coating Add",
+    "Stun Halved"
+  ],
+  "my_charms": [
+    "0,NormalS Up,2,Debilitate,-1",
+    "0,Fate,1,Health,13",
+    "0,BombStrUp,3,Status,4",
+    "0,Dragon Atk,1,Dragon Res,10",
+    "0,Ice Attack,6,Stamina,3",
+    "1,Ice Attack,1,FatigeCAdd,-3",
+    "0,Thundr Atk,1,Psychic,5",
+    "0,PelletSAdd,1,Fire Res,4",
+    "0,Stun,7,FatigeCAdd,-6",
+    "0,Sheathe,2,Heat Res,-4",
+    "0,Elemental,2,Stun,6",
+    "0,Crit Draw,4,Expert,5"
+  ]
+}

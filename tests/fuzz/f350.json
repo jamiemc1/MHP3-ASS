@@ -1,0 +1,50 @@
+{
+  "id": "f350",
+  "description": "armour-seeded sampler, charm mode slotted, 5 skills, 1 workers, 15435 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    204,
+    80,
+    96,
+    101,
+    120
+  ],
+  "skill_names": [
+    "Combine Success +20%",
+    "Water Element +1",
+    "Runner",
+    "Hunger Negated",
+    "Divine Protection"
+  ],
+  "my_charms": [
+    "0,FastCharge,4,Sharpness,-2",
+    "2,Artisan,3,Defense,-5",
+    "0,Status,1,Defense,6",
+    "0,Antiseptic,1,Fortitude,3",
+    "0,Dragon Res,5,ThunderRes,-10",
+    "0,FastCharge,1,Dragon Res,-7",
+    "1,CutterSAdd,1,HiSpdGathr,3",
+    "1,Horn,2,PoisonCAdd,-8",
+    "2,FatigueAtk,1,Sheathe,-7",
+    "0,Antiseptic,6,ClustS Add,10",
+    "0,Water Res,3,SleepCAdd,3",
+    "0,Dragon Atk,7,Expert,-4",
+    "0,Reload Spd,4,FatigueAtk,3",
+    "0,Water Atk,3,PunishDraw,-3",
+    "0,Water Res,3,SleepCAdd,3",
+    "0,PierceSAdd,6,Antiseptic,3",
+    "0,Expert,4,Combo Rate,7",
+    "0,FastCharge,2,Fencing,3",
+    "0,Dragon Res,5,ThunderRes,-10"
+  ]
+}

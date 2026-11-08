@@ -1,0 +1,48 @@
+{
+  "id": "f247",
+  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 6 workers, 1296 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 1,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    187,
+    140,
+    107,
+    69
+  ],
+  "skill_names": [
+    "Cold Eliminate",
+    "HighGradeEarplug",
+    "Evasion Up",
+    "Power Coating Add"
+  ],
+  "my_charms": [
+    "0,HearProtct,3,Potential,0",
+    "3,HearProtct,1,Dragon Atk,3",
+    "0,PierceS Up,2,Thundr Atk,-9",
+    "0,Potential,5,HearProtct,3",
+    "0,Evade Dist,1,Gunnery,2",
+    "0,Recoil,3,Elemental,2",
+    "1,Loading,3,Fate,-3",
+    "1,Mud/Snow,2,Poison,1",
+    "1,PelletSAdd,2,Crag S Add,1",
+    "0,Artisan,2,Fencing,3",
+    "0,Guard Up,2,Wide Area,-10",
+    "0,Health,5,PowerCAdd,-3",
+    "1,Guard,1,Stun,-8",
+    "0,FatigueAtk,5,,",
+    "0,HearProtct,1,Crit Draw,2",
+    "0,HearProtct,4,Horn,-9",
+    "0,Water Atk,1,Precision,-7",
+    "0,Evasion,4,Slam,1",
+    "0,Evade Dist,4,Paralysis,-8"
+  ]
+}

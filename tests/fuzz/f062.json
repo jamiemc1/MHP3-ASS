@@ -1,0 +1,38 @@
+{
+  "id": "f062",
+  "description": "armour-seeded sampler, charm mode my_charms, 4 skills, 5 workers, 10800 evaluations (port estimate); quotas: torso_up",
+  "language": "English (Athena)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    92,
+    198,
+    176,
+    138
+  ],
+  "skill_names": [
+    "Constitution +1",
+    "Luck Booster",
+    "Item Use Up",
+    "Def Down Negate"
+  ],
+  "my_charms": [
+    "0,Status,3,Gathering,3",
+    "0,Fortitude,2,Whim,-1",
+    "0,NormalSAdd,1,ThunderRes,6",
+    "2,Antiseptic,4,Stun,-7",
+    "0,Constitutn,6,PoisonCAdd,-7",
+    "1,PelletSAdd,6,,",
+    "0,Fortitude,3,Anti-Theft,6",
+    "2,Antiseptic,4,Stun,-7",
+    "0,Fate,5,Rec Speed,10"
+  ]
+}

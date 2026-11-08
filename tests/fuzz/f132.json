@@ -1,0 +1,43 @@
+{
+  "id": "f132",
+  "description": "armour-seeded sampler, charm mode two_skill, 5 skills, 20 workers, 343000 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "Japanese",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    107,
+    140,
+    18,
+    187,
+    190
+  ],
+  "skill_names": [
+    "回避距離UP",
+    "高級耳栓",
+    "抜刀術【技】",
+    "寒さ無効",
+    "採取+2"
+  ],
+  "my_charms": [
+    "2,抜刀会心,2,納刀,-2",
+    "0,回避距離,1,装填数,1",
+    "0,属性耐性,4,抜刀会心,3",
+    "0,防御,3,採取,-9",
+    "0,聴覚保護,5,剣術,-3",
+    "2,回避距離,2,雷耐性,-8",
+    "0,本気,3,龍属性攻撃,1",
+    "1,龍属性攻撃,1,気絶,-10",
+    "2,溜め短縮,3,捕獲,-1",
+    "3,抜刀会心,1,爆弾強化,2",
+    "0,食事,2,回復速度,0",
+    "0,加護,3,採取,3"
+  ]
+}

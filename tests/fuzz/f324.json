@@ -1,0 +1,41 @@
+{
+  "id": "f324",
+  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 756 evaluations (port estimate); quotas: cross_type, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 2,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": false,
+  "charm_mode": "none",
+  "skills": [
+    21,
+    72,
+    124
+  ],
+  "skill_names": [
+    "ESP",
+    "Abnormal Status Atk +1",
+    "Parlysis Negated"
+  ],
+  "my_charms": [
+    "0,Status,3,Fate,-2",
+    "0,Mud/Snow,5,Hunger,0",
+    "0,Poison,1,HiSpdGathr,5",
+    "0,Guard Up,1,PoisonCAdd,0",
+    "0,Thundr Atk,3,Fire Res,4",
+    "0,Crit Draw,1,Artisan,-2",
+    "1,Will Recov,1,ClustS Add,-5",
+    "1,Guard,3,KO,-1",
+    "1,Crag S Add,5,ThunderRes,-6",
+    "0,Protection,3,Attack,-1",
+    "0,Fortitude,5,Stun,1",
+    "0,Status,3,DungMaster,6",
+    "0,Status,2,Stun,7",
+    "0,Slam,1,Debilitate,2"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "f177",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills, 4 workers, 1728 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": false,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "my_charms",
+  "skills": [
+    6,
+    174
+  ],
+  "skill_names": [
+    "Reckless Abandon +1",
+    "Recovery Up"
+  ],
+  "my_charms": [
+    "1,Crit Draw,4,Expert,-8",
+    "0,Rec Level,2,Sense,3",
+    "1,Stun,3,Water Res,6",
+    "0,Rec Level,2,Stun,4",
+    "0,KO,6,SpeedSetup,-2",
+    "1,Rec Level,3,Dragon Atk,0",
+    "0,Evade Dist,4,PelletSAdd,-6",
+    "0,Ice Attack,1,Psychic,-1",
+    "0,Rec Level,4,Gathering,2",
+    "3,Fire Atk,4,Hunger,-3",
+    "3,Rec Level,1,Horn,-9",
+    "0,Elemental,3,Dragon Res,-5",
+    "2,Artisan,1,,",
+    "0,Rec Level,1,Recoil,1",
+    "0,Recoil,4,Horn,9"
+  ]
+}

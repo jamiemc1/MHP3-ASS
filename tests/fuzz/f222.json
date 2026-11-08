@@ -1,0 +1,46 @@
+{
+  "id": "f222",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 30 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    35
+  ],
+  "skill_names": [
+    "Load Up"
+  ],
+  "my_charms": [
+    "0,ClustS Add,4,Combo Rate,6",
+    "0,Loading,4,Reload Spd,-1",
+    "2,Guard Up,5,,",
+    "0,Crit Draw,1,Blight Res,3",
+    "0,Loading,3,Dragon Res,6",
+    "0,Carving,1,Loading,2",
+    "0,Paralysis,2,DungMaster,-2",
+    "1,Hunger,1,Mud/Snow,2",
+    "0,Loading,4,Defense,9",
+    "0,Evasion,5,Loading,1",
+    "0,Crit Draw,2,Rewards,2",
+    "1,Debilitate,1,KO,-2",
+    "0,Loading,1,Potential,-2",
+    "0,Will Recov,5,Antiseptic,-2",
+    "0,KO,3,Psychic,2",
+    "0,Loading,6,Will Recov,4",
+    "0,Fortitude,5,Crag S Add,-10",
+    "0,Crit Draw,3,Loading,3",
+    "1,Loading,2,Sharpness,0",
+    "1,Loading,1,Sheathe,-7",
+    "0,Constitutn,5,ThunderRes,-2",
+    "0,KO,6,CutterSAdd,7",
+    "0,Loading,4,Crit Draw,1"
+  ]
+}

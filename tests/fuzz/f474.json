@@ -1,0 +1,48 @@
+{
+  "id": "f474",
+  "description": "armour-seeded sampler, charm mode none, 1 skill, 1 workers, 8 evaluations (port estimate); quotas: torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 3,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "none",
+  "skills": [
+    197
+  ],
+  "skill_names": [
+    "Glück"
+  ],
+  "my_charms": [
+    "1,Schicksal,1,Hunger,-10",
+    "0,Handwerk,1,Vision,7",
+    "0,Asweichdst,2,BombStärk.,7",
+    "0,Schutz,6,Verteidig.,-5",
+    "0,Block hoch,5,ErmüdSchlg,2",
+    "0,Hunger,6,NormlSzufü,4",
+    "1,Betäuben,3,SchnllSamm,-10",
+    "0,Bebenabw.,6,Betäuben,-1",
+    "0,Horn,4,Lähmung,6",
+    "0,Ausweichen,6,Angriff,5",
+    "0,Gesundheit,6,Horn,-1",
+    "3,,,,",
+    "0,Potenzial,3,Schl/Schn.,2",
+    "1,Schutz,3,Schärfer,-6",
+    "0,Experte,2,PiercSzufü,4",
+    "2,,,,",
+    "0,Schn. lad.,5,ErholGschw,11",
+    "1,DnnrAngHch,1,Schicksal,-1",
+    "0,Schicksal,4,,",
+    "0,Willenskft,5,Schnellfeu,2",
+    "0,Konstitutn,5,KritHieb,3",
+    "0,Asweichdst,5,EisAngrHch,7",
+    "0,Lähmung,1,Wasserabw.,9",
+    "0,Schicksal,5,Horn,-8",
+    "1,Schnellfeu,1,Schicksal,-1"
+  ]
+}

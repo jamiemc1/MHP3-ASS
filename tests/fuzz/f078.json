@@ -1,0 +1,47 @@
+{
+  "id": "f078",
+  "description": "uniform sampler, charm mode two_skill, 4 skills, 19 workers, 11400 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 4,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    86,
+    12,
+    0,
+    184
+  ],
+  "skill_names": [
+    "Ice Element +1",
+    "Sharp Sword",
+    "Attack Up [Sm]",
+    "Backpacking Expert"
+  ],
+  "my_charms": [
+    "0,Fire Atk,4,Gathering,10",
+    "0,Constitutn,2,Sharpness,3",
+    "1,Evasion,3,Attack,0",
+    "0,Constitutn,3,DungMaster,8",
+    "0,Elemental,1,Protection,6",
+    "0,Ice Attack,5,Rec Speed,5",
+    "0,Artisan,1,Sharpness,1",
+    "0,Carving,4,Ice Res,-9",
+    "1,Backpackng,5,Quake Res,-2",
+    "0,Constitutn,6,Sharpness,0",
+    "3,Rewards,1,Sheathe,-3",
+    "0,Dragon Atk,6,Status,-1",
+    "0,Rewards,1,Ice Attack,8",
+    "0,Attack,1,Horn,3",
+    "0,Thundr Atk,6,Sleep,-2",
+    "1,Gunnery,1,RazorCAdd,2",
+    "0,Evasion,2,Ice Attack,5",
+    "0,Evasion,1,PierceS Up,2"
+  ]
+}

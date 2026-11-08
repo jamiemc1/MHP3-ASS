@@ -1,0 +1,51 @@
+{
+  "id": "f218",
+  "description": "uniform sampler, charm mode slotted, 3 skills, 1 workers, 12600 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 3,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    80,
+    54,
+    171
+  ],
+  "skill_names": [
+    "Water Element +1",
+    "PierceS/PierceBowUp",
+    "Detect"
+  ],
+  "my_charms": [
+    "1,BombStrUp,2,Psychic,-4",
+    "1,Guard,3,Horn,-1",
+    "1,Water Atk,1,,",
+    "0,Loading,2,Protection,4",
+    "0,Water Atk,6,Rapid Fire,1",
+    "0,Sheathe,6,Water Atk,-2",
+    "2,,,,",
+    "0,Protection,7,Stun,6",
+    "0,Evasion,2,Antiseptic,8",
+    "0,Gunnery,5,Psychic,8",
+    "1,Evade Dist,1,Psychic,-2",
+    "0,Psychic,8,Attack,-4",
+    "0,PelletSAdd,3,FatigeCAdd,-3",
+    "1,Debilitate,1,PierceS Up,1",
+    "0,Loading,4,Ice Attack,-9",
+    "0,Paralysis,2,Crag S Add,-8",
+    "3,,,,",
+    "0,NormalSAdd,3,LastingPwr,-9",
+    "0,Water Atk,6,Fortitude,-3",
+    "0,FatigueAtk,2,PowerCAdd,-6",
+    "0,Carving,1,PierceS Up,1",
+    "0,Awaken,1,Slam,3",
+    "0,Psychic,6,Perception,2",
+    "0,Water Atk,4,Eating,3"
+  ]
+}

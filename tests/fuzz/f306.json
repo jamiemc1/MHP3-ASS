@@ -1,0 +1,32 @@
+{
+  "id": "f306",
+  "description": "armour-seeded sampler, charm mode two_skill, 1 skill, 1 workers, 720 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "male",
+  "hr": 5,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
+  "skills": [
+    0
+  ],
+  "skill_names": [
+    "Attack Up [Sm]"
+  ],
+  "my_charms": [
+    "3,,,,",
+    "0,Rec Speed,2,Attack,1",
+    "1,Attack,2,FatigeCAdd,-4",
+    "0,Sharpness,5,KO,4",
+    "1,Fire Atk,1,Gluttony,-10",
+    "0,Debilitate,5,Attack,-9",
+    "0,Constitutn,6,Attack,-4",
+    "0,Attack,3,Gluttony,-6",
+    "0,FatigueAtk,2,Attack,1"
+  ]
+}

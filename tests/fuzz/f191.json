@@ -1,0 +1,39 @@
+{
+  "id": "f191",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 11 workers, 169785 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "skills": [
+    1,
+    170,
+    112
+  ],
+  "skill_names": [
+    "Attack Up [Med]",
+    "Trnquilizr Guru",
+    "Recovery Speed +2"
+  ],
+  "my_charms": [
+    "0,Fate,3,Water Res,1",
+    "0,Gunnery,5,CutterSAdd,9",
+    "1,KO,2,FastCharge,0",
+    "0,PierceS Up,3,FatigueAtk,-2",
+    "0,Mud/Snow,3,HiSpdGathr,-6",
+    "0,Defense,3,PoisonCAdd,8",
+    "0,Constitutn,2,Status,1",
+    "0,ClustS Add,2,Anti-Theft,3",
+    "0,WindPress,2,Backpackng,-4",
+    "0,Loading,3,Rec Speed,6",
+    "0,Fire Res,6,Rec Speed,-1",
+    "0,Paralysis,5,Attack,-2"
+  ]
+}

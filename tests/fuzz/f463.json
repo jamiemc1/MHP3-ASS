@@ -1,0 +1,41 @@
+{
+  "id": "f463",
+  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 108 evaluations (port estimate); quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 5,
+  "weapon_slots": 1,
+  "allow_bad": false,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
+  "skills": [
+    146
+  ],
+  "skill_names": [
+    "Def Up (M)"
+  ],
+  "my_charms": [
+    "0,FatigueAtk,1,Defense,-6",
+    "0,Guard,3,Defense,-5",
+    "0,Status,5,Defense,4",
+    "0,Antiseptic,3,Defense,-1",
+    "0,Defense,3,Gluttony,1",
+    "0,Constitutn,2,Artisan,2",
+    "0,Protection,3,FastCharge,-2",
+    "1,Fire Atk,2,Reload Spd,-3",
+    "1,Will Recov,1,Gunnery,5",
+    "1,CutterSAdd,1,Defense,-1",
+    "0,BombStrUp,6,Defense,-6",
+    "0,Debilitate,5,WindPress,-5",
+    "0,Hunger,1,Mud/Snow,4",
+    "1,PunishDraw,2,Water Res,7",
+    "0,Precision,2,PierceSAdd,-7",
+    "0,Loading,2,Defense,8",
+    "0,Evasion,4,Water Res,13",
+    "0,ThunderRes,1,Water Res,-3"
+  ]
+}
