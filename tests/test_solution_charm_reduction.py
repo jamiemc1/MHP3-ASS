@@ -8,8 +8,10 @@ from __future__ import annotations
 
 import pytest
 
-from mhp3ass.model import AbilityPair, Charm
-from mhp3ass.solution import calculate_data
+from mhp3ass.data import GameData
+from mhp3ass.model import AbilityPair, Charm, Skill
+from mhp3ass.solution import calculate_data, finish
+from mhp3ass.solution.bad_skills import fix_bad_skill
 from mhp3ass.solution.charm_reduction import (
     LegacyListIndexError,
     num_1slot_decorations,
@@ -22,6 +24,8 @@ from mhp3ass.solution.charm_reduction import (
     room_for_3_slot,
     swap_out,
 )
+from mhp3ass.solution.fill import calculate_decorations
+from mhp3ass.solution.initial import add_initial_armor
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 from solution_builders import make_jewel
 
@@ -267,3 +271,49 @@ def test_calculate_data_dereferences_an_empty_slot(make_armor):
 
     with pytest.raises(LegacyNullReferenceError):
         calculate_data(solution)
+
+
+def test_stages_before_get_initial_data_dereference_null_slots(make_data, make_armor, attack):
+    """slots_spare is allocated by GetInitialData (Solution.cpp:247): every stage
+    that reads it before then dereferences a null array, as the original would."""
+    down = Skill(name="Attack Down", points_required=-10, ability=attack)
+    charmed = Charm(num_slots=1)
+    stages = [
+        lambda data: finish(data),
+        lambda data: calculate_decorations(data, allow_bad=True, allow_detrimental=True),
+        lambda data: add_initial_armor(make_armor(), data.solution, multiplier=1),
+        lambda data: fix_bad_skill(data, GameData(), down),
+        lambda data: reduce_slots(data),
+    ]
+    raised = []
+    for stage in stages:
+        data = make_data([], need={}, abilities={}, charm=charmed.copy())
+        data.solution.total_slots_spare = 1
+        try:
+            stage(data)
+        except LegacyNullReferenceError:
+            raised.append(True)
+        else:
+            raised.append(False)
+
+    assert raised == [True] * len(stages)
+
+
+def test_charm_stages_dereference_a_missing_charm(make_data):
+    data = make_data([], need={}, abilities={})
+
+    with pytest.raises(LegacyNullReferenceError):
+        rearrange_decorations(data)
+
+
+def test_reduce_slots_wraps_an_undercount_like_unsigned(make_data):
+    """H2: total_slots_spare is unsigned. It always includes the charm's own
+    slots on real data, so this only pins the wrap a smaller count would give."""
+    charm = Charm(num_slots=2)
+    data = make_data([], need={}, abilities={}, charm=charm)
+    data.solution.slots_spare = [0, 0, 1, 0]
+    data.solution.total_slots_spare = 1
+
+    reduce_slots(data)
+
+    assert data.solution.total_slots_spare == 2**32 - 1

@@ -355,3 +355,85 @@ def test_count_1_socket_gems_without_a_match_is_none(attack, defense):
     solution = Solution(armors=[None] * 5, charm=None, decorations=[gem])
 
     assert count_1_socket_gems(solution, defense) is None
+
+
+def test_fix_bad_skill_gives_up_when_the_torso_has_no_decoration(make_fixable, defense, skilled):
+    """Solution.cpp:60-61: torso slots free, but no decoration of the ability fits."""
+    defense.relevant = True
+    data = make_fixable([], defense_points=-12, slots_spare=[0, 1, 0, 0], torso_slots_spare=1)
+
+    fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
+
+    assert not fixed
+    assert data.solution.decorations == []
+
+
+def test_replace_adds_an_ability_the_totals_lack(attack, defense):
+    """Solution.cpp:202-204: the new decoration's abilities are added when missing."""
+    old = make_jewel("Old", attack, 1)
+    new = make_jewel("New", attack, 1, second=defense, second_amount=-1)
+    solution = Solution(armors=[None] * 5, charm=None)
+    solution.decorations = [old]
+    solution.abilities = {attack: 1}
+
+    replace(solution, 0, new)
+
+    assert solution.abilities == {attack: 1, defense: -1}
+
+
+def _reorder_setup(data, game, defense_points: int, artisan_points: int):
+    """Six Attack Jewel[1] and a Razor Jewel[3], leaving Defense Down."""
+    attack_1 = game.decoration_map["Attack Jewel[1]"]
+    razor_3 = game.decoration_map["Razor Jewel[3]"]
+    abilities = game.ability_map
+    solution = data.solution
+    solution.decorations = [attack_1] * 6 + [razor_3]
+    solution.abilities = {
+        abilities["Attack"]: 6,
+        abilities["Sharpness"]: 4,
+        abilities["Defense"]: defense_points,
+        abilities["Artisan"]: artisan_points,
+    }
+    solution.bad_skills = [game.skill_map["Def Down (S)"]]
+    data.relevant = {skill: 0 for skill in data.query.skills}
+
+
+def test_reorder_gems_gives_up_when_the_other_gems_second_skill_is_low(
+    attack_sharp_data, scratch_game
+):
+    """Solution.cpp:174: the bigger gem to swap out mustn't have its second
+    ability at -8 or below; here Artisan is at -9."""
+    _reorder_setup(attack_sharp_data, scratch_game, defense_points=-12, artisan_points=-9)
+    before = list(attack_sharp_data.solution.decorations)
+
+    reordered = reorder_gems(attack_sharp_data, scratch_game)
+
+    assert not reordered
+    assert attack_sharp_data.solution.decorations == before
+
+
+def test_reorder_gems_gives_up_when_the_swap_leaves_the_skill_bad(attack_sharp_data, scratch_game):
+    """Solution.cpp:183-184: the swaps are kept, but Defense ends at -16, still bad."""
+    _reorder_setup(attack_sharp_data, scratch_game, defense_points=-20, artisan_points=-2)
+    defense = scratch_game.ability_map["Defense"]
+
+    reordered = reorder_gems(attack_sharp_data, scratch_game)
+
+    assert not reordered
+    assert attack_sharp_data.solution.abilities[defense] == -16
+
+
+def test_reorder_gems_skips_a_bad_skill_no_longer_at_minus_10(attack_sharp_data, scratch_game):
+    """Solution.cpp:162 only reorders for a skill still at -10 or below. Bad
+    skills come from points at -10 or below, so only a stale list reaches
+    this: then nothing is swapped and the skills are recomputed."""
+    _reorder_setup(attack_sharp_data, scratch_game, defense_points=-5, artisan_points=-2)
+    before = list(attack_sharp_data.solution.decorations)
+
+    reordered = reorder_gems(attack_sharp_data, scratch_game)
+
+    assert reordered
+    assert [attack_sharp_data.solution.decorations, attack_sharp_data.solution.bad_skills] == [
+        before,
+        [],
+    ]
