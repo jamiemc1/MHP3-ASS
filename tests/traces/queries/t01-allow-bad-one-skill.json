@@ -1,0 +1,24 @@
+{
+  "id": "t01",
+  "description": "Attack Up [Lg] + Sharp Sword with bad skills allowed: CheckBadSkills is skipped",
+  "language": "English (TeamHGG)",
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 6,
+  "elder_star": 6,
+  "weapon_slots": 0,
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": true,
+  "allow_low_rank": true,
+  "charm_mode": "one_skill",
+  "my_charms": [],
+  "skills": [
+    2,
+    12
+  ],
+  "skill_names": [
+    "Attack Up [Lg]",
+    "Sharp Sword"
+  ]
+}
