@@ -1,34 +1,47 @@
 {
   "id": "f229",
-  "description": "armour-seeded sampler, charm mode none, 5 skills, 1 workers, 900 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 5 skills; quotas: cross_type, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
+  "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 1,
-  "elder_star": 4,
-  "weapon_slots": 3,
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": false,
+  "allow_event": true,
   "allow_low_rank": true,
   "charm_mode": "none",
   "skills": [
     55,
-    83,
+    84,
     38,
-    172,
-    66
+    72,
+    157
   ],
   "skill_names": [
     "PelletS/ScatterBowUp",
-    "Thunder Element +1",
+    "Thunder Element +2",
     "Reload Speed +2",
-    "Autotracker",
-    "Poison Coating Add"
+    "Abnormal Status Atk +1",
+    "Thunder Res (S)"
   ],
   "my_charms": [
-    "0,Sleep,3,Psychic,-9",
-    "0,Thundr Atk,4,Dragon Res,7",
-    "0,PelletS Up,4,Eating,3"
+    "1,Debilitate,1,KO,-2",
+    "2,Guard Up,5,,",
+    "0,ClustS Add,5,Combo Rate,6",
+    "0,Crit Draw,2,Rewards,2",
+    "1,KO,3,Thundr Atk,-1",
+    "1,Health,2,Mud/Snow,-6",
+    "2,Evade Dist,5,ThunderRes,-7",
+    "0,Paralysis,2,DungMaster,-2",
+    "0,KO,3,CutterSAdd,6",
+    "0,Stamina,4,PelletS Up,-3",
+    "0,KO,2,Psychic,3",
+    "0,ThunderRes,5,Fortitude,1",
+    "0,Constitutn,4,ThunderRes,-2",
+    "2,Water Atk,2,ThunderRes,-7",
+    "0,Fortitude,5,Crag S Add,-10",
+    "0,Thundr Atk,6,FatigueAtk,4"
   ]
 }

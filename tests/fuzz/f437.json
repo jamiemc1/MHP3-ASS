@@ -1,41 +1,42 @@
 {
   "id": "f437",
-  "description": "uniform sampler, charm mode slotted, 2 skills, 1 workers, 48 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
-  "gender": "female",
-  "hr": 5,
-  "elder_star": 5,
-  "weapon_slots": 2,
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 3,
+  "weapon_slots": 1,
   "allow_bad": true,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "charm_mode": "one_skill",
   "skills": [
-    68,
-    154
+    137,
+    31,
+    124,
+    154,
+    142
   ],
   "skill_names": [
-    "Sleep Coating Add",
-    "Water Res (S)"
+    "Blightproof",
+    "Adrenaline +1",
+    "Parlysis Negated",
+    "Water Res (S)",
+    "Health +50"
   ],
   "my_charms": [
-    "2,Sheathe,4,Rec Speed,-9",
-    "0,Dragon Atk,4,LastingPwr,7",
-    "0,Artisan,4,Fire Atk,2",
-    "2,Fortitude,1,Dragon Res,-4",
-    "0,Guard,3,Status,3",
-    "0,Protection,2,PowerCAdd,2",
-    "0,Fire Atk,5,ClustS Add,0",
-    "0,Crag S Add,5,Whim,-9",
-    "0,Evasion,1,Quake Res,6",
-    "0,Fire Atk,4,Defense,-3",
-    "0,Status,3,Mud/Snow,-9",
-    "0,Will Recov,3,FatigueAtk,4",
-    "1,PelletS Up,1,Sharpener,2",
-    "1,KO,1,Fire Atk,-4",
-    "0,FatigueAtk,3,ThunderRes,-2",
-    "0,Paralysis,3,Sense,1"
+    "0,Water Res,2,Fortitude,-2",
+    "0,Slam,3,Potential,1",
+    "0,Potential,3,Backpackng,6",
+    "0,Sleep,2,Paralysis,3",
+    "0,Potential,4,Fortitude,6",
+    "2,Potential,1,Sheathe,-3",
+    "1,Potential,1,Crit Draw,-1",
+    "2,Fire Res,1,Paralysis,-6",
+    "0,Rapid Fire,2,Health,-10",
+    "0,Will Recov,2,Water Res,-10",
+    "0,WindPress,2,Water Res,9"
   ]
 }

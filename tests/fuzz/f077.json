@@ -1,47 +1,35 @@
 {
   "id": "f077",
-  "description": "armour-seeded sampler, charm mode two_skill, 4 skills, 14 workers, 241920 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode my_charms, 3 skills",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
+  "hunter_type": "gunner",
   "gender": "female",
-  "hr": 6,
-  "elder_star": 5,
-  "weapon_slots": 3,
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": false,
-  "charm_mode": "two_skill",
+  "charm_mode": "my_charms",
   "skills": [
-    112,
-    142,
-    77,
-    187
+    7,
+    29,
+    31
   ],
   "skill_names": [
-    "Recovery Speed +2",
-    "Health +50",
-    "Fire Element +1",
-    "Cold Eliminate"
+    "Reckless Abandon +2",
+    "Unleashed +1",
+    "Adrenaline +1"
   ],
   "my_charms": [
-    "0,PierceS Up,1,Health,-2",
-    "0,Elemental,3,Rec Speed,-8",
-    "1,Stun,3,Health,2",
-    "0,Rec Level,3,Health,-2",
-    "0,Sharpness,1,Rec Speed,10",
-    "0,Health,6,Ice Res,-7",
-    "0,Stamina,1,PelletS Up,3",
-    "0,Crag S Add,2,Cold Res,9",
-    "2,,,,",
-    "0,Guard,5,Rec Speed,6",
-    "2,PunishDraw,3,Rec Speed,-9",
-    "3,,,,",
-    "0,Water Atk,4,Rec Speed,-2",
-    "0,KO,5,Fire Res,13",
-    "0,Guard,5,Gunnery,1",
-    "0,Rec Level,6,Health,5",
-    "0,Guard,4,Cold Res,3",
-    "1,Rec Speed,7,Dragon Res,-5"
+    "0,Status,2,FastCharge,1",
+    "0,Stun,3,Gathering,10",
+    "0,Sharpness,3,Expert,-3",
+    "0,Mud/Snow,1,Gunnery,-4",
+    "0,Rec Speed,7,Huntsman,-5",
+    "0,Potential,6,Shot Mix,10",
+    "0,Potential,4,Sheathe,-10",
+    "0,Potential,3,Defense,7"
   ]
 }

@@ -1,36 +1,44 @@
 {
   "id": "f259",
-  "description": "armour-seeded sampler, charm mode my_charms, 6 skills, 3 workers, 26250 evaluations (port estimate); quotas: cross_type, torso_up",
+  "description": "armour-seeded sampler, charm mode two_skill, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "female",
+  "gender": "male",
   "hr": 6,
   "elder_star": 4,
-  "weapon_slots": 2,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "my_charms",
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
   "skills": [
-    145,
-    61,
-    151,
-    56,
-    178,
-    129
+    12,
+    93,
+    152
   ],
   "skill_names": [
-    "Def Up (S)",
-    "Crag S LV1 Add",
-    "Fire Res (S)",
-    "Normal S All Add",
-    "Filled Up",
-    "Stun Negated"
+    "Sharp Sword",
+    "Constitution +2",
+    "Fire Res (L)"
   ],
   "my_charms": [
-    "0,Defense,1,SpeedSetup,-9",
-    "1,NormalSAdd,1,PowerCAdd,-9",
-    "0,PelletS Up,2,Fire Res,-5"
+    "0,FatigueAtk,3,Anti-Theft,-3",
+    "0,Fire Res,1,Water Res,9",
+    "0,NormalSAdd,1,DungMaster,5",
+    "0,PelletSAdd,4,Status,-1",
+    "1,Sharpener,1,Fire Res,-7",
+    "0,Fire Res,5,,",
+    "1,Ice Attack,3,Sharpness,-1",
+    "0,Fire Res,6,Shot Mix,-7",
+    "2,Protection,2,Constitutn,-3",
+    "0,Constitutn,2,Water Res,12",
+    "1,Fire Res,3,Status,-1",
+    "1,Rapid Fire,2,Hunger,-7",
+    "0,Sheathe,5,Elemental,1",
+    "0,Guard Up,1,Fire Res,-4",
+    "0,Constitutn,5,ThunderRes,0",
+    "0,Stun,4,Psychic,-10",
+    "0,KO,1,Potential,2"
   ]
 }

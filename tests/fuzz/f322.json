@@ -1,41 +1,37 @@
 {
   "id": "f322",
-  "description": "uniform sampler, charm mode two_skill, 4 skills, 13 workers, 26000 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "description": "uniform sampler, charm mode slotted, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
-  "hr": 4,
-  "elder_star": 4,
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 1,
   "weapon_slots": 1,
-  "allow_bad": false,
-  "include_piercings": false,
-  "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "two_skill",
+  "allow_bad": true,
+  "include_piercings": true,
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "slotted",
   "skills": [
-    77,
-    70,
-    43,
-    50
+    205,
+    164,
+    136
   ],
   "skill_names": [
-    "Fire Element +1",
-    "Close Range Coating Add",
-    "Recoil Reduction +1",
-    "Accuracy+2"
+    "Combine Success+45%",
+    "Dragon Res (L)",
+    "Steal No Effect"
   ],
   "my_charms": [
-    "0,RazorCAdd,2,,",
-    "0,Psychic,4,Precision,2",
-    "0,Fire Atk,2,Hunger,4",
-    "1,Crit Draw,2,Defense,-1",
-    "0,Fire Atk,2,Hunger,4",
-    "0,WindPress,5,Status,-8",
-    "0,Water Atk,4,PelletS Up,3",
-    "1,Reload Spd,1,,",
-    "0,Loading,1,Thundr Atk,1",
-    "0,HearProtct,1,Recoil,1",
-    "2,Rapid Fire,1,Elemental,-2",
-    "1,Artisan,1,Thundr Atk,-8"
+    "0,Ice Attack,7,Water Res,0",
+    "1,Sheathe,3,SleepCAdd,-2",
+    "0,Slam,5,Carving,3",
+    "0,KO,3,Guard,2",
+    "3,Elemental,2,Evade Dist,-1",
+    "1,Sheathe,1,Blight Res,-3",
+    "1,Sheathe,3,SleepCAdd,-2",
+    "0,Gunnery,2,FatigeCAdd,2",
+    "0,Thundr Atk,2,Water Atk,9",
+    "0,Slam,5,Carving,3"
   ]
 }

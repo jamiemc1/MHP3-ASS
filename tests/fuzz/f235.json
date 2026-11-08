@@ -1,37 +1,42 @@
 {
   "id": "f235",
-  "description": "armour-seeded sampler, charm mode none, 4 skills, 1 workers, 20160 evaluations (port estimate); quotas: torso_up",
-  "language": "English (TeamHGG)",
+  "description": "uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up",
+  "language": "Japanese",
   "hunter_type": "blademaster",
-  "gender": "female",
+  "gender": "male",
   "hr": 5,
-  "elder_star": 2,
-  "weapon_slots": 0,
+  "elder_star": 4,
+  "weapon_slots": 1,
   "allow_bad": false,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "none",
+  "charm_mode": "my_charms",
   "skills": [
-    158,
-    7,
-    140,
-    202
+    174,
+    126
   ],
   "skill_names": [
-    "Thunder Res (L)",
-    "Reckless Abandon +2",
-    "HighGradeEarplug",
-    "Rewards Expert"
+    "体力回復量UP",
+    "睡眠無効"
   ],
   "my_charms": [
-    "0,ThunderRes,6,Attack,-2",
-    "0,Water Atk,1,PoisonCAdd,7",
-    "0,Expert,4,NormalSAdd,-1",
-    "0,ThunderRes,1,HiSpdGathr,5",
-    "0,HearProtct,3,Ice Attack,-1",
-    "1,Thundr Atk,5,Stun,-6",
-    "0,Wide Area,5,Expert,-3",
-    "2,PunishDraw,3,ThunderRes,0"
+    "0,耐震,7,採取,6",
+    "1,回復量,3,回復速度,-6",
+    "0,重撃,2,体術,0",
+    "0,睡眠,4,広域,3",
+    "0,回避性能,6,水耐性,12",
+    "0,通常弾強化,1,気絶,5",
+    "0,睡眠,3,狩人,4",
+    "0,ガード性能,3,達人,9",
+    "2,,,,",
+    "0,回復量,3,麻痺,7",
+    "1,斬れ味,1,ガード強化,-1",
+    "1,スタミナ,2,雷属性攻撃,2",
+    "0,回復量,5,剥ぎ取り,-3",
+    "0,本気,1,回復量,4",
+    "1,斬れ味,5,腹減り,-4",
+    "3,,,,",
+    "1,回復量,5,体術,0"
   ]
 }

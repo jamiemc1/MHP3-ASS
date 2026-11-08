@@ -1,41 +1,29 @@
 {
   "id": "f448",
-  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 96 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode one_skill, 1 skill; quotas: one_skill_hr_3_or_less, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 2,
-  "elder_star": 1,
-  "weapon_slots": 3,
-  "allow_bad": true,
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 2,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "none",
+  "charm_mode": "one_skill",
   "skills": [
-    2,
-    197
+    135
   ],
   "skill_names": [
-    "Attack Up [Lg]",
-    "Good Luck"
+    "Antiseptic"
   ],
   "my_charms": [
-    "0,FastCharge,4,Fate,1",
-    "0,Fate,1,Reload Spd,4",
-    "1,Reload Spd,2,Precision,-4",
-    "1,FatigueAtk,2,Eating,0",
-    "2,,,,",
-    "0,Attack,3,ParalyCAdd,7",
-    "0,Will Recov,1,Attack,-1",
-    "0,FatigueAtk,1,Attack,10",
-    "2,PierceS Up,1,Expert,-9",
-    "0,Recoil,3,Fate,1",
-    "0,Fencing,1,Sharpness,0",
-    "0,Thundr Atk,1,Attack,2",
-    "0,Fate,1,Evade Dist,1",
-    "0,NormalSAdd,1,Attack,6",
-    "0,Guard Up,6,Attack,3",
-    "0,Fire Atk,7,Fate,3"
+    "0,Reload Spd,3,Antiseptic,-9",
+    "0,Ice Attack,3,FatigeCAdd,10",
+    "0,FatigueAtk,1,Shot Mix,-3",
+    "0,Dragon Atk,2,Cold Res,-8",
+    "3,Eating,1,Fire Res,0",
+    "0,Antiseptic,1,Attack,0"
   ]
 }

@@ -1,39 +1,43 @@
 {
   "id": "f051",
-  "description": "uniform sampler, charm mode two_skill, 2 skills, 4 workers, 6720 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills; quotas: one_skill_hr_3_or_less, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "male",
-  "hr": 6,
-  "elder_star": 1,
-  "weapon_slots": 0,
+  "hr": 3,
+  "elder_star": 3,
+  "weapon_slots": 2,
   "allow_bad": true,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "one_skill",
   "skills": [
-    23,
-    104
+    203,
+    170,
+    167
   ],
   "skill_names": [
-    "Ruiner",
-    "Evade +1"
+    "Rewards Celeb",
+    "Trnquilizr Guru",
+    "Wide Area +2"
   ],
   "my_charms": [
-    "0,FastCharge,2,Evasion,4",
-    "0,Reload Spd,2,Evasion,2",
-    "0,Will Recov,1,Slam,-2",
-    "1,,,,",
-    "0,Evasion,2,Eating,-2",
-    "0,PelletS Up,5,Evasion,3",
-    "2,Slam,1,Health,-2",
-    "0,Slam,4,Stun,9",
-    "0,Slam,1,Sheathe,0",
-    "0,FastCharge,1,Evasion,-2",
-    "0,PunishDraw,5,Evasion,3",
-    "0,Evasion,4,Dragon Atk,4",
-    "1,Blight Res,1,Slam,1",
-    "1,,,,"
+    "0,Elemental,5,Rewards,2",
+    "3,Blight Res,2,Rewards,-1",
+    "0,Poison,2,Perception,3",
+    "1,Rewards,1,Health,-3",
+    "0,Constitutn,3,HiSpdGathr,-6",
+    "0,Constitutn,3,Loading,-2",
+    "0,Gunnery,1,Antiseptic,3",
+    "1,Fencing,2,Wide Area,0",
+    "1,Dragon Atk,3,FatigeCAdd,5",
+    "0,WindPress,4,Loading,-1",
+    "0,Will Recov,3,Constitutn,2",
+    "1,Eating,4,Hunger,-3",
+    "0,Dragon Res,6,Perception,9",
+    "0,Protection,2,Rewards,1",
+    "0,Defense,2,Paralysis,-4",
+    "0,Rewards,1,Artisan,2"
   ]
 }

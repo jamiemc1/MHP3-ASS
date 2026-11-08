@@ -1,35 +1,40 @@
 {
   "id": "f050",
-  "description": "uniform sampler, charm mode slotted, 1 skill, 1 workers, 32 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
+  "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 5,
-  "elder_star": 1,
+  "hr": 4,
+  "elder_star": 4,
   "weapon_slots": 1,
-  "allow_bad": false,
-  "include_piercings": true,
+  "allow_bad": true,
+  "include_piercings": false,
   "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "slotted",
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
   "skills": [
-    124
+    96,
+    137,
+    29
   ],
   "skill_names": [
-    "Parlysis Negated"
+    "Runner",
+    "Blightproof",
+    "Unleashed +1"
   ],
   "my_charms": [
-    "2,Loading,1,Water Atk,5",
-    "0,Gunnery,3,Paralysis,6",
-    "1,Paralysis,1,HiSpdGathr,-4",
-    "0,Paralysis,5,Expert,6",
-    "0,Paralysis,3,Gluttony,5",
-    "0,Paralysis,1,RazorCAdd,3",
-    "0,Paralysis,1,BombStrUp,1",
-    "0,Paralysis,5,Sense,-1",
-    "1,FatigueAtk,1,Health,0",
-    "2,Fortitude,2,Gathering,4",
-    "0,Paralysis,1,PoisonCAdd,8",
-    "0,Fate,5,Psychic,2"
+    "0,Stamina,1,Rec Level,-1",
+    "0,Stamina,2,Fire Atk,9",
+    "0,FastCharge,2,Stamina,0",
+    "0,PelletSAdd,3,Stun,7",
+    "0,Will Recov,6,Rec Speed,-1",
+    "0,HearProtct,2,Blight Res,-3",
+    "1,Blight Res,3,Stamina,-2",
+    "0,Sharpness,4,Loading,-2",
+    "0,PunishDraw,4,Awaken,-1",
+    "1,Awaken,1,Stamina,-3",
+    "0,NormalSAdd,5,PelletSAdd,-1",
+    "2,Guard Up,1,Blight Res,1",
+    "0,Stamina,5,PelletS Up,-2"
   ]
 }

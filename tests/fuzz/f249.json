@@ -1,34 +1,41 @@
 {
   "id": "f249",
-  "description": "uniform sampler, charm mode slotted, 4 skills, 1 workers, 576 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
+  "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 1,
-  "elder_star": 3,
-  "weapon_slots": 2,
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 1,
   "allow_bad": true,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "charm_mode": "my_charms",
   "skills": [
-    107,
-    111,
-    62,
-    194
+    180,
+    142,
+    134
   ],
   "skill_names": [
-    "Evasion Up",
-    "Recovery Speed +1",
-    "Crag S All Add",
-    "Divine Whim"
+    "Quick Eating +1",
+    "Health +50",
+    "Wind Anchor"
   ],
   "my_charms": [
-    "1,Thundr Atk,3,ParalyCAdd,1",
-    "1,,,,",
-    "0,Rec Speed,1,Expert,4",
-    "3,,,,",
-    "2,Evade Dist,2,DungMaster,-7"
+    "0,Thundr Atk,2,Shot Mix,3",
+    "0,Health,4,Sleep,7",
+    "0,Eating,2,,",
+    "0,WindPress,2,HearProtct,-1",
+    "0,Fire Atk,4,Health,8",
+    "3,Evasion,3,Sharpener,-1",
+    "0,Recoil,1,WindPress,1",
+    "0,Horn,5,Gathering,10",
+    "1,Health,3,BombStrUp,-5",
+    "0,WindPress,2,Quake Res,-3",
+    "0,Protection,4,Heat Res,-7",
+    "1,Guard,4,Evade Dist,0",
+    "0,Rewards,1,Water Atk,8",
+    "0,WindPress,3,Backpackng,-8"
   ]
 }

@@ -1,40 +1,42 @@
 {
   "id": "f408",
-  "description": "armour-seeded sampler, charm mode my_charms, 3 skills, 5 workers, 810 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 1,
-  "elder_star": 2,
-  "weapon_slots": 1,
+  "hr": 4,
+  "elder_star": 6,
+  "weapon_slots": 2,
   "allow_bad": true,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "my_charms",
+  "charm_mode": "one_skill",
   "skills": [
-    167,
-    26,
-    174
+    27,
+    170
   ],
   "skill_names": [
-    "Wide Area +2",
-    "Flute Expert",
-    "Recovery Up"
+    "Gunnery Master",
+    "Trnquilizr Guru"
   ],
   "my_charms": [
-    "2,Protection,2,Wide Area,-10",
-    "1,Horn,5,Gunnery,-6",
-    "0,Awaken,1,Rec Level,4",
-    "0,Wide Area,3,Precision,1",
-    "1,Quake Res,3,PoisonCAdd,0",
-    "0,Awaken,1,Psychic,-8",
-    "0,Horn,1,ParalyCAdd,-4",
-    "0,Rec Level,6,Dragon Res,-5",
-    "0,Water Atk,5,Wide Area,6",
-    "0,Protection,7,FatigeCAdd,-6",
-    "0,Rec Level,5,Combo Rate,10",
-    "1,Thundr Atk,2,WindPress,-4",
-    "0,Rec Level,2,SleepCAdd,4"
+    "1,Crit Draw,4,Psychic,2",
+    "1,Will Recov,1,Elemental,0",
+    "1,PunishDraw,1,ThunderRes,-5",
+    "0,Thundr Atk,2,BombStrUp,-7",
+    "0,Protection,4,Guard Up,2",
+    "3,Debilitate,3,Dragon Atk,1",
+    "1,Expert,1,ClustS Add,-3",
+    "0,PelletSAdd,2,Perception,7",
+    "0,Loading,1,Fire Atk,9",
+    "0,Health,8,PoisonCAdd,8",
+    "0,Water Atk,5,Perception,-2",
+    "0,ClustS Add,4,FatigeCAdd,5",
+    "1,Recoil,3,Sharpness,-3",
+    "0,Dragon Atk,3,Sharpness,3",
+    "1,Gunnery,1,SpeedSetup,-3",
+    "0,Gunnery,2,Hunger,9",
+    "0,Dragon Res,6,Gunnery,-3"
   ]
 }

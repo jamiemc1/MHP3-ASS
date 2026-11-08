@@ -1,41 +1,33 @@
 {
   "id": "f477",
-  "description": "uniform sampler, charm mode two_skill, 6 skills, 1 workers, 13824 evaluations (port estimate); quotas: auto_guard_charm, two_skill_hr_below_5, torso_up",
+  "description": "uniform sampler, charm mode none, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
-  "hr": 1,
-  "elder_star": 5,
-  "weapon_slots": 3,
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 4,
+  "elder_star": 2,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "none",
   "skills": [
-    32,
-    28,
-    146,
-    119,
-    101,
-    155
+    140,
+    72
   ],
   "skill_names": [
-    "Adrenaline +2",
-    "Gunnery King",
-    "Def Up (M)",
-    "Auto-Guard",
-    "Hunger Negated",
-    "Water Res (L)"
+    "HighGradeEarplug",
+    "Abnormal Status Atk +1"
   ],
   "my_charms": [
-    "0,Defense,1,FatigeCAdd,4",
-    "0,Auto-Guard,10,,",
-    "2,,,,",
-    "0,Sharpness,1,Fate,-2",
-    "0,Stamina,5,Fate,-2",
-    "2,,,,",
-    "0,Ice Attack,5,Artisan,-2",
-    "0,Paralysis,2,PelletSAdd,-1"
+    "0,Water Atk,6,Sense,-3",
+    "0,Guard Up,6,Status,4",
+    "1,NormalS Up,2,,",
+    "0,Guard,5,Constitutn,-1",
+    "0,Ice Attack,5,HearProtct,-3",
+    "0,ThunderRes,1,RazorCAdd,-3",
+    "0,Ice Attack,2,Rec Speed,-7",
+    "0,Sheathe,5,Eating,-3"
   ]
 }

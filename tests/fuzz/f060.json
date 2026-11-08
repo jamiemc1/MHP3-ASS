@@ -1,38 +1,43 @@
 {
   "id": "f060",
-  "description": "armour-seeded sampler, charm mode one_skill, 3 skills, 9 workers, 51840 evaluations (port estimate); quotas: torso_up",
-  "language": "Español (Team Hunters 404)",
-  "hunter_type": "blademaster",
+  "description": "armour-seeded sampler, charm mode two_skill, 6 skills; quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
   "gender": "male",
-  "hr": 6,
+  "hr": 4,
   "elder_star": 1,
-  "weapon_slots": 1,
-  "allow_bad": true,
-  "include_piercings": false,
+  "weapon_slots": 0,
+  "allow_bad": false,
+  "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "two_skill",
   "skills": [
-    98,
-    105,
-    90
+    208,
+    53,
+    179,
+    30,
+    83,
+    163
   ],
   "skill_names": [
-    "Rec. Resist. Aum",
-    "Evadir +2",
-    "Atrib. Dragón +2"
+    "Bullet Limit",
+    "NormalS/RapidBowUp",
+    "Picky Eater",
+    "Unleashed +2",
+    "Thunder Element +1",
+    "Dragon Res (S)"
   ],
   "my_charms": [
-    "1,R. fuego,2,R. agua,3",
-    "0,Guardia,1,Retroceso,-2",
-    "0,SubirDPerf,2,Resist.,2",
-    "0,Retroceso,1,Aguijón,3",
-    "2,Evadir,2,Comer,1",
-    "1,GolpePes.,1,Experto,-6",
-    "0,Evadir,3,Paralisis,-9",
-    "0,Aña.Corta.,4,,",
-    "1,Salud,1,VisPsíquic,6",
-    "0,Barr/Nieve,3,NieDefBaja,-5",
-    "0,AñDPerd,5,Defensa,-3"
+    "0,Dragon Res,1,Rec Speed,4",
+    "0,Thundr Atk,6,Eating,3",
+    "0,Reload Spd,3,Mud/Snow,6",
+    "1,Dragon Res,3,ThunderRes,-6",
+    "0,Elemental,2,NormalS Up,0",
+    "0,Awaken,1,HearProtct,3",
+    "1,Dragon Res,3,DungMaster,-9",
+    "0,NormalS Up,1,Guard,-3",
+    "0,Guard,3,Awaken,-3",
+    "0,Guard,3,Awaken,-3"
   ]
 }

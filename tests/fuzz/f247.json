@@ -1,48 +1,35 @@
 {
   "id": "f247",
-  "description": "armour-seeded sampler, charm mode one_skill, 4 skills, 6 workers, 1296 evaluations (port estimate); quotas: one_skill_hr_3_or_less, torso_up",
-  "language": "English (TeamHGG)",
+  "description": "armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up",
+  "language": "Français (Team MHP2)",
   "hunter_type": "gunner",
-  "gender": "female",
+  "gender": "male",
   "hr": 2,
-  "elder_star": 1,
+  "elder_star": 5,
   "weapon_slots": 3,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": false,
+  "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "none",
   "skills": [
-    187,
-    140,
-    107,
-    69
+    169,
+    176
   ],
   "skill_names": [
-    "Cold Eliminate",
-    "HighGradeEarplug",
-    "Evasion Up",
-    "Power Coating Add"
+    "Maître des pièges",
+    "Tps obj augmenté"
   ],
   "my_charms": [
-    "0,HearProtct,3,Potential,0",
-    "3,HearProtct,1,Dragon Atk,3",
-    "0,PierceS Up,2,Thundr Atk,-9",
-    "0,Potential,5,HearProtct,3",
-    "0,Evade Dist,1,Gunnery,2",
-    "0,Recoil,3,Elemental,2",
-    "1,Loading,3,Fate,-3",
-    "1,Mud/Snow,2,Poison,1",
-    "1,PelletSAdd,2,Crag S Add,1",
-    "0,Artisan,2,Fencing,3",
-    "0,Guard Up,2,Wide Area,-10",
-    "0,Health,5,PowerCAdd,-3",
-    "1,Guard,1,Stun,-8",
-    "0,FatigueAtk,5,,",
-    "0,HearProtct,1,Crit Draw,2",
-    "0,HearProtct,4,Horn,-9",
-    "0,Water Atk,1,Precision,-7",
-    "0,Evasion,4,Slam,1",
-    "0,Evade Dist,4,Paralysis,-8"
+    "0,Protection,1,Zone,-1",
+    "0,Escrime,4,Aig. augm.,-4",
+    "0,Mn plmb au.,5,Dégainage,-3",
+    "0,Mn Frag +,5,TpsObjAugm.,-6",
+    "0,Coureur,5,Dist.évas.,0",
+    "0,Santé,3,MnTranAjt,-1",
+    "0,Pique,2,Constit.,-1",
+    "0,Zone,4,Chasseur,9",
+    "0,Clairvoy.,4,Inst.rap.,8",
+    "0,Poison,2,TpsObjAugm.,10"
   ]
 }

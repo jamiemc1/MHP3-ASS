@@ -1,31 +1,39 @@
 {
   "id": "f151",
-  "description": "armour-seeded sampler, charm mode two_skill, 2 skills, 3 workers, 8100 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
-  "language": "Français (Team MHP2)",
-  "hunter_type": "blademaster",
+  "description": "armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up",
+  "language": "Español (Team Hunters 404)",
+  "hunter_type": "gunner",
   "gender": "female",
-  "hr": 4,
-  "elder_star": 1,
-  "weapon_slots": 1,
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 2,
   "allow_bad": false,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "none",
   "skills": [
-    111,
-    174
+    187,
+    108,
+    105
   ],
   "skill_names": [
-    "Vitesse récup. +1",
-    "Récup. augmentée"
+    "Cancelar frio",
+    "Envaine veloz",
+    "Evadir +2"
   ],
   "my_charms": [
-    "0,Recul,1,Tir asso.,0",
-    "2,Artisan ,1,AtEl. feu,-6",
-    "0,Mn norm.au.,4,Clairvoy.,-7",
-    "0,AtEl. drg,3,Mn perc. +,-6",
-    "0,AtEl. drg,1,Rés. eau,-1",
-    "2,Artisan ,1,AtEl. feu,-6"
+    "0,Captura,1,Desen.crit,3",
+    "0,AñDNormal,6,Aturdir,0",
+    "0,Evadir,6,Sentido,-5",
+    "1,Vel.Guarda,2,Yoga,2",
+    "0,Dis.Evadir,2,Vel.Guarda,-6",
+    "0,Hielo Inc,7,Glotoneria,0",
+    "0,Experto,4,Cazador,-5",
+    "3,Vel.recarg,1,SubFueBomb,0",
+    "1,Aguijón,3,Evadir,0",
+    "0,Dragon Inc,2,Artillería,-4",
+    "0,Fue.Rapido,2,Guardia,4",
+    "0,Esgrima,1,Captura,1"
   ]
 }

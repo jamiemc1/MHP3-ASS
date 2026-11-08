@@ -1,6 +1,6 @@
 {
   "id": "f002",
-  "description": "uniform sampler, charm mode none, 4 skills, 1 workers, 1500 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode none, 4 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "female",

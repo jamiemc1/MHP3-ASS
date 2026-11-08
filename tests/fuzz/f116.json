@@ -1,10 +1,10 @@
 {
   "id": "f116",
-  "description": "uniform sampler, charm mode slotted, 2 skills, 1 workers, 1120 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode slotted, 4 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 6,
+  "hr": 3,
   "elder_star": 1,
   "weapon_slots": 1,
   "allow_bad": true,
@@ -13,19 +13,41 @@
   "allow_low_rank": true,
   "charm_mode": "slotted",
   "skills": [
-    170,
-    35
+    134,
+    75,
+    184,
+    87
   ],
   "skill_names": [
-    "Trnquilizr Guru",
-    "Load Up"
+    "Wind Anchor",
+    "Element Atk Up",
+    "Backpacking Expert",
+    "Ice Element +2"
   ],
   "my_charms": [
-    "0,Fate,4,Ice Attack,2",
-    "0,Paralysis,5,Expert,6",
-    "0,Loading,4,Fencing,3",
-    "0,Loading,5,Thundr Atk,-5",
-    "0,Paralysis,5,Expert,6",
-    "0,Fate,4,Ice Attack,2"
+    "0,Blight Res,5,KO,2",
+    "1,Will Recov,2,FastCharge,-2",
+    "0,Crit Draw,1,PunishDraw,3",
+    "0,ClustS Add,2,Wide Area,-5",
+    "0,Expert,2,Defense,3",
+    "0,Evasion,6,SpeedSetup,-5",
+    "0,Poison,1,Backpackng,4",
+    "2,Backpackng,3,Hunger,-3",
+    "0,Evade Dist,6,Expert,-5",
+    "0,PierceSAdd,4,,",
+    "0,FastCharge,3,Ice Attack,-10",
+    "0,Horn,6,Dragon Res,-10",
+    "1,Wide Area,1,Backpackng,-3",
+    "1,PelletSAdd,1,Crag S Add,-4",
+    "0,Crag S Add,5,ClustS Add,-6",
+    "0,Sharpener,2,Backpackng,5",
+    "0,Blight Res,4,Hunger,0",
+    "0,Ice Attack,4,Rec Level,0",
+    "0,Fire Atk,6,DungMaster,-7",
+    "3,Will Recov,1,,",
+    "0,PunishDraw,1,Attack,6",
+    "2,KO,1,Fencing,0",
+    "0,Ice Attack,3,Gluttony,12",
+    "0,Fencing,3,Psychic,-3"
   ]
 }

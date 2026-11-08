@@ -31,15 +31,15 @@ goldens.
     Skills whose (unused) `skills.txt` type column names the other hunter
     type weigh 0.3
   - *armour-seeded*: a skill for each positive ability of a random piece
-    the hunter can wear (torso-up pieces weigh 3), topped up from
-    decoration abilities
+    the query can use (hunter type, gender, rank and the armour toggles;
+    torso-up pieces weigh 3), topped up from decoration abilities
 - `my_charms`: 0-12 generated charms holding a query ability plus 0-20
   others; 20 % of them weakened (first skill lowered); sometimes slot-only
   charms and duplicates; the Auto-Guard charm in half the Auto-Guard
   queries. Ten queries also carry 1-3 illegal lines (a first skill of 14 or
   15 points), which the original skips
-- Each query's `description` names its sampler, charm mode, the port's
-  estimate of workers and evaluations, and the quota features it has
+- Each query's `description` names its sampler, charm mode, skill count
+  and the quota features it has
 
 ## Selection
 
@@ -49,8 +49,8 @@ these quotas in draw order, and tops up to 500 in draw order:
 
 | Quota | Minimum |
 |---|---|
-| Auto-Guard with its charm in `my_charms` | 13 |
-| Auto-Guard without it | 12 |
+| Auto-Guard in the slotted, one- or two-skill mode, with its charm in `my_charms` | 13 |
+| The same without the charm (no worker starts) | 12 |
 | A torso-up piece among the relevant armour | 50 |
 | A slot with no relevant armour | 25 |
 | A skill of the other hunter type | 25 |

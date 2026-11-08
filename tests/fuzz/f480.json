@@ -1,24 +1,49 @@
 {
   "id": "f480",
-  "description": "uniform sampler, charm mode my_charms, 1 skill, 2 workers, 2 evaluations (port estimate); quotas: auto_guard_charm, empty_slot",
-  "language": "English (TeamHGG)",
+  "description": "armour-seeded sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up",
+  "language": "English (TMO)",
   "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 2,
-  "elder_star": 3,
-  "weapon_slots": 1,
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 2,
+  "weapon_slots": 3,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "my_charms",
+  "allow_event": false,
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
   "skills": [
-    119
+    93
   ],
   "skill_names": [
-    "Auto-Guard"
+    "Constitution +2"
   ],
   "my_charms": [
-    "0,Auto-Guard,10,,"
+    "0,Constitutn,5,ThunderRes,-9",
+    "0,Stam Recov,4,Sharpener,-5",
+    "0,Potential,4,Power C+,4",
+    "0,Water Atk,4,Attack,-7",
+    "0,Constitutn,1,Dragon Res,-9",
+    "0,Constitutn,4,FastCharge,-1",
+    "1,,,,",
+    "0,Paralysis,1,Cold Res,3",
+    "0,Blight Res,5,Protection,-6",
+    "1,,,,",
+    "0,Ice Atk,4,Poison,1",
+    "0,Carving,5,Recoil,1",
+    "2,Gloves Off,2,,",
+    "0,Pierce S+,1,Dragon Res,6",
+    "0,Constitutn,5,Expert,5",
+    "2,Normal Up,1,Constitutn,-3",
+    "0,Crag S+,1,Maestro,2",
+    "0,Artillery,2,Power C+,3",
+    "0,Gloves Off,2,ThunderRes,13",
+    "2,Constitutn,5,ThunderRes,-5",
+    "0,Constitutn,5,Status,-2",
+    "0,Ice Atk,5,Sharpener,8",
+    "0,Stam Drain,4,Fate,-2",
+    "0,Constitutn,5,Pellet S+,-4",
+    "0,Constitutn,5,ThunderRes,0",
+    "0,Fire Res,4,Sense,5"
   ]
 }

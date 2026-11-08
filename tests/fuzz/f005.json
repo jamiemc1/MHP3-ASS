@@ -1,44 +1,40 @@
 {
   "id": "f005",
-  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 2400 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
   "hr": 4,
-  "elder_star": 6,
-  "weapon_slots": 0,
-  "allow_bad": true,
+  "elder_star": 1,
+  "weapon_slots": 2,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
   "charm_mode": "none",
   "skills": [
-    8,
-    14
+    147,
+    17,
+    151,
+    124
   ],
   "skill_names": [
-    "Reckless Abandon +3",
-    "Speed Sharpening"
+    "Def Up (L)",
+    "Unsheathe Stun",
+    "Fire Res (S)",
+    "Parlysis Negated"
   ],
   "my_charms": [
-    "0,Rewards,2,Expert,-10",
-    "0,Sharpener,3,Huntsman,-10",
-    "0,Sharpener,1,Water Res,-8",
-    "2,Guard,1,Whim,-4",
-    "0,Sharpener,1,Gluttony,12",
-    "0,Stun,5,Backpackng,0",
-    "0,Hunger,5,Paralysis,5",
-    "0,Ice Attack,6,Sharpener,4",
-    "0,Loading,4,Expert,-6",
-    "0,Expert,1,DungMaster,9",
-    "0,Expert,2,Quake Res,-4",
-    "0,Fire Atk,6,Wide Area,-1",
-    "2,Sharpener,3,Gunnery,-6",
-    "0,Expert,2,Hunger,-7",
-    "0,Wide Area,1,Combo Rate,5",
-    "0,Debilitate,2,Sharpener,4",
-    "0,FatigueAtk,1,Expert,6",
-    "0,Evade Dist,1,Poison,-5",
-    "1,Protection,3,Rapid Fire,-1"
+    "0,Reload Spd,4,PunishDraw,-3",
+    "0,HearProtct,5,Debilitate,2",
+    "0,Ice Res,6,Paralysis,-4",
+    "0,Defense,3,PowerCAdd,-7",
+    "0,SpeedSetup,4,Fire Res,-1",
+    "0,Fire Res,5,FatigeCAdd,-8",
+    "0,FatigueAtk,6,Fire Res,3",
+    "0,WindPress,1,Defense,-2",
+    "0,Fire Atk,3,PunishDraw,1",
+    "0,Artisan,5,BombStrUp,-2",
+    "0,SpeedSetup,2,Defense,7"
   ]
 }

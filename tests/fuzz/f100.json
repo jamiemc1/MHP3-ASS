@@ -1,38 +1,40 @@
 {
   "id": "f100",
-  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 20 workers, 609840 evaluations (port estimate); quotas: cross_type, torso_up",
+  "description": "uniform sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, illegal_charm_lines, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 6,
-  "elder_star": 2,
-  "weapon_slots": 1,
-  "allow_bad": true,
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
   "charm_mode": "one_skill",
   "skills": [
-    145,
-    184,
-    57,
-    128,
-    178
+    84,
+    155,
+    134,
+    179
   ],
   "skill_names": [
-    "Def Up (S)",
-    "Backpacking Expert",
-    "Pierce S LV1 Add",
-    "Stun Halved",
-    "Filled Up"
+    "Thunder Element +2",
+    "Water Res (L)",
+    "Wind Anchor",
+    "Picky Eater"
   ],
   "my_charms": [
-    "0,Crag S Add,3,PierceSAdd,-7",
-    "0,Ice Res,6,Heat Res,-9",
-    "2,Constitutn,1,PierceSAdd,1",
-    "0,Guard Up,1,Gathering,7",
-    "1,Carving,1,Guard,3",
-    "0,Recoil,2,PunishDraw,-3",
-    "0,Evasion,2,Loading,1"
+    "0,Slam,1,WindPress,-3",
+    "0,FatigueAtk,15,,",
+    "2,Water Res,2,Attack,0",
+    "0,Fire Atk,4,Wide Area,-1",
+    "0,Fire Atk,4,Wide Area,-1",
+    "2,Guard,1,Sheathe,-10",
+    "0,Will Recov,3,Water Res,-10",
+    "0,Will Recov,15,,",
+    "0,Loading,5,PunishDraw,-2",
+    "2,Water Res,2,Attack,0",
+    "0,Crit Draw,14,,"
   ]
 }

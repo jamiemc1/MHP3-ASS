@@ -1,6 +1,6 @@
 {
   "id": "f001",
-  "description": "armour-seeded sampler, charm mode none, 3 skills, 1 workers, 9408 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "male",

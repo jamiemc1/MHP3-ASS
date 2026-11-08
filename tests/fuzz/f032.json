@@ -1,38 +1,34 @@
 {
   "id": "f032",
-  "description": "uniform sampler, charm mode slotted, 6 skills, 1 workers, 25344 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode slotted, 1 skill; quotas: cross_type, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 3,
+  "hr": 2,
   "elder_star": 5,
   "weapon_slots": 3,
-  "allow_bad": true,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
   "charm_mode": "slotted",
   "skills": [
-    27,
-    154,
-    25,
-    203,
-    173,
-    172
+    55
   ],
   "skill_names": [
-    "Gunnery Master",
-    "Water Res (S)",
-    "Enfeebler",
-    "Rewards Celeb",
-    "DungBombExpert",
-    "Autotracker"
+    "PelletS/ScatterBowUp"
   ],
   "my_charms": [
-    "0,Eating,3,Gunnery,6",
-    "0,Rewards,5,NormalS Up,0",
-    "0,Ice Res,3,DungMaster,-10",
-    "0,Awaken,1,Expert,1",
-    "1,Thundr Atk,2,Carving,-2"
+    "0,Slam,2,Psychic,1",
+    "2,Evasion,1,Huntsman,-1",
+    "0,Sharpener,1,Crag S Add,-1",
+    "0,Carving,2,Guard,4",
+    "0,Gunnery,2,Mud/Snow,2",
+    "0,Eating,4,Expert,2",
+    "0,PelletS Up,1,Dragon Res,-5",
+    "0,HearProtct,1,Fate,-1",
+    "0,Ice Attack,5,Anti-Theft,9",
+    "0,Fire Atk,4,PelletSAdd,-7",
+    "0,Stamina,5,PelletS Up,-3"
   ]
 }

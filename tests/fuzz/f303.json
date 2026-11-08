@@ -1,29 +1,38 @@
 {
   "id": "f303",
-  "description": "uniform sampler, charm mode one_skill, 2 skills, 7 workers, 20160 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 5,
-  "elder_star": 6,
-  "weapon_slots": 2,
-  "allow_bad": true,
+  "hr": 4,
+  "elder_star": 1,
+  "weapon_slots": 0,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "slotted",
   "skills": [
-    179,
-    21
+    93,
+    86,
+    96
   ],
   "skill_names": [
-    "Picky Eater",
-    "ESP"
+    "Constitution +2",
+    "Ice Element +1",
+    "Runner"
   ],
   "my_charms": [
-    "0,Quake Res,4,Gluttony,2",
-    "1,Fencing,1,Guard Up,0",
-    "0,HearProtct,5,Fencing,2",
-    "1,NormalS Up,2,Guard,-3"
+    "0,Dragon Atk,3,Stamina,2",
+    "0,Constitutn,1,Dragon Res,-4",
+    "0,Ice Attack,4,PierceS Up,3",
+    "0,Ice Attack,7,Paralysis,2",
+    "0,Ice Attack,6,CutterSAdd,-6",
+    "0,Ice Attack,5,HiSpdGathr,5",
+    "0,Sheathe,5,Ice Attack,-9",
+    "0,NormalS Up,5,Ice Attack,-2",
+    "0,Constitutn,6,Evasion,2",
+    "0,ClustS Add,5,DungMaster,-2",
+    "0,Protection,3,Backpackng,-1"
   ]
 }

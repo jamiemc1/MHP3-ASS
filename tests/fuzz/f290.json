@@ -1,45 +1,37 @@
 {
   "id": "f290",
-  "description": "uniform sampler, charm mode two_skill, 4 skills, 16 workers, 1267200 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
+  "hunter_type": "gunner",
   "gender": "female",
-  "hr": 6,
-  "elder_star": 3,
-  "weapon_slots": 1,
+  "hr": 4,
+  "elder_star": 5,
+  "weapon_slots": 2,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": true,
+  "allow_event": false,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "none",
   "skills": [
-    142,
-    111,
-    189,
-    2
+    170,
+    166
   ],
   "skill_names": [
-    "Health +50",
-    "Recovery Speed +1",
-    "Gathering +1",
-    "Attack Up [Lg]"
+    "Trnquilizr Guru",
+    "Wide Area +1"
   ],
   "my_charms": [
-    "1,WindPress,1,Expert,-10",
-    "1,PierceS Up,3,Stamina,-3",
-    "0,Rewards,2,Sharpness,3",
-    "0,Water Atk,7,Status,-1",
-    "0,Sharpness,5,Expert,1",
-    "0,Attack,3,Fortitude,-6",
-    "0,Wide Area,3,Psychic,7",
-    "1,Fire Atk,1,Health,-8",
-    "0,Health,7,Water Res,-6",
-    "2,Sharpener,1,Paralysis,3",
-    "0,Crag S Add,2,Perception,2",
-    "1,Constitutn,3,Dragon Atk,1",
-    "0,Precision,3,Hunger,3",
-    "0,FatigueAtk,5,SleepCAdd,-9",
-    "0,Crit Draw,3,Protection,-4",
-    "0,Rapid Fire,3,ThunderRes,7"
+    "0,Potential,1,Carving,-2",
+    "0,Status,5,Wide Area,-8",
+    "2,Wide Area,1,PoisonCAdd,5",
+    "3,Fire Atk,2,Wide Area,-1",
+    "0,Wide Area,3,Huntsman,8",
+    "0,FatigueAtk,4,Wide Area,4",
+    "0,Precision,2,Wide Area,8",
+    "1,Poison,4,Wide Area,-1",
+    "1,Wide Area,3,Backpackng,-6",
+    "0,Protection,1,Wide Area,11",
+    "0,Wide Area,2,PelletSAdd,3",
+    "0,WindPress,2,Perception,0"
   ]
 }

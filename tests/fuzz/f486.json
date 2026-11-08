@@ -1,36 +1,45 @@
 {
   "id": "f486",
-  "description": "uniform sampler, charm mode slotted, 5 skills, 0 workers, 0 evaluations (port estimate); quotas: auto_guard_no_charm, torso_up",
+  "description": "uniform sampler, charm mode two_skill, 6 skills; quotas: auto_guard_charm, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 4,
-  "elder_star": 6,
-  "weapon_slots": 3,
+  "hunter_type": "gunner",
+  "gender": "female",
+  "hr": 6,
+  "elder_star": 5,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": true,
+  "allow_event": false,
   "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "charm_mode": "two_skill",
   "skills": [
-    109,
-    137,
+    26,
+    132,
+    131,
     119,
-    8,
-    101
+    105,
+    78
   ],
   "skill_names": [
-    "Sneak",
-    "Blightproof",
+    "Flute Expert",
+    "Quake Res",
+    "Mud/Snow Res",
     "Auto-Guard",
-    "Reckless Abandon +3",
-    "Hunger Negated"
+    "Evade +2",
+    "Fire Element +2"
   ],
   "my_charms": [
-    "0,Hunger,1,Rec Speed,-2",
-    "0,Expert,1,Defense,7",
-    "1,,,,",
-    "0,Expert,3,,",
-    "0,Guard,2,Hunger,9"
+    "0,Status,1,Wide Area,-8",
+    "0,Reload Spd,1,Gathering,-1",
+    "0,PierceS Up,1,WindPress,2",
+    "0,Crag S Add,5,Health,-4",
+    "0,Auto-Guard,10,,",
+    "0,Mud/Snow,6,Heat Res,4",
+    "0,Potential,5,Guard,4",
+    "0,Sharpener,4,Quake Res,6",
+    "0,FatigueAtk,5,PunishDraw,-3",
+    "0,Water Res,5,Horn,-2",
+    "0,Fire Atk,7,Carving,0",
+    "0,Fire Atk,6,Sharpness,0"
   ]
 }

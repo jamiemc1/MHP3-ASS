@@ -1,28 +1,44 @@
 {
   "id": "f128",
-  "description": "uniform sampler, charm mode one_skill, 1 skill, 3 workers, 216 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode two_skill, 6 skills; quotas: cross_type, two_skill_hr_below_5, empty_slot",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
-  "hr": 5,
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 3,
   "elder_star": 1,
-  "weapon_slots": 0,
-  "allow_bad": false,
+  "weapon_slots": 1,
+  "allow_bad": true,
   "include_piercings": true,
-  "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "allow_event": false,
+  "allow_low_rank": false,
+  "charm_mode": "two_skill",
   "skills": [
-    30
+    21,
+    37,
+    131,
+    12,
+    120,
+    75
   ],
   "skill_names": [
-    "Unleashed +2"
+    "ESP",
+    "Reload Speed +1",
+    "Mud/Snow Res",
+    "Sharp Sword",
+    "Divine Protection",
+    "Element Atk Up"
   ],
   "my_charms": [
-    "0,Paralysis,2,Shot Mix,-5",
-    "0,Sharpness,1,Awaken,4",
-    "0,Awaken,1,HearProtct,3",
-    "0,Ice Res,4,Antiseptic,3",
-    "0,Awaken,5,Hunger,-9"
+    "0,Water Atk,5,Psychic,-9",
+    "3,PierceS Up,4,Artisan,-3",
+    "1,Protection,1,Cold Res,-3",
+    "0,Water Res,6,RazorCAdd,9",
+    "0,Will Recov,1,Stun,5",
+    "0,Sheathe,6,PowerCAdd,9",
+    "3,PierceS Up,4,Artisan,-3",
+    "0,Status,1,Dragon Res,9",
+    "1,BombStrUp,6,,",
+    "1,Thundr Atk,7,Dragon Res,-1",
+    "0,WindPress,4,Sleep,1"
   ]
 }

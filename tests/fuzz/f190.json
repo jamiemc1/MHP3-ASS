@@ -1,44 +1,37 @@
 {
   "id": "f190",
-  "description": "armour-seeded sampler, charm mode one_skill, 5 skills, 13 workers, 131040 evaluations (port estimate); quotas: cross_type, torso_up",
+  "description": "armour-seeded sampler, charm mode my_charms, 1 skill; quotas: torso_up",
   "language": "Français (Team MHP2)",
   "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 4,
+  "hr": 6,
   "elder_star": 5,
-  "weapon_slots": 1,
+  "weapon_slots": 2,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "my_charms",
   "skills": [
-    71,
-    6,
-    160,
-    16,
-    19
+    21
   ],
   "skill_names": [
-    "Enduit sup.",
-    "Oeil critique +1",
-    "Rés. glc aug.(pt)",
-    "Tranchant +1",
-    "Concentration"
+    "PSI"
   ],
   "my_charms": [
-    "0,Expert,1,Clairvoy.,8",
-    "0,Zone,3,Percept.,5",
-    "0,Repas rap.,4,KO,4",
-    "0,Chrg rap.,2,Zone,2",
-    "1,Mn norm. +,1,Expert,-1",
-    "0,Garde,4,Rés. eau,11",
-    "0,Rés. glc,3,Rés. fdr,2",
-    "0,Dépeçage,4,Rés. glc,6",
-    "0,Garde,1,End. Sup.,8",
-    "1,Statut,1,Rés. drgn,-7",
-    "0,MnTranAjt,1,Précision,10",
-    "0,KO,5,Rés. glc,7",
-    "0,Artisan ,1,Aig. augm.,1"
+    "0,Garde,4,End.par.,-10",
+    "0,Sérieux,3,Escrime,3",
+    "0,Escrime,2,Épée aig. ,2",
+    "0,AtEl. eau,4,Escrime,2",
+    "1,Protection,3,Escrime,-1",
+    "0,Escrime,3,Dépeçage,1",
+    "0,At.horiz.,1,Escrime,1",
+    "0,Escrime,4,Dégainage,3",
+    "0,Escrime,4,Dégainage,3",
+    "0,Escrime,3,Garde,2",
+    "0,Escrime,2,Tir asso.,-2",
+    "0,Escrime,5,Repas rap.,1",
+    "0,Artisan ,2,Garde,-1",
+    "0,Escrime,1,Prot. aud.,-2"
   ]
 }

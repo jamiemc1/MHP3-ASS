@@ -1,27 +1,43 @@
 {
   "id": "f089",
-  "description": "armour-seeded sampler, charm mode one_skill, 1 skill, 2 workers, 36 evaluations (port estimate); quotas: cross_type, torso_up",
+  "description": "uniform sampler, charm mode none, 5 skills; quotas: cross_type, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
+  "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 4,
-  "elder_star": 3,
+  "hr": 5,
+  "elder_star": 5,
   "weapon_slots": 0,
   "allow_bad": false,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "charm_mode": "none",
   "skills": [
-    21
+    197,
+    63,
+    34,
+    80,
+    31
   ],
   "skill_names": [
-    "ESP"
+    "Good Luck",
+    "Clust S LV1 Add",
+    "Resilience",
+    "Water Element +1",
+    "Adrenaline +1"
   ],
   "my_charms": [
-    "1,Ice Attack,2,Sharpener,-9",
-    "2,,,,",
+    "0,Attack,1,Gluttony,-2",
     "3,,,,",
-    "0,Antiseptic,5,Paralysis,7"
+    "0,Guard,5,PelletSAdd,3",
+    "2,Potential,1,BombStrUp,-2",
+    "0,BombStrUp,5,NormalSAdd,-6",
+    "0,Water Atk,2,WindPress,1",
+    "0,Awaken,3,Gunnery,-6",
+    "0,Stamina,1,Rec Speed,3",
+    "0,Psychic,3,PelletSAdd,-6",
+    "0,Rapid Fire,4,Awaken,-2",
+    "0,Fate,2,Blight Res,2",
+    "2,Thundr Atk,4,Fate,0"
   ]
 }

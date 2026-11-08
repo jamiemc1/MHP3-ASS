@@ -1,42 +1,40 @@
 {
   "id": "f178",
-  "description": "uniform sampler, charm mode one_skill, 5 skills, 8 workers, 8 evaluations (port estimate); quotas: one_skill_hr_3_or_less, empty_slot",
+  "description": "uniform sampler, charm mode my_charms, 6 skills; quotas: cross_type",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
-  "hr": 3,
-  "elder_star": 2,
-  "weapon_slots": 1,
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "charm_mode": "my_charms",
   "skills": [
-    128,
-    54,
-    204,
     138,
-    77
+    70,
+    172,
+    98,
+    133,
+    53
   ],
   "skill_names": [
-    "Stun Halved",
-    "PierceS/PierceBowUp",
-    "Combine Success +20%",
     "Def Down Negate",
-    "Fire Element +1"
+    "Close Range Coating Add",
+    "Autotracker",
+    "Stamina Recov Up",
+    "Wind Breaker",
+    "NormalS/RapidBowUp"
   ],
   "my_charms": [
-    "0,PierceS Up,1,Slam,-3",
-    "1,Stun,4,,",
-    "0,Evasion,2,Stun,-4",
-    "0,Evasion,2,Stun,-4",
-    "0,Rec Level,3,PierceS Up,2",
-    "0,Attack,1,Fortitude,-7",
-    "0,Protection,4,Fire Atk,-5",
-    "0,Guard Up,3,Stun,-2",
-    "0,Rec Level,3,PierceS Up,2",
-    "0,PierceS Up,4,WindPress,-7",
-    "0,Fortitude,4,Water Res,8"
+    "0,Awaken,3,Sharpness,0",
+    "0,Will Recov,6,Shot Mix,-1",
+    "0,Debilitate,4,WindPress,-3",
+    "2,WindPress,1,NormalSAdd,-2",
+    "0,Will Recov,6,Huntsman,8",
+    "0,Potential,3,Heat Res,7",
+    "3,Loading,4,Rec Speed,-3"
   ]
 }

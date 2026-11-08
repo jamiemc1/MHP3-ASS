@@ -1,44 +1,32 @@
 {
   "id": "f194",
-  "description": "uniform sampler, charm mode two_skill, 6 skills, 29 workers, 397880 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "description": "uniform sampler, charm mode one_skill, 1 skill; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
-  "hr": 3,
+  "hr": 4,
   "elder_star": 2,
   "weapon_slots": 2,
   "allow_bad": false,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "one_skill",
   "skills": [
-    201,
-    194,
-    154,
-    203,
-    132,
-    167
+    164
   ],
   "skill_names": [
-    "Carving Expert",
-    "Divine Whim",
-    "Water Res (S)",
-    "Rewards Celeb",
-    "Quake Res",
-    "Wide Area +2"
+    "Dragon Res (L)"
   ],
   "my_charms": [
-    "1,KO,1,Crag S Add,-6",
-    "0,Rec Speed,1,Quake Res,1",
-    "0,Protection,7,Carving,-3",
-    "0,KO,2,Wide Area,7",
-    "0,Carving,5,Guard,0",
-    "0,Fortitude,3,Heat Res,7",
-    "0,Slam,4,Wide Area,8",
-    "0,Quake Res,7,Sleep,3",
-    "0,Ice Attack,2,Artisan,-2",
-    "0,Psychic,1,Quake Res,5",
-    "0,Sheathe,1,Water Res,8"
+    "0,Paralysis,1,Dragon Res,-3",
+    "0,Dragon Res,5,ClustS Add,5",
+    "2,Rapid Fire,1,Dragon Res,-6",
+    "1,Dragon Res,2,Crag S Add,-9",
+    "0,Will Recov,2,Dragon Res,12",
+    "0,Fortitude,3,Rec Speed,-2",
+    "0,Dragon Res,4,Quake Res,-5",
+    "0,Dragon Res,6,HiSpdGathr,7",
+    "0,Reload Spd,5,Potential,3"
   ]
 }

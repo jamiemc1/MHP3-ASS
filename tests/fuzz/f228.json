@@ -1,44 +1,31 @@
 {
   "id": "f228",
-  "description": "armour-seeded sampler, charm mode slotted, 1 skill, 1 workers, 1500 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "female",
-  "hr": 6,
-  "elder_star": 2,
-  "weapon_slots": 2,
-  "allow_bad": false,
+  "hunter_type": "blademaster",
+  "gender": "male",
+  "hr": 1,
+  "elder_star": 1,
+  "weapon_slots": 1,
+  "allow_bad": true,
   "include_piercings": true,
   "allow_event": false,
   "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "charm_mode": "two_skill",
   "skills": [
-    53
+    201
   ],
   "skill_names": [
-    "NormalS/RapidBowUp"
+    "Carving Expert"
   ],
   "my_charms": [
-    "0,Sharpness,1,NormalS Up,2",
-    "0,WindPress,4,PierceSAdd,-8",
-    "0,Gunnery,5,Crag S Add,-8",
-    "0,PierceS Up,3,Rec Speed,1",
-    "0,HearProtct,1,Water Atk,1",
-    "0,Quake Res,6,Crag S Add,-4",
-    "0,Recoil,1,Guard Up,2",
-    "0,Blight Res,1,Slam,3",
-    "0,Debilitate,4,NormalS Up,0",
-    "0,PelletSAdd,6,RazorCAdd,3",
-    "0,Guard,3,NormalS Up,0",
-    "1,Potential,5,RazorCAdd,-6",
-    "0,NormalS Up,2,Fire Atk,-6",
-    "0,Stamina,4,Ice Attack,-7",
-    "0,NormalS Up,4,Slam,1",
-    "0,Sharpness,4,Constitutn,0",
-    "0,Sharpness,4,Constitutn,0",
-    "0,CutterSAdd,5,Expert,-6",
-    "0,Carving,5,NormalS Up,0",
-    "0,WindPress,4,PierceSAdd,-8",
-    "0,Carving,2,NormalS Up,1"
+    "1,,,,",
+    "0,Carving,5,Water Res,13",
+    "0,Water Atk,2,Carving,-2",
+    "0,PunishDraw,3,Carving,0",
+    "0,Eating,3,Carving,-2",
+    "0,Carving,5,Rapid Fire,3",
+    "0,Carving,2,BombStrUp,-6",
+    "0,Carving,1,Rapid Fire,1"
   ]
 }

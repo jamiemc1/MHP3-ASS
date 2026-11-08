@@ -1,32 +1,41 @@
 {
   "id": "f165",
-  "description": "uniform sampler, charm mode my_charms, 2 skills, 2 workers, 1344 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
+  "hunter_type": "gunner",
   "gender": "female",
   "hr": 4,
   "elder_star": 3,
-  "weapon_slots": 0,
+  "weapon_slots": 2,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "my_charms",
+  "charm_mode": "none",
   "skills": [
-    100,
-    137
+    22,
+    1
   ],
   "skill_names": [
-    "Hunger Halved",
-    "Blightproof"
+    "Exploiter",
+    "Attack Up [Med]"
   ],
   "my_charms": [
-    "0,Loading,3,Hunger,-9",
-    "0,Sheathe,2,Hunger,-9",
-    "0,Recoil,1,Hunger,-7",
-    "0,Precision,6,SpeedSetup,9",
-    "0,Blight Res,3,Rapid Fire,3",
-    "0,Protection,1,PelletSAdd,7",
-    "0,Rec Level,5,Blight Res,-2"
+    "0,Sharpener,2,Expert,3",
+    "0,Attack,3,PelletSAdd,4",
+    "0,Debilitate,1,Stamina,3",
+    "0,Fire Atk,5,Eating,3",
+    "0,Thundr Atk,2,FastCharge,0",
+    "0,Attack,2,BombStrUp,-4",
+    "0,Recoil,1,Fencing,1",
+    "0,Antiseptic,1,Defense,0",
+    "0,Attack,3,Gathering,-5",
+    "0,Psychic,8,Poison,2",
+    "0,Attack,2,PierceSAdd,-1",
+    "0,Defense,2,Attack,6",
+    "0,NormalS Up,5,Elemental,3",
+    "1,Constitutn,4,Anti-Theft,-5",
+    "0,PelletSAdd,5,Ice Res,6",
+    "0,Ice Attack,3,Status,0"
   ]
 }

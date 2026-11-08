@@ -1,48 +1,36 @@
 {
   "id": "f354",
-  "description": "uniform sampler, charm mode none, 4 skills, 1 workers, 6400 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode none, 5 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "female",
+  "gender": "male",
   "hr": 4,
-  "elder_star": 1,
+  "elder_star": 6,
   "weapon_slots": 2,
-  "allow_bad": true,
+  "allow_bad": false,
   "include_piercings": true,
-  "allow_event": true,
+  "allow_event": false,
   "allow_low_rank": true,
   "charm_mode": "none",
   "skills": [
-    100,
-    89,
-    205,
-    181
+    203,
+    131,
+    92,
+    178,
+    145
   ],
   "skill_names": [
-    "Hunger Halved",
-    "Dragon Element +1",
-    "Combine Success+45%",
-    "Quick Eating +2"
+    "Rewards Celeb",
+    "Mud/Snow Res",
+    "Constitution +1",
+    "Filled Up",
+    "Def Up (S)"
   ],
   "my_charms": [
-    "0,FatigueAtk,3,Guard,-1",
-    "0,Dragon Atk,2,Fate,3",
-    "2,Dragon Atk,2,Carving,-1",
-    "1,Thundr Atk,2,Crit Draw,-2",
-    "0,ClustS Add,6,Antiseptic,-4",
-    "0,SpeedSetup,8,Ice Res,-5",
-    "0,PelletS Up,5,Artisan,1",
-    "0,Guard,5,Status,2",
-    "0,Eating,2,Status,4",
-    "0,Constitutn,1,PowerCAdd,0",
-    "0,Fire Atk,6,Quake Res,-7",
-    "1,Slam,5,KO,0",
-    "1,BombStrUp,1,Gunnery,-2",
-    "1,ParalyCAdd,1,,",
-    "2,Ice Attack,3,Reload Spd,0",
-    "0,Status,4,Evasion,4",
-    "1,Attack,2,Combo Rate,2",
-    "0,FatigueAtk,3,Dragon Res,13",
-    "0,Constitutn,3,KO,4"
+    "0,Ice Attack,6,Psychic,8",
+    "0,KO,4,HiSpdGathr,0",
+    "0,Guard,2,Thundr Atk,9",
+    "1,Defense,3,,",
+    "1,Ice Res,1,BombStrUp,-8"
   ]
 }

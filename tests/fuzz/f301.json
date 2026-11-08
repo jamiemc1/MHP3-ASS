@@ -1,48 +1,30 @@
 {
   "id": "f301",
-  "description": "armour-seeded sampler, charm mode two_skill, 2 skills, 3 workers, 7200 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
-  "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
+  "description": "armour-seeded sampler, charm mode one_skill, 3 skills; quotas: torso_up",
+  "language": "Deutsch (Vuze)",
+  "hunter_type": "gunner",
   "gender": "male",
-  "hr": 2,
-  "elder_star": 3,
-  "weapon_slots": 0,
+  "hr": 6,
+  "elder_star": 4,
+  "weapon_slots": 2,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "one_skill",
   "skills": [
-    120,
-    111
+    140,
+    172,
+    19
   ],
   "skill_names": [
-    "Divine Protection",
-    "Recovery Speed +1"
+    "Best. Ohrstöpsel",
+    "Auto-Aufspürer",
+    "Fokus"
   ],
   "my_charms": [
-    "0,Recoil,2,Ice Attack,4",
-    "0,Protection,5,Recoil,-2",
-    "0,Rec Speed,5,Crag S Add,2",
-    "2,Fire Atk,5,Elemental,-1",
-    "0,PierceSAdd,4,Gluttony,1",
-    "0,Guard,6,Protection,-6",
-    "0,HearProtct,5,Stamina,0",
-    "0,Horn,5,Backpackng,10",
-    "0,Fire Res,2,Paralysis,4",
-    "2,Expert,2,Defense,-1",
-    "0,Rec Speed,1,ParalyCAdd,-1",
-    "0,Protection,1,Gathering,11",
-    "3,Protection,1,Crit Draw,-1",
-    "0,Dragon Atk,2,Rec Speed,-10",
-    "1,Protection,1,Fire Res,-9",
-    "2,Rec Speed,2,HiSpdGathr,0",
-    "0,Protection,7,Dragon Atk,8",
-    "0,Protection,3,Mud/Snow,-3",
-    "0,KO,3,Wide Area,8",
-    "0,Hunger,5,CutterSAdd,4",
-    "0,Wide Area,2,Status,-4",
-    "0,Protection,6,CutterSAdd,6",
-    "0,Guard,2,Hunger,0"
+    "0,StrafHieb,2,BombStärk.,5",
+    "0,StrafHieb,1,Schn. lad.,0",
+    "0,Handwerk,1,Schärfe,0"
   ]
 }

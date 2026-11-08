@@ -1,37 +1,46 @@
 {
   "id": "f496",
-  "description": "uniform sampler, charm mode none, 2 skills, 1 workers, 2100 evaluations (port estimate); quotas: auto_guard_charm, torso_up",
+  "description": "uniform sampler, charm mode two_skill, 5 skills; quotas: auto_guard_no_charm, two_skill_hr_below_5, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "male",
-  "hr": 6,
-  "elder_star": 5,
-  "weapon_slots": 0,
+  "hr": 1,
+  "elder_star": 6,
+  "weapon_slots": 2,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": true,
+  "allow_event": false,
   "allow_low_rank": true,
-  "charm_mode": "none",
+  "charm_mode": "two_skill",
   "skills": [
+    178,
     119,
-    2
+    197,
+    60,
+    92
   ],
   "skill_names": [
+    "Filled Up",
     "Auto-Guard",
-    "Attack Up [Lg]"
+    "Good Luck",
+    "Pellet S All Add",
+    "Constitution +1"
   ],
   "my_charms": [
-    "0,Guard Up,2,ClustS Add,-1",
-    "0,Potential,2,NormalSAdd,-5",
-    "0,Auto-Guard,10,,",
-    "0,Antiseptic,6,Poison,2",
-    "1,Expert,2,ClustS Add,-3",
-    "0,Guard,2,Defense,-1",
-    "0,Will Recov,3,PowerCAdd,8",
-    "0,Elemental,1,Attack,1",
-    "0,Eating,1,PierceS Up,2",
-    "1,Ice Res,3,Huntsman,-4",
-    "3,Evade Dist,1,Rewards,0",
-    "0,Rapid Fire,4,Health,7"
+    "0,Sheathe,3,BombStrUp,-10",
+    "0,Evade Dist,5,Constitutn,4",
+    "0,Awaken,4,Evade Dist,1",
+    "0,Recoil,4,Slam,0",
+    "0,Water Atk,4,Guard Up,-1",
+    "0,PelletS Up,2,Fire Atk,7",
+    "0,Quake Res,7,Wide Area,9",
+    "1,Sheathe,1,Rewards,0",
+    "1,Artisan,1,Slam,-2",
+    "0,Stamina,3,Sharpness,3",
+    "0,Poison,3,Gathering,10",
+    "1,PunishDraw,3,Stun,2",
+    "1,Fencing,4,HearProtct,0",
+    "0,Constitutn,4,HearProtct,1",
+    "0,Dragon Atk,5,Fate,3"
   ]
 }

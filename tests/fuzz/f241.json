@@ -1,38 +1,38 @@
 {
   "id": "f241",
-  "description": "uniform sampler, charm mode my_charms, 5 skills, 4 workers, 96768 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 5 skills; quotas: cross_type, torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
-  "gender": "female",
-  "hr": 3,
+  "gender": "male",
+  "hr": 2,
   "elder_star": 2,
-  "weapon_slots": 3,
+  "weapon_slots": 1,
   "allow_bad": false,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "my_charms",
+  "charm_mode": "none",
   "skills": [
-    0,
-    98,
-    180,
-    147,
-    120
+    67,
+    179,
+    129,
+    158,
+    72
   ],
   "skill_names": [
-    "Attack Up [Sm]",
-    "Stamina Recov Up",
-    "Quick Eating +1",
-    "Def Up (L)",
-    "Divine Protection"
+    "Parlysis Coating Add",
+    "Picky Eater",
+    "Stun Negated",
+    "Thunder Res (L)",
+    "Abnormal Status Atk +1"
   ],
   "my_charms": [
-    "0,Protection,1,Sleep,4",
-    "0,Sheathe,6,PoisonCAdd,7",
-    "0,Will Recov,6,Ice Res,13",
-    "0,Water Atk,3,NormalS Up,1",
-    "3,Rec Level,1,Sheathe,-1",
-    "0,Sharpener,1,Dragon Res,-8",
-    "0,Constitutn,6,BombStrUp,4"
+    "0,Gunnery,5,Huntsman,6",
+    "0,CutterSAdd,1,Expert,4",
+    "1,Guard,2,Artisan,1",
+    "2,Status,4,ThunderRes,-5",
+    "0,Recoil,5,Rewards,3",
+    "1,Guard Up,1,Gluttony,-8",
+    "0,Ice Res,1,FatigeCAdd,-9"
   ]
 }

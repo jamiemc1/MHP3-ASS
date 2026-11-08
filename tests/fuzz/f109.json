@@ -1,46 +1,36 @@
 {
   "id": "f109",
-  "description": "uniform sampler, charm mode slotted, 6 skills, 1 workers, 5760 evaluations (port estimate); quotas: cross_type, torso_up",
+  "description": "uniform sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, empty_slot",
   "language": "English (TeamHGG)",
   "hunter_type": "blademaster",
   "gender": "female",
   "hr": 2,
-  "elder_star": 5,
-  "weapon_slots": 0,
+  "elder_star": 4,
+  "weapon_slots": 2,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "slotted",
+  "allow_low_rank": false,
+  "charm_mode": "one_skill",
   "skills": [
-    100,
-    56,
-    129,
-    201,
-    84,
-    192
+    122,
+    19,
+    170,
+    135,
+    35
   ],
   "skill_names": [
-    "Hunger Halved",
-    "Normal S All Add",
-    "Stun Negated",
-    "Carving Expert",
-    "Thunder Element +2",
-    "Hi-SpdGathering"
+    "Poison Negated",
+    "Concentration",
+    "Trnquilizr Guru",
+    "Antiseptic",
+    "Load Up"
   ],
   "my_charms": [
-    "0,Rewards,1,Fire Res,5",
-    "0,Elemental,3,Status,-10",
-    "0,Gunnery,2,Stun,-10",
-    "0,Blight Res,1,Reload Spd,2",
-    "0,Expert,1,Hunger,8",
-    "1,Mud/Snow,4,Paralysis,-6",
-    "2,,,,",
-    "0,Thundr Atk,2,PunishDraw,-2",
-    "0,Eating,3,Sleep,0",
-    "0,ThunderRes,6,DungMaster,-10",
-    "0,Rewards,3,Expert,6",
     "1,,,,",
-    "0,ThunderRes,1,Combo Rate,13"
+    "2,,,,",
+    "2,Loading,1,Fire Atk,0",
+    "0,Loading,4,Gunnery,5",
+    "1,PunishDraw,1,Horn,-6"
   ]
 }

@@ -1,44 +1,31 @@
 {
   "id": "f169",
-  "description": "armour-seeded sampler, charm mode two_skill, 5 skills, 20 workers, 89600 evaluations (port estimate); quotas: two_skill_hr_below_5, torso_up",
+  "description": "armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
-  "hr": 4,
-  "elder_star": 1,
-  "weapon_slots": 0,
+  "hunter_type": "blademaster",
+  "gender": "female",
+  "hr": 5,
+  "elder_star": 6,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
-  "allow_event": false,
+  "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "two_skill",
+  "charm_mode": "one_skill",
   "skills": [
-    184,
-    24,
-    197,
-    203,
-    201
+    178,
+    139
   ],
   "skill_names": [
-    "Backpacking Expert",
-    "Improved KO",
-    "Good Luck",
-    "Rewards Celeb",
-    "Carving Expert"
+    "Filled Up",
+    "Earplug"
   ],
   "my_charms": [
-    "0,Protection,7,Health,-3",
-    "3,Slam,4,,",
-    "0,FatigueAtk,2,Constitutn,-1",
-    "0,FatigueAtk,5,BombStrUp,-6",
-    "0,Will Recov,5,Defense,-7",
-    "0,Thundr Atk,1,Horn,-8",
-    "1,Constitutn,2,ParalyCAdd,-4",
-    "0,Thundr Atk,4,Stun,0",
-    "0,Evasion,4,KO,-1",
-    "0,Antiseptic,5,Water Res,10",
-    "0,Horn,4,Heat Res,-8",
-    "2,Thundr Atk,2,KO,-2",
-    "2,Debilitate,1,Gunnery,5"
+    "0,KO,1,Gluttony,1",
+    "0,HearProtct,4,Constitutn,0",
+    "1,,,,",
+    "0,Paralysis,4,Huntsman,-6",
+    "0,CutterSAdd,4,Gluttony,12",
+    "0,Gunnery,4,Gluttony,-4"
   ]
 }

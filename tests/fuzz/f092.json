@@ -1,11 +1,11 @@
 {
   "id": "f092",
-  "description": "armour-seeded sampler, charm mode slotted, 2 skills, 1 workers, 2400 evaluations (port estimate); quotas: torso_up",
-  "language": "English (Athena)",
-  "hunter_type": "blademaster",
+  "description": "armour-seeded sampler, charm mode slotted, 4 skills; quotas: torso_up",
+  "language": "English (TeamHGG)",
+  "hunter_type": "gunner",
   "gender": "female",
-  "hr": 4,
-  "elder_star": 4,
+  "hr": 3,
+  "elder_star": 6,
   "weapon_slots": 3,
   "allow_bad": false,
   "include_piercings": true,
@@ -13,25 +13,39 @@
   "allow_low_rank": true,
   "charm_mode": "slotted",
   "skills": [
-    129,
-    145
+    107,
+    27,
+    168,
+    65
   ],
   "skill_names": [
-    "Stun Negated",
-    "Def Up (S)"
+    "Evasion Up",
+    "Gunnery Master",
+    "Bombardier",
+    "Cutter S Add"
   ],
   "my_charms": [
-    "0,Quake Res,3,Defense,-7",
-    "1,Loading,1,Defense,-4",
-    "0,Stamina,4,Loading,-1",
-    "0,Guard,5,Thundr Atk,9",
-    "0,Constitutn,6,Loading,3",
-    "0,Will Recov,5,Defense,-2",
-    "0,Gunnery,6,Gluttony,-7",
-    "0,Expert,4,Stun,10",
-    "0,FatigueAtk,4,SleepCAdd,3",
-    "0,Stamina,5,WindPress,2",
-    "0,KO,3,Psychic,8",
-    "0,Paralysis,3,PelletSAdd,7"
+    "0,Poison,1,Water Res,4",
+    "0,Antiseptic,3,Hunger,9",
+    "0,Crag S Add,6,ClustS Add,1",
+    "0,Potential,6,Water Res,-6",
+    "0,Sharpener,1,PierceSAdd,-10",
+    "0,Reload Spd,5,Water Res,-5",
+    "0,Protection,1,Gluttony,-9",
+    "1,Attack,1,ParalyCAdd,-6",
+    "0,Ice Attack,1,Eating,3",
+    "2,Rewards,1,Expert,-6",
+    "0,Rec Level,5,Health,-10",
+    "0,Poison,2,Rec Speed,4",
+    "0,Status,6,Recoil,3",
+    "0,Evade Dist,3,Perception,10",
+    "0,BombStrUp,3,Huntsman,3",
+    "1,BombStrUp,1,Heat Res,-7",
+    "0,Evade Dist,5,Sheathe,2",
+    "0,Mud/Snow,3,SleepCAdd,-2",
+    "2,,,,",
+    "0,Mud/Snow,7,Hunger,2",
+    "2,ThunderRes,3,Gunnery,-4",
+    "0,Attack,4,Rec Speed,4"
   ]
 }

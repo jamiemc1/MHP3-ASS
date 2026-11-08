@@ -1,28 +1,37 @@
 {
   "id": "f114",
-  "description": "armour-seeded sampler, charm mode one_skill, 2 skills, 6 workers, 1296 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode my_charms, 2 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
   "gender": "male",
-  "hr": 5,
-  "elder_star": 6,
+  "hr": 4,
+  "elder_star": 4,
   "weapon_slots": 0,
-  "allow_bad": true,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "one_skill",
+  "allow_low_rank": false,
+  "charm_mode": "my_charms",
   "skills": [
-    92,
-    122
+    122,
+    181
   ],
   "skill_names": [
-    "Constitution +1",
-    "Poison Negated"
+    "Poison Negated",
+    "Quick Eating +2"
   ],
   "my_charms": [
-    "0,FastCharge,1,Fire Res,1",
-    "0,Recoil,2,Dragon Atk,-7",
-    "1,Ice Attack,1,Expert,-4"
+    "2,Eating,2,Hunger,-3",
+    "1,Wide Area,3,Backpackng,-6",
+    "0,Debilitate,2,BombStrUp,-6",
+    "0,Carving,5,Fate,-1",
+    "0,Evasion,4,Potential,3",
+    "0,Dragon Atk,1,Gluttony,-7",
+    "0,Dragon Atk,3,Perception,2",
+    "0,Water Atk,4,Debilitate,3",
+    "0,Hunger,4,Psychic,2",
+    "1,NormalS Up,1,Potential,-1",
+    "1,Sharpener,1,Mud/Snow,-2",
+    "0,Carving,5,Fate,-1"
   ]
 }

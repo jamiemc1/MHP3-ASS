@@ -1,38 +1,39 @@
 {
   "id": "f284",
-  "description": "armour-seeded sampler, charm mode none, 2 skills, 1 workers, 3600 evaluations (port estimate); quotas: torso_up",
-  "language": "English (TeamHGG)",
+  "description": "armour-seeded sampler, charm mode slotted, 2 skills; quotas: cross_type",
+  "language": "Deutsch (Vuze)",
   "hunter_type": "blademaster",
   "gender": "male",
-  "hr": 5,
-  "elder_star": 5,
-  "weapon_slots": 2,
+  "hr": 3,
+  "elder_star": 6,
+  "weapon_slots": 3,
   "allow_bad": false,
-  "include_piercings": false,
+  "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": true,
-  "charm_mode": "none",
+  "allow_low_rank": false,
+  "charm_mode": "slotted",
   "skills": [
-    107,
-    98
+    101,
+    38
   ],
   "skill_names": [
-    "Evasion Up",
-    "Stamina Recov Up"
+    "Hunger nichtig",
+    "NachlGesch +2"
   ],
   "my_charms": [
-    "0,Will Recov,1,Debilitate,-3",
-    "0,Will Recov,5,Guard,-1",
-    "0,Carving,2,Crit Draw,3",
-    "0,Guard Up,4,Huntsman,-2",
-    "0,Horn,2,Ice Res,-1",
-    "2,Evasion,4,Dragon Atk,-1",
-    "3,Will Recov,4,Loading,-2",
-    "1,Will Recov,2,Crit Draw,-2",
-    "0,Elemental,4,Sharpener,4",
-    "1,Debilitate,1,Guard,-3",
-    "0,Antiseptic,4,Wide Area,-3",
-    "1,HearProtct,1,Will Recov,-1",
-    "0,Evade Dist,5,PoisonCAdd,-7"
+    "0,Handwerk,3,DrchAngHch,-4",
+    "0,Eigenbrödl,6,ErmdBschHz,0",
+    "0,KritHieb,4,Ausdauer,2",
+    "0,Konstitutn,3,Status,4",
+    "1,DrchAngHch,1,Hunger,-3",
+    "0,Brandabw.,5,Potenzial,4",
+    "0,Gehör,2,Hunger,-1",
+    "0,Ausweichen,4,NachlGesch,-1",
+    "1,NachlGesch,1,Experte,-7",
+    "0,Hunger,8,LähmBschHz,4",
+    "0,NachlGesch,5,Windabwehr,2",
+    "1,Block,2,Windabwehr,2",
+    "0,SchrtSzufü,5,Hunger,2",
+    "0,WssrAngHch,2,Hunger,1"
   ]
 }

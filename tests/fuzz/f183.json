@@ -1,48 +1,35 @@
 {
   "id": "f183",
-  "description": "armour-seeded sampler, charm mode one_skill, 2 skills, 6 workers, 28224 evaluations (port estimate); quotas: torso_up",
+  "description": "uniform sampler, charm mode slotted, 3 skills; quotas: empty_slot",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
+  "hunter_type": "gunner",
   "gender": "female",
-  "hr": 6,
-  "elder_star": 3,
-  "weapon_slots": 2,
+  "hr": 3,
+  "elder_star": 5,
+  "weapon_slots": 1,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "charm_mode": "slotted",
   "skills": [
-    18,
-    25
+    73,
+    208,
+    157
   ],
   "skill_names": [
-    "Unsheathe Critical",
-    "Enfeebler"
+    "Abnormal Status Atk +2",
+    "Bullet Limit",
+    "Thunder Res (S)"
   ],
   "my_charms": [
-    "0,Poison,5,Stun,-3",
-    "0,Ice Attack,7,Rapid Fire,-3",
-    "1,Water Atk,2,Sense,-6",
-    "0,FatigueAtk,6,Whim,7",
-    "0,Thundr Atk,1,ClustS Add,1",
-    "0,Rapid Fire,3,Dragon Atk,3",
-    "2,,,,",
-    "0,Water Res,3,Huntsman,10",
-    "0,Rec Level,4,Rec Speed,7",
-    "0,Guard Up,3,Slam,-3",
-    "0,Protection,6,Psychic,-5",
-    "1,Mud/Snow,4,Paralysis,-6",
-    "0,Ice Attack,4,Dragon Res,-10",
-    "0,Evade Dist,3,NormalS Up,0",
-    "1,Crit Draw,2,Recoil,1",
-    "0,Guard,2,Water Res,-5",
-    "0,Stamina,5,Awaken,2",
-    "0,Recoil,1,Guard Up,4",
-    "0,Dragon Atk,2,Sharpness,3",
-    "1,,,,",
-    "0,Blight Res,3,FastCharge,-1",
-    "1,Evade Dist,5,Cold Res,1",
-    "0,Eating,1,FatigueAtk,3"
+    "0,Quake Res,3,Water Res,2",
+    "0,ThunderRes,4,Hunger,3",
+    "0,Fencing,4,ThunderRes,-8",
+    "1,Dragon Atk,3,Ice Attack,-9",
+    "0,Dragon Atk,7,Stun,-6",
+    "0,Ice Attack,1,PelletS Up,2",
+    "1,Paralysis,2,Anti-Theft,0",
+    "1,Backpackng,3,Shot Mix,2"
   ]
 }

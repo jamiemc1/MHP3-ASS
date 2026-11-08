@@ -1,43 +1,38 @@
 {
   "id": "f061",
-  "description": "armour-seeded sampler, charm mode none, 4 skills, 1 workers, 96 evaluations (port estimate)",
+  "description": "uniform sampler, charm mode none, 4 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
-  "gender": "male",
+  "hunter_type": "blademaster",
+  "gender": "female",
   "hr": 3,
-  "elder_star": 6,
-  "weapon_slots": 0,
-  "allow_bad": false,
-  "include_piercings": true,
+  "elder_star": 4,
+  "weapon_slots": 2,
+  "allow_bad": true,
+  "include_piercings": false,
   "allow_event": true,
-  "allow_low_rank": false,
+  "allow_low_rank": true,
   "charm_mode": "none",
   "skills": [
-    189,
-    29,
-    120,
-    83
+    30,
+    152,
+    124,
+    28
   ],
   "skill_names": [
-    "Gathering +1",
-    "Unleashed +1",
-    "Divine Protection",
-    "Thunder Element +1"
+    "Unleashed +2",
+    "Fire Res (L)",
+    "Parlysis Negated",
+    "Gunnery King"
   ],
   "my_charms": [
-    "0,PunishDraw,2,Protection,-7",
-    "0,Fire Atk,3,Awaken,4",
-    "1,,,,",
-    "0,Fire Atk,3,Awaken,4",
-    "1,FatigueAtk,3,Awaken,1",
-    "0,Fire Atk,3,Awaken,4",
-    "0,Fire Res,1,Gathering,-4",
-    "0,Protection,5,Constitutn,0",
-    "0,Ice Attack,3,Thundr Atk,-8",
-    "0,Thundr Atk,6,Gluttony,9",
-    "0,Thundr Atk,3,Guard,4",
-    "0,Thundr Atk,5,ThunderRes,8",
-    "0,Thundr Atk,6,ThunderRes,-1",
-    "0,Backpackng,7,Gathering,5"
+    "0,Constitutn,1,Heat Res,-4",
+    "0,Status,4,Carving,3",
+    "0,Protection,6,Stamina,-2",
+    "0,Protection,6,Stamina,-2",
+    "0,Slam,4,Artisan,1",
+    "0,Debilitate,2,Eating,-2",
+    "1,PierceS Up,2,Fire Res,-6",
+    "0,Rec Speed,1,Water Res,-3",
+    "0,Status,1,Paralysis,7"
   ]
 }

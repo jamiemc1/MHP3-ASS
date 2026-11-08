@@ -1,32 +1,49 @@
 {
   "id": "f083",
-  "description": "uniform sampler, charm mode slotted, 3 skills, 1 workers, 1 evaluations (port estimate); quotas: empty_slot",
+  "description": "armour-seeded sampler, charm mode none, 6 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "blademaster",
+  "hunter_type": "gunner",
   "gender": "female",
-  "hr": 3,
-  "elder_star": 2,
-  "weapon_slots": 1,
-  "allow_bad": true,
+  "hr": 4,
+  "elder_star": 3,
+  "weapon_slots": 0,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "slotted",
+  "allow_low_rank": true,
+  "charm_mode": "none",
   "skills": [
-    203,
-    194,
-    28
+    56,
+    29,
+    54,
+    160,
+    84,
+    53
   ],
   "skill_names": [
-    "Rewards Celeb",
-    "Divine Whim",
-    "Gunnery King"
+    "Normal S All Add",
+    "Unleashed +1",
+    "PierceS/PierceBowUp",
+    "Ice Res (S)",
+    "Thunder Element +2",
+    "NormalS/RapidBowUp"
   ],
   "my_charms": [
-    "0,NormalSAdd,3,Perception,7",
-    "0,Sharpness,4,Eating,0",
-    "0,Constitutn,3,BombStrUp,-6",
-    "0,Evasion,4,RazorCAdd,1",
-    "0,FatigueAtk,6,Cold Res,6"
+    "0,Awaken,5,HearProtct,-1",
+    "0,Sheathe,5,Loading,0",
+    "0,Fire Res,3,PierceSAdd,-2",
+    "0,PelletS Up,1,Hunger,4",
+    "0,Awaken,1,Status,-4",
+    "0,Awaken,5,Sheathe,4",
+    "0,Paralysis,4,Ice Res,8",
+    "2,NormalS Up,3,Hunger,-6",
+    "0,Water Res,2,Stun,9",
+    "0,Poison,1,Ice Res,10",
+    "0,PierceS Up,5,ThunderRes,7",
+    "1,KO,4,SleepCAdd,-9",
+    "0,Ice Res,3,NormalSAdd,6",
+    "0,Stamina,4,Water Atk,2",
+    "0,FastCharge,5,Sheathe,3",
+    "1,Water Res,6,,"
   ]
 }

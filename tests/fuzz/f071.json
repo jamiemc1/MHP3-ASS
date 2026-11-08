@@ -1,31 +1,42 @@
 {
   "id": "f071",
-  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 1080 evaluations (port estimate); quotas: torso_up",
+  "description": "armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up",
   "language": "English (TeamHGG)",
   "hunter_type": "gunner",
-  "gender": "female",
-  "hr": 6,
-  "elder_star": 5,
-  "weapon_slots": 3,
+  "gender": "male",
+  "hr": 2,
+  "elder_star": 6,
+  "weapon_slots": 2,
   "allow_bad": true,
-  "include_piercings": true,
+  "include_piercings": false,
   "allow_event": true,
   "allow_low_rank": true,
-  "charm_mode": "my_charms",
+  "charm_mode": "none",
   "skills": [
-    189
+    170,
+    2,
+    6,
+    111
   ],
   "skill_names": [
-    "Gathering +1"
+    "Trnquilizr Guru",
+    "Attack Up [Lg]",
+    "Reckless Abandon +1",
+    "Recovery Speed +1"
   ],
   "my_charms": [
-    "0,Health,5,ThunderRes,-3",
-    "0,Rec Level,5,CutterSAdd,-9",
-    "0,FatigueAtk,4,Gunnery,-5",
-    "0,PelletS Up,5,Wide Area,-2",
-    "1,CutterSAdd,3,Gathering,-9",
-    "0,Stun,4,Gathering,-7",
-    "0,Sharpener,4,Gathering,-4",
-    "0,Thundr Atk,5,Dragon Res,10"
+    "1,Fire Atk,2,Rec Speed,-2",
+    "0,WindPress,1,Attack,7",
+    "0,Constitutn,2,Rec Speed,4",
+    "0,Expert,3,Perception,6",
+    "1,Fire Atk,2,Rec Speed,-2",
+    "1,SpeedSetup,1,Attack,-7",
+    "0,Expert,1,Precision,0",
+    "0,Psychic,3,Attack,2",
+    "0,Slam,1,Expert,-3",
+    "2,Evade Dist,2,Rec Speed,-3",
+    "0,NormalS Up,1,Expert,3",
+    "0,Slam,1,Expert,-3",
+    "2,NormalS Up,1,Expert,-4"
   ]
 }

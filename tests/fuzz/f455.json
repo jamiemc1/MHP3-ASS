@@ -1,39 +1,37 @@
 {
   "id": "f455",
-  "description": "uniform sampler, charm mode one_skill, 6 skills, 14 workers, 10080 evaluations (port estimate); quotas: cross_type, torso_up",
-  "language": "English (TeamHGG)",
+  "description": "uniform sampler, charm mode my_charms, 1 skill; quotas: empty_slot",
+  "language": "Français (Team MHP2)",
   "hunter_type": "blademaster",
-  "gender": "male",
-  "hr": 4,
-  "elder_star": 5,
+  "gender": "female",
+  "hr": 1,
+  "elder_star": 2,
   "weapon_slots": 0,
   "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
   "allow_low_rank": false,
-  "charm_mode": "one_skill",
+  "charm_mode": "my_charms",
   "skills": [
-    72,
-    17,
-    30,
-    62,
-    151,
-    133
+    2
   ],
   "skill_names": [
-    "Abnormal Status Atk +1",
-    "Unsheathe Stun",
-    "Unleashed +2",
-    "Crag S All Add",
-    "Fire Res (S)",
-    "Wind Breaker"
+    "Att. augm. (gd)"
   ],
   "my_charms": [
-    "0,Rec Level,1,CutterSAdd,-2",
-    "1,Rewards,1,Horn,-5",
-    "0,Evasion,5,Ice Res,0",
-    "0,Rec Level,6,Health,0",
-    "0,Dragon Atk,6,Rec Speed,4",
-    "0,PunishDraw,5,Stamina,3"
+    "0,Att. augm.,2,Rés.trmbl,6",
+    "1,Dégainage,3,Pique,-3",
+    "0,Att. augm.,2,Faim,10",
+    "2,Sérieux,4,Att. augm.,-5",
+    "0,Protection,3,Dépeçage,-2",
+    "0,RétVigAug.,2,Att. augm.,-4",
+    "2,Précision,1,Att. augm.,3",
+    "0,Rés.trmbl,4,Expert,0",
+    "0,Recharge,3,Att. augm.,-2",
+    "1,Att. augm.,1,Vol ineff.,-7",
+    "0,Clairvoy.,1,Paralysie,3",
+    "3,Escrime,1,Att. augm.,1",
+    "0,Garde +,1,Att. augm.,6",
+    "0,Inst.rap.,8,Att. augm.,6"
   ]
 }

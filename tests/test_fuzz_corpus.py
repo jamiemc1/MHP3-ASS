@@ -13,8 +13,7 @@ import pytest
 from mhp3ass.charms.my_charms import LineOutcome, load_my_charms
 from mhp3ass.charms.validity import CharmValidity
 from mhp3ass.data import GameData, apply_language, load_game_data
-from mhp3ass.data.loaders import read_skill_types
-from mhp3ass.model import HunterType
+from mhp3ass.data.loaders import other_hunter_types_skill, read_skill_types
 from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import formulate_query
 
@@ -51,13 +50,6 @@ def games_by_language(legacy_data_dir: Path) -> dict[str, GameData]:
         apply_language(game, folder)
         games[folder.name] = game
     return games
-
-
-def _cross_type(skill_type: int, hunter_type: HunterType) -> bool:
-    mismatched = (skill_type == 1 and hunter_type is HunterType.GUNNER) or (
-        skill_type == 2 and hunter_type is HunterType.BLADEMASTER
-    )
-    return mismatched
 
 
 @pytest.fixture(scope="module")
@@ -101,7 +93,8 @@ def fuzz_facts(
                 torso_up=any(armor.torso_inc for pieces in query.rel_armor for armor in pieces),
                 empty_slot=0 in sizes,
                 cross_type=any(
-                    _cross_type(skill_types[index], spec.hunter_type) for index in spec.skills
+                    other_hunter_types_skill(skill_types[index], spec.hunter_type)
+                    for index in spec.skills
                 ),
             )
         )
@@ -143,9 +136,17 @@ def test_quotas_are_met(fuzz_facts):
         matching = sum(1 for facts in fuzz_facts if predicate(facts))
         return matching
 
+    def auto_guard_worker(facts: FuzzFacts) -> bool:
+        # StartSearch's Auto-Guard path runs only in these modes (Form1.h:1274).
+        reached = facts.auto_guard and facts.charm_mode in ("slotted", "one_skill", "two_skill")
+        return reached
+
     minimums = {
-        "auto_guard_with_charm": (count(lambda f: f.auto_guard and f.auto_guard_charm), 13),
-        "auto_guard_without_charm": (count(lambda f: f.auto_guard and not f.auto_guard_charm), 12),
+        "auto_guard_with_charm": (count(lambda f: auto_guard_worker(f) and f.auto_guard_charm), 13),
+        "auto_guard_without_charm": (
+            count(lambda f: auto_guard_worker(f) and not f.auto_guard_charm),
+            12,
+        ),
         "torso_up": (count(lambda f: f.torso_up), 50),
         "empty_slot": (count(lambda f: f.empty_slot), 25),
         "cross_type": (count(lambda f: f.cross_type), 25),

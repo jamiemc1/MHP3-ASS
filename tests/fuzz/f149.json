@@ -1,38 +1,46 @@
 {
   "id": "f149",
-  "description": "uniform sampler, charm mode my_charms, 1 skill, 3 workers, 3 evaluations (port estimate); quotas: empty_slot",
+  "description": "uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up",
   "language": "English (TeamHGG)",
-  "hunter_type": "gunner",
+  "hunter_type": "blademaster",
   "gender": "male",
   "hr": 2,
   "elder_star": 5,
   "weapon_slots": 0,
-  "allow_bad": true,
+  "allow_bad": false,
   "include_piercings": true,
   "allow_event": true,
-  "allow_low_rank": false,
-  "charm_mode": "my_charms",
+  "allow_low_rank": true,
+  "charm_mode": "two_skill",
   "skills": [
-    203
+    180
   ],
   "skill_names": [
-    "Rewards Celeb"
+    "Quick Eating +1"
   ],
   "my_charms": [
-    "0,Rewards,3,Rec Level,2",
-    "0,Will Recov,1,Wide Area,1",
-    "1,Rewards,5,Evade Dist,0",
-    "0,Guard,1,Attack,7",
-    "0,WindPress,3,Rewards,1",
-    "2,Rewards,2,BombStrUp,-5",
-    "0,Rewards,4,Wide Area,5",
-    "2,Status,5,Rewards,-2",
-    "0,Evasion,5,Ice Attack,4",
-    "0,HearProtct,2,Rewards,2",
-    "0,NormalS Up,2,Rewards,2",
-    "0,Rewards,1,Hunger,2",
-    "0,HearProtct,5,Rewards,-1",
-    "0,Rewards,4,Ice Attack,-6",
-    "2,Rewards,2,Will Recov,-3"
+    "0,Fencing,1,Eating,0",
+    "1,NormalS Up,1,Eating,-1",
+    "0,Eating,2,Attack,-5",
+    "0,Eating,3,Crag S Add,8",
+    "0,Eating,1,Wide Area,9",
+    "0,BombStrUp,5,Ice Res,-6",
+    "0,Protection,3,Defense,-2",
+    "0,Potential,3,Rapid Fire,2",
+    "0,Artisan,2,Horn,-9",
+    "0,PelletSAdd,5,Anti-Theft,2",
+    "0,CutterSAdd,5,Heat Res,6",
+    "0,Will Recov,2,Eating,1",
+    "0,Quake Res,4,Fortitude,8",
+    "0,Fire Atk,6,Fire Res,6",
+    "0,Sleep,2,FatigeCAdd,8",
+    "0,Reload Spd,6,Sharpener,8",
+    "1,Eating,3,FatigueAtk,0",
+    "2,Eating,1,Attack,1",
+    "0,Sharpness,1,Recoil,-2",
+    "0,Eating,4,Water Res,7",
+    "1,Crit Draw,1,Will Recov,2",
+    "0,Eating,2,Ice Attack,3",
+    "0,PelletS Up,2,KO,-1"
   ]
 }
