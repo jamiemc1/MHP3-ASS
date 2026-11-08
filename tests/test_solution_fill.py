@@ -367,3 +367,51 @@ def test_body_one_slot_pass_retries_with_overkill(make_slotted_data, attack):
 
     assert data.solution.body_decorations == [jewel]
     assert data.solution.torso_slots_spare == 0
+
+
+def test_add_decorations23_skips_detrimental_jewels_only_when_not_allowed(
+    make_data, attack, defense
+):
+    # Defense -1 would leave relevant Defense (3 of 3 needed) short.
+    defense.relevant = True
+    jewel = _jewel("Attack[2]", attack, 3, slots=2, second=defense, second_amount=-1)
+
+    taken = []
+    for allow_detrimental in (False, True):
+        data = make_data([jewel], need={attack: 10, defense: 3}, abilities={attack: 0, defense: 3})
+        add_decorations23(data, 2, 1, 1, [], allow_bad=True, allow_detrimental=allow_detrimental)
+        taken.append(len(data.solution.decorations))
+
+    assert taken == [0, 1]
+
+
+def test_add_decorations1_without_bad_skips_a_second_skill_reaching_minus_ten(
+    make_data, attack, defense
+):
+    jewel = _jewel("Attack[1]", attack, 1, second=defense, second_amount=-1)
+
+    taken = []
+    for allow_bad in (False, True):
+        data = make_data([jewel], need={attack: 1}, abilities={attack: 0, defense: -9})
+        add_decorations1(data, 1, 1, [], allow_bad=allow_bad, allow_overkill=True)
+        taken.append(len(data.solution.decorations))
+
+    assert taken == [0, 1]
+
+
+def test_calculate_decorations_passes_allow_bad_to_every_size(make_slotted_data, attack, defense):
+    # One group of each size, one jewel of each size, all with Defense -1 from -9.
+    jewels = [
+        _jewel(f"Attack[{slots}]", attack, amount, slots=slots, second=defense, second_amount=-1)
+        for slots, amount in ((1, 1), (2, 3), (3, 5))
+    ]
+
+    taken = []
+    for allow_bad in (False, True):
+        data = make_slotted_data(
+            jewels, {attack: 20}, {attack: 0, defense: -9}, slots_spare=[0, 1, 1, 1]
+        )
+        calculate_decorations(data, allow_bad=allow_bad, allow_detrimental=True)
+        taken.append(len(data.solution.decorations))
+
+    assert taken == [0, 3]

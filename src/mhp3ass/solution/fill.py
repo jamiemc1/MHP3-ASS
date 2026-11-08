@@ -27,10 +27,12 @@ class UndefinedScoreError(IndexError):
 def point_score(actual_good: int) -> int:
     """``point_score[ actual_good ]`` in ``GetScore`` (Solution.cpp:326-328).
 
-    The array has 6 elements, and ``MatchesQuery`` reads past it: up to index
-    20 on shipped data. In the harness build the words after it are method
-    thunk addresses patched in at load, so their values change from run to
-    run, but each is above every in-bounds score and they rise with the index
+    The array has 6 elements, and ``MatchesQuery`` reads past it: the largest
+    index shipped data can reach is 20 (a 3-slot body jewel of 5 points at
+    torso multiplier 4). The harness probe pins indices 0-22. In the harness
+    build the words after the array are method thunk addresses patched in at
+    load, so their values change from run to run, but each is above every
+    in-bounds score and they rise with the index
     (``tests/golden/data/solution-probes.json.gz``). Scores are only ever
     compared, so these stand-ins, with the same order, choose the same
     decorations. Beyond index 22 nothing is pinned, so this raises.
@@ -242,7 +244,6 @@ def calculate_decorations(
         # The original dereferences the null array handle here.
         raise ValueError("slots_spare is allocated by get_initial_data first")
     multiplier = solution.torso_multiplier
-    flags = {"allow_bad": allow_bad, "allow_detrimental": allow_detrimental}
     body_slots = [0, 0, 0, 0]
     temp_slots = [0, slots_spare[1], slots_spare[2], slots_spare[3]]
 
@@ -252,13 +253,25 @@ def calculate_decorations(
     )
 
     body_slots[3] = add_decorations23(
-        data, 3, body_slots[3], multiplier, solution.body_decorations, **flags
+        data,
+        3,
+        body_slots[3],
+        multiplier,
+        solution.body_decorations,
+        allow_bad=allow_bad,
+        allow_detrimental=allow_detrimental,
     )
     body_slots[1] = as_unsigned(body_slots[1] + body_slots[3])
     body_slots[2] = as_unsigned(body_slots[2] + body_slots[3])
     body_slots[3] = 0
     temp_slots[3] = add_decorations23(
-        data, 3, temp_slots[3], 1, solution.non_body_decorations, **flags
+        data,
+        3,
+        temp_slots[3],
+        1,
+        solution.non_body_decorations,
+        allow_bad=allow_bad,
+        allow_detrimental=allow_detrimental,
     )
     slots_spare[3] = as_unsigned(slots_spare[3] - (slots_spare[3] - temp_slots[3]))
     temp_slots[1] = as_unsigned(temp_slots[1] + temp_slots[3])
@@ -266,13 +279,25 @@ def calculate_decorations(
     temp_slots[3] = 0
 
     body_slots[2] = add_decorations23(
-        data, 2, body_slots[2], multiplier, solution.body_decorations, **flags
+        data,
+        2,
+        body_slots[2],
+        multiplier,
+        solution.body_decorations,
+        allow_bad=allow_bad,
+        allow_detrimental=allow_detrimental,
     )
     body_slots[1] = as_unsigned(body_slots[1] + 2 * body_slots[2])
     body_slots[2] = 0
     before = temp_slots[2]
     temp_slots[2] = add_decorations23(
-        data, 2, temp_slots[2], 1, solution.non_body_decorations, **flags
+        data,
+        2,
+        temp_slots[2],
+        1,
+        solution.non_body_decorations,
+        allow_bad=allow_bad,
+        allow_detrimental=allow_detrimental,
     )
     num_2slot_decorations = as_unsigned(before - temp_slots[2])
     if num_2slot_decorations > slots_spare[2]:
