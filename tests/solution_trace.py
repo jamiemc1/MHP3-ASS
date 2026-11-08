@@ -19,7 +19,8 @@ from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
-from mhp3ass.solution import finish, has_enough_points, matches_query
+from mhp3ass.search import armor_choices
+from mhp3ass.solution import finish, has_enough_points, match
 from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
 from mhp3ass.solution.charm_reduction import (
     LegacyListIndexError,
@@ -116,8 +117,7 @@ def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCas
     """
     for golden in goldens:
         query = formulate_query(game, QuerySpec.from_json(golden.query))
-        # DoWork's nullptr piece for an empty slot (Form1.h:1865-1869).
-        slots: list[list[Armor | None]] = [list(slot) or [None] for slot in query.rel_armor]
+        slots = armor_choices(query)
         templates = [
             template_charm(worker["template"], game) for worker in golden.header["workers"]
         ]
@@ -385,43 +385,33 @@ def _outcome(case: TraceCase) -> str:
 
 
 def matches_query_mismatches(goldens: list[TraceGolden], game: GameData) -> list[str]:
-    """Runs the port's ``matches_query`` once per sample and compares its outcome,
-    exception type and final state with the trace's last stage (``final``,
-    the stage it was rejected at, or ``threw``)."""
+    """Runs MatchesQuery's body once per sample and compares how it ended
+    (accepted, which check rejected it, or the exception type) and its state,
+    ``need`` included, with the trace's last stage (``final``, the stage it
+    was rejected at, or ``threw``)."""
     skill_index = {skill: index for index, skill in enumerate(game.skills)}
     mismatches = []
     for case in trace_cases(goldens, game):
         charm = case.template.copy() if case.template is not None else None
         solution = Solution(armors=list(case.armors), charm=charm)
+        data = new_calculation_data(solution, case.query)
         raised = None
         try:
-            accepted = matches_query(solution, case.query, game)
+            outcome = match(data, game).value
         except (LegacyNullReferenceError, LookupError) as error:
             raised = _dotnet_exception(error)
-            accepted = False
-        if raised is not None:
             outcome = "exception"
-        elif accepted:
-            outcome = "accepted"
-        else:
-            outcome = "rejected"
         expected = _outcome(case)
-        if outcome != expected and not (outcome == "rejected" and expected.startswith("rejected")):
-            mismatches.append(f"{case.label}: {outcome}, not {expected}")
+        if outcome != expected or raised != case.exception:
+            mismatches.append(f"{case.label}: {outcome} {raised}, not {expected} {case.exception}")
             continue
-        if raised is not None and raised != case.exception:
-            mismatches.append(f"{case.label}: raised {raised}, not {case.exception}")
-            continue
-        # The trace's last stage holds the state matches_query stops in.
         last_stage = list(case.states)[-1]
-        # matches_query keeps its CalculationData to itself: ``need`` is left out.
-        data = new_calculation_data(solution, case.query)
         ours = snapshot(solution, data, skill_index)
         expected_state = case.states[last_stage]
         differing = sorted(
             key
             for key in ours.keys() | expected_state.keys()
-            if key != "need" and ours.get(key) != expected_state.get(key)
+            if ours.get(key) != expected_state.get(key)
         )
         if differing:
             mismatches.append(f"{case.label} after {last_stage}: {differing}")

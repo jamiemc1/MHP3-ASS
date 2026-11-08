@@ -7,6 +7,8 @@ package's modules.
 
 from __future__ import annotations
 
+from enum import Enum
+
 from mhp3ass.data import GameData
 from mhp3ass.data.text import as_unsigned
 from mhp3ass.query import Query
@@ -52,25 +54,25 @@ def finish(data: CalculationData) -> None:
         solution.difficulty = as_unsigned(solution.difficulty + decoration.difficulty)
 
 
-def matches_query(solution: Solution, query: Query, game: GameData) -> bool:
-    """``Solution::MatchesQuery`` (Solution.cpp:660-724).
+class Outcome(Enum):
+    """How ``MatchesQuery`` ended: accepted, or which of its two checks returned false."""
 
-    Fills ``solution`` (armour and a per-combination copy of the worker's
-    charm template) for ``query`` and says whether it gives every query
-    skill. The filling pass allows bad skills and detrimental gems whatever
-    the query says; the query's ``allow_bad`` only decides whether bad skills
-    must then be repaired. A rejected solution keeps the state it reached.
-    Reads ``game`` for the decorations the bad-skill repairs may use, and
-    the abilities' ``relevant`` flags the query's relevance set.
-    """
-    data = new_calculation_data(solution, query)
+    ACCEPTED = "accepted"
+    REJECTED_POINTS = "rejected_points"  # Solution.cpp:679
+    REJECTED_BAD_SKILLS = "rejected_bad_skills"  # Solution.cpp:684
+
+
+def match(data: CalculationData, game: GameData) -> Outcome:
+    """``Solution::MatchesQuery``'s body (Solution.cpp:672-723) on ``data``, which
+    ``new_calculation_data`` set up; ``matches_query`` is the usual entry point."""
+    solution = data.solution
     get_initial_data(data)
     calculate_decorations(data, allow_bad=True, allow_detrimental=True)
     if not has_enough_points(data):
-        return False
+        return Outcome.REJECTED_POINTS
     calculate_extra_skills(data)
-    if not query.allow_bad and not check_bad_skills(data, game):
-        return False
+    if not data.query.allow_bad and not check_bad_skills(data, game):
+        return Outcome.REJECTED_BAD_SKILLS
 
     if solution.charm is not None:
         if solution.charm.custom:
@@ -82,7 +84,23 @@ def matches_query(solution: Solution, query: Query, game: GameData) -> bool:
             reduce_charm(data)
             calculate_extra_skills(data)
     finish(data)
-    return True
+    return Outcome.ACCEPTED
+
+
+def matches_query(solution: Solution, query: Query, game: GameData) -> bool:
+    """``Solution::MatchesQuery`` (Solution.cpp:660-724).
+
+    Fills ``solution`` (armour and a per-combination copy of the worker's
+    charm template) for ``query`` and says whether it gives every query
+    skill. The filling pass allows bad skills and detrimental gems whatever
+    the query says; the query's ``allow_bad`` only decides whether bad skills
+    must then be repaired. A rejected solution keeps the state it reached.
+    Reads ``game`` for the decorations the bad-skill repairs may use, and the
+    abilities' ``relevant`` flags that building the query set.
+    """
+    data = new_calculation_data(solution, query)
+    accepted = match(data, game) is Outcome.ACCEPTED
+    return accepted
 
 
 def calculate_data(solution: Solution) -> None:

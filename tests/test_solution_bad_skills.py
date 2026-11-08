@@ -25,9 +25,6 @@ from mhp3ass.solution.extra_skills import calculate_extra_skills
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution, new_calculation_data
 from solution_builders import make_jewel
 
-# The bad-skill stages are checked against every trace with the rest of
-# MatchesQuery's stages, in test_matches_query.py.
-
 
 @dataclass(frozen=True)
 class UpAndDown:
