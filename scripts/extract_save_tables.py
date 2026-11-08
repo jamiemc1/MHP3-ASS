@@ -26,13 +26,38 @@ class ByteTable:
     last_line: int
 
 
-def _braced_bytes(lines: list[str], start: int) -> ByteTable:
-    """The hex bytes of the first ``gcnew array< Byte >{ ... }`` at or after line ``start``."""
-    gcnew_line = next(i for i in range(start, len(lines)) if "gcnew" in lines[i])
+def _source_lines(path: Path) -> list[str]:
+    """The file's lines with comments blanked out, so line numbers still match."""
+    text = path.read_text(encoding="utf-8")
+    without_blocks = re.sub(
+        r"/\*.*?\*/", lambda match: "\n" * match.group().count("\n"), text, flags=re.DOTALL
+    )
+    without_comments = re.sub(r"//[^\n]*", "", without_blocks)
+    lines = without_comments.splitlines()
+    return lines
+
+
+def _find(lines: list[str], pattern: str, after: int = 0) -> int:
+    """The first line at or after ``after`` matching ``pattern``."""
+    index = next((i for i in range(after, len(lines)) if re.search(pattern, lines[i])), None)
+    if index is None:
+        raise SystemExit(f"no line matching {pattern!r} after line {after + 1}")
+    return index
+
+
+def _braced_bytes(lines: list[str], start: int, max_gap: int) -> ByteTable:
+    """The hex bytes of the ``gcnew array< Byte >{ ... }`` within ``max_gap`` lines
+    of line index ``start``."""
+    gcnew_line = next(
+        (i for i in range(start, min(start + max_gap + 1, len(lines))) if "gcnew" in lines[i]),
+        None,
+    )
+    if gcnew_line is None:
+        raise SystemExit(f"no gcnew initialiser within {max_gap} lines of line {start + 1}")
     text = "\n".join(lines[gcnew_line:])
     opening = text.index("{")
     closing = text.index("}", opening)
-    hex_bytes = re.findall(r"0x([0-9A-Fa-f]{2})\b", text[opening:closing])
+    hex_bytes = re.findall(r"\b0x([0-9A-Fa-f]{1,2})\b", text[opening:closing])
     table = ByteTable(
         values=bytes(int(token, 16) for token in hex_bytes),
         first_line=gcnew_line + text[:opening].count("\n") + 1,
@@ -41,9 +66,11 @@ def _braced_bytes(lines: list[str], start: int) -> ByteTable:
     return table
 
 
-def _find(lines: list[str], pattern: str) -> int:
-    index = next(i for i, line in enumerate(lines) if re.search(pattern, line))
-    return index
+def _case_bytes(lines: list[str], function: str, label: str) -> ByteTable:
+    """The array a ``case <label>:`` of ``function``'s switch returns, on the same line."""
+    case_line = _find(lines, rf"\bcase {label}:", after=_find(lines, rf"\b{function}\s*\("))
+    table = _braced_bytes(lines, case_line, max_gap=0)
+    return table
 
 
 def _hex_literal(values: bytes, per_line: int = 16) -> str:
@@ -92,17 +119,18 @@ def main() -> None:
     repo_root = Path(__file__).resolve().parent.parent
     game_layer = "SaveDataEncryption.cpp"
     system_layer = "PSPCryptoEngine.cpp"
-    game_lines = (repo_root / "legacy" / game_layer).read_text(encoding="utf-8").splitlines()
-    system_lines = (repo_root / "legacy" / system_layer).read_text(encoding="utf-8").splitlines()
+    game_lines = _source_lines(repo_root / "legacy" / game_layer)
+    system_lines = _source_lines(repo_root / "legacy" / system_layer)
+    decryption_table_line = _find(game_lines, r"\bGetDecryptionTable\(\)")
+    game_key_line = _find(system_lines, r"\bmhp3_gamekey\s*=")
     tables = {
-        "SUBSTITUTION_TABLE": _braced_bytes(
-            game_lines, _find(game_lines, r"GetDecryptionTable\(\)")
-        ),
-        "GAME_KEY": _braced_bytes(system_lines, _find(system_lines, r"mhp3_gamekey\s*=")),
-        "SD_KEY_6": _braced_bytes(system_lines, _find(system_lines, r"case 6:")),
-        "SD_KEY_7": _braced_bytes(system_lines, _find(system_lines, r"case 7:")),
-        "AES_KEY_0X12": _braced_bytes(system_lines, _find(system_lines, r"case 0x12:")),
-        "AES_KEY_0X64": _braced_bytes(system_lines, _find(system_lines, r"case 0x64:")),
+        # The function's own brace and return statement come before the initialiser.
+        "SUBSTITUTION_TABLE": _braced_bytes(game_lines, decryption_table_line, max_gap=2),
+        "GAME_KEY": _braced_bytes(system_lines, game_key_line, max_gap=0),
+        "SD_KEY_6": _case_bytes(system_lines, function="GetSDKey", label="6"),
+        "SD_KEY_7": _case_bytes(system_lines, function="GetSDKey", label="7"),
+        "AES_KEY_0X12": _case_bytes(system_lines, function="getAESKeyFromSeed", label="0x12"),
+        "AES_KEY_0X64": _case_bytes(system_lines, function="getAESKeyFromSeed", label="0x64"),
     }
     sizes = {name: len(table.values) for name, table in tables.items()}
     expected = {name: 256 if name == "SUBSTITUTION_TABLE" else 16 for name in tables}
