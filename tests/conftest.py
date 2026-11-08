@@ -17,6 +17,7 @@ from goldens import (
     read_trace_goldens,
 )
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
+from mhp3ass.charms.location import CharmLocationIndex
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
@@ -159,6 +160,12 @@ def validity(charm_tables: CharmTables, teamhgg_game: GameData) -> CharmValidity
 
 
 @pytest.fixture(scope="session")
+def charm_location_index(charm_tables: CharmTables, teamhgg_game: GameData) -> CharmLocationIndex:
+    """FindCharm2's table entries grouped by ability, over ``charm_tables``."""
+    return CharmLocationIndex.build(charm_tables, abilities=teamhgg_game.abilities)
+
+
+@pytest.fixture(scope="session")
 def language_names(golden_data_dir: Path) -> dict[str, Any]:
     """Harness name dumps keyed by language folder name."""
     names_dir = golden_data_dir / "names"
@@ -291,6 +298,23 @@ def best_decorations_golden(golden_data_dir: Path) -> Any:
 def solution_probes_golden(golden_data_dir: Path) -> Any:
     """Harness solution-probes output: GetScore's point_score comparisons."""
     return read_golden(golden_data_dir / "solution-probes.json.gz")
+
+
+@pytest.fixture(scope="session")
+def charm_location_golden(golden_data_dir: Path) -> Any:
+    """Harness charm-location output: FindCharm2 calls and parsed charm names."""
+    return read_golden(golden_data_dir / "charm-location.json.gz")
+
+
+@pytest.fixture(scope="session")
+def games_by_language(legacy_data_dir: Path) -> dict[str, GameData]:
+    """A game in each shipped language. Tests must not mutate them."""
+    games = {}
+    for language_dir in sorted((legacy_data_dir / "Languages").iterdir()):
+        game = load_game_data(legacy_data_dir)
+        apply_language(game, language_dir)
+        games[language_dir.name] = game
+    return games
 
 
 @pytest.fixture(scope="session")
