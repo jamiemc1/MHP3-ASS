@@ -4,21 +4,26 @@ harness's decrypt-save dump (SaveDump.cpp)."""
 from __future__ import annotations
 
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
 import pytest
 
-from mhp3ass.charms.my_charms import my_charms_text
+from mhp3ass.charms.my_charms import my_charms_text, save_my_charms
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.charms.validity import CharmValidity
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Charm
 from mhp3ass.savefile.import_charms import (
     ImportedCharacter,
+    NotASaveFileError,
     SaveFileError,
+    SaveImport,
     decode_charm_record,
+    default_import,
     import_charms,
     load_character,
+    read_save,
     select_best,
 )
 
@@ -278,3 +283,46 @@ def test_import_skips_hacked_and_unticked_charms_and_marks_the_rest_custom(
 
     assert imported == [kept]
     assert (kept.custom, unticked.custom, hacked.custom) == (True, False, False)
+
+
+def test_importing_your_save_writes_the_guis_file(
+    save_bytes: bytes,
+    save_golden: Any,
+    gui_imported_mycharms: list[str],
+    load_teamhgg_game: Callable[[], GameData],
+    validity: CharmValidity,
+    tmp_path: Path,
+):
+    """Save file in, mycharms.txt out, as pressing Import straight away does."""
+    game = load_teamhgg_game()
+    save_import = read_save(save_bytes, game, validity)
+    output = tmp_path / "mycharms.txt"
+
+    save_my_charms(output, default_import(save_import, game))
+
+    expected_default = next(
+        character["slot"]
+        for character in save_golden["characters"]
+        if character["default_selection"]
+    )
+    expected_cheats = any(
+        charm["hacked"] for character in save_golden["characters"] for charm in character["charms"]
+    )
+    assert (save_import.default_slot, save_import.cheats) == (expected_default, expected_cheats)
+    # Bytes, not read_text: the file must use the original's CRLF line endings.
+    assert output.read_bytes().decode("utf-8").split("\r\n")[:-1] == gui_imported_mycharms
+
+
+@pytest.mark.parametrize("length", [0, 0x121000, 0x121011])
+def test_a_file_of_any_other_size_is_not_a_save(
+    length: int, teamhgg_game: GameData, validity: CharmValidity
+):
+    with pytest.raises(NotASaveFileError, match="1,183,760 bytes"):
+        read_save(bytes(length), teamhgg_game, validity)
+
+
+def test_a_save_without_charms_imports_nothing(load_teamhgg_game: Callable[[], GameData]):
+    game = load_teamhgg_game()
+    save_import = SaveImport(characters=[None, None, None], default_slot=None, cheats=False)
+
+    assert default_import(save_import, game) == []
