@@ -15,6 +15,8 @@ from mhp3ass.charms.naming import charms_equal
 from mhp3ass.charms.validity import CharmValidity
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Charm
+from mhp3ass.savefile.game_layer import decrypt_game_layer
+from mhp3ass.savefile.system_layer import decrypt_system_layer
 
 
 class SaveFileError(ValueError):
@@ -157,4 +159,50 @@ def import_charms(charms: list[Charm], ticked: list[bool]) -> list[Charm]:
         if is_ticked and not charm.hacked:
             charm.custom = True
             imported.append(charm)
+    return imported
+
+
+class NotASaveFileError(SaveFileError):
+    """A file of the wrong size: the import button refuses it (Form1.h:2326-2332)."""
+
+
+@dataclass(eq=False)
+class SaveImport:
+    """What the import dialog opens with: the three character slots."""
+
+    characters: list[ImportedCharacter | None]
+    # The slot the dialog selects first: the first with charms (ImportCharms.h:448-455).
+    default_slot: int | None
+    # The dialog shows its "cheater" message box (ImportCharms.h:445-446).
+    cheats: bool
+
+
+def read_save(data: bytes, game: GameData, validity: CharmValidity) -> SaveImport:
+    """The import button and ``LoadCharms( data )`` (Form1.h:2326-2335,
+    ImportCharms.h:438-456): check the size, decrypt both layers, load every slot."""
+    if len(data) != 0x121010:
+        raise NotASaveFileError(
+            f"an MHP3rd save file is {0x121010:,} bytes, this one is {len(data):,}"
+        )
+    decrypted = decrypt_game_layer(decrypt_system_layer(data))
+    characters = [load_character(decrypted, slot, game, validity) for slot in range(3)]
+    default_slot = next(
+        (slot for slot, character in enumerate(characters) if character and character.charms),
+        None,
+    )
+    cheats = any(character.cheats for character in characters if character is not None)
+    save_import = SaveImport(characters=characters, default_slot=default_slot, cheats=cheats)
+    return save_import
+
+
+def default_import(save_import: SaveImport, game: GameData) -> list[Charm]:
+    """The charms pressing Import straight away adds: the default character's, as
+    Select Best ticks them. Empty when no character has charms."""
+    if save_import.default_slot is None:
+        return []
+    character = save_import.characters[save_import.default_slot]
+    if character is None:
+        raise ValueError(f"default slot {save_import.default_slot} has no character")
+    charms = [imported.charm for imported in character.charms]
+    imported = import_charms(charms, select_best(charms, game))
     return imported
