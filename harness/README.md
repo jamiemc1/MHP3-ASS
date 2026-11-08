@@ -79,3 +79,13 @@ This writes `tests/golden/data/`, `tests/golden/search/`, `tests/golden/relevanc
 for queries and saves from personal data, `tests/savefile/golden/`
 (gitignored). Output is byte-identical across runs. Copy the files back to
 the development machine and commit them there.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1 -Fuzz
+```
+
+This writes only `tests/golden/fuzz/`: one search per query in `tests/fuzz/`,
+with solution files for results of at most 5,000 lines and exceptions
+recorded in the manifest. It takes 10-15 minutes, so the default run skips
+it. Rerun it whenever `SearchDump.cpp`, `Workers.cpp`, `QueryFile.cpp`,
+anything under `legacy/`, or the fuzz corpus changes.
