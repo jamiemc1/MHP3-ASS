@@ -49,6 +49,7 @@ harness\Release\Harness.exe                      # prints usage
 | `search <query.json> --out <prefix> --candidates` | Also `<prefix>.candidates.txt.gz`: every solution each worker found before duplicate removal, as `<worker>\t<charm name>\t<solution line>`. `generate-goldens.ps1` passes it for `gui_order_dependent` queries |
 | `relevance <query.json> --out <file>` | `GetRelevantData` for one query (relevant abilities and flags; relevant and inferior armour per slot, with `no_skills` and `danger`; relevant and inferior decorations) and `GetCharms` for one- and two-skill charms. Charm fields in the query are ignored |
 | `best-decorations --out <file>` | `GetBestDecoration( ability, max_slots, query )` for every ability, max slots 0-3, HR 1-6 and village 1-6 |
+| `solution-probes --out <file>` | What `GetScore`'s `point_score` returns for indices 0-22 (in bounds verbatim; all of them as dense ranks, since past the 6-element array this build reads load-time method thunks that change per run), and the private `Solution` methods reachable by reflection |
 
 `<language>` is a folder under `legacy/Run/Data/Languages`. The GUI defaults
 to `English (TeamHGG)` on first run.

@@ -43,6 +43,7 @@ $mycharmsFiles = @(Get-ChildItem -File -Filter "*.txt" (Join-Path $repoRoot "tes
     Sort-Object Name | ForEach-Object { $_.FullName })
 Invoke-Harness dump-models @mycharmsFiles --lang $Language --out (Join-Path $dataDir "models.json.gz")
 Invoke-Harness best-decorations --out (Join-Path $dataDir "best-decorations.json.gz")
+Invoke-Harness solution-probes --out (Join-Path $dataDir "solution-probes.json.gz")
 
 $languagesDir = Join-Path $repoRoot "legacy\Run\Data\Languages"
 # PowerShell variable names are case-insensitive: don't reuse $Language here.
