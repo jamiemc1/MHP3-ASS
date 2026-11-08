@@ -1,0 +1,112 @@
+"""Reading charms from a decrypted save, as the import dialog does.
+
+Ported from ``ImportCharms::LoadCharms( data, char_num )``
+(``legacy/ImportCharms.h:369-436``). The dialog's list view and radio
+buttons become plain data; the TUI shows them.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+from mhp3ass.charms.validity import CharmValidity
+from mhp3ass.data import GameData
+from mhp3ass.model import AbilityPair, Charm
+
+
+class SaveFileError(ValueError):
+    """A save the original's import would fail on."""
+
+
+@dataclass(eq=False)
+class ImportedCharm:
+    """A charm and the six record bytes it was decoded from."""
+
+    charm: Charm
+    raw: bytes
+
+
+@dataclass(eq=False)
+class ImportedCharacter:
+    """One of the save's three character slots that holds a character."""
+
+    slot: int
+    # The radio button's text: the character's name, or None if it has no charms
+    # (the dialog shows "No charms found" and disables the button).
+    name: str | None
+    charms: list[ImportedCharm] = field(default_factory=list)
+    # Some charm is neither generated nor legal: the dialog warns once per import.
+    cheats: bool = False
+
+
+def _charm_offset(slot: int) -> int:
+    """Where a character's data starts in the decrypted save (ImportCharms.h:372)."""
+    offset = 0x800 + slot * 0x60000
+    return offset
+
+
+def decode_charm_record(raw: bytes, game: GameData) -> Charm:
+    """A charm from the first six bytes of an equipment record (ImportCharms.h:398-408).
+
+    Skill indices are 1-based into ``ordered_abilities``, 0 for none. The
+    first skill's points are stored minus 2 in a nibble, so 14 and 15 decode
+    to 0 and 1. The second's are a 4-bit value with a sign flag (clear for
+    negative, subtracting 16), plus 2. A charm with no first skill and a
+    second one keeps that skill first, with its possibly negative points.
+    """
+    amount1 = ((raw[2] >> 4) + 2) % 16
+    amount2 = ((raw[3] & 0x3C) >> 2) - (0 if raw[3] & 0x80 else 16) + 2
+    ability1 = raw[4] & 0x7F
+    ability2 = (1 if raw[4] & 0x80 else 0) + ((raw[5] & 0x3F) << 1)
+    charm = Charm(num_slots=raw[5] >> 6)
+    for ability_index, amount in ((ability1, amount1), (ability2, amount2)):
+        if not ability_index:
+            continue
+        if ability_index > len(game.ordered_abilities):
+            raise SaveFileError(
+                f"charm record {raw.hex()} names skill {ability_index}, "
+                f"past the {len(game.ordered_abilities)} the game has"
+            )
+        ability = game.ordered_abilities[ability_index - 1]
+        charm.abilities.append(AbilityPair(ability=ability, amount=amount))
+    return charm
+
+
+def _name_end(data: bytes, offset: int) -> int:
+    """The first zero byte from ``offset`` (ImportCharms.h:378-380), scanned byte by byte
+    even though the name is UTF-16."""
+    if 0 not in data[offset:]:
+        raise SaveFileError(f"the character name at {offset:#x} has no terminating zero byte")
+    name_end = data.index(0, offset)
+    return name_end
+
+
+def load_character(
+    data: bytes, slot: int, game: GameData, validity: CharmValidity
+) -> ImportedCharacter | None:
+    """``LoadCharms( data, char_num )`` on the decrypted save: the slot's charms in
+    record order, or None for an empty slot.
+
+    Each of the 1,000 equipment records is a charm if it starts ``01 65``. A
+    charm the generator can't make and the cheat check rejects is ``hacked``.
+    """
+    offset = _charm_offset(slot)
+    if not data[offset]:
+        return None
+    name_end = _name_end(data, offset)
+    character = ImportedCharacter(slot=slot, name=None)
+    for record in range(1000):
+        start = offset + 0x168 + record * 12
+        raw = bytes(data[start : start + 6])
+        if raw[0] != 1 or raw[1] != 0x65:
+            continue
+        charm = decode_charm_record(raw, game)
+        if not validity.exists(charm) and validity.is_illegal(charm):
+            charm.hacked = True
+            character.cheats = True
+        character.charms.append(ImportedCharm(charm=charm, raw=raw))
+    if character.charms:
+        # Encoding::GetString on the scanned bytes (ImportCharms.h:425-426): a trailing
+        # odd byte decodes to U+FFFD.
+        character.name = data[offset:name_end].decode("utf-16-le", errors="replace")
+    return character
