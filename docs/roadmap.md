@@ -11,7 +11,7 @@ Target: parity with every feature of the original, then a better UX on top.
 | 2 | Data loaders (skills, armour, decorations, components, tags, languages) | No | Done |
 | 3 | Domain models: abilities/skills, decorations, charms | Yes (3b fixtures) | Done |
 | 4 | Relevance filtering (`GetRelevantData`) + charms for a query (`CharmDatabase::GetCharms`) | Yes (4a fixtures) | Done |
-| 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | No | Not started |
+| 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | Yes (5a traces) | In progress (5a traces, 5b decoration filling done) |
 | 6 | Search loop, charm modes, CLI | No | Not started |
 | 7 | Save-file charm import (PSP decryption) | No | Done |
 | 8 | Performance: per-charm multiprocessing, profiling, pruning if needed | No | Not started |
@@ -37,6 +37,7 @@ to the TUI.
 | My-charms management (add, delete, persist to `mycharms.txt`) | `ManageCharms.h`, `CharmDatabase.cpp` | 3, 10 |
 | Charm import from a PSP save | `ImportCharms.h`, `SaveDataEncryption.cpp`, `PSPCryptoEngine.cpp` | 7, 10 |
 | Charm validity checking (possible/impossible charms) | `CharmDatabase.cpp` | 3 |
+| Charm tooltip: which tables can produce a charm (`FindCharm2`) and its name parser | `CharmDatabase.cpp:1006-1099`, `Common.cpp:157-230` | Side stream (logic), 10 (menu) |
 | Languages (7 data sets) | `Common.cpp:292`, `Form1.h:333` | 2 |
 | Persisted settings (last query, options) | `Form1.h` `SaveConfig`/load | 10 |
 | About dialog | `frmAbout.h` | 10 |
