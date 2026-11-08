@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -82,7 +83,9 @@ def read_trace_goldens(spec_dir: Path, golden_dir: Path) -> list[TraceGolden]:
     goldens = []
     for spec_path in sorted(spec_dir.glob("*.json")):
         spec = read_golden(spec_path)
-        query_path = (spec_path.parent / spec["query"]).resolve()
+        # Normalised but not resolved: tests/savefile/ may hold symlinks, and the
+        # query must stay under it to be recognised as personal.
+        query_path = Path(os.path.normpath(spec_path.parent / spec["query"]))
         rows = [
             json.loads(line) for line in _read_gzip_lines(golden_dir / f"{spec_path.stem}.jsonl.gz")
         ]

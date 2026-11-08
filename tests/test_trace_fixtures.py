@@ -10,6 +10,7 @@ goldens, and that every sample's stages follow MatchesQuery's order.
 from __future__ import annotations
 
 import json
+import os
 from math import prod
 from pathlib import Path
 from typing import Any
@@ -173,7 +174,9 @@ def test_personal_trace_accepts_match_search_goldens(
 
 
 def test_every_corpus_query_is_traced(trace_goldens: list[TraceGolden], repo_root: Path):
-    corpus = {path.resolve() for path in (repo_root / "tests" / "corpus").glob("*.json")}
+    corpus = {
+        Path(os.path.normpath(path)) for path in (repo_root / "tests" / "corpus").glob("*.json")
+    }
     traced = {golden.query_path for golden in trace_goldens}
 
     assert corpus - traced == set()
