@@ -1,10 +1,12 @@
 #pragma once
 
+ref struct Armor;
 ref struct Charm;
 ref struct Query;
+ref struct Solution;
 
-// The charm templates a search runs with, shared by every command that
-// replays Form1::StartSearch.
+// The workers a search starts and the jobs they run, shared by every command
+// that replays Form1::StartSearch and backgroundWorker1_DoWork.
 namespace Workers
 {
 	// CharmDatabase::LoadCustom(), CharmDatabase.cpp:108-168, reading the lines
@@ -19,4 +21,14 @@ namespace Workers
 	// The charm template of each worker Form1::StartSearch starts, in start order
 	// (Form1.h:1273-1373). A nullptr entry is a worker searching without a charm.
 	System::Collections::Generic::List< Charm^ >^ WorkerCharms( Query^ query, const int charm_select );
+
+	// backgroundWorker1_DoWork gives an empty relevant-armour slot one nullptr
+	// piece (Form1.h:1865-1869). It changes the shared query, so every later
+	// worker and reader sees the nullptr too.
+	void AddEmptySlotPieces( Query^ query );
+
+	// One job as backgroundWorker1_DoWork builds it (Form1.h:1904-1912): the
+	// five armour pieces (head, body, arms, waist, legs; nullptr for an empty
+	// slot) and a deep copy of the worker's charm template.
+	Solution^ NewJob( array< Armor^ >^ armors, Charm^ charm_template );
 }

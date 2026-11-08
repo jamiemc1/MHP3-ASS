@@ -18,25 +18,10 @@ using namespace System::Text;
 
 namespace
 {
-	// Compact JSON fragments: a trace file holds one object per line. Strings
-	// are escaped as JsonWriter escapes them.
+	// Compact JSON fragments: a trace file holds one object per line.
 	String^ Str( String^ text )
 	{
-		if( text == nullptr )
-			return L"null";
-		StringBuilder^ sb = gcnew StringBuilder( L"\"" );
-		for each( wchar_t c in text )
-		{
-			if( c == L'"' )
-				sb->Append( L"\\\"" );
-			else if( c == L'\\' )
-				sb->Append( L"\\\\" );
-			else if( c < 0x20 || c > 0x7e )
-				sb->Append( L"\\u" )->Append( ( (int)c ).ToString( L"x4" ) );
-			else
-				sb->Append( c );
-		}
-		return sb->Append( L'"' )->ToString();
+		return JsonWriter::Escape( text );
 	}
 
 	String^ Bool( const bool value )
@@ -97,6 +82,16 @@ namespace
 		if( !charm )
 			return L"null";
 		return L"{\"num_slots\":" + Convert::ToString( charm->num_slots ) + L",\"abilities\":" + PairsJson( charm->abilities ) + L"}";
+	}
+
+	// A worker's charm template, with the custom flag that picks MatchesQuery's
+	// charm branch (Solution.cpp:689).
+	String^ TemplateJson( Charm^ charm )
+	{
+		if( !charm )
+			return L"null";
+		return L"{\"num_slots\":" + Convert::ToString( charm->num_slots ) + L",\"abilities\":" + PairsJson( charm->abilities ) +
+			L",\"custom\":" + ( charm->custom ? L"true" : L"false" ) + L"}";
 	}
 
 	String^ UnsignedList( array< unsigned >^ values )
@@ -302,16 +297,6 @@ namespace
 		return result;
 	}
 
-	// One job as Form1::backgroundWorker1_DoWork builds it (Form1.h:1904-1912).
-	Solution^ NewJob( array< Armor^ >^ armors, Charm^ charm_template )
-	{
-		Solution^ job = gcnew Solution();
-		for each( Armor^ armor in armors )
-			job->armors.Add( armor );
-		job->charm = charm_template ? gcnew Charm( charm_template ) : nullptr;
-		return job;
-	}
-
 	ref struct Outcome
 	{
 		StepResult^ step;
@@ -323,7 +308,7 @@ namespace
 	Outcome^ Step( array< Armor^ >^ armors, Charm^ charm_template, Query^ query, const bool record )
 	{
 		Outcome^ outcome = gcnew Outcome;
-		outcome->solution = NewJob( armors, charm_template );
+		outcome->solution = Workers::NewJob( armors, charm_template );
 		outcome->recorder = gcnew StageRecorder( record );
 		try
 		{
@@ -332,6 +317,10 @@ namespace
 		catch( Exception^ error )
 		{
 			outcome->exception = error->GetType()->Name;
+			// The state the exception left behind, for the port to compare
+			// against its own state when it raises.
+			Solution^ sol = outcome->solution;
+			outcome->recorder->Stage( L"threw", sol, LegacySolution::GetData( sol ), false, nullptr );
 		}
 		return outcome;
 	}
@@ -339,7 +328,7 @@ namespace
 	// Runs the real MatchesQuery and throws if the stepped copy disagrees.
 	void CheckAgainstReal( array< Armor^ >^ armors, Charm^ charm_template, Query^ query, Outcome^ stepped )
 	{
-		Solution^ real = NewJob( armors, charm_template );
+		Solution^ real = Workers::NewJob( armors, charm_template );
 		bool accepted = false;
 		String^ exception = nullptr;
 		try
@@ -358,12 +347,35 @@ namespace
 		}
 	}
 
+	// The traced re-run of a sampled combination must end where the checked
+	// run did, so a sample line never records something MatchesQuery didn't do.
+	void CheckTracedRun( Outcome^ checked, Outcome^ traced )
+	{
+		String^ checked_outcome = checked->step ? checked->step->outcome : nullptr;
+		String^ traced_outcome = traced->step ? traced->step->outcome : nullptr;
+		if( !String::Equals( checked->exception, traced->exception ) || !String::Equals( checked_outcome, traced_outcome ) ||
+			!String::Equals( StateKey( checked->solution ), StateKey( traced->solution ) ) )
+		{
+			throw gcnew InvalidOperationException( L"The traced run of a sample disagrees with the checked run" );
+		}
+	}
+
+	bool HasNegativeSkill( List_t< Skill^ >% skills )
+	{
+		for each( Skill^ skill in skills )
+		{
+			if( skill->points_required < 0 )
+				return true;
+		}
+		return false;
+	}
+
 	array< String^ >^ CensusKeys()
 	{
 		array< String^ >^ keys = {
 			L"accepted", L"rejected_points", L"rejected_bad_skills", L"exception",
-			L"via_fix_bad", L"via_reorder", L"with_bad_skills", L"charm_changed",
-			L"charm_nulled", L"decorations_fell", L"wrapped" };
+			L"via_fix_bad", L"via_reorder", L"with_bad_skills", L"with_negative_extra_skills",
+			L"charm_changed", L"charm_nulled", L"decorations_fell", L"wrapped" };
 		return keys;
 	}
 
@@ -381,6 +393,8 @@ namespace
 		if( accepted && outcome->step->via_fix_bad ) categories->Add( L"via_fix_bad" );
 		if( accepted && outcome->step->via_reorder ) categories->Add( L"via_reorder" );
 		if( accepted && sol->bad_skills.Count > 0 ) categories->Add( L"with_bad_skills" );
+		// With allow_bad, negative skills land in extra_skills (Solution.cpp:735-737).
+		if( accepted && HasNegativeSkill( sol->extra_skills ) ) categories->Add( L"with_negative_extra_skills" );
 		if( accepted && charm_template && !String::Equals( CharmJson( sol->charm ), CharmJson( charm_template ) ) )
 			categories->Add( L"charm_changed" );
 		if( accepted && charm_template && !sol->charm ) categories->Add( L"charm_nulled" );
@@ -462,6 +476,10 @@ void TraceDump::Run( String^ spec_path, String^ out_path )
 	QueryFile::JsonObject^ spec = QueryFile::Read( spec_path );
 	QueryFile::JsonObject^ query_spec = QueryFile::Read( QueryPath( spec_path ) );
 	HashSet< String^ >^ included = IncludedCombinations( spec );
+	const bool has_stride = spec->ContainsKey( L"stride" );
+	const int spec_stride = has_stride ? QueryFile::GetInt( spec, L"stride" ) : 0;
+	if( has_stride && spec_stride < 1 )
+		throw gcnew FormatException( L"stride must be at least 1, got " + Convert::ToString( spec_stride ) );
 
 	LoadedData^ data = gcnew LoadedData;
 	const int illegal_my_charms = Workers::LoadMyCharms( QueryFile::GetArray( query_spec, L"my_charms" ) );
@@ -469,13 +487,7 @@ void TraceDump::Run( String^ spec_path, String^ out_path )
 	const int charm_select = Workers::CharmSelectIndex( QueryFile::GetString( query_spec, L"charm_mode" ) );
 	List< Charm^ >^ worker_charms = query->skills.Count > 0 ? Workers::WorkerCharms( query, charm_select ) : gcnew List< Charm^ >;
 
-	// backgroundWorker1_DoWork gives an empty slot one nullptr piece
-	// (Form1.h:1865-1869), changing the query for every later reader.
-	for each( List_t< Armor^ >^ slot in query->rel_armor )
-	{
-		if( slot->Count == 0 )
-			slot->Add( nullptr );
-	}
+	Workers::AddEmptySlotPieces( query );
 	List_t< Armor^ >^ head  = query->rel_armor[ int( Armor::ArmorType::HEAD ) ];
 	List_t< Armor^ >^ body  = query->rel_armor[ int( Armor::ArmorType::BODY ) ];
 	List_t< Armor^ >^ arms  = query->rel_armor[ int( Armor::ArmorType::ARMS ) ];
@@ -491,7 +503,7 @@ void TraceDump::Run( String^ spec_path, String^ out_path )
 		int stride = 1;
 		if( combinations > sample_everything_up_to )
 		{
-			stride = spec->ContainsKey( L"stride" ) ? QueryFile::GetInt( spec, L"stride" ) : Math::Max( 1, combinations / default_samples );
+			stride = has_stride ? spec_stride : Math::Max( 1, combinations / default_samples );
 		}
 
 		Dictionary< String^, int >^ census = gcnew Dictionary< String^, int >;
@@ -539,6 +551,7 @@ void TraceDump::Run( String^ spec_path, String^ out_path )
 				continue;
 
 			Outcome^ traced = Step( armors, charm_template, query, true );
+			CheckTracedRun( outcome, traced );
 			array< int >^ armor_indices = gcnew array< int >( 5 );
 			for( int slot = 0; slot < 5; ++slot )
 				armor_indices[ slot ] = armors[ slot ] ? int( armors[ slot ]->index ) : -1;
@@ -556,7 +569,7 @@ void TraceDump::Run( String^ spec_path, String^ out_path )
 		worker_entries->Add(
 			L"{\"worker\":" + Convert::ToString( worker ) +
 			L",\"charm\":" + Str( charm_template ? charm_template->GetName() : nullptr ) +
-			L",\"template\":" + CharmJson( charm_template ) +
+			L",\"template\":" + TemplateJson( charm_template ) +
 			L",\"combinations\":" + Convert::ToString( combinations ) +
 			L",\"stride\":" + Convert::ToString( stride ) +
 			L",\"census\":" + CountsJson( census ) +

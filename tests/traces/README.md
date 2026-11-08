@@ -16,7 +16,7 @@ write to `tests/savefile/golden/traces/`.
 | Field | Meaning |
 |---|---|
 | `query` | A query file (corpus schema, `tests/corpus/README.md`), relative to the spec |
-| `stride` | Optional. For workers with more than 500 combinations, sample every `stride`-th in loop order. Default: combinations / 150. Workers with up to 500 combinations are sampled completely |
+| `stride` | Optional, at least 1. For workers with more than 500 combinations, sample every `stride`-th in loop order. Default: combinations / 150. Workers with up to 500 combinations are sampled completely |
 | `include` | Optional. Extra combinations to sample, as `[worker, head, body, arms, waist, legs]` positions in the relevant-armour lists (after an empty slot gets its one `nullptr` piece). The harness fails if one never runs |
 
 The first two combinations of each census category (below) are always
@@ -39,12 +39,13 @@ JSON lines. The first line is a header:
 | `my_charms_illegal` | My-charms lines skipped as illegal |
 | `rel_decoration_map` | Relevant decoration indices by slot size 0-3, as `MatchesQuery` builds them |
 | `point_score_rank` | `point_score` ranks after the run (see `tests/golden/README.md`, `solution-probes`) |
-| `workers` | Per worker: `charm` name and `template`, `combinations`, `stride`, `census` and `exception_types` over every combination |
+| `workers` | Per worker: `charm` name and `template` (with `custom`, which picks the charm branch), `combinations`, `stride`, `census` and `exception_types` over every combination |
 
 Census categories: `accepted`, `rejected_points` (`Solution.cpp:679`),
 `rejected_bad_skills` (`:684`), `exception`; among accepted ones
-`via_fix_bad`, `via_reorder`, `with_bad_skills`, `charm_changed`,
-`charm_nulled`; and `decorations_fell` (`SwapOut` removed gems) and `wrapped`
+`via_fix_bad`, `via_reorder`, `with_bad_skills`,
+`with_negative_extra_skills` (with bad skills allowed, negative skills are
+extras, `:735-737`), `charm_changed`, `charm_nulled`; and `decorations_fell` (`SwapOut` removed gems) and `wrapped`
 (an unsigned counter at or above 2^31 after some stage).
 
 Every other line is one sampled combination: `worker`, `combination`
@@ -57,7 +58,8 @@ Stage order: `initial`, `decorated`, `points`, `extra`, then `fix_bad` and
 `reorder` when bad skills need fixing; for a charm, `rearranged` (custom
 charms) or `slots_reduced`, `skills_reduced`, `rearranged`, `charm_reduced`,
 `extra_final` (generated charms); then `final`. A rejection or exception ends
-the list early.
+the list early; a sample that threw ends with a `threw` stage holding
+the state the exception left.
 
 Fields: `decorations`, `body_decorations`, `non_body_decorations`
 (decoration indices, in order); `abilities` and `need` (`[ability, points]`

@@ -133,4 +133,22 @@ namespace Workers
 		}
 		return workers;
 	}
+
+	void AddEmptySlotPieces( Query^ query )
+	{
+		for each( List_t< Armor^ >^ slot in query->rel_armor )
+		{
+			if( slot->Count == 0 )
+				slot->Add( nullptr );
+		}
+	}
+
+	Solution^ NewJob( array< Armor^ >^ armors, Charm^ charm_template )
+	{
+		Solution^ job = gcnew Solution();
+		for each( Armor^ armor in armors )
+			job->armors.Add( armor );
+		job->charm = charm_template ? gcnew Charm( charm_template ) : nullptr;
+		return job;
+	}
 }
