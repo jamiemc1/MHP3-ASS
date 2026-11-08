@@ -62,9 +62,6 @@ def fix_bad_skill(data: CalculationData, game: GameData, skill: Skill) -> bool:
     ``LegacyNullReferenceError`` on the next pass (``:78``).
     """
     solution = data.solution
-    slots_spare = solution.slots_spare
-    if slots_spare is None:
-        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data")
     while solution.torso_slots_spare > 0:
         decoration = best_available_decoration(
             data, game, skill.ability, solution.torso_slots_spare
@@ -79,6 +76,10 @@ def fix_bad_skill(data: CalculationData, game: GameData, skill: Skill) -> bool:
         ):
             return True
 
+    # The original first reads slots_spare here (Solution.cpp:68).
+    slots_spare = solution.slots_spare
+    if slots_spare is None:
+        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data")
     max_slots = 3
     while max_slots > 0 and not slots_spare[max_slots]:
         max_slots -= 1
@@ -137,15 +138,16 @@ def check_bad_skills(data: CalculationData, game: GameData) -> bool:
 class OneSlotGems:
     """``Count1SocketGems``' result: the 1-slot gem used most, and how often."""
 
-    decoration: Decoration | None
+    decoration: Decoration
     count: int
 
 
-def count_1_socket_gems(solution: Solution, ability: Ability) -> OneSlotGems:
+def count_1_socket_gems(solution: Solution, ability: Ability) -> OneSlotGems | None:
     """``Solution::Count1SocketGems`` (Solution.cpp:117-147).
 
     Among the 1-slot gems whose second skill is ``ability``, the one used
     most often. A strict ``>`` keeps the first gem to reach the top count.
+    ``None`` where the original returns a null gem with a count of 0.
     """
     count = 0
     best = None
@@ -167,7 +169,7 @@ def count_1_socket_gems(solution: Solution, ability: Ability) -> OneSlotGems:
                 if count == 0:
                     count = 1
                     best = decoration
-    gems = OneSlotGems(decoration=best, count=count)
+    gems = OneSlotGems(decoration=best, count=count) if best is not None else None
     return gems
 
 
@@ -215,9 +217,9 @@ def reorder_gems(data: CalculationData, game: GameData) -> bool:
         if solution.abilities[skill.ability] >= -9:
             continue
         gems = count_1_socket_gems(solution, skill.ability)
-        if gems.count == 0:
+        if gems is None:
             return False
-        one_slot = _require(gems.decoration, "Solution.cpp:168")
+        one_slot = gems.decoration
         bigger_slotted = _require(
             best_available_decoration(data, game, one_slot.abilities[0].ability, 3),
             "Solution.cpp:169",

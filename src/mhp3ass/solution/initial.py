@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from mhp3ass.data.text import as_unsigned
 from mhp3ass.model import Ability, AbilityPair, Armor, Decoration
-from mhp3ass.solution.state import CalculationData, Solution
+from mhp3ass.solution.state import CalculationData, LegacyNullReferenceError, Solution
 
 
 def _add_new[K](mapping: dict[K, int], key: K, value: int) -> None:
@@ -73,8 +73,7 @@ def add_initial_armor(armor: Armor | None, solution: Solution, multiplier: int) 
         return
     slots_spare = solution.slots_spare
     if slots_spare is None:
-        # The original dereferences the null array handle here.
-        raise ValueError("slots_spare is allocated by get_initial_data first")
+        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data first")
     adds_group = armor is not solution.armors[1] and armor.num_slots != 0
     slots_spare[armor.num_slots] = as_unsigned(slots_spare[armor.num_slots] + adds_group)
     solution.defence = as_unsigned(solution.defence + armor.defence)

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import pytest
 
 from mhp3ass.data import GameData
@@ -37,15 +39,23 @@ def test_personal_bad_skill_stages_match_every_trace(personal_trace_goldens, scr
     assert stage_mismatches(personal_trace_goldens, scratch_game, stages) == []
 
 
+@dataclass(frozen=True)
+class UpAndDown:
+    """An ability's skills at +10 and -10."""
+
+    up: Skill
+    down: Skill
+
+
 @pytest.fixture
 def skilled(attack, defense):
-    """Attack and Defense with an up skill at +10 and a down skill at -10."""
+    """Attack and Defense with an up skill at +10 and a down skill at -10, by name."""
     skills = {}
     for ability in (attack, defense):
         up = Skill(name=f"{ability.name} Up", points_required=10, ability=ability)
         down = Skill(name=f"{ability.name} Down", points_required=-10, ability=ability)
         ability.skills = {10: up, -10: down}
-        skills[ability.name] = (up, down)
+        skills[ability.name] = UpAndDown(up=up, down=down)
     return skills
 
 
@@ -68,8 +78,8 @@ def make_fixable(make_data, skilled, attack, defense):
         solution.total_slots_spare = (
             sum(size * count for size, count in enumerate(slots_spare)) + torso_slots_spare
         )
-        data.relevant = {skilled["Attack"][0]: 0}
-        solution.bad_skills = [skilled["Defense"][1]]
+        data.relevant = {skilled["Attack"].up: 0}
+        solution.bad_skills = [skilled["Defense"].down]
         return data
 
     return make
@@ -80,7 +90,7 @@ def test_negative_unasked_skills_are_bad_without_allow_bad(make_fixable, skilled
 
     calculate_extra_skills(data)
 
-    assert (data.solution.bad_skills, data.solution.extra_skills) == ([skilled["Defense"][1]], [])
+    assert (data.solution.bad_skills, data.solution.extra_skills) == ([skilled["Defense"].down], [])
 
 
 def test_negative_unasked_skills_are_extras_with_allow_bad(make_fixable, skilled):
@@ -88,7 +98,7 @@ def test_negative_unasked_skills_are_extras_with_allow_bad(make_fixable, skilled
 
     calculate_extra_skills(data)
 
-    assert (data.solution.bad_skills, data.solution.extra_skills) == ([], [skilled["Defense"][1]])
+    assert (data.solution.bad_skills, data.solution.extra_skills) == ([], [skilled["Defense"].down])
 
 
 def test_query_skills_are_neither_extra_nor_bad(make_fixable):
@@ -105,7 +115,7 @@ def test_fix_bad_skill_fills_the_torso_first_with_its_multiplier(make_fixable, d
     data = make_fixable([jewel], defense_points=-12, slots_spare=[0, 1, 0, 0], torso_slots_spare=1)
     data.solution.torso_multiplier = 2
 
-    fixed = fix_bad_skill(data, GameData(), skilled["Defense"][1])
+    fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
     solution = data.solution
     assert fixed
@@ -119,7 +129,7 @@ def test_fix_bad_skill_splits_a_bigger_group_when_its_size_has_none(make_fixable
     jewel = make_jewel("Defense[1]", defense, 3)
     data = make_fixable([jewel], defense_points=-12, slots_spare=[0, 0, 1, 0])
 
-    fixed = fix_bad_skill(data, GameData(), skilled["Defense"][1])
+    fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
     assert fixed
     assert data.solution.slots_spare == [0, 1, 0, 0]
@@ -133,7 +143,7 @@ def test_fix_bad_skill_dereferences_a_failed_repick(make_fixable, defense, skill
     data = make_fixable([jewel], defense_points=-20, slots_spare=[0, 1, 1, 0])
 
     with pytest.raises(LegacyNullReferenceError):
-        fix_bad_skill(data, GameData(), skilled["Defense"][1])
+        fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
 
 def test_fix_bad_skill_does_not_recheck_detrimental_after_a_repick(
@@ -147,7 +157,7 @@ def test_fix_bad_skill_does_not_recheck_detrimental_after_a_repick(
     data = make_fixable([small, big], defense_points=-11, slots_spare=[0, 1, 1, 0])
     data.solution.abilities[attack] = 10
 
-    fixed = fix_bad_skill(data, GameData(), skilled["Defense"][1])
+    fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
     # The small jewel takes Attack below its need of 10: Detrimental, yet added.
     assert fixed
@@ -161,7 +171,7 @@ def test_fix_bad_skill_rejects_a_detrimental_first_pick(make_fixable, attack, de
     small = make_jewel("Defense[1]", defense, 1, second=attack, second_amount=-5)
     data = make_fixable([small], defense_points=-11, slots_spare=[0, 1, 0, 0])
 
-    fixed = fix_bad_skill(data, GameData(), skilled["Defense"][1])
+    fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
     assert not fixed
     assert data.solution.decorations == []
@@ -173,7 +183,7 @@ def test_irrelevant_ability_without_decorations_raises_quirk_8(make_fixable, ski
     data = make_fixable([], defense_points=-12, slots_spare=[0, 0, 0, 0], torso_slots_spare=1)
 
     with pytest.raises(NoDecorationsError):
-        fix_bad_skill(data, GameData(), skilled["Defense"][1])
+        fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
 
 def test_fixing_ignores_allow_event_for_irrelevant_abilities(make_fixable, defense):
@@ -203,7 +213,7 @@ def test_fix_bad_skills_accepts_a_new_bad_skill_its_fix_creates(
     fine = check_bad_skills(data, game)
 
     assert fine
-    assert data.solution.bad_skills == [skilled["Attack"][1]]
+    assert data.solution.bad_skills == [skilled["Attack"].down]
 
 
 def test_check_bad_skills_without_free_slots_goes_straight_to_reordering(make_fixable, defense):
@@ -342,9 +352,16 @@ def test_reorder_gems_counts_replacements_after_the_swap(make_data, skilled, att
         abilities={attack: 6, sharpness: 6, defense: -12, artisan: -2},
     )
     data.solution.decorations = [one_slot] * 6 + [other]
-    data.solution.bad_skills = [skilled["Defense"][1]]
+    data.solution.bad_skills = [skilled["Defense"].down]
 
     reordered = reorder_gems(data, game)
 
     assert reordered
     assert data.solution.decorations == [sharp_one_slot] * 5 + [one_slot, bigger]
+
+
+def test_count_1_socket_gems_without_a_match_is_none(attack, defense):
+    gem = make_jewel("A", attack, 1, second=attack, second_amount=-1)
+    solution = Solution(armors=[None] * 5, charm=None, decorations=[gem])
+
+    assert count_1_socket_gems(solution, defense) is None

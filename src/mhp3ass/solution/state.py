@@ -13,7 +13,7 @@ from mhp3ass.model import Ability, Armor, Charm, Decoration, Skill
 from mhp3ass.query import Query
 
 
-class LegacyNullReferenceError(AttributeError):
+class LegacyNullReferenceError(RuntimeError):
     """Where the original dereferences a null handle (.NET ``NullReferenceException``).
 
     The port raises this at the same point instead of carrying on with ``None``.
