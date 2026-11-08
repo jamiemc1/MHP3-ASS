@@ -12,6 +12,9 @@
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1 -CharmLocation
+
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1 -Fuzz
 #>
 param(
     # The language the GUI defaults to on first run, and the one goldens use
@@ -20,7 +23,11 @@ param(
     # Also regenerate data\charm-location.json.gz (about 9 minutes). Rerun
     # with it whenever CharmLocationDump.cpp, CharmDatabase.cpp or Common.cpp
     # change: the golden can't tell it's stale.
-    [switch]$CharmLocation
+    [switch]$CharmLocation,
+    # Regenerate only the differential-fuzz goldens, tests\golden\fuzz\ (about
+    # 10-15 minutes). Rerun them whenever SearchDump.cpp, Workers.cpp,
+    # QueryFile.cpp, legacy/ or the fuzz corpus change: the default run skips them.
+    [switch]$Fuzz
 )
 
 $ErrorActionPreference = "Stop"
@@ -36,6 +43,22 @@ function Invoke-Harness {
     if ($LASTEXITCODE -ne 0) {
         throw "Harness failed (exit $LASTEXITCODE): $args"
     }
+}
+
+if ($Fuzz) {
+    $fuzzDir = Join-Path $repoRoot "tests\fuzz"
+    $fuzzGoldenDir = Join-Path $repoRoot "tests\golden\fuzz"
+    New-Item -ItemType Directory -Force -Path $fuzzGoldenDir | Out-Null
+    # Start clean so results of renamed or deleted queries don't linger.
+    Get-ChildItem -File $fuzzGoldenDir -Include "*.manifest.json", "*.solutions.txt.gz" -Recurse | Remove-Item
+    foreach ($query in Get-ChildItem -File -Filter "f*.json" $fuzzDir) {
+        # Solution files only for small results, keeping the corpus' goldens a
+        # few MB; every manifest still hashes the full result. A worker that
+        # throws is recorded rather than aborting the run.
+        Invoke-Harness search $query.FullName --max-solution-lines 5000 --record-exceptions `
+            --out (Join-Path $fuzzGoldenDir $query.BaseName)
+    }
+    return
 }
 
 $dataDir = Join-Path $repoRoot "tests\golden\data"
