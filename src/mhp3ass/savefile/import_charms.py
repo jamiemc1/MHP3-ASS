@@ -1,14 +1,17 @@
 """Reading charms from a decrypted save, as the import dialog does.
 
-Ported from ``ImportCharms::LoadCharms( data, char_num )``
-(``legacy/ImportCharms.h:369-436``). The dialog's list view and radio
-buttons become plain data; the TUI shows them.
+Ported from ``ImportCharms::LoadCharms( data, char_num )``,
+``SelectDefault`` and ``AddCharms`` (``legacy/ImportCharms.h:278-436``).
+The dialog's list view and radio buttons become plain data; the TUI shows
+them.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from mhp3ass.charms.comparison import strictly_better_than
+from mhp3ass.charms.naming import charms_equal
 from mhp3ass.charms.validity import CharmValidity
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Charm
@@ -110,3 +113,48 @@ def load_character(
         # odd byte decodes to U+FFFD.
         character.name = data[offset:name_end].decode("utf-16-le", errors="replace")
     return character
+
+
+def select_best(charms: list[Charm], game: GameData) -> list[bool]:
+    """``SelectDefault`` (ImportCharms.h:337-367): which charms the dialog ticks.
+
+    Marks every ability relevant first and leaves them so, as the original
+    does (the next search resets them). Each charm that isn't hacked is
+    ticked, then compared with every earlier ticked one: it unticks one it
+    is strictly better than, and is unticked by one strictly better than it
+    or value-equal to it (``operator==``, quirks 1 and 2). An unticked charm
+    keeps comparing, so the result depends on order.
+    """
+    for ability in game.abilities:
+        ability.relevant = True
+    ticked = [False] * len(charms)
+    for index, charm in enumerate(charms):
+        if charm.hacked:
+            continue
+        ticked[index] = True
+        for earlier in range(index):
+            if not ticked[earlier]:
+                continue
+            if strictly_better_than(charm, charms[earlier]):
+                ticked[earlier] = False
+            elif strictly_better_than(charms[earlier], charm) or charms_equal(
+                charm, charms[earlier]
+            ):
+                ticked[index] = False
+    return ticked
+
+
+def import_charms(charms: list[Charm], ticked: list[bool]) -> list[Charm]:
+    """``AddCharms`` for the selected character (ImportCharms.h:278-292): the ticked
+    charms that aren't hacked, marked ``custom``, in order.
+
+    They replace the my-charms list rather than adding to it (quirk 3).
+    """
+    if len(ticked) != len(charms):
+        raise ValueError(f"{len(ticked)} ticks for {len(charms)} charms")
+    imported = []
+    for charm, is_ticked in zip(charms, ticked, strict=True):
+        if is_ticked and not charm.hacked:
+            charm.custom = True
+            imported.append(charm)
+    return imported

@@ -3,19 +3,23 @@ harness's decrypt-save dump (SaveDump.cpp)."""
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from typing import Any
 
 import pytest
 
+from mhp3ass.charms.my_charms import my_charms_text
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.charms.validity import CharmValidity
 from mhp3ass.data import GameData
-from mhp3ass.model import Charm
+from mhp3ass.model import AbilityPair, Charm
 from mhp3ass.savefile.import_charms import (
     ImportedCharacter,
     SaveFileError,
     decode_charm_record,
+    import_charms,
     load_character,
+    select_best,
 )
 
 
@@ -163,3 +167,114 @@ def test_a_charm_the_game_cannot_make_is_hacked(teamhgg_game: GameData, validity
     assert character is not None
     assert [imported.charm.hacked for imported in character.charms] == [True]
     assert character.cheats is True
+
+
+def _personal_characters(
+    save_game_layer: bytes, game: GameData, validity: CharmValidity
+) -> list[ImportedCharacter | None]:
+    characters = [load_character(save_game_layer, slot, game, validity) for slot in range(3)]
+    return characters
+
+
+def test_select_best_matches_golden_for_every_character(
+    save_game_layer: bytes,
+    save_golden: Any,
+    load_teamhgg_game: Callable[[], GameData],
+    validity: CharmValidity,
+):
+    """On a fresh game: Select Best marks every ability relevant."""
+    game = load_teamhgg_game()
+    ours = [
+        []
+        if character is None
+        else select_best([imported.charm for imported in character.charms], game)
+        for character in _personal_characters(save_game_layer, game, validity)
+    ]
+    expected = [
+        [charm["select_best"] for charm in character["charms"]]
+        for character in save_golden["characters"]
+    ]
+
+    assert ours == expected
+
+
+def test_importing_the_default_selection_writes_the_guis_file(
+    save_game_layer: bytes,
+    save_golden: Any,
+    gui_imported_mycharms: list[str],
+    load_teamhgg_game: Callable[[], GameData],
+    validity: CharmValidity,
+):
+    """The dialog opens on the first character with charms, with Select Best's ticks."""
+    game = load_teamhgg_game()
+    characters = _personal_characters(save_game_layer, game, validity)
+    default = next(character for character in characters if character and character.charms)
+    charms = [imported.charm for imported in default.charms]
+
+    imported = import_charms(charms, select_best(charms, game))
+    lines = my_charms_text(imported).split("\r\n")[:-1]
+
+    assert lines == save_golden["mycharms_txt"]
+    assert lines == gui_imported_mycharms
+
+
+def _charm(game: GameData, slots: int, *skills: tuple[int, int], hacked: bool = False) -> Charm:
+    """A charm with skills given as (ordered ability index, points)."""
+    pairs = [
+        AbilityPair(ability=game.ordered_abilities[index], amount=points)
+        for index, points in skills
+    ]
+    charm = Charm(num_slots=slots, abilities=pairs, hacked=hacked)
+    return charm
+
+
+def test_select_best_never_ticks_a_hacked_charm(load_teamhgg_game: Callable[[], GameData]):
+    game = load_teamhgg_game()
+    charms = [_charm(game, 3, (0, 13), hacked=True), _charm(game, 0, (0, 1))]
+
+    assert select_best(charms, game) == [False, True]
+
+
+def test_select_best_keeps_the_first_of_value_equal_charms(
+    load_teamhgg_game: Callable[[], GameData],
+):
+    """Neither charm is strictly better (each has more of one skill), but operator==
+    ignores amounts (quirk 1), so the second counts as a duplicate of the first."""
+    game = load_teamhgg_game()
+    charms = [_charm(game, 1, (0, 4), (1, 1)), _charm(game, 1, (0, 2), (1, 3))]
+
+    assert select_best(charms, game) == [True, False]
+    assert select_best(list(reversed(charms)), game) == [True, False]
+
+
+def test_a_later_strictly_better_charm_unticks_an_earlier_one(
+    load_teamhgg_game: Callable[[], GameData],
+):
+    game = load_teamhgg_game()
+    charms = [_charm(game, 0, (0, 4)), _charm(game, 1, (0, 4))]
+
+    assert select_best(charms, game) == [False, True]
+
+
+def test_select_best_marks_every_ability_relevant(load_teamhgg_game: Callable[[], GameData]):
+    game = load_teamhgg_game()
+
+    select_best([], game)
+
+    assert all(ability.relevant for ability in game.abilities)
+
+
+def test_import_skips_hacked_and_unticked_charms_and_marks_the_rest_custom(
+    load_teamhgg_game: Callable[[], GameData],
+):
+    """AddCharms checks hacked itself: the dialog lets a hacked charm be ticked (quirk
+    candidate: listView1_ItemChecked is never wired up)."""
+    game = load_teamhgg_game()
+    kept = _charm(game, 1, (0, 4))
+    unticked = _charm(game, 0, (1, 3))
+    hacked = _charm(game, 3, (0, 13), hacked=True)
+
+    imported = import_charms([kept, unticked, hacked], [True, False, True])
+
+    assert imported == [kept]
+    assert (kept.custom, unticked.custom, hacked.custom) == (True, False, False)
