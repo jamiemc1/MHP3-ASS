@@ -179,20 +179,30 @@ def test_every_corpus_query_is_traced(trace_goldens: list[TraceGolden], repo_roo
     assert corpus - traced == set()
 
 
-def _expected_stages(sample: dict[str, Any], has_charm: bool) -> list[str]:
-    """MatchesQuery's stage order (Solution.cpp:672-722) for the results the sample recorded."""
+def _expected_stages(
+    sample: dict[str, Any], template: dict[str, Any] | None, allow_bad: bool
+) -> list[str]:
+    """MatchesQuery's stage order (Solution.cpp:672-722) for one sample.
+
+    The branches come from the query and the worker's charm template; only the
+    two repair results and the points check come from the sample itself.
+    """
     stages = {stage["stage"]: stage for stage in sample["stages"]}
     expected = ["initial", "decorated", "points"]
     if "points" in stages and not stages["points"]["accepted"]:
         return expected
     expected.append("extra")
-    if "fix_bad" in stages:
+    # extra lists bad_skills only when CalculateExtraSkills found some.
+    has_bad_skills = bool(stages.get("extra", {}).get("bad_skills"))
+    if not allow_bad and has_bad_skills:
         expected.append("fix_bad")
-        if not stages["fix_bad"]["result"]:
+        if "fix_bad" in stages and not stages["fix_bad"]["result"]:
             expected.append("reorder")
             if "reorder" in stages and not stages["reorder"]["result"]:
                 return expected
-    if has_charm and "slots_reduced" in stages:
+    if template is not None and template["custom"]:
+        expected.append("rearranged")
+    elif template is not None:
         expected += [
             "slots_reduced",
             "skills_reduced",
@@ -200,8 +210,6 @@ def _expected_stages(sample: dict[str, Any], has_charm: bool) -> list[str]:
             "charm_reduced",
             "extra_final",
         ]
-    elif has_charm:
-        expected.append("rearranged")
     expected.append("final")
     return expected
 
@@ -217,19 +225,25 @@ def _expected_outcome(names: list[str]) -> str:
 def _misordered_samples(goldens: list[TraceGolden]) -> list[str]:
     """Samples whose stages don't follow MatchesQuery, or whose outcome doesn't match them.
 
-    A sample that threw stops part-way, so its stages are a proper prefix.
+    A sample that threw stops part-way: a proper prefix of the stages, then "threw".
     """
     misordered = []
     for golden in goldens:
         templates = [worker["template"] for worker in golden.header["workers"]]
         for sample in golden.samples:
             names = [stage["stage"] for stage in sample["stages"]]
-            expected = _expected_stages(sample, has_charm=templates[sample["worker"]] is not None)
+            expected = _expected_stages(
+                sample,
+                template=templates[sample["worker"]],
+                allow_bad=golden.query["allow_bad"],
+            )
             if sample["outcome"] == "exception":
+                before_throw = names[:-1]
                 consistent = (
                     sample["exception"] is not None
-                    and names == expected[: len(names)]
-                    and len(names) < len(expected)
+                    and names[-1:] == ["threw"]
+                    and before_throw == expected[: len(before_throw)]
+                    and len(before_throw) < len(expected)
                 )
             else:
                 consistent = (
@@ -253,13 +267,33 @@ def test_personal_trace_stages_follow_matches_query(personal_trace_goldens: list
 
 
 def _incomplete_snapshots(goldens: list[TraceGolden]) -> list[str]:
-    """Samples whose initial or final stage doesn't list every field the initial one of
-    the first sample lists (later stages list only what changed)."""
+    """Samples whose initial or final stage doesn't list every snapshot field
+    (tests/traces/README.md); the other stages list only what changed."""
+    fields = {
+        "decorations",
+        "body_decorations",
+        "non_body_decorations",
+        "abilities",
+        "extra_skills",
+        "bad_skills",
+        "charm",
+        "torso_slots_spare",
+        "torso_multiplier",
+        "total_slots_spare",
+        "slots_spare",
+        "need",
+        "defence",
+        "max_defence",
+        "rarity",
+        "difficulty",
+        "fire_res",
+        "ice_res",
+        "water_res",
+        "thunder_res",
+        "dragon_res",
+    }
     incomplete = []
     for golden in goldens:
-        if not golden.samples:
-            continue
-        fields = set(golden.samples[0]["stages"][0]) - {"stage"}
         for sample in golden.samples:
             complete = [
                 stage for stage in sample["stages"] if stage["stage"] in {"initial", "final"}
@@ -273,6 +307,12 @@ def _incomplete_snapshots(goldens: list[TraceGolden]) -> list[str]:
 
 def test_trace_initial_and_final_stages_are_complete(trace_goldens: list[TraceGolden]):
     assert _incomplete_snapshots(trace_goldens) == []
+
+
+def test_personal_trace_initial_and_final_stages_are_complete(
+    personal_trace_goldens: list[TraceGolden],
+):
+    assert _incomplete_snapshots(personal_trace_goldens) == []
 
 
 def test_trace_point_scores_match_the_probe(
