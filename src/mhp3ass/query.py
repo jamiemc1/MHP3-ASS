@@ -44,33 +44,45 @@ class QuerySpec:
 
     @classmethod
     def from_json(cls, spec: dict[str, Any]) -> QuerySpec:
-        """Read the corpus schema (``tests/corpus/README.md``); charm fields are ignored."""
-        hunter_types = {"blademaster": HunterType.BLADEMASTER, "gunner": HunterType.GUNNER}
+        """Read the corpus schema (``tests/corpus/README.md``); charm fields are ignored.
+
+        Checks run in the harness's order (``QueryFile::FormulateQuery``), so a
+        file with several problems reports the same one. Numbers must be JSON
+        integers and toggles JSON booleans: the harness's ``Convert`` calls
+        would coerce floats and strings, which no committed query relies on.
+        """
+        weapon_slots = _ranged(spec, key="weapon_slots", minimum=0, maximum=3)
+        elder_star = _ranged(spec, key="elder_star", minimum=1, maximum=6)
+        hr = _ranged(spec, key="hr", minimum=1, maximum=6)
         genders = {"male": Gender.MALE, "female": Gender.FEMALE}
+        if spec["gender"] not in genders:
+            raise QueryError(f"gender must be male or female, got {spec['gender']}")
+        hunter_types = {"blademaster": HunterType.BLADEMASTER, "gunner": HunterType.GUNNER}
         if spec["hunter_type"] not in hunter_types:
             raise QueryError(
                 f"hunter_type must be blademaster or gunner, got {spec['hunter_type']}"
             )
-        if spec["gender"] not in genders:
-            raise QueryError(f"gender must be male or female, got {spec['gender']}")
+        toggles = {
+            key: _boolean(spec, key)
+            for key in ("include_piercings", "allow_bad", "allow_event", "allow_low_rank")
+        }
         skills = tuple(spec["skills"])
         skill_names = tuple(spec["skill_names"])
         if len(skills) != len(skill_names):
             raise QueryError("skills and skill_names must be the same length")
+        if not all(_is_integer(index) for index in skills):
+            raise QueryError(f"skills must be integer indices, got {list(skills)}")
         query_spec = cls(
             id=spec["id"],
             language=spec["language"],
             hunter_type=hunter_types[spec["hunter_type"]],
             gender=genders[spec["gender"]],
-            hr=_ranged(spec, key="hr", minimum=1, maximum=6),
-            elder_star=_ranged(spec, key="elder_star", minimum=1, maximum=6),
-            weapon_slots=_ranged(spec, key="weapon_slots", minimum=0, maximum=3),
-            allow_bad=spec["allow_bad"],
-            include_piercings=spec["include_piercings"],
-            allow_event=spec["allow_event"],
-            allow_low_rank=spec["allow_low_rank"],
+            hr=hr,
+            elder_star=elder_star,
+            weapon_slots=weapon_slots,
             skills=skills,
             skill_names=skill_names,
+            **toggles,
         )
         return query_spec
 
@@ -80,12 +92,32 @@ class QuerySpec:
         return query_spec
 
 
+def _is_integer(value: Any) -> bool:
+    # bool is an int subclass in Python, but true/false is no HR.
+    integer = isinstance(value, int) and not isinstance(value, bool)
+    return integer
+
+
 def _ranged(spec: dict[str, Any], key: str, minimum: int, maximum: int) -> int:
     """A NumericUpDown value, in the GUI's range (Form1.h:655-656, :681, :708-709)."""
     value = spec[key]
-    if not minimum <= value <= maximum:
-        raise QueryError(f"{key} must be {minimum}-{maximum} as in the GUI, got {value}")
+    if not _is_integer(value) or not minimum <= value <= maximum:
+        raise QueryError(f"{key} must be {minimum}-{maximum} as in the GUI, got {value!r}")
     return value
+
+
+def _boolean(spec: dict[str, Any], key: str) -> bool:
+    value = spec[key]
+    if not isinstance(value, bool):
+        raise QueryError(f"{key} must be true or false, got {value!r}")
+    return value
+
+
+def rank_locked(hr: int, elder_star: int, query: Query) -> bool:
+    """Locked only when both the HR and the village stars it needs are above the
+    query's (Armor.cpp:113, Decoration.cpp:112, :129)."""
+    locked = hr > query.hr and elder_star > query.elder_star
+    return locked
 
 
 @dataclass(eq=False)

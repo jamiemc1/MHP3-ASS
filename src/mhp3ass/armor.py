@@ -7,7 +7,7 @@ Ported from ``Armor::MatchesQuery``, ``Armor::IsBetterThan`` and
 from __future__ import annotations
 
 from mhp3ass.model import Ability, Armor, Gender, HunterType
-from mhp3ass.query import Query
+from mhp3ass.query import Query, rank_locked
 
 
 def armor_skill_at(armor: Armor, ability: Ability) -> int:
@@ -30,7 +30,7 @@ def _meets_requirements(armor: Armor, query: Query) -> bool:
             and query.hunter_type is not armor.hunter_type
         )
         or (armor.gender is not Gender.BOTH_GENDERS and armor.gender is not query.gender)
-        or (armor.hr > query.hr and armor.elder_star > query.elder_star)
+        or rank_locked(armor.hr, armor.elder_star, query)
     )
     return not excluded
 

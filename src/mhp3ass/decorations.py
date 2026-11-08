@@ -10,7 +10,7 @@ from __future__ import annotations
 from mhp3ass.data import GameData
 from mhp3ass.data.text import as_unsigned
 from mhp3ass.model import Ability, Decoration
-from mhp3ass.query import Query
+from mhp3ass.query import Query, rank_locked
 
 
 class NoDecorationsError(LookupError):
@@ -61,9 +61,8 @@ def decoration_is_better_than(decoration: Decoration, other: Decoration) -> bool
 
 
 def _available(decoration: Decoration, query: Query) -> bool:
-    """Either HR or village stars high enough (Decoration.cpp:112, :129)."""
-    locked = decoration.hr > query.hr and decoration.elder_star > query.elder_star
-    return not locked
+    available = not rank_locked(decoration.hr, decoration.elder_star, query)
+    return available
 
 
 def best_decoration_for_query(
