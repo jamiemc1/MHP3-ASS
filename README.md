@@ -32,6 +32,18 @@ uv run pytest
 uv run pre-commit run --all-files   # ruff format, ruff check, ty, pytest
 ```
 
+## Importing charms from your save
+
+```bash
+uv run mhp3ass import-save <path to MHP3RD.BIN> --out mycharms.txt
+```
+
+Does what the original's import dialog does with its defaults: the first
+character with charms, the charms "Select Best" ticks, hacked charms
+skipped. The output file is replaced, as the original replaces its list.
+`--lang <language folder>` names skills in another language (default
+`English (TeamHGG)`).
+
 ## Regenerating golden fixtures (Windows)
 
 See [`docs/windows-setup.md`](docs/windows-setup.md) to set up the toolchain and
