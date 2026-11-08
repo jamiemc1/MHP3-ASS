@@ -19,7 +19,15 @@ from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
+from mhp3ass.solution import finish, has_enough_points, matches_query
 from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
+from mhp3ass.solution.charm_reduction import (
+    LegacyListIndexError,
+    rearrange_decorations,
+    reduce_charm,
+    reduce_skills,
+    reduce_slots,
+)
 from mhp3ass.solution.extra_skills import calculate_extra_skills
 from mhp3ass.solution.fill import calculate_decorations
 from mhp3ass.solution.initial import get_initial_data
@@ -192,6 +200,8 @@ def _dotnet_exception(error: Exception) -> str:
     """The .NET exception type the port's exception stands for."""
     if isinstance(error, LegacyNullReferenceError):
         return "NullReferenceException"
+    if isinstance(error, LegacyListIndexError):
+        return "ArgumentOutOfRangeException"
     if isinstance(error, (NoDecorationsError, KeyError)):
         return "KeyNotFoundException"
     if isinstance(error, IndexError):
@@ -271,12 +281,7 @@ def stage_mismatches(
 
 
 def _points_check(data: CalculationData) -> dict[str, Any]:
-    """MatchesQuery's points check (Solution.cpp:674-680): every query skill reached."""
-    abilities = data.solution.abilities
-    accepted = all(
-        abilities[skill.ability] >= data.need[skill.ability] for skill in data.query.skills
-    )
-    results = {"accepted": accepted}
+    results = {"accepted": has_enough_points(data)}
     return results
 
 
@@ -290,9 +295,9 @@ def _extra(data: CalculationData) -> None:
 
 
 def matches_query_stages(game: GameData) -> list[Stage]:
-    """MatchesQuery's stages up to its bad-skill check (Solution.cpp:672-684), with
-    CheckBadSkills' short-circuit (:114) unrolled into its two repairs, as the
-    harness traces them."""
+    """MatchesQuery's stages (Solution.cpp:672-722), with CheckBadSkills'
+    short-circuit (:114) unrolled into its two repairs, as the harness traces
+    them."""
 
     def accepted(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
         return results["points"]["accepted"]
@@ -319,6 +324,37 @@ def matches_query_stages(game: GameData) -> list[Stage]:
         results = {"result": reorder_gems(data, game)}
         return results
 
+    def passes_bad_skills(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
+        """Past CheckBadSkills: no repair was needed, or one worked. Read from the
+        repairs' results, since ExtraSkills recomputes bad_skills later on."""
+        if "extra" not in results:
+            return False
+        if "fix_bad" not in results:
+            return True
+        if results["fix_bad"]["result"]:
+            return True
+        passes = "reorder" in results and results["reorder"]["result"]
+        return passes
+
+    # The charm branch is chosen before any charm stage runs, and ReduceCharm
+    # (the last but one) is the only one that can null the charm
+    # (Solution.cpp:687-700).
+    def generated_charm(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
+        charm = data.solution.charm
+        generated = passes_bad_skills(data, results) and charm is not None and not charm.custom
+        return generated
+
+    def rearranges(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
+        charm = data.solution.charm
+        custom = passes_bad_skills(data, results) and charm is not None and charm.custom
+        return custom or "skills_reduced" in results
+
+    def after(previous: str) -> Callable[[CalculationData, dict[str, dict[str, Any]]], bool]:
+        def follows(data: CalculationData, results: dict[str, dict[str, Any]]) -> bool:
+            return previous in results
+
+        return follows
+
     stages = [
         Stage(name="initial", run=get_initial_data),
         Stage(name="decorated", run=fill_as_matches_query),
@@ -326,5 +362,66 @@ def matches_query_stages(game: GameData) -> list[Stage]:
         Stage(name="extra", run=_extra, applies=accepted),
         Stage(name="fix_bad", run=fix_bad, applies=needs_fixing),
         Stage(name="reorder", run=reorder, applies=fix_failed),
+        Stage(name="slots_reduced", run=reduce_slots, applies=generated_charm),
+        Stage(name="skills_reduced", run=reduce_skills, applies=after("slots_reduced")),
+        Stage(name="rearranged", run=rearrange_decorations, applies=rearranges),
+        Stage(name="charm_reduced", run=reduce_charm, applies=after("skills_reduced")),
+        Stage(name="extra_final", run=_extra, applies=after("charm_reduced")),
+        Stage(name="final", run=finish, applies=passes_bad_skills),
     ]
     return stages
+
+
+def _outcome(case: TraceCase) -> str:
+    """What the harness recorded: accepted, rejected_points, rejected_bad_skills or exception."""
+    if case.exception is not None:
+        return "exception"
+    if "final" in case.states:
+        return "accepted"
+    if not case.results["points"]["accepted"]:
+        return "rejected_points"
+    return "rejected_bad_skills"
+
+
+def matches_query_mismatches(goldens: list[TraceGolden], game: GameData) -> list[str]:
+    """Runs the port's ``matches_query`` once per sample and compares its outcome,
+    exception type and final state with the trace's last stage (``final``,
+    the stage it was rejected at, or ``threw``)."""
+    skill_index = {skill: index for index, skill in enumerate(game.skills)}
+    mismatches = []
+    for case in trace_cases(goldens, game):
+        charm = case.template.copy() if case.template is not None else None
+        solution = Solution(armors=list(case.armors), charm=charm)
+        raised = None
+        try:
+            accepted = matches_query(solution, case.query, game)
+        except (LegacyNullReferenceError, LookupError) as error:
+            raised = _dotnet_exception(error)
+            accepted = False
+        if raised is not None:
+            outcome = "exception"
+        elif accepted:
+            outcome = "accepted"
+        else:
+            outcome = "rejected"
+        expected = _outcome(case)
+        if outcome != expected and not (outcome == "rejected" and expected.startswith("rejected")):
+            mismatches.append(f"{case.label}: {outcome}, not {expected}")
+            continue
+        if raised is not None and raised != case.exception:
+            mismatches.append(f"{case.label}: raised {raised}, not {case.exception}")
+            continue
+        # The trace's last stage holds the state matches_query stops in.
+        last_stage = list(case.states)[-1]
+        # matches_query keeps its CalculationData to itself: ``need`` is left out.
+        data = new_calculation_data(solution, case.query)
+        ours = snapshot(solution, data, skill_index)
+        expected_state = case.states[last_stage]
+        differing = sorted(
+            key
+            for key in ours.keys() | expected_state.keys()
+            if key != "need" and ours.get(key) != expected_state.get(key)
+        )
+        if differing:
+            mismatches.append(f"{case.label} after {last_stage}: {differing}")
+    return mismatches
