@@ -126,7 +126,8 @@ def _lines_sha256(lines: list[str]) -> str:
 
 def _hash_mismatches(goldens: list[SearchGolden]) -> list[str]:
     """Manifests whose hashes don't match their solutions file: in order, as a
-    sorted set, or for the lines each worker added (consecutive, in worker order)."""
+    sorted set, or for the lines each worker added (consecutive, in worker order).
+    A manifest from before the hashes existed counts as a mismatch: regenerate it."""
     mismatches = []
     for golden in goldens:
         manifest = golden.manifest
@@ -135,12 +136,15 @@ def _hash_mismatches(goldens: list[SearchGolden]) -> list[str]:
         workers_match = True
         for worker in manifest["workers"]:
             added_lines = lines[start : start + worker["added"]]
-            workers_match = workers_match and worker["added_sha256"] == _lines_sha256(added_lines)
+            workers_match = workers_match and worker.get("added_sha256") == _lines_sha256(
+                added_lines
+            )
             start += worker["added"]
         if not (
-            manifest["solutions_file"]
-            and manifest["solutions_sha256"] == _lines_sha256(lines)
-            and manifest["solution_set_sha256"] == _lines_sha256(sorted(lines))
+            manifest.get("solutions_file") is True
+            and manifest.get("solutions_sha256") == _lines_sha256(lines)
+            and manifest.get("solution_set_sha256") == _lines_sha256(sorted(lines))
+            and manifest.get("worker_count") == len(manifest["workers"])
             and workers_match
         ):
             mismatches.append(golden.query["id"])
