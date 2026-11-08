@@ -1,9 +1,9 @@
 """Reading charms from a decrypted save, as the import dialog does.
 
-Ported from ``ImportCharms::LoadCharms( data, char_num )``,
-``SelectDefault`` and ``AddCharms`` (``legacy/ImportCharms.h:278-436``).
-The dialog's list view and radio buttons become plain data; the TUI shows
-them.
+Ported from both ``ImportCharms::LoadCharms`` overloads, ``SelectDefault``
+and ``AddCharms`` (``legacy/ImportCharms.h:278-456``), and the import
+button's size check (``legacy/Form1.h:2326-2332``). The dialog's list view
+and radio buttons become plain data; the TUI shows them.
 """
 
 from __future__ import annotations
@@ -80,9 +80,12 @@ def decode_charm_record(raw: bytes, game: GameData) -> Charm:
 def _name_end(data: bytes, offset: int) -> int:
     """The first zero byte from ``offset`` (ImportCharms.h:378-380), scanned byte by byte
     even though the name is UTF-16."""
-    if 0 not in data[offset:]:
-        raise SaveFileError(f"the character name at {offset:#x} has no terminating zero byte")
-    name_end = data.index(0, offset)
+    try:
+        name_end = data.index(0, offset)
+    except ValueError:
+        raise SaveFileError(
+            f"the character name at {offset:#x} has no terminating zero byte"
+        ) from None
     return name_end
 
 
@@ -171,10 +174,22 @@ class SaveImport:
     """What the import dialog opens with: the three character slots."""
 
     characters: list[ImportedCharacter | None]
-    # The slot the dialog selects first: the first with charms (ImportCharms.h:448-455).
-    default_slot: int | None
-    # The dialog shows its "cheater" message box (ImportCharms.h:445-446).
-    cheats: bool
+
+    @property
+    def default_character(self) -> ImportedCharacter | None:
+        """The character the dialog selects first: the first slot whose radio button is
+        enabled, which is the first with charms (ImportCharms.h:417-424, :448-455)."""
+        character = next(
+            (character for character in self.characters if character and character.charms),
+            None,
+        )
+        return character
+
+    @property
+    def cheats(self) -> bool:
+        """Whether the dialog shows its "cheater" message box (ImportCharms.h:442-446)."""
+        cheats = any(character.cheats for character in self.characters if character is not None)
+        return cheats
 
 
 def read_save(data: bytes, game: GameData, validity: CharmValidity) -> SaveImport:
@@ -186,23 +201,16 @@ def read_save(data: bytes, game: GameData, validity: CharmValidity) -> SaveImpor
         )
     decrypted = decrypt_game_layer(decrypt_system_layer(data))
     characters = [load_character(decrypted, slot, game, validity) for slot in range(3)]
-    default_slot = next(
-        (slot for slot, character in enumerate(characters) if character and character.charms),
-        None,
-    )
-    cheats = any(character.cheats for character in characters if character is not None)
-    save_import = SaveImport(characters=characters, default_slot=default_slot, cheats=cheats)
+    save_import = SaveImport(characters=characters)
     return save_import
 
 
 def default_import(save_import: SaveImport, game: GameData) -> list[Charm]:
     """The charms pressing Import straight away adds: the default character's, as
     Select Best ticks them. Empty when no character has charms."""
-    if save_import.default_slot is None:
-        return []
-    character = save_import.characters[save_import.default_slot]
+    character = save_import.default_character
     if character is None:
-        raise ValueError(f"default slot {save_import.default_slot} has no character")
+        return []
     charms = [imported.charm for imported in character.charms]
     imported = import_charms(charms, select_best(charms, game))
     return imported
