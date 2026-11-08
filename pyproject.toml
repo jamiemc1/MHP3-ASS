@@ -16,6 +16,7 @@ mhp3ass = "mhp3ass.cli:main"
 dev = [
     "pre-commit>=4.0",
     "pytest>=8.4",
+    "pytest-cov>=7.1.0",
     "ruff>=0.13",
     "ty>=0.0.99",
 ]
