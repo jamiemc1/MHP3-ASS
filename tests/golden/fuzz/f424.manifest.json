@@ -1,0 +1,127 @@
+{
+  "id": "f424",
+  "query_json": "{\"id\":\"f424\",\"description\":\"uniform sampler, charm mode one_skill, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[174,168,158,194],\"skill_names\":[\"Recovery Up\",\"Bombardier\",\"Thunder Res (L)\",\"Divine Whim\"],\"my_charms\":[\"0,FastCharge,1,BombStrUp,-1\",\"0,Stamina,5,BombStrUp,-5\",\"0,BombStrUp,1,Ice Res,2\",\"2,Rec Level,1,Evade Dist,-3\",\"0,Evade Dist,6,ThunderRes,-5\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    5,
+    8,
+    6,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 15,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Rec Level OOO",
+      "found": 1989,
+      "added": 1985,
+      "added_sha256": "27c96df95bb27b4623ca1dffd54ccfcde75e24ceeea91054b70ed85c70ba7ad6"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Rec Level OO-",
+      "found": 1122,
+      "added": 1083,
+      "added_sha256": "407c40bcf777e4c08753b9e952010a50f2a3da3c3ec10fbf789b255e56c115e2"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Rec Level O--",
+      "found": 421,
+      "added": 343,
+      "added_sha256": "adc52515212af22700bcad820f369e65d83b5e4df3500909fb9a4484b6d11565"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 BombStrUp OOO",
+      "found": 518,
+      "added": 421,
+      "added_sha256": "77e5d286c3ca48142d744f7ba6c0a127569d9259f61fc84959eb5c1a4f13f2c4"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 BombStrUp OO-",
+      "found": 1018,
+      "added": 1010,
+      "added_sha256": "19d412881aeb2f2f6bfab62563c90e9e6de02d2ace35e382c20687bc2679a783"
+    },
+    {
+      "worker": 5,
+      "charm": "+7 BombStrUp O--",
+      "found": 621,
+      "added": 516,
+      "added_sha256": "3ff6f528527bf1a4697f1c0b74ed60a13cadf4440754f7255b1a318018e0315d"
+    },
+    {
+      "worker": 6,
+      "charm": "+10 BombStrUp ---",
+      "found": 909,
+      "added": 742,
+      "added_sha256": "cec830fb39d95504baa19c6f64aba7a6be75215a689f92362e59e1c1e568d8ff"
+    },
+    {
+      "worker": 7,
+      "charm": "+8 ThunderRes OOO",
+      "found": 3746,
+      "added": 3742,
+      "added_sha256": "1588104add67e3655bb90968fb8e6784e628e85aeb2838f430fdc7a0b16d8b44"
+    },
+    {
+      "worker": 8,
+      "charm": "+9 ThunderRes OO-",
+      "found": 3131,
+      "added": 2631,
+      "added_sha256": "c65ffe6b65d86325cf178d2f19a4eb1069e95789d1883d6ef04fd7a24286ac9e"
+    },
+    {
+      "worker": 9,
+      "charm": "+9 ThunderRes O--",
+      "found": 1798,
+      "added": 916,
+      "added_sha256": "33bd589d7f2048b0be18e7411c53bb3465e1ac121f3e5a755f808b763ef70eb0"
+    },
+    {
+      "worker": 10,
+      "charm": "+13 ThunderRes ---",
+      "found": 2346,
+      "added": 1466,
+      "added_sha256": "735359d9feccb0efb4ef1c3f6f84a2b39d652e2d76d9ab4236b985f5c686b25d"
+    },
+    {
+      "worker": 11,
+      "charm": "OOO",
+      "found": 120,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+4 Whim OO-",
+      "found": 467,
+      "added": 462,
+      "added_sha256": "239085730953b4c308a22b32151a7c024f2b4bb13909783dc6ac9b48c24d4879"
+    },
+    {
+      "worker": 13,
+      "charm": "+8 Whim O--",
+      "found": 819,
+      "added": 792,
+      "added_sha256": "12c9c0cee53179cc23917f157a1ae9f5486b1efbcb1f13bc9e21a986108b6fc8"
+    },
+    {
+      "worker": 14,
+      "charm": "+13 Whim ---",
+      "found": 1066,
+      "added": 808,
+      "added_sha256": "1c3d35c34fb2ba20eede7e9807bb514edb9365df4e4c8b43e70739247d6c4af7"
+    }
+  ],
+  "solution_count": 16917,
+  "solutions_sha256": "79cfba42216350a60f58f9c49c6f24bdf4eaf20e40bc139659c3eba237b63843",
+  "solution_set_sha256": "33ec5d0b20f7b31e7854330f2b72886ee7579de92e85391238fb8b86cb14467e",
+  "solutions_file": false,
+  "exception": null
+}

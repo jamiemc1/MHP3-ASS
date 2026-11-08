@@ -1,0 +1,57 @@
+{
+  "id": "f034",
+  "query_json": "{\"id\":\"f034\",\"description\":\"armour-seeded sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[139,194,135,120,208,7],\"skill_names\":[\"Earplug\",\"Divine Whim\",\"Antiseptic\",\"Divine Protection\",\"Bullet Limit\",\"Reckless Abandon +2\"],\"my_charms\":[\"0,Thundr Atk,6,Carving,-2\",\"0,Awaken,1,Expert,1\",\"0,Rapid Fire,3,FatigueAtk,2\",\"0,Stamina,1,ThunderRes,7\",\"1,Guard,2,HearProtct,1\",\"0,Slam,5,HearProtct,1\",\"0,Paralysis,2,CutterSAdd,3\",\"0,Guard Up,2,Gathering,-1\",\"0,Potential,1,Horn,7\",\"0,SleepCAdd,8,,\",\"0,WindPress,4,PowerCAdd,0\",\"0,Protection,1,SpeedSetup,7\",\"0,Rec Speed,1,SleepCAdd,-6\",\"0,ClustS Add,6,Psychic,-1\",\"0,Carving,4,Rec Level,4\",\"1,Loading,1,Water Atk,-10\",\"0,Eating,1,HearProtct,0\",\"0,Attack,4,Shot Mix,4\",\"0,Sleep,4,Shot Mix,-3\",\"0,Dragon Res,6,Paralysis,-3\",\"0,Expert,2,ThunderRes,10\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    10,
+    9,
+    8,
+    10
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Guard, +1 HearProtct O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Protection, +7 SpeedSetup ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Attack, +4 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Expert, +10 ThunderRes ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

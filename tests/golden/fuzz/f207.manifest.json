@@ -1,0 +1,29 @@
+{
+  "id": "f207",
+  "query_json": "{\"id\":\"f207\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[132,14],\"skill_names\":[\"Quake Res\",\"Speed Sharpening\"],\"my_charms\":[]}",
+  "my_charms_loaded": 0,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

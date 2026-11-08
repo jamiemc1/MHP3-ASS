@@ -1,0 +1,36 @@
+{
+  "id": "f422",
+  "query_json": "{\"id\":\"f422\",\"description\":\"armour-seeded sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[7,140],\"skill_names\":[\"Reckless Abandon +2\",\"HighGradeEarplug\"],\"my_charms\":[\"0,NormalS Up,1,HearProtct,0\",\"0,Expert,3,SpeedSetup,-6\",\"3,KO,1,NormalS Up,-2\",\"0,PunishDraw,5,HearProtct,-3\",\"0,Fire Atk,6,Ice Attack,-7\",\"0,Rec Level,4,HearProtct,1\",\"0,Antiseptic,1,RazorCAdd,7\",\"0,Status,3,Expert,4\",\"0,HearProtct,3,Ice Attack,4\",\"1,Expert,2,HiSpdGathr,0\",\"0,NormalSAdd,5,Crag S Add,9\",\"1,Eating,1,RazorCAdd,-9\",\"0,Expert,2,Precision,0\",\"0,Will Recov,4,Antiseptic,-5\",\"0,Constitutn,2,Expert,-7\",\"0,Crit Draw,3,HearProtct,3\",\"0,HearProtct,4,PelletS Up,0\",\"1,Guard,4,Sharpener,2\",\"1,Ice Res,1,,\",\"1,HearProtct,3,Thundr Atk,-7\",\"0,Expert,3,HiSpdGathr,7\",\"2,Guard Up,1,Reload Spd,-2\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    6,
+    4,
+    3,
+    7
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 HearProtct, +10 Expert ---",
+      "found": 2463,
+      "added": 2463,
+      "added_sha256": "7bdc52aa5ba531c5a2808f725da0786c3b507c913f609c54ca5b4889da21e369"
+    },
+    {
+      "worker": 1,
+      "charm": "OOO",
+      "found": 686,
+      "added": 686,
+      "added_sha256": "ba7e9467fb03d387b487ccdf7fe0ec5ecdf8ba43b0bdaab848a8b1fdfb434b8f"
+    }
+  ],
+  "solution_count": 3149,
+  "solutions_sha256": "794782222572aa51c6a14cfed3b64f0d1f9980d6451d37514e56385a69b49247",
+  "solution_set_sha256": "d15a044a4b1b529dc06c3188419c53e0a7d5392c9e278ffb7263c82862db6c5f",
+  "solutions_file": true,
+  "exception": null
+}

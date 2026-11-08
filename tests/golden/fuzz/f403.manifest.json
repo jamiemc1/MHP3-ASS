@@ -1,0 +1,29 @@
+{
+  "id": "f403",
+  "query_json": "{\"id\":\"f403\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[111,120,142],\"skill_names\":[\"Recovery Speed +1\",\"Divine Protection\",\"Health +50\"],\"my_charms\":[\"1,Stamina,4,Fire Res,-2\",\"0,Expert,3,Ice Res,5\",\"0,Antiseptic,1,Defense,-6\",\"1,Rec Speed,5,,\",\"0,Sheathe,1,Crag S Add,5\",\"0,Debilitate,2,Sharpener,-6\",\"0,Fire Atk,7,Sharpener,-10\",\"0,PelletS Up,3,Rec Level,3\",\"0,Wide Area,3,PoisonCAdd,10\",\"2,Sheathe,3,Water Atk,-7\",\"0,Rec Speed,7,Gathering,2\",\"2,Crit Draw,3,Psychic,1\",\"0,Health,8,SleepCAdd,-6\",\"2,Slam,2,Artisan,-1\",\"1,Evade Dist,1,Health,8\",\"0,Evade Dist,5,HiSpdGathr,-8\",\"0,Ice Res,1,Health,-7\",\"0,Antiseptic,1,Defense,-6\",\"2,Will Recov,3,Expert,1\",\"2,Slam,2,Artisan,-1\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    8,
+    7,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 1182,
+      "added": 1182,
+      "added_sha256": "ce85e14375b95f36ba87016bc3b4e9f7ce8d096e4306197f5a6cde5b266b29fb"
+    }
+  ],
+  "solution_count": 1182,
+  "solutions_sha256": "ce85e14375b95f36ba87016bc3b4e9f7ce8d096e4306197f5a6cde5b266b29fb",
+  "solution_set_sha256": "33ab3ff6625605d4a919cdff0045dba3bf6ccb2f118ec364f99f49c62da506aa",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f054",
+  "query_json": "{\"id\":\"f054\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[28,140,179,96],\"skill_names\":[\"Gunnery King\",\"HighGradeEarplug\",\"Picky Eater\",\"Runner\"],\"my_charms\":[\"0,WindPress,1,Gunnery,0\",\"0,Gunnery,1,Cold Res,-10\",\"0,Gunnery,2,Attack,3\",\"0,Gunnery,6,Shot Mix,7\",\"0,Awaken,3,Ice Res,1\",\"0,Gunnery,6,Stun,2\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    7,
+    7,
+    9,
+    5
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Gunnery, +7 Shot Mix ---",
+      "found": 12,
+      "added": 12,
+      "added_sha256": "19eb8675e909dc585730dc7c95266661a6309c82f675520e3360e8e56f08d703"
+    }
+  ],
+  "solution_count": 12,
+  "solutions_sha256": "19eb8675e909dc585730dc7c95266661a6309c82f675520e3360e8e56f08d703",
+  "solution_set_sha256": "19eb8675e909dc585730dc7c95266661a6309c82f675520e3360e8e56f08d703",
+  "solutions_file": true,
+  "exception": null
+}

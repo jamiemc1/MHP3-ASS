@@ -1,0 +1,29 @@
+{
+  "id": "f468",
+  "query_json": "{\"id\":\"f468\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[183,172],\"skill_names\":[\"Huntsman\\u0027s Life\",\"Autotracker\"],\"my_charms\":[\"0,Rec Speed,7,Psychic,9\",\"0,Precision,4,Psychic,5\",\"1,Guard Up,3,Health,-5\",\"0,Quake Res,3,SleepCAdd,10\",\"0,Will Recov,1,Psychic,5\",\"2,Guard,1,Huntsman,3\",\"2,Sharpener,1,Huntsman,2\",\"0,Slam,4,Gunnery,7\",\"0,Slam,4,Psychic,6\",\"0,Psychic,4,NormalSAdd,-4\",\"0,Guard Up,3,Psychic,5\",\"0,Status,1,Loading,-2\",\"0,WindPress,4,Anti-Theft,2\",\"0,Defense,1,Psychic,3\",\"0,PelletSAdd,2,Psychic,9\",\"0,Attack,1,Huntsman,-8\",\"0,Ice Res,1,Psychic,-8\",\"0,Evade Dist,5,Psychic,0\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 540,
+      "added": 540,
+      "added_sha256": "6e592fad1588138e47d4c8a9ba67b4c0ee4fd5ac0a0f5bf115e13340a1bed1f4"
+    }
+  ],
+  "solution_count": 540,
+  "solutions_sha256": "6e592fad1588138e47d4c8a9ba67b4c0ee4fd5ac0a0f5bf115e13340a1bed1f4",
+  "solution_set_sha256": "d797fa2c220292bf0587e102edd19f61ec3934cb1bb1980957f07052c0e50aee",
+  "solutions_file": true,
+  "exception": null
+}

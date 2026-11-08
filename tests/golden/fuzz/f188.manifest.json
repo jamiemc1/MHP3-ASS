@@ -1,0 +1,29 @@
+{
+  "id": "f188",
+  "query_json": "{\"id\":\"f188\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: illegal_charm_lines, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[32,37,65,132,8],\"skill_names\":[\"Adrenaline +2\",\"Reload Speed +1\",\"Cutter S Add\",\"Quake Res\",\"Reckless Abandon +3\"],\"my_charms\":[\"0,Constitutn,1,SpeedSetup,-6\",\"2,Quake Res,1,Shot Mix,-10\",\"0,Quake Res,4,Fire Res,-5\",\"0,Thundr Atk,2,Quake Res,3\",\"0,Sheathe,6,ThunderRes,-1\",\"0,Ice Attack,7,PoisonCAdd,1\",\"0,CutterSAdd,1,Shot Mix,9\",\"2,Rec Level,15,,\",\"1,,,,\",\"0,Thundr Atk,2,Quake Res,3\",\"0,KO,6,Psychic,-7\",\"1,Potential,2,Rapid Fire,1\",\"0,Fire Res,6,Mud/Snow,2\",\"0,Rec Level,1,Rec Speed,2\",\"0,PierceSAdd,5,Attack,6\",\"0,Ice Attack,7,PoisonCAdd,1\",\"0,CutterSAdd,15,,\",\"2,FastCharge,2,Expert,-5\",\"2,Expert,2,ClustS Add,-9\",\"0,CutterSAdd,4,Cold Res,5\",\"0,Attack,1,CutterSAdd,-5\",\"0,Recoil,1,Reload Spd,4\",\"0,Eating,2,CutterSAdd,-2\",\"1,Fire Atk,4,Potential,2\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 2,
+  "relevant_armor_counts": [
+    8,
+    7,
+    6,
+    8,
+    7
+  ],
+  "relevant_decoration_count": 9,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

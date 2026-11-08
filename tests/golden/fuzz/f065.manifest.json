@@ -1,0 +1,29 @@
+{
+  "id": "f065",
+  "query_json": "{\"id\":\"f065\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[105,160],\"skill_names\":[\"Evade +2\",\"Ice Res (S)\"],\"my_charms\":[\"0,WindPress,5,Water Atk,6\",\"0,Gunnery,3,Defense,6\",\"2,Constitutn,1,DungMaster,-5\",\"0,ClustS Add,4,Sleep,1\",\"0,Ice Attack,1,Expert,4\",\"1,NormalSAdd,1,Rec Speed,-3\",\"0,Eating,3,Whim,2\",\"0,KO,1,Guard,-2\",\"0,Water Atk,5,Stun,-10\",\"0,Defense,4,Quake Res,6\",\"0,Crit Draw,1,Rec Level,2\",\"0,Blight Res,2,Reload Spd,-3\",\"0,Precision,5,Huntsman,0\",\"1,Hunger,5,Backpackng,1\",\"0,Reload Spd,4,Hunger,6\",\"0,Hunger,2,Mud/Snow,1\",\"0,NormalS Up,2,PierceS Up,3\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 101,
+      "added": 101,
+      "added_sha256": "533fcfde5c25ac2e3a692f4228dad055034284f6343829cd689b82c07e82c412"
+    }
+  ],
+  "solution_count": 101,
+  "solutions_sha256": "533fcfde5c25ac2e3a692f4228dad055034284f6343829cd689b82c07e82c412",
+  "solution_set_sha256": "9a7aa55cb6cd7abab6a7b8cd86565c18c4f01a41872d6e0a7e13c97d8e8462b2",
+  "solutions_file": true,
+  "exception": null
+}

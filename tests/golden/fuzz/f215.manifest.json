@@ -1,0 +1,29 @@
+{
+  "id": "f215",
+  "query_json": "{\"id\":\"f215\",\"description\":\"armour-seeded sampler, charm mode none, 6 skills; quotas: cross_type, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[62,198,166,16,174,96],\"skill_names\":[\"Crag S All Add\",\"Luck Booster\",\"Wide Area +1\",\"Sharpness +1\",\"Recovery Up\",\"Runner\"],\"my_charms\":[\"2,Eating,1,Water Atk,-1\",\"1,WindPress,1,Eating,1\",\"0,Stamina,3,Reload Spd,3\",\"0,Will Recov,6,Antiseptic,2\",\"0,Sharpener,2,Wide Area,4\",\"0,Artisan,5,Thundr Atk,7\",\"1,Rec Level,1,Perception,0\",\"0,Sleep,2,Heat Res,-1\",\"0,Eating,4,Elemental,1\",\"0,Will Recov,6,Antiseptic,2\",\"0,Stamina,5,Dragon Res,-10\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

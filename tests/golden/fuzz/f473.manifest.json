@@ -1,0 +1,29 @@
+{
+  "id": "f473",
+  "query_json": "{\"id\":\"f473\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (Athena)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[129,178,146],\"skill_names\":[\"Stun Negated\",\"Filled Up\",\"Def Up (M)\"],\"my_charms\":[\"0,Fire Res,3,Health,-9\",\"0,Water Atk,1,Fire Res,10\",\"0,Rec Level,4,Backpackng,-4\",\"0,Horn,1,Expert,-6\",\"0,Paralysis,3,Fortitude,7\",\"0,Water Res,5,ParalyCAdd,-9\",\"0,Wide Area,8,Health,4\",\"0,Elemental,4,Fire Atk,4\",\"0,Fortitude,1,Stun,4\",\"0,NormalSAdd,2,Defense,1\",\"0,Awaken,6,Stun,2\",\"1,Status,6,FatigueAtk,-3\",\"0,NormalSAdd,6,ThunderRes,4\",\"0,Attack,3,Dragon Res,0\",\"0,Fire Res,3,Whim,-6\",\"0,Protection,1,Defense,1\",\"0,PelletS Up,3,Hunger,1\",\"1,Thundr Atk,4,Defense,-4\",\"1,Fire Atk,2,Rewards,1\",\"0,Gunnery,6,Huntsman,-3\",\"0,Sharpness,2,Defense,2\",\"0,Backpackng,4,Stun,9\",\"1,Guard,1,Hunger,-8\",\"0,Defense,1,SleepCAdd,3\",\"0,Protection,6,Fencing,0\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    5,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 110,
+      "added": 110,
+      "added_sha256": "abee6c7e73f5679012d50471d0115e3e009e8615f72197825f065d2aa54cb516"
+    }
+  ],
+  "solution_count": 110,
+  "solutions_sha256": "abee6c7e73f5679012d50471d0115e3e009e8615f72197825f065d2aa54cb516",
+  "solution_set_sha256": "abee6c7e73f5679012d50471d0115e3e009e8615f72197825f065d2aa54cb516",
+  "solutions_file": true,
+  "exception": null
+}

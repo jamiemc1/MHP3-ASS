@@ -1,0 +1,29 @@
+{
+  "id": "f208",
+  "query_json": "{\"id\":\"f208\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[111],\"skill_names\":[\"Recovery Speed +1\"],\"my_charms\":[\"0,Rapid Fire,3,ThunderRes,9\",\"0,Rec Speed,6,Gluttony,11\",\"0,Ice Attack,5,Rec Speed,5\",\"0,Rec Speed,7,Heat Res,2\",\"1,Rec Speed,3,Backpackng,0\",\"0,Rec Speed,4,ClustS Add,10\",\"0,PierceSAdd,3,Rec Speed,-3\",\"0,Horn,2,Rec Speed,-2\",\"0,PunishDraw,4,Status,4\",\"0,CutterSAdd,5,Fire Res,10\",\"0,Ice Attack,5,Rec Speed,8\",\"0,Sharpener,1,Rec Speed,1\",\"0,Rec Speed,7,BombStrUp,0\",\"0,KO,5,Rec Speed,2\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    1,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 240,
+      "added": 240,
+      "added_sha256": "80311055a8b60a25288b9a63d91a389a1de54921de80f0090e9484aab91a5587"
+    }
+  ],
+  "solution_count": 240,
+  "solutions_sha256": "80311055a8b60a25288b9a63d91a389a1de54921de80f0090e9484aab91a5587",
+  "solution_set_sha256": "80311055a8b60a25288b9a63d91a389a1de54921de80f0090e9484aab91a5587",
+  "solutions_file": true,
+  "exception": null
+}

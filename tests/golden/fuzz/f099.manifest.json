@@ -1,0 +1,50 @@
+{
+  "id": "f099",
+  "query_json": "{\"id\":\"f099\",\"description\":\"armour-seeded sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[120,6],\"skill_names\":[\"Divine Protection\",\"Reckless Abandon +1\"],\"my_charms\":[\"0,Fencing,5,Protection,7\",\"2,BombStrUp,1,PowerCAdd,6\",\"0,Evasion,5,Defense,-1\",\"1,Fire Atk,6,Thundr Atk,-9\",\"0,Evasion,6,BombStrUp,-8\",\"3,,,,\",\"0,Dragon Atk,3,Attack,-6\",\"0,Evade Dist,6,Mud/Snow,-7\",\"0,Protection,4,Gluttony,-5\",\"0,Rec Level,5,Guard Up,4\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    7,
+    6,
+    8,
+    8
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Protection, +5 Expert ---",
+      "found": 24182,
+      "added": 24182,
+      "added_sha256": "ac9b79a8fe1ff9bfc1f22cf62e9dca4b7e0ba077fa593394ac2cca78009361ab"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Protection, +8 Expert ---",
+      "found": 24192,
+      "added": 23870,
+      "added_sha256": "66acf131f9ae529b1ead490f5e48d57509d46aef35d3f8b085ebf30a13315a6f"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Protection, +1 Expert OO-",
+      "found": 24167,
+      "added": 24126,
+      "added_sha256": "0563246604cbf5451902cca31b1527caf928514d404579d3cef64209affef245"
+    },
+    {
+      "worker": 3,
+      "charm": "OOO",
+      "found": 24182,
+      "added": 24167,
+      "added_sha256": "28f676166d533e427a819c2a30784b43b99877db3c15042f3e0e06d3f81e0a2b"
+    }
+  ],
+  "solution_count": 96345,
+  "solutions_sha256": "a819fc0220ef25148761adbd4d2d714c8c6c79412aac7fa7e42b71edbe6ad0ef",
+  "solution_set_sha256": "9ae938b4226920781525bf700a93ba6983d0c929186f461e47f766959edb9515",
+  "solutions_file": false,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f306",
+  "query_json": "{\"id\":\"f306\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[136,2,166,100,77,157],\"skill_names\":[\"Steal No Effect\",\"Attack Up [Lg]\",\"Wide Area +1\",\"Hunger Halved\",\"Fire Element +1\",\"Thunder Res (S)\"],\"my_charms\":[\"2,,,,\",\"0,Elemental,5,Health,7\",\"1,Dragon Atk,3,Hunger,-9\",\"1,Rec Level,2,Fire Atk,-8\",\"2,Artisan,2,KO,-3\",\"0,NormalS Up,4,Wide Area,6\",\"0,Hunger,3,Antiseptic,3\",\"0,Fate,1,PelletS Up,-1\",\"0,Sleep,2,Whim,4\",\"0,WindPress,4,Mud/Snow,-1\",\"0,Evasion,6,ThunderRes,5\",\"0,PierceS Up,4,Debilitate,2\",\"0,PelletSAdd,4,SpeedSetup,6\",\"0,Fire Atk,3,Gluttony,-8\",\"0,Reload Spd,2,Hunger,-10\",\"0,Backpackng,4,RazorCAdd,-4\",\"0,SpeedSetup,2,Gathering,4\",\"1,,,,\",\"0,Dragon Atk,1,Eating,0\",\"0,NormalSAdd,6,PelletSAdd,5\",\"0,Fire Atk,1,Ice Attack,-5\",\"0,PelletS Up,1,Fire Atk,2\",\"1,Status,3,Health,0\",\"0,Elemental,2,Stamina,-2\",\"0,Stun,3,Anti-Theft,-1\",\"0,Evade Dist,4,Artisan,-1\",\"0,Crit Draw,5,Sheathe,3\",\"0,Recoil,3,Thundr Atk,8\",\"0,Blight Res,5,FatigueAtk,3\",\"1,Rewards,1,Wide Area,-4\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    14,
+    6,
+    9,
+    10,
+    11
+  ],
+  "relevant_decoration_count": 10,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

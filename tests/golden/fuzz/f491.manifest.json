@@ -1,0 +1,29 @@
+{
+  "id": "f491",
+  "query_json": "{\"id\":\"f491\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: auto_guard_charm, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[154,119],\"skill_names\":[\"Water Res (S)\",\"Auto-Guard\"],\"my_charms\":[\"0,Fire Res,2,DungMaster,9\",\"0,Sleep,4,Rec Speed,0\",\"0,PierceSAdd,5,Ice Res,-5\",\"0,PunishDraw,5,Gunnery,6\",\"1,FatigueAtk,2,NormalS Up,0\",\"0,PelletSAdd,3,Fire Res,-2\",\"0,Auto-Guard,10,,\",\"0,Water Atk,7,Gunnery,10\",\"0,Fate,3,ThunderRes,0\",\"0,Water Res,5,Fire Res,-10\",\"0,Carving,2,HearProtct,3\",\"0,Mud/Snow,1,Sense,9\",\"0,Recoil,4,Health,3\",\"0,Crit Draw,5,Reload Spd,0\",\"0,Blight Res,2,Status,3\",\"2,Fire Atk,3,LastingPwr,-1\",\"0,Artisan,4,Guard Up,3\",\"0,KO,1,Precision,8\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    1,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "42beec9f1cf2b73e523fd7fd279672c0642ffcb1f1a94db816131bc9087216b0"
+    }
+  ],
+  "solution_count": 48,
+  "solutions_sha256": "42beec9f1cf2b73e523fd7fd279672c0642ffcb1f1a94db816131bc9087216b0",
+  "solution_set_sha256": "533eccc1b23a94a45d91d7b68595c1a07110cb2965a31581d51f77a270e04671",
+  "solutions_file": true,
+  "exception": null
+}

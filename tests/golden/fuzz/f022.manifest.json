@@ -1,0 +1,29 @@
+{
+  "id": "f022",
+  "query_json": "{\"id\":\"f022\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: auto_guard_charm, one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[119,140,12,100,115],\"skill_names\":[\"Auto-Guard\",\"HighGradeEarplug\",\"Sharp Sword\",\"Hunger Halved\",\"Guard +1\"],\"my_charms\":[\"0,Auto-Guard,10,,\",\"0,PierceS Up,5,HearProtct,-3\",\"0,Guard,4,Attack,9\",\"0,Sharpness,5,PelletS Up,3\",\"0,Hunger,8,Stun,-7\",\"0,NormalS Up,5,Hunger,6\",\"0,Crit Draw,2,Guard,3\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    4,
+    5,
+    7
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

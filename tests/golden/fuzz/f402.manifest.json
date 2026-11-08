@@ -1,0 +1,176 @@
+{
+  "id": "f402",
+  "query_json": "{\"id\":\"f402\",\"description\":\"armour-seeded sampler, charm mode two_skill, 5 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[208,53,134,57,50],\"skill_names\":[\"Bullet Limit\",\"NormalS/RapidBowUp\",\"Wind Anchor\",\"Pierce S LV1 Add\",\"Accuracy+2\"],\"my_charms\":[\"1,NormalSAdd,1,SleepCAdd,3\",\"0,KO,4,Constitutn,0\",\"0,Will Recov,5,Sharpness,-2\",\"0,Precision,1,Rec Speed,-1\",\"1,Dragon Atk,4,WindPress,-1\",\"0,Carving,2,Gunnery,-2\",\"0,Attack,2,PierceSAdd,-4\",\"0,HearProtct,4,Reload Spd,-1\",\"0,WindPress,4,Status,0\",\"1,WindPress,1,Rewards,3\",\"0,PierceSAdd,5,Defense,6\",\"0,Paralysis,3,PierceSAdd,1\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    5,
+    6,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 22,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 WindPress, +1 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 WindPress, +7 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 WindPress, +10 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 WindPress, +1 NormalS Up O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 WindPress, +3 NormalS Up ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 WindPress, +2 NormalS Up ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 NormalS Up, +3 WindPress ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+6 PierceSAdd, +2 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+3 PierceSAdd, +10 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+5 PierceSAdd, +5 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+4 PierceSAdd, +1 Shot Mix OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+4 PierceSAdd, +7 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+3 WindPress, +9 PierceSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+4 WindPress, +6 PierceSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+6 Precision, +1 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+5 Precision, +10 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+4 WindPress, +3 Precision ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+2 WindPress, +8 Precision ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+3 PierceSAdd, +8 Precision ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 19,
+      "charm": "+6 Precision, +9 PierceSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+1 PierceSAdd, +3 Precision O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+2 Precision, +10 PierceSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

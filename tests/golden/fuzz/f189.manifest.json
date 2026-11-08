@@ -1,0 +1,57 @@
+{
+  "id": "f189",
+  "query_json": "{\"id\":\"f189\",\"description\":\"uniform sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[181,87,205,172],\"skill_names\":[\"\u65e9\u98df\u3044+2\",\"\u6c37\u5c5e\u6027\u653b\u6483\u5f37\u5316+2\",\"\u8abf\u5408\u6210\u529f\u7387+45%\",\"\u81ea\u52d5\u30de\u30fc\u30ad\u30f3\u30b0\"],\"my_charms\":[\"2,\u6c17\u529b\u56de\u5fa9,1,\u98df\u4e8b,-2\",\"0,\u6c17\u529b\u56de\u5fa9,3,\u6c17\u7d76,13\",\"1,\u8074\u899a\u4fdd\u8b77,5,\u6c37\u5c5e\u6027\u653b\u6483,-4\",\"0,\u4f53\u8853,5,\u4f53\u529b,4\",\"0,\u629c\u5200\u4f1a\u5fc3,1,\u6c37\u5c5e\u6027\u653b\u6483,3\",\"0,\u706b\u8010\u6027,1,\u8010\u6691,9\",\"0,\u91cd\u6483,4,\u96f7\u8010\u6027,10\",\"0,\u6c34\u8010\u6027,1,\u63a1\u53d6,13\",\"0,\u6c37\u5c5e\u6027\u653b\u6483,4,\u72e9\u4eba,4\",\"1,\u629c\u5200\u4f1a\u5fc3,5,\u53cd\u52d5,-1\",\"0,\u4f53\u529b,3,\u62e1\u6563\u5f3e\u8ffd\u52a0,9\",\"0,\u8010\u9707,7,\u6c17\u7d76,5\",\"0,\u52a0\u8b77,6,\u904b\u6c17,0\",\"0,\u88c5\u586b\u901f\u5ea6,6,\u65ac\u308c\u5473,3\",\"1,\u5c5e\u6027\u653b\u6483,1,\u98df\u4e8b,1\",\"0,\u75db\u6483,1,\u6c37\u5c5e\u6027\u653b\u6483,9\",\"0,\u5c5e\u6027\u8010\u6027,2,\u98df\u4e8b,3\",\"0,\u5265\u304e\u53d6\u308a,5,KO,3\",\"0,\u30ac\u30fc\u30c9\u5f37\u5316,2,\u96f7\u5c5e\u6027\u653b\u6483,3\",\"0,\u6c17\u529b\u56de\u5fa9,1,\u8abf\u5408\u6570,4\",\"0,\u7832\u8853,5,\u6c17\u914d,3\",\"1,\u96f7\u5c5e\u6027\u653b\u6483,1,\u5343\u91cc\u773c,-1\",\"0,\u8074\u899a\u4fdd\u8b77,3,\u5263\u8853,0\",\"1,\u98df\u4e8b,1,\u6c37\u5c5e\u6027\u653b\u6483,-8\",\"0,\u98df\u4e8b,4,\u8074\u899a\u4fdd\u8b77,-3\",\"0,\u6c37\u5c5e\u6027\u653b\u6483,1,\u8010\u9707,-3\",\"1,\u9054\u4eba,1,\u6c17\u7d76,-2\",\"0,\u30ac\u30fc\u30c9\u5f37\u5316,1,\u6c37\u5c5e\u6027\u653b\u6483,3\",\"0,\u6c37\u5c5e\u6027\u653b\u6483,7,\u7279\u6b8a\u653b\u6483,-4\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    6,
+    6,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 \u6c17\u529b\u56de\u5fa9, -2 \u98df\u4e8b OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 \u75db\u6483, +9 \u6c37\u5c5e\u6027\u653b\u6483 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 \u98df\u4e8b, -8 \u6c37\u5c5e\u6027\u653b\u6483 O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 \u98df\u4e8b, -3 \u8074\u899a\u4fdd\u8b77 ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

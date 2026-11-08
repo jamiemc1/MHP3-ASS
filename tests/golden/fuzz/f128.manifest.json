@@ -1,0 +1,260 @@
+{
+  "id": "f128",
+  "query_json": "{\"id\":\"f128\",\"description\":\"armour-seeded sampler, charm mode two_skill, 6 skills; quotas: cross_type, two_skill_hr_below_5, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[21,37,131,12,120,75],\"skill_names\":[\"ESP\",\"Reload Speed +1\",\"Mud/Snow Res\",\"Sharp Sword\",\"Divine Protection\",\"Element Atk Up\"],\"my_charms\":[\"0,Water Atk,5,Psychic,-9\",\"3,PierceS Up,4,Artisan,-3\",\"1,Protection,1,Cold Res,-3\",\"0,Water Res,6,RazorCAdd,9\",\"0,Will Recov,1,Stun,5\",\"0,Sheathe,6,PowerCAdd,9\",\"3,PierceS Up,4,Artisan,-3\",\"0,Status,1,Dragon Res,9\",\"1,BombStrUp,6,,\",\"1,Thundr Atk,7,Dragon Res,-1\",\"0,WindPress,4,Sleep,1\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 34,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Reload Spd, +3 Fencing ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Reload Spd, +1 Fencing OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Fencing, +4 Reload Spd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Reload Spd, +8 Mud/Snow ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Reload Spd, +5 Mud/Snow O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Fencing, +3 Sharpness ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Sharpness, +2 Fencing ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+2 Sharpness, +1 Fencing O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 Reload Spd, +1 Sharpness O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+4 Sharpness, +3 Reload Spd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+6 Reload Spd, +3 Sharpness ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+1 Sharpness, +4 Reload Spd OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+2 Fencing, +9 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+2 Fencing, +1 Protection O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+5 Fencing, +7 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+1 Reload Spd, +9 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+4 Reload Spd, +8 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+1 Protection, +2 Reload Spd O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+5 Reload Spd, +6 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 19,
+      "charm": "+4 Protection, +7 Mud/Snow ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+2 Protection, +8 Mud/Snow ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+5 Sharpness, +9 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 22,
+      "charm": "+2 Fencing, +1 Elemental O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 23,
+      "charm": "+4 Elemental, +2 Fencing ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 24,
+      "charm": "+5 Elemental, +1 Fencing ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 25,
+      "charm": "+5 Fencing, +3 Elemental ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 26,
+      "charm": "+5 Elemental, +4 Reload Spd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 27,
+      "charm": "+5 Reload Spd, +1 Elemental ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 28,
+      "charm": "+5 Elemental, +2 Sharpness ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 29,
+      "charm": "+5 Sharpness, +3 Elemental ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 30,
+      "charm": "+2 Sharpness, +1 Elemental O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 31,
+      "charm": "+4 Elemental, +2 Protection O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 32,
+      "charm": "+3 Elemental, +9 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 33,
+      "charm": "+5 Elemental, +4 Protection ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

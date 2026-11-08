@@ -1,0 +1,113 @@
+{
+  "id": "f398",
+  "query_json": "{\"id\":\"f398\",\"description\":\"armour-seeded sampler, charm mode two_skill, 6 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[194,54,68,104,190,192],\"skill_names\":[\"Divine Whim\",\"PierceS/PierceBowUp\",\"Sleep Coating Add\",\"Evade +1\",\"Gathering +2\",\"Hi-SpdGathering\"],\"my_charms\":[\"1,Will Recov,1,Evasion,0\",\"0,Reload Spd,4,HiSpdGathr,-5\",\"1,Attack,4,Anti-Theft,0\",\"0,Sharpness,3,PierceS Up,3\",\"0,Slam,4,Fate,3\",\"0,PelletSAdd,4,SleepCAdd,-4\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    12,
+    6,
+    7,
+    8,
+    8
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 13,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Evasion, +13 Whim ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Evasion, +11 Whim ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 PierceS Up, +4 Evasion ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 PierceS Up, +1 Evasion O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Evasion, +3 PierceS Up ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Evasion, +1 PierceS Up ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Evasion, +10 SleepCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 Evasion, +3 SleepCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+2 Evasion, +6 Gathering O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 Evasion, +13 Gathering ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+4 Evasion, +10 HiSpdGathr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+6 Evasion, +1 HiSpdGathr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+1 Evasion, +2 HiSpdGathr OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

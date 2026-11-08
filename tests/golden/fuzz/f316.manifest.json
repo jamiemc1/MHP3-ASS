@@ -1,0 +1,29 @@
+{
+  "id": "f316",
+  "query_json": "{\"id\":\"f316\",\"description\":\"armour-seeded sampler, charm mode slotted, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[129,109,55,34],\"skill_names\":[\"Stun Negated\",\"Sneak\",\"PelletS/ScatterBowUp\",\"Resilience\"],\"my_charms\":[\"0,Loading,4,Gunnery,5\",\"0,Guard,4,KO,1\",\"0,PierceS Up,1,Stun,1\",\"1,FatigueAtk,1,Sharpness,0\",\"0,PelletS Up,5,NormalS Up,1\",\"0,KO,4,PelletS Up,3\",\"0,CutterSAdd,2,Stun,1\",\"0,WindPress,1,Stun,11\",\"0,Will Recov,4,PelletS Up,3\",\"0,Water Atk,3,Stun,-9\",\"0,Mud/Snow,1,Stun,6\",\"0,Attack,3,Psychic,-6\",\"0,ClustS Add,1,Backpackng,-10\",\"0,WindPress,1,Stun,11\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    4,
+    4,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 66,
+      "added": 66,
+      "added_sha256": "8b6c12665ed3d54e04ec018714093699a1f6256cbd2eef1bf8a0c36e46371538"
+    }
+  ],
+  "solution_count": 66,
+  "solutions_sha256": "8b6c12665ed3d54e04ec018714093699a1f6256cbd2eef1bf8a0c36e46371538",
+  "solution_set_sha256": "7fa6b6087b8e231c60a2fcaadb36a8ffca09c9e2fd57f92a924b03580a3e6d92",
+  "solutions_file": true,
+  "exception": null
+}

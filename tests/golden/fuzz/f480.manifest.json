@@ -1,0 +1,29 @@
+{
+  "id": "f480",
+  "query_json": "{\"id\":\"f480\",\"description\":\"armour-seeded sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[93],\"skill_names\":[\"Constitution +2\"],\"my_charms\":[\"0,Constitutn,5,ThunderRes,-9\",\"0,Stam Recov,4,Sharpener,-5\",\"0,Potential,4,Power C+,4\",\"0,Water Atk,4,Attack,-7\",\"0,Constitutn,1,Dragon Res,-9\",\"0,Constitutn,4,FastCharge,-1\",\"1,,,,\",\"0,Paralysis,1,Cold Res,3\",\"0,Blight Res,5,Protection,-6\",\"1,,,,\",\"0,Ice Atk,4,Poison,1\",\"0,Carving,5,Recoil,1\",\"2,Gloves Off,2,,\",\"0,Pierce S+,1,Dragon Res,6\",\"0,Constitutn,5,Expert,5\",\"2,Normal Up,1,Constitutn,-3\",\"0,Crag S+,1,Maestro,2\",\"0,Artillery,2,Power C+,3\",\"0,Gloves Off,2,ThunderRes,13\",\"2,Constitutn,5,ThunderRes,-5\",\"0,Constitutn,5,Status,-2\",\"0,Ice Atk,5,Sharpener,8\",\"0,Stam Drain,4,Fate,-2\",\"0,Constitutn,5,Pellet S+,-4\",\"0,Constitutn,5,ThunderRes,0\",\"0,Fire Res,4,Sense,5\"]}",
+  "my_charms_loaded": 26,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 29,
+      "added": 29,
+      "added_sha256": "413e96d7a3bebdb730a71f1f50f8e8128abff29970f9a5dc0d9e5ff85dc70299"
+    }
+  ],
+  "solution_count": 29,
+  "solutions_sha256": "413e96d7a3bebdb730a71f1f50f8e8128abff29970f9a5dc0d9e5ff85dc70299",
+  "solution_set_sha256": "1cacfc7ee3739a7c9d84fab7b779cc764f9b0d7021986fdcda62b5dc1da00ddd",
+  "solutions_file": true,
+  "exception": null
+}

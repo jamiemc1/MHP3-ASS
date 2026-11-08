@@ -1,0 +1,29 @@
+{
+  "id": "f250",
+  "query_json": "{\"id\":\"f250\",\"description\":\"armour-seeded sampler, charm mode slotted, 5 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[61,57,93,116,105],\"skill_names\":[\"Crag S LV1 Add\",\"Pierce S LV1 Add\",\"Constitution +2\",\"Guard +2\",\"Evade +2\"],\"my_charms\":[\"3,Protection,2,PelletS Up,-3\",\"0,Constitutn,1,Debilitate,1\",\"0,Constitutn,4,LastingPwr,1\",\"0,PierceSAdd,6,Hunger,2\",\"0,Thundr Atk,6,Health,7\",\"0,Constitutn,3,Expert,-7\",\"2,FatigueAtk,2,HiSpdGathr,2\",\"0,Crag S Add,2,DungMaster,-2\",\"0,Precision,6,Attack,-4\",\"1,PierceSAdd,1,RazorCAdd,-5\",\"0,Guard,3,Defense,1\",\"0,Dragon Atk,1,Ice Attack,-2\",\"0,Water Atk,3,Fortitude,-8\",\"2,Constitutn,1,RazorCAdd,-1\",\"1,FatigeCAdd,3,,\",\"1,WindPress,4,PierceS Up,-1\",\"0,Constitutn,4,PelletS Up,1\",\"0,PierceSAdd,6,Hunger,2\",\"0,Will Recov,2,Rec Speed,-8\",\"0,Water Atk,3,Fortitude,-8\",\"0,Rewards,3,Eating,3\",\"0,Crag S Add,3,ParalyCAdd,-6\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    5,
+    5,
+    10,
+    8
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

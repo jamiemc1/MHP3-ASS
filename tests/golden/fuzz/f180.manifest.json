@@ -1,0 +1,50 @@
+{
+  "id": "f180",
+  "query_json": "{\"id\":\"f180\",\"description\":\"armour-seeded sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[36,45],\"skill_names\":[\"Rapid Shot +1\",\"Recoil Reduction +3\"],\"my_charms\":[\"0,HearProtct,4,Psychic,8\",\"0,Fortitude,1,RazorCAdd,-7\",\"0,Carving,4,Rapid Fire,1\",\"0,Stamina,4,FatigueAtk,1\",\"0,Recoil,4,Ice Attack,-2\",\"0,Defense,2,ThunderRes,9\",\"0,Water Atk,4,Horn,10\",\"2,Defense,1,PowerCAdd,2\",\"0,FatigueAtk,2,Status,3\",\"0,Water Atk,6,Hunger,3\",\"0,Poison,1,Attack,1\",\"1,Guard,2,SpeedSetup,-9\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    5,
+    3,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Recoil, +1 Rapid Fire ---",
+      "found": 176,
+      "added": 176,
+      "added_sha256": "bb3c059c95e0f0718dc2d6459d928d8522ad46884f179dc070dfebc94ac51ca9"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Rapid Fire, +3 Recoil ---",
+      "found": 160,
+      "added": 157,
+      "added_sha256": "4eecb0372e47c5548f8bdf88489d2fb2074b30eff9287b99f9faf697aa7defcb"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Rapid Fire, +1 Recoil ---",
+      "found": 88,
+      "added": 88,
+      "added_sha256": "afd7d7e470f0d50eb03dbc5371a8a5f60a24cfdf679fd6d48fac9af09b833c3d"
+    },
+    {
+      "worker": 3,
+      "charm": "OOO",
+      "found": 87,
+      "added": 87,
+      "added_sha256": "14bf2f19a1a9d21a96a949a76d8e451ff87a911ef9f82f435e9ed9bb6a49d636"
+    }
+  ],
+  "solution_count": 508,
+  "solutions_sha256": "420de63136115d77beaefa6c7fc833b7f86f722dcfc4b042c0a2d098277f4785",
+  "solution_set_sha256": "419c1b9d4205666f444dbafb1d119addd8f7520cb32928afcbd084e7f003bdde",
+  "solutions_file": true,
+  "exception": null
+}

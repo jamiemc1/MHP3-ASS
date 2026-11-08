@@ -1,0 +1,92 @@
+{
+  "id": "f435",
+  "query_json": "{\"id\":\"f435\",\"description\":\"armour-seeded sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[34,22,78,1],\"skill_names\":[\"Resilience\",\"Exploiter\",\"Fire Element +2\",\"Attack Up [Med]\"],\"my_charms\":[\"0,Guard,2,Precision,2\",\"0,Fire Atk,1,ClustS Add,4\",\"0,PunishDraw,4,Ice Attack,3\",\"0,Slam,1,Evade Dist,-1\",\"0,Recoil,5,Ice Res,2\",\"0,Sheathe,1,Status,4\",\"0,ThunderRes,3,Defense,1\",\"0,Thundr Atk,1,Water Res,-10\",\"0,Awaken,4,Horn,4\",\"0,Reload Spd,1,Perception,6\",\"0,Dragon Atk,7,PierceS Up,-2\",\"0,NormalSAdd,5,Crag S Add,6\",\"0,Slam,4,Artisan,2\",\"0,Psychic,4,Antiseptic,-10\",\"2,Debilitate,1,Evade Dist,0\",\"1,Water Atk,2,Defense,-2\",\"0,Quake Res,1,NormalSAdd,6\",\"2,Rec Level,1,Stun,-8\",\"2,Water Atk,1,Protection,-5\",\"0,Guard Up,1,NormalS Up,1\",\"0,Dragon Atk,6,Rec Speed,-2\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    4,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 10,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Debilitate, +7 Fire Atk ---",
+      "found": 10,
+      "added": 10,
+      "added_sha256": "f7799584cd08b0d5ba37f1880aa3a2fff84b41bf1bab70f9b6805a08da8d9d58"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Debilitate, +4 Fire Atk ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "035250d013edd33abfd171828d84585cae021d94aa4c7a5c2ee3698ada072bf0"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Debilitate, +9 Fire Atk ---",
+      "found": 2,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Debilitate, +7 Attack ---",
+      "found": 5,
+      "added": 5,
+      "added_sha256": "92ecdd9347eb08cc941fa6fa0279a8e930ef8420f84af2c1a48e5e4830e104e9"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Debilitate, +8 Attack ---",
+      "found": 4,
+      "added": 3,
+      "added_sha256": "bcbba708bdad5e04b915f1e8bee2665a0053e1ab17d23ee9f2a59bdb5cd4d506"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 Debilitate, +4 Attack OO-",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "a146c446c63c9759c65fa426adc69611d61e1bb785114f616957e5087135c97a"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 Fire Atk, +6 Attack ---",
+      "found": 12,
+      "added": 11,
+      "added_sha256": "d559dd5e44b3c8d4d36bf89db8f110ebc082d09c7d8433d807648fdd5a32dffa"
+    },
+    {
+      "worker": 7,
+      "charm": "+2 Fire Atk, +8 Attack ---",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "99ef9430c791c82466ec495a073b55a0b832b1d9896420d053a32b0a1f892eef"
+    },
+    {
+      "worker": 8,
+      "charm": "+1 Fire Atk, +4 Attack O--",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "303bf67c2473cb31bfc52b420b3d8227231410788044994a4eb7e07cbef288df"
+    },
+    {
+      "worker": 9,
+      "charm": "+3 Fire Atk, +3 Attack O--",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "ceeff78a600ab3169813321bfcb4d5761d4acf5b68b6dbaddc0bd87bb6ba413c"
+    }
+  ],
+  "solution_count": 38,
+  "solutions_sha256": "2930e4dce88734aaa80f31cc098866798cae2780b193d9aefdbca82f84472362",
+  "solution_set_sha256": "4850321e5ed65c0658aa020e3142b74bf37e8ed09a4b1245cd87b7d075030f66",
+  "solutions_file": true,
+  "exception": null
+}

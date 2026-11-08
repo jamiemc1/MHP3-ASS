@@ -1,0 +1,29 @@
+{
+  "id": "f009",
+  "query_json": "{\"id\":\"f009\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[168,116,98],\"skill_names\":[\"Bombardier\",\"Guard +2\",\"Stamina Recov Up\"],\"my_charms\":[\"0,Crit Draw,1,Fate,3\",\"0,Hunger,1,Fortitude,6\",\"1,Artisan,3,BombStrUp,1\",\"0,Hunger,1,Fortitude,6\",\"0,Rewards,1,Elemental,3\",\"1,Carving,3,NormalS Up,-1\",\"0,Defense,2,Hunger,-10\",\"0,CutterSAdd,4,Heat Res,7\",\"0,Dragon Atk,5,Evade Dist,-3\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    6,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 1217,
+      "added": 1217,
+      "added_sha256": "e235b079a5890e9fc05e44b34e37de8b27741bdb8a0168cd420288e061a582ca"
+    }
+  ],
+  "solution_count": 1217,
+  "solutions_sha256": "e235b079a5890e9fc05e44b34e37de8b27741bdb8a0168cd420288e061a582ca",
+  "solution_set_sha256": "ad5464b6d8a89c292408898be141459b4bb9f496c6dd96aaa240a1097ceb2aac",
+  "solutions_file": true,
+  "exception": null
+}

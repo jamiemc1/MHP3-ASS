@@ -1,0 +1,29 @@
+{
+  "id": "f138",
+  "query_json": "{\"id\":\"f138\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[35,78,146,203],\"skill_names\":[\"Load Up\",\"Fire Element +2\",\"Def Up (M)\",\"Rewards Celeb\"],\"my_charms\":[\"0,Rewards,1,ThunderRes,-3\",\"0,Slam,5,Reload Spd,1\",\"0,Precision,2,Defense,5\",\"0,Dragon Atk,7,Sharpener,-3\",\"1,Constitutn,2,Sharpness,1\",\"3,Guard Up,3,Loading,-1\",\"1,Rewards,2,Ice Attack,-7\",\"2,Loading,1,Awaken,2\",\"0,PelletS Up,3,Defense,-5\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    6,
+    6,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

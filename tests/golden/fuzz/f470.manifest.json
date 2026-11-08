@@ -1,0 +1,29 @@
+{
+  "id": "f470",
+  "query_json": "{\"id\":\"f470\",\"description\":\"uniform sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[185,151],\"skill_names\":[\"Heat Cancel\",\"Fire Res (S)\"],\"my_charms\":[\"2,HearProtct,3,ThunderRes,0\",\"2,Fate,2,Ice Res,-2\",\"0,Evasion,2,Artisan,2\",\"0,Guard,4,DungMaster,9\",\"1,Quake Res,3,Sense,-10\",\"0,Debilitate,1,Sharpener,2\",\"0,ClustS Add,1,Gluttony,10\",\"0,Protection,4,Rapid Fire,3\",\"0,Water Atk,2,Carving,-2\",\"0,Fire Atk,7,ParalyCAdd,1\",\"1,Guard Up,2,LastingPwr,-1\",\"0,Rec Speed,4,Heat Res,10\",\"0,Reload Spd,1,Dragon Res,10\",\"0,Fire Res,2,Sleep,-3\",\"0,PelletS Up,4,Fire Res,10\",\"1,Carving,1,PunishDraw,-2\",\"0,Fire Res,1,Sense,-10\",\"0,Thundr Atk,6,Fortitude,5\",\"0,Sharpness,2,Will Recov,-3\",\"0,Status,5,Water Res,-2\",\"0,PelletSAdd,6,Stun,-4\",\"0,Slam,1,Water Res,7\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 216,
+      "added": 216,
+      "added_sha256": "f5644e006b6d7b0a284cdca16e7bb13cfa1fbc1f317bf0806a039f27f9a8d544"
+    }
+  ],
+  "solution_count": 216,
+  "solutions_sha256": "f5644e006b6d7b0a284cdca16e7bb13cfa1fbc1f317bf0806a039f27f9a8d544",
+  "solution_set_sha256": "293e5fc7caf524e4dee5768353b9907cab2c3f14817c38278ec668cada9cc15a",
+  "solutions_file": true,
+  "exception": null
+}

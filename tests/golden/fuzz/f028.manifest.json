@@ -1,0 +1,29 @@
+{
+  "id": "f028",
+  "query_json": "{\"id\":\"f028\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[122,180,92],\"skill_names\":[\"Poison Negated\",\"Quick Eating +1\",\"Constitution +1\"],\"my_charms\":[\"0,Poison,2,Combo Rate,5\",\"0,Thundr Atk,4,Poison,-5\",\"0,Fencing,5,Constitutn,1\",\"2,Protection,2,Constitutn,-3\",\"0,Constitutn,3,Fire Atk,8\",\"0,Eating,4,Hunger,-4\",\"0,Horn,1,Antiseptic,3\",\"0,Eating,4,Hunger,-4\",\"0,PelletS Up,5,Crit Draw,-1\",\"0,FastCharge,5,Psychic,-5\",\"0,Dragon Atk,1,Combo Rate,-2\",\"0,Fortitude,1,Stun,-4\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    5,
+    3,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 685,
+      "added": 685,
+      "added_sha256": "af75d1219636f2e52728a0334f3dfd77ed15a5d1d3453ff4ab7b3d9244c3cb5d"
+    }
+  ],
+  "solution_count": 685,
+  "solutions_sha256": "af75d1219636f2e52728a0334f3dfd77ed15a5d1d3453ff4ab7b3d9244c3cb5d",
+  "solution_set_sha256": "d31dd1e95d2711e9f72d032e5c67f075ebae9d8d0f1107b219d8b09ea44a45b3",
+  "solutions_file": true,
+  "exception": null
+}

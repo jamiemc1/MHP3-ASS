@@ -1,0 +1,29 @@
+{
+  "id": "f057",
+  "query_json": "{\"id\":\"f057\",\"description\":\"armour-seeded sampler, charm mode slotted, 6 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[96,23,161,92,152,78],\"skill_names\":[\"Runner\",\"Ruiner\",\"Ice Res (L)\",\"Constitution +1\",\"Fire Res (L)\",\"Fire Element +2\"],\"my_charms\":[\"0,Paralysis,4,Ice Res,0\",\"2,Elemental,1,Fire Res,0\",\"0,Rapid Fire,3,Thundr Atk,7\",\"0,Mud/Snow,6,BombStrUp,-8\",\"0,Thundr Atk,5,PierceS Up,-3\",\"0,PelletS Up,1,Ice Attack,-8\",\"0,Ice Attack,6,Hunger,2\",\"1,Gunnery,4,Ice Res,-8\",\"1,PelletSAdd,6,Fortitude,-9\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

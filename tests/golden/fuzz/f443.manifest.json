@@ -1,0 +1,29 @@
+{
+  "id": "f443",
+  "query_json": "{\"id\":\"f443\",\"description\":\"uniform sampler, charm mode slotted, 2 skills; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[23,201],\"skill_names\":[\"Partbreaker\",\"Carving Master\"],\"my_charms\":[\"0,Wind Res,5,Sharpener,8\",\"0,Carving,1,Ice Res,6\",\"0,Water Atk,6,Transportr,-3\",\"0,Wide-Range,1,Rec Speed,4\",\"0,Carving,1,Pierce Up,2\",\"0,Eating,1,PunishDraw,0\",\"0,Blight Res,4,Handicraft,1\",\"0,Fire Res,4,Attack,-3\",\"0,Antiseptic,1,Mud/Snow,-5\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    1,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,71 @@
+{
+  "id": "f357",
+  "query_json": "{\"id\":\"f357\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[101,19,32,174,183,161],\"skill_names\":[\"Hunger Negated\",\"Concentration\",\"Adrenaline +2\",\"Recovery Up\",\"Huntsman\\u0027s Life\",\"Ice Res (L)\"],\"my_charms\":[\"0,Thundr Atk,7,FastCharge,1\",\"0,Mud/Snow,1,Ice Res,6\",\"0,HearProtct,4,Rec Speed,-7\",\"0,Reload Spd,4,ParalyCAdd,-2\",\"0,Antiseptic,1,Ice Res,-4\",\"0,Potential,2,PoisonCAdd,-10\",\"0,Backpackng,4,Ice Res,8\",\"0,FastCharge,1,Horn,8\",\"0,Will Recov,1,Backpackng,2\",\"0,Evade Dist,1,PierceSAdd,9\",\"1,Potential,2,NormalS Up,-3\",\"0,FastCharge,4,Rapid Fire,1\",\"0,FastCharge,1,Horn,8\",\"0,Potential,2,Quake Res,-7\",\"0,Elemental,2,Hunger,6\",\"2,Potential,1,Debilitate,0\",\"0,Mud/Snow,2,Huntsman,8\",\"0,Reload Spd,3,Paralysis,-6\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    17,
+    9,
+    7,
+    8,
+    8
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Backpackng, +8 Ice Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Potential, -3 NormalS Up O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 FastCharge, +1 Rapid Fire ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Elemental, +6 Hunger ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 Potential, 0 Debilitate OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+2 Mud/Snow, +8 Huntsman ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

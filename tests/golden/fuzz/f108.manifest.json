@@ -1,0 +1,29 @@
+{
+  "id": "f108",
+  "query_json": "{\"id\":\"f108\",\"description\":\"armour-seeded sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[49,136,96,100,43,81],\"skill_names\":[\"Steadiness +1\",\"Anti-Theft\",\"Marathon Runner\",\"Halve Hunger\",\"Recoil Down +1\",\"Water Atk +2\"],\"my_charms\":[\"0,Precision,2,Def Lock,-4\",\"1,Transportr,1,Paralysis,-4\",\"0,Handicraft,1,FastCharge,1\",\"0,Rec Level,3,Precision,10\",\"0,Wide-Range,2,Sleep,2\",\"0,ElementAtk,4,Guard Up,0\",\"0,Guard,4,Rapid Fire,-3\",\"0,Tranquilzr,1,Fencing,1\",\"0,Guard,2,Handicraft,3\",\"1,Sense,3,,\",\"2,Destroyer,4,Attack,-3\",\"0,Recoil,1,Evasion,1\",\"0,Precision,5,Attack,-2\",\"0,Tranquilzr,2,Psychic,9\",\"1,Ice Atk,1,Gluttony,1\",\"0,Stam Recov,4,SpeedSetup,10\",\"0,Paralysis,1,Precision,3\",\"1,Evade Dist,1,Rec Speed,3\",\"0,Normal Up,1,Fencing,-2\",\"1,Sheathing,2,Anti-Theft,1\",\"0,Slice S+,6,Perception,2\",\"0,Def Lock,2,Exhaust C+,-8\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    4,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f133",
+  "query_json": "{\"id\":\"f133\",\"description\":\"armour-seeded sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[137,107],\"skill_names\":[\"Blightproof\",\"Evasion Up\"],\"my_charms\":[\"0,Recoil,4,Gunnery,-6\",\"0,Constitutn,1,SleepCAdd,5\",\"0,Evade Dist,6,HiSpdGathr,-6\",\"0,Sharpness,3,Guard,0\",\"0,CutterSAdd,3,NormalSAdd,4\",\"0,BombStrUp,4,Status,0\",\"0,Protection,3,Fire Res,-4\",\"0,Blight Res,4,Wide Area,9\",\"0,PierceSAdd,2,HiSpdGathr,6\",\"0,Evade Dist,3,Rewards,2\",\"0,Loading,2,PelletS Up,1\",\"0,Status,3,Stun,-4\",\"2,Evade Dist,1,Debilitate,-2\",\"0,Blight Res,2,HearProtct,3\",\"0,Evade Dist,5,Ice Attack,7\",\"0,Rapid Fire,2,WindPress,0\",\"0,BombStrUp,4,Perception,-4\",\"0,Blight Res,5,Elemental,2\",\"0,FatigueAtk,4,Hunger,3\",\"0,Rapid Fire,2,Evade Dist,4\",\"0,Blight Res,1,Health,10\",\"3,Thundr Atk,1,Blight Res,-3\",\"0,PelletS Up,1,Gunnery,-7\",\"0,Rec Speed,5,Antiseptic,7\",\"0,Rewards,1,Guard,-2\",\"0,PelletSAdd,2,Poison,6\",\"0,PierceSAdd,5,Wide Area,-3\",\"2,Rec Level,1,Fortitude,-1\",\"1,Fencing,2,Rewards,-3\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    3,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 699,
+      "added": 699,
+      "added_sha256": "eb942d544bcd9f990016926119d2ffb2702c4d5a7cbcdeea506bfd5ccc213a21"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Evade Dist, -6 HiSpdGathr ---",
+      "found": 765,
+      "added": 765,
+      "added_sha256": "4f01ef4df5f48ca0a15df10e72c5f224c3b8056d4bb94d553bb19bdd17dea800"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Evade Dist, -2 Debilitate OO-",
+      "found": 869,
+      "added": 869,
+      "added_sha256": "579e2f5200c19b8849502ea9df69c6cb3e6081e2f409d22904dbb9108e43a89b"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Blight Res, +2 Elemental ---",
+      "found": 970,
+      "added": 970,
+      "added_sha256": "f4609b3ac8dea42c46eaf6d4918a8c69b4091cf488eace0235a1e856f629845a"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Thundr Atk, -3 Blight Res OOO",
+      "found": 803,
+      "added": 803,
+      "added_sha256": "9106c84b25b9a377c24ea33738a1ddf3d5e5b8c69e2868175e4d3734303c536f"
+    }
+  ],
+  "solution_count": 4106,
+  "solutions_sha256": "16b8d34f954bb850672f2bed9f5e8a90238444d594fbdd1832172a08fcbcd377",
+  "solution_set_sha256": "9b5fa4a1c827849ac4608295ad44e09f760da2b6a4db6c342f0e758cde4de655",
+  "solutions_file": true,
+  "exception": null
+}

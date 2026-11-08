@@ -1,0 +1,50 @@
+{
+  "id": "f336",
+  "query_json": "{\"id\":\"f336\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[1,22],\"skill_names\":[\"Attack Up [Med]\",\"Exploiter\"],\"my_charms\":[\"3,,,,\",\"0,PierceS Up,1,BombStrUp,4\",\"1,,,,\",\"0,Attack,3,NormalSAdd,-2\",\"0,Debilitate,3,Water Atk,5\",\"0,Attack,2,SleepCAdd,1\",\"0,ThunderRes,2,Attack,-5\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    3,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Attack OO-",
+      "found": 992,
+      "added": 992,
+      "added_sha256": "31dece0fd80636bf19f9acda0858064a645296676e7b3ef2a81989a830dee050"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Attack O--",
+      "found": 986,
+      "added": 701,
+      "added_sha256": "a3020f3a887575d1a6b1847538ce134bcbcb18f64e93eb7d382f503e735547f8"
+    },
+    {
+      "worker": 2,
+      "charm": "OO-",
+      "found": 860,
+      "added": 834,
+      "added_sha256": "1c01cf6ab6a2fdb0940b484608829e583050a4d1ca9b14a934f8bc0d732b3e78"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 752,
+      "added": 739,
+      "added_sha256": "5ad9f93bc3b315e2f93cb91b2c11c6a29a8fa07d46bc96c3d95a6b07a3bbfad9"
+    }
+  ],
+  "solution_count": 3266,
+  "solutions_sha256": "3d9a50cc61252bec417a26e1217e429a3ce6a3ae5d49b8cf270c46932df2c3a9",
+  "solution_set_sha256": "aae77a60ef5c1ae3fa8d27d5ebc36b175f69bab18dcec0758eb00a72c0cb178f",
+  "solutions_file": true,
+  "exception": null
+}

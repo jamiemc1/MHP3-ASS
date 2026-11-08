@@ -1,0 +1,21 @@
+{
+  "id": "f351",
+  "query_json": "{\"id\":\"f351\",\"description\":\"uniform sampler, charm mode one_skill, 4 skills; quotas: auto_guard_no_charm, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[131,119,58,107],\"skill_names\":[\"Mud/Snow Res\",\"Auto-Guard\",\"Pierce S All Add\",\"Evasion Up\"],\"my_charms\":[\"0,Fencing,4,Evade Dist,-3\",\"0,PierceSAdd,2,Anti-Theft,-1\",\"0,Mud/Snow,4,Antiseptic,4\",\"0,PierceSAdd,3,Sense,-6\",\"0,Evade Dist,6,HearProtct,1\",\"0,Mud/Snow,2,Sense,8\",\"0,Psychic,3,Mud/Snow,3\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    4,
+    2,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

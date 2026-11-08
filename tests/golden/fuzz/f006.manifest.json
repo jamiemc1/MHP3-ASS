@@ -1,0 +1,29 @@
+{
+  "id": "f006",
+  "query_json": "{\"id\":\"f006\",\"description\":\"armour-seeded sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[178],\"skill_names\":[\"Filled Up\"],\"my_charms\":[\"0,PierceS Up,5,Gunnery,-6\",\"1,Constitutn,2,Combo Rate,-1\",\"0,Dragon Atk,6,Mud/Snow,4\",\"1,Constitutn,2,Combo Rate,-1\",\"3,Guard Up,1,Defense,-4\",\"0,PunishDraw,1,Loading,3\",\"0,Water Res,3,Gluttony,-7\",\"0,Gunnery,2,Quake Res,6\",\"1,Thundr Atk,3,Protection,-6\",\"1,Will Recov,2,Gluttony,-2\",\"0,Sharpener,2,Gluttony,-1\",\"1,Sharpness,2,Sharpener,-7\",\"0,PierceS Up,5,Gunnery,-6\",\"1,Status,1,Recoil,-3\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    2,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 192,
+      "added": 192,
+      "added_sha256": "5319b04354387337ea6109e58c74f5ab8d14d84d42351d834c3526fcd8ceb2f0"
+    }
+  ],
+  "solution_count": 192,
+  "solutions_sha256": "5319b04354387337ea6109e58c74f5ab8d14d84d42351d834c3526fcd8ceb2f0",
+  "solution_set_sha256": "5319b04354387337ea6109e58c74f5ab8d14d84d42351d834c3526fcd8ceb2f0",
+  "solutions_file": true,
+  "exception": null
+}

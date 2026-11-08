@@ -1,0 +1,50 @@
+{
+  "id": "f246",
+  "query_json": "{\"id\":\"f246\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: two_skill_hr_below_5, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[87,169],\"skill_names\":[\"Ice Element +2\",\"Trap Master\"],\"my_charms\":[\"0,Ice Attack,4,NormalS Up,-2\",\"0,Backpackng,2,Shot Mix,10\",\"0,Fortitude,3,Stun,0\",\"0,SpeedSetup,7,Heat Res,4\",\"0,Dragon Atk,2,SpeedSetup,1\",\"0,Ice Attack,5,Fire Res,-9\",\"1,Ice Attack,2,Ice Res,0\",\"0,Stun,8,PowerCAdd,8\",\"0,PierceSAdd,1,SpeedSetup,9\",\"2,Ice Attack,1,Ice Res,0\",\"0,Health,1,LastingPwr,-9\",\"1,Potential,1,Protection,-7\",\"1,Precision,3,Sleep,-5\",\"2,,,,\",\"0,Ice Attack,3,Crag S Add,4\",\"1,,,,\",\"0,Ice Attack,1,Crit Draw,3\",\"1,Ice Attack,1,Paralysis,-2\",\"0,Rec Level,4,Ice Attack,-6\",\"1,Protection,1,Dragon Res,4\",\"1,Dragon Res,1,SpeedSetup,8\",\"0,Evade Dist,6,Blight Res,0\",\"0,Precision,3,Dragon Res,5\",\"0,Gunnery,5,Psychic,-5\",\"2,Quake Res,1,Anti-Theft,-4\",\"0,Recoil,4,Slam,1\",\"0,ThunderRes,5,Wide Area,-3\",\"0,Thundr Atk,7,Ice Attack,-2\",\"1,Guard,1,,\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Ice Attack, +5 SpeedSetup ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Ice Attack, +10 SpeedSetup ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Ice Attack, +2 SpeedSetup O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Ice Attack, +7 SpeedSetup ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

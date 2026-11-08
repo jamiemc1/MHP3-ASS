@@ -1,0 +1,50 @@
+{
+  "id": "f043",
+  "query_json": "{\"id\":\"f043\",\"description\":\"uniform sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[180,190,87,154],\"skill_names\":[\"Quick Eating +1\",\"Gathering +2\",\"Ice Element +2\",\"Water Res (S)\"],\"my_charms\":[\"0,Ice Attack,6,Debilitate,-1\",\"0,PunishDraw,5,Thundr Atk,5\",\"1,Paralysis,2,Whim,-9\",\"0,Will Recov,2,ThunderRes,-6\",\"0,Sheathe,6,Quake Res,7\",\"0,Psychic,5,CutterSAdd,4\",\"0,PelletS Up,5,Eating,2\",\"1,Elemental,2,Guard Up,0\",\"0,Elemental,3,Health,-3\",\"0,Artisan,1,Potential,3\",\"2,Slam,4,Water Res,-5\",\"0,Evasion,5,Water Atk,-3\",\"0,Stun,6,ParalyCAdd,4\",\"0,PelletS Up,3,Guard,1\",\"0,Fire Atk,2,FastCharge,-1\",\"0,Carving,2,Reload Spd,2\",\"0,ClustS Add,3,Rec Speed,4\",\"0,FatigueAtk,5,Eating,-2\",\"0,Stun,2,Backpackng,-7\",\"2,Thundr Atk,1,Perception,0\",\"0,Dragon Atk,3,Horn,5\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    6,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Ice Attack, -1 Debilitate ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 PelletS Up, +2 Eating ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Slam, -5 Water Res OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

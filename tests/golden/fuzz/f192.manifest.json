@@ -1,0 +1,57 @@
+{
+  "id": "f192",
+  "query_json": "{\"id\":\"f192\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[53,25,54,56],\"skill_names\":[\"NormalS/RapidBowUp\",\"Enfeebler\",\"PierceS/PierceBowUp\",\"Normal S All Add\"],\"my_charms\":[\"0,FatigueAtk,1,ThunderRes,3\",\"0,NormalS Up,1,Constitutn,4\",\"0,FatigueAtk,1,ThunderRes,3\",\"0,FatigueAtk,6,Dragon Res,13\",\"0,PierceS Up,2,PelletS Up,-2\",\"0,ClustS Add,1,NormalSAdd,6\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    6,
+    5,
+    4,
+    7
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 NormalS Up, +4 Constitutn ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 FatigueAtk, +13 Dragon Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 PierceS Up, -2 PelletS Up ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 ClustS Add, +6 NormalSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

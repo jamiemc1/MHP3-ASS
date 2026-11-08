@@ -1,0 +1,78 @@
+{
+  "id": "f225",
+  "query_json": "{\"id\":\"f225\",\"description\":\"armour-seeded sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[166,31,161,35,169],\"skill_names\":[\"Wide Area +1\",\"Adrenaline +1\",\"Ice Res (L)\",\"Load Up\",\"Trap Master\"],\"my_charms\":[\"0,Potential,2,SpeedSetup,-8\",\"0,Awaken,6,Slam,2\",\"0,Fortitude,6,Ice Res,-9\",\"0,Potential,3,PowerCAdd,3\",\"1,Crag S Add,1,Sleep,-7\",\"1,Quake Res,2,Gathering,1\",\"0,Expert,3,PoisonCAdd,-10\",\"0,Loading,5,Ice Attack,-9\",\"0,Backpackng,5,Status,0\",\"1,Protection,1,Eating,-1\",\"0,Potential,3,Guard Up,0\",\"0,PunishDraw,2,Carving,3\",\"0,Potential,1,Artisan,0\",\"0,WindPress,4,Loading,2\",\"0,NormalSAdd,1,LastingPwr,-10\",\"0,Stamina,4,Artisan,1\",\"1,Wide Area,1,Gathering,-2\",\"0,Evasion,3,Poison,-6\",\"0,Fencing,1,Health,9\",\"0,Loading,1,BombStrUp,1\",\"0,Reload Spd,6,Thundr Atk,1\",\"1,Potential,1,NormalSAdd,-4\",\"0,Poison,1,Health,5\",\"1,Stamina,3,Rapid Fire,0\",\"0,Potential,5,Water Res,1\",\"0,Rapid Fire,4,Potential,4\"]}",
+  "my_charms_loaded": 26,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 8,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Wide Area O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Ice Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 Ice Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 SpeedSetup O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+8 SpeedSetup ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

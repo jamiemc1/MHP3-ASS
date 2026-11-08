@@ -1,0 +1,36 @@
+{
+  "id": "f077",
+  "query_json": "{\"id\":\"f077\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[7,29,31],\"skill_names\":[\"Reckless Abandon +2\",\"Unleashed +1\",\"Adrenaline +1\"],\"my_charms\":[\"0,Status,2,FastCharge,1\",\"0,Stun,3,Gathering,10\",\"0,Sharpness,3,Expert,-3\",\"0,Mud/Snow,1,Gunnery,-4\",\"0,Rec Speed,7,Huntsman,-5\",\"0,Potential,6,Shot Mix,10\",\"0,Potential,4,Sheathe,-10\",\"0,Potential,3,Defense,7\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    1,
+    2,
+    1,
+    1
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Potential, +10 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

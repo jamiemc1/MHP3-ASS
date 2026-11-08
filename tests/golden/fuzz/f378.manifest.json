@@ -1,0 +1,29 @@
+{
+  "id": "f378",
+  "query_json": "{\"id\":\"f378\",\"description\":\"armour-seeded sampler, charm mode slotted, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[72],\"skill_names\":[\"Abnormal Status Atk +1\"],\"my_charms\":[\"0,Health,1,Status,2\",\"0,Status,4,Guard Up,1\",\"0,Evasion,1,WindPress,1\",\"0,Status,2,Fire Res,2\",\"0,Status,1,Dragon Res,0\",\"0,Status,2,Poison,5\",\"0,Attack,2,Water Res,3\",\"0,Ice Attack,5,Loading,1\",\"0,Psychic,1,BombStrUp,-6\",\"1,Slam,1,PelletS Up,-1\",\"0,Status,1,Attack,8\",\"0,Guard Up,2,Stun,-9\",\"0,Crit Draw,1,ThunderRes,-10\",\"0,Thundr Atk,7,Rapid Fire,2\",\"3,Fire Atk,4,Fire Res,-2\",\"0,NormalSAdd,5,Status,3\",\"0,WindPress,5,Rewards,1\",\"0,Guard,2,Constitutn,-1\",\"0,Water Atk,2,Dragon Res,-6\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    3,
+    1,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "69d62f145b748347c04bb843ad2d6f3ba20e0c57fb74a1a4a051c383327875c1"
+    }
+  ],
+  "solution_count": 48,
+  "solutions_sha256": "69d62f145b748347c04bb843ad2d6f3ba20e0c57fb74a1a4a051c383327875c1",
+  "solution_set_sha256": "69d62f145b748347c04bb843ad2d6f3ba20e0c57fb74a1a4a051c383327875c1",
+  "solutions_file": true,
+  "exception": null
+}

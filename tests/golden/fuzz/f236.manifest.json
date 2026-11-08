@@ -1,0 +1,197 @@
+{
+  "id": "f236",
+  "query_json": "{\"id\":\"f236\",\"description\":\"uniform sampler, charm mode two_skill, 6 skills; quotas: cross_type, two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[92,169,128,208,70,17],\"skill_names\":[\"Constitution +1\",\"Trap Master\",\"Stun Halved\",\"Bullet Limit\",\"Close Range Coating Add\",\"Unsheathe Stun\"],\"my_charms\":[\"2,Stamina,3,Thundr Atk,0\",\"0,Ice Attack,6,Will Recov,0\",\"0,Water Atk,4,Precision,9\",\"2,Rec Level,2,PunishDraw,-2\",\"0,Water Res,1,Stun,-1\",\"0,Guard Up,4,KO,0\",\"0,Constitutn,1,Heat Res,9\",\"0,Debilitate,4,Gunnery,-4\",\"0,Eating,4,Heat Res,6\",\"0,Water Res,1,PoisonCAdd,-8\",\"0,PunishDraw,2,Reload Spd,4\",\"0,Poison,1,Gunnery,1\",\"1,ThunderRes,4,Sleep,-1\",\"0,Protection,6,Defense,-5\",\"3,Fate,1,,\",\"0,KO,2,HearProtct,1\",\"0,Stun,3,DungMaster,-4\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    6,
+    6,
+    7
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 25,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+1 Constitutn, +3 SpeedSetup OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Constitutn, +10 SpeedSetup ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Constitutn, +8 Stun ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Constitutn, +4 Stun O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Constitutn, +12 Stun ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+4 Stun, +2 SpeedSetup O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+8 Stun, +8 SpeedSetup ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+1 Constitutn, +10 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+6 Constitutn, +2 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+5 Constitutn, +8 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+4 SpeedSetup, +8 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+8 SpeedSetup, +2 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+7 Stun, +10 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+6 Constitutn, +4 RazorCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+5 Constitutn, +10 RazorCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+8 SpeedSetup, +10 RazorCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+1 SpeedSetup, +4 RazorCAdd OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+8 Stun, +5 RazorCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+6 Stun, +10 RazorCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 19,
+      "charm": "+6 Constitutn, +1 PunishDraw ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+4 PunishDraw, +1 Constitutn ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+5 Constitutn, +3 PunishDraw ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 22,
+      "charm": "+5 PunishDraw, +5 Stun ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 23,
+      "charm": "+4 PunishDraw, +12 Stun ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 24,
+      "charm": "+3 PunishDraw, +2 Stun O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

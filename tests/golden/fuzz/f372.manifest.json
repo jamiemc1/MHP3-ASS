@@ -1,0 +1,190 @@
+{
+  "id": "f372",
+  "query_json": "{\"id\":\"f372\",\"description\":\"uniform sampler, charm mode two_skill, 5 skills; quotas: cross_type, two_skill_hr_below_5, torso_up\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[29,24,84,55,50],\"skill_names\":[\"Fuer. desatada+1\",\"Aturdidor\",\"Atrib. Trueno +2\",\"Subir perd/Dspr\",\"Precisi\u00f3n+2\"],\"my_charms\":[\"0,Defensa,4,Artiller\u00eda,-4\",\"0,Subir prot,2,Duraci\u00f3n,-2\",\"1,Subir prot,2,Vel. recup,-9\",\"2,Guardia,3,,\",\"0,TrampaRap.,1,Ataque,2\",\"1,,,,\",\"0,Trueno Inc,2,Destino,1\",\"1,VisPs\u00edquic,4,Sentido,-5\",\"2,Comer,2,Carga,-1\",\"2,Aguij\u00f3n,2,Aturdir,-7\",\"0,Trueno Inc,1,SubFueBomb,2\",\"1,Captura,1,CargaR\u00e1pid,1\",\"0,Experto,1,Aturdir,9\",\"0,Subir prot,1,Atq espec.,3\",\"0,Prot. oido,1,Determin.,-3\",\"1,Desenv. KO,1,SubirDPerf,-3\",\"1,Vel. recog,2,,\",\"1,,,,\",\"0,Precisi\u00f3n,5,\u00c1rea ampl.,6\",\"2,Aguij\u00f3n,2,Trueno Inc,-10\",\"0,Mochilero,6,\u00c1rea ampl.,4\",\"0,Cuerno,4,Salud,9\",\"0,Trueno Inc,2,Guardia,3\",\"0,Hielo Inc,6,Retroceso,-2\",\"0,Atq. Elem.,2,Determin.,-1\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 24,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 KO, +4 Determin. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Determin., +4 KO ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Determin., +7 Trueno Inc ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Determin., +9 Trueno Inc ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 Trueno Inc, +1 Determin. OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+2 Determin., +2 Trueno Inc O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Determin., +1 Trueno Inc ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+6 KO, +7 Trueno Inc ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 SubirDPerd, +4 Determin. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 Determin., +3 SubirDPerd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+2 Determin., +1 SubirDPerd O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+1 Determin., +2 SubirDPerd OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+3 SubirDPerd, +1 KO O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+1 KO, +1 SubirDPerd OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+2 KO, +2 SubirDPerd O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+5 KO, +2 SubirDPerd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+5 SubirDPerd, +3 KO ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+4 SubirDPerd, +4 KO ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+4 Trueno Inc, +1 SubirDPerd O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 19,
+      "charm": "+5 SubirDPerd, +9 Trueno Inc ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+6 KO, +5 Precisi\u00f3n ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+1 KO, +8 Precisi\u00f3n ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 22,
+      "charm": "+6 Trueno Inc, +6 Precisi\u00f3n ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 23,
+      "charm": "+4 Trueno Inc, +9 Precisi\u00f3n ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

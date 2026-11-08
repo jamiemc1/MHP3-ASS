@@ -1,0 +1,29 @@
+{
+  "id": "f264",
+  "query_json": "{\"id\":\"f264\",\"description\":\"uniform sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[73,6,181],\"skill_names\":[\"Abnormal Status Atk +2\",\"Reckless Abandon +1\",\"Quick Eating +2\"],\"my_charms\":[\"0,Elemental,3,Dragon Res,-5\",\"0,FastCharge,1,Defense,6\",\"0,PierceS Up,5,Dragon Atk,-8\",\"0,Sleep,1,BombStrUp,2\",\"0,Poison,3,HiSpdGathr,10\",\"1,Eating,1,Sheathe,2\",\"2,Gunnery,3,Status,0\",\"0,Ice Attack,4,Guard,-1\",\"0,FastCharge,1,Rec Speed,8\",\"1,Psychic,3,ThunderRes,-3\",\"0,Sheathe,5,Slam,0\",\"0,Guard,1,Rewards,-1\",\"0,Guard Up,3,Guard,4\",\"2,Blight Res,3,Sharpener,-7\",\"0,Thundr Atk,6,Ice Res,-6\",\"1,Ice Attack,1,SpeedSetup,-8\",\"0,Slam,1,Rec Speed,-6\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    5,
+    3,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

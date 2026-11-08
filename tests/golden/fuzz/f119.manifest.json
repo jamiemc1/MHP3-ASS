@@ -1,0 +1,64 @@
+{
+  "id": "f119",
+  "query_json": "{\"id\":\"f119\",\"description\":\"uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[167,26],\"skill_names\":[\"Wide Area +2\",\"Flute Expert\"],\"my_charms\":[\"0,Recoil,1,Eating,-1\",\"0,Rec Level,5,Crag S Add,0\",\"0,Guard,4,Loading,2\",\"0,Sheathe,3,DungMaster,3\",\"0,Potential,6,Wide Area,7\",\"0,Status,2,Defense,0\",\"1,Paralysis,2,Perception,-3\",\"0,Constitutn,1,Anti-Theft,-2\",\"1,Evade Dist,4,Psychic,-5\",\"0,Antiseptic,5,Fortitude,3\",\"0,Stamina,2,Hunger,-3\",\"0,BombStrUp,1,Wide Area,3\",\"1,Fencing,1,Stun,-10\",\"0,Guard,6,Potential,-1\",\"0,FatigueAtk,5,BombStrUp,-4\",\"0,Rapid Fire,4,Horn,1\",\"1,Will Recov,2,Stun,1\",\"0,Evasion,3,HearProtct,1\",\"0,Horn,2,Status,2\",\"0,Sheathe,2,ParalyCAdd,9\",\"0,Evade Dist,5,Horn,-6\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    4,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Wide Area OO-",
+      "found": 1151,
+      "added": 1151,
+      "added_sha256": "a48c61f7bce3f7f800f3cd4f9a8620f6690909796e6eef4db43246dc8ace3250"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Wide Area O--",
+      "found": 1151,
+      "added": 389,
+      "added_sha256": "fa16234ea6d1f6658c7b00eff74e09febe36f1d27785d1fa34e9b0b3afe5f67d"
+    },
+    {
+      "worker": 2,
+      "charm": "+10 Wide Area ---",
+      "found": 1184,
+      "added": 303,
+      "added_sha256": "f5db0e0c255e47317747879882d48c4d7fb3b173b6d1e1784b43ddb3ba884609"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Horn OO-",
+      "found": 621,
+      "added": 621,
+      "added_sha256": "d3b22d9ed3458b8ce132c41d2dfe1e0611435b5e6eae9995e29d058ef6d72f7f"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Horn O--",
+      "found": 563,
+      "added": 352,
+      "added_sha256": "1af9414f104cef412c63e9320b8c21c31eb3149b7c5941f484aaa4eae01eddd7"
+    },
+    {
+      "worker": 5,
+      "charm": "+8 Horn ---",
+      "found": 478,
+      "added": 218,
+      "added_sha256": "c56795ca71007e723359b5780712f3c4ae9ada8356dac618ff978392114a52fc"
+    }
+  ],
+  "solution_count": 3034,
+  "solutions_sha256": "4284b94277270f0eee88e81cec46c8465a12792f5306fc32ba46a7f32f5d7ece",
+  "solution_set_sha256": "dceef6134aa1abc94a59a204c3043ea19ea8adbc5c667e3dbeced3e212b6c58f",
+  "solutions_file": true,
+  "exception": null
+}

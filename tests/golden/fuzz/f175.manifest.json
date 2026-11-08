@@ -1,0 +1,134 @@
+{
+  "id": "f175",
+  "query_json": "{\"id\":\"f175\",\"description\":\"uniform sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[194,104,129,27],\"skill_names\":[\"Divine Whim\",\"Evade +1\",\"Stun Negated\",\"Gunnery Master\"],\"my_charms\":[\"1,Thundr Atk,4,Stun,-2\",\"0,Stun,5,Defense,3\",\"0,Fencing,5,Awaken,-3\",\"0,Evasion,6,Heat Res,-10\",\"0,Artisan,5,Rewards,0\",\"0,Backpackng,4,Gunnery,6\",\"0,Reload Spd,5,Psychic,-6\",\"0,Evasion,5,Crag S Add,-4\",\"0,Gunnery,2,Crag S Add,8\",\"0,Rewards,4,PunishDraw,-3\",\"0,Potential,6,Gunnery,0\",\"2,Stun,1,Gluttony,-3\",\"2,Horn,1,Dragon Res,-7\",\"0,Gunnery,2,Crag S Add,8\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    6,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 16,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Evasion, +13 Whim ---",
+      "found": 838,
+      "added": 838,
+      "added_sha256": "d7b7190e0a53a84735c8b8a3c83b56e1d99eb8b87529637960bce6f0fdfbae53"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Evasion, +11 Whim ---",
+      "found": 1035,
+      "added": 834,
+      "added_sha256": "8dde49d3314770ccb5aebf1d84df9bf27a35f1595ba9620404413d204c8a2d44"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Stun, +13 Whim ---",
+      "found": 253,
+      "added": 253,
+      "added_sha256": "3f373bd8b127a738b0ee0cdd9959681a91a590c0f5c5793c99d25e9806b3d4a1"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Stun, +5 Whim O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Stun, +4 Whim OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+2 Evasion, +2 Stun O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+6 Evasion, +13 Stun ---",
+      "found": 1648,
+      "added": 1648,
+      "added_sha256": "48eb1a0b96b23a183eb2ada8b27c5f5d382d95a1c6d733bda797adb9ddcdc180"
+    },
+    {
+      "worker": 7,
+      "charm": "+6 Gunnery, +12 Whim ---",
+      "found": 256,
+      "added": 256,
+      "added_sha256": "66b1427c4ea9717ee328990fbd030f804aa403f8e0265f3f1d6c2148d705b665"
+    },
+    {
+      "worker": 8,
+      "charm": "+6 Evasion, +7 Gunnery ---",
+      "found": 115,
+      "added": 115,
+      "added_sha256": "463b4de3d07837ae6f20d6b252909c2c9f4bb603cf5fa92a9d7e53601f6a538e"
+    },
+    {
+      "worker": 9,
+      "charm": "+4 Evasion, +3 Gunnery O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+5 Evasion, +10 Gunnery ---",
+      "found": 401,
+      "added": 401,
+      "added_sha256": "82a4bf2c14a8e2484b6b34775c1d70b04b4594374b48e41488842619bb8c91f3"
+    },
+    {
+      "worker": 11,
+      "charm": "+1 Evasion, +3 Gunnery OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+2 Gunnery, +5 Stun OO-",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "1698ed9f86a1b29ee93e3fe0f8933470542e78922e6d68d073a24278a011651b"
+    },
+    {
+      "worker": 13,
+      "charm": "+6 Stun, +7 Gunnery ---",
+      "found": 6,
+      "added": 6,
+      "added_sha256": "11bba9a7b8624b47bb9d25f97ea4ad9d8ce4fe32c894c68209d2a3a801be4975"
+    },
+    {
+      "worker": 14,
+      "charm": "+6 Gunnery, +10 Stun ---",
+      "found": 102,
+      "added": 102,
+      "added_sha256": "55b982912f367dbe5f300abd071937548d08470b534206a2968c9fdfdec3b78a"
+    },
+    {
+      "worker": 15,
+      "charm": "+3 Stun, +8 Gunnery ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "ab32699ef203fca491d8927bfe2a6a85d9dbc9f6d82b8606cfa67da901026ee4"
+    }
+  ],
+  "solution_count": 4457,
+  "solutions_sha256": "4d99efa2da293bf27b809e3eef4623c38882f4c440c497ae2c036c0707027d52",
+  "solution_set_sha256": "6b4a3e76ccd7671f11e49a3cb554d21560601e81833c779ea881908a9b8e40eb",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,92 @@
+{
+  "id": "f117",
+  "query_json": "{\"id\":\"f117\",\"description\":\"uniform sampler, charm mode one_skill, 3 skills; quotas: illegal_charm_lines, torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[24,208,75],\"skill_names\":[\"KO\u8853\",\"\u6700\u5927\u6570\u751f\u7523\",\"\u5c5e\u6027\u653b\u6483\u5f37\u5316\"],\"my_charms\":[\"0,\u6e9c\u3081\u77ed\u7e2e,1,\u5c5e\u6027\u653b\u6483,-2\",\"0,\u56de\u5fa9\u91cf,3,\u69b4\u5f3e\u8ffd\u52a0,1\",\"0,\u6c17\u7d76,7,\u6563\u5f3e\u8ffd\u52a0,4\",\"0,\u96f7\u8010\u6027,14,,\",\"0,\u9f8d\u8010\u6027,14,,\",\"0,\u6c17\u529b\u56de\u5fa9,1,\u56de\u5fa9\u901f\u5ea6,-6\",\"0,\u91cd\u6483,15,,\",\"2,\u6e1b\u6c17\u653b\u6483,4,\u6563\u5f3e\u5f37\u5316,-2\",\"1,\u56de\u907f\u6027\u80fd,3,\u9ebb\u75fa\u74f6\u8ffd\u52a0,-9\",\"0,\u65ac\u88c2\u5f3e\u8ffd\u52a0,1,\u6c17\u307e\u3050\u308c,4\",\"0,\u56de\u907f\u6027\u80fd,3,\u98a8\u5727,2\",\"0,\u5c5e\u6027\u653b\u6483,5,\u4f53\u529b,7\",\"0,\u52a0\u8b77,3,\u6c34\u8010\u6027,0\",\"0,\u8cab\u901a\u5f3e\u5f37\u5316,3,\u88c5\u586b\u6570,1\",\"1,\u30ac\u30fc\u30c9\u5f37\u5316,2,\u75db\u6483,-1\",\"2,\u6355\u7372,1,\u5e95\u529b,-3\",\"1,\u5c5e\u6027\u8010\u6027,2,\u56de\u5fa9\u91cf,1\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 3,
+  "relevant_armor_counts": [
+    7,
+    5,
+    5,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 10,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 KO OOO",
+      "found": 7014,
+      "added": 6996,
+      "added_sha256": "f1d78001e3aeb79c46bdb0fe581bd4271e614d3767c10ae30e1e0d02b0e98fea"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 KO OO-",
+      "found": 5451,
+      "added": 3234,
+      "added_sha256": "34e586306e2145cb5bf627d7a1a6d87715f8e3e89ffaf2b2414b5287341d8430"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 KO O--",
+      "found": 4563,
+      "added": 2010,
+      "added_sha256": "59b370ba6ecbf318652f4b2190036d190f762ec61bed6e8ab44b6a7b8c56155b"
+    },
+    {
+      "worker": 3,
+      "charm": "OOO",
+      "found": 4915,
+      "added": 2420,
+      "added_sha256": "bd600cd6505eae7f7d98e0d4ff1291dd36fd7df72f865d353f75790cc20833d2"
+    },
+    {
+      "worker": 4,
+      "charm": "+3 \u8abf\u5408\u6570 OO-",
+      "found": 4764,
+      "added": 4369,
+      "added_sha256": "ac097c9847daf4b981fb8d5cda2c31e9cf45b6346805a2583db73d84217f2aa5"
+    },
+    {
+      "worker": 5,
+      "charm": "+7 \u8abf\u5408\u6570 O--",
+      "found": 4977,
+      "added": 3755,
+      "added_sha256": "40366d6954b207782107dde943abe7dce90b35e25fc28b9a2e8c73b63468ca40"
+    },
+    {
+      "worker": 6,
+      "charm": "+10 \u8abf\u5408\u6570 ---",
+      "found": 4646,
+      "added": 1232,
+      "added_sha256": "56db8f20b3bb42e330eb1224b9f1a444c376f2c4ab95a07b162c2ff46cc7f2e0"
+    },
+    {
+      "worker": 7,
+      "charm": "+4 \u5c5e\u6027\u653b\u6483 OOO",
+      "found": 8247,
+      "added": 7476,
+      "added_sha256": "ab49dd83919ae4399456379abbc00ede43cb96cefac90d1b0749a1ac1850271f"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 \u5c5e\u6027\u653b\u6483 OO-",
+      "found": 7995,
+      "added": 4198,
+      "added_sha256": "d70565bcc8408a789a7c65170e3e161d41ecc3d76322e561387ecc4944dff370"
+    },
+    {
+      "worker": 9,
+      "charm": "+5 \u5c5e\u6027\u653b\u6483 O--",
+      "found": 7138,
+      "added": 2044,
+      "added_sha256": "05311184a15a5036ef47681b581d01a23e63d87ff632b199ca93998a9eabeca1"
+    }
+  ],
+  "solution_count": 37734,
+  "solutions_sha256": "6047268a11df97483627c3bbec9909685545ab759b48f94f401056f38504a0b5",
+  "solution_set_sha256": "b7ae8457ed279aa576400954dabdd5e301833de918110153bf7128a263a13ee0",
+  "solutions_file": false,
+  "exception": null
+}

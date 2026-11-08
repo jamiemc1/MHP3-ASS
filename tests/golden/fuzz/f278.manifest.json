@@ -1,0 +1,29 @@
+{
+  "id": "f278",
+  "query_json": "{\"id\":\"f278\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[174],\"skill_names\":[\"Recovery Up\"],\"my_charms\":[\"0,Rec Level,4,Stun,-6\",\"0,Rec Level,2,Thundr Atk,-8\",\"0,Rec Level,4,Attack,6\",\"1,Rec Level,1,Guard,3\",\"0,Slam,5,Rec Level,-2\",\"0,Debilitate,5,Rec Level,0\",\"0,Rec Level,2,Artisan,3\",\"0,Rec Level,6,Rapid Fire,0\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 96,
+      "added": 96,
+      "added_sha256": "af0ccc0dfbf126866e164d025d9a26bcc42e6e21508c9b4c359eb08f53f32912"
+    }
+  ],
+  "solution_count": 96,
+  "solutions_sha256": "af0ccc0dfbf126866e164d025d9a26bcc42e6e21508c9b4c359eb08f53f32912",
+  "solution_set_sha256": "be3f002ce9a36911d26c3ee7cd960f45a2a36a7955aeed1184ea3f291e03bdce",
+  "solutions_file": true,
+  "exception": null
+}

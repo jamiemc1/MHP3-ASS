@@ -1,0 +1,29 @@
+{
+  "id": "f039",
+  "query_json": "{\"id\":\"f039\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[81],\"skill_names\":[\"Water Element +2\"],\"my_charms\":[\"0,Water Atk,1,Status,-4\",\"0,Slam,5,Stamina,1\",\"0,Antiseptic,4,SleepCAdd,9\",\"0,Dragon Res,3,Huntsman,0\",\"0,Water Atk,5,Antiseptic,7\",\"1,Ice Attack,1,HiSpdGathr,-1\",\"0,Antiseptic,4,SleepCAdd,9\",\"0,Recoil,4,Evasion,3\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    3,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 688,
+      "added": 688,
+      "added_sha256": "5e7a429796a09d8837ef3c22103562bed02aa67f07c46c995d79416aae584d1a"
+    }
+  ],
+  "solution_count": 688,
+  "solutions_sha256": "5e7a429796a09d8837ef3c22103562bed02aa67f07c46c995d79416aae584d1a",
+  "solution_set_sha256": "84c171a740aab7139ab2eb9aaa0bf3758b716d41e41cca9c46a9aa4f5983996b",
+  "solutions_file": true,
+  "exception": null
+}

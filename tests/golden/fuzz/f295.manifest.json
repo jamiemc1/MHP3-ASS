@@ -1,0 +1,29 @@
+{
+  "id": "f295",
+  "query_json": "{\"id\":\"f295\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[184,201,66],\"skill_names\":[\"Backpacking Expert\",\"Carving Expert\",\"Poison Coating Add\"],\"my_charms\":[\"0,Water Atk,6,KO,3\",\"1,Sharpener,1,ClustS Add,-1\",\"2,Ice Res,1,LastingPwr,-9\",\"0,Awaken,2,Crit Draw,0\",\"0,Sheathe,3,Evade Dist,0\",\"1,Rec Level,6,Wide Area,-3\",\"1,Sheathe,1,Eating,-1\",\"0,Constitutn,6,BombStrUp,-5\",\"0,WindPress,2,Dragon Res,13\",\"1,KO,6,Constitutn,-3\",\"0,Eating,4,Rapid Fire,3\",\"0,Rapid Fire,5,Eating,-2\",\"0,Will Recov,4,Anti-Theft,9\",\"0,Carving,3,Potential,2\",\"0,Horn,3,PoisonCAdd,-6\",\"1,Defense,4,Water Res,-1\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    3,
+    2,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f165",
+  "query_json": "{\"id\":\"f165\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[22,1],\"skill_names\":[\"Exploiter\",\"Attack Up [Med]\"],\"my_charms\":[\"0,Sharpener,2,Expert,3\",\"0,Attack,3,PelletSAdd,4\",\"0,Debilitate,1,Stamina,3\",\"0,Fire Atk,5,Eating,3\",\"0,Thundr Atk,2,FastCharge,0\",\"0,Attack,2,BombStrUp,-4\",\"0,Recoil,1,Fencing,1\",\"0,Antiseptic,1,Defense,0\",\"0,Attack,3,Gathering,-5\",\"0,Psychic,8,Poison,2\",\"0,Attack,2,PierceSAdd,-1\",\"0,Defense,2,Attack,6\",\"0,NormalS Up,5,Elemental,3\",\"1,Constitutn,4,Anti-Theft,-5\",\"0,PelletSAdd,5,Ice Res,6\",\"0,Ice Attack,3,Status,0\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    3,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 597,
+      "added": 597,
+      "added_sha256": "68a3461d9988682fb01a9881285bb4b16134affb5496d9701e3f2d0de30f7f10"
+    }
+  ],
+  "solution_count": 597,
+  "solutions_sha256": "68a3461d9988682fb01a9881285bb4b16134affb5496d9701e3f2d0de30f7f10",
+  "solution_set_sha256": "08e3a5a3dd928eaa45e22e827746fdccba9325aed6909fe621d258f8a1eeae4a",
+  "solutions_file": true,
+  "exception": null
+}

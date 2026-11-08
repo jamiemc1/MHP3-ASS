@@ -1,0 +1,29 @@
+{
+  "id": "f038",
+  "query_json": "{\"id\":\"f038\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[53,108,180,142,35,75],\"skill_names\":[\"NormalS/RapidBowUp\",\"Fast Sheathe\",\"Quick Eating +1\",\"Health +50\",\"Load Up\",\"Element Atk Up\"],\"my_charms\":[\"0,Water Atk,7,Artisan,3\",\"0,Evade Dist,1,Backpackng,-3\",\"0,Awaken,3,Loading,1\",\"1,Water Res,1,Crag S Add,-10\",\"0,Dragon Atk,4,Dragon Res,-8\",\"0,FastCharge,1,Sharpness,1\",\"0,Poison,1,ThunderRes,3\",\"0,Hunger,8,Crag S Add,9\",\"0,Crit Draw,1,Health,3\",\"1,Water Atk,2,Sheathe,-10\",\"0,Antiseptic,7,Sleep,7\",\"0,Reload Spd,2,Water Res,2\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    5,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

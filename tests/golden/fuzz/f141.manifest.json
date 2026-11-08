@@ -1,0 +1,29 @@
+{
+  "id": "f141",
+  "query_json": "{\"id\":\"f141\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[116,30,49,193,146,84],\"skill_names\":[\"Guard +2\",\"Unleashed +2\",\"Accuracy+1\",\"Spirit\\u0027s Whim\",\"Def Up (M)\",\"Thunder Element +2\"],\"my_charms\":[\"2,Guard,4,Reload Spd,-2\",\"0,Potential,4,PoisonCAdd,9\",\"2,Guard,4,Reload Spd,-2\",\"1,Quake Res,1,Ice Res,0\",\"0,Rec Level,5,Ice Attack,-10\",\"0,Potential,4,PoisonCAdd,9\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    12,
+    5,
+    9,
+    9,
+    8
+  ],
+  "relevant_decoration_count": 10,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

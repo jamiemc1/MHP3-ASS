@@ -1,0 +1,29 @@
+{
+  "id": "f363",
+  "query_json": "{\"id\":\"f363\",\"description\":\"armour-seeded sampler, charm mode slotted, 6 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[136,109,107,98,64,12],\"skill_names\":[\"Steal No Effect\",\"Sneak\",\"Evasion Up\",\"Stamina Recov Up\",\"Clust S All Add\",\"Sharp Sword\"],\"my_charms\":[\"0,Guard,1,Will Recov,0\",\"0,Gunnery,4,Expert,0\",\"0,BombStrUp,6,Anti-Theft,-4\",\"0,BombStrUp,5,Sense,-8\",\"0,NormalSAdd,5,Sleep,-1\",\"0,Awaken,4,Guard Up,-1\",\"0,FastCharge,2,Wide Area,2\",\"1,Evade Dist,4,Attack,0\",\"2,Protection,3,Crit Draw,1\",\"0,Blight Res,1,Will Recov,-3\",\"0,Will Recov,1,SpeedSetup,-9\",\"3,Artisan,1,Guard Up,-1\",\"0,Health,8,ClustS Add,9\",\"0,Rewards,5,Dragon Res,9\",\"0,Sharpness,3,Wide Area,-10\",\"0,Evade Dist,1,Cold Res,-1\",\"0,Will Recov,3,Ice Attack,5\",\"0,Blight Res,3,Slam,-1\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    10,
+    8,
+    7,
+    9
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,50 @@
+{
+  "id": "f069",
+  "query_json": "{\"id\":\"f069\",\"description\":\"uniform sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[142,194,187,115],\"skill_names\":[\"Gesundheit +50\",\"G\u00f6ttliche Laune\",\"K\u00e4lte beenden\",\"Block +1\"],\"my_charms\":[\"0,Eisabwehr,5,Gesundheit,-8\",\"0,Beruhigung,5,NachlGesch,2\",\"0,Block,3,PierceHoch,2\",\"0,StrafHieb,3,Verteidig.,7\",\"0,Bebenabw.,3,PiercSzuf\u00fc,-4\",\"1,Asweichdst,1,Donnerabw.,-3\",\"0,Geh\u00f6r,4,Essen,-1\",\"0,ErholStufe,2,Gesundheit,-4\",\"2,,,,\",\"1,ErholStufe,1,Ausweichen,-3\",\"2,Block hoch,3,Dungmeist.,1\",\"1,Geh\u00f6r,1,Wasserabw.,-2\",\"0,NachlGesch,4,Eigenbr\u00f6dl,0\",\"0,Geh\u00f6r,3,Erm\u00fcdSchlg,1\",\"0,Block hoch,4,Beruhigung,0\",\"0,Block,2,Ausweichen,-2\",\"1,Bebenabw.,6,Kombi-Rate,-3\",\"0,Ausweichen,5,Block,-3\",\"0,Armieren,3,KmboBschHz,8\",\"0,Drachenabw,1,Gesundheit,-6\",\"0,Wasserabw.,1,Gesundheit,1\",\"0,Block,1,Asweichdst,-1\",\"1,Vision,1,Drachenabw,-6\",\"0,Potenzial,6,Wasserabw.,4\",\"0,Feuerabw.,2,Sammeln,4\",\"0,Asweichdst,5,K\u00e4lteabw.,10\",\"1,HartSchlag,2,Beruhigung,-2\",\"0,Block,6,Gesundheit,3\",\"0,Schutz,2,Gesundheit,-6\",\"0,EisAngrHch,4,Angriff,3\",\"0,Block,4,Hunger,-8\"]}",
+  "my_charms_loaded": 31,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    7,
+    7,
+    10,
+    7
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Asweichdst, +10 K\u00e4lteabw. ---",
+      "found": 599,
+      "added": 593,
+      "added_sha256": "e75f9b045e8f0caccdd9a7968e3bc82d693c4b968a210b7e4ddfd5f857d62fc0"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Block, +3 Gesundheit ---",
+      "found": 20,
+      "added": 20,
+      "added_sha256": "9768d6f354326c9dd81ae00e0dadb6ca411604514c345f1a9118ce324c7db64e"
+    }
+  ],
+  "solution_count": 613,
+  "solutions_sha256": "baf8541e93af4170d741a625632bd029a84fc3ace3f42471d9a8b091b123745f",
+  "solution_set_sha256": "25305c79bea5ee937e0f4490871978a3f34a8426f59e0fdce8d1c433cc96bad6",
+  "solutions_file": true,
+  "exception": null
+}

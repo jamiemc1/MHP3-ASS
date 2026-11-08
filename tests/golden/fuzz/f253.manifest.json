@@ -1,0 +1,29 @@
+{
+  "id": "f253",
+  "query_json": "{\"id\":\"f253\",\"description\":\"armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[24,26,189],\"skill_names\":[\"Improved KO\",\"Flute Expert\",\"Gathering +1\"],\"my_charms\":[\"0,Dragon Atk,7,Dragon Res,-8\",\"0,BombStrUp,3,Horn,2\",\"1,KO,5,Awaken,-2\",\"0,KO,3,ThunderRes,8\",\"1,Sheathe,2,Eating,-3\",\"0,Slam,5,Ice Res,1\",\"0,Poison,1,Huntsman,7\",\"1,KO,6,RazorCAdd,-8\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    4,
+    6,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 1940,
+      "added": 1869,
+      "added_sha256": "8569b9d490bca0060e2341771017effcd6bbc1aa8fa7ff9278e0fe212a537d4a"
+    }
+  ],
+  "solution_count": 1869,
+  "solutions_sha256": "8569b9d490bca0060e2341771017effcd6bbc1aa8fa7ff9278e0fe212a537d4a",
+  "solution_set_sha256": "00f648d038ceb2e7e10879a01c37cc3b946e6d6b605108f762992d34afafda45",
+  "solutions_file": true,
+  "exception": null
+}

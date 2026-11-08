@@ -1,0 +1,85 @@
+{
+  "id": "f318",
+  "query_json": "{\"id\":\"f318\",\"description\":\"uniform sampler, charm mode one_skill, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[17,155,139],\"skill_names\":[\"Unsheathe Stun\",\"Water Res (L)\",\"Earplug\"],\"my_charms\":[\"0,PunishDraw,3,Blight Res,-3\",\"1,PunishDraw,1,Sharpener,-2\",\"1,Potential,1,Attack,-3\",\"0,Debilitate,5,Water Atk,-8\",\"0,Gunnery,6,PowerCAdd,-8\",\"0,Evasion,2,Water Res,-6\",\"0,Constitutn,5,Attack,-5\",\"2,PunishDraw,1,Horn,-8\",\"0,ClustS Add,3,Water Res,-5\",\"1,HearProtct,4,Water Res,-9\",\"0,KO,3,Crag S Add,4\",\"0,HearProtct,5,Rewards,-2\",\"0,HearProtct,1,Expert,5\",\"0,Backpackng,5,Water Res,-3\",\"0,Awaken,1,Ice Res,12\",\"0,PunishDraw,5,Guard,2\",\"0,Sheathe,5,Antiseptic,1\",\"0,Awaken,6,Rewards,-1\",\"1,Constitutn,1,Water Res,-7\",\"0,Water Res,2,Quake Res,-7\",\"2,Evasion,4,Rapid Fire,-3\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    8,
+    6,
+    7,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 9,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 PunishDraw OOO",
+      "found": 5859,
+      "added": 5665,
+      "added_sha256": "2c2af833776d7047e817f82f9fb6b53fb3ac984ba176be6ecb8111c81d757386"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 PunishDraw OO-",
+      "found": 5132,
+      "added": 4258,
+      "added_sha256": "448a09024f6e8a826cd6cb1601536f7435e7d7848737196284adf0e54cf44a89"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 PunishDraw O--",
+      "found": 3218,
+      "added": 1556,
+      "added_sha256": "767fe4da049fe111c22909d990f0f00203a6dd66d81c0322ce3415a162b0a251"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 Water Res OOO",
+      "found": 6756,
+      "added": 6598,
+      "added_sha256": "508d427b00614195b09ca28ffb2650c87a52aa7c7948c8b2449fc69988324d3d"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 Water Res OO-",
+      "found": 4874,
+      "added": 3547,
+      "added_sha256": "3da0e6303c0fb88194fdb99f720e40d2648babe380436a94591396b7f4f32940"
+    },
+    {
+      "worker": 5,
+      "charm": "+13 Water Res O--",
+      "found": 6329,
+      "added": 4751,
+      "added_sha256": "ada8b87291a52f63a89c416d27cbdcf293a63baead948472bda921c18fd67112"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 HearProtct OOO",
+      "found": 4607,
+      "added": 4378,
+      "added_sha256": "fb8cf30fae6d3c5181c729f5d4088ca755b326f21f9da366615ecf08200679fe"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 HearProtct OO-",
+      "found": 3538,
+      "added": 2923,
+      "added_sha256": "437ae832ff342210e9d157121ef969ae0cf9a1b9945f9b1615c916dd157fd7ac"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 HearProtct O--",
+      "found": 2130,
+      "added": 1089,
+      "added_sha256": "0b106dc7aab2fe74474c6d108c95d5df0ab620b1cb3fa5ec250ef72f82ee5970"
+    }
+  ],
+  "solution_count": 34765,
+  "solutions_sha256": "08c586b30951000f30cd77dd2e7420aa3c3fa0aab6a290795aac7de406973245",
+  "solution_set_sha256": "0dd67607eb57951efd5c91e4a59382a57c3bbc86942ac9c229a6de1b5ac3620f",
+  "solutions_file": false,
+  "exception": null
+}

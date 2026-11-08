@@ -1,0 +1,29 @@
+{
+  "id": "f262",
+  "query_json": "{\"id\":\"f262\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[75,118,202,157,115,174],\"skill_names\":[\"Element Atk Up\",\"Guard Inc\",\"Rewards Expert\",\"Thunder Res (S)\",\"Guard +1\",\"Recovery Up\"],\"my_charms\":[\"0,Guard Up,4,FastCharge,-2\",\"0,Precision,4,DungMaster,-6\",\"2,Loading,2,Guard,-1\",\"1,Rec Level,1,Mud/Snow,0\",\"3,Guard,5,,\",\"0,Guard Up,2,Poison,-4\",\"0,Thundr Atk,4,Carving,0\",\"0,Water Res,3,Shot Mix,10\",\"0,Water Atk,3,Carving,2\",\"0,Ice Attack,5,Rec Speed,-5\",\"1,Ice Attack,7,Crag S Add,-5\",\"0,Potential,1,KO,-3\",\"0,Rewards,4,HearProtct,0\",\"0,Fire Atk,1,Potential,1\",\"0,Rec Level,3,Dragon Res,4\",\"0,Guard,4,Water Res,13\",\"0,Water Atk,7,Rec Level,0\",\"0,Paralysis,2,ThunderRes,10\",\"0,Backpackng,8,,\",\"0,WindPress,3,Potential,4\",\"0,Guard,5,Fire Res,4\",\"2,Debilitate,2,PunishDraw,-3\",\"0,Quake Res,2,Health,4\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    5,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

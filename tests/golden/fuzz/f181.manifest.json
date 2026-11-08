@@ -1,0 +1,29 @@
+{
+  "id": "f181",
+  "query_json": "{\"id\":\"f181\",\"description\":\"armour-seeded sampler, charm mode two_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[112],\"skill_names\":[\"Recovery Speed +2\"],\"my_charms\":[\"2,Status,1,Rec Speed,3\",\"1,Evade Dist,1,Rec Speed,-2\",\"0,Crit Draw,5,Blight Res,-3\",\"0,Fate,2,Rec Speed,-9\",\"0,Sheathe,4,Rec Speed,12\",\"0,NormalS Up,2,Rec Speed,7\",\"0,Rec Speed,7,Health,-9\",\"0,Constitutn,5,Rec Speed,-3\",\"0,Ice Attack,1,Rec Speed,7\",\"0,Rec Speed,6,Whim,-5\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    2,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 512,
+      "added": 512,
+      "added_sha256": "71f6e6834aabfd8d85b5ae262676850f1bb2fa7d9baba63bdadbc46a161c2f86"
+    }
+  ],
+  "solution_count": 512,
+  "solutions_sha256": "71f6e6834aabfd8d85b5ae262676850f1bb2fa7d9baba63bdadbc46a161c2f86",
+  "solution_set_sha256": "c5b460e2c348de3425b87504c2638032ea31a5bbdd3a55368db0efd745dfdd24",
+  "solutions_file": true,
+  "exception": null
+}

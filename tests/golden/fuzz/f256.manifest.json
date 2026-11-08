@@ -1,0 +1,57 @@
+{
+  "id": "f256",
+  "query_json": "{\"id\":\"f256\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[30,111,80,8,170,96],\"skill_names\":[\"Unleashed +2\",\"Recovery Speed +1\",\"Water Element +1\",\"Reckless Abandon +3\",\"Trnquilizr Guru\",\"Runner\"],\"my_charms\":[\"0,Rec Level,4,Awaken,2\",\"0,PierceS Up,1,Dragon Atk,7\",\"0,Debilitate,1,BombStrUp,-8\",\"0,Constitutn,3,Rec Speed,8\",\"0,Evasion,6,RazorCAdd,-3\",\"0,Defense,2,Sleep,-10\",\"0,PelletS Up,5,Fire Atk,-8\",\"0,Reload Spd,3,WindPress,-9\",\"1,Sheathe,1,Shot Mix,-9\",\"0,PelletS Up,3,Evade Dist,2\",\"0,Rec Level,5,Defense,3\",\"0,Ice Res,6,SpeedSetup,6\",\"0,Fencing,2,Constitutn,0\",\"0,Antiseptic,5,Mud/Snow,3\",\"0,Status,5,Fire Res,8\",\"0,Water Atk,4,Sharpness,-3\",\"0,WindPress,2,Guard,0\",\"0,Fire Atk,4,Quake Res,-3\",\"0,Elemental,2,Psychic,3\",\"0,CutterSAdd,3,Status,-4\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    13,
+    9,
+    9,
+    10,
+    13
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Rec Level, +2 Awaken ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Constitutn, +8 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Sheathe, -9 Shot Mix O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Water Atk, -3 Sharpness ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f092",
+  "query_json": "{\"id\":\"f092\",\"description\":\"armour-seeded sampler, charm mode slotted, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[107,27,168,65],\"skill_names\":[\"Evasion Up\",\"Gunnery Master\",\"Bombardier\",\"Cutter S Add\"],\"my_charms\":[\"0,Poison,1,Water Res,4\",\"0,Antiseptic,3,Hunger,9\",\"0,Crag S Add,6,ClustS Add,1\",\"0,Potential,6,Water Res,-6\",\"0,Sharpener,1,PierceSAdd,-10\",\"0,Reload Spd,5,Water Res,-5\",\"0,Protection,1,Gluttony,-9\",\"1,Attack,1,ParalyCAdd,-6\",\"0,Ice Attack,1,Eating,3\",\"2,Rewards,1,Expert,-6\",\"0,Rec Level,5,Health,-10\",\"0,Poison,2,Rec Speed,4\",\"0,Status,6,Recoil,3\",\"0,Evade Dist,3,Perception,10\",\"0,BombStrUp,3,Huntsman,3\",\"1,BombStrUp,1,Heat Res,-7\",\"0,Evade Dist,5,Sheathe,2\",\"0,Mud/Snow,3,SleepCAdd,-2\",\"2,,,,\",\"0,Mud/Snow,7,Hunger,2\",\"2,ThunderRes,3,Gunnery,-4\",\"0,Attack,4,Rec Speed,4\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f258",
+  "query_json": "{\"id\":\"f258\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: one_skill_hr_3_or_less\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[14,120],\"skill_names\":[\"Speed Sharpening\",\"Divine Protection\"],\"my_charms\":[\"0,Rec Level,2,Psychic,5\",\"0,Sharpness,2,Protection,-7\",\"0,FastCharge,1,Sharpener,2\",\"0,Constitutn,3,Debilitate,-2\",\"2,Will Recov,4,Defense,-3\",\"0,Protection,1,Water Res,1\",\"0,Attack,3,PowerCAdd,-3\",\"1,KO,1,Sharpener,-2\",\"2,Guard Up,4,Sharpener,1\",\"0,Sharpener,4,RazorCAdd,-7\",\"0,Guard Up,2,Sharpener,7\",\"1,Sharpener,2,Attack,-7\",\"0,Fire Atk,5,WindPress,0\",\"0,Protection,5,Guard Up,4\",\"0,Rewards,4,Potential,-1\",\"0,Antiseptic,2,Ice Res,-8\",\"0,Eating,5,Dragon Res,10\",\"2,Mud/Snow,1,BombStrUp,0\",\"2,Eating,1,SleepCAdd,-7\",\"0,Water Atk,4,Sharpener,-5\",\"0,Protection,4,NormalS Up,3\",\"0,Sharpener,3,Health,-1\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    2,
+    2
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "2dcd4392c4a824c4f495622b4cac850d680ae3bbc1cc56c1035080454ab85828"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "2dcd4392c4a824c4f495622b4cac850d680ae3bbc1cc56c1035080454ab85828"
+    }
+  ],
+  "solution_count": 96,
+  "solutions_sha256": "1acf4aae85d4e82800e02be5c58b6f34d29f370f55c3218d0eca86cd9fff7cb7",
+  "solution_set_sha256": "e81ba524432f0231e290a6c596db6571eef51595f0c140786aebb27889210e71",
+  "solutions_file": true,
+  "exception": null
+}

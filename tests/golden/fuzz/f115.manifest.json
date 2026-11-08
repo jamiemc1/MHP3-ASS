@@ -1,0 +1,64 @@
+{
+  "id": "f115",
+  "query_json": "{\"id\":\"f115\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: cross_type, one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[157,14,53,120,17],\"skill_names\":[\"Thunder Res (S)\",\"Speed Sharpening\",\"NormalS/RapidBowUp\",\"Divine Protection\",\"Unsheathe Stun\"],\"my_charms\":[\"0,Rapid Fire,3,PunishDraw,1\",\"0,Precision,6,Dragon Res,-5\",\"0,Recoil,3,Status,0\",\"0,Fire Res,2,HiSpdGathr,10\",\"0,Awaken,1,Rec Level,3\",\"0,HearProtct,5,Ice Res,-7\",\"1,Potential,3,Artisan,2\",\"1,Protection,3,,\",\"0,Crag S Add,5,Water Res,0\",\"0,Fire Res,6,Defense,6\",\"0,Fire Atk,7,FatigeCAdd,-4\",\"0,Artisan,4,Guard Up,3\",\"0,Fate,3,Rewards,1\",\"0,FastCharge,4,Wide Area,6\",\"0,Horn,2,Cold Res,0\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    6,
+    5,
+    6,
+    7
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 ThunderRes O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 ThunderRes ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f075",
+  "query_json": "{\"id\":\"f075\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[75,93],\"skill_names\":[\"Element Atk Up\",\"Constitution +2\"],\"my_charms\":[\"0,Constitutn,4,Wide Area,11\",\"0,Precision,6,Perception,-10\",\"0,Artisan,2,Rapid Fire,1\",\"0,Status,2,Reload Spd,-2\",\"0,PelletSAdd,6,Anti-Theft,9\",\"0,Reload Spd,2,FatigeCAdd,8\",\"0,Evasion,3,ClustS Add,-3\",\"0,Horn,2,Backpackng,0\",\"0,Slam,2,Will Recov,-1\",\"0,Rapid Fire,5,FatigueAtk,2\",\"1,Health,3,Rec Speed,0\",\"0,Protection,2,PunishDraw,-1\",\"1,Guard,1,Artisan,0\",\"0,PelletS Up,3,Thundr Atk,-8\",\"0,Eating,5,Stun,-10\",\"0,KO,3,Anti-Theft,9\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Constitutn, +11 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Health, 0 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

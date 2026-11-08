@@ -1,0 +1,120 @@
+{
+  "id": "f292",
+  "query_json": "{\"id\":\"f292\",\"description\":\"armour-seeded sampler, charm mode one_skill, 4 skills; quotas: torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[204,35,192,107],\"skill_names\":[\"Combination +20%\",\"Load Up\",\"Speed Gatherer\",\"Evade Extender\"],\"my_charms\":[\"0,Wide-Range,7,Psychic,3\",\"0,Handicraft,5,ThunderRes,-9\",\"0,KO,5,Wide-Range,-8\",\"1,Loading,4,Stam Recov,-3\",\"0,Blight Res,3,Bomb Boost,7\",\"0,Pierce S+,2,Combo Rate,-2\",\"0,Stam Drain,6,Sleep C+,-7\",\"0,Sharpness,5,Expert,1\",\"0,Evade Dist,2,Stam Recov,-1\",\"0,Health,7,Water Res,-6\",\"2,Fencing,1,Water Atk,-5\",\"0,Expert,1,Spd Gather,-10\",\"1,Guard,1,ElementAtk,1\",\"0,Status,1,Combo Rate,-9\",\"0,ThunderRes,3,Sense,2\",\"0,Evasion,4,Evade Dist,-1\",\"1,Constitutn,2,Dragon Atk,1\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    5,
+    6,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 14,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Combo Rate OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+9 Combo Rate O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+13 Combo Rate ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Loading OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Loading OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+6 Loading O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+4 Spd Gather OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+9 Spd Gather O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+10 Spd Gather ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+5 Evade Dist OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+6 Evade Dist OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+6 Evade Dist O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

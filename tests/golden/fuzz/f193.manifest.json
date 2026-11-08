@@ -1,0 +1,113 @@
+{
+  "id": "f193",
+  "query_json": "{\"id\":\"f193\",\"description\":\"armour-seeded sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[174,167,26],\"skill_names\":[\"Recovery Up\",\"Wide Area +2\",\"Flute Expert\"],\"my_charms\":[\"0,NormalS Up,5,Rec Level,-2\",\"0,Wide Area,7,Sense,0\",\"0,Reload Spd,1,Paralysis,-2\",\"0,KO,4,Combo Rate,8\",\"0,Rec Level,3,NormalS Up,-3\",\"0,Guard,4,Evade Dist,3\",\"0,Carving,1,Fire Atk,6\",\"0,Evade Dist,6,LastingPwr,-6\",\"1,Evasion,3,Evade Dist,0\",\"2,Rec Level,2,NormalS Up,-3\",\"0,Sheathe,1,Stun,8\",\"2,Rec Level,3,Sharpness,-1\",\"0,Fire Atk,6,Wide Area,2\",\"0,Sleep,1,Huntsman,-5\",\"0,Backpackng,2,Whim,11\",\"1,Thundr Atk,1,Wide Area,-4\",\"2,Artisan,1,Debilitate,-1\",\"0,Evade Dist,4,Fire Atk,5\",\"1,Rec Level,3,SpeedSetup,-8\",\"0,Evasion,1,Wide Area,-3\",\"1,Rec Level,1,Dragon Atk,1\",\"0,Wide Area,3,Huntsman,2\",\"0,Protection,4,NormalSAdd,-1\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    5,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 13,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Rec Level, +1 Wide Area O--",
+      "found": 24,
+      "added": 24,
+      "added_sha256": "27788099caa529408a82cad1b51b701ecbe8b1b7ad8997a4f16679a50bda3912"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Rec Level, +12 Wide Area ---",
+      "found": 220,
+      "added": 218,
+      "added_sha256": "1856303057570fffe3fc49629cb4967498f8fc0ff7b7d6c6dc03262e2bba282e"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Rec Level, +2 Wide Area OO-",
+      "found": 60,
+      "added": 51,
+      "added_sha256": "4b92e466408ea2f19c84aa6e6dc5afdb26c1acf3ac4fc764f8f52cafa944d290"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Rec Level, +11 Wide Area ---",
+      "found": 480,
+      "added": 304,
+      "added_sha256": "6aff951be7a046a08dbe9ccab0940e8157f536b82fb4299af7d6da688788621f"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Rec Level, +4 Horn ---",
+      "found": 17,
+      "added": 17,
+      "added_sha256": "edcdfe29aa8f17da9f634d452d55cac02144aa25e46ed564b5a844c9abe0df3a"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 Rec Level, +7 Horn O--",
+      "found": 23,
+      "added": 16,
+      "added_sha256": "781f790ea1add420e33f3b3fc98a0604371c8fee234e4d62905a48625b4e72ab"
+    },
+    {
+      "worker": 6,
+      "charm": "+3 Rec Level, +10 Horn ---",
+      "found": 35,
+      "added": 20,
+      "added_sha256": "c2a935409555ffab79787a57d22f9484a34c74394ea7f2ccfe2e5d78fdf5ade7"
+    },
+    {
+      "worker": 7,
+      "charm": "+3 Rec Level, +5 Horn O--",
+      "found": 35,
+      "added": 13,
+      "added_sha256": "45a86ce5ccaf214f5271c87b31424bd31abfcf6e03c32d96818dcd1c9b3133e1"
+    },
+    {
+      "worker": 8,
+      "charm": "+4 Rec Level, +7 Horn ---",
+      "found": 32,
+      "added": 8,
+      "added_sha256": "fc75b8eda22b8e5c14697c6738de3fc19a62097f4cdff4b39c3b386f0d40acfb"
+    },
+    {
+      "worker": 9,
+      "charm": "+7 Wide Area, +5 Horn ---",
+      "found": 123,
+      "added": 102,
+      "added_sha256": "53217baf9a5b538857c6f4e7c944a86d3f9b4323f03aadb387e30ee4347a05c6"
+    },
+    {
+      "worker": 10,
+      "charm": "+4 Horn, +10 Wide Area ---",
+      "found": 205,
+      "added": 179,
+      "added_sha256": "800a15d350f775ce28e01aeeb01a4d031326697e097136d770b54b47995f1a39"
+    },
+    {
+      "worker": 11,
+      "charm": "+1 Wide Area, +8 Horn ---",
+      "found": 19,
+      "added": 5,
+      "added_sha256": "8b2fe68e4d47b4900424b25d8e341fbc7fcae0228a3492837d111ff4a7a28029"
+    },
+    {
+      "worker": 12,
+      "charm": "+3 Wide Area, +3 Horn O--",
+      "found": 38,
+      "added": 22,
+      "added_sha256": "00363e96e634dfd7df2c919139f79e587e743db1b80450f79cf54a411679dbaf"
+    }
+  ],
+  "solution_count": 979,
+  "solutions_sha256": "66425f73be2213c4c5bdfa05fe78adc95fd4ef5925f6de3746b1f56830d193b8",
+  "solution_set_sha256": "f3de1a15f11ee3450da64b3c710a6a1c1790fb73ef34dea6f17a9be9a6147f5b",
+  "solutions_file": true,
+  "exception": null
+}

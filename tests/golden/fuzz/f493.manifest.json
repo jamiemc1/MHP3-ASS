@@ -1,0 +1,21 @@
+{
+  "id": "f493",
+  "query_json": "{\"id\":\"f493\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: auto_guard_no_charm, torso_up\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[203,174,158,119,140,152],\"skill_names\":[\"Gur\u00fa de captura\",\"Recup. Vida Aum.\",\"Res. Trueno[gr]\",\"AutoProteccion\",\"Tapones grandes\",\"Res. Fuego[gr]\"],\"my_charms\":[\"0,Vel.Guarda,1,R. fuego,-9\",\"0,Niv. recup,1,R. hielo,-3\",\"0,Vel.Guarda,1,R. fuego,-9\",\"0,Hambre,5,R. fuego,-5\",\"0,Atq.Fatiga,3,A\u00f1a.Corta.,-10\",\"0,Antisept.,4,Res. Calor,4\",\"0,Antisept.,4,Res. Calor,4\",\"1,Fuego Inc,3,A\u00f1DNormal,-7\",\"0,KO,3,Yoga,4\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    14,
+    8,
+    10,
+    10,
+    9
+  ],
+  "relevant_decoration_count": 8,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f477",
+  "query_json": "{\"id\":\"f477\",\"description\":\"uniform sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[140,72],\"skill_names\":[\"HighGradeEarplug\",\"Abnormal Status Atk +1\"],\"my_charms\":[\"0,Water Atk,6,Sense,-3\",\"0,Guard Up,6,Status,4\",\"1,NormalS Up,2,,\",\"0,Guard,5,Constitutn,-1\",\"0,Ice Attack,5,HearProtct,-3\",\"0,ThunderRes,1,RazorCAdd,-3\",\"0,Ice Attack,2,Rec Speed,-7\",\"0,Sheathe,5,Eating,-3\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

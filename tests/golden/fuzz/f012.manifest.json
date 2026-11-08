@@ -1,0 +1,29 @@
+{
+  "id": "f012",
+  "query_json": "{\"id\":\"f012\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[87],\"skill_names\":[\"Ice Element +2\"],\"my_charms\":[\"0,Water Atk,4,Evade Dist,0\",\"0,Constitutn,2,Huntsman,7\",\"0,PelletS Up,4,Thundr Atk,7\",\"0,Fencing,5,FatigueAtk,2\",\"0,Rapid Fire,4,Ice Attack,8\",\"0,Elemental,1,Guard,0\",\"0,Ice Attack,7,HiSpdGathr,10\",\"0,Ice Attack,4,Huntsman,4\",\"0,Will Recov,1,FatigeCAdd,6\",\"0,HearProtct,1,Fate,1\",\"0,Expert,2,DungMaster,-1\",\"0,Precision,5,SleepCAdd,-3\",\"0,Ice Attack,6,Protection,2\",\"0,Will Recov,5,Ice Attack,2\",\"0,Artisan,5,WindPress,2\",\"0,Attack,1,PoisonCAdd,6\",\"2,HearProtct,1,Stamina,0\",\"0,KO,6,Rapid Fire,-1\",\"0,Slam,1,Ice Attack,8\",\"0,Fire Res,3,PowerCAdd,-4\",\"0,Will Recov,4,Dragon Res,2\",\"3,Ice Attack,1,,\",\"0,Potential,5,Ice Attack,-5\",\"0,Horn,4,Sleep,-5\",\"3,KO,1,PunishDraw,-1\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 216,
+      "added": 216,
+      "added_sha256": "3319624b1fef4ad11fb7493a164c8eac40dc44f7733423789baa98ee14e94967"
+    }
+  ],
+  "solution_count": 216,
+  "solutions_sha256": "3319624b1fef4ad11fb7493a164c8eac40dc44f7733423789baa98ee14e94967",
+  "solution_set_sha256": "a2cf66a78efb6ce72f28eed565b2324d4d64dc6854ade5c63cd0d691871d3fdb",
+  "solutions_file": true,
+  "exception": null
+}

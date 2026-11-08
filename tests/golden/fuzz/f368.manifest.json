@@ -1,0 +1,64 @@
+{
+  "id": "f368",
+  "query_json": "{\"id\":\"f368\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[38,181,154,167,205,119],\"skill_names\":[\"Reload Speed +2\",\"Quick Eating +2\",\"Water Res (S)\",\"Wide Area +2\",\"Combine Success+45%\",\"Auto-Guard\"],\"my_charms\":[\"0,Guard Up,1,Paralysis,-6\",\"1,Wide Area,7,Status,-4\",\"0,Eating,3,FatigeCAdd,-10\",\"0,Protection,2,Gluttony,-6\",\"1,Reload Spd,2,Sleep,0\",\"0,Water Res,3,ParalyCAdd,-5\",\"1,Defense,2,Poison,-4\",\"0,Auto-Guard,10,,\",\"1,Awaken,1,Protection,-9\",\"0,Wide Area,5,Mud/Snow,3\",\"0,Ice Attack,6,ThunderRes,10\",\"1,FatigueAtk,2,Poison,1\",\"0,Protection,7,Eating,-1\",\"0,Eating,3,FatigeCAdd,-2\",\"1,Carving,4,Eating,-2\",\"0,Fencing,3,Will Recov,-2\",\"0,Eating,1,Rec Level,4\",\"0,Guard Up,1,Water Res,-9\",\"0,Water Atk,1,Eating,1\",\"0,FatigueAtk,6,Fire Atk,-6\",\"0,Recoil,1,Eating,1\",\"0,PierceSAdd,5,Attack,5\",\"1,Sheathe,1,Rapid Fire,2\",\"0,Guard,3,Recoil,-2\",\"0,Fire Atk,5,Reload Spd,-2\",\"0,Constitutn,3,Defense,6\",\"1,Ice Attack,1,Crag S Add,-1\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    7,
+    6,
+    7
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Wide Area, -4 Status O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Eating, -10 FatigeCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Reload Spd, 0 Sleep O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+3 Water Res, -5 ParalyCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

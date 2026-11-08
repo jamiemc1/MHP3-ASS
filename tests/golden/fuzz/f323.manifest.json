@@ -1,0 +1,29 @@
+{
+  "id": "f323",
+  "query_json": "{\"id\":\"f323\",\"description\":\"armour-seeded sampler, charm mode none, 5 skills; quotas: cross_type, empty_slot\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[174,72,96,36,93],\"skill_names\":[\"Recup. Vida Aum.\",\"Ataque Espec.+1\",\"Corredor\",\"Disparo adic.\",\"Atleta\"],\"my_charms\":[\"0,Determin.,6,Resist.,3\",\"0,PresViento,1,Esgrima,3\",\"0,Dragon Inc,1,R. drag\u00f3n,0\",\"0,Resist.,3,SubirDPerd,2\",\"2,Carga,4,Fue.Rapido,-3\",\"2,Hielo Inc,3,Fue.Rapido,-3\",\"2,Fue.Rapido,2,Fuego Inc,-2\",\"2,A\u00f1DPerf,3,Hambre,-6\",\"0,Vel.recarg,5,Defensa,6\",\"2,Niv. recup,5,Prot. oido,-1\",\"0,Atq espec.,4,Fue.Rapido,0\",\"0,TrampaRap.,1,A\u00f1DPerf,-4\",\"0,GolpePes.,2,Fue.Rapido,-3\",\"0,Cortar,1,Defensa,-1\",\"0,SubirDPerd,2,Niv. recup,4\",\"2,Artesano,1,KO,-1\",\"0,SubirDNorm,5,Vel.Guarda,3\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

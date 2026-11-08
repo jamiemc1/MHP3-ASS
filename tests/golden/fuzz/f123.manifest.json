@@ -1,0 +1,21 @@
+{
+  "id": "f123",
+  "query_json": "{\"id\":\"f123\",\"description\":\"uniform sampler, charm mode slotted, 1 skill; quotas: auto_guard_no_charm, torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[119],\"skill_names\":[\"Autoblock\"],\"my_charms\":[\"0,Horn,4,Dungmeist.,-2\",\"1,Ausweichen,1,Bet\u00e4uben,0\",\"0,Horn,4,Dungmeist.,-2\",\"1,Donnerabw.,3,Schie\u00dferei,1\",\"3,Ausdauer,1,FeurAngHch,-2\",\"0,Angriff,3,SchnllAufb,-10\",\"2,ErholStufe,2,PierceHoch,-1\",\"1,Donnerabw.,3,Schie\u00dferei,1\",\"1,StrafHieb,4,Schn. lad.,-2\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    1,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 0,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

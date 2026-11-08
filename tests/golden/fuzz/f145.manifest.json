@@ -1,0 +1,29 @@
+{
+  "id": "f145",
+  "query_json": "{\"id\":\"f145\",\"description\":\"armour-seeded sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[26],\"skill_names\":[\"Flute Expert\"],\"my_charms\":[\"0,Dragon Res,1,Expert,3\",\"0,Fire Atk,6,Ice Res,-10\",\"0,Evasion,2,Gunnery,-7\",\"1,PelletS Up,3,Dragon Atk,-10\",\"0,Fortitude,7,Cold Res,-3\",\"0,Crit Draw,5,Rec Speed,-1\",\"0,Horn,1,PierceSAdd,-9\",\"0,Sharpener,1,Sense,-6\",\"0,Rewards,2,Expert,2\",\"0,Slam,4,Artisan,1\",\"0,Combo Rate,6,,\",\"0,Horn,1,Antiseptic,-2\",\"2,Rewards,1,Rec Level,-1\",\"0,PierceSAdd,6,Wide Area,0\",\"1,Fate,1,FatigueAtk,-1\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 72,
+      "added": 72,
+      "added_sha256": "c087a3d16d041ecf9260ad1246f932b7c7451874ef3f144ef843d0c13ae11d42"
+    }
+  ],
+  "solution_count": 72,
+  "solutions_sha256": "c087a3d16d041ecf9260ad1246f932b7c7451874ef3f144ef843d0c13ae11d42",
+  "solution_set_sha256": "43ed0a2419f42fa89b6a9d09dede8f40ba9c204d4056a4026377c4dcdf7c5f8a",
+  "solutions_file": true,
+  "exception": null
+}

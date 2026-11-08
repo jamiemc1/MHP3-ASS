@@ -1,0 +1,50 @@
+{
+  "id": "f237",
+  "query_json": "{\"id\":\"f237\",\"description\":\"armour-seeded sampler, charm mode my_charms, 2 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[75,131],\"skill_names\":[\"Element Atk Up\",\"Mud/Snow Res\"],\"my_charms\":[\"0,Protection,5,Sleep,1\",\"0,CutterSAdd,4,BombStrUp,2\",\"0,Constitutn,1,Gunnery,3\",\"2,Potential,1,Reload Spd,2\",\"0,Crag S Add,5,Ice Res,1\",\"0,Ice Res,6,Mud/Snow,8\",\"0,Elemental,1,Fire Res,-9\",\"0,Sheathe,5,Thundr Atk,1\",\"0,Elemental,2,Fire Atk,7\",\"0,Evasion,3,Potential,-3\",\"0,Status,2,Recoil,-3\",\"0,PunishDraw,5,Elemental,3\",\"2,Elemental,3,Ice Res,-1\",\"0,Reload Spd,2,PierceS Up,0\",\"2,KO,1,Mud/Snow,-8\",\"2,Evade Dist,1,Dragon Atk,-4\",\"0,Precision,3,Quake Res,6\",\"0,Elemental,4,Rewards,1\",\"0,Elemental,2,Evasion,2\",\"0,Elemental,3,Evade Dist,2\",\"0,Constitutn,5,Mud/Snow,-2\",\"0,Mud/Snow,3,BombStrUp,3\",\"0,Status,4,PierceSAdd,-2\",\"0,Ice Attack,6,Potential,0\",\"0,Rec Level,3,Mud/Snow,-1\",\"0,Attack,3,PoisonCAdd,6\",\"0,Constitutn,2,NormalS Up,2\",\"0,Antiseptic,1,PoisonCAdd,9\",\"0,SpeedSetup,2,PelletSAdd,-10\",\"0,Artisan,1,Psychic,1\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Ice Res, +8 Mud/Snow ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Elemental, -1 Ice Res OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Elemental, +1 Rewards ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f464",
+  "query_json": "{\"id\":\"f464\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[160,146,198],\"skill_names\":[\"Ice Res (S)\",\"Def Up (M)\",\"Luck Booster\"],\"my_charms\":[\"1,BombStrUp,2,Gunnery,1\",\"0,Guard,5,ParalyCAdd,-8\",\"0,ThunderRes,6,Sense,-6\",\"0,Ice Res,1,Antiseptic,7\",\"1,Hunger,1,Ice Res,-4\",\"0,Defense,3,Attack,-7\",\"0,Sheathe,1,ParalyCAdd,-8\",\"0,ClustS Add,1,PoisonCAdd,8\",\"0,FatigueAtk,1,HearProtct,-1\",\"1,Ice Attack,1,Sheathe,1\",\"0,Blight Res,5,PelletS Up,-2\",\"0,Ice Res,2,ThunderRes,-10\",\"0,Fate,2,Hunger,5\",\"0,Quake Res,3,NormalSAdd,3\",\"0,Fate,4,Fire Res,10\",\"0,Reload Spd,3,Whim,-6\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    4,
+    4,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Hunger, -4 Ice Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Defense, -7 Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Ice Res, -10 ThunderRes ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Fate, +10 Fire Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

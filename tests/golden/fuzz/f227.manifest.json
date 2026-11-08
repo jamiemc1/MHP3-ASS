@@ -1,0 +1,29 @@
+{
+  "id": "f227",
+  "query_json": "{\"id\":\"f227\",\"description\":\"armour-seeded sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[24,107,98,109,43,173],\"skill_names\":[\"Improved KO\",\"Evasion Up\",\"Stamina Recov Up\",\"Sneak\",\"Recoil Reduction +1\",\"DungBombExpert\"],\"my_charms\":[\"0,Horn,4,Fire Res,-3\",\"0,Awaken,6,Status,3\",\"0,Fire Atk,6,DungMaster,3\",\"0,KO,3,ClustS Add,-4\",\"0,Will Recov,3,FatigeCAdd,-5\",\"0,Horn,4,Fire Res,-3\",\"0,Sharpness,1,Dragon Res,2\",\"0,Fate,1,Evade Dist,4\",\"0,KO,1,ClustS Add,3\",\"0,SpeedSetup,1,LastingPwr,1\",\"0,KO,5,Gunnery,5\",\"1,Potential,2,PoisonCAdd,-6\",\"0,Rec Speed,2,Wide Area,-6\",\"0,Precision,5,Cold Res,2\",\"0,Dragon Atk,2,Whim,1\",\"1,NormalS Up,1,Recoil,-3\",\"0,Reload Spd,3,Poison,2\",\"0,Rec Level,1,Sense,7\",\"0,Evade Dist,3,NormalSAdd,-1\",\"1,Psychic,3,Fire Res,-6\",\"0,PierceSAdd,2,Sleep,-10\",\"0,Will Recov,1,Potential,2\",\"0,KO,3,Blight Res,1\",\"0,NormalSAdd,6,HiSpdGathr,3\",\"0,Wide Area,1,Rec Speed,0\",\"0,Stamina,5,PierceS Up,0\",\"0,PunishDraw,1,KO,4\",\"0,Sheathe,5,Rapid Fire,-2\",\"0,Sheathe,6,RazorCAdd,-4\",\"1,KO,2,SleepCAdd,-1\",\"0,Wide Area,4,Backpackng,-10\"]}",
+  "my_charms_loaded": 31,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    6,
+    3,
+    3,
+    7
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

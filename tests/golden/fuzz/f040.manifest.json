@@ -1,0 +1,134 @@
+{
+  "id": "f040",
+  "query_json": "{\"id\":\"f040\",\"description\":\"armour-seeded sampler, charm mode one_skill, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[1,7,23,111,96],\"skill_names\":[\"Attack Up [Med]\",\"Reckless Abandon +2\",\"Ruiner\",\"Recovery Speed +1\",\"Runner\"],\"my_charms\":[\"0,Attack,3,Sense,6\",\"0,PierceSAdd,6,DungMaster,-4\",\"0,PierceSAdd,6,DungMaster,-4\",\"0,KO,3,DungMaster,9\",\"1,FastCharge,1,Expert,-3\",\"0,Rec Level,3,Health,7\",\"0,Will Recov,4,Sharpener,1\",\"0,Sleep,2,Expert,-6\",\"0,Rec Level,2,Attack,-3\",\"0,Attack,4,Antiseptic,4\",\"0,Rec Speed,2,Backpackng,-7\",\"3,Rec Level,2,,\",\"0,Will Recov,1,Stamina,3\",\"0,KO,2,Fate,-3\",\"0,Slam,2,FastCharge,0\",\"0,WindPress,3,FastCharge,2\",\"0,Rec Level,3,Health,7\",\"0,KO,1,Dragon Res,9\",\"2,Loading,3,Eating,0\",\"0,Rec Speed,6,PowerCAdd,1\",\"0,Mud/Snow,1,BombStrUp,8\",\"0,Ice Res,2,SpeedSetup,6\",\"1,Paralysis,1,Expert,-4\",\"0,Sheathe,6,Rec Speed,-9\",\"0,Gunnery,6,Fire Res,0\",\"0,Evade Dist,6,Mud/Snow,-7\",\"0,Rec Level,6,SpeedSetup,-7\",\"2,PelletS Up,1,Health,8\"]}",
+  "my_charms_loaded": 28,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    7,
+    3,
+    7,
+    10
+  ],
+  "relevant_decoration_count": 10,
+  "worker_count": 16,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+1 Attack OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 Attack OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+10 Attack O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Expert OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+10 Expert OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+10 Expert O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Slam OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+4 Slam OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 Slam O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+4 Rec Speed OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+6 Rec Speed OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+9 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+12 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+4 Stamina OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+5 Stamina OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+5 Stamina O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

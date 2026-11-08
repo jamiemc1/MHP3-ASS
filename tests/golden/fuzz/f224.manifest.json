@@ -1,0 +1,57 @@
+{
+  "id": "f224",
+  "query_json": "{\"id\":\"f224\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[139,19],\"skill_names\":[\"Earplug\",\"Concentration\"],\"my_charms\":[\"0,HearProtct,5,Guard Up,0\",\"0,Protection,2,FastCharge,-3\",\"0,Precision,4,Cold Res,4\",\"1,Mud/Snow,2,DungMaster,-10\",\"1,FastCharge,1,Reload Spd,-2\",\"0,FastCharge,1,Protection,-3\",\"0,Thundr Atk,6,,\",\"1,HearProtct,4,Sheathe,0\",\"1,Water Atk,1,HearProtct,0\",\"0,Rapid Fire,2,HearProtct,-1\",\"1,HearProtct,2,Evade Dist,-2\",\"0,ThunderRes,3,FatigeCAdd,-3\",\"0,HearProtct,5,Fire Atk,7\",\"0,FastCharge,2,Fate,-3\",\"0,Sheathe,3,Ice Res,12\",\"0,Sleep,3,RazorCAdd,5\",\"0,WindPress,4,Fortitude,1\",\"0,FastCharge,1,WindPress,3\",\"0,HearProtct,2,Rewards,-2\",\"0,Ice Attack,5,Evasion,-2\",\"0,HearProtct,5,WindPress,-9\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 38,
+      "added": 38,
+      "added_sha256": "a95e6c8e0fba71bfefbb1db48b2a17f6bae5ab5f47e3214c262d622a0d5458e7"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 HearProtct, 0 Guard Up ---",
+      "found": 101,
+      "added": 101,
+      "added_sha256": "56791aa2d7d225053a1702945d4497e54e702f7682e245bbe3ec039d6d77317d"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 FastCharge, -2 Reload Spd O--",
+      "found": 66,
+      "added": 66,
+      "added_sha256": "e19b29ce92b37e13bd01c8e85488e38649f7302ed57fc2098db3a09467ff7fbd"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 HearProtct, 0 Sheathe O--",
+      "found": 103,
+      "added": 103,
+      "added_sha256": "aa934f7bc79f33c4fa5cf44ab65d7ef7f262769c8771f58d504d547af7a2ec9d"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 FastCharge, -3 Fate ---",
+      "found": 65,
+      "added": 65,
+      "added_sha256": "5a2b5d7e103745a5e5e40e1a000faa1878325171e078b205f802a654a76c46a8"
+    }
+  ],
+  "solution_count": 373,
+  "solutions_sha256": "93e3a382ee2d2f98be5d4e5b8913e2e7b6dfe8efdfd28f63a67219385b94a09b",
+  "solution_set_sha256": "843b1c7f10636e1285a0e47132aa9a74354c61a41f937aa8e105958bd931363a",
+  "solutions_file": true,
+  "exception": null
+}

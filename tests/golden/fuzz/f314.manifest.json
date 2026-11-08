@@ -1,0 +1,29 @@
+{
+  "id": "f314",
+  "query_json": "{\"id\":\"f314\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[137],\"skill_names\":[\"Blightproof\"],\"my_charms\":[\"0,Precision,5,NormalSAdd,-7\",\"0,BombStrUp,6,SpeedSetup,2\",\"0,WindPress,4,Gathering,-5\",\"0,Blight Res,4,Protection,-2\",\"0,Blight Res,4,FatigueAtk,-1\",\"0,Blight Res,4,Protection,-2\",\"0,Status,3,HiSpdGathr,-7\",\"0,Rec Speed,5,Wide Area,7\",\"0,Water Atk,2,PunishDraw,-2\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    1,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 0,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

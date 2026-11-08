@@ -1,0 +1,57 @@
+{
+  "id": "f036",
+  "query_json": "{\"id\":\"f036\",\"description\":\"uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[92,163],\"skill_names\":[\"Constitution +1\",\"Dragon Res (S)\"],\"my_charms\":[\"2,KO,2,Constitutn,-2\",\"0,Sharpener,4,Mud/Snow,5\",\"0,Guard Up,6,Dragon Res,6\",\"0,Guard,3,Constitutn,-3\",\"0,PierceS Up,2,BombStrUp,8\",\"0,PelletSAdd,5,Expert,3\",\"0,Defense,4,Dragon Res,-2\",\"1,ThunderRes,2,Sense,-4\",\"0,KO,2,Guard Up,0\",\"0,ThunderRes,1,Gunnery,1\",\"3,Ice Attack,3,Dragon Res,-9\",\"1,Constitutn,5,HearProtct,-3\",\"1,Rewards,1,Dragon Res,-6\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    3,
+    2,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Constitutn OO-",
+      "found": 397,
+      "added": 397,
+      "added_sha256": "bc51ef74e30622f663a125fb457cbecf6ff6026814fbdcc09cfc43c71ef751fe"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Constitutn O--",
+      "found": 355,
+      "added": 301,
+      "added_sha256": "830893a9baa3adcbd34a3a30d06ea6a1660cb7d7bd9848c31c3d03b978b07835"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Dragon Res OO-",
+      "found": 474,
+      "added": 474,
+      "added_sha256": "d2d93753bdd351c8a52a907571ba78d4876a011619d5259e8d9666e2e190c9db"
+    },
+    {
+      "worker": 3,
+      "charm": "+9 Dragon Res O--",
+      "found": 480,
+      "added": 234,
+      "added_sha256": "edfbdf19b97b922a2c661e3b924600e27f1bb1af4376b196c7a4e8cf2f46d975"
+    },
+    {
+      "worker": 4,
+      "charm": "+10 Dragon Res ---",
+      "found": 478,
+      "added": 194,
+      "added_sha256": "ccbd30b20f40042fc1f17adc85c9ae4326379c75c39331ab9197a36f038f0f2c"
+    }
+  ],
+  "solution_count": 1600,
+  "solutions_sha256": "ed5ffb89924c820bb251b64fae3903e93f5fa96b723e2d5cfef0a5cdd7445b63",
+  "solution_set_sha256": "530d921bfed52158ea5caf0b823eeb05d741e6045851960d6d2a6d915dfd2eaa",
+  "solutions_file": true,
+  "exception": null
+}

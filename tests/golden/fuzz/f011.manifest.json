@@ -1,0 +1,29 @@
+{
+  "id": "f011",
+  "query_json": "{\"id\":\"f011\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[112,35,107,116,100,166],\"skill_names\":[\"Recovery Speed +2\",\"Load Up\",\"Evasion Up\",\"Guard +2\",\"Hunger Halved\",\"Wide Area +1\"],\"my_charms\":[\"0,Loading,5,Stun,13\",\"0,Eating,1,Psychic,5\",\"0,Water Atk,1,Rec Speed,-3\",\"0,Blight Res,3,Gunnery,3\",\"0,Water Res,1,Rec Speed,2\",\"0,FastCharge,2,Carving,1\",\"0,Elemental,2,Guard Up,2\",\"2,Dragon Res,2,Combo Rate,-9\",\"0,KO,1,Health,-5\",\"0,Constitutn,4,NormalS Up,2\",\"1,Loading,2,Water Atk,-7\",\"0,Guard,1,Shot Mix,8\",\"0,Carving,3,Rec Speed,11\",\"0,Hunger,4,Gluttony,0\",\"2,Hunger,4,Combo Rate,-2\",\"0,Defense,1,SleepCAdd,7\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    12,
+    9,
+    9,
+    8,
+    10
+  ],
+  "relevant_decoration_count": 10,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

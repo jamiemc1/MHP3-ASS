@@ -1,0 +1,29 @@
+{
+  "id": "f344",
+  "query_json": "{\"id\":\"f344\",\"description\":\"uniform sampler, charm mode slotted, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[168,89,124,111],\"skill_names\":[\"Bombardier\",\"Dragon Element +1\",\"Parlysis Negated\",\"Recovery Speed +1\"],\"my_charms\":[\"0,Rec Speed,5,RazorCAdd,-4\",\"0,Rec Speed,4,BombStrUp,8\",\"0,Fire Res,4,BombStrUp,-5\",\"0,Dragon Atk,7,Defense,-3\",\"0,Rec Speed,5,RazorCAdd,-4\",\"0,Fire Res,4,BombStrUp,-5\",\"0,Dragon Atk,4,FatigeCAdd,9\",\"0,BombStrUp,1,Ice Res,-10\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    3,
+    1,
+    2,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

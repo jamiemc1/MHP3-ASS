@@ -1,0 +1,29 @@
+{
+  "id": "f049",
+  "query_json": "{\"id\":\"f049\",\"description\":\"uniform sampler, charm mode slotted, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[8],\"skill_names\":[\"Reckless Abandon +3\"],\"my_charms\":[\"0,Expert,1,Anti-Theft,-5\",\"0,Expert,3,Cold Res,-4\",\"0,Sharpener,3,Expert,5\",\"3,Guard Up,1,Expert,-2\",\"0,Blight Res,2,Evasion,1\",\"0,Artisan,2,Protection,-3\",\"0,PunishDraw,4,Expert,0\",\"0,Crit Draw,1,Expert,-8\",\"2,Expert,1,Cold Res,-5\",\"0,HearProtct,3,Loading,0\",\"0,HearProtct,5,Psychic,5\",\"0,Dragon Res,4,Gluttony,-9\",\"0,Dragon Atk,4,Guard,1\",\"0,Evasion,6,SpeedSetup,2\",\"2,Stun,4,Shot Mix,0\",\"0,Expert,1,Hunger,8\",\"1,Crit Draw,1,Expert,0\",\"0,Water Atk,1,Attack,2\",\"0,Evade Dist,1,Protection,-3\",\"0,Stamina,1,Expert,-2\",\"0,Stun,5,SleepCAdd,2\",\"0,Awaken,1,Slam,3\",\"0,Guard Up,4,Defense,3\",\"0,Slam,1,Constitutn,2\",\"0,Expert,2,CutterSAdd,7\",\"0,Sleep,3,Combo Rate,8\",\"0,BombStrUp,6,Horn,5\",\"0,Expert,4,Water Res,-3\"]}",
+  "my_charms_loaded": 28,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 576,
+      "added": 576,
+      "added_sha256": "0ba8a59ff5955500cbc8d82181d0ab48927cb22005f0e4e10892681d6f361026"
+    }
+  ],
+  "solution_count": 576,
+  "solutions_sha256": "0ba8a59ff5955500cbc8d82181d0ab48927cb22005f0e4e10892681d6f361026",
+  "solution_set_sha256": "ad0c5b037940863af222fe0ac2831eaf854aab895feb7bab33511421ddf4503c",
+  "solutions_file": true,
+  "exception": null
+}

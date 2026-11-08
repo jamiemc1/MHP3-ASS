@@ -1,0 +1,64 @@
+{
+  "id": "f163",
+  "query_json": "{\"id\":\"f163\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[171,174,101,167],\"skill_names\":[\"Detect\",\"Recovery Up\",\"Hunger Negated\",\"Wide Area +2\"],\"my_charms\":[\"0,Thundr Atk,2,Hunger,-5\",\"0,Fire Res,4,Wide Area,-10\",\"0,KO,1,Psychic,9\",\"0,NormalSAdd,1,Fire Res,10\",\"0,Rec Level,3,Status,4\",\"0,KO,4,CutterSAdd,-1\",\"0,Hunger,2,Wide Area,-2\",\"0,NormalS Up,3,Hunger,0\",\"0,Eating,4,Crag S Add,-1\",\"0,Hunger,5,Perception,-4\",\"0,Potential,5,Quake Res,-8\",\"1,Rec Level,4,Rewards,-2\",\"0,Rec Speed,1,Perception,4\",\"0,Awaken,3,Loading,-3\",\"0,NormalS Up,5,Defense,-7\",\"0,Rec Level,6,Rapid Fire,0\",\"0,Crit Draw,3,Blight Res,-1\",\"1,Wide Area,3,Horn,3\",\"0,Hunger,1,Sleep,2\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    6,
+    9,
+    9,
+    9
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 KO, +9 Psychic ---",
+      "found": 18,
+      "added": 18,
+      "added_sha256": "7f8a55a3215696dbcb8852b8445c2129abbcb7e97b19167533145bba3cdd50a7"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Hunger, -4 Perception ---",
+      "found": 22,
+      "added": 21,
+      "added_sha256": "dc8218542d08c090a368b64b83a5515f086fd1531b37653876430e1b4dc823c2"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Rec Level, -2 Rewards O--",
+      "found": 248,
+      "added": 240,
+      "added_sha256": "ffffde13ce321bff01c9e01aa5ee42f471b5dd30f3d46c6f11c7d5c196e15b11"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 Rec Level, 0 Rapid Fire ---",
+      "found": 298,
+      "added": 292,
+      "added_sha256": "9c42c0029a2f3d63137c6563e14c30b2b87409eb1dfa2f159793c93ef28f0aa3"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 Wide Area, +3 Horn O--",
+      "found": 3,
+      "added": 3,
+      "added_sha256": "57e6e3d52f6d1c14055fab1c938672a9a809f91f59170dba3a9727655e4a044a"
+    }
+  ],
+  "solution_count": 574,
+  "solutions_sha256": "dd7da68139eea636aa4364ef3604875dbe6f72d7b4248171b8915af9a9584db6",
+  "solution_set_sha256": "b1dcf02524b3a57336a0f00e0a120e64be57e6682a11ee9b98e29e0f169997ec",
+  "solutions_file": true,
+  "exception": null
+}

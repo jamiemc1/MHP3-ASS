@@ -1,0 +1,29 @@
+{
+  "id": "f444",
+  "query_json": "{\"id\":\"f444\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[58],\"skill_names\":[\"Pierce S All Add\"],\"my_charms\":[\"0,CutterSAdd,2,PierceSAdd,1\",\"2,KO,1,ThunderRes,3\",\"1,,,,\",\"0,WindPress,2,PierceSAdd,1\",\"0,Quake Res,3,Anti-Theft,-6\",\"3,,,,\",\"2,Status,1,BombStrUp,-3\",\"0,Debilitate,3,Reload Spd,3\",\"0,KO,1,Dragon Atk,-8\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    1,
+    2,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 8,
+      "added": 8,
+      "added_sha256": "23b12278d8233ec3284b8d2d85c738b5b436c229944bcf98598f26387214d741"
+    }
+  ],
+  "solution_count": 8,
+  "solutions_sha256": "23b12278d8233ec3284b8d2d85c738b5b436c229944bcf98598f26387214d741",
+  "solution_set_sha256": "23b12278d8233ec3284b8d2d85c738b5b436c229944bcf98598f26387214d741",
+  "solutions_file": true,
+  "exception": null
+}

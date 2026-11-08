@@ -1,0 +1,36 @@
+{
+  "id": "f114",
+  "query_json": "{\"id\":\"f114\",\"description\":\"armour-seeded sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[122,181],\"skill_names\":[\"Poison Negated\",\"Quick Eating +2\"],\"my_charms\":[\"2,Eating,2,Hunger,-3\",\"1,Wide Area,3,Backpackng,-6\",\"0,Debilitate,2,BombStrUp,-6\",\"0,Carving,5,Fate,-1\",\"0,Evasion,4,Potential,3\",\"0,Dragon Atk,1,Gluttony,-7\",\"0,Dragon Atk,3,Perception,2\",\"0,Water Atk,4,Debilitate,3\",\"0,Hunger,4,Psychic,2\",\"1,NormalS Up,1,Potential,-1\",\"1,Sharpener,1,Mud/Snow,-2\",\"0,Carving,5,Fate,-1\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    3,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 21,
+      "added": 21,
+      "added_sha256": "83db82f8c52f76fdc70fb684a4d0707435eaae14a557a5489e2f8d6d734f9b1f"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Eating, -3 Hunger OO-",
+      "found": 63,
+      "added": 63,
+      "added_sha256": "e0c31f9f617aaefd35170aaba3d31ba8d7762feb8789258da10d7bbfab886f80"
+    }
+  ],
+  "solution_count": 84,
+  "solutions_sha256": "b897a24c1f0116df9453e083c00f4cb8ad9e3f4ab084762c62840d51b94655cd",
+  "solution_set_sha256": "e176e0b63a519042cb1f3cb43312ca8af8193592913878b645173017ffa942a8",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f420",
+  "query_json": "{\"id\":\"f420\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[63,86,93,19],\"skill_names\":[\"Clust S LV1 Add\",\"Ice Element +1\",\"Constitution +2\",\"Concentration\"],\"my_charms\":[\"0,FastCharge,1,BombStrUp,-3\",\"0,Ice Attack,6,PierceSAdd,-4\",\"0,Stun,8,LastingPwr,2\",\"0,Constitutn,5,Stun,12\",\"0,SpeedSetup,4,ClustS Add,7\",\"0,FastCharge,1,BombStrUp,-3\",\"0,Ice Attack,1,HearProtct,3\",\"0,Fate,3,WindPress,2\",\"0,Ice Attack,2,BombStrUp,10\",\"3,Ice Attack,3,,\",\"1,,,,\",\"1,Sheathe,2,Fire Res,-8\",\"0,Attack,2,PoisonCAdd,-3\",\"0,Reload Spd,2,FastCharge,-2\",\"0,SpeedSetup,1,RazorCAdd,2\",\"1,Horn,5,DungMaster,-3\",\"0,Eating,3,LastingPwr,4\",\"1,Ice Attack,1,Evade Dist,-3\",\"0,PelletS Up,1,Artisan,-1\",\"0,Recoil,2,Gunnery,1\",\"1,HearProtct,4,Debilitate,1\",\"0,Will Recov,5,Sheathe,-9\",\"0,Recoil,2,Gunnery,1\",\"1,Ice Attack,2,Guard Up,-1\",\"0,Fencing,5,FastCharge,0\",\"0,Reload Spd,3,Elemental,2\",\"0,Fire Atk,3,Gluttony,6\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    10,
+    7,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

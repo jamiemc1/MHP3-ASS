@@ -1,0 +1,29 @@
+{
+  "id": "f457",
+  "query_json": "{\"id\":\"f457\",\"description\":\"uniform sampler, charm mode none, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[44,105,92,68,181],\"skill_names\":[\"Recoil Reduction +2\",\"Evade +2\",\"Constitution +1\",\"Sleep Coating Add\",\"Quick Eating +2\"],\"my_charms\":[\"0,Potential,1,Water Res,-9\",\"0,Sheathe,1,WindPress,1\",\"0,Blight Res,3,HearProtct,1\"]}",
+  "my_charms_loaded": 3,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    5,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

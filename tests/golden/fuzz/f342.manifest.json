@@ -1,0 +1,50 @@
+{
+  "id": "f342",
+  "query_json": "{\"id\":\"f342\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[168,93,134,178,145,163],\"skill_names\":[\"Bombardier\",\"Constitution +2\",\"Wind Anchor\",\"Filled Up\",\"Def Up (S)\",\"Dragon Res (S)\"],\"my_charms\":[\"0,WindPress,4,Awaken,1\",\"0,Sheathe,4,Huntsman,0\",\"0,PelletS Up,3,WindPress,3\",\"1,WindPress,1,Debilitate,0\",\"0,Fate,5,Loading,0\",\"1,BombStrUp,3,Horn,-1\",\"0,Paralysis,1,Shot Mix,-2\",\"0,Dragon Atk,5,Carving,1\",\"0,Rec Level,4,PoisonCAdd,1\",\"1,PowerCAdd,1,,\",\"0,Will Recov,2,Hunger,8\",\"0,Reload Spd,2,SpeedSetup,6\",\"0,KO,3,Stun,-5\",\"0,Rec Level,4,PoisonCAdd,1\",\"0,Potential,3,Water Atk,6\",\"0,Rec Level,4,PoisonCAdd,1\",\"0,CutterSAdd,2,ClustS Add,-2\",\"0,Status,2,Fortitude,6\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    8,
+    6,
+    5,
+    8
+  ],
+  "relevant_decoration_count": 9,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 WindPress, +1 Awaken ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 WindPress, 0 Debilitate O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 BombStrUp, -1 Horn O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

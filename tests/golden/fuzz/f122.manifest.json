@@ -1,0 +1,29 @@
+{
+  "id": "f122",
+  "query_json": "{\"id\":\"f122\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[0,112,87],\"skill_names\":[\"Attack Up [Sm]\",\"Recovery Speed +2\",\"Ice Element +2\"],\"my_charms\":[\"0,Reload Spd,4,Huntsman,-6\",\"0,Rec Speed,5,Backpackng,7\",\"0,Ice Attack,7,Gathering,6\",\"0,Loading,6,Stun,-4\",\"0,Rec Speed,5,Backpackng,7\",\"0,Quake Res,1,PierceSAdd,0\",\"0,Guard Up,1,Protection,5\",\"0,NormalSAdd,2,Cold Res,0\",\"1,Rec Speed,2,SpeedSetup,-4\",\"0,Reload Spd,4,Huntsman,-6\",\"2,Attack,1,Health,-10\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    5,
+    5,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 7,
+      "added": 7,
+      "added_sha256": "b5b8c67def3786726e622f4292642fcbec53f45bbfabbed1b1a6fbe18b3a5ff8"
+    }
+  ],
+  "solution_count": 7,
+  "solutions_sha256": "b5b8c67def3786726e622f4292642fcbec53f45bbfabbed1b1a6fbe18b3a5ff8",
+  "solution_set_sha256": "b5b8c67def3786726e622f4292642fcbec53f45bbfabbed1b1a6fbe18b3a5ff8",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,21 @@
+{
+  "id": "f400",
+  "query_json": "{\"id\":\"f400\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: auto_guard_no_charm, torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[119,208,168,96,161],\"skill_names\":[\"\u30aa\u30fc\u30c8\u30ac\u30fc\u30c9\",\"\u6700\u5927\u6570\u751f\u7523\",\"\u30dc\u30de\u30fc\",\"\u30e9\u30f3\u30ca\u30fc\",\"\u6c37\u8010\u6027\u3010\u5927\u3011\"],\"my_charms\":[\"0,\u6c17\u529b\u56de\u5fa9,6,\u9ad8\u901f\u53ce\u96c6,8\",\"0,\u4f53\u8853,6,\u9ad8\u901f\u8a2d\u7f6e,1\",\"0,\u56de\u5fa9\u901f\u5ea6,7,\u7cbe\u5bc6\u5c04\u6483,-4\",\"0,\u6c37\u8010\u6027,4,\u62e1\u6563\u5f3e\u8ffd\u52a0,-5\",\"0,\u52a0\u8b77,5,\u6c37\u8010\u6027,3\",\"0,\u6563\u5f3e\u8ffd\u52a0,1,\u8010\u6691,1\",\"0,\u7b1b,3,\u7206\u5f3e\u5f37\u5316,7\",\"0,\u30b9\u30bf\u30df\u30ca,5,\u8cab\u901a\u5f3e\u5f37\u5316,1\",\"0,\u5320,4,\u4f53\u529b,-10\",\"0,\u8179\u6e1b\u308a,1,\u89b3\u5bdf\u773c,0\",\"0,\u706b\u5c5e\u6027\u653b\u6483,1,\u7206\u5f3e\u5f37\u5316,6\",\"1,\u8cab\u901a\u5f3e\u5f37\u5316,2,\u7206\u5f3e\u5f37\u5316,-6\",\"1,\u6c34\u5c5e\u6027\u653b\u6483,6,\u8abf\u5408\u6570,-8\",\"0,\u6c37\u5c5e\u6027\u653b\u6483,7,\u7206\u5f3e\u5f37\u5316,-2\",\"0,\u6563\u5f3e\u5f37\u5316,2,\u7206\u5f3e\u5f37\u5316,4\",\"0,\u6c37\u8010\u6027,6,\u89b3\u5bdf\u773c,4\",\"1,\u8cab\u901a\u5f3e\u5f37\u5316,1,\u6355\u7372,0\",\"1,\u56de\u5fa9\u901f\u5ea6,3,\u8abf\u5408\u6210\u529f\u7387,-5\",\"0,\u6c37\u8010\u6027,1,\u5bfe\u9632\u5fa1DOWN,0\",\"0,\u6c34\u5c5e\u6027\u653b\u6483,5,\u6c37\u8010\u6027,-10\",\"0,\u56de\u907f\u8ddd\u96e2,2,\u8abf\u5408\u6570,7\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    7,
+    7,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

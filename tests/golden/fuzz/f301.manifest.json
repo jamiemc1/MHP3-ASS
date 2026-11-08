@@ -1,0 +1,85 @@
+{
+  "id": "f301",
+  "query_json": "{\"id\":\"f301\",\"description\":\"armour-seeded sampler, charm mode one_skill, 3 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[140,172,19],\"skill_names\":[\"Best. Ohrst\u00f6psel\",\"Auto-Aufsp\u00fcrer\",\"Fokus\"],\"my_charms\":[\"0,StrafHieb,2,BombSt\u00e4rk.,5\",\"0,StrafHieb,1,Schn. lad.,0\",\"0,Handwerk,1,Sch\u00e4rfe,0\"]}",
+  "my_charms_loaded": 3,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    7,
+    7,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 9,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Geh\u00f6r OOO",
+      "found": 13881,
+      "added": 13863,
+      "added_sha256": "196ad8014694b5c867630400d78f44834e391d673446472ddb4c911e608193bb"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Geh\u00f6r OO-",
+      "found": 12099,
+      "added": 8993,
+      "added_sha256": "b0347e98b8eb43761aefee1e19c2193118832c0f7e41e89792fcd1286e75daec"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Geh\u00f6r O--",
+      "found": 9772,
+      "added": 2639,
+      "added_sha256": "38302fd063820ce1f23b232428fed0a352dc23d8403a02c202cd4c45de16cd23"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Vision OOO",
+      "found": 7507,
+      "added": 7378,
+      "added_sha256": "a1a2e4404bd08ad63469ff8164fec70e9bffd6d5de72c9c7cbfbe7fcbac33cf8"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 Vision OO-",
+      "found": 6043,
+      "added": 5245,
+      "added_sha256": "91f949b7cfa111a99a6b8d29d7c4a69605d4d5da658b5ca5dc18d79a2ba8ceb0"
+    },
+    {
+      "worker": 5,
+      "charm": "+12 Vision O--",
+      "found": 5514,
+      "added": 3299,
+      "added_sha256": "bdd998ba57aea0671191df53b1de9fe73702864ca03ba8f587bd75884e993305"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Schn. lad. OOO",
+      "found": 10796,
+      "added": 9429,
+      "added_sha256": "e0e24f8fda53a421fae4b336a077edf6dfd488b6b2eb32b1f15390e7dab381f7"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 Schn. lad. OO-",
+      "found": 7313,
+      "added": 5485,
+      "added_sha256": "787efb832efbae2645edc147f088b67a91f3cdd669483866689b2855fd26fd6f"
+    },
+    {
+      "worker": 8,
+      "charm": "+5 Schn. lad. O--",
+      "found": 5276,
+      "added": 2449,
+      "added_sha256": "65be5ed198dd1b3b276977227387c49873866b585c108622f379ab558382201b"
+    }
+  ],
+  "solution_count": 58780,
+  "solutions_sha256": "d1add2ada47dc6165f596a988d1f396c5ed3f6278dabd9af10a869ecf020668e",
+  "solution_set_sha256": "824bf1cef8f8b51cd363573cd271a4bf331658755766bb96046c7cf751656821",
+  "solutions_file": false,
+  "exception": null
+}

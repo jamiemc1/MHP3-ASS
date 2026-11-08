@@ -1,0 +1,78 @@
+{
+  "id": "f328",
+  "query_json": "{\"id\":\"f328\",\"description\":\"uniform sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[201,189,174],\"skill_names\":[\"Zerleger-Profi\",\"Sammeln +1\",\"Erholung hoch\"],\"my_charms\":[\"0,Schnellfeu,4,SchrotHoch,2\",\"0,Schutz,1,Vision,5\",\"0,HartSchlag,4,Experte,3\",\"0,Fechten,2,Sch\u00e4rfe,3\",\"0,Fechten,4,Willenskft,-2\",\"0,Windabwehr,2,Schn. lad.,1\",\"0,FeurAngHch,1,KrftBschHz,-6\",\"0,FeurAngHch,5,Handwerk,3\",\"0,Erm\u00fcdSchlg,6,Experte,-2\",\"0,ErholStufe,2,Bebenabw.,-1\",\"0,Entb\u00e4digen,4,Schie\u00dferei,8\",\"0,Konstitutn,1,Schlaf,6\",\"0,NormlSzuf\u00fc,2,Drachenabw,5\",\"1,Vision,3,KombiBonus,-7\",\"0,SchrotHoch,2,StrafHieb,3\",\"0,ErholStufe,6,SchrtSzuf\u00fc,-9\",\"0,Gift,3,Schie\u00dferei,8\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    4,
+    5,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 8,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Zerlegen, +4 ErholStufe ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 ErholStufe, +3 Zerlegen ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 ErholStufe, +12 Sammeln ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 ErholStufe, +2 Sammeln ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 ErholStufe, +4 Sammeln ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 ErholStufe, +13 Sammeln ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 ErholStufe, +11 Sammeln ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

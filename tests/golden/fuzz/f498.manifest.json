@@ -1,0 +1,29 @@
+{
+  "id": "f498",
+  "query_json": "{\"id\":\"f498\",\"description\":\"uniform sampler, charm mode one_skill, 3 skills; quotas: auto_guard_charm, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[119,187,75],\"skill_names\":[\"Auto-Guard\",\"Cold Eliminate\",\"Element Atk Up\"],\"my_charms\":[\"0,Elemental,3,Ice Res,-10\",\"0,Precision,2,Cold Res,-8\",\"1,PierceS Up,1,Elemental,-2\",\"0,Auto-Guard,10,,\",\"0,Fencing,4,Elemental,1\",\"0,Ice Res,1,Antiseptic,-10\",\"0,Rapid Fire,5,Will Recov,-1\",\"0,Water Atk,4,Fire Res,-1\",\"0,Elemental,4,Guard,1\",\"0,CutterSAdd,6,Dragon Res,-2\",\"0,Elemental,1,Horn,8\",\"2,Potential,1,Horn,-1\",\"1,WindPress,1,ParalyCAdd,7\",\"0,Sharpener,4,BombStrUp,-5\",\"0,Rec Level,6,ParalyCAdd,4\",\"0,Stun,5,Crag S Add,9\",\"0,PierceS Up,4,Elemental,2\",\"0,Fire Res,3,Cold Res,-6\",\"0,Crit Draw,2,Rec Level,2\",\"1,Status,2,Perception,2\",\"0,Water Res,1,NormalSAdd,6\",\"2,Debilitate,1,PunishDraw,-3\",\"0,Will Recov,4,Ice Res,10\",\"0,Elemental,2,Health,7\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    1,
+    1,
+    1,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

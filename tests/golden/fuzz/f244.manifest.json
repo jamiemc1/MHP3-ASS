@@ -1,0 +1,71 @@
+{
+  "id": "f244",
+  "query_json": "{\"id\":\"f244\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[50,53],\"skill_names\":[\"Accuracy+2\",\"NormalS/RapidBowUp\"],\"my_charms\":[\"0,Reload Spd,6,Evasion,2\",\"1,Status,3,NormalS Up,-1\",\"0,Constitutn,1,Perception,-4\",\"2,Crit Draw,1,Evade Dist,0\",\"0,Eating,1,WindPress,-8\",\"0,Will Recov,4,Artisan,3\",\"0,Reload Spd,2,Gluttony,8\",\"0,PelletSAdd,4,Shot Mix,2\",\"0,Stamina,1,Fencing,3\",\"1,Constitutn,3,Expert,-5\",\"0,PelletSAdd,4,Shot Mix,2\",\"0,Constitutn,1,Perception,-4\",\"0,ThunderRes,3,ClustS Add,-3\",\"1,Rapid Fire,4,Rewards,-3\",\"0,FastCharge,4,PierceS Up,2\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    6,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 10569,
+      "added": 10569,
+      "added_sha256": "f471848538e199debbf580e41cfadd02e300becbb2d2280b9c06bb6818a627e9"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Precision OO-",
+      "found": 10582,
+      "added": 10582,
+      "added_sha256": "01d83d52caef9beee4a24b4735dc0f85d8892feca1a6fd367bc59506e5527a3a"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 Precision O--",
+      "found": 10575,
+      "added": 10147,
+      "added_sha256": "1dc3090b8ee77cee11a2981cea29666f65bff4e667c1d0e898bc1acd0217576f"
+    },
+    {
+      "worker": 3,
+      "charm": "+10 Precision ---",
+      "found": 10555,
+      "added": 10109,
+      "added_sha256": "f0d5c544f476116a4b2910476411b9a08ca8f94863320fdae62158a80864d9f4"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 NormalS Up OOO",
+      "found": 10584,
+      "added": 10563,
+      "added_sha256": "59065a186cf5f8f131a751b27e531c794335f42aa04190a44a4ecdbc6b1ac179"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 NormalS Up OO-",
+      "found": 10584,
+      "added": 10111,
+      "added_sha256": "595d40ebed8110cd831389cd997e628b7f63fdfd4d411c0e7b9a9bb0292a7a6c"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 NormalS Up O--",
+      "found": 10580,
+      "added": 10107,
+      "added_sha256": "49a89731981cc4ebcd78fc2dc6287bd6cc7c0fffa4b01d56a766849e585d8116"
+    }
+  ],
+  "solution_count": 72188,
+  "solutions_sha256": "122e819a04a642b04985d8a6b236947965e7e62a0424e6fd4ebf23a50c0af2ef",
+  "solution_set_sha256": "4884cfcdc2fefcae271c0249e716b0a1ad868141c56e535b5dd4e21177e9259a",
+  "solutions_file": false,
+  "exception": null
+}

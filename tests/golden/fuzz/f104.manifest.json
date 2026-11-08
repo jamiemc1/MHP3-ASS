@@ -1,0 +1,57 @@
+{
+  "id": "f104",
+  "query_json": "{\"id\":\"f104\",\"description\":\"armour-seeded sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[109,108,72],\"skill_names\":[\"Sneak\",\"Fast Sheathe\",\"Abnormal Status Atk +1\"],\"my_charms\":[\"1,,,,\",\"0,FatigueAtk,4,Sheathe,0\",\"0,Ice Attack,2,Status,1\",\"0,Wide Area,1,Sense,3\",\"2,Water Atk,1,Guard,2\",\"0,Sheathe,5,FatigueAtk,-3\",\"0,Ice Attack,2,PierceSAdd,2\",\"0,Sheathe,3,Slam,-3\",\"0,Stun,7,Sense,9\",\"0,Health,3,Mud/Snow,8\",\"0,Status,1,Gunnery,-8\",\"3,Stamina,2,,\",\"2,Sheathe,5,,\",\"3,Reload Spd,2,,\",\"0,Sheathe,2,Backpackng,-9\",\"0,Ice Attack,1,Quake Res,-3\",\"0,Ice Res,5,Sense,10\",\"1,Status,4,FatigueAtk,-3\"]}",
+  "my_charms_loaded": 18,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 245,
+      "added": 245,
+      "added_sha256": "2b7a227cb6c4c82316502ef9bc54dee1ed5a5011ed789fcd1ba41de35298bbef"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Stamina OOO",
+      "found": 451,
+      "added": 451,
+      "added_sha256": "af8ee35f4e248e28be6021f2c30c107a413d361ceb1946e73727072cc7d352e4"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Sheathe OO-",
+      "found": 670,
+      "added": 670,
+      "added_sha256": "fa05934afc57d5f2761adc6d48978b5dbd8983433681118eee59c2d2a4c20eac"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Ice Res, +10 Sense ---",
+      "found": 479,
+      "added": 479,
+      "added_sha256": "5677372dd500c1b8f968c1314c6ed4381a031695f8aae179f81a92b1aec4d6be"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Status, -3 FatigueAtk O--",
+      "found": 548,
+      "added": 548,
+      "added_sha256": "c59e4d19e234150d78886d1752a699fb795eaeb8fe9d32a5221c18dd1f6b8365"
+    }
+  ],
+  "solution_count": 2393,
+  "solutions_sha256": "882c604142edd7d7c9cb0bb1b72f55b6c4f33c6597570e3810552bffc8338ad6",
+  "solution_set_sha256": "569e523d93719a95aa1eb568b226f291bfaa789a3a87b792197066ad176c8cf5",
+  "solutions_file": true,
+  "exception": null
+}

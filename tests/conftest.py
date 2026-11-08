@@ -8,9 +8,11 @@ import pytest
 
 from data_rows import armor_row, decoration_row
 from goldens import (
+    FuzzGolden,
     RelevanceGolden,
     SearchGolden,
     TraceGolden,
+    read_fuzz_goldens,
     read_golden,
     read_relevance_goldens,
     read_search_goldens,
@@ -365,6 +367,13 @@ def personal_relevance_goldens(savefile_dir: Path) -> list[RelevanceGolden]:
     if not golden_dir.is_dir():
         pytest.skip("no personal relevance goldens; run scripts/windows/generate-goldens.ps1")
     return read_relevance_goldens(query_dirs=[corpus_dir], golden_dir=golden_dir)
+
+
+@pytest.fixture(scope="session")
+def fuzz_goldens(repo_root: Path) -> list[FuzzGolden]:
+    """Harness search results for every differential-fuzz query."""
+    tests_dir = repo_root / "tests"
+    return read_fuzz_goldens(fuzz_dir=tests_dir / "fuzz", golden_dir=tests_dir / "golden" / "fuzz")
 
 
 @pytest.fixture(scope="session")

@@ -1,0 +1,29 @@
+{
+  "id": "f053",
+  "query_json": "{\"id\":\"f053\",\"description\":\"armour-seeded sampler, charm mode slotted, 3 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[92,109,107],\"skill_names\":[\"Konstitution +1\",\"Schleichen\",\"AusweichDist hoch\"],\"my_charms\":[\"0,Pr\u00e4zision,2,Anti-Dieb,1\",\"1,Zerlegen,2,Asweichdst,-1\",\"0,DrchAngHch,4,KO,2\",\"0,Brandabw.,1,Asweichdst,-3\",\"0,Eisabwehr,1,Experte,-7\",\"2,,,,\",\"1,Beruhigung,2,Konstitutn,-1\",\"0,NachlGesch,1,Asweichdst,4\",\"2,,,,\",\"0,Status,3,Schl/Schn.,7\",\"0,Konstitutn,5,HartSchlag,1\",\"1,Asweichdst,3,EisAngrHch,-10\",\"0,SchrtSzuf\u00fc,5,Immerw\u00e4hrd,6\",\"0,Konstitutn,6,Rucksack,-8\",\"0,Schn. lad.,1,Potenzial,1\",\"0,KritHieb,4,Experte,8\",\"2,ErholGschw,1,K\u00e4lteabw.,-7\",\"0,Asweichdst,6,Fechten,-3\",\"0,Schlaf,1,Immerw\u00e4hrd,-7\",\"0,Block,3,Asweichdst,3\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    7,
+    6,
+    5,
+    9
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 11187,
+      "added": 11046,
+      "added_sha256": "d02a3755693a5371eeb2c67a4081ec39756f72348747c5ae087966e2e49fca9b"
+    }
+  ],
+  "solution_count": 11046,
+  "solutions_sha256": "d02a3755693a5371eeb2c67a4081ec39756f72348747c5ae087966e2e49fca9b",
+  "solution_set_sha256": "dfc81fe930026509ac15c67fab2d850a927d3b11988854f36f1652883a87b9c5",
+  "solutions_file": false,
+  "exception": null
+}

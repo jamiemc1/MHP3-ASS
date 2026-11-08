@@ -1,0 +1,78 @@
+{
+  "id": "f307",
+  "query_json": "{\"id\":\"f307\",\"description\":\"armour-seeded sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[35,170,92,72,203,22],\"skill_names\":[\"Load Up\",\"Trnquilizr Guru\",\"Constitution +1\",\"Abnormal Status Atk +1\",\"Rewards Celeb\",\"Exploiter\"],\"my_charms\":[\"0,Dragon Atk,7,Ice Res,-10\",\"0,Carving,3,Sheathe,2\",\"2,Debilitate,2,FastCharge,0\",\"0,Artisan,1,Loading,3\",\"0,Status,3,Dragon Res,13\",\"0,WindPress,1,Status,-10\",\"0,Antiseptic,5,Horn,7\",\"0,Mud/Snow,6,Rec Speed,0\",\"1,Loading,3,Dragon Atk,3\",\"0,Sharpener,1,Psychic,3\",\"2,Recoil,2,Rewards,-3\",\"0,Will Recov,2,Dragon Atk,9\",\"0,Water Res,4,Dragon Res,-1\",\"0,Potential,5,Guard Up,2\",\"0,PelletSAdd,2,PoisonCAdd,0\",\"2,Quake Res,1,Paralysis,-5\",\"1,Constitutn,1,Fencing,-3\",\"0,Slam,2,Debilitate,3\",\"3,Fate,1,Crit Draw,-1\",\"0,Quake Res,2,Horn,-6\",\"0,Sharpener,3,Perception,9\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    6,
+    5,
+    6,
+    9
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 8,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Debilitate, 0 FastCharge OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Status, +13 Dragon Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Loading, +3 Dragon Atk O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Constitutn, -3 Fencing O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+2 Slam, +3 Debilitate ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+1 Fate, -1 Crit Draw OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+3 Sharpener, +9 Perception ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

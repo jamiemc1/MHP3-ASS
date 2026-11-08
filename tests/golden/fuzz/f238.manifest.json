@@ -1,0 +1,99 @@
+{
+  "id": "f238",
+  "query_json": "{\"id\":\"f238\",\"description\":\"armour-seeded sampler, charm mode two_skill, 4 skills; quotas: torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[26,208,141,204],\"skill_names\":[\"Ef.CorDeCh. augm.\",\"Alchimiste\",\"Sant\u00e9 +20\",\"Combo +20%\"],\"my_charms\":[\"0,AtEl. eau,5,R\u00e9s.fl\u00e9aux,2\",\"2,Assaut lourd,1,Clairvoy.,2\",\"0,Tir asso.,1,S\u00e9rieux,4\",\"0,Mn perc. +,3,Alchimie,10\",\"0,Constit.,2,Cor,9\",\"0,Vit. rech.,1,Cor,-1\",\"0,At.horiz.,3,R\u00e9s. drgn,10\",\"0,Protection,5,Artilleur,4\",\"1,AtEl. glc,2,Vol ineff.,-8\",\"0,Poison,1,Artilleur,-8\",\"0,Potentiel,5,Cor,5\",\"2,Cor,1,Lubie,-6\",\"0,KO,1,R\u00e9s. drgn,-8\",\"0,Critiques,5,D\u00e9pe\u00e7age,1\",\"0,AtEl. eau,3,Inst.rap.,-5\",\"0,Statut,1,D\u00e9gainage,-4\",\"0,Dist.\u00e9vas.,5,Poison,1\",\"0,R\u00e9s. eau,1,TpsObjAugm.,8\",\"0,D\u00e9gainage,4,Clairvoy.,8\",\"0,AtEl. eau,3,Artilleur,-2\",\"0,Tir rap.,5,Mn plmb au.,0\",\"2,Sommeil,1,Zone,-4\",\"1,AtEl. feu,1,Vit. rech.,2\",\"0,Sant\u00e9,2,Statut,-4\",\"0,MnTranAjt,4,Cor,6\",\"3,AtEl. feu,4,Faim,-3\",\"0,Coureur,3,Artisan ,2\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    6,
+    4,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 11,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Cor, +10 Alchimie ---",
+      "found": 7347,
+      "added": 7346,
+      "added_sha256": "508efefa6b7b5da366e62c0b2e27de290c68a28a03d2be6a57b1c4b95d920952"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Sant\u00e9, +8 Cor ---",
+      "found": 5862,
+      "added": 5597,
+      "added_sha256": "bee537977a25af9bd10654e585f94e8158573e1ad908790ca51f8b1d3db1ceba"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Cor, +10 Sant\u00e9 ---",
+      "found": 4645,
+      "added": 2221,
+      "added_sha256": "ee928f49cb00f72e9c55e494603c528cd68c66d93dd525e516bde0637fe40566"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Sant\u00e9, +8 Alchimie ---",
+      "found": 5871,
+      "added": 3117,
+      "added_sha256": "4bd5c43bd0a79983413eaaf79a30b84ea798c82fc636d355775ff76769137c1d"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Sant\u00e9, +10 Alchimie ---",
+      "found": 6074,
+      "added": 1470,
+      "added_sha256": "0fcbb0017e474dcee24dc911ddf1f1af11ddc45b238cc9afe724fd45d689aeae"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Cor, +9 R\u00e9uss.combo ---",
+      "found": 6942,
+      "added": 6536,
+      "added_sha256": "45bbef16bcb5879092834f0d180cb06d1b876cf803af4fc9b6e7ed02e0e6aa5e"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Cor, +10 R\u00e9uss.combo ---",
+      "found": 6846,
+      "added": 1573,
+      "added_sha256": "e40938c3586a97d23bd4d4475cbac53b1f7e076636f5e108763b186ba635e5cd"
+    },
+    {
+      "worker": 7,
+      "charm": "+6 Sant\u00e9, +11 R\u00e9uss.combo ---",
+      "found": 5517,
+      "added": 1848,
+      "added_sha256": "6d6e56f1c3ae2b0497299f823ce03eaae0a7881433aa79f8ea02aad734f46e60"
+    },
+    {
+      "worker": 8,
+      "charm": "+8 Sant\u00e9, +2 R\u00e9uss.combo ---",
+      "found": 3216,
+      "added": 2044,
+      "added_sha256": "1d3d791d7b507e78252f7ddb11e175b125780010febd9ac36f160c8ebf15e5cb"
+    },
+    {
+      "worker": 9,
+      "charm": "+7 Sant\u00e9, +3 R\u00e9uss.combo ---",
+      "found": 3495,
+      "added": 1362,
+      "added_sha256": "afa5c48a70d6fd87243698d8a6da7080bcfd15b8eb0910c25e2169883a54bebe"
+    },
+    {
+      "worker": 10,
+      "charm": "OOO",
+      "found": 4823,
+      "added": 4821,
+      "added_sha256": "1a03244c0ca15b60713acc95b3e17a91cb50dd96db164277f17a68a5c2db5f06"
+    }
+  ],
+  "solution_count": 37935,
+  "solutions_sha256": "2d15b28a1dd306f30c1aca87c6a8f953dab8ec01d60dfe9a5dc54c4ec257a519",
+  "solution_set_sha256": "6a61ad26c04e3c53833a3bab1b36bca141fe2c3556b5b8f9863acc34e3deb214",
+  "solutions_file": false,
+  "exception": null
+}

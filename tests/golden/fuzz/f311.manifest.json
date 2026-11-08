@@ -1,0 +1,337 @@
+{
+  "id": "f311",
+  "query_json": "{\"id\":\"f311\",\"description\":\"armour-seeded sampler, charm mode two_skill, 6 skills; quotas: cross_type, two_skill_hr_below_5, torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[112,155,201,12,30,140],\"skill_names\":[\"Vitesse r\u00e9cup. +2\",\"R\u00e9s. eau aug.(gd)\",\"D\u00e9peceur\",\"Ep\u00e9e aiguis\u00e9e\",\"Vigueur +2\",\"Bch oreille top\"],\"my_charms\":[\"0,Coureur,3,Statut,0\",\"0,AtEl. fdr,1,End.\u00e9ner.,6\",\"1,Neige/boue,1,Vit. r\u00e9cup.,0\",\"0,Prot. aud.,3,KO,-2\",\"0,Dist.\u00e9vas.,1,Anti-bact.,1\",\"2,Artisan ,1,Protection,-8\",\"0,D\u00e9pe\u00e7age,1,Prot. aud.,1\",\"0,R\u00e9s.trmbl,2,Mn perc. +,0\",\"1,Statut,1,End.\u00e9ner.,6\",\"0,R\u00e9s. glc,4,End.som.,3\",\"0,AtEl. eau,3,R\u00e9s. eau,-4\",\"0,Evasion,2,R\u00e9s. fdr,10\",\"0,Zone,3,Collecte,-9\",\"3,Artisan ,1,Constit.,1\",\"0,AtEl. drg,1,R\u00e9s.trmbl,3\",\"0,R\u00e9cup.,3,Alchimie,-10\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 45,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 R\u00e9s. eau, +4 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Vit. r\u00e9cup., +9 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Vit. r\u00e9cup., +2 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 D\u00e9pe\u00e7age, +4 Vit. r\u00e9cup. O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 D\u00e9pe\u00e7age, +11 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+4 D\u00e9pe\u00e7age, +3 R\u00e9s. eau O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 D\u00e9pe\u00e7age, +13 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+3 \u00c9p\u00e9e aig. , +10 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+4 \u00c9p\u00e9e aig. , +8 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+1 \u00c9p\u00e9e aig. , +12 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+5 \u00c9p\u00e9e aig. , +5 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+3 \u00c9p\u00e9e aig. , +11 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+2 \u00c9p\u00e9e aig. , +13 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+2 \u00c9p\u00e9e aig. , +2 D\u00e9pe\u00e7age O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+4 D\u00e9pe\u00e7age, +3 \u00c9p\u00e9e aig.  ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+4 \u00c9p\u00e9e aig. , +3 D\u00e9pe\u00e7age ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+5 D\u00e9pe\u00e7age, +2 \u00c9p\u00e9e aig.  ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+5 \u00c9p\u00e9e aig. , +2 D\u00e9pe\u00e7age ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+4 S\u00e9rieux, +11 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 19,
+      "charm": "+2 S\u00e9rieux, +4 Vit. r\u00e9cup. O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+6 S\u00e9rieux, +8 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+5 S\u00e9rieux, +12 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 22,
+      "charm": "+4 D\u00e9pe\u00e7age, +3 S\u00e9rieux ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 23,
+      "charm": "+3 S\u00e9rieux, +1 D\u00e9pe\u00e7age OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 24,
+      "charm": "+6 S\u00e9rieux, +2 D\u00e9pe\u00e7age ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 25,
+      "charm": "+2 D\u00e9pe\u00e7age, +1 S\u00e9rieux OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 26,
+      "charm": "+2 S\u00e9rieux, +1 \u00c9p\u00e9e aig.  OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 27,
+      "charm": "+5 S\u00e9rieux, +3 \u00c9p\u00e9e aig.  ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 28,
+      "charm": "+5 \u00c9p\u00e9e aig. , +4 S\u00e9rieux ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 29,
+      "charm": "+5 Prot. aud., +7 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 30,
+      "charm": "+4 Prot. aud., +11 Vit. r\u00e9cup. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 31,
+      "charm": "+4 Prot. aud., +13 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 32,
+      "charm": "+5 Prot. aud., +10 R\u00e9s. eau ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 33,
+      "charm": "+4 D\u00e9pe\u00e7age, +3 Prot. aud. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 34,
+      "charm": "+5 Prot. aud., +2 D\u00e9pe\u00e7age ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 35,
+      "charm": "+2 D\u00e9pe\u00e7age, +2 Prot. aud. O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 36,
+      "charm": "+3 D\u00e9pe\u00e7age, +1 Prot. aud. O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 37,
+      "charm": "+2 Prot. aud., +1 \u00c9p\u00e9e aig.  O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 38,
+      "charm": "+5 \u00c9p\u00e9e aig. , +1 Prot. aud. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 39,
+      "charm": "+4 Prot. aud., +3 \u00c9p\u00e9e aig.  ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 40,
+      "charm": "+5 Prot. aud., +2 \u00c9p\u00e9e aig.  ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 41,
+      "charm": "+6 S\u00e9rieux, +3 Prot. aud. ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 42,
+      "charm": "+2 Prot. aud., +4 S\u00e9rieux O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 43,
+      "charm": "+4 Prot. aud., +2 S\u00e9rieux ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 44,
+      "charm": "+1 S\u00e9rieux, +1 Prot. aud. OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f033",
+  "query_json": "{\"id\":\"f033\",\"description\":\"armour-seeded sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[53,155,111],\"skill_names\":[\"NormalS/RapidBowUp\",\"Water Res (L)\",\"Recovery Speed +1\"],\"my_charms\":[\"0,Eating,1,Dragon Res,4\",\"0,PierceS Up,2,Elemental,-1\",\"0,PierceSAdd,3,Wide Area,-10\",\"0,Psychic,5,PowerCAdd,-1\",\"0,Rec Speed,3,PelletSAdd,-7\",\"0,Stun,1,Water Res,1\",\"0,Eating,1,Stun,6\",\"0,Rewards,1,Guard,3\",\"0,FastCharge,1,Water Res,11\",\"0,NormalS Up,3,Crit Draw,1\",\"0,Wide Area,2,Rec Speed,-1\",\"0,NormalSAdd,6,RazorCAdd,4\",\"0,Rec Level,3,Water Res,4\",\"1,Rapid Fire,1,Stamina,2\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 133,
+      "added": 133,
+      "added_sha256": "53456639e85c21e545f22aa851c2965dde1ef3d3dd21b50eb30f077b5a05ca1d"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Rec Speed, -7 PelletSAdd ---",
+      "found": 220,
+      "added": 220,
+      "added_sha256": "61c03a645e573be7944fbcdba4ada3ff6d13e8119cda5c6a9e69b59efa407bff"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 FastCharge, +11 Water Res ---",
+      "found": 350,
+      "added": 350,
+      "added_sha256": "6e0057f9a39116b72c5b63901dc57291bbdd478b55c10853ed2947c512540afb"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 NormalS Up, +1 Crit Draw ---",
+      "found": 254,
+      "added": 254,
+      "added_sha256": "f7057e30ecca6d009cb78935f36d63388592752154d4dd79e8517306108391b7"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Rapid Fire, +2 Stamina O--",
+      "found": 190,
+      "added": 190,
+      "added_sha256": "a576339fdd2f289f8c21812ec8ce0bf99c76c57de16aa2042588f55f0b704c2b"
+    }
+  ],
+  "solution_count": 1147,
+  "solutions_sha256": "767949d0aae1f96f24eea58a1d5693a83f2e9c82123d256effe10e6a5ec6a211",
+  "solution_set_sha256": "cdb6524ffb9cc72e77e51b0eae79ec6be15d5bac59549862c0ba5ea8a28100c0",
+  "solutions_file": true,
+  "exception": null
+}

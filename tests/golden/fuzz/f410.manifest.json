@@ -1,0 +1,29 @@
+{
+  "id": "f410",
+  "query_json": "{\"id\":\"f410\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[115,68,180,169],\"skill_names\":[\"Guard +1\",\"Sleep Coating Add\",\"Quick Eating +1\",\"Trap Master\"],\"my_charms\":[\"0,Eating,4,HiSpdGathr,-7\",\"0,Water Res,1,SpeedSetup,7\",\"1,Health,1,SleepCAdd,-10\",\"0,Constitutn,2,Reload Spd,4\",\"0,FatigueAtk,6,Elemental,1\",\"1,Backpackng,4,Quake Res,-8\",\"0,ThunderRes,1,Fire Res,-9\",\"1,Health,1,SpeedSetup,1\",\"0,Eating,2,Constitutn,4\",\"0,FastCharge,2,Sharpness,-1\",\"0,PierceSAdd,6,Hunger,8\",\"0,Rec Speed,7,Quake Res,1\",\"0,FastCharge,3,Fire Atk,9\",\"0,Status,3,Stun,0\",\"1,Thundr Atk,5,Guard,0\",\"0,Guard,5,Blight Res,2\",\"0,Eating,1,Gathering,7\",\"0,Ice Attack,5,Constitutn,-3\",\"0,BombStrUp,1,SleepCAdd,-1\",\"0,Quake Res,1,PoisonCAdd,-1\",\"0,FatigueAtk,3,Fire Atk,4\",\"1,Carving,1,Water Atk,-3\",\"0,WindPress,4,PowerCAdd,4\",\"0,Paralysis,2,BombStrUp,-2\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    7,
+    6,
+    10,
+    7
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 368,
+      "added": 368,
+      "added_sha256": "a34a423f89d31f4928e143b007cfb348090575d0364b4f2cbcf2c83f0ee2689d"
+    }
+  ],
+  "solution_count": 368,
+  "solutions_sha256": "a34a423f89d31f4928e143b007cfb348090575d0364b4f2cbcf2c83f0ee2689d",
+  "solution_set_sha256": "2fe6a3efd6c024f1036714d5a8d29fa1b7894cad7ddd922b2acc5287f91ca05e",
+  "solutions_file": true,
+  "exception": null
+}

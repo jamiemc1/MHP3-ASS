@@ -1,0 +1,36 @@
+{
+  "id": "f234",
+  "query_json": "{\"id\":\"f234\",\"description\":\"armour-seeded sampler, charm mode one_skill, 1 skill; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[172],\"skill_names\":[\"Autotracker\"],\"my_charms\":[\"0,Evasion,1,Guard Up,-1\",\"0,Psychic,4,ParalyCAdd,-1\",\"0,Stamina,3,Sharpener,6\",\"1,Fate,2,Psychic,-1\",\"1,Defense,1,Psychic,-6\",\"0,Water Atk,3,RazorCAdd,-8\",\"0,Stun,3,Attack,3\",\"0,PunishDraw,3,Guard Up,3\",\"0,Psychic,6,Stun,9\",\"1,Recoil,3,Thundr Atk,4\",\"0,Elemental,2,Psychic,10\",\"0,Crit Draw,2,Psychic,-3\",\"0,KO,1,Carving,3\",\"0,Sleep,3,Psychic,-9\",\"0,Horn,6,Psychic,7\",\"0,Stamina,4,Psychic,8\",\"1,ClustS Add,1,Gunnery,0\",\"2,Ice Res,2,Paralysis,-5\",\"0,Mud/Snow,5,Perception,3\",\"0,Fortitude,2,Whim,-1\",\"0,Fire Res,4,Heat Res,-10\",\"0,Defense,1,Combo Rate,13\",\"1,Ice Attack,1,Defense,-2\",\"1,Protection,2,Dragon Atk,-4\",\"0,Precision,3,CutterSAdd,-5\",\"0,Guard,3,CutterSAdd,-6\",\"0,Fire Atk,4,Gathering,10\",\"0,Psychic,5,Sense,-8\",\"0,Status,1,Psychic,-4\",\"0,PierceS Up,5,Status,3\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    3,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Psychic O--",
+      "found": 108,
+      "added": 108,
+      "added_sha256": "169e838d4da48f121e9508001bc9480a8c9301c1019ae178df96f6e2d3f2d3e9"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Psychic ---",
+      "found": 108,
+      "added": 108,
+      "added_sha256": "7b42ed9090c14688b359431327cc19b22d42b678f2dd178f751545da9182827e"
+    }
+  ],
+  "solution_count": 216,
+  "solutions_sha256": "1664e2221f547a87bb0a4dda713053ba9c6d5e4e057fc0de4496aa21899b9f3c",
+  "solution_set_sha256": "582a44a68987530f76d5ca97f0665aa4321eca28bf0f77358ccb4e78a89143b3",
+  "solutions_file": true,
+  "exception": null
+}

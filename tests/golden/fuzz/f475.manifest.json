@@ -1,0 +1,29 @@
+{
+  "id": "f475",
+  "query_json": "{\"id\":\"f475\",\"description\":\"uniform sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[183,71],\"skill_names\":[\"Huntsman\\u0027s Life\",\"Fatigue Coating Add\"],\"my_charms\":[\"0,Thundr Atk,1,FatigeCAdd,10\",\"0,Rec Speed,2,Huntsman,-5\",\"0,NormalSAdd,4,Antiseptic,7\",\"0,ClustS Add,4,Quake Res,6\",\"1,Mud/Snow,3,Quake Res,-10\",\"0,Gunnery,3,Huntsman,-7\",\"0,Dragon Atk,4,PelletSAdd,7\",\"0,BombStrUp,2,Psychic,4\",\"0,Constitutn,1,FatigueAtk,-3\",\"0,Antiseptic,2,Huntsman,1\",\"0,FatigueAtk,3,Potential,1\",\"0,Defense,1,Cold Res,-2\",\"0,Crag S Add,6,Huntsman,-9\",\"0,PelletS Up,2,Carving,-2\",\"0,ThunderRes,4,HiSpdGathr,3\",\"0,WindPress,3,SpeedSetup,-6\",\"0,Artisan,5,Horn,-7\",\"0,Rec Speed,1,Psychic,6\",\"0,Precision,1,Huntsman,8\",\"0,Attack,2,Huntsman,-2\",\"0,Potential,6,Huntsman,-4\",\"0,Attack,1,Huntsman,-2\",\"0,KO,1,Gathering,-7\",\"0,ClustS Add,4,FatigeCAdd,2\",\"0,Artisan,5,Horn,-7\",\"0,Quake Res,7,Combo Rate,-7\",\"1,HearProtct,4,PierceS Up,0\",\"0,Artisan,5,Horn,-7\",\"0,WindPress,4,Poison,0\",\"0,WindPress,2,CutterSAdd,-1\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 162,
+      "added": 162,
+      "added_sha256": "6d1d8a975e80c10f3ddcadff6df6ad9d4fd7fd8cb8a9739cb442624dbb6cb524"
+    }
+  ],
+  "solution_count": 162,
+  "solutions_sha256": "6d1d8a975e80c10f3ddcadff6df6ad9d4fd7fd8cb8a9739cb442624dbb6cb524",
+  "solution_set_sha256": "5583ac2ae503f4bca601716e57cf955bfb3a318323d049e3c639eee51e64b394",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f231",
+  "query_json": "{\"id\":\"f231\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[193,163,57,189,132,135],\"skill_names\":[\"Spirit\\u0027s Whim\",\"Dragon Res (S)\",\"Pierce S LV1 Add\",\"Gathering +1\",\"Quake Res\",\"Antiseptic\"],\"my_charms\":[\"3,,,,\",\"0,Sheathe,6,Antiseptic,-3\",\"0,Elemental,2,Dragon Res,-3\",\"0,Evasion,1,DungMaster,6\",\"0,Evade Dist,2,Water Res,6\",\"0,Ice Attack,2,Antiseptic,6\",\"0,Sleep,4,Gathering,-4\",\"0,Expert,1,Quake Res,-7\",\"0,Paralysis,4,Gathering,6\",\"0,SpeedSetup,3,Whim,8\",\"0,Rec Level,2,Carving,-3\",\"3,,,,\",\"0,Attack,3,Gathering,-8\",\"0,Guard,5,Gluttony,-6\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    6,
+    5,
+    10,
+    8
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Ice Attack, +6 Antiseptic ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Paralysis, +6 Gathering ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+3 SpeedSetup, +8 Whim ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

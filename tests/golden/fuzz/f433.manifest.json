@@ -1,0 +1,43 @@
+{
+  "id": "f433",
+  "query_json": "{\"id\":\"f433\",\"description\":\"armour-seeded sampler, charm mode my_charms, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":6,\"elder_star\":2,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[19],\"skill_names\":[\"Concentration\"],\"my_charms\":[\"0,FatigueAtk,6,Crag S Add,5\",\"2,FastCharge,1,Rapid Fire,-3\",\"0,FastCharge,1,NormalS Up,1\",\"0,FastCharge,1,Evasion,4\",\"0,KO,5,LastingPwr,-6\",\"0,Evasion,2,Stun,8\",\"0,FastCharge,5,Gunnery,4\",\"0,Rec Level,2,Cold Res,-7\",\"1,Ice Attack,1,Eating,-1\",\"0,PunishDraw,1,FastCharge,0\",\"0,Fire Atk,1,FastCharge,2\",\"0,Debilitate,2,Elemental,2\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 108,
+      "added": 108,
+      "added_sha256": "e95c074b36e56d7675dfd12e8f38df1176ac2c4fe8421f94793ac107c6730fc8"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 FastCharge, -3 Rapid Fire OO-",
+      "found": 108,
+      "added": 108,
+      "added_sha256": "dd24edcb680dea0c80c7b6627ab5a722735e33a25fadc7dbd33da7a789c8f168"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 FastCharge, +4 Gunnery ---",
+      "found": 108,
+      "added": 108,
+      "added_sha256": "d8ab80082f4317b38a13a1a4892a003042126428b43a89ea80f7ec307844f220"
+    }
+  ],
+  "solution_count": 324,
+  "solutions_sha256": "410a9272e7c52f1259698a3c3addcbf2d3877b52e33f725a5d74d504b077194a",
+  "solution_set_sha256": "77d84a6517b168469fd82885938091327a4ce119c6769d790c31d4fded274f5e",
+  "solutions_file": true,
+  "exception": null
+}

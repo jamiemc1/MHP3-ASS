@@ -1,0 +1,134 @@
+{
+  "id": "f125",
+  "query_json": "{\"id\":\"f125\",\"description\":\"uniform sampler, charm mode two_skill, 4 skills; quotas: two_skill_hr_below_5\",\"language\":\"English (Athena)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"two_skill\",\"skills\":[169,146,138,173],\"skill_names\":[\"Trap Master\",\"Def Up (M)\",\"Def Down Negate\",\"DungBombExpert\"],\"my_charms\":[\"0,Will Recov,1,Fortitude,7\",\"0,Will Recov,1,PowerCAdd,9\",\"0,Poison,2,Fortitude,-10\",\"0,Reload Spd,2,Perception,-5\",\"0,Potential,2,Guard,-3\",\"2,Blight Res,1,ThunderRes,-8\",\"0,SpeedSetup,5,CutterSAdd,6\",\"0,Eating,4,FatigueAtk,-2\",\"0,Fire Res,1,Psychic,9\",\"0,Hunger,4,Whim,-1\",\"0,Fortitude,6,Dragon Res,-9\",\"0,Fortitude,3,Antiseptic,3\",\"1,Guard,1,LastingPwr,-5\",\"0,SpeedSetup,6,Status,2\",\"0,Rec Speed,2,Attack,2\",\"0,Poison,2,SpeedSetup,-8\",\"0,PierceS Up,3,ThunderRes,-1\",\"0,Constitutn,4,Water Res,7\",\"0,Guard,5,DungMaster,-5\",\"0,BombStrUp,4,Quake Res,7\",\"0,SpeedSetup,3,Gluttony,11\",\"0,Fortitude,5,Status,4\",\"0,Fire Res,1,Antiseptic,-1\",\"0,Evade Dist,2,Stamina,1\",\"0,Dragon Res,4,Fortitude,-8\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 16,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+1 Defense, +4 SpeedSetup O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 SpeedSetup, +7 Defense ---",
+      "found": 21,
+      "added": 21,
+      "added_sha256": "073b03974969508e9c3b547b3283331fb35551408fcc2025f931a6445f6f24dc"
+    },
+    {
+      "worker": 2,
+      "charm": "+8 SpeedSetup, +5 Defense ---",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "5d021df46ad5a3007a186e25268b06f075caa39cc251b700e0fcd60ef8fae6cd"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Fortitude, +3 SpeedSetup O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 SpeedSetup, +8 Fortitude ---",
+      "found": 6,
+      "added": 6,
+      "added_sha256": "7e395360e7ed9a084bc0a0b8dc9e673ca25e23e2c639d0c682bc5da82a59b0c9"
+    },
+    {
+      "worker": 5,
+      "charm": "+8 SpeedSetup, +6 Fortitude ---",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "e3790d1a3312e3beb98828775be49081ed4f7fb5d39fb30322d0bb7a67e0d61c"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 Defense, +7 Fortitude ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+4 Fortitude, +1 Defense O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+3 Fortitude, +6 Defense ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+3 Defense, +8 Fortitude ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "7ff6b9469619915268246f249f02202d0283ccc02764ed46b61a1c17b61865e5"
+    },
+    {
+      "worker": 10,
+      "charm": "+8 SpeedSetup, +10 DungMaster ---",
+      "found": 68,
+      "added": 68,
+      "added_sha256": "0f3788e961fe19137e3b234d03a5558f101ca3df7c44c47d0afa8fb3956a2cd2"
+    },
+    {
+      "worker": 11,
+      "charm": "+3 Defense, +6 DungMaster ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+4 Defense, +3 DungMaster ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+7 Fortitude, +1 DungMaster ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+6 Fortitude, +10 DungMaster ---",
+      "found": 52,
+      "added": 52,
+      "added_sha256": "50eaabd170e43300bcd6f47823055bea897848069c8dcae207fbaf916105f882"
+    },
+    {
+      "worker": 15,
+      "charm": "+2 Fortitude, +4 DungMaster O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 157,
+  "solutions_sha256": "bf41e4703201f86c8c2c2448985f09c356a836a9cc5eed125385baf4bb134945",
+  "solution_set_sha256": "fd1a6b4798395c8ada933e73e220e747080c240dcb438d1f350195e29e2a9c94",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f067",
+  "query_json": "{\"id\":\"f067\",\"description\":\"armour-seeded sampler, charm mode one_skill, 3 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TMO)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[174,166,26],\"skill_names\":[\"Recovery Up\",\"Wide-Range +1\",\"Horn Maestro\"],\"my_charms\":[\"0,PunishDraw,3,Wide-Range,-2\",\"0,Guard,3,Wide-Range,12\",\"0,Rec Level,3,Cold Res,7\",\"0,Health,4,Combo Rate,-4\",\"1,Dragon Atk,3,Exhaust C+,-7\",\"0,Pellet Up,5,Rec Level,-3\",\"3,Gloves Off,2,Psychic,4\",\"0,Thundr Atk,2,Rec Level,1\",\"0,Tranquilzr,3,Rec Level,-3\",\"0,ThunderRes,5,Artillery,5\",\"0,Destroyer,5,Ice Res,4\",\"1,Normal S+,1,Maestro,-4\",\"1,Dragon Atk,1,Maestro,-10\",\"0,Stam Recov,6,Rec Level,-3\",\"0,Tranquilzr,5,Maestro,1\",\"0,Fencing,4,Maestro,5\",\"0,Rec Level,4,Precision,-1\",\"0,PunishDraw,3,Psychic,5\",\"0,Slice S+,2,Def Lock,-9\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    4,
+    5,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 909,
+      "added": 909,
+      "added_sha256": "9ec49570d4d155bdb409b7517c5b638caa076a591d650f3509b440380213db98"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Wide-Range O--",
+      "found": 2696,
+      "added": 2614,
+      "added_sha256": "d99f20bb73ce56c157108a61859abc9939164dab1fbba1b1f02b68a27c9f9596"
+    },
+    {
+      "worker": 2,
+      "charm": "+8 Wide-Range ---",
+      "found": 2441,
+      "added": 770,
+      "added_sha256": "efe899bc47522f049c32cdf945160e03ce58510d1d90239c6095318fe5c1da92"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Maestro O--",
+      "found": 1937,
+      "added": 1920,
+      "added_sha256": "1812003b7d76969131601a29a1dfacf5723538a9ebc4da247c2107d4a3cbfa16"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 Maestro ---",
+      "found": 1720,
+      "added": 889,
+      "added_sha256": "c937d6db8261a600be319ca3334d88fd0f59901ec44e0a6c4d6f6ed9875d1720"
+    }
+  ],
+  "solution_count": 7102,
+  "solutions_sha256": "ffbf77ef14f69a68e521ff103c78d138c25ff22af3314edd752097a0e297e142",
+  "solution_set_sha256": "002eef7167389b471dfa2665ae5172842be636bd4439265e70b7e36f9bbc2175",
+  "solutions_file": false,
+  "exception": null
+}

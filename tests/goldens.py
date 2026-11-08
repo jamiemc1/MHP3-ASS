@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import gzip
+import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -118,6 +119,41 @@ def read_search_goldens(corpus_dir: Path, golden_dir: Path) -> list[SearchGolden
             manifest=read_golden(Path(f"{prefix}.manifest.json")),
             solution_lines=_read_gzip_lines(Path(f"{prefix}.solutions.txt.gz")),
             candidates=candidates,
+        )
+        goldens.append(golden)
+    return goldens
+
+
+def lines_sha256(lines: list[str]) -> str:
+    """SearchDump's LinesSha256: SHA-256 of the uncompressed lines, each ending in a newline."""
+    text = "".join(f"{line}\n" for line in lines)
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return digest
+
+
+@dataclass(frozen=True)
+class FuzzGolden:
+    """Harness search output for one fuzz query: always a manifest; solution
+    lines only when the harness wrote them (at most 5,000 lines)."""
+
+    name: str
+    query: dict[str, Any]
+    manifest: dict[str, Any]
+    solution_lines: list[str] | None
+
+
+def read_fuzz_goldens(fuzz_dir: Path, golden_dir: Path) -> list[FuzzGolden]:
+    """Pair each fuzz query with its manifest and, where one exists, its solutions file."""
+    goldens = []
+    for query_path in sorted(fuzz_dir.glob("f*.json")):
+        prefix = golden_dir / query_path.stem
+        solutions_path = Path(f"{prefix}.solutions.txt.gz")
+        solution_lines = _read_gzip_lines(solutions_path) if solutions_path.is_file() else None
+        golden = FuzzGolden(
+            name=query_path.stem,
+            query=read_golden(query_path),
+            manifest=read_golden(Path(f"{prefix}.manifest.json")),
+            solution_lines=solution_lines,
         )
         goldens.append(golden)
     return goldens

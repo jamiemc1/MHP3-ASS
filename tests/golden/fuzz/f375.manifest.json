@@ -1,0 +1,29 @@
+{
+  "id": "f375",
+  "query_json": "{\"id\":\"f375\",\"description\":\"uniform sampler, charm mode slotted, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[139,176],\"skill_names\":[\"Earplug\",\"Item Use Up\"],\"my_charms\":[\"0,HearProtct,5,FastCharge,-3\",\"1,HearProtct,3,NormalS Up,-2\",\"0,Eating,2,HearProtct,-3\",\"0,HearProtct,2,FastCharge,3\",\"0,Constitutn,4,HearProtct,1\",\"0,Will Recov,3,Rapid Fire,2\",\"0,HearProtct,1,FatigueAtk,0\",\"0,HearProtct,3,PierceS Up,-1\",\"0,Eating,1,Horn,2\",\"0,HearProtct,5,Psychic,-6\"]}",
+  "my_charms_loaded": 10,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    6,
+    4,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 4029,
+      "added": 4029,
+      "added_sha256": "bf93291b9b02ec35fccb2907bbcff5a01032bb3e791636294700c69da7155b61"
+    }
+  ],
+  "solution_count": 4029,
+  "solutions_sha256": "bf93291b9b02ec35fccb2907bbcff5a01032bb3e791636294700c69da7155b61",
+  "solution_set_sha256": "036144744183bdcd90ad70780ad0eddc733c5ff2908ca07a175fe3ca119fc99a",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f015",
+  "query_json": "{\"id\":\"f015\",\"description\":\"armour-seeded sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[170,49,129,30,146,178],\"skill_names\":[\"Trnquilizr Guru\",\"Accuracy+1\",\"Stun Negated\",\"Unleashed +2\",\"Def Up (M)\",\"Filled Up\"],\"my_charms\":[\"0,Loading,2,Hunger,7\",\"0,Mud/Snow,7,Fire Res,-8\",\"3,Evasion,2,Rec Level,0\",\"0,Sheathe,2,PelletS Up,1\",\"0,Stun,4,Health,9\",\"0,Protection,5,Dragon Res,-5\",\"0,Rec Speed,3,Dragon Res,-4\",\"0,KO,3,Hunger,7\",\"1,Sheathe,1,Evade Dist,-3\",\"0,Slam,1,Eating,-3\",\"0,Fire Atk,2,Guard,2\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    11,
+    6,
+    8,
+    7,
+    9
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Evasion, 0 Rec Level OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Stun, +9 Health ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

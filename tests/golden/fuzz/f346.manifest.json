@@ -1,0 +1,260 @@
+{
+  "id": "f346",
+  "query_json": "{\"id\":\"f346\",\"description\":\"armour-seeded sampler, charm mode two_skill, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[155,24,111,53,63],\"skill_names\":[\"Water Res (L)\",\"Improved KO\",\"Recovery Speed +1\",\"NormalS/RapidBowUp\",\"Clust S LV1 Add\"],\"my_charms\":[\"1,Paralysis,1,,\",\"2,KO,1,BombStrUp,2\",\"0,Protection,1,Thundr Atk,1\",\"0,Rec Level,5,Evasion,-1\",\"0,ClustS Add,2,Status,-4\",\"0,Carving,1,Ice Res,-9\",\"1,Reload Spd,1,ParalyCAdd,3\",\"0,WindPress,3,Gluttony,-8\",\"0,Crag S Add,6,Shot Mix,1\",\"0,Rec Speed,5,FatigeCAdd,9\",\"0,PierceS Up,5,KO,1\",\"0,Backpackng,8,PoisonCAdd,-4\",\"1,Potential,1,Ice Res,-7\",\"1,Stun,3,Water Res,6\",\"3,Evasion,1,Stamina,-2\",\"0,WindPress,1,Stun,-9\",\"1,Ice Res,3,Huntsman,-4\",\"0,PelletSAdd,3,Stun,2\",\"0,Will Recov,5,Fate,-2\",\"0,Potential,4,Reload Spd,4\",\"0,NormalS Up,4,Water Res,-1\",\"2,Blight Res,1,Wide Area,-4\",\"0,Constitutn,1,Rec Speed,3\",\"1,KO,1,Will Recov,2\",\"0,Debilitate,4,Ice Res,10\",\"0,Stamina,3,KO,1\",\"0,Water Res,6,Gathering,-7\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    12,
+    9,
+    4,
+    6,
+    8
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 34,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+2 KO, +6 Water Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 KO, +13 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 KO, +7 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Water Res, +4 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Rec Speed, +9 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Rec Speed, +2 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+2 KO, +3 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+1 KO, +4 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+4 KO, +11 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 KO, +9 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+2 KO, +2 Rec Speed OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+1 KO, +12 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+1 NormalS Up, +13 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+2 NormalS Up, +10 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+5 NormalS Up, +4 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+4 NormalS Up, +7 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+2 KO, +2 NormalS Up O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+5 NormalS Up, +3 KO ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+6 KO, +3 NormalS Up ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 19,
+      "charm": "+4 NormalS Up, +4 KO ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+3 NormalS Up, +1 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 21,
+      "charm": "+5 NormalS Up, +10 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 22,
+      "charm": "+2 NormalS Up, +11 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 23,
+      "charm": "+6 Water Res, +8 ClustS Add ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 24,
+      "charm": "+5 ClustS Add, +7 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 25,
+      "charm": "+5 Water Res, +10 ClustS Add ---",
+      "found": 1,
+      "added": 1,
+      "added_sha256": "745ee35f9d65a642dc420c787e61654e59cf18132ecfbd117274e220d55df6e0"
+    },
+    {
+      "worker": 26,
+      "charm": "+6 KO, +2 ClustS Add ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 27,
+      "charm": "+3 KO, +10 ClustS Add ---",
+      "found": 2,
+      "added": 2,
+      "added_sha256": "cecb8fee1981ad89d5ec0899d8942a0472cc171efa3f634ac11513ef33be78f6"
+    },
+    {
+      "worker": 28,
+      "charm": "+4 KO, +7 ClustS Add ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 29,
+      "charm": "+5 KO, +5 ClustS Add ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 30,
+      "charm": "+4 Rec Speed, +10 ClustS Add ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 31,
+      "charm": "+6 Rec Speed, +5 ClustS Add ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 32,
+      "charm": "+1 ClustS Add, +1 Rec Speed OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 33,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 3,
+  "solutions_sha256": "01c0a57684628cc75c4f941ec8971ece843d19d8780179d9ee82644bc2cacfbf",
+  "solution_set_sha256": "01c0a57684628cc75c4f941ec8971ece843d19d8780179d9ee82644bc2cacfbf",
+  "solutions_file": true,
+  "exception": null
+}

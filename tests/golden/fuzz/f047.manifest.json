@@ -1,0 +1,71 @@
+{
+  "id": "f047",
+  "query_json": "{\"id\":\"f047\",\"description\":\"armour-seeded sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[101,29,184,32,137],\"skill_names\":[\"Hunger nichtig\",\"Entb\u00e4ndigung +1\",\"Rucksackexperte\",\"Adrenalin +2\",\"Brandsicher\"],\"my_charms\":[\"0,Potenzial,6,Donnerabw.,3\",\"0,NachlGesch,4,Donnerabw.,0\",\"1,Pr\u00e4zision,4,Feuerabw.,-4\",\"0,SchrotHoch,2,HartSchlag,3\",\"0,Schicksal,4,Fechten,2\",\"0,Potenzial,5,Element,1\",\"0,SchnllAufb,8,SchnllSamm,4\",\"0,Hunger,7,BombSt\u00e4rk.,-3\",\"0,WssrAngHch,5,Wasserabw.,-9\",\"0,Status,4,Element,2\",\"0,Block,6,SchrtSzuf\u00fc,5\",\"0,Brandabw.,4,Ausdauer,-1\",\"0,EisAngrHch,2,ErholGschw,3\",\"2,Ausweichen,2,Schicksal,1\",\"0,DrchAngHch,6,Anti-Dieb,1\",\"0,WssrAngHch,6,DnnrAngHch,-8\",\"0,SchnllAufb,6,Experte,-1\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    4,
+    5,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Hunger O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Hunger ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Rucksack O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 Rucksack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f153",
+  "query_json": "{\"id\":\"f153\",\"description\":\"uniform sampler, charm mode one_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[98],\"skill_names\":[\"Stamina Recov Up\"],\"my_charms\":[\"0,Debilitate,1,Will Recov,-3\",\"0,Will Recov,3,Fortitude,-7\",\"0,Will Recov,1,Wide Area,11\",\"0,Will Recov,5,Dragon Res,8\",\"2,,,,\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    3,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Will Recov OO-",
+      "found": 108,
+      "added": 108,
+      "added_sha256": "5fb1d7d4474531f389b25d7d139f330c04f27649efec8442b6c7e818e44e71e1"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Will Recov O--",
+      "found": 108,
+      "added": 104,
+      "added_sha256": "427845beef64a311ecec7e78c25331e6bab42dd0e0993fe98afed1337899a9e3"
+    }
+  ],
+  "solution_count": 212,
+  "solutions_sha256": "5d8e1b1d44e54c7ec3ecc5d18cf9fff4398fb03a24d3df4fe9dace90289671c2",
+  "solution_set_sha256": "0106bd19c5b8072400ed6e6d106295904f7cb46c5662e9584d143cdc7c16c962",
+  "solutions_file": true,
+  "exception": null
+}

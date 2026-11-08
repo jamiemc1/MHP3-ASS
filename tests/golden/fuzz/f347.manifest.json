@@ -1,0 +1,29 @@
+{
+  "id": "f347",
+  "query_json": "{\"id\":\"f347\",\"description\":\"armour-seeded sampler, charm mode one_skill, 1 skill; quotas: cross_type, one_skill_hr_3_or_less, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[44],\"skill_names\":[\"Recoil Reduction +2\"],\"my_charms\":[\"0,Water Res,2,Ice Res,-6\",\"0,Slam,1,Ice Res,12\",\"1,Evade Dist,5,Paralysis,0\",\"0,Sheathe,2,Health,-4\",\"0,KO,6,Gunnery,1\",\"0,Carving,2,Stamina,2\",\"0,FastCharge,4,Water Atk,6\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

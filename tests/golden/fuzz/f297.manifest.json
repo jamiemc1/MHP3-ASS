@@ -1,0 +1,71 @@
+{
+  "id": "f297",
+  "query_json": "{\"id\":\"f297\",\"description\":\"armour-seeded sampler, charm mode one_skill, 5 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[101,81,72,152,96],\"skill_names\":[\"Hunger Negated\",\"Water Element +2\",\"Abnormal Status Atk +1\",\"Fire Res (L)\",\"Runner\"],\"my_charms\":[\"0,Dragon Atk,5,Fire Res,-10\",\"1,Paralysis,1,Fire Res,-2\",\"0,Stamina,5,Thundr Atk,-9\",\"1,Fire Res,3,Stun,-5\",\"0,Backpackng,5,Status,4\",\"1,Water Atk,1,Sense,-8\",\"0,Water Atk,1,BombStrUp,-9\",\"0,FatigueAtk,3,Defense,3\",\"0,Sheathe,6,Water Atk,-7\",\"0,ClustS Add,2,Hunger,-10\",\"0,CutterSAdd,6,Quake Res,4\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    7,
+    5,
+    6,
+    7
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Hunger O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Hunger ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Fire Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Fire Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

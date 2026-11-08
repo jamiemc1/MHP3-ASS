@@ -1,0 +1,29 @@
+{
+  "id": "f156",
+  "query_json": "{\"id\":\"f156\",\"description\":\"armour-seeded sampler, charm mode slotted, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[139],\"skill_names\":[\"Earplug\"],\"my_charms\":[\"0,Rewards,4,HearProtct,3\",\"0,HearProtct,3,Fate,3\",\"0,Eating,4,HearProtct,-1\",\"1,Perception,2,,\",\"0,Blight Res,4,HearProtct,3\",\"2,Constitutn,1,Horn,0\",\"0,Evasion,3,Potential,4\",\"1,HearProtct,2,,\",\"1,Guard Up,3,PoisonCAdd,3\",\"0,NormalS Up,5,HearProtct,0\",\"0,HearProtct,1,Fate,-3\",\"2,PunishDraw,1,Guard,0\",\"0,KO,4,Fortitude,3\",\"0,Dragon Atk,6,HearProtct,3\",\"2,,,,\",\"0,Precision,6,HiSpdGathr,5\",\"1,HearProtct,2,Debilitate,-1\",\"0,Constitutn,4,Perception,-8\",\"2,Rec Level,6,HearProtct,0\",\"0,HearProtct,4,FastCharge,2\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    3,
+    2
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 108,
+      "added": 108,
+      "added_sha256": "714bf82358ee3f68006f6676c58784070ac819340fbcd1268c0c62d73135cffc"
+    }
+  ],
+  "solution_count": 108,
+  "solutions_sha256": "714bf82358ee3f68006f6676c58784070ac819340fbcd1268c0c62d73135cffc",
+  "solution_set_sha256": "714bf82358ee3f68006f6676c58784070ac819340fbcd1268c0c62d73135cffc",
+  "solutions_file": true,
+  "exception": null
+}

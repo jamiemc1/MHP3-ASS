@@ -1,0 +1,29 @@
+{
+  "id": "f029",
+  "query_json": "{\"id\":\"f029\",\"description\":\"armour-seeded sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[187,105,161],\"skill_names\":[\"Cold Eliminate\",\"Evade +2\",\"Ice Res (L)\"],\"my_charms\":[\"0,Sheathe,1,LastingPwr,-9\",\"2,Crag S Add,2,SpeedSetup,-4\",\"0,Mud/Snow,1,Dragon Res,-4\"]}",
+  "my_charms_loaded": 3,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 2,
+      "added": 2,
+      "added_sha256": "e239b933032210468663645280789378511f3702812184ab4707cd653426eefe"
+    }
+  ],
+  "solution_count": 2,
+  "solutions_sha256": "e239b933032210468663645280789378511f3702812184ab4707cd653426eefe",
+  "solution_set_sha256": "e239b933032210468663645280789378511f3702812184ab4707cd653426eefe",
+  "solutions_file": true,
+  "exception": null
+}

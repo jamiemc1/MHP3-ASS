@@ -1,0 +1,29 @@
+{
+  "id": "f228",
+  "query_json": "{\"id\":\"f228\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[201],\"skill_names\":[\"Carving Expert\"],\"my_charms\":[\"1,,,,\",\"0,Carving,5,Water Res,13\",\"0,Water Atk,2,Carving,-2\",\"0,PunishDraw,3,Carving,0\",\"0,Eating,3,Carving,-2\",\"0,Carving,5,Rapid Fire,3\",\"0,Carving,2,BombStrUp,-6\",\"0,Carving,1,Rapid Fire,1\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    1,
+    1,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 0,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

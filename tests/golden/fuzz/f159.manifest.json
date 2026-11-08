@@ -1,0 +1,71 @@
+{
+  "id": "f159",
+  "query_json": "{\"id\":\"f159\",\"description\":\"armour-seeded sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[128,157,208,73],\"skill_names\":[\"Stun Halved\",\"Thunder Res (S)\",\"Bullet Limit\",\"Abnormal Status Atk +2\"],\"my_charms\":[\"0,Dragon Atk,5,PierceSAdd,-6\",\"0,Crag S Add,3,Shot Mix,-7\",\"0,Dragon Atk,2,Water Res,-1\",\"0,FastCharge,2,ThunderRes,10\",\"2,Artisan,1,Fire Atk,-6\",\"1,SpeedSetup,1,Shot Mix,0\",\"0,NormalS Up,4,Psychic,-7\",\"0,Recoil,5,PunishDraw,0\",\"0,Fencing,2,Stun,10\",\"2,Status,2,WindPress,-9\",\"0,Crit Draw,2,ThunderRes,5\",\"1,Stun,1,Gathering,-1\",\"0,Evasion,3,Stun,8\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Stun O--",
+      "found": 22,
+      "added": 22,
+      "added_sha256": "f4f026daeacb3e1d25cd6f8c717db828243f6f6f481b29e3abf501a9f00e691e"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Stun ---",
+      "found": 13,
+      "added": 10,
+      "added_sha256": "c4fa7d0061aebbf38459f112da14382050cab765f637eb1d696941c1fedb95be"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 ThunderRes O--",
+      "found": 44,
+      "added": 44,
+      "added_sha256": "bbdd4b68aaa5509704a3fff148e93ce5c92dfc438347a54cc3649d17cbf52088"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 ThunderRes ---",
+      "found": 30,
+      "added": 12,
+      "added_sha256": "78923486e87c50fa7ea1b812760f6dcbdbb1832ed564a6b1797b0cdec8327177"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Shot Mix O--",
+      "found": 66,
+      "added": 66,
+      "added_sha256": "9bb93a4f2d1d63fda1d8d706b5c2dac1dcc11c9e2530cb48129ff4bb4d55cbab"
+    },
+    {
+      "worker": 5,
+      "charm": "+8 Shot Mix ---",
+      "found": 55,
+      "added": 20,
+      "added_sha256": "51a3f3b3df78ccf894dad0c05408e61c9cdcf3707c002f3a8e04090b0a8e1a67"
+    },
+    {
+      "worker": 6,
+      "charm": "O--",
+      "found": 14,
+      "added": 11,
+      "added_sha256": "5565a7b872a3d1a2657f6c3d5eb6f4f2b4f0ff53823ad06c4cb445368a5046a4"
+    }
+  ],
+  "solution_count": 185,
+  "solutions_sha256": "6fdee10d4864032f16c75e88cbf50864fd37e6e0261d8e581f7a19883b476fe7",
+  "solution_set_sha256": "8327bb58a71bb08c8bfda875b597718e95af4ad9908a36f0e6f2450f6a6b0410",
+  "solutions_file": true,
+  "exception": null
+}

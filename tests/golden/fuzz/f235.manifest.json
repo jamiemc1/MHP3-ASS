@@ -1,0 +1,50 @@
+{
+  "id": "f235",
+  "query_json": "{\"id\":\"f235\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[174,126],\"skill_names\":[\"\u4f53\u529b\u56de\u5fa9\u91cfUP\",\"\u7761\u7720\u7121\u52b9\"],\"my_charms\":[\"0,\u8010\u9707,7,\u63a1\u53d6,6\",\"1,\u56de\u5fa9\u91cf,3,\u56de\u5fa9\u901f\u5ea6,-6\",\"0,\u91cd\u6483,2,\u4f53\u8853,0\",\"0,\u7761\u7720,4,\u5e83\u57df,3\",\"0,\u56de\u907f\u6027\u80fd,6,\u6c34\u8010\u6027,12\",\"0,\u901a\u5e38\u5f3e\u5f37\u5316,1,\u6c17\u7d76,5\",\"0,\u7761\u7720,3,\u72e9\u4eba,4\",\"0,\u30ac\u30fc\u30c9\u6027\u80fd,3,\u9054\u4eba,9\",\"2,,,,\",\"0,\u56de\u5fa9\u91cf,3,\u9ebb\u75fa,7\",\"1,\u65ac\u308c\u5473,1,\u30ac\u30fc\u30c9\u5f37\u5316,-1\",\"1,\u30b9\u30bf\u30df\u30ca,2,\u96f7\u5c5e\u6027\u653b\u6483,2\",\"0,\u56de\u5fa9\u91cf,5,\u5265\u304e\u53d6\u308a,-3\",\"0,\u672c\u6c17,1,\u56de\u5fa9\u91cf,4\",\"1,\u65ac\u308c\u5473,5,\u8179\u6e1b\u308a,-4\",\"3,,,,\",\"1,\u56de\u5fa9\u91cf,5,\u4f53\u8853,0\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 144,
+      "added": 144,
+      "added_sha256": "d2699db8635b3fdb5bd85499a34d62bf8f145ad9b6c6322a407dd0eaaded9d95"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 \u7761\u7720, +3 \u5e83\u57df ---",
+      "found": 144,
+      "added": 144,
+      "added_sha256": "7336a7419e846559c0ee10384a4597046f29b79ce51227169f0226d118b44fd5"
+    },
+    {
+      "worker": 2,
+      "charm": "OOO",
+      "found": 144,
+      "added": 144,
+      "added_sha256": "237a8a28fb336f32bf5201a4b8246ad0cb260a639c6544f6d70d5038b2545446"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 \u56de\u5fa9\u91cf, 0 \u4f53\u8853 O--",
+      "found": 144,
+      "added": 144,
+      "added_sha256": "c19d9e55f8c7b6abc1092b73fa1c0a03262f8562c84a48dfcceae1bd8ca02d8f"
+    }
+  ],
+  "solution_count": 576,
+  "solutions_sha256": "8e536285cf1ea5e8ce4e9ae4f144c82adec5c83e84eeedd19954a739c56a6995",
+  "solution_set_sha256": "e7881b36d727618d105ff4d7a66f622fcc480bfc4cde97ed1dc3c1c3dfd64512",
+  "solutions_file": true,
+  "exception": null
+}

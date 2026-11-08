@@ -1,0 +1,43 @@
+{
+  "id": "f078",
+  "query_json": "{\"id\":\"f078\",\"description\":\"uniform sampler, charm mode my_charms, 1 skill; quotas: torso_up\",\"language\":\"Espa\u00f1ol (Team Hunters 404)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[180],\"skill_names\":[\"Comer r\u00e1pido+1\"],\"my_charms\":[\"0,Captura,2,Comer,-3\",\"0,Hielo Inc,5,Vel. recup,5\",\"0,Yoga,3,Estiercol,8\",\"0,Comer,3,Rec.Resist,-3\",\"3,Captura,1,Vel.Guarda,-3\",\"0,Comer,5,Salud,0\",\"0,Cortar,3,R. hielo,-9\",\"0,A\u00f1DPerf,5,Bot.par\u00e1.,5\",\"0,Comer,4,R. agua,0\",\"0,Trueno Inc,3,Sue\u00f1o,-3\",\"0,Evadir,4,SubirDPerf,3\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    1,
+    1,
+    1,
+    2
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 4,
+      "added": 4,
+      "added_sha256": "5a25222bcd228f400922d6a104ed6b1d19cb2631200b8a6bbb4d14e9cc606a08"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Captura, -3 Vel.Guarda OOO",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "15d664504a8967860ae236b32e39c5bf8eec20cb7b039d0df5d2d6ebcd7eabd8"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Comer, 0 Salud ---",
+      "found": 4,
+      "added": 4,
+      "added_sha256": "4ba248b7b7cfdc1c69b0fb22a07cd605a53f56145eb79c0afa07f29bf9dc69e8"
+    }
+  ],
+  "solution_count": 12,
+  "solutions_sha256": "dd645633e8fdee8183a6ebb36247e07709c0830ce69a24f470597bb3109c4460",
+  "solution_set_sha256": "68511421af6a00f26395a28fc038624ce6ed4516d7ff5811e0bada923b9e3ac2",
+  "solutions_file": true,
+  "exception": null
+}

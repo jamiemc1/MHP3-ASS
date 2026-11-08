@@ -1,0 +1,29 @@
+{
+  "id": "f330",
+  "query_json": "{\"id\":\"f330\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[8,115,30,18,92,14],\"skill_names\":[\"Reckless Abandon +3\",\"Guard +1\",\"Unleashed +2\",\"Unsheathe Critical\",\"Constitution +1\",\"Speed Sharpening\"],\"my_charms\":[\"0,Rewards,4,Fate,-3\",\"0,Rewards,4,Fate,-3\",\"0,Rec Speed,3,ClustS Add,7\",\"0,Crit Draw,3,Elemental,2\",\"1,Constitutn,1,Crit Draw,-3\",\"0,Wide Area,2,Backpackng,-2\",\"0,PelletSAdd,3,LastingPwr,1\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    17,
+    13,
+    11,
+    16,
+    14
+  ],
+  "relevant_decoration_count": 12,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

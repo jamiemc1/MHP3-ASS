@@ -1,0 +1,57 @@
+{
+  "id": "f026",
+  "query_json": "{\"id\":\"f026\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (Athena)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[155,133],\"skill_names\":[\"Water Res (L)\",\"Wind Breaker\"],\"my_charms\":[\"2,WindPress,2,NormalSAdd,-1\",\"0,FatigueAtk,4,Water Res,6\",\"1,Attack,1,Water Res,0\",\"0,SpeedSetup,2,Water Res,2\",\"1,WindPress,3,Guard Up,-2\",\"0,Quake Res,7,Water Res,9\",\"0,Poison,1,Water Res,7\",\"1,Sheathe,2,Perception,-2\",\"1,Sheathe,2,Perception,-2\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    4,
+    5,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+2 WindPress, +12 Water Res ---",
+      "found": 1983,
+      "added": 1983,
+      "added_sha256": "4d95c5ee0dfee88caefb1fd8b0e1d138bfca5012b6e897285fc0a3164c70c36c"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 WindPress, +6 Water Res OO-",
+      "found": 1998,
+      "added": 1952,
+      "added_sha256": "b2976e76735cc266233bc40a6faea2b04a74f48e8477a55b795edacbbc2df5a2"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 WindPress, +13 Water Res ---",
+      "found": 1965,
+      "added": 1877,
+      "added_sha256": "a63042643cee62e398adab2f2379633b20a3f9a4cf9689569e65c9df1a86bbbd"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 WindPress, +11 Water Res ---",
+      "found": 2000,
+      "added": 1891,
+      "added_sha256": "c004808fbbf6efbbe7170c571525a16cba3e3936d3c1c1d5141d9b94d228d8bb"
+    },
+    {
+      "worker": 4,
+      "charm": "OOO",
+      "found": 1998,
+      "added": 1998,
+      "added_sha256": "40e7b88d0a2647a2c6ae0ccbea7ec1c62d4097a037a73f9315a4611aacba5fc4"
+    }
+  ],
+  "solution_count": 9701,
+  "solutions_sha256": "988b93e9c0fb4ec1fe0c0ab4f232bb5e22f592488c819b0a673b8d8c243cdd76",
+  "solution_set_sha256": "b2758f0c1e3163b7d25c883fa3fcfbe3c70b91c5da28a7ab2ed0463e4dc69d69",
+  "solutions_file": false,
+  "exception": null
+}

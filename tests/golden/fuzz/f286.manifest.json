@@ -1,0 +1,29 @@
+{
+  "id": "f286",
+  "query_json": "{\"id\":\"f286\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[53,43,107,168],\"skill_names\":[\"NormalS/RapidBowUp\",\"Recoil Reduction +1\",\"Evasion Up\",\"Bombardier\"],\"my_charms\":[\"0,BombStrUp,1,Expert,7\",\"0,BombStrUp,4,Antiseptic,-2\",\"2,Dragon Atk,6,BombStrUp,-5\",\"1,Awaken,2,BombStrUp,-10\",\"0,Recoil,1,Elemental,3\",\"2,Guard Up,2,NormalS Up,-1\",\"0,Dragon Atk,2,Evade Dist,-3\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

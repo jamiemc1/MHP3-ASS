@@ -1,0 +1,85 @@
+{
+  "id": "f050",
+  "query_json": "{\"id\":\"f050\",\"description\":\"uniform sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[96,137,29],\"skill_names\":[\"Runner\",\"Blightproof\",\"Unleashed +1\"],\"my_charms\":[\"0,Stamina,1,Rec Level,-1\",\"0,Stamina,2,Fire Atk,9\",\"0,FastCharge,2,Stamina,0\",\"0,PelletSAdd,3,Stun,7\",\"0,Will Recov,6,Rec Speed,-1\",\"0,HearProtct,2,Blight Res,-3\",\"1,Blight Res,3,Stamina,-2\",\"0,Sharpness,4,Loading,-2\",\"0,PunishDraw,4,Awaken,-1\",\"1,Awaken,1,Stamina,-3\",\"0,NormalSAdd,5,PelletSAdd,-1\",\"2,Guard Up,1,Blight Res,1\",\"0,Stamina,5,PelletS Up,-2\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    5,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 9,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+2 Blight Res, +1 Stamina OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Stamina, +3 Blight Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Blight Res, +3 Stamina ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Stamina, +1 Awaken O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Stamina, +4 Awaken ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Awaken, +3 Stamina ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Stamina, +2 Awaken ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+5 Blight Res, +4 Awaken ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+6 Awaken, +1 Blight Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

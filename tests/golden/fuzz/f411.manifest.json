@@ -1,0 +1,134 @@
+{
+  "id": "f411",
+  "query_json": "{\"id\":\"f411\",\"description\":\"uniform sampler, charm mode one_skill, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[169,80,135,176],\"skill_names\":[\"Trap Master\",\"Water Element +1\",\"Antiseptic\",\"Item Use Up\"],\"my_charms\":[\"0,Water Atk,6,Status,2\",\"0,SpeedSetup,4,Ice Res,-2\",\"0,Backpackng,5,Antiseptic,6\",\"0,BombStrUp,5,SpeedSetup,-8\",\"0,Psychic,3,SpeedSetup,10\",\"0,Rec Level,3,LastingPwr,8\",\"0,Water Atk,7,Cold Res,7\",\"0,Water Res,6,LastingPwr,4\",\"0,Horn,5,NormalSAdd,2\",\"0,FastCharge,4,Water Atk,-4\",\"0,Evasion,2,Stun,8\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    4,
+    5,
+    6,
+    8
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 16,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 91,
+      "added": 91,
+      "added_sha256": "ebbdb24c1b88d1b7074b6c34847e5632c3cc20372368d834afd60a002adcd6ec"
+    },
+    {
+      "worker": 1,
+      "charm": "+7 SpeedSetup OO-",
+      "found": 1661,
+      "added": 1655,
+      "added_sha256": "35cf782c6061d90f24c0df551acb09832c4d7909a91c20a77c96afe7cebbaf9a"
+    },
+    {
+      "worker": 2,
+      "charm": "+9 SpeedSetup O--",
+      "found": 748,
+      "added": 691,
+      "added_sha256": "d9f20b0f9bd8f14314bdda08b540de45d39764296b59c27c007d33ad3c550fef"
+    },
+    {
+      "worker": 3,
+      "charm": "+10 SpeedSetup ---",
+      "found": 206,
+      "added": 89,
+      "added_sha256": "53575a9fcfa6c2fb6e6f5796cbe29fdaede2244442b0fa733e5273faf254c547"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 Water Atk OOO",
+      "found": 5937,
+      "added": 5857,
+      "added_sha256": "fd1f1da5f0b796f6e2a0a8e3b2548c86cec7a55eedf0dcc6b2f84f72088153ad"
+    },
+    {
+      "worker": 5,
+      "charm": "+7 Water Atk OO-",
+      "found": 4214,
+      "added": 4024,
+      "added_sha256": "a608bd7781016016ec7dde867524dd9af6c7ce18719e8b268f7184e09830a2cf"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 Water Atk O--",
+      "found": 1655,
+      "added": 1256,
+      "added_sha256": "b1c1b713522f167de7a7a5235e5d26120c4e3ce7f74d1fcc7794f07ffbbca367"
+    },
+    {
+      "worker": 7,
+      "charm": "+9 Water Atk ---",
+      "found": 1056,
+      "added": 657,
+      "added_sha256": "b113ffabae2dd1cdb1b693048aab6ba5342bbd583ccd90cd78abda1e76a5e4e3"
+    },
+    {
+      "worker": 8,
+      "charm": "OOO",
+      "found": 91,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 Antiseptic OO-",
+      "found": 2180,
+      "added": 2166,
+      "added_sha256": "b7d12fdfd185807db3666904e30075b940ecbaec646498acbedbf3c21f43bbba"
+    },
+    {
+      "worker": 10,
+      "charm": "+7 Antiseptic O--",
+      "found": 568,
+      "added": 483,
+      "added_sha256": "18e03dd109553806a0fdb3e355ca0ba2457bd8dae3439d36693ddb96b929d1c3"
+    },
+    {
+      "worker": 11,
+      "charm": "+8 Antiseptic ---",
+      "found": 559,
+      "added": 480,
+      "added_sha256": "8f2a1606421ed9ec88a4dadafecdb035d6a05604838a6d9dd622410156b45452"
+    },
+    {
+      "worker": 12,
+      "charm": "OOO",
+      "found": 91,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+6 LastingPwr OO-",
+      "found": 1523,
+      "added": 1518,
+      "added_sha256": "fe02ed13c8b6b413adaa95ccaee90896539cd53020960782ea5bedbfcabe994e"
+    },
+    {
+      "worker": 14,
+      "charm": "+6 LastingPwr O--",
+      "found": 377,
+      "added": 321,
+      "added_sha256": "c4307a218d401a11a33e24e59e34667718c474519924e18f4421ee4e0d126574"
+    },
+    {
+      "worker": 15,
+      "charm": "+10 LastingPwr ---",
+      "found": 708,
+      "added": 651,
+      "added_sha256": "52ce36dc95eddcd560ffdf7e5a38e12d3a1c27e48d8fb113adc22657c66fceed"
+    }
+  ],
+  "solution_count": 19939,
+  "solutions_sha256": "a9aed86dc1ad1b5d10f78266d96ce7041e4b9a6f345ff1124621eb3c2d769d03",
+  "solution_set_sha256": "0a7e2c7ce8a823df6f8ea98c5de48dfbbe9a48400ceacaf9c6ee814ab3b3d97d",
+  "solutions_file": false,
+  "exception": null
+}

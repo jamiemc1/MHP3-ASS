@@ -1,0 +1,29 @@
+{
+  "id": "f261",
+  "query_json": "{\"id\":\"f261\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[43,124,198,171],\"skill_names\":[\"Recoil Reduction +1\",\"Parlysis Negated\",\"Luck Booster\",\"Detect\"],\"my_charms\":[\"0,PierceS Up,4,Recoil,-3\",\"0,Rec Level,5,Paralysis,-3\",\"0,Eating,3,Psychic,11\",\"0,Crit Draw,3,Psychic,-5\",\"2,Fate,2,Slam,-2\",\"0,Gunnery,4,Psychic,1\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

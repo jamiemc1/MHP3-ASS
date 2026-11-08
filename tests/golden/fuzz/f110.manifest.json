@@ -1,0 +1,29 @@
+{
+  "id": "f110",
+  "query_json": "{\"id\":\"f110\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[108,179],\"skill_names\":[\"Fast Sheathe\",\"Picky Eater\"],\"my_charms\":[\"0,Sheathe,6,Backpackng,6\",\"1,Fate,2,Rec Level,-2\",\"1,Sheathe,2,CutterSAdd,1\",\"0,Evade Dist,2,ParalyCAdd,5\",\"0,Antiseptic,4,Mud/Snow,-8\",\"0,FatigueAtk,5,LastingPwr,10\",\"0,Debilitate,2,Horn,2\",\"0,Protection,5,Fire Atk,-3\",\"0,Sheathe,1,Huntsman,-1\",\"0,Attack,1,Gluttony,11\",\"0,Sheathe,5,RazorCAdd,1\",\"2,Poison,1,Sleep,3\",\"0,Poison,3,Quake Res,8\",\"2,Slam,3,FastCharge,1\",\"0,Sheathe,2,Evade Dist,-1\",\"1,Sheathe,6,FatigueAtk,0\",\"1,PelletS Up,2,Sheathe,-10\",\"0,Protection,3,Ice Res,-1\",\"1,Constitutn,1,Sheathe,-10\",\"0,Status,1,Defense,-6\",\"2,Ice Attack,4,NormalS Up,1\",\"0,Blight Res,5,Sheathe,4\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    2,
+    2,
+    2,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 64,
+      "added": 64,
+      "added_sha256": "e12e589535b4d0c7ffe166396903caafea7212b4e67b3b19d677c44829477b4a"
+    }
+  ],
+  "solution_count": 64,
+  "solutions_sha256": "e12e589535b4d0c7ffe166396903caafea7212b4e67b3b19d677c44829477b4a",
+  "solution_set_sha256": "e12e589535b4d0c7ffe166396903caafea7212b4e67b3b19d677c44829477b4a",
+  "solutions_file": true,
+  "exception": null
+}

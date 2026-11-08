@@ -1,0 +1,36 @@
+{
+  "id": "f476",
+  "query_json": "{\"id\":\"f476\",\"description\":\"armour-seeded sampler, charm mode one_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":3,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[98],\"skill_names\":[\"Stamina Recov Up\"],\"my_charms\":[\"1,Psychic,2,Ice Res,-9\",\"0,Thundr Atk,5,Stamina,-2\",\"0,Sheathe,3,Rec Speed,0\",\"0,Rewards,1,Health,9\",\"0,Water Res,3,Gunnery,-4\",\"0,Eating,4,Huntsman,8\",\"2,Hunger,3,PierceSAdd,-1\",\"0,Ice Res,4,Combo Rate,2\",\"0,Dragon Atk,3,Rec Level,4\",\"0,Will Recov,6,Sharpness,2\",\"0,Horn,5,Fire Res,4\",\"0,Guard Up,6,Fire Res,7\",\"0,Guard Up,1,Quake Res,-2\",\"0,Will Recov,3,Fire Res,1\",\"0,Rec Speed,6,Wide Area,-4\",\"0,Fire Res,2,SleepCAdd,5\",\"0,PierceSAdd,3,RazorCAdd,-10\",\"0,Thundr Atk,4,PierceSAdd,2\",\"0,Will Recov,4,Perception,-8\",\"0,Sheathe,1,BombStrUp,1\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Will Recov OO-",
+      "found": 144,
+      "added": 144,
+      "added_sha256": "47c666f1de360adc8f79cb0313fb0aaebce739c1d57912a3b18451be962e2651"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Will Recov O--",
+      "found": 144,
+      "added": 140,
+      "added_sha256": "e1e73aec546a7680816c1e2ac8b1ea30d877e5e94554db4eca2707d8dd12f330"
+    }
+  ],
+  "solution_count": 284,
+  "solutions_sha256": "ec36cd983fe7151241f74fb953193accb6a142577a706d14229a702abcb6be40",
+  "solution_set_sha256": "b3877f6812d71dba274a636f95b3799b1b8b7d1f868720f6896668691a758432",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,36 @@
+{
+  "id": "f263",
+  "query_json": "{\"id\":\"f263\",\"description\":\"uniform sampler, charm mode one_skill, 1 skill; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":1,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[100],\"skill_names\":[\"Hunger Halved\"],\"my_charms\":[\"0,PelletS Up,4,Artisan,-3\",\"0,Backpackng,4,Dragon Res,5\",\"0,Rec Level,1,Recoil,3\",\"0,Crag S Add,6,FatigeCAdd,9\",\"0,Ice Attack,1,Thundr Atk,5\",\"0,SpeedSetup,4,Ice Res,1\",\"0,FatigueAtk,6,Hunger,-2\",\"0,Hunger,6,Crag S Add,4\",\"0,Wide Area,1,Shot Mix,8\",\"0,Evasion,4,Horn,10\",\"0,Hunger,7,Expert,-5\",\"0,Eating,3,Horn,7\",\"0,Expert,2,Hunger,1\",\"0,PelletSAdd,3,Huntsman,5\",\"0,Slam,4,Hunger,-2\",\"0,Health,6,Sense,5\",\"0,Backpackng,7,Hunger,2\",\"0,Sharpener,1,Hunger,6\",\"1,Dragon Atk,3,Cold Res,-6\",\"0,Hunger,4,SpeedSetup,-9\",\"0,SpeedSetup,5,Huntsman,-3\",\"0,Eating,1,ParalyCAdd,-5\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+7 Hunger O--",
+      "found": 360,
+      "added": 360,
+      "added_sha256": "e9ae8a6268df91d9bd1c515d01c9a113d852a08331be671639616fd100d5e0b8"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Hunger ---",
+      "found": 360,
+      "added": 360,
+      "added_sha256": "b911d693e8460e80bf27545b30462c5c960b2f6369ace4a2ce175c5c752262dc"
+    }
+  ],
+  "solution_count": 720,
+  "solutions_sha256": "d04696ff05fb6477cd6b3bece5c64eb29ba64b611b8906a26e87706308197e6a",
+  "solution_set_sha256": "00eda455708ffa43ac41e20e1af40a25b65115e8aa1d3bffacbf03b5278e503a",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f431",
+  "query_json": "{\"id\":\"f431\",\"description\":\"armour-seeded sampler, charm mode slotted, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[16,174,7,19],\"skill_names\":[\"Sharpness +1\",\"Recovery Up\",\"Reckless Abandon +2\",\"Concentration\"],\"my_charms\":[\"0,Guard,1,Sharpness,1\",\"0,Rewards,1,Will Recov,-1\",\"2,PunishDraw,3,Slam,1\",\"0,Fencing,4,Stamina,-3\",\"1,FastCharge,5,BombStrUp,5\",\"0,Sheathe,3,Evade Dist,-1\",\"0,Constitutn,4,Fortitude,-9\",\"1,Sheathe,1,FastCharge,0\",\"1,Protection,1,RazorCAdd,-1\",\"1,Will Recov,2,Hunger,-4\",\"0,Backpackng,8,Gathering,9\",\"0,Stun,5,Expert,5\",\"0,Fortitude,3,NormalSAdd,7\",\"0,Eating,1,Fortitude,2\",\"0,Fire Res,3,Quake Res,-4\",\"0,Reload Spd,1,PierceS Up,-2\",\"0,Precision,6,CutterSAdd,-9\",\"0,Status,1,Sheathe,-4\",\"0,Rewards,5,Horn,9\",\"0,WindPress,1,Anti-Theft,1\",\"0,Elemental,3,Psychic,12\",\"3,FastCharge,1,NormalS Up,-1\",\"0,WindPress,4,Blight Res,2\",\"0,Rec Level,6,SleepCAdd,9\",\"0,Backpackng,3,Whim,4\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    2,
+    6,
+    7,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

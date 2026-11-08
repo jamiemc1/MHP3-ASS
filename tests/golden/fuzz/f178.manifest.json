@@ -1,0 +1,50 @@
+{
+  "id": "f178",
+  "query_json": "{\"id\":\"f178\",\"description\":\"uniform sampler, charm mode my_charms, 6 skills; quotas: cross_type\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[138,70,172,98,133,53],\"skill_names\":[\"Def Down Negate\",\"Close Range Coating Add\",\"Autotracker\",\"Stamina Recov Up\",\"Wind Breaker\",\"NormalS/RapidBowUp\"],\"my_charms\":[\"0,Awaken,3,Sharpness,0\",\"0,Will Recov,6,Shot Mix,-1\",\"0,Debilitate,4,WindPress,-3\",\"2,WindPress,1,NormalSAdd,-2\",\"0,Will Recov,6,Huntsman,8\",\"0,Potential,3,Heat Res,7\",\"3,Loading,4,Rec Speed,-3\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Will Recov, -1 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 WindPress, -2 NormalSAdd OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Loading, -3 Rec Speed OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

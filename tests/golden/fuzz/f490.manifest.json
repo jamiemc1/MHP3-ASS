@@ -1,0 +1,29 @@
+{
+  "id": "f490",
+  "query_json": "{\"id\":\"f490\",\"description\":\"uniform sampler, charm mode one_skill, 5 skills; quotas: auto_guard_charm, one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[174,108,204,170,119],\"skill_names\":[\"Recovery Up\",\"Fast Sheathe\",\"Combine Success +20%\",\"Trnquilizr Guru\",\"Auto-Guard\"],\"my_charms\":[\"0,Recoil,5,Gunnery,-9\",\"0,NormalSAdd,1,Fortitude,-4\",\"0,FastCharge,3,Evasion,0\",\"0,Rec Level,4,Health,9\",\"0,WindPress,1,Crit Draw,1\",\"0,Rapid Fire,1,Status,-9\",\"0,Evasion,4,Artisan,-1\",\"0,Rec Level,2,Recoil,2\",\"0,Auto-Guard,10,,\",\"0,Reload Spd,6,Expert,9\",\"1,Sheathe,1,,\",\"0,Guard Up,3,Combo Rate,-6\",\"0,Elemental,2,WindPress,3\",\"0,ClustS Add,1,Precision,7\",\"0,Carving,1,Rec Level,0\",\"0,Status,2,Combo Rate,11\",\"0,Guard,6,Thundr Atk,-6\"]}",
+  "my_charms_loaded": 17,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    4,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+10 Auto-Guard ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

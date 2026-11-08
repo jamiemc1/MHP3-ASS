@@ -1,0 +1,29 @@
+{
+  "id": "f173",
+  "query_json": "{\"id\":\"f173\",\"description\":\"armour-seeded sampler, charm mode none, 6 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[35,133,7,208,14,107],\"skill_names\":[\"Load Up\",\"Wind Breaker\",\"Reckless Abandon +2\",\"Bullet Limit\",\"Speed Sharpening\",\"Evasion Up\"],\"my_charms\":[\"0,Guard Up,5,FatigueAtk,3\",\"0,PelletS Up,1,Psychic,-4\",\"2,Potential,1,CutterSAdd,2\",\"0,KO,5,Sharpener,6\",\"0,Dragon Res,1,Heat Res,2\",\"1,Sleep,5,Expert,-1\",\"0,Fortitude,1,Antiseptic,1\",\"2,Eating,2,,\",\"1,Constitutn,1,Shot Mix,-8\",\"2,Rec Level,5,Sleep,1\",\"1,Protection,7,Will Recov,-2\",\"0,Evade Dist,5,SleepCAdd,8\",\"0,Sharpener,4,BombStrUp,-8\",\"0,Fencing,4,Expert,-6\",\"0,PelletSAdd,5,Sleep,-10\",\"1,Carving,1,WindPress,-5\",\"0,WindPress,5,Potential,-1\",\"0,Expert,3,SleepCAdd,-8\",\"0,Evade Dist,6,Fire Res,2\"]}",
+  "my_charms_loaded": 19,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    14,
+    9,
+    10,
+    9,
+    11
+  ],
+  "relevant_decoration_count": 11,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

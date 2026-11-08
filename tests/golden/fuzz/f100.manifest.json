@@ -1,0 +1,64 @@
+{
+  "id": "f100",
+  "query_json": "{\"id\":\"f100\",\"description\":\"uniform sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, illegal_charm_lines, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[84,155,134,179],\"skill_names\":[\"Thunder Element +2\",\"Water Res (L)\",\"Wind Anchor\",\"Picky Eater\"],\"my_charms\":[\"0,Slam,1,WindPress,-3\",\"0,FatigueAtk,15,,\",\"2,Water Res,2,Attack,0\",\"0,Fire Atk,4,Wide Area,-1\",\"0,Fire Atk,4,Wide Area,-1\",\"2,Guard,1,Sheathe,-10\",\"0,Will Recov,3,Water Res,-10\",\"0,Will Recov,15,,\",\"0,Loading,5,PunishDraw,-2\",\"2,Water Res,2,Attack,0\",\"0,Crit Draw,14,,\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 3,
+  "relevant_armor_counts": [
+    7,
+    5,
+    4,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Water Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Gluttony O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+10 Gluttony ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

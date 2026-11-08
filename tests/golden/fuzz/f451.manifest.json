@@ -1,0 +1,71 @@
+{
+  "id": "f451",
+  "query_json": "{\"id\":\"f451\",\"description\":\"armour-seeded sampler, charm mode my_charms, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[158,77,190,187,120,155],\"skill_names\":[\"Thunder Res (L)\",\"Fire Element +1\",\"Gathering +2\",\"Cold Eliminate\",\"Divine Protection\",\"Water Res (L)\"],\"my_charms\":[\"0,Awaken,6,Debilitate,-1\",\"0,Rewards,5,Evade Dist,-3\",\"0,Reload Spd,4,Combo Rate,6\",\"1,ThunderRes,1,Rec Speed,-3\",\"1,FastCharge,1,ThunderRes,1\",\"1,Artisan,3,Elemental,-1\",\"0,ThunderRes,6,Water Res,2\",\"0,PunishDraw,5,Protection,-9\",\"0,SpeedSetup,6,Backpackng,7\",\"1,Health,6,PowerCAdd,-4\",\"0,Stamina,5,Water Res,3\",\"0,Fire Atk,2,Paralysis,5\",\"2,Protection,5,Ice Attack,-5\",\"0,Rewards,4,Sheathe,-4\",\"0,Rec Level,3,Sheathe,4\",\"0,Water Res,3,FatigeCAdd,3\",\"0,ThunderRes,2,Rec Speed,3\",\"1,Quake Res,4,,\",\"0,PierceSAdd,3,Ice Res,3\",\"0,CutterSAdd,1,Perception,7\",\"2,Evasion,3,Water Res,-6\",\"0,Backpackng,1,Combo Rate,2\",\"0,Eating,1,Water Res,6\",\"0,Paralysis,2,ThunderRes,6\",\"0,Blight Res,3,Debilitate,1\",\"0,Recoil,3,Reload Spd,4\",\"0,Carving,5,ThunderRes,9\",\"0,Water Res,5,Backpackng,3\",\"0,Sheathe,1,Dragon Res,1\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    15,
+    9,
+    9,
+    11,
+    11
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 ThunderRes, -3 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 ThunderRes, +2 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Fire Atk, +5 Paralysis ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 Protection, -5 Ice Attack OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 Eating, +6 Water Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Carving, +9 ThunderRes ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

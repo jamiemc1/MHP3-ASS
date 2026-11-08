@@ -1,0 +1,57 @@
+{
+  "id": "f430",
+  "query_json": "{\"id\":\"f430\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[158,80,58],\"skill_names\":[\"Thunder Res (L)\",\"Water Element +1\",\"Pierce S All Add\"],\"my_charms\":[\"0,Stamina,4,Horn,7\",\"0,Water Atk,7,Rec Speed,3\",\"0,PierceS Up,1,ThunderRes,8\",\"0,WindPress,4,NormalSAdd,5\",\"0,Rec Level,5,Defense,3\",\"0,PelletS Up,1,Crit Draw,-1\",\"0,Elemental,5,Rewards,-2\",\"0,PelletSAdd,2,Whim,-4\",\"0,PierceSAdd,3,Huntsman,6\",\"0,Dragon Atk,4,Health,9\",\"0,WindPress,2,Sharpness,0\",\"0,WindPress,2,ThunderRes,-5\",\"0,Dragon Atk,6,Evade Dist,2\",\"0,Sheathe,1,Whim,-7\",\"0,Thundr Atk,5,SleepCAdd,-7\",\"1,CutterSAdd,1,Status,1\",\"0,Blight Res,1,Evasion,-2\",\"1,Rewards,4,Crit Draw,0\",\"0,Evasion,1,Rec Speed,-3\",\"0,Fire Res,3,PoisonCAdd,4\",\"1,KO,5,Dragon Atk,1\",\"0,Water Atk,5,Stun,12\",\"0,Constitutn,1,Water Atk,8\",\"0,Mud/Snow,3,Stun,-3\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    1,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 PierceS Up, +8 ThunderRes ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 PierceSAdd, +6 Huntsman ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 CutterSAdd, +1 Status O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 Constitutn, +8 Water Atk ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

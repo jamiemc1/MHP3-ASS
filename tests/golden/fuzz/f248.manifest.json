@@ -1,0 +1,29 @@
+{
+  "id": "f248",
+  "query_json": "{\"id\":\"f248\",\"description\":\"armour-seeded sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":1,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[136,28,49,126,98,7],\"skill_names\":[\"Steal No Effect\",\"Gunnery King\",\"Accuracy+1\",\"Sleep Negated\",\"Stamina Recov Up\",\"Reckless Abandon +2\"],\"my_charms\":[\"0,Debilitate,3,FastCharge,1\",\"0,Evade Dist,6,Thundr Atk,2\",\"0,Reload Spd,3,LastingPwr,-4\",\"0,Will Recov,4,Ice Res,3\",\"2,Rec Level,2,Defense,-4\",\"1,FatigueAtk,5,KO,-1\",\"0,Backpackng,6,Expert,2\",\"0,Recoil,2,Attack,10\",\"0,Precision,4,Wide Area,9\",\"0,Sheathe,5,Water Res,12\",\"2,Antiseptic,1,Status,-4\",\"0,Fortitude,2,Gunnery,-4\",\"0,Ice Attack,7,Will Recov,1\",\"0,Fortitude,5,Anti-Theft,6\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    10,
+    6,
+    10,
+    7
+  ],
+  "relevant_decoration_count": 10,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

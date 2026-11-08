@@ -1,0 +1,57 @@
+{
+  "id": "f386",
+  "query_json": "{\"id\":\"f386\",\"description\":\"uniform sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[90,93],\"skill_names\":[\"Dragon Element +2\",\"Constitution +2\"],\"my_charms\":[\"3,Dragon Atk,2,Dragon Res,1\",\"0,Constitutn,3,Defense,4\",\"0,Constitutn,4,Thundr Atk,-6\",\"1,PelletS Up,4,Eating,1\",\"0,Fate,3,Potential,-2\",\"0,Sheathe,3,Crit Draw,-3\",\"1,Constitutn,1,Attack,1\",\"0,KO,6,Potential,4\",\"2,WindPress,2,Health,-8\",\"0,Evade Dist,5,Will Recov,-1\",\"0,Dragon Atk,1,Quake Res,5\",\"0,Sharpness,2,ThunderRes,-5\",\"0,Dragon Atk,5,DungMaster,-1\",\"2,Dragon Atk,6,FastCharge,-2\",\"0,ThunderRes,1,RazorCAdd,1\"]}",
+  "my_charms_loaded": 15,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    3,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Dragon Atk, +1 Dragon Res OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Constitutn, -6 Thundr Atk ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Constitutn, +1 Attack O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+6 Dragon Atk, -2 FastCharge OO-",
+      "found": 40,
+      "added": 40,
+      "added_sha256": "e279219939bfe80c12b54acf91af1399e88bfec5b7faaa82ea3a6d6cc085f3d6"
+    }
+  ],
+  "solution_count": 40,
+  "solutions_sha256": "e279219939bfe80c12b54acf91af1399e88bfec5b7faaa82ea3a6d6cc085f3d6",
+  "solution_set_sha256": "2703b169e0d457e3961c57d38b81dfaf5c92a1c663aee0db36a2b6755bd0c1e2",
+  "solutions_file": true,
+  "exception": null
+}

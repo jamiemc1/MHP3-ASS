@@ -1,0 +1,127 @@
+{
+  "id": "f362",
+  "query_json": "{\"id\":\"f362\",\"description\":\"uniform sampler, charm mode one_skill, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[176,142,80,140,179,161],\"skill_names\":[\"Item Use Up\",\"Health +50\",\"Water Element +1\",\"HighGradeEarplug\",\"Picky Eater\",\"Ice Res (L)\"],\"my_charms\":[\"0,Water Atk,3,Ice Res,-9\",\"1,ClustS Add,1,,\",\"0,Water Atk,4,Heat Res,5\",\"1,Artisan,4,PierceS Up,-3\",\"2,Guard,2,PierceS Up,0\",\"0,Hunger,2,Gluttony,1\",\"0,Crit Draw,1,Water Atk,-6\",\"0,Defense,2,Fire Res,8\",\"1,WindPress,1,Awaken,3\",\"0,Guard Up,3,SpeedSetup,4\",\"0,Debilitate,3,Water Atk,3\",\"2,Fire Atk,3,PoisonCAdd,-9\",\"0,HearProtct,4,Status,3\",\"0,Protection,6,Health,-4\",\"0,Backpackng,6,PierceSAdd,5\",\"0,FatigueAtk,3,Potential,2\",\"0,Ice Res,3,Wide Area,9\",\"0,Ice Attack,7,Constitutn,-1\",\"0,Thundr Atk,7,Health,10\",\"0,FastCharge,5,Ice Res,11\",\"0,Constitutn,1,HiSpdGathr,6\",\"0,NormalSAdd,1,BombStrUp,-4\",\"0,Health,3,Mud/Snow,8\",\"0,CutterSAdd,4,NormalSAdd,-3\",\"0,NormalSAdd,5,Health,-2\",\"1,BombStrUp,3,Rec Speed,0\",\"0,FastCharge,1,Ice Res,8\"]}",
+  "my_charms_loaded": 27,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    18,
+    10,
+    8,
+    10,
+    9
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 15,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 LastingPwr OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 LastingPwr O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+10 LastingPwr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 Health OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+10 Health O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+6 Water Atk OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+7 Water Atk O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+6 Gluttony OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+11 Gluttony O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+13 Gluttony ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+5 Ice Res OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+9 Ice Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+10 Ice Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,43 @@
+{
+  "id": "f076",
+  "query_json": "{\"id\":\"f076\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[8,126],\"skill_names\":[\"Reckless Abandon +3\",\"Sleep Negated\"],\"my_charms\":[\"0,Blight Res,5,Ice Attack,0\",\"0,Crit Draw,3,Rec Speed,10\",\"0,Crit Draw,3,Rec Speed,10\",\"0,SpeedSetup,8,HiSpdGathr,4\",\"0,SpeedSetup,8,HiSpdGathr,4\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    4,
+    4,
+    5,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+2 Sleep, +7 Expert ---",
+      "found": 948,
+      "added": 948,
+      "added_sha256": "c49fbecb42f0480f9157dd70c668849a9758d16e9bad1eaa6e93358f0cc8d6ff"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Expert, +7 Sleep ---",
+      "found": 960,
+      "added": 770,
+      "added_sha256": "f6662bba314f23dc23b066b982dd78ac98891c59254be1b381f5eeedfa201cea"
+    },
+    {
+      "worker": 2,
+      "charm": "OOO",
+      "found": 929,
+      "added": 929,
+      "added_sha256": "b4d1c3e666bb38bbab38e210452e780263146f89e7aa29d24ab66a99be826ef7"
+    }
+  ],
+  "solution_count": 2647,
+  "solutions_sha256": "11a8f688d503ba50154dbe14915e875bc856f9846dcebe6e07b971c766c5acec",
+  "solution_set_sha256": "2041db9241865792cdcb83ca0c32643b62dadb3700b7364b02aed318e36d527e",
+  "solutions_file": true,
+  "exception": null
+}

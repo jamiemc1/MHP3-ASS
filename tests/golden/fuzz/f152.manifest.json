@@ -1,0 +1,57 @@
+{
+  "id": "f152",
+  "query_json": "{\"id\":\"f152\",\"description\":\"armour-seeded sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"one_skill\",\"skills\":[174,36,176,53],\"skill_names\":[\"Recovery Up\",\"Rapid Shot +1\",\"Item Use Up\",\"NormalS/RapidBowUp\"],\"my_charms\":[\"1,Water Atk,1,Sharpness,0\",\"0,NormalS Up,4,Potential,4\",\"0,Guard,1,Fire Res,-9\",\"0,Fate,1,Fencing,-3\",\"0,Rec Level,2,Hunger,-10\",\"0,Rapid Fire,5,Psychic,4\",\"0,Guard Up,6,NormalS Up,1\",\"0,Mud/Snow,3,Gunnery,3\",\"0,PelletS Up,3,NormalS Up,3\",\"3,Fencing,1,Water Atk,0\",\"2,Recoil,2,Stun,10\",\"0,Awaken,1,NormalS Up,-1\",\"0,Rec Level,1,FastCharge,-1\",\"0,HearProtct,1,Rapid Fire,2\",\"0,Rapid Fire,3,Carving,0\",\"0,NormalSAdd,3,Fortitude,-2\"]}",
+  "my_charms_loaded": 16,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 LastingPwr O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+8 LastingPwr ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

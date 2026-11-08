@@ -1,0 +1,29 @@
+{
+  "id": "f449",
+  "query_json": "{\"id\":\"f449\",\"description\":\"uniform sampler, charm mode none, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[72,107,183,172,138,135],\"skill_names\":[\"Abnormal Status Atk +1\",\"Evasion Up\",\"Huntsman\\u0027s Life\",\"Autotracker\",\"Def Down Negate\",\"Antiseptic\"],\"my_charms\":[\"1,Fire Atk,3,ParalyCAdd,-7\",\"0,Sheathe,6,Dragon Atk,5\",\"2,Dragon Atk,3,Status,1\",\"0,Poison,4,Huntsman,6\",\"0,Constitutn,1,Fortitude,-4\",\"0,HearProtct,2,Elemental,2\",\"0,Rec Speed,3,Antiseptic,8\",\"1,Crit Draw,2,Attack,-6\",\"0,Gunnery,3,Sleep,5\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    8,
+    4,
+    5,
+    7
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f354",
+  "query_json": "{\"id\":\"f354\",\"description\":\"uniform sampler, charm mode none, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":4,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[203,131,92,178,145],\"skill_names\":[\"Rewards Celeb\",\"Mud/Snow Res\",\"Constitution +1\",\"Filled Up\",\"Def Up (S)\"],\"my_charms\":[\"0,Ice Attack,6,Psychic,8\",\"0,KO,4,HiSpdGathr,0\",\"0,Guard,2,Thundr Atk,9\",\"1,Defense,3,,\",\"1,Ice Res,1,BombStrUp,-8\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    9,
+    9,
+    8,
+    9
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

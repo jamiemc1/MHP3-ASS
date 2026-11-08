@@ -1,0 +1,50 @@
+{
+  "id": "f135",
+  "query_json": "{\"id\":\"f135\",\"description\":\"uniform sampler, charm mode one_skill, 3 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[45,145,24],\"skill_names\":[\"Recoil Reduction +3\",\"Def Up (S)\",\"Improved KO\"],\"my_charms\":[\"1,Fire Atk,1,Defense,-8\",\"0,KO,6,Status,4\",\"0,Rapid Fire,2,Ice Res,11\",\"1,NormalS Up,1,KO,-1\",\"0,Eating,5,KO,4\",\"0,Dragon Atk,7,Wide Area,4\",\"0,Blight Res,3,WindPress,1\",\"0,Recoil,2,Guard Up,2\",\"0,KO,4,HearProtct,-3\",\"1,KO,4,Potential,2\",\"0,Defense,4,Backpackng,8\",\"1,KO,4,Potential,2\",\"2,Awaken,3,FatigueAtk,0\",\"0,Rapid Fire,2,PierceS Up,-1\",\"0,Expert,3,Mud/Snow,0\",\"3,KO,1,PunishDraw,-1\",\"0,KO,6,Status,-8\",\"0,Sleep,2,SpeedSetup,7\",\"2,SpeedSetup,1,Wide Area,-7\",\"0,Fortitude,4,Defense,-2\",\"2,Awaken,3,FatigueAtk,0\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    5,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Defense O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+4 Defense ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

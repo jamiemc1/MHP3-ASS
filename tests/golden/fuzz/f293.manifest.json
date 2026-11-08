@@ -1,0 +1,50 @@
+{
+  "id": "f293",
+  "query_json": "{\"id\":\"f293\",\"description\":\"armour-seeded sampler, charm mode my_charms, 2 skills; quotas: torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[184,100],\"skill_names\":[\"Expert Routard\",\"Faim moiti\u00e9\"],\"my_charms\":[\"0,Faim,5,Paralysie,-5\",\"0,AtEl. drg,7,Faim,-10\",\"0,\u00c9tourd.,5,Routard,-8\",\"0,Constit.,4,Escrime,2\",\"0,Routard,6,Faim,1\",\"0,Recul,3,Pique,3\",\"1,,,,\",\"0,Vit. r\u00e9cup.,2,Routard,7\",\"0,Capture,5,D\u00e9gainage,4\",\"0,Aig. augm.,3,Faim,7\",\"1,Pique,1,Faim,-10\",\"0,Faim,1,R\u00e9s. eau,9\",\"0,KO,4,TpsObjAugm.,7\",\"1,,,,\",\"0,Faim,4,Mn expl. +,0\",\"1,Faim,7,Bombardier,-2\",\"1,Statut,2,Mn plmb au.,-1\",\"1,Pique,2,Faim,10\",\"0,Routard,5,Vit. r\u00e9cup.,1\",\"0,Tir asso.,5,Artisan ,1\",\"1,Protection,3,Vit. r\u00e9cup.,-4\",\"0,\u00c9tourd.,2,Chasseur,9\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    2,
+    2,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 128,
+      "added": 128,
+      "added_sha256": "2c3bd1eb5d3bd8515becb43a35d8a9744fa7f1b5be7ae4c0c342ae2c72c90e0c"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Routard, +1 Faim ---",
+      "found": 128,
+      "added": 128,
+      "added_sha256": "46aacc7094f251c435fc07326a17d46bb2b2998a3a7024081f23f38575ed6b95"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Vit. r\u00e9cup., +7 Routard ---",
+      "found": 128,
+      "added": 128,
+      "added_sha256": "3adb19aeafba0b36b115045df57abfba52fbbeb00a299fb6694376c9e0003dd3"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Pique, +10 Faim O--",
+      "found": 128,
+      "added": 128,
+      "added_sha256": "d1baaed5c6fc0633def2ca210c43c3a4dc41e3ef4db11dac57d68b7bb14e4725"
+    }
+  ],
+  "solution_count": 512,
+  "solutions_sha256": "11589fecc51f6f9b548de12eea50c7bc46ae4a488cbd343706878a1f613d33cb",
+  "solution_set_sha256": "857cdf3cce73d9b14d7229ce9b02ed43ec1fcf98357e64903cc84fd5ec66ccf8",
+  "solutions_file": true,
+  "exception": null
+}

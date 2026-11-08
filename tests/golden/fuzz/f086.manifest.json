@@ -1,0 +1,71 @@
+{
+  "id": "f086",
+  "query_json": "{\"id\":\"f086\",\"description\":\"uniform sampler, charm mode my_charms, 5 skills; quotas: illegal_charm_lines, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[198,108,120,185,111],\"skill_names\":[\"Luck Booster\",\"Fast Sheathe\",\"Divine Protection\",\"Heat Cancel\",\"Recovery Speed +1\"],\"my_charms\":[\"1,Paralysis,3,LastingPwr,5\",\"1,Protection,1,SpeedSetup,1\",\"0,Artisan,15,,\",\"0,Fire Atk,5,Sharpness,-2\",\"0,PierceS Up,2,Expert,10\",\"0,Protection,5,Recoil,-2\",\"0,Rewards,3,Rec Speed,11\",\"1,Protection,1,Wide Area,-6\",\"1,PunishDraw,2,Rec Speed,2\",\"0,Water Atk,6,Rec Speed,-2\",\"0,Water Res,5,PoisonCAdd,0\",\"0,PunishDraw,4,Rec Speed,0\",\"1,PelletS Up,1,Health,-5\",\"0,Debilitate,14,,\",\"2,Attack,1,BombStrUp,-2\",\"0,Dragon Res,6,CutterSAdd,-4\",\"0,Fate,5,Artisan,-3\",\"0,Rec Level,1,Status,-4\",\"0,Protection,1,Wide Area,-1\",\"0,Paralysis,2,Sense,2\",\"0,Crit Draw,4,Evade Dist,4\",\"0,Reload Spd,2,Awaken,2\",\"0,Water Res,3,Sense,-6\",\"0,Gunnery,14,,\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 3,
+  "relevant_armor_counts": [
+    7,
+    7,
+    5,
+    6,
+    8
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Protection, +1 SpeedSetup O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Protection, -2 Recoil ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+3 Rewards, +11 Rec Speed ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+2 PunishDraw, +2 Rec Speed O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 Attack, -2 BombStrUp OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+5 Fate, -3 Artisan ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

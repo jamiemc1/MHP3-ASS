@@ -1,0 +1,29 @@
+{
+  "id": "f252",
+  "query_json": "{\"id\":\"f252\",\"description\":\"armour-seeded sampler, charm mode slotted, 4 skills; quotas: cross_type, torso_up\",\"language\":\"Japanese\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":6,\"elder_star\":5,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[168,55,17,37],\"skill_names\":[\"\u30dc\u30de\u30fc\",\"\u6563\u5f3e\u30fb\u62e1\u6563\u77e2UP\",\"\u629c\u5200\u8853\u3010\u529b\u3011\",\"\u88c5\u586b\u901f\u5ea6+1\"],\"my_charms\":[\"1,\u8010\u6ce5\u8010\u96ea,1,\u6bd2,1\",\"1,\u88c5\u586b\u6570,2,\u6563\u5f3e\u5f37\u5316,-1\",\"0,\u629c\u5200\u6e1b\u6c17,1,\u53cd\u52d5,3\",\"0,\u9f8d\u5c5e\u6027\u653b\u6483,4,\u7206\u5f3e\u5f37\u5316,-6\",\"0,\u5c5e\u6027\u8010\u6027,5,\u88c5\u586b\u901f\u5ea6,4\",\"0,\u96f7\u5c5e\u6027\u653b\u6483,6,\u88c5\u586b\u901f\u5ea6,-3\",\"0,\u30ac\u30fc\u30c9\u6027\u80fd,2,\u629c\u5200\u6e1b\u6c17,-3\",\"0,\u96f7\u5c5e\u6027\u653b\u6483,3,\u4f53\u529b,4\",\"0,\u8cab\u901a\u5f3e\u8ffd\u52a0,4,\u63a1\u53d6,9\",\"0,\u6c34\u5c5e\u6027\u653b\u6483,7,\u7cbe\u5bc6\u5c04\u6483,-7\",\"0,\u88c5\u586b\u901f\u5ea6,6,\u901f\u5c04,1\",\"0,\u96f7\u5c5e\u6027\u653b\u6483,6,\u672c\u6c17,2\",\"0,\u8cab\u901a\u5f3e\u5f37\u5316,5,\u6c37\u8010\u6027,9\",\"0,\u88c5\u586b\u6570,1,\u6563\u5f3e\u5f37\u5316,3\",\"0,\u6e1b\u6c17\u653b\u6483,5,,\",\"0,\u88c5\u586b\u901f\u5ea6,2,\u653b\u6483,4\",\"0,\u9ebb\u75fa,4,\u7761\u7720,4\",\"0,KO,6,\u7206\u5f3e\u5f37\u5316,-8\",\"0,\u65ac\u88c2\u5f3e\u8ffd\u52a0,2,\u8abf\u5408\u6570,5\",\"0,\u629c\u5200\u4f1a\u5fc3,3,\u88c5\u586b\u901f\u5ea6,4\",\"2,\u88c5\u586b\u901f\u5ea6,1,\u8179\u6e1b\u308a,4\",\"0,\u8074\u899a\u4fdd\u8b77,1,\u88c5\u586b\u6570,-3\",\"0,\u88c5\u586b\u901f\u5ea6,2,\u904b\u642c,2\",\"1,\u8179\u6e1b\u308a,2,\u9ebb\u75fa\u74f6\u8ffd\u52a0,1\",\"0,\u7279\u6b8a\u653b\u6483,2,\u8abf\u5408\u6210\u529f\u7387,-2\",\"3,\u88c5\u586b\u6570,5,\u56de\u5fa9\u901f\u5ea6,0\"]}",
+  "my_charms_loaded": 26,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    8,
+    5,
+    4,
+    7,
+    6
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 542,
+      "added": 534,
+      "added_sha256": "0211c3ce530e83c08fecc0033316f9ef49502a16b04142d4f18e59fb8c4f8418"
+    }
+  ],
+  "solution_count": 534,
+  "solutions_sha256": "0211c3ce530e83c08fecc0033316f9ef49502a16b04142d4f18e59fb8c4f8418",
+  "solution_set_sha256": "57f3d82f140adb5b357d53067aba62b7041fb4b2f264ca7a8352a7f8972771e7",
+  "solutions_file": true,
+  "exception": null
+}

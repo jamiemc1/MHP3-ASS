@@ -1,0 +1,29 @@
+{
+  "id": "f124",
+  "query_json": "{\"id\":\"f124\",\"description\":\"armour-seeded sampler, charm mode none, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":3,\"elder_star\":4,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[170],\"skill_names\":[\"Trnquilizr Guru\"],\"my_charms\":[\"0,Horn,2,Perception,1\",\"0,Constitutn,1,Perception,-4\",\"0,PelletSAdd,1,Perception,7\",\"0,Fire Res,1,PowerCAdd,10\",\"0,PunishDraw,1,PelletS Up,1\",\"0,SpeedSetup,4,Perception,-9\",\"1,Quake Res,6,Perception,-2\",\"0,Fire Atk,5,Perception,9\",\"0,Stun,5,Perception,-8\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    5,
+    5,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 450,
+      "added": 450,
+      "added_sha256": "46fbe3f45990c352e18a38aa68cc79f11270701d10aa0e5a359aabec8dcfc355"
+    }
+  ],
+  "solution_count": 450,
+  "solutions_sha256": "46fbe3f45990c352e18a38aa68cc79f11270701d10aa0e5a359aabec8dcfc355",
+  "solution_set_sha256": "46fbe3f45990c352e18a38aa68cc79f11270701d10aa0e5a359aabec8dcfc355",
+  "solutions_file": true,
+  "exception": null
+}

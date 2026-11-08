@@ -1,0 +1,29 @@
+{
+  "id": "f134",
+  "query_json": "{\"id\":\"f134\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[124,84,139,80],\"skill_names\":[\"Parlysis Negated\",\"Thunder Element +2\",\"Earplug\",\"Water Element +1\"],\"my_charms\":[\"2,Carving,1,HearProtct,-3\",\"0,PierceS Up,3,Debilitate,-1\",\"0,Sheathe,1,Thundr Atk,9\",\"0,ThunderRes,1,Wide Area,10\",\"0,PelletS Up,4,Blight Res,3\",\"0,Ice Res,1,Quake Res,-10\",\"0,FastCharge,4,Fate,2\",\"0,Potential,1,Stun,9\",\"0,Defense,3,Paralysis,5\",\"1,Rec Level,1,Eating,0\",\"2,Paralysis,2,Precision,-6\",\"0,Guard,1,Fire Atk,5\",\"0,Guard,6,PelletS Up,1\",\"0,Ice Attack,3,Thundr Atk,7\",\"0,Horn,2,ParalyCAdd,-10\",\"0,Water Atk,4,Stamina,3\",\"1,Potential,4,Thundr Atk,-6\",\"0,Thundr Atk,4,Fire Atk,-3\",\"1,Water Atk,2,Stamina,-3\",\"0,Attack,1,Fortitude,3\",\"0,Protection,4,Status,2\",\"1,Guard,2,ThunderRes,-7\",\"2,Ice Res,1,ThunderRes,1\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    10,
+    4,
+    7,
+    8,
+    6
+  ],
+  "relevant_decoration_count": 7,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

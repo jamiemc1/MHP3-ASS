@@ -1,0 +1,71 @@
+{
+  "id": "f479",
+  "query_json": "{\"id\":\"f479\",\"description\":\"armour-seeded sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[141,98,208,205],\"skill_names\":[\"Health +20\",\"Stamina Recov Up\",\"Bullet Limit\",\"Combine Success+45%\"],\"my_charms\":[\"2,Fortitude,1,Cold Res,-1\",\"0,Will Recov,2,Heat Res,4\",\"0,Paralysis,3,PowerCAdd,7\",\"0,Dragon Atk,7,Shot Mix,5\",\"2,Will Recov,4,Rapid Fire,0\",\"0,Sheathe,4,PierceSAdd,8\",\"0,Constitutn,5,Shot Mix,8\",\"0,Health,4,Gluttony,1\",\"1,Guard Up,3,KO,-2\"]}",
+  "my_charms_loaded": 9,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    5,
+    3,
+    5,
+    5
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Health O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+8 Health ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 Shot Mix O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 Shot Mix ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+8 Combo Rate O--",
+      "found": 11,
+      "added": 11,
+      "added_sha256": "5463219ce0448b698f21bbc36f6b7a7073c0bf48803aea4a5ea14cdb5f1772d8"
+    },
+    {
+      "worker": 6,
+      "charm": "+10 Combo Rate ---",
+      "found": 6,
+      "added": 3,
+      "added_sha256": "8327dd4c2b5a968425877733e9d50e388d1380ef14f4bb8d50c926b021ed58f5"
+    }
+  ],
+  "solution_count": 14,
+  "solutions_sha256": "8f28de3ba5716cb835c5c6e2a45e55bc2decdd5f8bfb8e56db86a5f1b755f579",
+  "solution_set_sha256": "12c8410bcf3915c096b26553f1ab09abd143bcff557dd809fb4c83fe9052038c",
+  "solutions_file": true,
+  "exception": null
+}

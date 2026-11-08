@@ -1,0 +1,29 @@
+{
+  "id": "f284",
+  "query_json": "{\"id\":\"f284\",\"description\":\"armour-seeded sampler, charm mode slotted, 2 skills; quotas: cross_type\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[101,38],\"skill_names\":[\"Hunger nichtig\",\"NachlGesch +2\"],\"my_charms\":[\"0,Handwerk,3,DrchAngHch,-4\",\"0,Eigenbr\u00f6dl,6,ErmdBschHz,0\",\"0,KritHieb,4,Ausdauer,2\",\"0,Konstitutn,3,Status,4\",\"1,DrchAngHch,1,Hunger,-3\",\"0,Brandabw.,5,Potenzial,4\",\"0,Geh\u00f6r,2,Hunger,-1\",\"0,Ausweichen,4,NachlGesch,-1\",\"1,NachlGesch,1,Experte,-7\",\"0,Hunger,8,L\u00e4hmBschHz,4\",\"0,NachlGesch,5,Windabwehr,2\",\"1,Block,2,Windabwehr,2\",\"0,SchrtSzuf\u00fc,5,Hunger,2\",\"0,WssrAngHch,2,Hunger,1\"]}",
+  "my_charms_loaded": 14,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 116,
+      "added": 94,
+      "added_sha256": "520049e38053728e04ba134518152f4248d01fd33a5133a8f1a2b4ca2d3bb906"
+    }
+  ],
+  "solution_count": 94,
+  "solutions_sha256": "520049e38053728e04ba134518152f4248d01fd33a5133a8f1a2b4ca2d3bb906",
+  "solution_set_sha256": "604765417b7b6e7e058eb1681c683c53456a03e3062246a7a76e47b11834099f",
+  "solutions_file": true,
+  "exception": null
+}

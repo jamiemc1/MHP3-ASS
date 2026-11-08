@@ -1,0 +1,29 @@
+{
+  "id": "f170",
+  "query_json": "{\"id\":\"f170\",\"description\":\"uniform sampler, charm mode two_skill, 2 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":6,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[75,193],\"skill_names\":[\"Element Atk Up\",\"Spirit\\u0027s Whim\"],\"my_charms\":[\"0,Guard,1,PierceSAdd,8\",\"2,Awaken,1,Sharpener,-6\",\"0,Sheathe,5,BombStrUp,-10\",\"0,Attack,4,Whim,-8\",\"1,Ice Res,3,Whim,-7\",\"0,Carving,2,Potential,2\",\"1,Ice Res,3,Whim,-7\",\"0,Constitutn,2,Whim,-7\",\"0,Sheathe,3,BombStrUp,7\",\"0,KO,3,Elemental,-2\",\"0,Ice Attack,6,Potential,-1\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    3,
+    4,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 720,
+      "added": 720,
+      "added_sha256": "911a8ca500503248c18e83570dfe2e7d50ba251685ef5bc6e5f507dd35f7b897"
+    }
+  ],
+  "solution_count": 720,
+  "solutions_sha256": "911a8ca500503248c18e83570dfe2e7d50ba251685ef5bc6e5f507dd35f7b897",
+  "solution_set_sha256": "639083c564e1078c2247bde619403c5a7c76c2025d7b1ff7a4ce2d170d5bcb3f",
+  "solutions_file": true,
+  "exception": null
+}

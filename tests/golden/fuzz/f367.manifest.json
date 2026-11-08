@@ -1,0 +1,29 @@
+{
+  "id": "f367",
+  "query_json": "{\"id\":\"f367\",\"description\":\"uniform sampler, charm mode slotted, 3 skills; quotas: empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[90,16,178],\"skill_names\":[\"Dragon Element +2\",\"Sharpness +1\",\"Filled Up\"],\"my_charms\":[\"0,FatigueAtk,3,Dragon Res,5\",\"0,Psychic,5,Gunnery,-3\",\"1,Dragon Atk,1,FatigueAtk,0\",\"1,Guard Up,3,Artisan,-3\",\"0,NormalSAdd,3,Gluttony,-7\",\"0,Guard Up,1,Hunger,-10\",\"0,Constitutn,5,Wide Area,2\",\"1,Reload Spd,1,Dragon Atk,1\",\"0,FatigueAtk,1,Paralysis,-1\",\"0,FastCharge,5,Dragon Atk,6\",\"0,CutterSAdd,2,Combo Rate,-5\",\"0,Artisan,3,Attack,4\",\"0,Potential,5,Cold Res,8\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

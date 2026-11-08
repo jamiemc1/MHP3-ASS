@@ -1,0 +1,29 @@
+{
+  "id": "f298",
+  "query_json": "{\"id\":\"f298\",\"description\":\"uniform sampler, charm mode slotted, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":6,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[122],\"skill_names\":[\"Poison Negated\"],\"my_charms\":[\"0,Protection,5,Water Res,7\",\"0,PunishDraw,3,Sharpener,0\",\"0,Poison,1,Combo Rate,-1\",\"0,Sharpness,3,Fire Res,7\",\"0,Rec Level,2,Perception,6\",\"0,Eating,1,Fire Atk,-1\",\"2,FatigueAtk,1,PelletS Up,0\",\"0,Psychic,5,Poison,3\",\"0,PelletSAdd,3,Poison,-6\",\"0,Antiseptic,6,Ice Res,-3\",\"0,Rec Speed,1,Health,-5\",\"1,WindPress,2,DungMaster,-2\",\"0,PelletS Up,5,Wide Area,-7\",\"0,Poison,2,Huntsman,0\",\"0,Horn,1,Sleep,-3\",\"0,NormalSAdd,1,DungMaster,1\",\"2,ClustS Add,5,,\",\"0,FatigueAtk,5,Thundr Atk,-6\",\"0,Awaken,2,Attack,-9\",\"0,Poison,5,PierceSAdd,-4\",\"1,Fire Atk,1,Rapid Fire,1\",\"0,Poison,4,Stun,10\",\"0,Blight Res,2,KO,4\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    2,
+    3,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 144,
+      "added": 144,
+      "added_sha256": "8b6f1556d71f16b23f84973b42381203478d34ce3c9cccbd6a85293c743734f1"
+    }
+  ],
+  "solution_count": 144,
+  "solutions_sha256": "8b6f1556d71f16b23f84973b42381203478d34ce3c9cccbd6a85293c743734f1",
+  "solution_set_sha256": "8b6f1556d71f16b23f84973b42381203478d34ce3c9cccbd6a85293c743734f1",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f200",
+  "query_json": "{\"id\":\"f200\",\"description\":\"armour-seeded sampler, charm mode none, 2 skills; quotas: cross_type, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"none\",\"skills\":[87,12],\"skill_names\":[\"Ice Element +2\",\"Sharp Sword\"],\"my_charms\":[\"0,Ice Attack,2,Sharpener,-9\",\"2,PelletS Up,3,Water Res,-1\",\"1,ThunderRes,4,,\",\"1,Fire Atk,3,Ice Attack,3\",\"1,FastCharge,2,Guard,-1\",\"2,Water Atk,1,Anti-Theft,-9\",\"0,ThunderRes,3,,\",\"0,Water Atk,4,Guard Up,-1\",\"0,Sharpness,1,Sheathe,4\",\"0,Status,1,Defense,-4\",\"0,Horn,6,Shot Mix,-8\",\"1,Sharpness,1,Protection,-9\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

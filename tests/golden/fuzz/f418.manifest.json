@@ -1,0 +1,29 @@
+{
+  "id": "f418",
+  "query_json": "{\"id\":\"f418\",\"description\":\"uniform sampler, charm mode none, 1 skill; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[56],\"skill_names\":[\"Normal S All Add\"],\"my_charms\":[\"2,Wide Area,4,NormalSAdd,0\",\"0,NormalSAdd,5,Shot Mix,9\",\"0,NormalSAdd,1,HiSpdGathr,0\",\"0,NormalSAdd,1,FatigeCAdd,-5\",\"0,Will Recov,6,NormalSAdd,3\",\"0,NormalSAdd,6,Paralysis,2\"]}",
+  "my_charms_loaded": 6,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    2,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 240,
+      "added": 240,
+      "added_sha256": "d5ae1d6429f1067f57c44a2a40a11e62205983170cb1e5f69ad054fc07a861c6"
+    }
+  ],
+  "solution_count": 240,
+  "solutions_sha256": "d5ae1d6429f1067f57c44a2a40a11e62205983170cb1e5f69ad054fc07a861c6",
+  "solution_set_sha256": "dc727ffe031b805ebc17659f1179cdf996b5d2083349ba44d75efc4e880e7e22",
+  "solutions_file": true,
+  "exception": null
+}

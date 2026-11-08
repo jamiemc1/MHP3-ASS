@@ -1,0 +1,21 @@
+{
+  "id": "f489",
+  "query_json": "{\"id\":\"f489\",\"description\":\"uniform sampler, charm mode slotted, 5 skills; quotas: auto_guard_no_charm, cross_type, empty_slot\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"slotted\",\"skills\":[176,146,161,119,55],\"skill_names\":[\"Item Use Up\",\"Def Up (M)\",\"Ice Res (L)\",\"Auto-Guard\",\"PelletS/ScatterBowUp\"],\"my_charms\":[\"0,Poison,2,Psychic,-6\",\"0,Water Res,2,ParalyCAdd,-2\",\"1,Water Res,2,PelletSAdd,3\",\"0,Water Res,2,ParalyCAdd,-2\",\"0,Thundr Atk,6,SpeedSetup,9\",\"0,ClustS Add,5,RazorCAdd,6\",\"0,Thundr Atk,3,Evade Dist,-3\",\"0,Crag S Add,4,Horn,-8\",\"0,Thundr Atk,3,ThunderRes,-6\",\"0,Crit Draw,1,Reload Spd,4\",\"2,FatigueAtk,1,Antiseptic,-1\",\"1,Water Res,1,SleepCAdd,-3\",\"0,Defense,3,Sleep,-2\",\"2,,,,\",\"0,Eating,2,Rec Speed,4\",\"0,Rec Level,2,Stun,12\",\"0,Sharpness,2,Expert,-8\",\"0,Guard,2,Rec Level,-2\",\"0,Dragon Res,3,Cold Res,4\",\"1,Sharpness,1,Fire Atk,1\",\"2,WindPress,1,Stamina,2\",\"0,Constitutn,4,Health,-2\"]}",
+  "my_charms_loaded": 22,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 0,
+  "workers": [],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

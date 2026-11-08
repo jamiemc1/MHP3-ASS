@@ -1,0 +1,29 @@
+{
+  "id": "f032",
+  "query_json": "{\"id\":\"f032\",\"description\":\"armour-seeded sampler, charm mode slotted, 1 skill; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[55],\"skill_names\":[\"PelletS/ScatterBowUp\"],\"my_charms\":[\"0,Slam,2,Psychic,1\",\"2,Evasion,1,Huntsman,-1\",\"0,Sharpener,1,Crag S Add,-1\",\"0,Carving,2,Guard,4\",\"0,Gunnery,2,Mud/Snow,2\",\"0,Eating,4,Expert,2\",\"0,PelletS Up,1,Dragon Res,-5\",\"0,HearProtct,1,Fate,-1\",\"0,Ice Attack,5,Anti-Theft,9\",\"0,Fire Atk,4,PelletSAdd,-7\",\"0,Stamina,5,PelletS Up,-3\"]}",
+  "my_charms_loaded": 11,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    2,
+    1,
+    1,
+    3
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 24,
+      "added": 24,
+      "added_sha256": "6e02225433bc89cbfda0002b07b0000cb324ed8ec510b4704fc41b480feab200"
+    }
+  ],
+  "solution_count": 24,
+  "solutions_sha256": "6e02225433bc89cbfda0002b07b0000cb324ed8ec510b4704fc41b480feab200",
+  "solution_set_sha256": "f471ad2827a645e2004752073e641e18f32090a0896b57f71e6b3fc380f12eab",
+  "solutions_file": true,
+  "exception": null
+}

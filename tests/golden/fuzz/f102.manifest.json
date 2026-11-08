@@ -1,0 +1,57 @@
+{
+  "id": "f102",
+  "query_json": "{\"id\":\"f102\",\"description\":\"uniform sampler, charm mode one_skill, 4 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[152,92,134,89],\"skill_names\":[\"Fire Res (L)\",\"Constitution +1\",\"Wind Anchor\",\"Dragon Element +1\"],\"my_charms\":[\"1,Guard,4,Psychic,-6\",\"0,Protection,4,Status,-7\",\"1,Carving,2,Will Recov,-2\",\"0,Expert,2,BombStrUp,3\",\"1,Defense,1,Water Res,-4\",\"0,Rapid Fire,1,Rec Level,-2\",\"0,Carving,2,Protection,7\",\"0,Status,3,Awaken,4\",\"0,PelletS Up,3,Fate,0\",\"1,Carving,1,Awaken,0\",\"1,Thundr Atk,1,Recoil,-1\",\"0,Wide Area,8,ThunderRes,-3\",\"0,Protection,4,Dragon Atk,-7\",\"0,Evasion,1,Cold Res,1\",\"3,,,,\",\"0,Blight Res,1,Guard Up,3\",\"0,Rewards,3,Debilitate,2\",\"0,Fire Res,2,FatigeCAdd,1\",\"1,Water Atk,4,Constitutn,-2\",\"0,CutterSAdd,1,Perception,4\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    7,
+    7,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 Fire Res O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 Fire Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

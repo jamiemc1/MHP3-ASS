@@ -1,0 +1,71 @@
+{
+  "id": "f070",
+  "query_json": "{\"id\":\"f070\",\"description\":\"armour-seeded sampler, charm mode my_charms, 5 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":4,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[73,21,22,164,146],\"skill_names\":[\"Abnormal Status Atk +2\",\"ESP\",\"Exploiter\",\"Dragon Res (L)\",\"Def Up (M)\"],\"my_charms\":[\"0,Sleep,4,SleepCAdd,6\",\"0,PierceS Up,4,Horn,3\",\"0,Ice Attack,2,Hunger,1\",\"0,Fate,4,Slam,1\",\"0,PunishDraw,2,Thundr Atk,7\",\"0,Dragon Res,5,FatigeCAdd,-1\",\"0,Sheathe,1,Defense,6\",\"0,Debilitate,4,Stun,8\",\"0,FastCharge,1,Rapid Fire,2\",\"0,Awaken,3,Fencing,1\",\"0,Carving,5,Protection,1\",\"0,Dragon Atk,4,Psychic,3\",\"0,Debilitate,4,Will Recov,1\",\"0,WindPress,1,CutterSAdd,1\",\"2,Blight Res,3,Carving,0\",\"0,Fire Atk,3,PowerCAdd,8\",\"0,Water Res,3,Defense,-4\",\"0,Guard Up,6,Fencing,-3\",\"0,Evasion,1,Dragon Res,2\",\"0,FastCharge,1,Rapid Fire,2\",\"0,ThunderRes,6,CutterSAdd,9\",\"0,Elemental,4,Stamina,-1\",\"0,Status,3,Heat Res,-8\",\"1,Fencing,1,Elemental,0\",\"0,KO,5,Stamina,2\"]}",
+  "my_charms_loaded": 25,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    7,
+    9,
+    7,
+    7
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Dragon Res, -1 FatigeCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Sheathe, +6 Defense ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Debilitate, +8 Stun ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+3 Blight Res, 0 Carving OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+3 Status, -8 Heat Res ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+1 Fencing, 0 Elemental O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

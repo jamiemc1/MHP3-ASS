@@ -1,0 +1,50 @@
+{
+  "id": "f273",
+  "query_json": "{\"id\":\"f273\",\"description\":\"armour-seeded sampler, charm mode one_skill, 2 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"Fran\u00e7ais (Team MHP2)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":3,\"elder_star\":3,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[157,7],\"skill_names\":[\"R\u00e9s. fdr aug.(pt)\",\"Oeil critique +2\"],\"my_charms\":[\"0,R\u00e9s. eau,1,Vol ineff.,1\",\"0,KO,2,Sant\u00e9,-1\",\"2,Artisan ,2,R\u00e9s. fdr,-3\",\"1,R\u00e9tVigAug.,1,R\u00e9s. fdr,-3\",\"0,Mn Frag +,2,Alchimie,0\",\"0,Critiques,2,Assaut lourd,3\",\"0,Capture,4,\u00c9tourd.,-3\",\"0,Anti-bact.,2,Expert,5\",\"0,Cor,1,End.par.,-7\",\"0,Expert,1,Sommeil,6\",\"0,Pr\u00e9cision,2,R\u00e9s. fdr,3\",\"0,Repas rap.,3,Protection,-9\",\"2,Expert,1,R\u00e9s. drgn,1\",\"1,Aig. augm.,1,R\u00e9s. fdr,-4\",\"0,Sant\u00e9,2,Percept.,2\",\"1,D\u00e9gainage,3,R\u00e9s. feu,8\",\"0,Tir rap.,2,R\u00e9s. fdr,11\",\"0,Constit.,5,R\u00e9s.trmbl,3\",\"0,Expert,3,,\",\"0,R\u00e9cup.,3,R\u00e9s. fdr,3\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    3,
+    2,
+    5
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+5 R\u00e9s. fdr O--",
+      "found": 360,
+      "added": 360,
+      "added_sha256": "b5ab037f76fb9c9d49d0d8b6f01cd504b7457b0611fbc24b111a909cca2a8c95"
+    },
+    {
+      "worker": 1,
+      "charm": "+6 R\u00e9s. fdr ---",
+      "found": 353,
+      "added": 226,
+      "added_sha256": "f9199041143a4ffd4e5716fdf1b895c0258b00d1d1bfdbac1da5b676551f5502"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Expert O--",
+      "found": 360,
+      "added": 359,
+      "added_sha256": "ba1b590f60efbe057d1baaea20ae9071b36bc04f9ccefbc30dceb453c85bf2df"
+    },
+    {
+      "worker": 3,
+      "charm": "+4 Expert ---",
+      "found": 358,
+      "added": 229,
+      "added_sha256": "94cfad677405f3d35015fdd7904b7ad55ea8014ec7d2713c88b9db996c734ce9"
+    }
+  ],
+  "solution_count": 1174,
+  "solutions_sha256": "7df8cce19f4397cfc5ba226332a610e5d798981fb4d4d866623f87e07313b3a2",
+  "solution_set_sha256": "d4421f9ca5f954506d8fa220250815be94d2c6f1d970be3199255431d78f7c8e",
+  "solutions_file": true,
+  "exception": null
+}

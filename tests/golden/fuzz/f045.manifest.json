@@ -1,0 +1,29 @@
+{
+  "id": "f045",
+  "query_json": "{\"id\":\"f045\",\"description\":\"uniform sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[98,122,109,192],\"skill_names\":[\"Stamina Recov Up\",\"Poison Negated\",\"Sneak\",\"Hi-SpdGathering\"],\"my_charms\":[\"1,Antiseptic,1,NormalSAdd,-6\",\"1,Protection,6,WindPress,-9\"]}",
+  "my_charms_loaded": 2,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    9,
+    5,
+    3,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

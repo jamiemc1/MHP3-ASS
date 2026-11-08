@@ -1,0 +1,57 @@
+{
+  "id": "f308",
+  "query_json": "{\"id\":\"f308\",\"description\":\"armour-seeded sampler, charm mode one_skill, 3 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":1,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[72,157,128],\"skill_names\":[\"Abnormal Status Atk +1\",\"Thunder Res (S)\",\"Stun Halved\"],\"my_charms\":[\"0,Stamina,3,Wide Area,2\",\"1,Fate,1,Status,-5\",\"0,Stun,7,Ice Res,-1\",\"1,Fencing,3,Stun,-9\",\"0,Thundr Atk,5,Huntsman,9\",\"0,Fire Atk,4,Stun,-3\",\"0,Expert,1,DungMaster,-3\",\"0,Status,4,Whim,-7\",\"0,Attack,1,Horn,1\",\"0,Precision,3,Health,6\",\"1,Blight Res,5,NormalS Up,-2\",\"1,Status,2,,\",\"0,Rec Speed,3,Attack,0\",\"0,Status,2,WindPress,-9\",\"0,Fire Atk,5,Stamina,2\",\"0,ThunderRes,5,PowerCAdd,0\",\"0,Dragon Res,6,Gunnery,-2\",\"0,NormalS Up,5,Stun,-10\",\"0,Stun,5,RazorCAdd,-8\",\"0,Fire Atk,4,Stun,-3\",\"0,Stun,8,Gluttony,12\",\"0,Water Res,6,Status,-4\",\"0,Ice Attack,3,Perception,7\",\"0,Potential,2,Hunger,-8\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    4,
+    3
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 93,
+      "added": 93,
+      "added_sha256": "b41fe3c046721c4b6b9789a34ced62ed392d26caed473781183ec2f395bdd300"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 ThunderRes O--",
+      "found": 138,
+      "added": 136,
+      "added_sha256": "8d437fe8f108b172e91a0f90df9dbd0daa522876194cb5fcd343dc1a1b9e908f"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 ThunderRes ---",
+      "found": 133,
+      "added": 79,
+      "added_sha256": "eb3d159cdebbc28d43cdb9ab4432e73d868575b0150fab839ff6032d70bd1e42"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 Stun O--",
+      "found": 130,
+      "added": 130,
+      "added_sha256": "06df921d4bd598349437908cd9ef9041d25c1ac347e8a9af26d0aea9d7a4ccfe"
+    },
+    {
+      "worker": 4,
+      "charm": "+8 Stun ---",
+      "found": 119,
+      "added": 80,
+      "added_sha256": "e11904c3db02114661c708bf4886d081ce5159b70d753ad35153195b58dfc113"
+    }
+  ],
+  "solution_count": 518,
+  "solutions_sha256": "b577f2c970791921c45d21702c3f4cb96713550e375bde3b43045a025d13ddd1",
+  "solution_set_sha256": "59f165bb55029dc03de0ec9fb6cc0e1ec3ab4d2592b6a78e2ab6abee3ea6a2d2",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,57 @@
+{
+  "id": "f186",
+  "query_json": "{\"id\":\"f186\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":6,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":false,\"charm_mode\":\"my_charms\",\"skills\":[170,166,75,172],\"skill_names\":[\"Trnquilizr Guru\",\"Wide Area +1\",\"Element Atk Up\",\"Autotracker\"],\"my_charms\":[\"0,Sharpener,2,ParalyCAdd,0\",\"1,FatigueAtk,4,Psychic,2\",\"3,Rewards,1,Wide Area,0\",\"1,Artisan,3,Guard,1\",\"0,Backpackng,5,Wide Area,7\",\"0,Eating,4,ThunderRes,7\",\"0,Elemental,2,,\",\"0,Crag S Add,3,SpeedSetup,10\",\"0,Guard Up,6,Carving,-2\",\"0,Rapid Fire,1,Sheathe,-9\",\"0,Evasion,2,Cold Res,-5\",\"0,Crag S Add,4,Status,2\",\"0,NormalS Up,3,Wide Area,1\",\"0,Guard,4,BombStrUp,-1\",\"0,Evasion,4,CutterSAdd,2\",\"1,NormalSAdd,1,Perception,-1\",\"0,Wide Area,4,Precision,-9\",\"1,Potential,2,Wide Area,-10\",\"0,Fire Atk,4,Wide Area,-1\",\"0,Reload Spd,3,PowerCAdd,-8\",\"0,Fire Res,2,Psychic,-10\",\"0,Guard Up,4,PelletS Up,2\",\"0,Sharpener,4,Wide Area,9\",\"0,Water Atk,2,Wide Area,-1\",\"0,Rec Level,1,Rapid Fire,1\",\"1,Guard Up,6,Fire Atk,-1\"]}",
+  "my_charms_loaded": 26,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    4,
+    4
+  ],
+  "relevant_decoration_count": 3,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 FatigueAtk, +2 Psychic O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+1 Rewards, 0 Wide Area OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Elemental ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+4 Sharpener, +9 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f149",
+  "query_json": "{\"id\":\"f149\",\"description\":\"uniform sampler, charm mode two_skill, 1 skill; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[180],\"skill_names\":[\"Quick Eating +1\"],\"my_charms\":[\"0,Fencing,1,Eating,0\",\"1,NormalS Up,1,Eating,-1\",\"0,Eating,2,Attack,-5\",\"0,Eating,3,Crag S Add,8\",\"0,Eating,1,Wide Area,9\",\"0,BombStrUp,5,Ice Res,-6\",\"0,Protection,3,Defense,-2\",\"0,Potential,3,Rapid Fire,2\",\"0,Artisan,2,Horn,-9\",\"0,PelletSAdd,5,Anti-Theft,2\",\"0,CutterSAdd,5,Heat Res,6\",\"0,Will Recov,2,Eating,1\",\"0,Quake Res,4,Fortitude,8\",\"0,Fire Atk,6,Fire Res,6\",\"0,Sleep,2,FatigeCAdd,8\",\"0,Reload Spd,6,Sharpener,8\",\"1,Eating,3,FatigueAtk,0\",\"2,Eating,1,Attack,1\",\"0,Sharpness,1,Recoil,-2\",\"0,Eating,4,Water Res,7\",\"1,Crit Draw,1,Will Recov,2\",\"0,Eating,2,Ice Attack,3\",\"0,PelletS Up,2,KO,-1\"]}",
+  "my_charms_loaded": 23,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    1,
+    4
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "O--",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "c145ff83b7f46aed516edbc9305a4d83db70bc871a4f8adeeb98947bf2d6774e"
+    }
+  ],
+  "solution_count": 48,
+  "solutions_sha256": "c145ff83b7f46aed516edbc9305a4d83db70bc871a4f8adeeb98947bf2d6774e",
+  "solution_set_sha256": "c145ff83b7f46aed516edbc9305a4d83db70bc871a4f8adeeb98947bf2d6774e",
+  "solutions_file": true,
+  "exception": null
+}

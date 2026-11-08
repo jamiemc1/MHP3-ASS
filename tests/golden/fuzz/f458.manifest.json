@@ -1,0 +1,50 @@
+{
+  "id": "f458",
+  "query_json": "{\"id\":\"f458\",\"description\":\"armour-seeded sampler, charm mode one_skill, 3 skills; quotas: one_skill_hr_3_or_less, torso_up\",\"language\":\"English (Athena)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":5,\"weapon_slots\":2,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[6,133,14],\"skill_names\":[\"Reckless Abandon +1\",\"Wind Breaker\",\"Speed Sharpening\"],\"my_charms\":[\"0,Water Res,1,Health,-9\",\"1,Debilitate,1,PunishDraw,0\",\"3,Stamina,1,Fate,-2\",\"0,WindPress,3,Sharpness,-3\",\"0,Dragon Atk,2,Sharpener,8\",\"1,Rec Level,2,Whim,-6\",\"0,Expert,2,Whim,4\",\"0,Sleep,4,Crag S Add,5\",\"0,Antiseptic,7,NormalSAdd,3\",\"0,Dragon Atk,4,Heat Res,10\",\"0,Water Atk,2,Guard Up,4\",\"0,Rec Speed,5,Expert,-6\",\"0,FatigueAtk,6,Precision,-8\",\"0,Artisan,3,Rapid Fire,1\",\"0,Reload Spd,3,Dragon Res,7\",\"0,Potential,6,Recoil,-1\",\"0,Poison,1,Stun,-8\",\"0,PelletS Up,5,Fate,3\",\"0,Dragon Atk,7,BombStrUp,10\",\"1,FastCharge,1,Expert,-3\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+3 Expert O--",
+      "found": 337,
+      "added": 337,
+      "added_sha256": "ee1e28ce11ea4215fdd74dff59e1e6994db1d804c8e28433c9922aa17646d57f"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Expert ---",
+      "found": 302,
+      "added": 222,
+      "added_sha256": "7caa10fd227831721d16096b65e9510814f0b595e3a9906eed6c29e0c3552f71"
+    },
+    {
+      "worker": 2,
+      "charm": "O--",
+      "found": 263,
+      "added": 246,
+      "added_sha256": "d3d3e7ee33fe1bea10e38edcb6dcd7372754bf2e8bc983ac151ced5b1a3913fa"
+    },
+    {
+      "worker": 3,
+      "charm": "O--",
+      "found": 263,
+      "added": 202,
+      "added_sha256": "de1b43bc73d525f4805eb5af9c8c090e24114629a858a276c14d1250f9031bfd"
+    }
+  ],
+  "solution_count": 1007,
+  "solutions_sha256": "6c31f36d5e50ba4d06e27d3376fba4561ab2e3624b5f20e3b53f787ed9f49731",
+  "solution_set_sha256": "d046ca9abe99682d64b27cb28da11ff0b95ed8a9bcf1352e93bceef8743d2740",
+  "solutions_file": true,
+  "exception": null
+}

@@ -1,0 +1,29 @@
+{
+  "id": "f062",
+  "query_json": "{\"id\":\"f062\",\"description\":\"armour-seeded sampler, charm mode none, 4 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":5,\"elder_star\":5,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[146,129,183,120],\"skill_names\":[\"Def Up (M)\",\"Stun Negated\",\"Huntsman\\u0027s Life\",\"Divine Protection\"],\"my_charms\":[\"0,PelletSAdd,1,Huntsman,4\",\"2,Defense,2,Health,-8\",\"0,Protection,3,Fire Atk,1\"]}",
+  "my_charms_loaded": 3,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    8,
+    7,
+    7,
+    8
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 149,
+      "added": 149,
+      "added_sha256": "015f3322e4c34d283a968663210ef8e2ddc6fbd63a118a260cea6b4f01f89e5e"
+    }
+  ],
+  "solution_count": 149,
+  "solutions_sha256": "015f3322e4c34d283a968663210ef8e2ddc6fbd63a118a260cea6b4f01f89e5e",
+  "solution_set_sha256": "d0fb7a13d8c7dfc01f1c6748296cae186bcfbcefbc67d1ce626c98a4c830d35a",
+  "solutions_file": true,
+  "exception": null
+}

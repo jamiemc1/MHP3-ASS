@@ -1,0 +1,64 @@
+{
+  "id": "f206",
+  "query_json": "{\"id\":\"f206\",\"description\":\"uniform sampler, charm mode one_skill, 2 skills; quotas: torso_up\",\"language\":\"Deutsch (Vuze)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":4,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[203,141],\"skill_names\":[\"Fang-Guru\",\"Gesundheit +20\"],\"my_charms\":[\"0,Beruhigung,1,NachlGesch,-1\",\"0,SchrtSzuf\u00fc,1,NormlSzuf\u00fc,0\",\"0,Eisabwehr,2,Horn,-8\",\"1,Beruhigung,2,Fechten,1\",\"0,HartSchlag,3,DrchAngHch,3\",\"0,Donnerabw.,4,KrftBschHz,-2\",\"0,SchntSHinz,1,Kombi-Rate,8\",\"0,Schn. lad.,5,Beruhigung,0\",\"0,Handwerk,1,Beruhigung,-2\",\"0,Willenskft,4,Beruhigung,3\",\"0,FeurAngHch,6,HartSchlag,-1\",\"1,Wasserabw.,1,Experte,4\",\"0,Erm\u00fcdSchlg,1,Experte,3\",\"0,CragSzuf\u00fcg,1,Schl/Schn.,2\",\"0,Drachenabw,6,Antiseptik,-6\",\"0,Ausweichen,2,SchrtSzuf\u00fc,10\",\"0,Kapazit\u00e4t,3,Beruhigung,-2\",\"0,DrchAngHch,7,Asweichdst,3\",\"0,Eigenbr\u00f6dl,3,Gesundheit,-6\",\"1,Pr\u00e4zision,1,Drachenabw,0\"]}",
+  "my_charms_loaded": 20,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    4,
+    3,
+    4,
+    5
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 6,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Beruhigung OOO",
+      "found": 1409,
+      "added": 1409,
+      "added_sha256": "ca45424ec9c6b7611c6429cf5488a78be94cffa3f1f8cfccbc7bb27275f90aa0"
+    },
+    {
+      "worker": 1,
+      "charm": "+5 Beruhigung OO-",
+      "found": 1426,
+      "added": 668,
+      "added_sha256": "1259c01adcbef7c75e7bd4cf99eadd7d15ce6d1f2a90d5922938ec28077f5cee"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 Beruhigung O--",
+      "found": 1408,
+      "added": 225,
+      "added_sha256": "36dfa6b0f70826f151aff0b9972a0664cb6f48a766f6a6ca6a4024b463f74465"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 Gesundheit OOO",
+      "found": 780,
+      "added": 780,
+      "added_sha256": "26708c78019db20d1a4b24dfa498cd62abeb108689963cef87c5315c99a7b875"
+    },
+    {
+      "worker": 4,
+      "charm": "+10 Gesundheit OO-",
+      "found": 687,
+      "added": 537,
+      "added_sha256": "02ab7676fec910aaa8244b2f36da7790685dc93ce66628d2bd1a36454ab3aa47"
+    },
+    {
+      "worker": 5,
+      "charm": "+13 Gesundheit O--",
+      "found": 578,
+      "added": 402,
+      "added_sha256": "c74a2f8d81380aaeb362404c0342ad13d886fe5301fe0edd6f0df4684a917f07"
+    }
+  ],
+  "solution_count": 4021,
+  "solutions_sha256": "d7454f3026d6c154b289654f06e40303a291552a351aee524f6e4e5744478654",
+  "solution_set_sha256": "3b0002a631389572aeb629839d6c4e8d0c76deddf8ab97fbf8463eb2a3d0d6fb",
+  "solutions_file": true,
+  "exception": null
+}

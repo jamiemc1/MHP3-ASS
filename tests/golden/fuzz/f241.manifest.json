@@ -1,0 +1,29 @@
+{
+  "id": "f241",
+  "query_json": "{\"id\":\"f241\",\"description\":\"armour-seeded sampler, charm mode none, 5 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[67,179,129,158,72],\"skill_names\":[\"Parlysis Coating Add\",\"Picky Eater\",\"Stun Negated\",\"Thunder Res (L)\",\"Abnormal Status Atk +1\"],\"my_charms\":[\"0,Gunnery,5,Huntsman,6\",\"0,CutterSAdd,1,Expert,4\",\"1,Guard,2,Artisan,1\",\"2,Status,4,ThunderRes,-5\",\"0,Recoil,5,Rewards,3\",\"1,Guard Up,1,Gluttony,-8\",\"0,Ice Res,1,FatigeCAdd,-9\"]}",
+  "my_charms_loaded": 7,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

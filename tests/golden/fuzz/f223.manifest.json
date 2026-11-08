@@ -1,0 +1,71 @@
+{
+  "id": "f223",
+  "query_json": "{\"id\":\"f223\",\"description\":\"armour-seeded sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":false,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[60,55,38],\"skill_names\":[\"Pellet S All Add\",\"PelletS/ScatterBowUp\",\"Reload Speed +2\"],\"my_charms\":[\"0,Fire Res,6,PelletSAdd,7\",\"0,Reload Spd,1,Shot Mix,0\",\"0,Fencing,1,Evasion,2\",\"0,Ice Res,3,Horn,8\",\"0,Evasion,3,WindPress,-7\",\"0,Sheathe,1,Fate,1\",\"0,Water Atk,4,,\",\"0,Status,4,PelletSAdd,-7\",\"0,PelletS Up,1,Awaken,2\",\"0,Evasion,1,Combo Rate,0\",\"0,Reload Spd,6,Water Atk,-10\",\"2,ClustS Add,3,Wide Area,-5\",\"0,Evasion,3,Quake Res,7\",\"0,PelletS Up,5,Recoil,3\",\"0,Slam,2,HearProtct,-1\",\"0,Wide Area,1,PelletSAdd,8\",\"2,Artisan,3,Recoil,-2\",\"0,PunishDraw,2,Fencing,1\",\"0,PelletSAdd,2,HiSpdGathr,-7\",\"0,Defense,4,PelletSAdd,0\",\"0,Fate,3,PelletS Up,1\",\"0,PelletSAdd,2,SleepCAdd,3\",\"0,Reload Spd,2,Expert,-8\",\"0,KO,2,Horn,4\"]}",
+  "my_charms_loaded": 24,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 7,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+4 Reload Spd, +6 PelletSAdd ---",
+      "found": 52,
+      "added": 52,
+      "added_sha256": "34dfea5d498ef04a840e2d23d4b59e3bf86f2d08a6a112a83f2bf0a425074197"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Reload Spd, +3 PelletSAdd O--",
+      "found": 41,
+      "added": 27,
+      "added_sha256": "abf84f6ba2adb4c2250400cf79c7e1d0d35adf5af667400f96e11402907c3f41"
+    },
+    {
+      "worker": 2,
+      "charm": "+3 Reload Spd, +10 PelletSAdd ---",
+      "found": 57,
+      "added": 35,
+      "added_sha256": "40daa62d0a4b7a7e1eb8d0ce166c38425abe56ea36952cfb1457723327cfd727"
+    },
+    {
+      "worker": 3,
+      "charm": "+5 Reload Spd, +3 PelletS Up ---",
+      "found": 53,
+      "added": 41,
+      "added_sha256": "8b01f8b6e940356a862b8555f604122ea58de6305192faf64c4fc8eae7ecd13c"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 PelletS Up, +2 Reload Spd ---",
+      "found": 33,
+      "added": 18,
+      "added_sha256": "e338e41929d32d0507cb21f89726ba84b890db6a42ee219ed7d82216e341531d"
+    },
+    {
+      "worker": 5,
+      "charm": "+1 PelletS Up, +1 Reload Spd O--",
+      "found": 28,
+      "added": 18,
+      "added_sha256": "3787be11d46ec1027602aced8fbaa86d408307ce0ab28604fe197c3773521fe1"
+    },
+    {
+      "worker": 6,
+      "charm": "+4 PelletS Up, +3 Reload Spd ---",
+      "found": 42,
+      "added": 20,
+      "added_sha256": "f5243927905caf566d60bf9d6f9a620fe28955e7d94fee42a03caefd2e3591bc"
+    }
+  ],
+  "solution_count": 211,
+  "solutions_sha256": "c1a0126c75bbb1b14afb63ab8074a4484d9b6e0127c8ad7a866853e0fc422a56",
+  "solution_set_sha256": "8945ae0668327a9e723d5035afe71b6170c3f8044817cc699afa445b3ff9e232",
+  "solutions_file": true,
+  "exception": null
+}

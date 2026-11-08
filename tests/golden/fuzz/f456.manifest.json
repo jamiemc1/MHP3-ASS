@@ -1,0 +1,43 @@
+{
+  "id": "f456",
+  "query_json": "{\"id\":\"f456\",\"description\":\"uniform sampler, charm mode one_skill, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"male\",\"hr\":4,\"elder_star\":5,\"weapon_slots\":0,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"one_skill\",\"skills\":[189],\"skill_names\":[\"Gathering +1\"],\"my_charms\":[\"0,Backpackng,3,DungMaster,7\",\"0,Psychic,8,Expert,-7\",\"1,FatigueAtk,2,Sharpener,-10\",\"0,Crag S Add,6,Ice Res,-3\",\"0,Water Atk,6,Attack,9\",\"2,Constitutn,3,Perception,-10\",\"1,NormalS Up,1,Guard,-1\",\"0,Constitutn,6,Defense,0\",\"0,KO,6,Hunger,2\",\"0,PierceSAdd,1,Sense,-3\",\"1,Guard,2,Expert,-8\",\"0,CutterSAdd,6,Huntsman,5\",\"2,Status,2,,\",\"0,Sharpener,4,Fortitude,3\",\"0,Protection,5,PowerCAdd,-3\",\"0,Eating,1,Hunger,10\",\"0,Fire Atk,2,Gathering,-9\",\"3,Constitutn,1,Rec Level,-1\",\"0,FastCharge,5,Ice Res,11\",\"0,Constitutn,1,Fencing,3\",\"1,Eating,2,PunishDraw,2\"]}",
+  "my_charms_loaded": 21,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    5,
+    2,
+    4,
+    3,
+    5
+  ],
+  "relevant_decoration_count": 1,
+  "worker_count": 3,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+6 Gathering OO-",
+      "found": 600,
+      "added": 600,
+      "added_sha256": "7a95b0953fa428d0822e350616c17440d384cd2dadb9b7c2fe92e8825199d680"
+    },
+    {
+      "worker": 1,
+      "charm": "+12 Gathering O--",
+      "found": 600,
+      "added": 600,
+      "added_sha256": "82c014a4bb25c40625c60c6884faa24821cf787fc68209597ba5aca10e5940a6"
+    },
+    {
+      "worker": 2,
+      "charm": "+13 Gathering ---",
+      "found": 600,
+      "added": 600,
+      "added_sha256": "82c014a4bb25c40625c60c6884faa24821cf787fc68209597ba5aca10e5940a6"
+    }
+  ],
+  "solution_count": 1800,
+  "solutions_sha256": "468822acfd2190d0ccc31b40743691e85325d3bf2b38f6cf9e8a7b24f5a7bae9",
+  "solution_set_sha256": "a99ef07d222ec1e07f4e6c8343c983bcec24204ea9f317f7773bfdb8acf04d64",
+  "solutions_file": true,
+  "exception": null
+}

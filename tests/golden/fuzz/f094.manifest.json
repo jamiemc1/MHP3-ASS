@@ -1,0 +1,29 @@
+{
+  "id": "f094",
+  "query_json": "{\"id\":\"f094\",\"description\":\"uniform sampler, charm mode none, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":5,\"elder_star\":1,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"none\",\"skills\":[202,112,56],\"skill_names\":[\"Rewards Expert\",\"Recovery Speed +2\",\"Normal S All Add\"],\"my_charms\":[\"0,NormalSAdd,1,Huntsman,10\",\"0,Potential,2,Rec Speed,-3\",\"0,Crit Draw,3,HearProtct,2\",\"0,Fire Atk,1,Guard,4\",\"0,Rewards,2,Eating,1\",\"0,Rewards,2,Eating,1\",\"1,Guard Up,2,Rec Speed,-4\",\"0,Awaken,4,Rec Speed,11\",\"0,Blight Res,2,Rewards,2\",\"0,NormalSAdd,6,Dragon Res,3\",\"0,Rewards,2,Eating,1\",\"1,Evasion,3,KO,1\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    6,
+    4,
+    4,
+    6
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

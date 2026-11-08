@@ -1,0 +1,99 @@
+{
+  "id": "f021",
+  "query_json": "{\"id\":\"f021\",\"description\":\"armour-seeded sampler, charm mode two_skill, 3 skills; quotas: two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[0,112,86],\"skill_names\":[\"Attack Up [Sm]\",\"Recovery Speed +2\",\"Ice Element +1\"],\"my_charms\":[\"0,Rec Speed,4,LastingPwr,2\",\"2,Ice Attack,1,FastCharge,0\",\"2,Ice Attack,2,Recoil,2\",\"0,Ice Attack,7,Ice Res,-2\",\"0,Constitutn,4,Attack,-7\",\"0,PelletS Up,3,Rec Speed,-3\",\"0,Ice Attack,1,Cold Res,-6\",\"0,Dragon Atk,3,Rec Speed,1\",\"3,Slam,1,Rec Speed,-1\",\"0,Attack,4,Precision,-8\",\"0,Water Atk,6,Attack,3\",\"0,Ice Attack,2,PelletSAdd,1\"]}",
+  "my_charms_loaded": 12,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    3,
+    2,
+    3,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 11,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+3 Rec Speed, +5 Attack ---",
+      "found": 161,
+      "added": 161,
+      "added_sha256": "6c783848cdddd88ceb44f429c607e30c6229e62b40b6fabee4844191feb825c2"
+    },
+    {
+      "worker": 1,
+      "charm": "+4 Attack, +4 Rec Speed ---",
+      "found": 172,
+      "added": 146,
+      "added_sha256": "04ef76d7488f8c6e79724fdd45617b1f9adbd24aa25a21dbfa83429bd16fc868"
+    },
+    {
+      "worker": 2,
+      "charm": "+7 Rec Speed, +3 Attack ---",
+      "found": 188,
+      "added": 157,
+      "added_sha256": "e777e61df30edbbca700f37e4ece569497407f0e5c8ad2aec42669694b57326e"
+    },
+    {
+      "worker": 3,
+      "charm": "+2 Ice Attack, +3 Attack O--",
+      "found": 155,
+      "added": 154,
+      "added_sha256": "8f802710475c5648915193a5cb11616453130acab00b773dad6684719e11e0ba"
+    },
+    {
+      "worker": 4,
+      "charm": "+7 Ice Attack, +7 Attack ---",
+      "found": 199,
+      "added": 155,
+      "added_sha256": "5eecd5880e4905151908dd9585888272700c48368a0c5360e32255e27353e7c2"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Ice Attack, +10 Attack ---",
+      "found": 201,
+      "added": 96,
+      "added_sha256": "031eaa96c11ba5a902fecdec9893c625485545f757c42cb662d63edc9747bd06"
+    },
+    {
+      "worker": 6,
+      "charm": "+2 Ice Attack, +9 Rec Speed O--",
+      "found": 207,
+      "added": 171,
+      "added_sha256": "1946c968d6e54c7acb8862d564dd3c83e0461d21ef9c9e952dfd88be7302cb88"
+    },
+    {
+      "worker": 7,
+      "charm": "+2 Ice Attack, +12 Rec Speed ---",
+      "found": 211,
+      "added": 83,
+      "added_sha256": "295aca60042182066b2f7dcbe0086bb97664c5525deba8a6e5b5b3b5e5c79c21"
+    },
+    {
+      "worker": 8,
+      "charm": "+4 Ice Attack, +1 Rec Speed O--",
+      "found": 156,
+      "added": 102,
+      "added_sha256": "2b733a7d9a188de7bbc48eb36ad632582264aa7d0137680165b3915217c2ead2"
+    },
+    {
+      "worker": 9,
+      "charm": "+5 Ice Attack, +11 Rec Speed ---",
+      "found": 216,
+      "added": 124,
+      "added_sha256": "631242bb639e73c9c4c54b425456a214bfaefdfc662d2eaa046716f3a49897ba"
+    },
+    {
+      "worker": 10,
+      "charm": "+7 Ice Attack, +10 Rec Speed ---",
+      "found": 214,
+      "added": 92,
+      "added_sha256": "9da44ea1ab4b111588f1d2354aac80223daa6fdf5cdfe36ee1e989d246ff6835"
+    }
+  ],
+  "solution_count": 1441,
+  "solutions_sha256": "549aee61858af9c51dfb6a5136c135108839f7dc0c1c565e7fd2a81f36dfee8b",
+  "solution_set_sha256": "9f084a14b5ed74021d10e8422306a648b69f4f4ee6ea321ad2d8f469ff32d2f2",
+  "solutions_file": true,
+  "exception": null
+}

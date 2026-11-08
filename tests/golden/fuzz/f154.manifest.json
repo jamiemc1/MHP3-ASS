@@ -1,0 +1,50 @@
+{
+  "id": "f154",
+  "query_json": "{\"id\":\"f154\",\"description\":\"armour-seeded sampler, charm mode my_charms, 4 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[197,56,192,7],\"skill_names\":[\"Good Luck\",\"Normal S All Add\",\"Hi-SpdGathering\",\"Reckless Abandon +2\"],\"my_charms\":[\"2,Fate,3,,\",\"0,NormalSAdd,5,FatigeCAdd,-4\",\"0,Protection,6,NormalSAdd,-5\",\"2,Expert,1,Status,0\",\"0,Loading,6,Ice Attack,-1\",\"2,,,,\",\"0,Ice Res,6,HiSpdGathr,-4\",\"1,,,,\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    4,
+    4,
+    3,
+    4
+  ],
+  "relevant_decoration_count": 5,
+  "worker_count": 4,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 Fate OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+5 NormalSAdd, -4 FatigeCAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+1 Expert, 0 Status OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

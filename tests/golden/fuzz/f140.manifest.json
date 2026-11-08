@@ -1,0 +1,57 @@
+{
+  "id": "f140",
+  "query_json": "{\"id\":\"f140\",\"description\":\"uniform sampler, charm mode my_charms, 3 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":2,\"elder_star\":4,\"weapon_slots\":1,\"allow_bad\":true,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[158,146,26],\"skill_names\":[\"Thunder Res (L)\",\"Def Up (M)\",\"Flute Expert\"],\"my_charms\":[\"0,Sleep,3,Fire Res,6\",\"0,Rec Level,1,Hunger,-2\",\"2,Evade Dist,1,,\",\"0,Recoil,1,Defense,7\",\"0,Water Atk,1,Gathering,3\",\"0,WindPress,1,SleepCAdd,10\",\"0,Evasion,4,ThunderRes,0\",\"0,Gunnery,6,Dragon Res,4\",\"0,PunishDraw,5,Dragon Atk,-8\",\"2,Protection,2,Defense,-1\",\"0,Defense,1,Dragon Res,10\",\"0,Thundr Atk,4,ThunderRes,-4\",\"0,Evade Dist,2,Rapid Fire,3\",\"0,BombStrUp,3,Shot Mix,-6\",\"0,RazorCAdd,2,,\",\"0,Psychic,8,BombStrUp,-8\",\"0,Rewards,4,HearProtct,0\",\"0,ThunderRes,6,PierceSAdd,-5\",\"0,Guard,1,ThunderRes,4\",\"0,BombStrUp,2,ClustS Add,0\",\"0,Eating,4,Fate,-1\",\"0,Fire Atk,2,WindPress,-8\",\"1,Quake Res,1,Huntsman,8\",\"1,Potential,3,Horn,-5\",\"0,ThunderRes,4,Perception,-7\",\"0,Defense,3,Fortitude,8\",\"0,Water Atk,3,Whim,5\",\"0,Eating,1,Sharpness,3\",\"0,PierceSAdd,1,Horn,8\",\"0,Crit Draw,4,Horn,4\"]}",
+  "my_charms_loaded": 30,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    3,
+    5,
+    7,
+    4
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 5,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+1 Recoil, +7 Defense ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+2 Protection, -1 Defense OO-",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+6 ThunderRes, -5 PierceSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+1 PierceSAdd, +8 Horn ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

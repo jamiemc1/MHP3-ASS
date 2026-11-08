@@ -1,0 +1,29 @@
+{
+  "id": "f056",
+  "query_json": "{\"id\":\"f056\",\"description\":\"uniform sampler, charm mode slotted, 6 skills; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"gunner\",\"gender\":\"female\",\"hr\":2,\"elder_star\":2,\"weapon_slots\":2,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[68,38,201,176,49,208],\"skill_names\":[\"Sleep Coating Add\",\"Reload Speed +2\",\"Carving Expert\",\"Item Use Up\",\"Accuracy+1\",\"Bullet Limit\"],\"my_charms\":[\"0,Carving,1,Expert,6\",\"0,Carving,5,Rapid Fire,0\",\"0,ClustS Add,3,Expert,-3\",\"1,Sheathe,4,Guard Up,0\",\"1,Sheathe,4,Guard Up,0\"]}",
+  "my_charms_loaded": 5,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    5,
+    5,
+    5,
+    6
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

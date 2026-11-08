@@ -1,0 +1,36 @@
+{
+  "id": "f393",
+  "query_json": "{\"id\":\"f393\",\"description\":\"armour-seeded sampler, charm mode my_charms, 6 skills; quotas: cross_type, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"male\",\"hr\":2,\"elder_star\":3,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"my_charms\",\"skills\":[96,101,81,71,154,173],\"skill_names\":[\"Runner\",\"Hunger Negated\",\"Water Element +2\",\"Fatigue Coating Add\",\"Water Res (S)\",\"DungBombExpert\"],\"my_charms\":[\"0,KO,3,Sharpness,-1\",\"0,Guard Up,4,Backpackng,1\",\"0,Sharpener,1,Cold Res,-3\",\"0,KO,4,Fire Res,-7\",\"0,Carving,4,Blight Res,0\",\"0,Evade Dist,1,,\",\"0,Fire Res,6,Heat Res,-7\",\"0,Recoil,1,Elemental,2\"]}",
+  "my_charms_loaded": 8,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    7,
+    5,
+    4,
+    5,
+    4
+  ],
+  "relevant_decoration_count": 6,
+  "worker_count": 2,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": null,
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+3 KO, -1 Sharpness ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

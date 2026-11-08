@@ -1,0 +1,169 @@
+{
+  "id": "f462",
+  "query_json": "{\"id\":\"f462\",\"description\":\"uniform sampler, charm mode two_skill, 4 skills; quotas: cross_type, two_skill_hr_below_5, torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":1,\"elder_star\":6,\"weapon_slots\":1,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":true,\"allow_low_rank\":true,\"charm_mode\":\"two_skill\",\"skills\":[65,108,167,87],\"skill_names\":[\"Cutter S Add\",\"Fast Sheathe\",\"Wide Area +2\",\"Ice Element +2\"],\"my_charms\":[\"0,Blight Res,3,Ice Attack,0\",\"0,Expert,3,CutterSAdd,8\",\"0,Water Atk,3,Eating,2\",\"0,Ice Res,5,Quake Res,-9\",\"0,Sheathe,5,RazorCAdd,1\",\"1,Thundr Atk,1,Wide Area,-4\",\"2,Stun,1,Paralysis,-9\",\"0,PelletS Up,4,Ice Attack,-3\",\"1,Fire Res,1,CutterSAdd,-2\",\"0,Sheathe,3,Carving,-1\",\"0,Fire Atk,6,FatigeCAdd,2\",\"0,Artisan,1,Water Atk,2\",\"1,Poison,2,Cold Res,-5\",\"0,ThunderRes,2,Wide Area,-4\",\"0,Rewards,2,Fire Res,5\",\"1,Ice Attack,3,Gluttony,3\",\"0,Evade Dist,1,Loading,3\",\"0,Sheathe,6,Sleep,-1\",\"1,Thundr Atk,5,BombStrUp,-5\",\"0,Evade Dist,4,Defense,-3\",\"0,Constitutn,2,Defense,8\",\"0,Debilitate,5,Gunnery,1\",\"0,Stun,8,Wide Area,-5\",\"1,Sheathe,4,,\",\"0,Fire Atk,6,FatigeCAdd,2\",\"2,Ice Attack,5,Attack,-7\",\"0,Expert,2,Cold Res,-9\",\"0,Wide Area,6,Precision,8\",\"3,Guard,1,Artisan,-1\"]}",
+  "my_charms_loaded": 29,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    6,
+    6,
+    6,
+    6,
+    6
+  ],
+  "relevant_decoration_count": 4,
+  "worker_count": 21,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "+1 Sheathe, +10 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 1,
+      "charm": "+2 Sheathe, +1 CutterSAdd O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 2,
+      "charm": "+6 Sheathe, +9 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 3,
+      "charm": "+7 Wide Area, +8 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 4,
+      "charm": "+5 CutterSAdd, +10 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 5,
+      "charm": "+5 Wide Area, +10 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 6,
+      "charm": "+8 Wide Area, +6 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 7,
+      "charm": "+4 Sheathe, +8 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 8,
+      "charm": "+2 Sheathe, +11 Wide Area O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 9,
+      "charm": "+1 Sheathe, +1 Wide Area OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 10,
+      "charm": "+3 Ice Attack, +10 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 11,
+      "charm": "+6 Ice Attack, +4 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 12,
+      "charm": "+7 Ice Attack, +1 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 13,
+      "charm": "+4 Ice Attack, +7 CutterSAdd ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 14,
+      "charm": "+2 Sheathe, +1 Ice Attack OOO",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 15,
+      "charm": "+3 Sheathe, +8 Ice Attack O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 16,
+      "charm": "+6 Sheathe, +9 Ice Attack ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 17,
+      "charm": "+2 Ice Attack, +8 Wide Area O--",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 18,
+      "charm": "+6 Ice Attack, +9 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 19,
+      "charm": "+5 Ice Attack, +11 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "worker": 20,
+      "charm": "+7 Ice Attack, +7 Wide Area ---",
+      "found": 0,
+      "added": 0,
+      "added_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "solution_count": 0,
+  "solutions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solution_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "solutions_file": true,
+  "exception": null
+}

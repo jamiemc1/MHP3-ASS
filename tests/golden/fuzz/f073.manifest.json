@@ -1,0 +1,29 @@
+{
+  "id": "f073",
+  "query_json": "{\"id\":\"f073\",\"description\":\"armour-seeded sampler, charm mode slotted, 1 skill; quotas: torso_up\",\"language\":\"English (TeamHGG)\",\"hunter_type\":\"blademaster\",\"gender\":\"female\",\"hr\":5,\"elder_star\":6,\"weapon_slots\":3,\"allow_bad\":false,\"include_piercings\":true,\"allow_event\":false,\"allow_low_rank\":true,\"charm_mode\":\"slotted\",\"skills\":[83],\"skill_names\":[\"Thunder Element +1\"],\"my_charms\":[\"0,Status,3,Debilitate,-1\",\"1,Evasion,2,,\",\"1,Mud/Snow,1,SpeedSetup,1\",\"0,PunishDraw,4,Will Recov,3\",\"0,Loading,2,Evade Dist,3\",\"0,Thundr Atk,6,Rec Speed,-2\",\"2,Carving,1,Dragon Atk,-10\",\"0,Wide Area,2,Perception,7\",\"0,Water Atk,5,Status,-4\",\"0,Stun,5,Heat Res,-6\",\"1,KO,2,Defense,3\",\"0,Water Atk,5,Status,-4\",\"0,Health,5,Precision,-6\"]}",
+  "my_charms_loaded": 13,
+  "my_charms_illegal": 0,
+  "relevant_armor_counts": [
+    4,
+    1,
+    2,
+    2,
+    3
+  ],
+  "relevant_decoration_count": 2,
+  "worker_count": 1,
+  "workers": [
+    {
+      "worker": 0,
+      "charm": "OOO",
+      "found": 48,
+      "added": 48,
+      "added_sha256": "fc005892f0e4ebe10f41b334600dae6a0599609c4388e30526f72ef6caf0daf3"
+    }
+  ],
+  "solution_count": 48,
+  "solutions_sha256": "fc005892f0e4ebe10f41b334600dae6a0599609c4388e30526f72ef6caf0daf3",
+  "solution_set_sha256": "9117b2adf040770f027e4ec7e003f5520442fd3500e6840b245eaa6f50a9efeb",
+  "solutions_file": true,
+  "exception": null
+}
