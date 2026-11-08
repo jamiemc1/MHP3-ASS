@@ -171,6 +171,28 @@ def relevance_goldens(repo_root: Path) -> list[RelevanceGolden]:
     )
 
 
+@pytest.fixture
+def attack_sharp_query_json() -> dict[str, Any]:
+    """A valid query file's contents (Attack Up [Med] + Sharp Sword, HR 6), fresh per test."""
+    spec = {
+        "id": "t01",
+        "description": "Attack Up [Med] + Sharp Sword",
+        "language": "English (TeamHGG)",
+        "hunter_type": "blademaster",
+        "gender": "male",
+        "hr": 6,
+        "elder_star": 6,
+        "weapon_slots": 0,
+        "allow_bad": False,
+        "include_piercings": True,
+        "allow_event": True,
+        "allow_low_rank": True,
+        "skills": [1, 12],
+        "skill_names": ["Attack Up [Med]", "Sharp Sword"],
+    }
+    return spec
+
+
 @pytest.fixture(scope="session")
 def best_decorations_golden(golden_data_dir: Path) -> Any:
     """Harness best-decorations output: the query-based GetBestDecoration grid."""
