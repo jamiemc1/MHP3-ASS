@@ -11,7 +11,7 @@ Target: parity with every feature of the original, then a better UX on top.
 | 2 | Data loaders (skills, armour, decorations, components, tags, languages) | No | Done |
 | 3 | Domain models: abilities/skills, decorations, charms | Yes (3b fixtures) | Done |
 | 4 | Relevance filtering (`GetRelevantData`) + charms for a query (`CharmDatabase::GetCharms`) | Yes (4a fixtures) | Done |
-| 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | Yes (5a traces) | In progress (5a traces, 5b decoration filling done) |
+| 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | Yes (5a traces) | Done (5a traces, 5b decoration filling, 5c bad skills, 5d charm reduction and the search worker) |
 | 6 | Search loop, charm modes, CLI | No | Not started |
 | 7 | Save-file charm import (PSP decryption) | No | Done |
 | 8 | Performance: per-charm multiprocessing, profiling, pruning if needed | No | Not started |
