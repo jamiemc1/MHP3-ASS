@@ -282,6 +282,12 @@ def best_decorations_golden(golden_data_dir: Path) -> Any:
 
 
 @pytest.fixture(scope="session")
+def solution_probes_golden(golden_data_dir: Path) -> Any:
+    """Harness solution-probes output: GetScore's point_score comparisons."""
+    return read_golden(golden_data_dir / "solution-probes.json.gz")
+
+
+@pytest.fixture(scope="session")
 def savefile_dir(repo_root: Path) -> Path:
     """Gitignored folder holding the user's own save and reference outputs."""
     return repo_root / "tests" / "savefile"
