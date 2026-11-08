@@ -2,7 +2,8 @@
 
 Ported from ``Decoration::GetSkillAt``, ``NotWorse``,
 ``Decoration::IsBetterThan``, ``Decoration::GetBestDecoration( …, Query^ )``
-and ``Decoration::MatchesQuery`` (``legacy/Decoration.cpp:82-137``).
+and ``Decoration::MatchesQuery`` (``legacy/Decoration.cpp:82-137``), and
+``Decoration::GetBestDecoration( …, rel_deco_map )`` (``Decoration.cpp:146-157``).
 """
 
 from __future__ import annotations
@@ -98,3 +99,19 @@ def decoration_matches_query(decoration: Decoration, query: Query) -> bool:
     first_ability = decoration.abilities[0].ability
     matches = any(skill.ability is first_ability for skill in query.skills)
     return matches
+
+
+def best_decoration_in_map(
+    ability: Ability, max_slots: int, rel_decoration_map: list[list[Decoration]]
+) -> Decoration | None:
+    """``GetBestDecoration( ability, max_slots, rel_deco_map )`` (Decoration.cpp:146-157).
+
+    Scans slot sizes from ``max_slots`` down to 0 and returns the first
+    decoration whose first ability is ``ability``: the largest size wins,
+    then relevance order within a size.
+    """
+    for size in range(max_slots, -1, -1):
+        for decoration in rel_decoration_map[size]:
+            if decoration.abilities[0].ability is ability:
+                return decoration
+    return None
