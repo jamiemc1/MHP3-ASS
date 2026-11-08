@@ -7,7 +7,7 @@ import pytest
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Gender, HunterType
-from mhp3ass.query import QueryError, QuerySpec, build_query
+from mhp3ass.query import QueryError, QuerySpec, build_query, offered_skills
 
 
 def test_every_committed_query_builds(repo_root: Path, teamhgg_game: GameData):
@@ -111,3 +111,19 @@ def test_build_rejects_skill_choices_the_gui_cannot_make(
 
     with pytest.raises(QueryError, match=message):
         build_query(teamhgg_game, spec)
+
+
+def test_offered_skills_are_exactly_the_ones_build_query_accepts(
+    attack_sharp_query_json: dict[str, Any], teamhgg_game: GameData
+):
+    offered = offered_skills(teamhgg_game)
+    accepted = []
+    for index, skill in enumerate(teamhgg_game.skills):
+        attack_sharp_query_json.update(skills=[index], skill_names=[skill.name])
+        try:
+            build_query(teamhgg_game, QuerySpec.from_json(attack_sharp_query_json))
+        except QueryError:
+            continue
+        accepted.append(index)
+
+    assert [len(offered), len(teamhgg_game.skills), offered] == [146, 209, accepted]

@@ -176,6 +176,26 @@ def load_skills(game: GameData, path: Path) -> None:
                 game.ordered_skills.append(ability.skills[points])
 
 
+def read_skill_types(path: Path) -> list[int]:
+    """The ``Type`` column of ``skills.txt`` per skill (0 both, 1 Blademaster, 2 Gunner).
+
+    ``Skill::Load`` never reads this column (it uses fields 0, 2, 4, 6 and 7),
+    and the GUI has no hunter-type skill filter. Lines are skipped as
+    ``load_skills`` skips them, so the list lines up with ``GameData.skills``.
+    """
+    types = []
+    for line in read_lines(path):
+        if line == "":
+            break
+        if line[0] == "#":
+            continue
+        fields = split_fields(line)
+        if fields[2] == "":
+            continue
+        types.append(to_int32(fields[5]))
+    return types
+
+
 def _find_ability(game: GameData, name: str) -> Ability:
     ability = game.ability_map.get(name)
     if ability is None:

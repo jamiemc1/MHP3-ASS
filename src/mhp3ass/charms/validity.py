@@ -17,18 +17,21 @@ from dataclasses import dataclass, field
 
 from mhp3ass.charms.generation import CharmTables
 from mhp3ass.charms.naming import charm_hash
+from mhp3ass.data import GameData
 from mhp3ass.data.text import as_unsigned
-from mhp3ass.model import Charm
+from mhp3ass.model import AbilityPair, Charm
 
 
 @dataclass(frozen=True)
 class DecodedCharm:
-    """``UnhashCharm``: the fields a hash stores (its slot bits aren't read)."""
+    """``UnhashCharm``'s fields, plus the slot count in the hash's low bits
+    (``Charm::HashFunction`` adds it unshifted), which ``UnhashCharm`` doesn't read."""
 
     ability1_index: int
     ability2_index: int
     points1: int
     points2: int
+    num_slots: int
 
 
 def decode_charm_hash(hashed: int) -> DecodedCharm:
@@ -37,8 +40,32 @@ def decode_charm_hash(hashed: int) -> DecodedCharm:
         ability2_index=(hashed >> 18) & 0x7F,
         points1=(hashed >> 2) & 0xF,
         points2=((hashed >> 6) & 0x1F) - 12,
+        num_slots=hashed & 3,
     )
     return decoded
+
+
+def generated_charm(hashed: int, game: GameData) -> Charm:
+    """The charm a generated hash stands for, with ``game``'s abilities.
+
+    An ability index equal to the ability count means no ability
+    (``Charm::HashFunction``). A second ability is kept with whatever points
+    the hash holds, zero or negative included, so the charm hashes back to
+    ``hashed``.
+    """
+    decoded = decode_charm_hash(hashed)
+    ability_count = len(game.abilities)
+    pairs = []
+    if decoded.ability1_index != ability_count:
+        pairs.append(
+            AbilityPair(ability=game.abilities[decoded.ability1_index], amount=decoded.points1)
+        )
+    if decoded.ability2_index != ability_count:
+        pairs.append(
+            AbilityPair(ability=game.abilities[decoded.ability2_index], amount=decoded.points2)
+        )
+    charm = Charm(num_slots=decoded.num_slots, abilities=pairs)
+    return charm
 
 
 @dataclass

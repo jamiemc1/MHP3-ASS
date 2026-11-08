@@ -8,7 +8,7 @@ import pytest
 
 from mhp3ass.charms.generation import CharmTables
 from mhp3ass.charms.naming import charm_hash
-from mhp3ass.charms.validity import build_charm_validity, decode_charm_hash
+from mhp3ass.charms.validity import build_charm_validity, decode_charm_hash, generated_charm
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Charm
 
@@ -94,4 +94,30 @@ def test_decode_reverses_hash_fields(teamhgg_game):
         expert.static_index,
         7,
         -3,
+    ]
+
+
+def test_every_generated_hash_rebuilds_a_charm_that_exists(charm_tables, teamhgg_game, validity):
+    ability_count = len(teamhgg_game.abilities)
+    rebuilt = [generated_charm(hashed, teamhgg_game) for hashed in charm_tables.charm_hashes]
+    not_round_tripped = [
+        hashed
+        for hashed, charm in zip(charm_tables.charm_hashes, rebuilt, strict=True)
+        if charm_hash(charm, ability_count) != hashed or not validity.exists(charm)
+    ]
+    shapes = {(charm.num_slots, len(charm.abilities)) for charm in rebuilt}
+
+    assert not_round_tripped == []
+    assert shapes == {(slots, count) for slots in range(4) for count in (1, 2)}
+
+
+def test_decode_reads_the_slot_bits(teamhgg_game):
+    attack = teamhgg_game.abilities[0]
+    charm = Charm(num_slots=3, abilities=[AbilityPair(ability=attack, amount=2)])
+    decoded = decode_charm_hash(charm_hash(charm, len(teamhgg_game.abilities)))
+
+    assert [decoded.num_slots, decoded.ability2_index, decoded.points2] == [
+        3,
+        len(teamhgg_game.abilities),
+        0,
     ]
