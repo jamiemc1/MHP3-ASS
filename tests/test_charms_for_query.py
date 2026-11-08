@@ -10,12 +10,14 @@ from mhp3ass.charms.for_query import get_charms
 from mhp3ass.charms.generation import CharmTables
 from mhp3ass.data import GameData
 from mhp3ass.query import QuerySpec, build_query
+from mhp3ass.relevance import formulate_query
 
 
 def _charms_section(
     golden: RelevanceGolden, game: GameData, tables: CharmTables, use_two_skill_charms: bool
 ) -> dict[str, Any]:
-    query = build_query(game, QuerySpec.from_json(golden.query))
+    # The harness calls GetCharms after FormulateQuery, so relevance state is set too.
+    query = formulate_query(game, QuerySpec.from_json(golden.query))
     charms = get_charms(query, tables=tables, use_two_skill_charms=use_two_skill_charms)
     section = {"exception": None, "charms": [charm_shape(charm) for charm in charms]}
     return section
@@ -34,17 +36,19 @@ def _mismatched_charms(
 
 
 def test_charms_match_golden(
-    relevance_goldens: list[RelevanceGolden], teamhgg_game: GameData, charm_tables: CharmTables
+    relevance_goldens: list[RelevanceGolden],
+    scratch_game: GameData,
+    scratch_charm_tables: CharmTables,
 ):
-    assert _mismatched_charms(relevance_goldens, teamhgg_game, charm_tables) == []
+    assert _mismatched_charms(relevance_goldens, scratch_game, scratch_charm_tables) == []
 
 
 def test_personal_charms_match_golden(
     personal_relevance_goldens: list[RelevanceGolden],
-    teamhgg_game: GameData,
-    charm_tables: CharmTables,
+    scratch_game: GameData,
+    scratch_charm_tables: CharmTables,
 ):
-    assert _mismatched_charms(personal_relevance_goldens, teamhgg_game, charm_tables) == []
+    assert _mismatched_charms(personal_relevance_goldens, scratch_game, scratch_charm_tables) == []
 
 
 def test_two_skill_charms_are_the_tables_own_objects(

@@ -132,6 +132,19 @@ def teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
 
 
 @pytest.fixture(scope="session")
+def scratch_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
+    """A game in English (TeamHGG) that tests may run queries on, which rewrite its
+    relevance state (ability flags, armour no_skills and danger)."""
+    return load_teamhgg_game()
+
+
+@pytest.fixture(scope="session")
+def scratch_charm_tables(scratch_game: GameData) -> CharmTables:
+    """Charm tables for ``scratch_game``: they are keyed by its abilities."""
+    return generate_charm_tables(scratch_game)
+
+
+@pytest.fixture(scope="session")
 def charm_tables(teamhgg_game: GameData) -> CharmTables:
     """Generated charm tables for ``teamhgg_game`` (about a second). Tests must not mutate them."""
     return generate_charm_tables(teamhgg_game)
