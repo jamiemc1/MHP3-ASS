@@ -1,15 +1,27 @@
 """Python game data in the harness's golden fixture layout.
 
-Mirrors ``harness/src/DataDump.cpp`` so loaded data can be compared with
-``tests/golden/data/`` table by table.
+Mirrors ``harness/src/DataDump.cpp``, ``Fixtures.h`` and ``RelevanceDump.cpp``
+so port output can be compared with ``tests/golden/`` section by section.
 """
 
 from __future__ import annotations
 
 from typing import Any
 
+from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
-from mhp3ass.model import Ability, AbilityPair, ArmorType, Gender, HunterType, MaterialComponent
+from mhp3ass.model import (
+    Ability,
+    AbilityPair,
+    Armor,
+    ArmorType,
+    Charm,
+    Decoration,
+    Gender,
+    HunterType,
+    MaterialComponent,
+)
+from mhp3ass.query import Query
 
 
 def _gender_name(gender: Gender) -> str:
@@ -26,13 +38,13 @@ def _hunter_type_name(hunter_type: HunterType) -> str:
     return names[hunter_type]
 
 
-def _ability_ref(ability: Ability | None) -> int | None:
+def ability_ref(ability: Ability | None) -> int | None:
     reference = None if ability is None else ability.static_index
     return reference
 
 
 def _ability_pairs(pairs: list[AbilityPair]) -> list[dict[str, Any]]:
-    shaped = [{"ability": _ability_ref(pair.ability), "amount": pair.amount} for pair in pairs]
+    shaped = [{"ability": ability_ref(pair.ability), "amount": pair.amount} for pair in pairs]
     return shaped
 
 
@@ -63,13 +75,13 @@ def game_data_shape(game: GameData) -> dict[str, Any]:
             }
             for ability in game.abilities
         ],
-        "ordered_abilities": [_ability_ref(ability) for ability in game.ordered_abilities],
+        "ordered_abilities": [ability_ref(ability) for ability in game.ordered_abilities],
         "skills": [
             {
                 "index": index,
                 "name": skill.name,
                 "points_required": skill.points_required,
-                "ability": _ability_ref(skill.ability),
+                "ability": ability_ref(skill.ability),
             }
             for index, skill in enumerate(game.skills)
         ],
@@ -97,7 +109,7 @@ def game_data_shape(game: GameData) -> dict[str, Any]:
                     "no_skills": armor.no_skills,
                     "is_piercing": armor.is_piercing,
                     "is_event": armor.is_event,
-                    "danger": _ability_ref(armor.danger),
+                    "danger": ability_ref(armor.danger),
                     "abilities": _ability_pairs(armor.abilities),
                     "components": _components(armor.components),
                 }
@@ -155,3 +167,47 @@ def names_shape(game: GameData) -> dict[str, Any]:
         "skill_tags": [tag.name for tag in game.skill_tags],
     }
     return shape
+
+
+def charm_shape(charm: Charm) -> dict[str, Any]:
+    """``Fixtures::WriteCharmFields`` (Fixtures.h:44-50)."""
+    shaped = {
+        "name": charm_name(charm),
+        "num_slots": charm.num_slots,
+        "abilities": _ability_pairs(charm.abilities),
+    }
+    return shaped
+
+
+def _armor_entries(armors: list[Armor]) -> list[dict[str, Any]]:
+    entries = [
+        {"index": armor.index, "no_skills": armor.no_skills, "danger": ability_ref(armor.danger)}
+        for armor in armors
+    ]
+    return entries
+
+
+def _decoration_indices(decorations: list[Decoration]) -> list[int]:
+    indices = [decoration.index for decoration in decorations]
+    return indices
+
+
+def relevance_shape(game: GameData, query: Query) -> dict[str, Any]:
+    """``RelevanceDump::Run``'s GetRelevantData sections (RelevanceDump.cpp)."""
+    armor = {
+        armor_type.name.lower(): {
+            "relevant": _armor_entries(query.rel_armor[armor_type.value]),
+            "inferior": _armor_entries(query.inf_armor[armor_type.value]),
+        }
+        for armor_type in ArmorType
+    }
+    shaped = {
+        "rel_abilities": [ability.static_index for ability in query.rel_abilities],
+        "relevant_flags": [ability.static_index for ability in game.abilities if ability.relevant],
+        "armor": armor,
+        "decorations": {
+            "relevant": _decoration_indices(query.rel_decorations),
+            "inferior": _decoration_indices(query.inf_decorations),
+        },
+    }
+    return shaped

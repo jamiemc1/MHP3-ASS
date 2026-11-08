@@ -4,21 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from golden_shapes import charm_shape
 from mhp3ass.charms.generation import CharmTables, rank_point, rnd
-from mhp3ass.charms.naming import charm_name
-from mhp3ass.model import Charm
-
-
-def _charm_entry(charm: Charm) -> dict[str, Any]:
-    entry = {
-        "name": charm_name(charm),
-        "num_slots": charm.num_slots,
-        "abilities": [
-            {"ability": pair.ability.static_index, "amount": pair.amount}
-            for pair in charm.abilities
-        ],
-    }
-    return entry
 
 
 def _charm_table_section(tables: CharmTables) -> list[dict[str, Any]]:
@@ -43,7 +30,7 @@ def _two_skill_section(tables: CharmTables, abilities) -> list[dict[str, Any]]:
         for j in range(i):
             charms = tables.two_skill[abilities[i]][abilities[j]]
             if charms:
-                charm_entries = [_charm_entry(charm) for charm in charms]
+                charm_entries = [charm_shape(charm) for charm in charms]
                 section.append({"ability_a": i, "ability_b": j, "charms": charm_entries})
     return section
 
