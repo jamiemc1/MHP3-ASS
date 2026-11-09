@@ -30,7 +30,7 @@ to the TUI.
 | Toggles: piercings, bad skills, event armour, low-rank armour | `Form1.h:1198` | 4 |
 | Charm modes: none, my charms, slotted, one-skill, two-skill | `Form1.h:1293` | 6 |
 | Auto-guard special case | `Form1.h:1274` | 6 |
-| Advanced search: per-piece armour/decoration include lists | `frmAdvanced.h`, `Form1.h:1424` | 4, 10 |
+| Advanced search: per-piece armour/decoration include lists | `frmAdvanced.h`, `Form1.h:1420-1459` | 4, 10 (`advanced.py`) |
 | Result sorting (the original's keys, sorted stably) | `Form1.h:20-80`, `:2149-2172` (`cmbSort`) | 10 (`results/sorting.py`) |
 | Result filtering by charm | `Form1.h` (`cmbCharms`) | 10 |
 | Find in results | `frmFind.h` | 10 |
