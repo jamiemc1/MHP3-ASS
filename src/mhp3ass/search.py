@@ -10,8 +10,10 @@ harness's ``SearchDump::Run`` (``harness/src/SearchDump.cpp``) runs them.
 
 from __future__ import annotations
 
+import gc
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Generator
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -112,6 +114,24 @@ def worker_charms(
             )
             workers = list(charms)
     return workers
+
+
+@contextmanager
+def paused_gc() -> Generator[None]:
+    """Turn off cyclic garbage collection for the block, then restore its previous state.
+
+    Every accepted ``Solution`` stays alive until the search ends, so each
+    young-generation collection walks all of them again; on accepted-heavy
+    queries that is about a third of the search time. Reference counting still
+    frees everything a combination drops: the search builds no reference cycles.
+    """
+    was_enabled = gc.isenabled()
+    gc.disable()
+    try:
+        yield
+    finally:
+        if was_enabled:
+            gc.enable()
 
 
 def armor_choices(query: Query) -> list[list[Armor | None]]:
