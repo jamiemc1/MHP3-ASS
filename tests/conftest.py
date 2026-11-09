@@ -26,6 +26,7 @@ from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
 from mhp3ass.query import Query
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
+from mhp3ass.search import SearchData
 from mhp3ass.solution.state import Solution, new_calculation_data
 
 
@@ -340,6 +341,18 @@ def games_by_language(legacy_data_dir: Path, teamhgg_game: GameData) -> dict[str
         apply_language(game, language_dir)
         games[language_dir.name] = game
     return games
+
+
+@pytest.fixture(scope="session")
+def search_data_by_language(legacy_data_dir: Path) -> dict[str, SearchData]:
+    """Search data in each shipped language, for running queries on: each query
+    rewrites its game's relevance state, so these are not shared with
+    ``games_by_language``."""
+    languages = sorted(path.name for path in (legacy_data_dir / "Languages").iterdir())
+    search_data = {
+        language: SearchData.load(legacy_data_dir, language=language) for language in languages
+    }
+    return search_data
 
 
 @pytest.fixture(scope="session")
