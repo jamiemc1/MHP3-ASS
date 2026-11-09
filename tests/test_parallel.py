@@ -88,14 +88,17 @@ def test_tasks_concatenated_in_order_give_each_workers_serial_solutions(
 ):
     query, templates = g13_query_and_templates
     skill_index = {skill: index for index, skill in enumerate(scratch_game.skills)}
-    head_count = len(armor_choices(query)[0])
-    tasks = plan_tasks(worker_count=len(templates), head_count=head_count, jobs=3)
+    head_choices = armor_choices(query)[0]
+    tasks = plan_tasks(worker_count=len(templates), head_count=len(head_choices), jobs=3)
     merged: list[list[str]] = [[] for _ in templates]
+    tasks_with_solutions = [0 for _ in templates]
     for task in tasks:
+        # g13's head slot isn't empty, so its padded choices are rel_armor[0] itself.
         head_range = query.rel_armor[0][task.head_start : task.head_stop]
         task_query = replace(query, rel_armor=[head_range, *query.rel_armor[1:]])
         solutions = run_worker(task_query, templates[task.worker], scratch_game)
         merged[task.worker] += [solution_line(solution, skill_index) for solution in solutions]
+        tasks_with_solutions[task.worker] += 1 if solutions else 0
     serial = [
         [
             solution_line(solution, skill_index)
@@ -103,8 +106,9 @@ def test_tasks_concatenated_in_order_give_each_workers_serial_solutions(
         ]
         for template in templates
     ]
-    assert head_count > 1
-    assert len(tasks) > len(templates)
+    assert head_choices == query.rel_armor[0]
+    assert all(serial)
+    assert all(count >= 2 for count in tasks_with_solutions)
     assert merged == serial
 
 
