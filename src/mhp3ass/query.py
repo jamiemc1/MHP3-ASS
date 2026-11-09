@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
+from enum import IntEnum
 from pathlib import Path
 from typing import Any
 
@@ -90,6 +91,60 @@ class QuerySpec:
     def from_file(cls, path: Path) -> QuerySpec:
         query_spec = cls.from_json(json.loads(path.read_text(encoding="utf-8")))
         return query_spec
+
+
+class CharmMode(IntEnum):
+    """The Charms drop-down (``cmbCharmSelect``); the value is its selected index."""
+
+    NONE = 0
+    MY_CHARMS = 1
+    SLOTTED = 2
+    ONE_SKILL = 3
+    TWO_SKILL = 4
+
+    @classmethod
+    def from_name(cls, name: str) -> CharmMode:
+        """A query file's ``charm_mode``, as the harness's ``CharmSelectIndex``
+        (``harness/src/Workers.cpp``) reads it."""
+        modes: dict[str, CharmMode] = {mode.name.lower(): mode for mode in cls}
+        if name not in modes:
+            raise QueryError(
+                "charm_mode must be one of none, my_charms, slotted, one_skill, two_skill; "
+                f"got {name}"
+            )
+        mode = modes[name]
+        return mode
+
+
+@dataclass(frozen=True)
+class SearchSpec:
+    """A query file's full search: the query, the charm mode and the my-charms lines.
+
+    ``my_charms`` is read in every mode: Auto-Guard looks its charm up there.
+    """
+
+    query: QuerySpec
+    charm_mode: CharmMode
+    # mycharms.txt lines, in the query's language.
+    my_charms: tuple[str, ...]
+
+    @classmethod
+    def from_json(cls, spec: dict[str, Any]) -> SearchSpec:
+        """The corpus schema (``tests/corpus/README.md``). The query fields are
+        checked first, then ``charm_mode``; the my-charms lines are only parsed
+        when loaded (``charms.my_charms.load_query_my_charms``)."""
+        query = QuerySpec.from_json(spec)
+        charm_mode = CharmMode.from_name(spec["charm_mode"])
+        my_charms = spec["my_charms"]
+        if not isinstance(my_charms, list) or not all(isinstance(line, str) for line in my_charms):
+            raise QueryError("my_charms must be a list of mycharms.txt lines")
+        search_spec = cls(query=query, charm_mode=charm_mode, my_charms=tuple(my_charms))
+        return search_spec
+
+    @classmethod
+    def from_file(cls, path: Path) -> SearchSpec:
+        search_spec = cls.from_json(json.loads(path.read_text(encoding="utf-8")))
+        return search_spec
 
 
 def _is_integer(value: Any) -> bool:

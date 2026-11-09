@@ -1,7 +1,8 @@
 """The user's charm list, ``Data/mycharms.txt``.
 
 Ported from ``CharmDatabase::LoadCustom`` and ``CharmDatabase::SaveCustom``
-(``legacy/CharmDatabase.cpp:90-168``). Each of the original's message boxes
+(``legacy/CharmDatabase.cpp:90-168``), plus the harness's stricter reading of
+a query file's charm lines (``harness/src/Workers.cpp``). Each of the original's message boxes
 becomes a per-line outcome. Where the original lets an exception escape
 ``LoadCustom`` (an unreadable slot count, a field ``RemoveQuotes`` can't
 handle, a charm with four or more slots), the GUI fails to start; this
@@ -85,13 +86,33 @@ def load_my_charms(path: Path, game: GameData, validity: CharmValidity) -> Loade
     return loaded
 
 
-def load_my_charm_lines(
+def load_query_my_charms(
     lines: list[str], game: GameData, validity: CharmValidity
+) -> LoadedMyCharms:
+    """A query file's ``my_charms``, as the harness's ``LoadMyCharms``
+    (``harness/src/Workers.cpp``) reads them: ``LoadCustom``, except that a
+    line ``LoadCustom`` answers with a message box (wrong field count, unknown
+    skill, unreadable points) raises ``MyCharmsFileError``. Rejected charms
+    are still skipped; ``my_charms_illegal`` counts them."""
+    loaded = load_my_charm_lines(lines, game=game, validity=validity, stop_at_message=True)
+    return loaded
+
+
+def my_charms_illegal(loaded: LoadedMyCharms) -> int:
+    """How many charms were rejected as ones the game can't produce."""
+    count = sum(1 for line in loaded.lines if line.outcome is LineOutcome.REJECTED)
+    return count
+
+
+def load_my_charm_lines(
+    lines: list[str], game: GameData, validity: CharmValidity, stop_at_message: bool = False
 ) -> LoadedMyCharms:
     """``LoadCustom``: every line's outcome and the charms kept, in line order.
 
     Skill names are looked up in ``game``'s current language. A blank first
-    skill with a filled second makes the second the charm's only skill.
+    skill with a filled second makes the second the charm's only skill. With
+    ``stop_at_message``, a line that would show a message box raises
+    ``MyCharmsFileError`` instead of being skipped.
     """
     loaded = LoadedMyCharms()
     for line in lines:
@@ -102,6 +123,8 @@ def load_my_charm_lines(
         except ValueError as error:
             raise MyCharmsFileError(line, error) from error
         if len(fields) != 5:
+            if stop_at_message:
+                raise MyCharmsFileError(line, ValueError("incorrect number of commas"))
             loaded.lines.append(LoadedLine(line=line, outcome=LineOutcome.WRONG_FIELD_COUNT))
             continue
         try:
@@ -111,6 +134,8 @@ def load_my_charm_lines(
         try:
             pairs = _read_points(fields, game)
         except _SkillColumnsFailed as failure:
+            if stop_at_message:
+                raise MyCharmsFileError(line, ValueError(failure.outcome.value)) from failure
             loaded.lines.append(LoadedLine(line=line, outcome=failure.outcome))
             continue
         charm = Charm(num_slots=num_slots, abilities=pairs)
