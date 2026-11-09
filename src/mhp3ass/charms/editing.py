@@ -44,11 +44,30 @@ class CharmEntry:
 
 @dataclass(frozen=True)
 class CharmListEdit:
-    """The charm list and selected row after an operation, and whether it was saved."""
+    """The charm list and selected row after an operation.
+
+    ``saved``: the original saved ``mycharms.txt``. ``reselected``: the
+    original re-selected the row ``selected``, which refills the boxes from
+    that charm (``entry_for_charm``) and drops any unsaved edits in them.
+    """
 
     charms: list[Charm]
     selected: int
     saved: bool
+    reselected: bool
+
+
+def _unchanged(charms: list[Charm], selected: int) -> CharmListEdit:
+    unchanged = CharmListEdit(charms=list(charms), selected=selected, saved=False, reselected=False)
+    return unchanged
+
+
+def _refreshed(charms: list[Charm], selected: int) -> CharmListEdit:
+    """``RefreshList( selected )`` then ``SaveCustom``: selecting a row refills the boxes."""
+    refreshed = CharmListEdit(
+        charms=charms, selected=selected, saved=True, reselected=selected >= 0
+    )
+    return refreshed
 
 
 def create_charm(entry: CharmEntry, validity: CharmValidity) -> Charm | None:
@@ -108,11 +127,10 @@ def add_new(
     except ValueError:
         charm = None
     if charm is None:
-        unchanged = CharmListEdit(charms=list(charms), selected=selected, saved=False)
-        return unchanged
+        return _unchanged(charms, selected)
     charm.custom = True
     added = [*charms, charm]
-    edit = CharmListEdit(charms=added, selected=len(added) - 1, saved=True)
+    edit = _refreshed(added, selected=len(added) - 1)
     return edit
 
 
@@ -122,59 +140,57 @@ def replace_selected(
     """``btnSave_Click``: replace the selected charm with the entry's.
 
     Unlike Add New, the new charm isn't marked custom, so until the list is
-    next loaded it is searched like a generated charm.
+    next loaded it is searched like a generated charm. Only the list row's
+    text changes, so the boxes keep what they hold.
     """
-    unchanged = CharmListEdit(charms=list(charms), selected=selected, saved=False)
     if selected <= -1:
-        return unchanged
+        return _unchanged(charms, selected)
     try:
         charm = create_charm(entry, validity)
     except ValueError:
         charm = None
     if charm is None:
-        return unchanged
+        return _unchanged(charms, selected)
     replaced = list(charms)
     replaced[selected] = charm
-    edit = CharmListEdit(charms=replaced, selected=selected, saved=True)
+    edit = CharmListEdit(charms=replaced, selected=selected, saved=True, reselected=False)
     return edit
 
 
 def delete_selected(charms: list[Charm], selected: int) -> CharmListEdit:
     """``btnDelete_Click``: remove the selected charm; its row (or the new last) stays selected."""
     if selected <= -1:
-        unchanged = CharmListEdit(charms=list(charms), selected=selected, saved=False)
-        return unchanged
-    remaining = [charm for index, charm in enumerate(charms) if index != selected]
+        return _unchanged(charms, selected)
+    remaining = list(charms)
+    del remaining[selected]
     new_selected = selected if selected < len(remaining) else len(remaining) - 1
-    edit = CharmListEdit(charms=remaining, selected=new_selected, saved=True)
+    edit = _refreshed(remaining, selected=new_selected)
     return edit
 
 
 def delete_all() -> CharmListEdit:
     """``btnDeleteAll_Click``: empty the list, without asking, and save it."""
-    edit = CharmListEdit(charms=[], selected=-1, saved=True)
+    edit = _refreshed([], selected=-1)
     return edit
 
 
 def move_up(charms: list[Charm], selected: int) -> CharmListEdit:
     """``btnMoveUp_Click``: swap the selected charm with the one above."""
     if selected <= 0:
-        unchanged = CharmListEdit(charms=list(charms), selected=selected, saved=False)
-        return unchanged
+        return _unchanged(charms, selected)
     moved = list(charms)
     moved[selected - 1], moved[selected] = moved[selected], moved[selected - 1]
-    edit = CharmListEdit(charms=moved, selected=selected - 1, saved=True)
+    edit = _refreshed(moved, selected=selected - 1)
     return edit
 
 
 def move_down(charms: list[Charm], selected: int) -> CharmListEdit:
     """``btnMoveDown_Click``: swap the selected charm with the one below."""
     if not -1 < selected < len(charms) - 1:
-        unchanged = CharmListEdit(charms=list(charms), selected=selected, saved=False)
-        return unchanged
+        return _unchanged(charms, selected)
     moved = list(charms)
     moved[selected], moved[selected + 1] = moved[selected + 1], moved[selected]
-    edit = CharmListEdit(charms=moved, selected=selected + 1, saved=True)
+    edit = _refreshed(moved, selected=selected + 1)
     return edit
 
 
@@ -205,9 +221,10 @@ def entry_for_charm(game: GameData, charm: Charm, previous: CharmEntry) -> Charm
     """``lstCharms_SelectedIndexChanged``: the boxes after selecting ``charm`` in the list.
 
     Both filters go back to All. Each skill box selects the charm's ability if
-    its list offers it (the second box's list leaves out the first box's
-    ability), else shows "(none)". An amount box takes the charm's amount
-    when the charm has that skill; otherwise it keeps its previous text.
+    its All list offers it (every ability but Torso Inc, and for the second
+    box not the first box's ability), else shows "(none)". An amount box takes
+    the charm's amount when the charm has that skill, whether or not its
+    ability was found; otherwise it keeps its previous text.
     """
     first_ability = None
     first_amount = previous.first_amount
@@ -215,12 +232,12 @@ def entry_for_charm(game: GameData, charm: Charm, previous: CharmEntry) -> Charm
     second_amount = previous.second_amount
     if charm.abilities:
         first = charm.abilities[0]
-        if first.ability in ability_choices(game, filter_index=0, banned=None):
+        if first.ability is not game.torso_inc:
             first_ability = first.ability
         first_amount = str(first.amount)
         if len(charm.abilities) > 1:
             second = charm.abilities[1]
-            if second.ability in ability_choices(game, filter_index=0, banned=first_ability):
+            if second.ability is not game.torso_inc and second.ability is not first_ability:
                 second_ability = second.ability
             second_amount = str(second.amount)
     entry = CharmEntry(
