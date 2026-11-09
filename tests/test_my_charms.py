@@ -121,9 +121,9 @@ def test_save_writes_utf8_without_bom_and_crlf(tmp_path, teamhgg_game):
 @pytest.mark.parametrize(
     ("line", "cause"),
     [
-        ("1,Attack,3", "incorrect number of commas"),
-        ("1,Nothing,3,,", "no_such_skill"),
-        ("1,Attack,three,,", "bad_points"),
+        ("1,Attack,3", "Incorrect number of commas"),
+        ("1,Nothing,3,,", '"Nothing": No such skill'),
+        ("1,Attack,three,,", "Could not read skill points"),
     ],
 )
 def test_query_charm_lines_raise_where_the_gui_shows_a_message(teamhgg_game, validity, line, cause):

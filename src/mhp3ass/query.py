@@ -103,11 +103,11 @@ class CharmMode(IntEnum):
     TWO_SKILL = 4
 
     @classmethod
-    def from_name(cls, name: str) -> CharmMode:
+    def from_name(cls, name: Any) -> CharmMode:
         """A query file's ``charm_mode``, as the harness's ``CharmSelectIndex``
         (``harness/src/Workers.cpp``) reads it."""
         modes: dict[str, CharmMode] = {mode.name.lower(): mode for mode in cls}
-        if name not in modes:
+        if not isinstance(name, str) or name not in modes:
             raise QueryError(
                 "charm_mode must be one of none, my_charms, slotted, one_skill, two_skill; "
                 f"got {name}"
@@ -130,14 +130,19 @@ class SearchSpec:
 
     @classmethod
     def from_json(cls, spec: dict[str, Any]) -> SearchSpec:
-        """The corpus schema (``tests/corpus/README.md``). The query fields are
-        checked first, then ``charm_mode``; the my-charms lines are only parsed
-        when loaded (``charms.my_charms.load_query_my_charms``)."""
-        query = QuerySpec.from_json(spec)
-        charm_mode = CharmMode.from_name(spec["charm_mode"])
+        """The corpus schema (``tests/corpus/README.md``).
+
+        Checked in the harness's order (``SearchDump::Run``: my charms, the
+        query, then the charm mode), except for what needs the game: the
+        my-charms lines are parsed by ``charms.my_charms.load_query_my_charms``
+        and the skills checked by ``build_query``, both after this. So a file
+        with a bad charm line or skill and a bad charm mode reports the mode.
+        """
         my_charms = spec["my_charms"]
         if not isinstance(my_charms, list) or not all(isinstance(line, str) for line in my_charms):
             raise QueryError("my_charms must be a list of mycharms.txt lines")
+        query = QuerySpec.from_json(spec)
+        charm_mode = CharmMode.from_name(spec["charm_mode"])
         search_spec = cls(query=query, charm_mode=charm_mode, my_charms=tuple(my_charms))
         return search_spec
 

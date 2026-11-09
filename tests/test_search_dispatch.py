@@ -23,7 +23,7 @@ def _dispatch_mismatches(
     for golden in goldens:
         spec = SearchSpec.from_json(golden.query)
         data = search_data[spec.query.language]
-        loaded = load_query_my_charms(list(spec.my_charms), game=data.game, validity=data.validity)
+        loaded = load_query_my_charms(spec.my_charms, game=data.game, validity=data.validity)
         query = formulate_query(data.game, spec.query)
         workers = worker_charms(
             query, charm_mode=spec.charm_mode, my_charms=loaded.charms, tables=data.tables
@@ -179,8 +179,9 @@ def test_slotted_mode_searches_one_bare_three_slot_charm(formulate, teamhgg_sear
     )
 
     assert [
-        [(charm.num_slots, charm.abilities, charm.custom) for charm in workers if charm is not None]
-    ] == [[(3, [], False)]]
+        None if charm is None else (charm.num_slots, charm.abilities, charm.custom)
+        for charm in workers
+    ] == [(3, [], False)]
 
 
 def test_my_charms_drop_a_trade_off_with_the_same_relevant_skills(formulate, teamhgg_search_data):
