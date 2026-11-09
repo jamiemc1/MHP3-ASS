@@ -15,28 +15,35 @@ from solution_trace import template_charm
 
 @pytest.fixture
 def gc_enabled():
-    """Cyclic GC on at the start of the test, and on again afterwards whatever the test did."""
+    """Cyclic GC on for the test; the state from before the test restored afterwards."""
+    was_enabled = gc.isenabled()
     gc.enable()
     yield
-    gc.enable()
+    if not was_enabled:
+        gc.disable()
 
 
 @pytest.fixture
 def gc_disabled():
-    """Cyclic GC off at the start of the test, and on again afterwards."""
+    """Cyclic GC off for the test; the state from before the test restored afterwards."""
+    was_enabled = gc.isenabled()
     gc.disable()
     yield
-    gc.enable()
+    if was_enabled:
+        gc.enable()
 
 
 @pytest.fixture
-def t05_throwing_worker(trace_goldens, scratch_game):
-    """t05's query (every armour slot empty) and worker 1's charm template
-    (``+5 Poison O--``), whose search raises in ``PotentialSpareSlots``."""
-    golden = next(golden for golden in trace_goldens if golden.query["id"] == "t05")
-    query = formulate_query(scratch_game, QuerySpec.from_json(golden.query))
-    template = template_charm(golden.header["workers"][1]["template"], scratch_game)
-    return query, template
+def trace_worker(trace_goldens, scratch_game):
+    """A traced query and one of its workers' charm templates, by query id and worker number."""
+
+    def make(query_id, worker):
+        golden = next(golden for golden in trace_goldens if golden.query["id"] == query_id)
+        query = formulate_query(scratch_game, QuerySpec.from_json(golden.query))
+        template = template_charm(golden.header["workers"][worker]["template"], scratch_game)
+        return query, template
+
+    return make
 
 
 def test_collection_is_off_inside_and_back_on_after(gc_enabled):
@@ -52,20 +59,28 @@ def test_collection_stays_off_when_it_was_off_before(gc_disabled):
     assert gc.isenabled() is False
 
 
-def test_collection_is_back_on_after_a_worker_raises(gc_enabled, t05_throwing_worker, scratch_game):
-    query, template = t05_throwing_worker
+def test_collection_is_back_on_after_a_worker_raises(gc_enabled, trace_worker, scratch_game):
+    # t05 worker 1 (+5 Poison O--, every armour slot empty) throws in PotentialSpareSlots.
+    query, template = trace_worker("t05", 1)
     with pytest.raises(LegacyNullReferenceError), paused_gc():
         run_worker(query, template, scratch_game)
     assert gc.isenabled() is True
 
 
-def test_search_leaves_no_cyclic_garbage(gc_enabled, attack_sharp_query_json, scratch_game):
-    query = formulate_query(scratch_game, QuerySpec.from_json(attack_sharp_query_json))
+@pytest.mark.parametrize(
+    ("query_id", "worker"),
+    [("1a", 1), ("g16", 0)],
+    ids=["charm-template", "no-charm"],
+)
+def test_search_leaves_no_cyclic_garbage(gc_enabled, trace_worker, scratch_game, query_id, worker):
+    query, template = trace_worker(query_id, worker)
     gc.collect()
     with paused_gc():
-        solutions = run_worker(query, None, scratch_game)
+        solutions = run_worker(query, template, scratch_game)
+    charmed_count = sum(solution.charm is not None for solution in solutions)
     solution_count = len(solutions)
     del solutions
     unreachable = gc.collect()
     assert solution_count > 0
+    assert (charmed_count > 0) == (template is not None)
     assert unreachable == 0

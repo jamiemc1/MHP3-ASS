@@ -124,6 +124,9 @@ def paused_gc() -> Generator[None]:
     young-generation collection walks all of them again; on accepted-heavy
     queries that is about a third of the search time. Reference counting still
     frees everything a combination drops: the search builds no reference cycles.
+
+    The collector's switch is process-wide, so blocks must nest within one
+    thread: two threads overlapping their blocks can switch it back on early.
     """
     was_enabled = gc.isenabled()
     gc.disable()
