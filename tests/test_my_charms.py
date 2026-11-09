@@ -11,6 +11,8 @@ from mhp3ass.charms.my_charms import (
     MyCharmsFileError,
     load_my_charm_lines,
     load_my_charms,
+    load_query_my_charms,
+    my_charms_illegal,
     my_charms_text,
     save_my_charms,
 )
@@ -114,3 +116,30 @@ def test_save_writes_utf8_without_bom_and_crlf(tmp_path, teamhgg_game):
     assert (
         path.read_bytes() == b"#Format: NumSlots,Skill1,Points1,Skill2,Points2\r\n1,Attack,3,,\r\n"
     )
+
+
+@pytest.mark.parametrize(
+    ("line", "cause"),
+    [
+        ("1,Attack,3", "incorrect number of commas"),
+        ("1,Nothing,3,,", "no_such_skill"),
+        ("1,Attack,three,,", "bad_points"),
+    ],
+)
+def test_query_charm_lines_raise_where_the_gui_shows_a_message(teamhgg_game, validity, line, cause):
+    lines = ["1,Attack,3,,", line]
+
+    with pytest.raises(MyCharmsFileError, match=cause) as error:
+        load_query_my_charms(lines, game=teamhgg_game, validity=validity)
+
+    assert error.value.line == line
+
+
+def test_query_charm_lines_skip_and_count_rejected_charms(teamhgg_game, validity):
+    lines = ["1,Attack,3,,", "3,Attack,99,,", "0,Attack,1,,"]
+    loaded = load_query_my_charms(lines, game=teamhgg_game, validity=validity)
+
+    assert [[charm_name(charm) for charm in loaded.charms], my_charms_illegal(loaded)] == [
+        ["+3 Attack O--", "+1 Attack ---"],
+        1,
+    ]

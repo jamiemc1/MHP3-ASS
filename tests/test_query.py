@@ -7,7 +7,14 @@ import pytest
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Gender, HunterType
-from mhp3ass.query import QueryError, QuerySpec, build_query, offered_skills
+from mhp3ass.query import (
+    CharmMode,
+    QueryError,
+    QuerySpec,
+    SearchSpec,
+    build_query,
+    offered_skills,
+)
 
 
 def test_every_committed_query_builds(repo_root: Path, teamhgg_game: GameData):
@@ -127,3 +134,67 @@ def test_offered_skills_are_exactly_the_ones_build_query_accepts(
         accepted.append(index)
 
     assert [len(offered), len(teamhgg_game.skills), offered] == [146, 209, accepted]
+
+
+def test_every_committed_query_reads_as_a_search(repo_root: Path):
+    query_paths = sorted((repo_root / "tests" / "corpus").glob("*.json"))
+    modes = {path.stem: SearchSpec.from_file(path).charm_mode for path in query_paths}
+
+    assert [modes["1a-attack-sharp-default-charms"], modes["g04-attack-sharp-two-skill"]] == [
+        CharmMode.MY_CHARMS,
+        CharmMode.TWO_SKILL,
+    ]
+
+
+def test_search_spec_keeps_the_query_and_charm_lines(attack_sharp_query_json: dict[str, Any]):
+    attack_sharp_query_json.update(charm_mode="slotted", my_charms=["1,Attack,3,,"])
+
+    search = SearchSpec.from_json(attack_sharp_query_json)
+
+    assert [search.query, search.charm_mode, search.my_charms] == [
+        QuerySpec.from_json(attack_sharp_query_json),
+        CharmMode.SLOTTED,
+        ("1,Attack,3,,",),
+    ]
+
+
+@pytest.mark.parametrize(
+    ("name", "mode"),
+    [
+        ("none", CharmMode.NONE),
+        ("my_charms", CharmMode.MY_CHARMS),
+        ("slotted", CharmMode.SLOTTED),
+        ("one_skill", CharmMode.ONE_SKILL),
+        ("two_skill", CharmMode.TWO_SKILL),
+    ],
+)
+def test_charm_modes_are_the_drop_down_indices(name: str, mode: CharmMode):
+    assert [CharmMode.from_name(name), int(CharmMode.from_name(name))] == [mode, mode.value]
+
+
+def test_unknown_charm_mode_gives_the_harness_message(attack_sharp_query_json: dict[str, Any]):
+    attack_sharp_query_json.update(charm_mode="three_skill", my_charms=[])
+
+    with pytest.raises(
+        QueryError,
+        match="charm_mode must be one of none, my_charms, slotted, one_skill, two_skill; "
+        "got three_skill",
+    ):
+        SearchSpec.from_json(attack_sharp_query_json)
+
+
+@pytest.mark.parametrize("my_charms", ["1,Attack,3,,", [1]])
+def test_my_charms_must_be_a_list_of_lines(attack_sharp_query_json: dict[str, Any], my_charms):
+    attack_sharp_query_json.update(charm_mode="none", my_charms=my_charms)
+
+    with pytest.raises(QueryError, match="my_charms must be a list"):
+        SearchSpec.from_json(attack_sharp_query_json)
+
+
+def test_query_problems_are_reported_before_the_charm_mode(
+    attack_sharp_query_json: dict[str, Any],
+):
+    attack_sharp_query_json.update(hr=0, charm_mode="three_skill", my_charms=[])
+
+    with pytest.raises(QueryError, match="hr must be 1-6"):
+        SearchSpec.from_json(attack_sharp_query_json)
