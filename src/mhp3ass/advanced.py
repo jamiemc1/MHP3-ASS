@@ -21,7 +21,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum
 
-from mhp3ass.model import Armor, ArmorType, Decoration
+from mhp3ass.model import Armor, ArmorType, Decoration, HunterType
 from mhp3ass.query import Query
 
 
@@ -45,22 +45,6 @@ class AdvancedChoices:
         defaults = [[listed.default for listed in slot] for slot in self.armor]
         defaults.append([listed.default for listed in self.decorations])
         return defaults
-
-
-class DialogOutcome(Enum):
-    """How the dialog was closed."""
-
-    SEARCH = "search"
-    CANCEL = "cancel"
-    # The window's close button: neither button handler runs, so no ticks are recorded.
-    CLOSED = "closed"
-
-
-class HunterTab(Enum):
-    """``tabHunterType``'s pages; the remembered ticks are kept per page."""
-
-    BLADEMASTER = 0
-    GUNNER = 1
 
 
 class ArmorOption(Enum):
@@ -94,10 +78,14 @@ def check_result(
 ) -> list[list[bool]]:
     """``CheckResult`` (frmAdvanced.h:648-656): the ticks the dialog opens with.
 
-    Remembered ticks replace the defaults by position. A remembered list longer
-    than its box raises ``IndexError``, as the original's ``Items[ j ]`` throws
-    ``ArgumentOutOfRangeException``; a shorter one leaves the rest at their
-    defaults.
+    Remembered ticks replace the defaults by position; a shorter remembered
+    list leaves the rest at their defaults. A longer one raises
+    ``IndexError``, where the original's ``Items[ j ]`` throws
+    ``ArgumentOutOfRangeException`` before the dialog opens. The original
+    then keeps the remembered ticks, so every later Advanced Search on that
+    page throws too until something forgets them; ``RememberedTicks`` keeps
+    them likewise. The lists only change on changes that forget the ticks,
+    so shipped data can't reach this.
     """
     ticks = [list(box) for box in defaults]
     if remembered is None:
@@ -151,27 +139,27 @@ def apply_selection(query: Query, ticks: list[list[bool]]) -> None:
 class RememberedTicks:
     """``blast_options`` and ``glast_options``: the last dialog's ticks per hunter page.
 
-    Kept by position, so they are only valid while the dialog's lists stay
+    Pages are ``HunterType.BLADEMASTER`` and ``HunterType.GUNNER``. Ticks are
+    kept by position, so they are only valid while the dialog's lists stay
     the same; the original forgets them on the changes that can alter them.
     """
 
-    by_tab: dict[HunterTab, list[list[bool]] | None] = field(
-        default_factory=lambda: dict.fromkeys(HunterTab)
+    by_page: dict[HunterType, list[list[bool]] | None] = field(
+        default_factory=lambda: dict.fromkeys([HunterType.BLADEMASTER, HunterType.GUNNER])
     )
 
-    def ticks_for(self, tab: HunterTab) -> list[list[bool]] | None:
-        return self.by_tab[tab]
+    def ticks_for(self, page: HunterType) -> list[list[bool]] | None:
+        ticks = self.by_page[_page(page)]
+        return ticks
 
-    def dialog_closed(
-        self, tab: HunterTab, outcome: DialogOutcome, ticks: list[list[bool]]
-    ) -> None:
-        """Search and Cancel both record the ticks (``CreateResult``); closing the window
-        records none, which forgets the page's ticks."""
-        self.by_tab[tab] = None if outcome is DialogOutcome.CLOSED else [list(box) for box in ticks]
+    def dialog_closed(self, page: HunterType, ticks: list[list[bool]] | None) -> None:
+        """Record the dialog's result: its ticks after Search or Cancel (``CreateResult``),
+        ``None`` after the window's close button, which forgets the page's ticks."""
+        self.by_page[_page(page)] = None if ticks is None else [list(box) for box in ticks]
 
-    def skill_or_filter_changed(self, current_tab: HunterTab) -> None:
+    def skill_or_filter_changed(self, current_page: HunterType) -> None:
         """A skill or skill-filter drop-down changed: forget the page showing at the time."""
-        self.by_tab[current_tab] = None
+        self.by_page[_page(current_page)] = None
 
     def rank_or_gender_changed(self) -> None:
         """HR, village quests or gender changed (``HRChanged``, ``DeleteOptions``)."""
@@ -184,5 +172,11 @@ class RememberedTicks:
 
     def forget_all(self) -> None:
         """``DeleteOptions``."""
-        for tab in HunterTab:
-            self.by_tab[tab] = None
+        for page in self.by_page:
+            self.by_page[page] = None
+
+
+def _page(hunter_type: HunterType) -> HunterType:
+    if hunter_type is HunterType.BOTH_TYPES:
+        raise ValueError("the hunter pages are Blademaster and Gunner")
+    return hunter_type

@@ -7,8 +7,6 @@ import pytest
 from golden_shapes import relevance_shape
 from mhp3ass.advanced import (
     ArmorOption,
-    DialogOutcome,
-    HunterTab,
     RememberedTicks,
     advanced_choices,
     apply_selection,
@@ -16,31 +14,24 @@ from mhp3ass.advanced import (
     clear_box,
     default_box,
 )
-from mhp3ass.model import ArmorType
+from mhp3ass.model import ArmorType, HunterType
 from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import formulate_query
 
 
 def _default_selection_mismatches(goldens, load_game):
-    """Queries whose rel lists change when rebuilt from the dialog's default ticks, and the
-    number of slots that list pieces beyond the quick search's."""
+    """Queries whose rel lists change when rebuilt from the dialog's default ticks."""
+    sections = ("armor", "decorations")
     mismatched = []
-    slots_with_extras = 0
     for golden in goldens:
         game = load_game()
         query = formulate_query(game, QuerySpec.from_json(golden.query))
-        choices = advanced_choices(query)
-        slots_with_extras += sum(
-            any(not listed.default for listed in slot) for slot in choices.armor
-        )
-        apply_selection(query, choices.default_ticks())
+        apply_selection(query, advanced_choices(query).default_ticks())
         shaped = relevance_shape(game, query)
-        sections = ("armor", "decorations")
-        if {section: shaped[section] for section in sections} != {
-            section: golden.relevance[section] for section in sections
-        }:
+        ours = {section: shaped[section] for section in sections}
+        if ours != {section: golden.relevance[section] for section in sections}:
             mismatched.append(golden.query["id"])
-    return [mismatched, slots_with_extras > 0]
+    return mismatched
 
 
 @pytest.fixture
@@ -50,46 +41,59 @@ def attack_sharp_query(scratch_game, attack_sharp_query_json):
 
 
 @pytest.fixture
+def head_extra_before_a_default(attack_sharp_query):
+    """Positions in the head list of the first piece the quick search leaves out and of a
+    piece it uses that comes later."""
+    defaults = [listed.default for listed in advanced_choices(attack_sharp_query).armor[0]]
+    extra = defaults.index(False)
+    later_default = defaults.index(True, extra)
+    return {"extra": extra, "later_default": later_default}
+
+
+@pytest.fixture
 def three_box_ticks():
     return [[True, False], [False, True, True], [True]]
 
 
 @pytest.fixture
-def remembered_on_both_tabs():
+def remembered_on_both_pages():
     remembered = RememberedTicks()
-    remembered.dialog_closed(HunterTab.BLADEMASTER, DialogOutcome.SEARCH, [[True]])
-    remembered.dialog_closed(HunterTab.GUNNER, DialogOutcome.SEARCH, [[False]])
+    remembered.dialog_closed(HunterType.BLADEMASTER, [[True]])
+    remembered.dialog_closed(HunterType.GUNNER, [[False]])
     return remembered
 
 
 def test_default_ticks_rebuild_the_quick_search_lists(relevance_goldens, load_teamhgg_game):
-    assert _default_selection_mismatches(relevance_goldens, load_teamhgg_game) == [[], True]
+    assert _default_selection_mismatches(relevance_goldens, load_teamhgg_game) == []
 
 
 def test_personal_default_ticks_rebuild_the_quick_search_lists(
     personal_relevance_goldens, load_teamhgg_game
 ):
-    assert _default_selection_mismatches(personal_relevance_goldens, load_teamhgg_game) == [
-        [],
-        True,
-    ]
+    assert _default_selection_mismatches(personal_relevance_goldens, load_teamhgg_game) == []
 
 
-def test_a_ticked_inferior_piece_takes_its_inferior_list_position(attack_sharp_query):
+def test_the_dialog_lists_pieces_the_quick_search_leaves_out(attack_sharp_query):
+    choices = advanced_choices(attack_sharp_query)
+
+    slots_with_extras = [any(not listed.default for listed in slot) for slot in choices.armor]
+
+    assert slots_with_extras == [True] * len(ArmorType)
+
+
+def test_a_ticked_inferior_piece_takes_its_inferior_list_position(
+    attack_sharp_query, head_extra_before_a_default
+):
     """The rebuilt list follows inf order, so an extra piece can land before a default one."""
     choices = advanced_choices(attack_sharp_query)
-    slot = ArmorType.HEAD.value
-    defaults = [listed.default for listed in choices.armor[slot]]
-    extra = defaults.index(False)
-    later_default = defaults.index(True, extra)
     ticks = choices.default_ticks()
-    ticks[slot][extra] = True
+    ticks[ArmorType.HEAD.value][head_extra_before_a_default["extra"]] = True
 
     apply_selection(attack_sharp_query, ticks)
 
-    rebuilt = attack_sharp_query.rel_armor[slot]
-    extra_piece = choices.armor[slot][extra].item
-    default_piece = choices.armor[slot][later_default].item
+    rebuilt = attack_sharp_query.rel_armor[ArmorType.HEAD.value]
+    extra_piece = choices.armor[0][head_extra_before_a_default["extra"]].item
+    default_piece = choices.armor[0][head_extra_before_a_default["later_default"]].item
     assert rebuilt.index(extra_piece) < rebuilt.index(default_piece)
 
 
@@ -155,44 +159,41 @@ def test_none_button_clears_one_box(three_box_ticks):
     assert clear_box(three_box_ticks, box=1) == [[True, False], [False, False, False], [True]]
 
 
-@pytest.mark.parametrize(
-    ("outcome", "remembered"), [(DialogOutcome.SEARCH, [[True]]), (DialogOutcome.CANCEL, [[True]])]
-)
-def test_search_and_cancel_both_remember_the_ticks(outcome, remembered):
-    ticks = RememberedTicks()
+def test_a_closed_dialog_records_its_ticks_for_its_page():
+    remembered = RememberedTicks()
 
-    ticks.dialog_closed(HunterTab.GUNNER, outcome, [[True]])
-
-    assert [ticks.ticks_for(HunterTab.GUNNER), ticks.ticks_for(HunterTab.BLADEMASTER)] == [
-        remembered,
-        None,
-    ]
-
-
-def test_closing_the_window_forgets_the_ticks(remembered_on_both_tabs):
-    remembered_on_both_tabs.dialog_closed(HunterTab.GUNNER, DialogOutcome.CLOSED, [[True]])
+    remembered.dialog_closed(HunterType.GUNNER, [[True], [False]])
 
     assert [
-        remembered_on_both_tabs.ticks_for(HunterTab.BLADEMASTER),
-        remembered_on_both_tabs.ticks_for(HunterTab.GUNNER),
+        remembered.ticks_for(HunterType.GUNNER),
+        remembered.ticks_for(HunterType.BLADEMASTER),
+    ] == [[[True], [False]], None]
+
+
+def test_closing_the_window_forgets_the_ticks(remembered_on_both_pages):
+    remembered_on_both_pages.dialog_closed(HunterType.GUNNER, None)
+
+    assert [
+        remembered_on_both_pages.ticks_for(HunterType.BLADEMASTER),
+        remembered_on_both_pages.ticks_for(HunterType.GUNNER),
     ] == [[[True]], None]
 
 
-def test_a_skill_change_forgets_only_the_page_showing(remembered_on_both_tabs):
-    remembered_on_both_tabs.skill_or_filter_changed(HunterTab.BLADEMASTER)
+def test_a_skill_change_forgets_only_the_page_showing(remembered_on_both_pages):
+    remembered_on_both_pages.skill_or_filter_changed(HunterType.BLADEMASTER)
 
     assert [
-        remembered_on_both_tabs.ticks_for(HunterTab.BLADEMASTER),
-        remembered_on_both_tabs.ticks_for(HunterTab.GUNNER),
+        remembered_on_both_pages.ticks_for(HunterType.BLADEMASTER),
+        remembered_on_both_pages.ticks_for(HunterType.GUNNER),
     ] == [None, [[False]]]
 
 
-def test_rank_or_gender_changes_forget_both_pages(remembered_on_both_tabs):
-    remembered_on_both_tabs.rank_or_gender_changed()
+def test_rank_or_gender_changes_forget_both_pages(remembered_on_both_pages):
+    remembered_on_both_pages.rank_or_gender_changed()
 
     assert [
-        remembered_on_both_tabs.ticks_for(HunterTab.BLADEMASTER),
-        remembered_on_both_tabs.ticks_for(HunterTab.GUNNER),
+        remembered_on_both_pages.ticks_for(HunterType.BLADEMASTER),
+        remembered_on_both_pages.ticks_for(HunterType.GUNNER),
     ] == [None, None]
 
 
@@ -205,7 +206,12 @@ def test_rank_or_gender_changes_forget_both_pages(remembered_on_both_tabs):
         (ArmorOption.ALLOW_LOW_RANK_ARMOR, None),
     ],
 )
-def test_option_toggles_forget_except_allow_bad_skills(remembered_on_both_tabs, option, kept):
-    remembered_on_both_tabs.option_toggled(option)
+def test_option_toggles_forget_except_allow_bad_skills(remembered_on_both_pages, option, kept):
+    remembered_on_both_pages.option_toggled(option)
 
-    assert remembered_on_both_tabs.ticks_for(HunterTab.BLADEMASTER) == kept
+    assert remembered_on_both_pages.ticks_for(HunterType.BLADEMASTER) == kept
+
+
+def test_both_types_is_not_a_page():
+    with pytest.raises(ValueError, match="Blademaster and Gunner"):
+        RememberedTicks().ticks_for(HunterType.BOTH_TYPES)
