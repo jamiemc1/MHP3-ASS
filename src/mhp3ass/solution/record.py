@@ -54,7 +54,7 @@ class SolutionRecord:
     slots_spare: tuple[int, ...] | None
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, eq=False)
 class RecordIndex:
     """A game and the position of each of its skills, which ``Skill`` doesn't carry."""
 
@@ -80,12 +80,13 @@ def _armor_index(armor: Armor | None, armor_type: ArmorType, game: GameData) -> 
 
 
 def _decoration_indices(decorations: list[Decoration], game: GameData) -> tuple[int, ...]:
+    indices = []
     for decoration in decorations:
         index = decoration.index
         if not 0 <= index < len(game.decorations) or game.decorations[index] is not decoration:
             raise ValueError(f"{decoration.name} is not decoration {index} of this game")
-    indices = tuple(decoration.index for decoration in decorations)
-    return indices
+        indices.append(index)
+    return tuple(indices)
 
 
 def _ability_index(ability: Ability, game: GameData) -> int:
@@ -121,12 +122,8 @@ def _charm_record(charm: Charm | None, game: GameData) -> CharmRecord | None:
 
 def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
     """``solution`` by index into ``index.game``; raises ``ValueError`` on a record
-    that isn't that game's."""
+    that isn't that game's, or on a number of armour slots other than five."""
     game = index.game
-    if len(solution.armors) != len(ArmorType):
-        raise ValueError(
-            f"a solution has {len(ArmorType)} armour slots, not {len(solution.armors)}"
-        )
     record = SolutionRecord(
         armors=tuple(
             _armor_index(armor, armor_type, game)
@@ -181,10 +178,21 @@ def _charm(record: CharmRecord | None, game: GameData) -> Charm | None:
     return charm
 
 
+def _abilities(pairs: tuple[tuple[int, int], ...], game: GameData) -> dict[Ability, int]:
+    """The ability totals in record order; a position given twice raises."""
+    abilities: dict[Ability, int] = {}
+    for position, points in pairs:
+        ability = _entry(game.abilities, position, "ability")
+        if ability in abilities:
+            raise ValueError(f"ability {position} appears twice in the record")
+        abilities[ability] = points
+    return abilities
+
+
 def from_record(record: SolutionRecord, game: GameData) -> Solution:
-    """The ``Solution`` ``record`` describes, built from ``game``'s records."""
-    if len(record.armors) != len(ArmorType):
-        raise ValueError(f"a solution has {len(ArmorType)} armour slots, not {len(record.armors)}")
+    """The ``Solution`` ``record`` describes, built from ``game``'s records; raises
+    ``ValueError`` on an index outside the game's tables, an ability given twice
+    or a number of armour slots other than five."""
     armors: list[Armor | None] = [
         None
         if position == -1
@@ -206,10 +214,7 @@ def from_record(record: SolutionRecord, game: GameData) -> Solution:
         ],
         extra_skills=[_entry(game.skills, position, "skill") for position in record.extra_skills],
         bad_skills=[_entry(game.skills, position, "skill") for position in record.bad_skills],
-        abilities={
-            _entry(game.abilities, position, "ability"): points
-            for position, points in record.abilities
-        },
+        abilities=_abilities(record.abilities, game),
         torso_slots_spare=record.torso_slots_spare,
         torso_multiplier=record.torso_multiplier,
         total_slots_spare=record.total_slots_spare,

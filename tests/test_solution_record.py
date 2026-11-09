@@ -9,7 +9,7 @@ game; every field must come back equal, game records as the same objects and
 from __future__ import annotations
 
 import pickle
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, replace
 from math import prod
 from typing import Any
 
@@ -19,7 +19,7 @@ from mhp3ass.model import AbilityPair, ArmorType, Charm
 from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.search import run_worker
-from mhp3ass.solution.record import RecordIndex, SolutionRecord, from_record, to_record
+from mhp3ass.solution.record import CharmRecord, RecordIndex, from_record, to_record
 from mhp3ass.solution.state import Solution
 from solution_trace import template_charm
 
@@ -196,33 +196,10 @@ def test_charm_pairs_keep_their_order(index, teamhgg_game):
     assert record.charm.abilities == ((20, 5), (4, -3))
 
 
-def _record(**changes: Any) -> SolutionRecord:
-    """A record of an empty solution (every slot empty, no charm), with ``changes`` applied."""
-    values: dict[str, Any] = {
-        "armors": (-1, -1, -1, -1, -1),
-        "charm": None,
-        "decorations": (),
-        "body_decorations": (),
-        "non_body_decorations": (),
-        "extra_skills": (),
-        "bad_skills": (),
-        "abilities": (),
-        "torso_slots_spare": 0,
-        "torso_multiplier": 0,
-        "total_slots_spare": 0,
-        "fire_res": 0,
-        "ice_res": 0,
-        "water_res": 0,
-        "thunder_res": 0,
-        "dragon_res": 0,
-        "defence": 0,
-        "max_defence": 0,
-        "rarity": 0,
-        "difficulty": 0,
-        "slots_spare": None,
-    }
-    values.update(changes)
-    record = SolutionRecord(**values)
+@pytest.fixture
+def empty_record(index):
+    """The record of a solution with every slot empty and no charm."""
+    record = to_record(Solution(armors=[None] * 5, charm=None), index)
     return record
 
 
@@ -234,9 +211,12 @@ def _record(**changes: Any) -> SolutionRecord:
         {"armors": (-1, -1, -1, -1)},
         {"decorations": (-1,)},
         {"body_decorations": (100_000,)},
+        {"non_body_decorations": (-1,)},
         {"extra_skills": (-1,)},
         {"bad_skills": (100_000,)},
         {"abilities": ((-1, 3),)},
+        {"abilities": ((3, 5), (3, -2))},
+        {"charm": CharmRecord(num_slots=1, abilities=((-1, 2),), custom=False, hacked=False)},
     ],
     ids=[
         "armour-below-empty",
@@ -244,30 +224,64 @@ def _record(**changes: Any) -> SolutionRecord:
         "four-slots",
         "decoration-negative",
         "body-decoration-past-end",
+        "non-body-decoration-negative",
         "extra-skill-negative",
         "bad-skill-past-end",
         "ability-negative",
+        "ability-twice",
+        "charm-ability-negative",
     ],
 )
-def test_unknown_index_raises(changes, teamhgg_game):
+def test_bad_record_raises(changes, empty_record, teamhgg_game):
     with pytest.raises(ValueError):
-        from_record(_record(**changes), teamhgg_game)
+        from_record(replace(empty_record, **changes), teamhgg_game)
 
 
-def test_record_with_every_index_in_range_rebuilds(teamhgg_game):
-    rebuilt = from_record(_record(decorations=(0,), extra_skills=(0,)), teamhgg_game)
+def test_record_with_every_index_in_range_rebuilds(empty_record, teamhgg_game):
+    record = replace(empty_record, decorations=(0,), extra_skills=(0,), abilities=((3, 5),))
+    rebuilt = from_record(record, teamhgg_game)
     assert rebuilt.decorations == [teamhgg_game.decorations[0]]
     assert rebuilt.extra_skills == [teamhgg_game.skills[0]]
+    assert rebuilt.abilities == {teamhgg_game.abilities[3]: 5}
 
 
-def test_armour_from_another_game_raises(hand_built_solution, load_teamhgg_game):
-    other_index = RecordIndex.for_game(load_teamhgg_game())
-    with pytest.raises(ValueError):
-        to_record(hand_built_solution, other_index)
+@pytest.fixture(scope="module")
+def other_game(load_teamhgg_game):
+    """A second copy of the same game: equal data, different record objects."""
+    return load_teamhgg_game()
 
 
-def test_skill_from_another_game_raises(load_teamhgg_game, index):
-    other_game = load_teamhgg_game()
-    solution = Solution(armors=[None] * 5, charm=None, extra_skills=[other_game.skills[0]])
+def _mixed_solution(own, other, foreign_field):
+    """A solution with a head piece, a charm pair, a decoration, an extra skill and
+    an ability total, each from ``own`` except ``foreign_field``'s, from ``other``."""
+
+    def source(field):
+        return other if field == foreign_field else own
+
+    solution = Solution(
+        armors=[source("armour").armors[ArmorType.HEAD][1], None, None, None, None],
+        charm=Charm(
+            abilities=[AbilityPair(ability=source("charm_ability").abilities[4], amount=2)]
+        ),
+        decorations=[source("decoration").decorations[0]],
+        extra_skills=[source("extra_skill").skills[0]],
+        abilities={source("ability").abilities[9]: 1},
+    )
+    return solution
+
+
+@pytest.mark.parametrize(
+    "foreign_field",
+    ["armour", "decoration", "extra_skill", "ability", "charm_ability"],
+)
+def test_record_from_another_game_raises(foreign_field, index, teamhgg_game, other_game):
+    solution = _mixed_solution(teamhgg_game, other_game, foreign_field)
     with pytest.raises(ValueError):
         to_record(solution, index)
+
+
+def test_solution_of_the_index_game_does_not_raise(index, teamhgg_game, other_game):
+    solution = _mixed_solution(teamhgg_game, other_game, foreign_field=None)
+    record = to_record(solution, index)
+    assert record.armors == (1, -1, -1, -1, -1)
+    assert record.extra_skills == (0,)
