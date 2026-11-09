@@ -11,6 +11,7 @@ raises ``MyCharmsFileError`` instead.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
@@ -58,9 +59,10 @@ class MyCharmsFileError(Exception):
 class _SkillColumnsFailed(Exception):
     """A skill column the original answers with a message box, then skips the line."""
 
-    def __init__(self, outcome: LineOutcome):
-        super().__init__(outcome.value)
+    def __init__(self, outcome: LineOutcome, message: str):
+        super().__init__(message)
         self.outcome = outcome
+        self.message = message
 
 
 def _read_points(fields: list[str], game: GameData) -> list[AbilityPair]:
@@ -71,11 +73,15 @@ def _read_points(fields: list[str], game: GameData) -> list[AbilityPair]:
             continue
         ability = game.ability_map.get(fields[name_field])
         if ability is None:
-            raise _SkillColumnsFailed(LineOutcome.NO_SUCH_SKILL)
+            raise _SkillColumnsFailed(
+                LineOutcome.NO_SUCH_SKILL, message=f'"{fields[name_field]}": No such skill'
+            )
         try:
             amount = to_int32(fields[points_field])
         except ValueError, OverflowError:
-            raise _SkillColumnsFailed(LineOutcome.BAD_POINTS) from None
+            raise _SkillColumnsFailed(
+                LineOutcome.BAD_POINTS, message="Could not read skill points"
+            ) from None
         pairs.append(AbilityPair(ability=ability, amount=amount))
     return pairs
 
@@ -87,7 +93,7 @@ def load_my_charms(path: Path, game: GameData, validity: CharmValidity) -> Loade
 
 
 def load_query_my_charms(
-    lines: list[str], game: GameData, validity: CharmValidity
+    lines: Sequence[str], game: GameData, validity: CharmValidity
 ) -> LoadedMyCharms:
     """A query file's ``my_charms``, as the harness's ``LoadMyCharms``
     (``harness/src/Workers.cpp``) reads them: ``LoadCustom``, except that a
@@ -104,8 +110,18 @@ def my_charms_illegal(loaded: LoadedMyCharms) -> int:
     return count
 
 
+def _message_box(
+    loaded: LoadedMyCharms, line: str, outcome: LineOutcome, message: str, stop_at_message: bool
+) -> None:
+    """A line ``LoadCustom`` answers with a message box and skips; with
+    ``stop_at_message`` it raises instead, as the harness's ``LoadMyCharms``."""
+    if stop_at_message:
+        raise MyCharmsFileError(line, ValueError(message))
+    loaded.lines.append(LoadedLine(line=line, outcome=outcome))
+
+
 def load_my_charm_lines(
-    lines: list[str], game: GameData, validity: CharmValidity, stop_at_message: bool = False
+    lines: Sequence[str], game: GameData, validity: CharmValidity, stop_at_message: bool = False
 ) -> LoadedMyCharms:
     """``LoadCustom``: every line's outcome and the charms kept, in line order.
 
@@ -123,9 +139,13 @@ def load_my_charm_lines(
         except ValueError as error:
             raise MyCharmsFileError(line, error) from error
         if len(fields) != 5:
-            if stop_at_message:
-                raise MyCharmsFileError(line, ValueError("incorrect number of commas"))
-            loaded.lines.append(LoadedLine(line=line, outcome=LineOutcome.WRONG_FIELD_COUNT))
+            _message_box(
+                loaded,
+                line=line,
+                outcome=LineOutcome.WRONG_FIELD_COUNT,
+                message="Incorrect number of commas",
+                stop_at_message=stop_at_message,
+            )
             continue
         try:
             num_slots = to_uint32(fields[0])
@@ -134,9 +154,13 @@ def load_my_charm_lines(
         try:
             pairs = _read_points(fields, game)
         except _SkillColumnsFailed as failure:
-            if stop_at_message:
-                raise MyCharmsFileError(line, ValueError(failure.outcome.value)) from failure
-            loaded.lines.append(LoadedLine(line=line, outcome=failure.outcome))
+            _message_box(
+                loaded,
+                line=line,
+                outcome=failure.outcome,
+                message=failure.message,
+                stop_at_message=stop_at_message,
+            )
             continue
         charm = Charm(num_slots=num_slots, abilities=pairs)
         try:

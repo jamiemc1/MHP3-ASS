@@ -198,3 +198,22 @@ def test_query_problems_are_reported_before_the_charm_mode(
 
     with pytest.raises(QueryError, match="hr must be 1-6"):
         SearchSpec.from_json(attack_sharp_query_json)
+
+
+def test_my_charms_shape_is_reported_before_query_problems(
+    attack_sharp_query_json: dict[str, Any],
+):
+    attack_sharp_query_json.update(hr=0, charm_mode="none", my_charms="1,Attack,3,,")
+
+    with pytest.raises(QueryError, match="my_charms must be a list"):
+        SearchSpec.from_json(attack_sharp_query_json)
+
+
+@pytest.mark.parametrize("charm_mode", [["none"], 1, None])
+def test_non_text_charm_mode_gives_the_harness_message(
+    attack_sharp_query_json: dict[str, Any], charm_mode
+):
+    attack_sharp_query_json.update(charm_mode=charm_mode, my_charms=[])
+
+    with pytest.raises(QueryError, match="charm_mode must be one of"):
+        SearchSpec.from_json(attack_sharp_query_json)
