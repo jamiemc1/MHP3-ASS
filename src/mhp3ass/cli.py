@@ -3,21 +3,40 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 from mhp3ass import __version__
 from mhp3ass.charms.generation import generate_charm_tables
-from mhp3ass.charms.my_charms import save_my_charms
+from mhp3ass.charms.my_charms import MyCharmsFileError, save_my_charms
+from mhp3ass.charms.naming import charm_name
 from mhp3ass.charms.validity import build_charm_validity
 from mhp3ass.data import apply_language, load_game_data
+from mhp3ass.query import QueryError, SearchSpec
+from mhp3ass.results.result_set import (
+    candidate_lines,
+    search_manifest,
+    solution_lines,
+    write_search_outputs,
+)
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
+from mhp3ass.search import SearchData, WorkerProgress, run_search
+from mhp3ass.solution.state import LegacyNullReferenceError
 
 
 def _default_data_dir() -> Path:
     # Until the data is packaged, it's read from the checkout's legacy/Run/Data.
     data_dir = Path(__file__).resolve().parents[2] / "legacy" / "Run" / "Data"
     return data_dir
+
+
+def _whole_number(text: str) -> int:
+    value = int(text)
+    if value < 0:
+        raise argparse.ArgumentTypeError("needs a whole number of at least 0")
+    return value
 
 
 def _import_save(args: argparse.Namespace) -> int:
@@ -48,6 +67,66 @@ def _import_save(args: argparse.Namespace) -> int:
     return 0
 
 
+def _print_progress(progress: WorkerProgress) -> None:
+    template = progress.worker.template
+    name = "no charm" if template is None else charm_name(template)
+    print(
+        f"worker {progress.number + 1}/{progress.worker_count} {name}: "
+        f"{len(progress.worker.found):,} found, {len(progress.worker.added):,} added, "
+        f"{progress.seconds:.1f} s",
+        file=sys.stderr,
+    )
+
+
+def _search(args: argparse.Namespace) -> int:
+    """The harness's ``search``: the same inputs, the same output files.
+
+    Exit codes: 0 done (also with no solutions or no workers), 1 bad input,
+    3 the original would have thrown (with ``--record-exceptions`` a worker's
+    throw is recorded instead, as the harness does).
+    """
+    try:
+        spec_json = json.loads(args.query.read_text(encoding="utf-8"))
+        spec = SearchSpec.from_json(spec_json)
+        data = SearchData.load(args.data_dir, language=spec.query.language)
+        on_worker_done = _print_progress if args.progress else None
+        # Always recorded here, so a throw can name its worker; reported below
+        # as the harness reports it.
+        result = run_search(spec, data=data, record_exceptions=True, on_worker_done=on_worker_done)
+    except (OSError, json.JSONDecodeError, KeyError, QueryError, MyCharmsFileError) as error:
+        print(f"{args.query}: {error}", file=sys.stderr)
+        return 1
+    except LegacyNullReferenceError:
+        # Duplicate removal's HashArmor (quirk T), outside any worker.
+        print(f"{args.query}: duplicate removal: NullReferenceException", file=sys.stderr)
+        return 3
+    exception = result.exception
+    if exception is not None and not args.record_exceptions:
+        name = "no charm" if exception.template is None else charm_name(exception.template)
+        print(
+            f"{args.query}: worker {exception.worker} ({name}): {exception.type}", file=sys.stderr
+        )
+        return 3
+    if not args.record_exceptions:
+        result = replace(result, exceptions_recorded=False)
+    lines = solution_lines(result, game=data.game)
+    if args.out is None:
+        for line in lines:
+            print(line)
+    else:
+        manifest = search_manifest(
+            spec_json, result=result, game=data.game, max_solution_lines=args.max_solution_lines
+        )
+        candidates = candidate_lines(result, game=data.game) if args.candidates else None
+        write_search_outputs(args.out, manifest=manifest, lines=lines, candidates=candidates)
+    found = sum(len(worker.found) for worker in result.workers)
+    print(
+        f"{len(lines):,} solutions from {result.worker_count} workers ({found:,} found)",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="mhp3ass",
@@ -69,8 +148,49 @@ def main(argv: list[str] | None = None) -> int:
     import_save.add_argument(
         "--data-dir", type=Path, default=_default_data_dir(), help="the game data folder"
     )
+    search = commands.add_parser(
+        "search",
+        help="run a query file's search, writing what the harness's search writes",
+    )
+    search.add_argument("query", type=Path, help="a query file in the corpus format")
+    search.add_argument(
+        "--out",
+        type=Path,
+        help="write PREFIX.manifest.json and PREFIX.solutions.txt.gz; without it, "
+        "solution lines go to stdout",
+    )
+    search.add_argument(
+        "--candidates",
+        action="store_true",
+        help="also write PREFIX.candidates.txt.gz: every solution found, before duplicate removal",
+    )
+    search.add_argument(
+        "--max-solution-lines",
+        type=_whole_number,
+        default=-1,
+        help="leave out the solutions file when there are more lines than this",
+    )
+    search.add_argument(
+        "--record-exceptions",
+        action="store_true",
+        help="record a worker the original would throw in, in the manifest, instead of failing",
+    )
+    search.add_argument(
+        "--progress", action="store_true", help="report each finished worker on stderr"
+    )
+    search.add_argument(
+        "--data-dir", type=Path, default=_default_data_dir(), help="the game data folder"
+    )
     args = parser.parse_args(argv)
     if args.command == "import-save":
         return _import_save(args)
+    if args.command == "search":
+        if args.out is None and (args.candidates or args.max_solution_lines >= 0):
+            parser.error("--candidates and --max-solution-lines need --out")
+        try:
+            return _search(args)
+        except KeyboardInterrupt:
+            # Files are only written after the search, so nothing is left behind.
+            return 130
     parser.print_help()
     return 0

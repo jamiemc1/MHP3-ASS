@@ -10,6 +10,8 @@ harness's ``SearchDump::Run`` (``harness/src/SearchDump.cpp``) runs them.
 
 from __future__ import annotations
 
+import time
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -179,7 +181,23 @@ def dotnet_message(exception_type: str) -> str:
     return message
 
 
-def run_search(spec: SearchSpec, data: SearchData, record_exceptions: bool = False) -> SearchResult:
+@dataclass(frozen=True)
+class WorkerProgress:
+    """A finished worker, for progress reports: its number of ``worker_count``,
+    its result, and how long it took."""
+
+    number: int
+    worker_count: int
+    worker: WorkerResult
+    seconds: float
+
+
+def run_search(
+    spec: SearchSpec,
+    data: SearchData,
+    record_exceptions: bool = False,
+    on_worker_done: Callable[[WorkerProgress], None] | None = None,
+) -> SearchResult:
     """One search, as the harness's ``SearchDump::Run`` runs it: load the query's
     charm lines, formulate the query, start the workers in ``StartSearch``'s
     order, run each in turn and merge its solutions in that order.
@@ -189,6 +207,7 @@ def run_search(spec: SearchSpec, data: SearchData, record_exceptions: bool = Fal
     that worker and the ones after it (the GUI shows a message box and loses
     that worker's result, Form1.h:1804-1811); without, the error propagates.
     Errors in duplicate removal (quirk T) always propagate, as in the harness.
+    ``on_worker_done`` is called after each worker's solutions are merged.
     """
     loaded = load_query_my_charms(spec.my_charms, game=data.game, validity=data.validity)
     query = formulate_query(data.game, spec.query)
@@ -199,6 +218,7 @@ def run_search(spec: SearchSpec, data: SearchData, record_exceptions: bool = Fal
     workers = []
     exception = None
     for number, template in enumerate(templates):
+        start = time.perf_counter()
         try:
             found = run_worker(query, template, data.game)
         except (LegacyNullReferenceError, LookupError) as error:
@@ -206,11 +226,23 @@ def run_search(spec: SearchSpec, data: SearchData, record_exceptions: bool = Fal
             if not record_exceptions or exception_type is None:
                 raise
             exception = SearchException(
-                worker=number, type=exception_type, message=dotnet_message(exception_type)
+                worker=number,
+                type=exception_type,
+                message=dotnet_message(exception_type),
+                template=template,
             )
             break
         added = results.add_solutions(found)
-        workers.append(WorkerResult(template=template, found=found, added=added))
+        worker = WorkerResult(template=template, found=found, added=added)
+        workers.append(worker)
+        if on_worker_done is not None:
+            progress = WorkerProgress(
+                number=number,
+                worker_count=len(templates),
+                worker=worker,
+                seconds=time.perf_counter() - start,
+            )
+            on_worker_done(progress)
     search_result = SearchResult(
         query=query,
         my_charms_loaded=len(loaded.charms),

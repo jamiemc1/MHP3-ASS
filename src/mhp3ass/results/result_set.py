@@ -9,10 +9,12 @@ with the harness's hashes over them.
 
 from __future__ import annotations
 
+import gzip
 import hashlib
 import json
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 
 from mhp3ass.charms.naming import charm_name
@@ -133,11 +135,14 @@ def lines_sha256(lines: Iterable[str]) -> str:
 @dataclass(frozen=True)
 class SearchException:
     """A worker that threw, recorded as the harness's ``--record-exceptions``
-    does: the worker's number and the .NET exception the original raises."""
+    does: the worker's number and the .NET exception the original raises.
+    ``template`` is the worker's charm template, for messages; manifests
+    don't record it."""
 
     worker: int
     type: str
     message: str
+    template: Charm | None = None
 
 
 @dataclass(frozen=True)
@@ -257,3 +262,100 @@ def search_manifest(
             else {"worker": exception.worker, "type": exception.type, "message": exception.message}
         )
     return manifest
+
+
+def _json_string(text: str) -> str:
+    """``JsonWriter::Escape`` (``harness/src/Json.h``): quotes, backslashes and
+    \\n \\r \\t escaped by name, anything else outside printable ASCII as a
+    lower-case ``\\u`` escape of its UTF-16 code unit."""
+    escaped = ['"']
+    named = {'"': '\\"', "\\": "\\\\", "\n": "\\n", "\r": "\\r", "\t": "\\t"}
+    for character in text:
+        code = ord(character)
+        if character in named:
+            escaped.append(named[character])
+        elif 0x20 <= code <= 0x7E:
+            escaped.append(character)
+        elif code > 0xFFFF:
+            surrogates = character.encode("utf-16-be")
+            high = int.from_bytes(surrogates[:2], "big")
+            low = int.from_bytes(surrogates[2:], "big")
+            escaped.append(f"\\u{high:04x}\\u{low:04x}")
+        else:
+            escaped.append(f"\\u{code:04x}")
+    escaped.append('"')
+    text_literal = "".join(escaped)
+    return text_literal
+
+
+def _json_value(value: Any, depth: int) -> str:
+    """One value in ``JsonWriter``'s layout: two-space indent, ``"key": value``,
+    empty containers as ``{}`` and ``[]``."""
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, int):
+        return str(value)
+    if isinstance(value, str):
+        return _json_string(value)
+    inner = "\n" + "  " * (depth + 1)
+    if isinstance(value, dict):
+        if not value:
+            return "{}"
+        members = [
+            f"{_json_string(key)}: {_json_value(item, depth + 1)}" for key, item in value.items()
+        ]
+        text = "{" + inner + ("," + inner).join(members) + "\n" + "  " * depth + "}"
+        return text
+    if isinstance(value, list):
+        if not value:
+            return "[]"
+        elements = [_json_value(item, depth + 1) for item in value]
+        text = "[" + inner + ("," + inner).join(elements) + "\n" + "  " * depth + "]"
+        return text
+    raise TypeError(f"no JSON form for {value!r}")
+
+
+def manifest_text(manifest: dict[str, Any]) -> str:
+    """A manifest as the harness's ``JsonWriter`` writes it, ending in a newline."""
+    text = _json_value(manifest, depth=0) + "\n"
+    return text
+
+
+def gzip_lines(lines: Iterable[str]) -> bytes:
+    """A lines file as ``FixtureFiles::WriteText`` writes it: UTF-8, each line
+    ending in ``\\n``, gzip-compressed; no lines gives RFC 1952's empty member
+    (which the harness writes by hand, since .NET's ``GZipStream`` writes nothing)."""
+    text = "".join(f"{line}\n" for line in lines)
+    if text == "":
+        empty_member = bytes(
+            [0x1F, 0x8B, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF] + [0x03, 0x00] + [0x00] * 8
+        )
+        return empty_member
+    # mtime=0 keeps the output the same from run to run.
+    compressed = gzip.compress(text.encode("utf-8"), mtime=0)
+    return compressed
+
+
+def write_search_outputs(
+    prefix: Path,
+    manifest: dict[str, Any],
+    lines: list[str],
+    candidates: list[CandidateLine] | None,
+) -> None:
+    """The harness's ``search`` outputs for ``prefix``: ``.manifest.json``,
+    ``.solutions.txt.gz`` (removed instead when the manifest says no solutions
+    file) and, when given, ``.candidates.txt.gz``."""
+    Path(f"{prefix}.manifest.json").write_bytes(manifest_text(manifest).encode("utf-8"))
+    solutions_path = Path(f"{prefix}.solutions.txt.gz")
+    if manifest["solutions_file"]:
+        solutions_path.write_bytes(gzip_lines(lines))
+    else:
+        solutions_path.unlink(missing_ok=True)
+    if candidates is not None:
+        rows = [
+            f"{candidate.worker}\t{candidate.charm_name}\t{candidate.solution_line}"
+            for candidate in candidates
+        ]
+        Path(f"{prefix}.candidates.txt.gz").write_bytes(gzip_lines(rows))

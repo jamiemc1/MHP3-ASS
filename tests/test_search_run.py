@@ -69,3 +69,19 @@ def test_empty_slots_are_padded_on_a_copy(recorded_empty_armor_search):
 )
 def test_port_errors_map_to_the_dotnet_exceptions_they_stand_for(error, expected):
     assert dotnet_exception_type(error) == expected
+
+
+def test_each_finished_worker_is_reported_in_order(repo_root, search_data_by_language):
+    spec = SearchSpec.from_file(
+        repo_root / "tests" / "corpus" / "g13-hr3-attack-health-one-skill.json"
+    )
+    reports = []
+
+    result = run_search(
+        spec, data=search_data_by_language[spec.query.language], on_worker_done=reports.append
+    )
+
+    assert [
+        [(report.number, report.worker_count) for report in reports],
+        [report.worker for report in reports] == result.workers,
+    ] == [[(0, 4), (1, 4), (2, 4), (3, 4)], True]
