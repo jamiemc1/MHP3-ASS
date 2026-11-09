@@ -14,7 +14,8 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 
 from mhp3ass.charms.naming import charm_name
-from mhp3ass.model import Armor, Skill
+from mhp3ass.model import Armor, Charm, Skill
+from mhp3ass.query import Query
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
@@ -124,3 +125,42 @@ def lines_sha256(lines: Iterable[str]) -> str:
     text = "".join(f"{line}\n" for line in lines)
     digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
     return digest
+
+
+@dataclass(frozen=True)
+class SearchException:
+    """A worker that threw, recorded as the harness's ``--record-exceptions``
+    does: the worker's number and the .NET exception the original raises."""
+
+    worker: int
+    type: str
+    message: str
+
+
+@dataclass(frozen=True)
+class WorkerResult:
+    """One worker's run: its charm template (``None`` for charm-free), every
+    solution it found in loop order, and the ones duplicate removal kept."""
+
+    template: Charm | None
+    found: list[Solution]
+    added: list[Solution]
+
+
+@dataclass(frozen=True)
+class SearchResult:
+    """Everything one search produced, in the harness's terms.
+
+    ``workers`` holds the workers that finished: with a recorded exception,
+    the throwing worker and those after it are missing, while
+    ``worker_count`` still counts every worker the search started.
+    """
+
+    query: Query
+    my_charms_loaded: int
+    my_charms_illegal: int
+    worker_count: int
+    workers: list[WorkerResult]
+    results: ResultSet
+    exceptions_recorded: bool
+    exception: SearchException | None

@@ -15,15 +15,13 @@ from typing import Any
 
 from goldens import TraceGolden
 from mhp3ass.data import GameData
-from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
-from mhp3ass.search import armor_choices
+from mhp3ass.search import armor_choices, dotnet_exception_type
 from mhp3ass.solution import finish, has_enough_points, match
 from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
 from mhp3ass.solution.charm_reduction import (
-    LegacyListIndexError,
     rearrange_decorations,
     reduce_charm,
     reduce_skills,
@@ -198,16 +196,12 @@ def _difference(
 
 
 def _dotnet_exception(error: Exception) -> str:
-    """The .NET exception type the port's exception stands for."""
-    if isinstance(error, LegacyNullReferenceError):
-        return "NullReferenceException"
-    if isinstance(error, LegacyListIndexError):
-        return "ArgumentOutOfRangeException"
-    if isinstance(error, (NoDecorationsError, KeyError)):
-        return "KeyNotFoundException"
-    if isinstance(error, IndexError):
-        return "IndexOutOfRangeException"
-    raise error
+    """The .NET exception type the port's exception stands for; re-raises an
+    error the original never raises."""
+    exception_type = dotnet_exception_type(error)
+    if exception_type is None:
+        raise error
+    return exception_type
 
 
 def _threw_difference(

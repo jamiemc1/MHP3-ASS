@@ -1,8 +1,11 @@
-"""A search's workers: which charm templates it searches, and each worker's loop.
+"""A search: which charm templates it searches, each worker's loop, and the run
+that merges the workers' solutions.
 
-Ported from ``Form1::StartSearch`` (``legacy/Form1.h:1251-1375``) and
-``Form1::backgroundWorker1_DoWork`` (``legacy/Form1.h:1852-1930``), without
-the threads, progress reporting and cancellation.
+Ported from ``Form1::StartSearch`` (``legacy/Form1.h:1251-1375``),
+``Form1::backgroundWorker1_DoWork`` (``legacy/Form1.h:1852-1930``) and
+``backgroundWorker1_RunWorkerCompleted`` (``legacy/Form1.h:1804-1836``),
+without the threads, progress reporting and cancellation, in the order the
+harness's ``SearchDump::Run`` (``harness/src/SearchDump.cpp``) runs them.
 """
 
 from __future__ import annotations
@@ -13,12 +16,18 @@ from pathlib import Path
 from mhp3ass.charms.comparison import add_charm_to_optimal_list
 from mhp3ass.charms.for_query import get_charms
 from mhp3ass.charms.generation import CharmTables, generate_charm_tables
+from mhp3ass.charms.my_charms import load_query_my_charms, my_charms_illegal
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import Armor, Charm
-from mhp3ass.query import CharmMode, Query
+from mhp3ass.query import CharmMode, Query, SearchSpec
+from mhp3ass.relevance import formulate_query
+from mhp3ass.results.result_set import ResultSet, SearchException, SearchResult, WorkerResult
 from mhp3ass.solution import matches_query
-from mhp3ass.solution.state import Solution
+from mhp3ass.solution.charm_reduction import LegacyListIndexError
+from mhp3ass.solution.fill import UndefinedScoreError
+from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
 @dataclass(frozen=True)
@@ -136,3 +145,80 @@ def run_worker(query: Query, charm_template: Charm | None, game: GameData) -> li
                         if matches_query(job, query, game):
                             solutions.append(job)
     return solutions
+
+
+def dotnet_exception_type(error: Exception) -> str | None:
+    """The .NET exception type a port exception stands for, or ``None`` for an
+    error the original never raises (such as ``UndefinedScoreError``, a
+    port-side check where the original reads past its score table)."""
+    exception_type = None
+    if isinstance(error, LegacyNullReferenceError):
+        exception_type = "NullReferenceException"
+    elif isinstance(error, LegacyListIndexError):
+        exception_type = "ArgumentOutOfRangeException"
+    elif isinstance(error, (NoDecorationsError, KeyError)):
+        exception_type = "KeyNotFoundException"
+    elif isinstance(error, IndexError) and not isinstance(error, UndefinedScoreError):
+        exception_type = "IndexOutOfRangeException"
+    return exception_type
+
+
+def dotnet_message(exception_type: str) -> str:
+    """.NET Framework 4.8's default message for ``exception_type`` (unverified
+    against a harness golden: none records an exception yet)."""
+    messages = {
+        "NullReferenceException": "Object reference not set to an instance of an object.",
+        "ArgumentOutOfRangeException": (
+            "Index was out of range. Must be non-negative and less than the size of the "
+            "collection.\r\nParameter name: index"
+        ),
+        "KeyNotFoundException": "The given key was not present in the dictionary.",
+        "IndexOutOfRangeException": "Index was outside the bounds of the array.",
+    }
+    message = messages[exception_type]
+    return message
+
+
+def run_search(spec: SearchSpec, data: SearchData, record_exceptions: bool = False) -> SearchResult:
+    """One search, as the harness's ``SearchDump::Run`` runs it: load the query's
+    charm lines, formulate the query, start the workers in ``StartSearch``'s
+    order, run each in turn and merge its solutions in that order.
+
+    ``data`` must be in ``spec``'s language. A worker that throws stops the
+    search: with ``record_exceptions`` the result records it and leaves out
+    that worker and the ones after it (the GUI shows a message box and loses
+    that worker's result, Form1.h:1804-1811); without, the error propagates.
+    Errors in duplicate removal (quirk T) always propagate, as in the harness.
+    """
+    loaded = load_query_my_charms(spec.my_charms, game=data.game, validity=data.validity)
+    query = formulate_query(data.game, spec.query)
+    templates = worker_charms(
+        query, charm_mode=spec.charm_mode, my_charms=loaded.charms, tables=data.tables
+    )
+    results = ResultSet()
+    workers = []
+    exception = None
+    for number, template in enumerate(templates):
+        try:
+            found = run_worker(query, template, data.game)
+        except (LegacyNullReferenceError, LookupError) as error:
+            exception_type = dotnet_exception_type(error)
+            if not record_exceptions or exception_type is None:
+                raise
+            exception = SearchException(
+                worker=number, type=exception_type, message=dotnet_message(exception_type)
+            )
+            break
+        added = results.add_solutions(found)
+        workers.append(WorkerResult(template=template, found=found, added=added))
+    search_result = SearchResult(
+        query=query,
+        my_charms_loaded=len(loaded.charms),
+        my_charms_illegal=my_charms_illegal(loaded),
+        worker_count=len(templates),
+        workers=workers,
+        results=results,
+        exceptions_recorded=record_exceptions,
+        exception=exception,
+    )
+    return search_result
