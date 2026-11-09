@@ -34,7 +34,7 @@ to the TUI.
 | Result sorting (the original's keys, sorted stably) | `Form1.h:20-80`, `:2149-2172` (`cmbSort`) | 10 (`results/sorting.py`) |
 | Result filtering by charm | `Form1.h` (`cmbCharms`) | 10 |
 | Find in results | `frmFind.h` | 10 |
-| My-charms management (add, delete, persist to `mycharms.txt`) | `ManageCharms.h`, `CharmDatabase.cpp` | 3, 10 |
+| My-charms management (add, delete, persist to `mycharms.txt`) | `ManageCharms.h`, `CharmDatabase.cpp` | 3, 10 (editing: `charms/editing.py`) |
 | Charm import from a PSP save | `ImportCharms.h`, `SaveDataEncryption.cpp`, `PSPCryptoEngine.cpp` | 7, 10 |
 | Charm validity checking (possible/impossible charms) | `CharmDatabase.cpp` | 3 |
 | Charm tooltip: which tables can produce a charm (`FindCharm2`) and its name parser | `CharmDatabase.cpp:1006-1099`, `Common.cpp:157-230` | Side stream (logic), 10 (menu) |

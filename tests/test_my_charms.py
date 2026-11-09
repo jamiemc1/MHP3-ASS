@@ -143,3 +143,25 @@ def test_query_charm_lines_skip_and_count_rejected_charms(teamhgg_game, validity
         ["+3 Attack O--", "+1 Attack ---"],
         1,
     ]
+
+
+@pytest.fixture
+def my_charms_saved_in_german(tmp_path, games_by_language):
+    """mycharms.txt as SaveCustom writes it while the UI is in German: +4 Attack, no slots."""
+    german = games_by_language["Deutsch (Vuze)"]
+    attack = german.abilities[0]
+    path = tmp_path / "mycharms.txt"
+    save_my_charms(path, [Charm(num_slots=0, abilities=[AbilityPair(ability=attack, amount=4)])])
+    return path
+
+
+def test_charms_saved_in_another_language_fail_to_load(
+    my_charms_saved_in_german, teamhgg_game, validity
+):
+    """Names are written in the UI language but read in whichever language is loaded."""
+    loaded = load_my_charms(my_charms_saved_in_german, teamhgg_game, validity)
+
+    assert [
+        [line.outcome for line in loaded.lines],
+        loaded.charms,
+    ] == [[LineOutcome.NO_SUCH_SKILL], []]
