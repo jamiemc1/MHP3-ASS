@@ -9,7 +9,7 @@ from goldens import SearchGolden
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, ArmorType, Charm
-from mhp3ass.results import ResultSet, hash_armor, lines_sha256
+from mhp3ass.results.result_set import ResultSet, hash_armor, lines_sha256
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 

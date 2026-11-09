@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 from goldens import FuzzGolden
-from mhp3ass.results import lines_sha256
+from mhp3ass.results.result_set import lines_sha256
 
 
 def test_fuzz_goldens_are_current(fuzz_goldens: list[FuzzGolden]):

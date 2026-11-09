@@ -19,7 +19,7 @@ from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import formulate_query
-from mhp3ass.results import solution_line
+from mhp3ass.results.result_set import solution_line
 from mhp3ass.search import run_worker
 from solution_trace import template_charm
 
