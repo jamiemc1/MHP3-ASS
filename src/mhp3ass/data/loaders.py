@@ -345,7 +345,7 @@ def _add_unique[T](mapping: dict[str, T], key: str, value: T) -> None:
     mapping[key] = value
 
 
-class _LanguageFile:
+class LanguageFile:
     """Reads a language file line by line, skipping blank and ``#`` lines."""
 
     def __init__(self, path: Path, lines: list[str] | None = None) -> None:
@@ -366,11 +366,11 @@ def apply_language(game: GameData, language_dir: Path) -> None:
     Display strings (``strings.txt``) belong to the user interface and are
     not loaded here.
     """
-    tags = _LanguageFile(language_dir / "tags.txt")
+    tags = LanguageFile(language_dir / "tags.txt")
     for tag in game.skill_tags:
         tag.name = tags.next_name()
 
-    materials = _LanguageFile(language_dir / "components.txt")
+    materials = LanguageFile(language_dir / "components.txt")
     game.material_map.clear()
     for material in game.materials:
         material.name = materials.next_name()
@@ -380,7 +380,7 @@ def apply_language(game: GameData, language_dir: Path) -> None:
     # armour (in any slot) is skipped and the next line is used instead.
     game.armor_map.clear()
     for armor_type, file_name in _ARMOR_FILES.items():
-        names = _LanguageFile(language_dir / file_name)
+        names = LanguageFile(language_dir / file_name)
         for armor in game.armors[armor_type]:
             name = names.next_name()
             while name in game.armor_map:
@@ -388,7 +388,7 @@ def apply_language(game: GameData, language_dir: Path) -> None:
             armor.name = name
             game.armor_map[name] = armor
 
-    decorations = _LanguageFile(language_dir / "decorations.txt")
+    decorations = LanguageFile(language_dir / "decorations.txt")
     game.decoration_map.clear()
     for decoration in game.decorations:
         decoration.name = decorations.next_name()
@@ -409,7 +409,7 @@ def _apply_skill_language(game: GameData, path: Path) -> None:
         # The original consumes the first line whenever it is a comment.
         ordered = lines[0] == "#ordered"
         lines = lines[1:]
-    names = _LanguageFile(path, lines=lines)
+    names = LanguageFile(path, lines=lines)
 
     abilities = game.ordered_abilities if ordered else game.abilities
     skills = game.ordered_skills if ordered else game.skills

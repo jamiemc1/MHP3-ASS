@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 from pathlib import Path
 
-from mhp3ass.data.text import read_lines
+from mhp3ass.data.loaders import LanguageFile
 
 
 class StringIndex(IntEnum):
@@ -118,6 +118,10 @@ class DisplayStrings:
 
     text: tuple[str, ...]
 
+    def __post_init__(self) -> None:
+        if len(self.text) != len(StringIndex):
+            raise ValueError(f"{len(self.text)} display strings, expected {len(StringIndex)}")
+
     def static(self, index: StringIndex) -> str:
         """``StaticString( X )``."""
         return self.text[index]
@@ -156,12 +160,7 @@ def load_strings(language_dir: Path) -> DisplayStrings:
     shows "Unexpected end of file" and carries on with the missing strings
     unset, this raises.
     """
-    path = language_dir / "strings.txt"
-    text = [line for line in read_lines(path) if line != "" and line[0] != "#"]
-    if len(text) < len(StringIndex):
-        raise ValueError(
-            f"Unexpected end of file: not enough lines of text in {path.name} "
-            f"({len(text)} of {len(StringIndex)})"
-        )
-    strings = DisplayStrings(text=tuple(text[: len(StringIndex)]))
+    names = LanguageFile(language_dir / "strings.txt")
+    text = tuple(names.next_name() for _ in StringIndex)
+    strings = DisplayStrings(text=text)
     return strings
