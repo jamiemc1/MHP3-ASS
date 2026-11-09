@@ -43,16 +43,12 @@ def _manifest_difference(ours: dict[str, Any], golden: dict[str, Any]) -> str | 
     if ours == golden:
         return None
     fields = sorted(key for key in ours.keys() | golden.keys() if ours.get(key) != golden.get(key))
-    first_worker = next(
-        (
-            number
-            for number, (our_worker, golden_worker) in enumerate(
-                zip(ours.get("workers", []), golden.get("workers", []), strict=False)
-            )
-            if our_worker != golden_worker
-        ),
-        None,
-    )
+    first_worker = None
+    for number, golden_worker in enumerate(golden["workers"]):
+        our_worker = ours["workers"][number] if number < len(ours["workers"]) else None
+        if our_worker != golden_worker:
+            first_worker = number
+            break
     order_only = (
         ours["solutions_sha256"] != golden["solutions_sha256"]
         and ours["solution_set_sha256"] == golden["solution_set_sha256"]
@@ -64,9 +60,30 @@ def _manifest_difference(ours: dict[str, Any], golden: dict[str, Any]) -> str | 
 def _lines_difference(ours: list[str], golden: list[str]) -> str | None:
     if ours == golden:
         return None
-    missing = [line for line in golden if line not in set(ours)][:10]
-    extra = [line for line in ours if line not in set(golden)][:10]
+    our_set = set(ours)
+    golden_set = set(golden)
+    missing = [line for line in golden if line not in our_set][:10]
+    extra = [line for line in ours if line not in golden_set][:10]
     difference = f"{len(ours)} lines vs {len(golden)}; missing {missing}; extra {extra}"
+    return difference
+
+
+def _rows_difference(
+    ours: list[tuple[int, str, str]], expected: list[tuple[int, str, str]]
+) -> str | None:
+    """The first candidate row that differs, as (worker, charm name, line)."""
+    if ours == expected:
+        return None
+    first = min(len(ours), len(expected))
+    for index, (our_row, expected_row) in enumerate(zip(ours, expected, strict=False)):
+        if our_row != expected_row:
+            first = index
+            break
+    our_row = ours[first] if first < len(ours) else None
+    expected_row = expected[first] if first < len(expected) else None
+    difference = (
+        f"{len(ours)} rows vs {len(expected)}; row {first}: ours {our_row}, harness {expected_row}"
+    )
     return difference
 
 
@@ -86,7 +103,7 @@ def _compare(golden: SearchGolden, search_data: dict[str, SearchData]) -> Search
             (candidate.worker, candidate.charm_name, candidate.solution_line)
             for candidate in golden.candidates
         ]
-        candidates_difference = None if ours == expected else f"{len(ours)} vs {len(expected)}"
+        candidates_difference = _rows_difference(ours, expected)
     comparison = SearchComparison(
         query_id=golden.manifest["id"],
         manifest=_manifest_difference(manifest, golden.manifest),
@@ -134,4 +151,4 @@ def test_every_order_dependent_query_compares_candidates(search_goldens):
 
 @pytest.mark.parametrize("part", ["manifest", "solution_lines", "candidates"])
 def test_personal_search_matches_the_harness(personal_comparisons, part):
-    assert _differences(personal_comparisons, part) == {}
+    assert [len(personal_comparisons), _differences(personal_comparisons, part)] == [12, {}]

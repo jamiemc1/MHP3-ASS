@@ -215,12 +215,16 @@ def search_manifest(
 
     ``query_json`` is a compact re-serialisation of ``spec_json``, not the
     harness's byte for byte, so compare it parsed. ``max_solution_lines``
-    below 0 means no limit; above it ``solutions_file`` is false.
+    below 0 means no limit; above it ``solutions_file`` is false. The kept
+    solutions are the workers' added ones in worker order, so their lines
+    are those of ``solution_lines``.
     """
     skill_index = skill_indices(game)
     workers = []
+    lines: list[str] = []
     for number, worker in enumerate(result.workers):
         added_lines = [solution_line(solution, skill_index) for solution in worker.added]
+        lines += added_lines
         workers.append(
             {
                 "worker": number,
@@ -230,7 +234,6 @@ def search_manifest(
                 "added_sha256": lines_sha256(added_lines),
             }
         )
-    lines = solution_lines(result, game)
     manifest: dict[str, Any] = {
         "id": spec_json["id"],
         "query_json": json.dumps(spec_json, ensure_ascii=False, separators=(",", ":")),
