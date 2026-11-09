@@ -43,6 +43,7 @@ from mhp3ass.charms.validity import (
     generated_charm,
 )
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.data.languages import language_folders
 from mhp3ass.data.loaders import other_hunter_types_skill, read_skill_types
 from mhp3ass.model import Ability, AbilityPair, ArmorType, Charm, Gender, HunterType
 from mhp3ass.query import Query, QuerySpec, build_query, offered_skills
@@ -151,14 +152,6 @@ class Measured:
 class Quota:
     feature: str
     minimum: int
-
-
-def language_folders(languages_dir: Path) -> list[str]:
-    """Language folders in the GUI's menu order (NTFS order: case-insensitive names)."""
-    folders = sorted(
-        (path.name for path in languages_dir.iterdir() if path.is_dir()), key=str.upper
-    )
-    return folders
 
 
 def build_catalogue(data_dir: Path) -> Catalogue:
