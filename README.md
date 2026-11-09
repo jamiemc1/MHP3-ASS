@@ -55,9 +55,11 @@ Runs a query file in the corpus format (`tests/corpus/README.md`) as the
 original's search does, and writes what the harness's `search` writes:
 `<name>.manifest.json` and `<name>.solutions.txt.gz`, plus
 `<name>.candidates.txt.gz` with `--candidates`. `--max-solution-lines N`
-leaves out the solutions file above N lines, `--record-exceptions` records a
-worker the original would throw in instead of failing (exit code 3), and
-`--progress` reports each finished worker. To compare with a golden:
+leaves out the solutions file above N lines, and `--progress` reports each
+finished worker. Where the original would throw, the command exits with
+code 3 naming the worker; with `--record-exceptions` it records the
+exception in the manifest instead and exits 0, as the harness does. To
+compare with a golden:
 
 ```bash
 gzcat tests/golden/search/<name>.solutions.txt.gz | diff - <(gzcat out/<name>.solutions.txt.gz)
