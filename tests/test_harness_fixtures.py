@@ -14,7 +14,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from goldens import Candidate, RelevanceGolden, SearchGolden, lines_sha256
+from goldens import Candidate, RelevanceGolden, SearchGolden
+from mhp3ass.results import lines_sha256
 from mhp3ass.settings_cfg import read_settings_cfg
 
 

@@ -1,17 +1,20 @@
-"""A search's result list and its duplicate removal.
+"""A search's result list, its duplicate removal, and the lines it is saved as.
 
 Ported from ``Form1::HashArmor``, ``SolutionExists``, ``AddSolution( String^,
 Solution^ )`` and ``AddSolutions`` (``legacy/Form1.h:1691-1746``), as the
-harness's ``ResultSet`` (``harness/src/SearchDump.cpp``) collects them.
+harness's ``ResultSet`` (``harness/src/SearchDump.cpp``) collects them, and
+from the solution lines of ``Form1::SaveConfig`` (``legacy/Form1.h:495-538``)
+with the harness's hashes over them.
 """
 
 from __future__ import annotations
 
+import hashlib
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 
 from mhp3ass.charms.naming import charm_name
-from mhp3ass.model import Armor
+from mhp3ass.model import Armor, Skill
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
@@ -79,3 +82,39 @@ class ResultSet:
             elif self.add_solution(charm_name(solution.charm), solution):
                 added.append(solution)
         return added
+
+
+def solution_line(solution: Solution, skill_index: dict[Skill, int]) -> str:
+    """One solution line as ``SearchDump``'s ``SolutionLine`` writes it (the
+    ``settings.cfg`` format, Form1.h:495-538, without the newline).
+
+    Every field ends in a space: the armour indices (-1 for an empty slot),
+    total and per-size spare slots, the decorations, the extra skills, then
+    the charm's slots and pairs when it has one. ``skill_index`` maps each
+    skill to its position in the game's skill list.
+    """
+    fields = [str(armor.index if armor is not None else -1) for armor in solution.armors]
+    slots_spare = solution.slots_spare
+    if slots_spare is None:
+        raise ValueError("a solution line needs the slots MatchesQuery counted")
+    fields.append(str(solution.total_slots_spare))
+    fields += [str(slots_spare[size]) for size in (1, 2, 3)]
+    fields.append(str(len(solution.decorations)))
+    fields += [str(decoration.index) for decoration in solution.decorations]
+    fields.append(str(len(solution.extra_skills)))
+    fields += [str(skill_index[skill]) for skill in solution.extra_skills]
+    charm = solution.charm
+    if charm is not None:
+        fields += [str(charm.num_slots), str(len(charm.abilities))]
+        for pair in charm.abilities:
+            fields += [str(pair.amount), str(pair.ability.static_index)]
+    line = "".join(f"{field} " for field in fields)
+    return line
+
+
+def lines_sha256(lines: Iterable[str]) -> str:
+    """The harness's ``LinesSha256`` (``SearchDump.cpp``): SHA-256 of the lines'
+    UTF-8 text, each ending in a newline."""
+    text = "".join(f"{line}\n" for line in lines)
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return digest

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import gzip
-import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -122,13 +121,6 @@ def read_search_goldens(corpus_dir: Path, golden_dir: Path) -> list[SearchGolden
         )
         goldens.append(golden)
     return goldens
-
-
-def lines_sha256(lines: list[str]) -> str:
-    """SearchDump's LinesSha256: SHA-256 of the uncompressed lines, each ending in a newline."""
-    text = "".join(f"{line}\n" for line in lines)
-    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
-    return digest
 
 
 @dataclass(frozen=True)
