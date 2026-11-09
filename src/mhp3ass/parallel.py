@@ -28,14 +28,17 @@ def plan_tasks(worker_count: int, head_count: int, jobs: int, tasks_per_job: int
 
     Aims for about ``tasks_per_job`` tasks per process so that slow tasks even
     out. Every worker is split the same way, into at most ``head_count``
-    ranges whose sizes differ by at most one, larger first. ``head_count``
-    counts the head slot's choices after an empty slot is padded, so it is at
-    least 1.
+    ranges whose sizes differ by at most one, larger first; once there are
+    that many workers or more, each worker is one task, however long it takes.
+    ``head_count`` is ``len(armor_choices(query)[0])``: the head slot's choices
+    after an empty slot is padded with ``None``, so at least 1.
     """
     if worker_count < 0:
         raise ValueError(f"worker_count must not be negative, not {worker_count}")
     if head_count < 1:
-        raise ValueError(f"head_count must be at least 1, not {head_count}")
+        raise ValueError(
+            f"head_count counts the padded head choices, so it is at least 1, not {head_count}"
+        )
     if jobs < 1:
         raise ValueError(f"jobs must be at least 1, not {jobs}")
     if tasks_per_job < 1:
