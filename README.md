@@ -44,6 +44,25 @@ skipped. The output file is replaced, as the original replaces its list.
 `--lang <language folder>` names skills in another language (default
 `English (TeamHGG)`).
 
+## Searching
+
+```bash
+uv run mhp3ass search <query.json>                    # solution lines on stdout
+uv run mhp3ass search <query.json> --out out/<name>   # the harness's output files
+```
+
+Runs a query file in the corpus format (`tests/corpus/README.md`) as the
+original's search does, and writes what the harness's `search` writes:
+`<name>.manifest.json` and `<name>.solutions.txt.gz`, plus
+`<name>.candidates.txt.gz` with `--candidates`. `--max-solution-lines N`
+leaves out the solutions file above N lines, `--record-exceptions` records a
+worker the original would throw in instead of failing (exit code 3), and
+`--progress` reports each finished worker. To compare with a golden:
+
+```bash
+gzcat tests/golden/search/<name>.solutions.txt.gz | diff - <(gzcat out/<name>.solutions.txt.gz)
+```
+
 ## Regenerating golden fixtures (Windows)
 
 See [`docs/windows-setup.md`](docs/windows-setup.md) to set up the toolchain and
