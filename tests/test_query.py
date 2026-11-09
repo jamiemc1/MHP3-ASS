@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 
@@ -217,3 +218,17 @@ def test_non_text_charm_mode_gives_the_harness_message(
 
     with pytest.raises(QueryError, match="charm_mode must be one of"):
         SearchSpec.from_json(attack_sharp_query_json)
+
+
+def test_query_files_may_start_with_a_byte_order_mark(
+    attack_sharp_query_json: dict[str, Any], tmp_path: Path
+):
+    """As the harness's File::ReadAllText, which skips it."""
+    attack_sharp_query_json.update(charm_mode="none", my_charms=[])
+    path = tmp_path / "query.json"
+    path.write_text(json.dumps(attack_sharp_query_json), encoding="utf-8-sig")
+
+    assert [SearchSpec.from_file(path).query, QuerySpec.from_file(path)] == [
+        QuerySpec.from_json(attack_sharp_query_json),
+        QuerySpec.from_json(attack_sharp_query_json),
+    ]

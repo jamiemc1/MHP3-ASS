@@ -89,7 +89,7 @@ class QuerySpec:
 
     @classmethod
     def from_file(cls, path: Path) -> QuerySpec:
-        query_spec = cls.from_json(json.loads(path.read_text(encoding="utf-8")))
+        query_spec = cls.from_json(json.loads(path.read_text(encoding="utf-8-sig")))
         return query_spec
 
 
@@ -148,7 +148,7 @@ class SearchSpec:
 
     @classmethod
     def from_file(cls, path: Path) -> SearchSpec:
-        search_spec = cls.from_json(json.loads(path.read_text(encoding="utf-8")))
+        search_spec = cls.from_json(json.loads(path.read_text(encoding="utf-8-sig")))
         return search_spec
 
 

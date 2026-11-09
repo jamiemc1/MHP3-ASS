@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from dataclasses import replace
 from pathlib import Path
@@ -22,7 +23,7 @@ from mhp3ass.results.result_set import (
     write_search_outputs,
 )
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
-from mhp3ass.search import SearchData, WorkerProgress, run_search
+from mhp3ass.search import SearchData, WorkerProgress, dotnet_exception_type, run_search
 from mhp3ass.solution.state import LegacyNullReferenceError
 
 
@@ -83,36 +84,58 @@ def _search(args: argparse.Namespace) -> int:
 
     Exit codes: 0 done (also with no solutions or no workers), 1 bad input,
     3 the original would have thrown (with ``--record-exceptions`` a worker's
-    throw is recorded instead, as the harness does).
+    throw is recorded instead, as the harness does). A port error the
+    original has no counterpart for propagates.
     """
     try:
-        spec_json = json.loads(args.query.read_text(encoding="utf-8"))
+        # utf-8-sig: the harness's File::ReadAllText skips a byte order mark.
+        spec_json = json.loads(args.query.read_text(encoding="utf-8-sig"))
         spec = SearchSpec.from_json(spec_json)
         data = SearchData.load(args.data_dir, language=spec.query.language)
-        on_worker_done = _print_progress if args.progress else None
-        # Always recorded here, so a throw can name its worker; reported below
-        # as the harness reports it.
-        result = run_search(spec, data=data, record_exceptions=True, on_worker_done=on_worker_done)
-    except (OSError, json.JSONDecodeError, KeyError, QueryError, MyCharmsFileError) as error:
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        # Unreadable file, invalid JSON or query (QueryError is a ValueError),
+        # a missing field, a field of the wrong JSON type, an unknown language.
         print(f"{args.query}: {error}", file=sys.stderr)
         return 1
-    except LegacyNullReferenceError:
-        # Duplicate removal's HashArmor (quirk T), outside any worker.
-        print(f"{args.query}: duplicate removal: NullReferenceException", file=sys.stderr)
+    on_worker_done = _print_progress if args.progress else None
+    try:
+        # Recorded in any case, so a throw can name its worker; reported below
+        # as the harness reports it.
+        result = run_search(spec, data=data, record_exceptions=True, on_worker_done=on_worker_done)
+    except (QueryError, MyCharmsFileError) as error:
+        # The skill checks and the my-charms lines, which need the game.
+        print(f"{args.query}: {error}", file=sys.stderr)
+        return 1
+    except (LegacyNullReferenceError, LookupError) as error:
+        exception_type = dotnet_exception_type(error)
+        if exception_type is None:
+            raise
+        # Outside the workers: duplicate removal's HashArmor (quirk T).
+        print(f"{args.query}: outside the workers: {exception_type}", file=sys.stderr)
         return 3
     exception = result.exception
     if exception is not None and not args.record_exceptions:
         name = "no charm" if exception.template is None else charm_name(exception.template)
         print(
-            f"{args.query}: worker {exception.worker} ({name}): {exception.type}", file=sys.stderr
+            f"{args.query}: worker {exception.worker + 1}/{result.worker_count} ({name}): "
+            f"{exception.type}",
+            file=sys.stderr,
         )
         return 3
     if not args.record_exceptions:
         result = replace(result, exceptions_recorded=False)
     lines = solution_lines(result, game=data.game)
     if args.out is None:
-        for line in lines:
-            print(line)
+        try:
+            for line in lines:
+                print(line)
+            sys.stdout.flush()
+        except BrokenPipeError:
+            # The reader stopped early (`| head`); without this Python reports
+            # the closed pipe again at exit.
+            devnull = os.open(os.devnull, os.O_WRONLY)
+            os.dup2(devnull, sys.stdout.fileno())
+            return 0
     else:
         manifest = search_manifest(
             spec_json, result=result, game=data.game, max_solution_lines=args.max_solution_lines
@@ -190,7 +213,7 @@ def main(argv: list[str] | None = None) -> int:
         try:
             return _search(args)
         except KeyboardInterrupt:
-            # Files are only written after the search, so nothing is left behind.
+            # Files are only written once the search has finished.
             return 130
     parser.print_help()
     return 0

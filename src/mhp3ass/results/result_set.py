@@ -344,10 +344,10 @@ def write_search_outputs(
     lines: list[str],
     candidates: list[CandidateLine] | None,
 ) -> None:
-    """The harness's ``search`` outputs for ``prefix``: ``.manifest.json``,
-    ``.solutions.txt.gz`` (removed instead when the manifest says no solutions
-    file) and, when given, ``.candidates.txt.gz``."""
-    Path(f"{prefix}.manifest.json").write_bytes(manifest_text(manifest).encode("utf-8"))
+    """The harness's ``search`` outputs for ``prefix``: ``.solutions.txt.gz``
+    (removed instead when the manifest says no solutions file), when given
+    ``.candidates.txt.gz``, then ``.manifest.json``. The manifest goes last,
+    so a new manifest means the files it describes were written."""
     solutions_path = Path(f"{prefix}.solutions.txt.gz")
     if manifest["solutions_file"]:
         solutions_path.write_bytes(gzip_lines(lines))
@@ -359,3 +359,4 @@ def write_search_outputs(
             for candidate in candidates
         ]
         Path(f"{prefix}.candidates.txt.gz").write_bytes(gzip_lines(rows))
+    Path(f"{prefix}.manifest.json").write_bytes(manifest_text(manifest).encode("utf-8"))
