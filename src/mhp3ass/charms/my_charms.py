@@ -80,13 +80,21 @@ def _read_points(fields: list[str], game: GameData) -> list[AbilityPair]:
 
 
 def load_my_charms(path: Path, game: GameData, validity: CharmValidity) -> LoadedMyCharms:
-    """``LoadCustom``: every line's outcome and the charms kept, in file order.
+    """``LoadCustom`` over the file at ``path``; see ``load_my_charm_lines``."""
+    loaded = load_my_charm_lines(read_lines(path), game=game, validity=validity)
+    return loaded
+
+
+def load_my_charm_lines(
+    lines: list[str], game: GameData, validity: CharmValidity
+) -> LoadedMyCharms:
+    """``LoadCustom``: every line's outcome and the charms kept, in line order.
 
     Skill names are looked up in ``game``'s current language. A blank first
     skill with a filled second makes the second the charm's only skill.
     """
     loaded = LoadedMyCharms()
-    for line in read_lines(path):
+    for line in lines:
         if line == "" or line[0] == "#":
             continue
         try:
