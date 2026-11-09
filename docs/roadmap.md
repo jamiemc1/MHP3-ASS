@@ -12,7 +12,7 @@ Target: parity with every feature of the original, then a better UX on top.
 | 3 | Domain models: abilities/skills, decorations, charms | Yes (3b fixtures) | Done |
 | 4 | Relevance filtering (`GetRelevantData`) + charms for a query (`CharmDatabase::GetCharms`) | Yes (4a fixtures) | Done |
 | 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | Yes (5a traces) | Done (5a traces, 5b decoration filling, 5c bad skills, 5d charm reduction and the search worker) |
-| 6 | Search loop, charm modes, CLI | No | Not started |
+| 6 | Search loop, charm modes, CLI | No | Done (6a worker dispatch, 6b duplicate removal, 6c `run_search` with L3 parity on all corpus queries, 6d `mhp3ass search`) |
 | 7 | Save-file charm import (PSP decryption) | No | Done |
 | 8 | Performance: per-charm multiprocessing, profiling, pruning if needed | No | Not started |
 | 9 | Differential fuzz over ~500 random queries | Yes (one run) | Not started |
@@ -31,8 +31,8 @@ to the TUI.
 | Charm modes: none, my charms, slotted, one-skill, two-skill | `Form1.h:1293` | 6 |
 | Auto-guard special case | `Form1.h:1274` | 6 |
 | Advanced search: per-piece armour/decoration include lists | `frmAdvanced.h`, `Form1.h:1424` | 4, 10 |
-| Result sorting | `Form1.h` (`cmbSort`) | 6 |
-| Result filtering by charm | `Form1.h` (`cmbCharms`) | 6 |
+| Result sorting | `Form1.h` (`cmbSort`) | 10 |
+| Result filtering by charm | `Form1.h` (`cmbCharms`) | 10 |
 | Find in results | `frmFind.h` | 10 |
 | My-charms management (add, delete, persist to `mycharms.txt`) | `ManageCharms.h`, `CharmDatabase.cpp` | 3, 10 |
 | Charm import from a PSP save | `ImportCharms.h`, `SaveDataEncryption.cpp`, `PSPCryptoEngine.cpp` | 7, 10 |
