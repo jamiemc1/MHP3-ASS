@@ -25,6 +25,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from mhp3ass.data.languages import language_folders
 from mhp3ass.settings_cfg import read_settings_cfg
 
 
@@ -32,18 +33,6 @@ from mhp3ass.settings_cfg import read_settings_cfg
 class CapturedSearch:
     query: dict[str, Any]
     depends_on_my_charms: bool
-
-
-def language_folders(languages_dir: Path) -> list[str]:
-    """Language folders in the order the GUI lists them (NTFS name order).
-
-    ``Directory::GetDirectories`` returns NTFS order, which compares names
-    case-insensitively, so "English (TeamHGG)" sorts before "English (TMO)".
-    """
-    folders = sorted(
-        (path.name for path in languages_dir.iterdir() if path.is_dir()), key=str.upper
-    )
-    return folders
 
 
 def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:

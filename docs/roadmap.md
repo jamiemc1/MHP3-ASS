@@ -39,6 +39,7 @@ to the TUI.
 | Charm validity checking (possible/impossible charms) | `CharmDatabase.cpp` | 3 |
 | Charm tooltip: which tables can produce a charm (`FindCharm2`) and its name parser | `CharmDatabase.cpp:1006-1099`, `Common.cpp:157-230` | Side stream (logic), 10 (menu) |
 | Languages (7 data sets) | `Common.cpp:292`, `Form1.h:333` | 2 |
+| Display strings (`strings.txt`), language list order and default language | `Common.cpp:290-311`, `Common.h:90-194`, `Form1.h:331-340`, `Form1.h:441-454` | 10 (`data/strings.py`, `data/languages.py`) |
 | Persisted settings (last query, options) | `Form1.h` `SaveConfig`/load | 10 |
 | About dialog | `frmAbout.h` | 10 |
 
