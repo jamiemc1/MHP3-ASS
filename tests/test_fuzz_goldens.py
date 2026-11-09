@@ -9,7 +9,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from goldens import FuzzGolden, lines_sha256
+from goldens import FuzzGolden
+from mhp3ass.results import lines_sha256
 
 
 def test_fuzz_goldens_are_current(fuzz_goldens: list[FuzzGolden]):

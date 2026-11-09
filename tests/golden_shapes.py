@@ -20,10 +20,8 @@ from mhp3ass.model import (
     Gender,
     HunterType,
     MaterialComponent,
-    Skill,
 )
 from mhp3ass.query import Query
-from mhp3ass.solution.state import Solution
 
 
 def _gender_name(gender: Gender) -> str:
@@ -213,31 +211,3 @@ def relevance_shape(game: GameData, query: Query) -> dict[str, Any]:
         },
     }
     return shaped
-
-
-def solution_line(solution: Solution, skill_index: dict[Skill, int]) -> str:
-    """One solution line as ``SearchDump``'s ``SolutionLine`` writes it (the
-    ``settings.cfg`` format, Form1.h:495-538, without the newline).
-
-    Every field ends in a space: the armour indices (-1 for an empty slot),
-    total and per-size spare slots, the decorations, the extra skills, then
-    the charm's slots and pairs when it has one. ``skill_index`` maps each
-    skill to its position in the game's skill list.
-    """
-    fields = [str(armor.index if armor is not None else -1) for armor in solution.armors]
-    slots_spare = solution.slots_spare
-    if slots_spare is None:
-        raise ValueError("a solution line needs the slots MatchesQuery counted")
-    fields.append(str(solution.total_slots_spare))
-    fields += [str(slots_spare[size]) for size in (1, 2, 3)]
-    fields.append(str(len(solution.decorations)))
-    fields += [str(decoration.index) for decoration in solution.decorations]
-    fields.append(str(len(solution.extra_skills)))
-    fields += [str(skill_index[skill]) for skill in solution.extra_skills]
-    charm = solution.charm
-    if charm is not None:
-        fields += [str(charm.num_slots), str(len(charm.abilities))]
-        for pair in charm.abilities:
-            fields += [str(pair.amount), str(pair.ability.static_index)]
-    line = "".join(f"{field} " for field in fields)
-    return line
