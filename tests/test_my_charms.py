@@ -7,7 +7,9 @@ from typing import Any
 import pytest
 
 from mhp3ass.charms.my_charms import (
+    LineOutcome,
     MyCharmsFileError,
+    load_my_charm_lines,
     load_my_charms,
     my_charms_text,
     save_my_charms,
@@ -83,6 +85,19 @@ def test_crashing_files_raise_where_the_original_throws(
         ]
 
     assert ours == golden
+
+
+def test_lines_skip_comments_and_report_each_outcome(teamhgg_game, validity):
+    lines = ["#comment", "", "1,Attack,3,,", "1,Attack,3"]
+    loaded = load_my_charm_lines(lines, game=teamhgg_game, validity=validity)
+
+    assert [
+        [(line.line, line.outcome) for line in loaded.lines],
+        [charm_name(charm) for charm in loaded.charms],
+    ] == [
+        [("1,Attack,3,,", LineOutcome.ACCEPTED), ("1,Attack,3", LineOutcome.WRONG_FIELD_COUNT)],
+        ["+3 Attack O--"],
+    ]
 
 
 def test_loaded_charms_are_marked_custom(my_charms_dir, teamhgg_game, validity):
