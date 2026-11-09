@@ -43,6 +43,11 @@ class ResultSet:
     one to arrive (quirk 5: which one depends on arrival order); charm-free
     solutions are always kept. ``existing_armor`` persists across calls, as
     the original only clears it when a new search starts (Form1.h:1257).
+
+    Loading saved results (``LoadConfig``, Form1.h:342-379, :430-433) reuses
+    ``add_solution`` on the same keys: it empties the solution list but not
+    ``existing_armor``, and files charm-free lines outside ``all_solutions``,
+    so it calls ``add_solution`` itself rather than ``add_solutions``.
     """
 
     all_solutions: list[Solution] = field(default_factory=list)
@@ -72,7 +77,8 @@ class ResultSet:
 
         The key is the charm's name after ``MatchesQuery`` reduced it, so
         different templates can meet on one name. A charm ``MatchesQuery``
-        removed makes the solution charm-free.
+        removed makes the solution charm-free. If ``hash_armor`` throws, the
+        solutions added before it stay in ``all_solutions``.
         """
         added = []
         for solution in solutions:

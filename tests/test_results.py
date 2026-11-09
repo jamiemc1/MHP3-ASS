@@ -17,7 +17,13 @@ def _candidate_solution(line: str, game: GameData) -> Solution:
     """A solution with the armour and charm a solution line names; nothing else
     is filled in, since duplicate removal reads only those."""
     fields = [int(field) for field in line.split()]
-    armors = [game.armors[armor_type][fields[armor_type.value]] for armor_type in ArmorType]
+    # -1 is an empty slot; a negative index would otherwise pick the last piece.
+    armors = [
+        None
+        if fields[armor_type.value] == -1
+        else game.armors[armor_type][fields[armor_type.value]]
+        for armor_type in ArmorType
+    ]
     position = 9
     position += 1 + fields[position]
     position += 1 + fields[position]
@@ -32,14 +38,15 @@ def _candidate_solution(line: str, game: GameData) -> Solution:
                 for amount, ability in zip(pairs[::2], pairs[1::2], strict=True)
             ],
         )
-    solution = Solution(armors=list(armors), charm=charm)
+    solution = Solution(armors=armors, charm=charm)
     return solution
 
 
 def _replay(golden: SearchGolden, game: GameData) -> dict[str, object]:
     candidates = golden.candidates or []
     results = ResultSet()
-    lines = {}
+    # Keyed by the solutions themselves (identity), which keeps them alive.
+    lines: dict[Solution, str] = {}
     names_match = True
     added_by_worker = []
     for worker in range(golden.manifest["worker_count"]):
@@ -50,11 +57,11 @@ def _replay(golden: SearchGolden, game: GameData) -> dict[str, object]:
             solution = _candidate_solution(candidate.solution_line, game)
             name = "" if solution.charm is None else charm_name(solution.charm)
             names_match = names_match and name == candidate.charm_name
-            lines[id(solution)] = candidate.solution_line
+            lines[solution] = candidate.solution_line
             solutions.append(solution)
         added = results.add_solutions(solutions)
-        added_by_worker.append(lines_sha256([lines[id(solution)] for solution in added]))
-    kept = [lines[id(solution)] for solution in results.all_solutions]
+        added_by_worker.append(lines_sha256([lines[solution] for solution in added]))
+    kept = [lines[solution] for solution in results.all_solutions]
     replay = {
         "names_match": names_match,
         "added_sha256": added_by_worker,
@@ -117,7 +124,13 @@ def test_the_same_armour_with_another_charm_is_kept(pieces, charm, defense):
     second = Solution(armors=[pieces[2]] * 5, charm=other_charm)
     results = ResultSet()
 
-    assert results.add_solutions([first, second]) == [first, second]
+    added = results.add_solutions([first, second])
+
+    assert [added, results.all_solutions, sorted(results.existing_armor)] == [
+        [first, second],
+        [first, second],
+        ["+4 Attack O--", "+4 Defense O--"],
+    ]
 
 
 def test_charm_free_solutions_are_never_de_duplicated(pieces):
@@ -168,3 +181,18 @@ def test_a_charmed_solution_with_an_empty_slot_throws(pieces, charm):
         results.add_solutions([solution])
 
     assert [results.all_solutions, results.existing_armor] == [[], {"+4 Attack O--": set()}]
+
+
+def test_a_throw_part_way_keeps_what_was_added_before_it(pieces, charm):
+    """As in the original, solutions added before the throw stay in the list."""
+    kept = Solution(armors=[pieces[1]] * 5, charm=charm.copy())
+    empty_slot = Solution(armors=[pieces[2], None, pieces[2], pieces[2], pieces[2]], charm=charm)
+    results = ResultSet()
+
+    with pytest.raises(LegacyNullReferenceError):
+        results.add_solutions([kept, empty_slot])
+
+    assert [results.all_solutions, results.existing_armor] == [
+        [kept],
+        {"+4 Attack O--": {hash_armor(kept.armors)}},
+    ]
