@@ -85,7 +85,7 @@ def test_sorts_by_the_comparison(size):
     rng = random.Random(size)
     items = [(rng.randrange(10), index) for index in range(size)]
 
-    introsort(items, compare=by_key)
+    introsort(items, compare=by_key, array_length=len(items))
 
     assert [key for key, _ in items] == sorted(key for key, _ in items)
 
@@ -93,7 +93,7 @@ def test_sorts_by_the_comparison(size):
 def test_two_ties_stay_in_place():
     items = [(1, "a"), (1, "b")]
 
-    introsort(items, compare=by_key)
+    introsort(items, compare=by_key, array_length=len(items))
 
     assert items == [(1, "a"), (1, "b")]
 
@@ -101,7 +101,7 @@ def test_two_ties_stay_in_place():
 def test_three_element_network_reverses_ties():
     items = [(1, "a"), (1, "b"), (0, "c")]
 
-    introsort(items, compare=by_key)
+    introsort(items, compare=by_key, array_length=len(items))
 
     assert items == [(0, "c"), (1, "b"), (1, "a")]
 
@@ -110,7 +110,7 @@ def test_insertion_sort_up_to_16_keeps_ties_in_order():
     keys = [3, 1, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1]
     items = [(key, index) for index, key in enumerate(keys)]
 
-    introsort(items, compare=by_key)
+    introsort(items, compare=by_key, array_length=len(items))
 
     assert items == sorted(items, key=lambda item: item[0])
 
@@ -118,7 +118,7 @@ def test_insertion_sort_up_to_16_keeps_ties_in_order():
 def test_partitioning_17_equal_elements_moves_them():
     items = [(0, index) for index in range(17)]
 
-    introsort(items, compare=by_key)
+    introsort(items, compare=by_key, array_length=len(items))
 
     assert [index for _, index in items] == [
         0,
@@ -144,7 +144,7 @@ def test_partitioning_17_equal_elements_moves_them():
 def test_killer_input_falls_back_to_heapsort(heapsort_sizes):
     items = [(value, index) for index, value in enumerate(median_of_three_killer(64))]
 
-    introsort(items, compare=by_key)
+    introsort(items, compare=by_key, array_length=len(items))
 
     assert heapsort_sizes
     assert [key for key, _ in items] == list(range(64))

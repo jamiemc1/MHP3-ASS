@@ -12,8 +12,11 @@ stable and gives different orders.
 
 ``ArraySortHelper<T>.Sort`` uses the introsort only for applications that
 target .NET Framework 4.5 or later (``BinaryCompatibility``), and falls back
-to the older depth-limited quicksort otherwise. The legacy build targets
-4.8; the harness's sort probe confirms which one runs.
+to the older depth-limited quicksort otherwise. The reference GUI and the
+harness are built for 4.8 (``scripts/windows/build-legacy.ps1``,
+``harness/Harness.vcxproj``); the upstream ``.vcproj`` targeted .NET 2.0,
+whose quicksort orders ties differently and has no capacity-dependent depth
+limit. The harness's sort probe confirms which sort the 4.8 build runs.
 """
 
 from __future__ import annotations
@@ -34,26 +37,23 @@ def floor_log2(n: int) -> int:
     return result
 
 
-def introsort[T](
-    keys: list[T], compare: Callable[[T, T], int], array_length: int | None = None
-) -> None:
+def introsort[T](keys: list[T], compare: Callable[[T, T], int], array_length: int) -> None:
     """``ArraySortHelper<T>.IntrospectiveSort( keys, 0, keys.Count, compare )``, in place.
 
-    The depth limit comes from the length of the ``List``'s backing array
-    (its capacity), not from the number of elements: ``array_length``,
-    which defaults to ``len(keys)``.
+    The depth limit comes from ``array_length``, the length of the ``List``'s
+    backing array (its capacity), not from the number of elements. A ``List``
+    keeps its capacity through ``Clear``, so it is usually larger.
     """
     length = len(keys)
+    if array_length < length:
+        raise ValueError(f"array length {array_length} is shorter than the list ({length})")
     if length < 2:
         return
-    backing_length = length if array_length is None else array_length
-    if backing_length < length:
-        raise ValueError(f"array length {backing_length} is shorter than the list ({length})")
     _intro_sort(
         keys=keys,
         lo=0,
         hi=length - 1,
-        depth_limit=2 * floor_log2(backing_length),
+        depth_limit=2 * floor_log2(array_length),
         compare=compare,
     )
 
