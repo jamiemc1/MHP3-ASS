@@ -10,10 +10,13 @@ with the harness's hashes over them.
 from __future__ import annotations
 
 import hashlib
+import json
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
+from typing import Any
 
 from mhp3ass.charms.naming import charm_name
+from mhp3ass.data import GameData
 from mhp3ass.model import Armor, Charm, Skill
 from mhp3ass.query import Query
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
@@ -164,3 +167,90 @@ class SearchResult:
     results: ResultSet
     exceptions_recorded: bool
     exception: SearchException | None
+
+
+def skill_indices(game: GameData) -> dict[Skill, int]:
+    """Each skill's position in the game's skill list, as solution lines number them."""
+    indices = {skill: index for index, skill in enumerate(game.skills)}
+    return indices
+
+
+def solution_lines(result: SearchResult, game: GameData) -> list[str]:
+    """The kept solutions' lines, in the order they were kept."""
+    skill_index = skill_indices(game)
+    lines = [solution_line(solution, skill_index) for solution in result.results.all_solutions]
+    return lines
+
+
+@dataclass(frozen=True)
+class CandidateLine:
+    """A solution one worker found, before duplicate removal (``--candidates``)."""
+
+    worker: int
+    # The solution's charm name after MatchesQuery, "" when it has no charm.
+    charm_name: str
+    solution_line: str
+
+
+def candidate_lines(result: SearchResult, game: GameData) -> list[CandidateLine]:
+    """Every solution each finished worker found, in worker and loop order."""
+    skill_index = skill_indices(game)
+    candidates = [
+        CandidateLine(
+            worker=number,
+            charm_name="" if solution.charm is None else charm_name(solution.charm),
+            solution_line=solution_line(solution, skill_index),
+        )
+        for number, worker in enumerate(result.workers)
+        for solution in worker.found
+    ]
+    return candidates
+
+
+def search_manifest(
+    spec_json: dict[str, Any], result: SearchResult, game: GameData, max_solution_lines: int = -1
+) -> dict[str, Any]:
+    """The harness's ``<prefix>.manifest.json`` for ``result`` (``SearchDump::Run``),
+    fields in its order.
+
+    ``query_json`` is a compact re-serialisation of ``spec_json``, not the
+    harness's byte for byte, so compare it parsed. ``max_solution_lines``
+    below 0 means no limit; above it ``solutions_file`` is false.
+    """
+    skill_index = skill_indices(game)
+    workers = []
+    for number, worker in enumerate(result.workers):
+        added_lines = [solution_line(solution, skill_index) for solution in worker.added]
+        workers.append(
+            {
+                "worker": number,
+                "charm": None if worker.template is None else charm_name(worker.template),
+                "found": len(worker.found),
+                "added": len(worker.added),
+                "added_sha256": lines_sha256(added_lines),
+            }
+        )
+    lines = solution_lines(result, game)
+    manifest: dict[str, Any] = {
+        "id": spec_json["id"],
+        "query_json": json.dumps(spec_json, ensure_ascii=False, separators=(",", ":")),
+        "my_charms_loaded": result.my_charms_loaded,
+        "my_charms_illegal": result.my_charms_illegal,
+        "relevant_armor_counts": [len(slot) for slot in result.query.rel_armor],
+        "relevant_decoration_count": len(result.query.rel_decorations),
+        "worker_count": result.worker_count,
+        "workers": workers,
+        "solution_count": len(lines),
+        "solutions_sha256": lines_sha256(lines),
+        # The harness sorts ordinally (UTF-16 code units); the lines are ASCII.
+        "solution_set_sha256": lines_sha256(sorted(lines)),
+        "solutions_file": max_solution_lines < 0 or len(lines) <= max_solution_lines,
+    }
+    if result.exceptions_recorded:
+        exception = result.exception
+        manifest["exception"] = (
+            None
+            if exception is None
+            else {"worker": exception.worker, "type": exception.type, "message": exception.message}
+        )
+    return manifest
