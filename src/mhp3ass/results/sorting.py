@@ -60,23 +60,28 @@ def compare_by_max_defence(s1: Solution, s2: Solution) -> int:
 
 
 def compare_by_fire_res(s1: Solution, s2: Solution) -> int:
-    return reverse_compare(s1.fire_res, s2.fire_res)
+    result = reverse_compare(s1.fire_res, s2.fire_res)
+    return result
 
 
 def compare_by_ice_res(s1: Solution, s2: Solution) -> int:
-    return reverse_compare(s1.ice_res, s2.ice_res)
+    result = reverse_compare(s1.ice_res, s2.ice_res)
+    return result
 
 
 def compare_by_water_res(s1: Solution, s2: Solution) -> int:
-    return reverse_compare(s1.water_res, s2.water_res)
+    result = reverse_compare(s1.water_res, s2.water_res)
+    return result
 
 
 def compare_by_thunder_res(s1: Solution, s2: Solution) -> int:
-    return reverse_compare(s1.thunder_res, s2.thunder_res)
+    result = reverse_compare(s1.thunder_res, s2.thunder_res)
+    return result
 
 
 def compare_by_dragon_res(s1: Solution, s2: Solution) -> int:
-    return reverse_compare(s1.dragon_res, s2.dragon_res)
+    result = reverse_compare(s1.dragon_res, s2.dragon_res)
+    return result
 
 
 def compare_by_rarity(s1: Solution, s2: Solution) -> int:
@@ -113,13 +118,12 @@ def solution_comparison(key: SortKey) -> Callable[[Solution, Solution], int] | N
     return comparison
 
 
-def sort_results(solutions: list[Solution], key: SortKey, array_length: int | None = None) -> None:
+def sort_results(solutions: list[Solution], key: SortKey, array_length: int) -> None:
     """``SortResults``: sort ``solutions`` in place by ``key``; None leaves them as they are.
 
     ``array_length`` is the capacity of the ``List`` being sorted
-    (``final_solutions``), which sets the introsort's depth limit; it
-    defaults to ``len(solutions)``. ``sort_off`` is never set in the
-    original, so it isn't modelled.
+    (``final_solutions``), which sets the introsort's depth limit.
+    ``sort_off`` is never set in the original, so it isn't modelled.
     """
     comparison = solution_comparison(key)
     if comparison is None:

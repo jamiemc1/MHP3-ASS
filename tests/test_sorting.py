@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import random
+
 import pytest
 
 from mhp3ass.results.sorting import SortKey, solution_comparison, sort_results
@@ -13,23 +15,27 @@ def solution(**stats):
 
 
 @pytest.fixture
-def solutions_with_one_stat_each():
-    """Three solutions per stat, out of order: the middle value first."""
-
-    def make(field):
-        return [solution(**{field: 2}), solution(**{field: 1}), solution(**{field: 3})]
-
-    return make
+def shuffled_values():
+    """0-19 in a fixed shuffled order: more than 16, so the sort partitions."""
+    values = list(range(20))
+    random.Random(7).shuffle(values)
+    return values
 
 
 @pytest.fixture
-def defence_and_fire_ties():
-    """Four solutions where fire res ties in pairs and defence breaks them the other way."""
+def seventeen_fire_ties():
+    """17 solutions with equal fire res, told apart by defence 0-16."""
+    solutions = [solution(fire_res=5, defence=index) for index in range(17)]
+    return solutions
+
+
+@pytest.fixture
+def seventeen_defence_pairs_with_fire_order():
+    """17 solutions: defence ties in pairs, fire res 0-16 in a shuffled order."""
+    fire_values = list(range(17))
+    random.Random(3).shuffle(fire_values)
     solutions = [
-        solution(defence=10, fire_res=1),
-        solution(defence=30, fire_res=2),
-        solution(defence=20, fire_res=1),
-        solution(defence=40, fire_res=2),
+        solution(defence=index // 2, fire_res=fire) for index, fire in enumerate(fire_values)
     ]
     return solutions
 
@@ -48,45 +54,59 @@ def defence_and_fire_ties():
         (SortKey.SLOTS_SPARE, "total_slots_spare"),
     ],
 )
-def test_keys_sort_highest_first(solutions_with_one_stat_each, key, field):
-    solutions = solutions_with_one_stat_each(field)
+def test_keys_sort_highest_first(shuffled_values, key, field):
+    solutions = [solution(**{field: value}) for value in shuffled_values]
 
-    sort_results(solutions, key)
+    sort_results(solutions, key, array_length=len(solutions))
 
-    assert [getattr(item, field) for item in solutions] == [3, 2, 1]
-
-
-def test_difficulty_sorts_lowest_first(solutions_with_one_stat_each):
-    solutions = solutions_with_one_stat_each("difficulty")
-
-    sort_results(solutions, SortKey.DIFFICULTY)
-
-    assert [item.difficulty for item in solutions] == [1, 2, 3]
+    assert [getattr(item, field) for item in solutions] == list(range(19, -1, -1))
 
 
-def test_none_leaves_the_order_alone(solutions_with_one_stat_each):
-    solutions = solutions_with_one_stat_each("defence")
+def test_difficulty_sorts_lowest_first(shuffled_values):
+    solutions = [solution(difficulty=value) for value in shuffled_values]
+
+    sort_results(solutions, SortKey.DIFFICULTY, array_length=len(solutions))
+
+    assert [item.difficulty for item in solutions] == list(range(20))
+
+
+def test_none_leaves_the_order_alone(shuffled_values):
+    solutions = [solution(defence=value) for value in shuffled_values]
     before = list(solutions)
 
-    sort_results(solutions, SortKey.NONE)
+    sort_results(solutions, SortKey.NONE, array_length=len(solutions))
 
     assert [solution_comparison(SortKey.NONE), solutions] == [None, before]
 
 
-def test_ties_keep_the_previous_sort(defence_and_fire_ties):
-    """Sorting by fire after defence leaves each fire tie in defence order."""
-    solutions = list(defence_and_fire_ties)
+def test_ties_are_reordered_by_partitioning(seventeen_fire_ties):
+    """17 equal keys go through one partition, which moves them (hand-traced)."""
+    solutions = list(seventeen_fire_ties)
 
-    sort_results(solutions, SortKey.DEFENCE)
-    sort_results(solutions, SortKey.FIRE_RES)
+    sort_results(solutions, SortKey.FIRE_RES, array_length=len(solutions))
 
-    assert [item.defence for item in solutions] == [40, 30, 20, 10]
+    assert [item.defence for item in solutions] == [
+        0, 14, 13, 12, 11, 10, 9, 15, 8, 6, 5, 4, 3, 2, 1, 7, 16
+    ]  # fmt: skip
+
+
+def test_ties_keep_the_previous_sort(seventeen_defence_pairs_with_fire_order):
+    """Sorting by defence after fire res gives a different tie order than defence alone."""
+    after_fire = list(seventeen_defence_pairs_with_fire_order)
+    alone = list(seventeen_defence_pairs_with_fire_order)
+
+    sort_results(after_fire, SortKey.FIRE_RES, array_length=17)
+    sort_results(after_fire, SortKey.DEFENCE, array_length=17)
+    sort_results(alone, SortKey.DEFENCE, array_length=17)
+
+    assert [item.defence for item in after_fire] == [item.defence for item in alone]
+    assert [item.fire_res for item in after_fire] != [item.fire_res for item in alone]
 
 
 def test_unsigned_stats_compare_as_int():
     """The comparisons take ``int``: a difficulty of 2**31 or more is negative and sorts first."""
     solutions = [solution(difficulty=0), solution(difficulty=2**31)]
 
-    sort_results(solutions, SortKey.DIFFICULTY)
+    sort_results(solutions, SortKey.DIFFICULTY, array_length=4)
 
     assert [item.difficulty for item in solutions] == [2**31, 0]
