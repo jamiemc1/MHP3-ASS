@@ -21,15 +21,9 @@ time is the median of ``--runs`` runs, wall clock.
 Queries: the public corpus, the personal corpus when ``tests/savefile/corpus``
 is there, and the heaviest fuzz queries (``--all-fuzz`` for all 500).
 
-With ``--jobs N`` above 1 the searches run in a process pool of N, started
-(and warmed with one search) before any timing, as the TUI keeps one. The
-workers then run together, so their column is the time spent merging their
-solutions, and the pool's time is in "Other". A pool process keeps the last
-query it rebuilt, so only a query's first run pays the rebuild (about 35 ms).
-The cold search runs ``mhp3ass search --jobs N`` with the same N.
-
-The header names the power source on macOS: on battery, Low Power Mode makes
-every timing about a third slower, so compare runs taken on the same source.
+``--jobs N`` above 1 searches in a warm pool of N processes; the workers
+column is then the merge time. The header names the power source, so compare
+runs taken on the same one.
 
     uv run python scripts/benchmark_search.py
     uv run python scripts/benchmark_search.py --runs 1 --only 1a g18 --no-startup --jobs 8
@@ -136,13 +130,12 @@ def import_seconds() -> float:
 
 
 def power_source() -> str:
-    """What ``pmset -g batt`` says the Mac is drawing from; "unknown" elsewhere."""
+    """The Mac's power source from ``pmset -g batt``, or "unknown"."""
     if sys.platform != "darwin":
         return "unknown"
     completed = subprocess.run(["pmset", "-g", "batt"], capture_output=True, text=True, check=True)
-    first_line = completed.stdout.splitlines()[0] if completed.stdout else ""
-    # The first line reads "Now drawing from 'AC Power'" or "... 'Battery Power'".
-    source = first_line.split("'")[1] if first_line.count("'") >= 2 else "unknown"
+    quoted = completed.stdout.split("'")
+    source = quoted[1] if len(quoted) >= 3 else "unknown"
     return source
 
 
