@@ -31,7 +31,7 @@ to the TUI.
 | Charm modes: none, my charms, slotted, one-skill, two-skill | `Form1.h:1293` | 6 |
 | Auto-guard special case | `Form1.h:1274` | 6 |
 | Advanced search: per-piece armour/decoration include lists | `frmAdvanced.h`, `Form1.h:1424` | 4, 10 |
-| Result sorting (.NET's unstable introsort, in place) | `Form1.h:20-80`, `:2149-2172` (`cmbSort`) | 10 (`results/sorting.py`, `results/dotnet_sort.py`) |
+| Result sorting (the original's keys, sorted stably) | `Form1.h:20-80`, `:2149-2172` (`cmbSort`) | 10 (`results/sorting.py`) |
 | Result filtering by charm | `Form1.h` (`cmbCharms`) | 10 |
 | Find in results | `frmFind.h` | 10 |
 | My-charms management (add, delete, persist to `mycharms.txt`) | `ManageCharms.h`, `CharmDatabase.cpp` | 3, 10 |
