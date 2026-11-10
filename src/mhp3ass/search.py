@@ -34,6 +34,15 @@ from mhp3ass.solution.fill import UndefinedScoreError
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
+def language_dir(data_dir: Path, language: str) -> Path:
+    """The folder of ``language``'s translation files; raises ``FileNotFoundError``
+    if the game data has no such language."""
+    folder = data_dir / "Languages" / language
+    if not folder.is_dir():
+        raise FileNotFoundError(f"no language folder {folder}")
+    return folder
+
+
 @dataclass(frozen=True)
 class SearchData:
     """What a search reads besides the query: the game in one language, its
@@ -47,12 +56,10 @@ class SearchData:
     def load(cls, data_dir: Path, language: str) -> SearchData:
         """The data files, then the charm tables, then the language, in the
         GUI's start-up order (Form1.h:309-322)."""
-        language_dir = data_dir / "Languages" / language
-        if not language_dir.is_dir():
-            raise FileNotFoundError(f"no language folder {language_dir}")
+        translations = language_dir(data_dir, language)
         game = load_game_data(data_dir)
         tables = generate_charm_tables(game)
-        apply_language(game, language_dir)
+        apply_language(game, translations)
         validity = build_charm_validity(tables, ability_count=len(game.abilities))
         search_data = cls(game=game, tables=tables, validity=validity)
         return search_data

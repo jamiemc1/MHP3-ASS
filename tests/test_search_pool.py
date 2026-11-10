@@ -4,6 +4,7 @@ progress counted in combinations."""
 
 from __future__ import annotations
 
+from concurrent.futures import Future
 from dataclasses import dataclass, replace
 from itertools import accumulate
 from math import prod
@@ -19,9 +20,11 @@ from mhp3ass.parallel import (
     SearchPool,
     StepReporter,
     Task,
+    armor_choice_indices,
     default_jobs,
     merge_tasks,
     plan_tasks,
+    task_outcomes,
 )
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import skill_indices, solution_line
@@ -114,11 +117,10 @@ def test_progress_arrives_from_inside_running_tasks(
     data = search_data_by_language[spec.query.language]
     serial = run_search(spec, data=data)
     search = PoolSearch.for_query(legacy_data_dir, spec=spec.query, query=serial.query)
-    tasks = plan_tasks(worker_count=1, head_count=search.choice_counts[0], jobs=1)
-    combinations_per_head = prod(search.choice_counts[1:])
+    tasks = plan_tasks(worker_count=1, head_count=search.head_count, jobs=1)
     boundaries = set(
         accumulate(
-            [(task.head_stop - task.head_start) * combinations_per_head for task in tasks],
+            [(task.head_stop - task.head_start) * search.combinations_per_head for task in tasks],
             initial=0,
         )
     )
@@ -160,6 +162,7 @@ def test_a_throwing_worker_ends_the_merge_as_in_the_serial_search(
         tables=data.tables,
     )
     skill_index = skill_indices(data.game)
+    reports: list[tuple[int, int]] = []
 
     pooled = search_pool.run(
         data_dir=legacy_data_dir,
@@ -167,9 +170,11 @@ def test_a_throwing_worker_ends_the_merge_as_in_the_serial_search(
         query=serial.query,
         templates=templates,
         game=data.game,
+        on_progress=lambda done, total: reports.append((done, total)),
     )
 
     assert [len(templates), serial.worker_count] == [3, 3]
+    assert reports[-1][0] < reports[-1][1]
     assert serial.exception is not None
     assert pooled.error is not None
     assert [pooled.error.worker, type(pooled.error.error)] == [
@@ -296,15 +301,52 @@ def test_a_rebuilt_query_must_match_the_parents_armour_choices(
     )
     serial = run_search(spec, data=search_data_by_language[spec.query.language])
     search = PoolSearch.for_query(legacy_data_dir, spec=spec.query, query=serial.query)
-    one_head_fewer = replace(
-        search, choice_counts=(search.choice_counts[0] - 1, *search.choice_counts[1:])
-    )
+    heads, *other_slots = search.armor_indices
+    one_head_fewer = replace(search, armor_indices=(heads[:-1], *other_slots))
+    heads_reordered = replace(search, armor_indices=(heads[::-1], *other_slots))
 
     rebuilt = RebuiltSearch.rebuild(search)
 
-    assert [len(choices) for choices in armor_choices(rebuilt.query)] == list(search.choice_counts)
-    with pytest.raises(ChildStateError):
+    assert armor_choice_indices(rebuilt.query) == search.armor_indices
+    assert len(heads) > 1
+    with pytest.raises(ChildStateError, match="armour choices"):
         RebuiltSearch.rebuild(one_head_fewer)
+    with pytest.raises(ChildStateError, match="armour choices"):
+        RebuiltSearch.rebuild(heads_reordered)
+
+
+def _finished(outcome: list[SolutionRecord] | Exception) -> Future[list[SolutionRecord]]:
+    future: Future[list[SolutionRecord]] = Future()
+    if isinstance(outcome, Exception):
+        future.set_exception(outcome)
+    else:
+        future.set_result(outcome)
+    return future
+
+
+def test_outcomes_stop_at_the_first_search_error_whatever_later_tasks_raised():
+    first_error = LegacyNullReferenceError("task 1")
+    futures = [
+        _finished([_record(0)]),
+        _finished(first_error),
+        _finished(ValueError("task 2: a pool failure the serial search never reaches")),
+    ]
+
+    outcomes = task_outcomes(futures)
+
+    assert sorted(outcomes) == [0, 1]
+    assert outcomes[1] is first_error
+
+
+def test_outcomes_raise_a_pool_failure_before_the_first_search_error():
+    futures = [
+        _finished([_record(0)]),
+        _finished(ChildStateError("task 1")),
+        _finished(LegacyNullReferenceError("task 2")),
+    ]
+
+    with pytest.raises(ChildStateError, match="task 1"):
+        task_outcomes(futures)
 
 
 def test_default_jobs_is_one_per_cpu_up_to_eight():
