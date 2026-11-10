@@ -366,6 +366,8 @@ def run_search(
     the armour combinations checked so far over all workers, at most about
     ten times a second and once at the end (short of ``total`` when a worker
     threw), counting where the original reports progress (Form1.h:1874-1890).
+    Cyclic garbage collection is off (``paused_gc``) while the workers run and
+    their solutions are merged, callbacks included.
     """
     loaded = load_query_my_charms(spec.my_charms, game=data.game, validity=data.validity)
     query = formulate_query(data.game, spec.query)
@@ -386,59 +388,62 @@ def run_search(
             )
             on_worker_done(progress)
 
-    if pool is not None:
-        pooled = pool.run(
-            data_dir=data.data_dir,
-            spec=spec.query,
-            query=query,
-            templates=templates,
-            game=data.game,
-            on_progress=on_progress,
-        )
-        for number, records in enumerate(pooled.workers):
-            start = time.perf_counter()
-            found = SolutionList.of_records(records, data.game)
-            added = results.add_records(found)
-            worker = WorkerResult(template=templates[number], found=found, added=added)
-            workers.append(worker)
-            report_worker(number, worker, start)
-        if pooled.error is not None:
-            failed = pooled.error.worker
-            error = pooled.error.error
-            if not is_search_error(error):
-                raise error
-            exception = _recorded_exception(
-                error,
-                worker=failed,
-                template=templates[failed],
-                record_exceptions=record_exceptions,
+    # Every solution found stays alive until the search ends, so collections
+    # would walk them all again and again; nothing here builds a cycle.
+    with paused_gc():
+        if pool is not None:
+            pooled = pool.run(
+                data_dir=data.data_dir,
+                spec=spec.query,
+                query=query,
+                templates=templates,
+                game=data.game,
+                on_progress=on_progress,
             )
-    else:
-        reporter = None
-        total = 0
-        if on_progress is not None:
-            total = len(templates) * prod(len(choices) for choices in armor_choices(query))
-            reporter = StepReporter(send=lambda done: on_progress(done, total))
-        for number, template in enumerate(templates):
-            start = time.perf_counter()
-            try:
-                found = run_worker(
-                    query,
-                    template,
-                    data.game,
-                    on_step=reporter.add if reporter is not None else None,
-                )
-            except (LegacyNullReferenceError, LookupError) as error:
+            for number, records in enumerate(pooled.workers):
+                start = time.perf_counter()
+                found = SolutionList.of_records(records, data.game)
+                added = results.add_records(found)
+                worker = WorkerResult(template=templates[number], found=found, added=added)
+                workers.append(worker)
+                report_worker(number, worker, start)
+            if pooled.error is not None:
+                failed = pooled.error.worker
+                error = pooled.error.error
+                if not is_search_error(error):
+                    raise error
                 exception = _recorded_exception(
-                    error, worker=number, template=template, record_exceptions=record_exceptions
+                    error,
+                    worker=failed,
+                    template=templates[failed],
+                    record_exceptions=record_exceptions,
                 )
-                break
-            added = results.add_solutions(found)
-            worker = WorkerResult(template=template, found=found, added=added)
-            workers.append(worker)
-            report_worker(number, worker, start)
-        if reporter is not None:
-            reporter.send_now()
+        else:
+            reporter = None
+            total = 0
+            if on_progress is not None:
+                total = len(templates) * prod(len(choices) for choices in armor_choices(query))
+                reporter = StepReporter(send=lambda done: on_progress(done, total))
+            for number, template in enumerate(templates):
+                start = time.perf_counter()
+                try:
+                    found = run_worker(
+                        query,
+                        template,
+                        data.game,
+                        on_step=reporter.add if reporter is not None else None,
+                    )
+                except (LegacyNullReferenceError, LookupError) as error:
+                    exception = _recorded_exception(
+                        error, worker=number, template=template, record_exceptions=record_exceptions
+                    )
+                    break
+                added = results.add_solutions(found)
+                worker = WorkerResult(template=template, found=found, added=added)
+                workers.append(worker)
+                report_worker(number, worker, start)
+            if reporter is not None:
+                reporter.send_now()
     search_result = SearchResult(
         query=query,
         my_charms_loaded=len(loaded.charms),
