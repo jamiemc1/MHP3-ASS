@@ -18,7 +18,6 @@ from mhp3ass.parallel import (
     ProgressTally,
     RebuiltSearch,
     SearchPool,
-    StepReporter,
     Task,
     armor_choice_indices,
     default_jobs,
@@ -28,7 +27,7 @@ from mhp3ass.parallel import (
 )
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import skill_indices, solution_line
-from mhp3ass.search import armor_choices, run_search, worker_charms
+from mhp3ass.search import StepReporter, armor_choices, run_search, worker_charms
 from mhp3ass.solution.record import SolutionRecord, from_record
 from mhp3ass.solution.state import LegacyNullReferenceError
 
