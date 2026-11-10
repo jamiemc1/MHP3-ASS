@@ -344,11 +344,15 @@ class SearchPool:
         self._search_ids = itertools.count()
 
     def start(self) -> None:
-        """Start every process now instead of at the first search.
+        """Ask for every process now instead of at the first search.
 
-        Returns at once: the processes boot (interpreter and imports) while
-        the caller carries on, e.g. building the charm tables, which the
-        processes don't need.
+        Submits one no-op per job. The executor starts a process for each
+        task it's given while none is idle, so on a new pool every process
+        starts here: submitting takes microseconds and a process takes far
+        longer to boot and go idle. Returns at once: the processes boot
+        (interpreter and imports) while the caller carries on, e.g. building
+        the charm tables, which the processes don't need. Processes already
+        running are reused.
         """
         for _ in range(self.jobs):
             self._executor.submit(_process_started)

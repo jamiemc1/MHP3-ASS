@@ -9,10 +9,9 @@ Charm types index the results as ``2 - omakbn``: 0 mystery, 1 shining,
 2 timeworn. Where the original's ``Assert`` would fire (a no-op in its
 Release build), this raises instead; on the shipped tables none fires.
 
-The simulator runs about 200,000 charms per start-up, so ``rnd`` and
-``getSlot``'s threshold search are precomputed as lookup tables and the
-per-charm steps run inline in one loop. The charm-database golden pins the
-output, including every list's order.
+``rnd`` and ``getSlot``'s threshold search are lookup tables, and the
+per-charm steps run inline in one loop per table. The charm-database golden
+pins the output, including every list's order.
 """
 
 from __future__ import annotations
@@ -52,9 +51,9 @@ def rnd(n: int) -> int:
 
 
 @cache
-def rnd_table() -> list[int]:
+def rnd_table() -> tuple[int, ...]:
     """``rnd(n)`` for every 16-bit ``n``, so the simulator indexes rather than computes."""
-    table = [rnd(n) for n in range(65536)]
+    table = tuple(rnd(n) for n in range(65536))
     return table
 
 
