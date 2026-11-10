@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from dataclasses import replace
 from itertools import product
 
 import pytest
@@ -93,10 +92,13 @@ def test_tasks_concatenated_in_order_give_each_workers_serial_solutions(
     merged: list[list[str]] = [[] for _ in templates]
     tasks_with_solutions = [0 for _ in templates]
     for task in tasks:
-        # g13's head slot isn't empty, so its padded choices are rel_armor[0] itself.
-        head_range = query.rel_armor[0][task.head_start : task.head_stop]
-        task_query = replace(query, rel_armor=[head_range, *query.rel_armor[1:]])
-        solutions = run_worker(task_query, templates[task.worker], scratch_game)
+        solutions = run_worker(
+            query,
+            templates[task.worker],
+            scratch_game,
+            head_start=task.head_start,
+            head_stop=task.head_stop,
+        )
         merged[task.worker] += [solution_line(solution, skill_index) for solution in solutions]
         tasks_with_solutions[task.worker] += 1 if solutions else 0
     serial = [
@@ -106,10 +108,23 @@ def test_tasks_concatenated_in_order_give_each_workers_serial_solutions(
         ]
         for template in templates
     ]
-    assert head_choices == query.rel_armor[0]
+    assert len(tasks) > len(templates)
     assert all(serial)
     assert all(count >= 2 for count in tasks_with_solutions)
     assert merged == serial
+
+
+def test_each_head_and_body_pair_reports_the_combinations_it_checked(
+    g13_query_and_templates, scratch_game
+):
+    query, templates = g13_query_and_templates
+    head, body, arms, waist, legs = armor_choices(query)
+    steps: list[int] = []
+
+    run_worker(query, templates[0], scratch_game, head_start=1, head_stop=3, on_step=steps.append)
+
+    assert steps == [len(arms) * len(waist) * len(legs)] * (2 * len(body))
+    assert len(head) >= 3
 
 
 @pytest.mark.parametrize(

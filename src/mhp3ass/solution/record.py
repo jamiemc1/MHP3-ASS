@@ -106,7 +106,9 @@ def _skill_indices(skills: list[Skill], index: RecordIndex) -> tuple[int, ...]:
     return tuple(positions)
 
 
-def _charm_record(charm: Charm | None, game: GameData) -> CharmRecord | None:
+def charm_record(charm: Charm | None, game: GameData) -> CharmRecord | None:
+    """``charm`` by ability index into ``game``; raises ``ValueError`` on an
+    ability that isn't that game's."""
     if charm is None:
         return None
     record = CharmRecord(
@@ -129,7 +131,7 @@ def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
             _armor_index(armor, armor_type, game)
             for armor, armor_type in zip(solution.armors, ArmorType, strict=True)
         ),
-        charm=_charm_record(solution.charm, game),
+        charm=charm_record(solution.charm, game),
         decorations=_decoration_indices(solution.decorations, game),
         body_decorations=_decoration_indices(solution.body_decorations, game),
         non_body_decorations=_decoration_indices(solution.non_body_decorations, game),
@@ -163,7 +165,9 @@ def _entry[T](table: list[T], position: int, what: str) -> T:
     return table[position]
 
 
-def _charm(record: CharmRecord | None, game: GameData) -> Charm | None:
+def charm_from_record(record: CharmRecord | None, game: GameData) -> Charm | None:
+    """The ``Charm`` ``record`` describes, built from ``game``'s abilities; raises
+    ``ValueError`` on an ability index outside the game's table."""
     if record is None:
         return None
     charm = Charm(
@@ -201,7 +205,7 @@ def from_record(record: SolutionRecord, game: GameData) -> Solution:
     ]
     solution = Solution(
         armors=armors,
-        charm=_charm(record.charm, game),
+        charm=charm_from_record(record.charm, game),
         decorations=[
             _entry(game.decorations, position, "decoration") for position in record.decorations
         ],
