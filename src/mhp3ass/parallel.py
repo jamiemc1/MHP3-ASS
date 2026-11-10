@@ -36,7 +36,15 @@ from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import Charm
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
-from mhp3ass.search import armor_choices, language_dir, paused_gc, run_worker
+from mhp3ass.search import (
+    PoolResult,
+    StepReporter,
+    WorkerError,
+    armor_choices,
+    language_dir,
+    paused_gc,
+    run_worker,
+)
 from mhp3ass.solution.record import (
     CharmRecord,
     RecordIndex,
@@ -171,30 +179,6 @@ class RebuiltSearch:
         return rebuilt
 
 
-class StepReporter:
-    """Adds up a task's checked combinations and sends the running total at
-    most once per ``interval`` seconds."""
-
-    def __init__(
-        self,
-        send: Callable[[int], None],
-        interval: float = 0.1,
-        clock: Callable[[], float] = time.monotonic,
-    ):
-        self._send = send
-        self._interval = interval
-        self._clock = clock
-        self._done = 0
-        self._last_sent = clock()
-
-    def add(self, combinations: int) -> None:
-        self._done += combinations
-        now = self._clock()
-        if now - self._last_sent >= self._interval:
-            self._send(self._done)
-            self._last_sent = now
-
-
 class ProgressTally:
     """Combinations checked so far over a search's tasks. A task's reports are
     running totals that may arrive late or out of order, so each counts only
@@ -217,23 +201,6 @@ class ProgressTally:
     @property
     def total(self) -> int:
         return sum(self._sizes)
-
-
-@dataclass(frozen=True)
-class WorkerError:
-    """The first worker, in search order, whose search raised, and its error."""
-
-    worker: int
-    error: Exception
-
-
-@dataclass(frozen=True)
-class PoolResult:
-    """Each worker's solutions in loop order, stopping before ``error``'s worker
-    when one raised."""
-
-    workers: list[list[SolutionRecord]]
-    error: WorkerError | None
 
 
 def is_search_error(error: BaseException) -> TypeIs[LegacyNullReferenceError | LookupError]:

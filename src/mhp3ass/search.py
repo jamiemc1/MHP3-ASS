@@ -4,18 +4,22 @@ that merges the workers' solutions.
 Ported from ``Form1::StartSearch`` (``legacy/Form1.h:1251-1375``),
 ``Form1::backgroundWorker1_DoWork`` (``legacy/Form1.h:1852-1930``) and
 ``backgroundWorker1_RunWorkerCompleted`` (``legacy/Form1.h:1804-1836``),
-without the threads, progress reporting and cancellation, in the order the
-harness's ``SearchDump::Run`` (``harness/src/SearchDump.cpp``) runs them.
+without the threads and cancellation, in the order the harness's
+``SearchDump::Run`` (``harness/src/SearchDump.cpp``) runs them. The workers
+run one after another, or in a ``WorkerPool`` (``parallel.SearchPool``); the
+results are merged in worker order either way.
 """
 
 from __future__ import annotations
 
 import gc
 import time
-from collections.abc import Callable, Generator
+from collections.abc import Callable, Generator, Sequence
 from contextlib import contextmanager
 from dataclasses import dataclass
+from math import prod
 from pathlib import Path
+from typing import Protocol
 
 from mhp3ass.charms.comparison import add_charm_to_optimal_list
 from mhp3ass.charms.for_query import get_charms
@@ -25,12 +29,19 @@ from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import Armor, Charm
-from mhp3ass.query import CharmMode, Query, SearchSpec
+from mhp3ass.query import CharmMode, Query, QuerySpec, SearchSpec
 from mhp3ass.relevance import formulate_query
-from mhp3ass.results.result_set import ResultSet, SearchException, SearchResult, WorkerResult
+from mhp3ass.results.result_set import (
+    ResultSet,
+    SearchException,
+    SearchResult,
+    SolutionList,
+    WorkerResult,
+)
 from mhp3ass.solution import matches_query
 from mhp3ass.solution.charm_reduction import LegacyListIndexError
 from mhp3ass.solution.fill import UndefinedScoreError
+from mhp3ass.solution.record import SolutionRecord
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
@@ -46,11 +57,13 @@ def language_dir(data_dir: Path, language: str) -> Path:
 @dataclass(frozen=True)
 class SearchData:
     """What a search reads besides the query: the game in one language, its
-    charm tables, and the charm checks my-charms loading needs."""
+    charm tables, the charm checks my-charms loading needs, and the data
+    folder they came from (a pool's processes load their own game from it)."""
 
     game: GameData
     tables: CharmTables
     validity: CharmValidity
+    data_dir: Path
 
     @classmethod
     def load(cls, data_dir: Path, language: str) -> SearchData:
@@ -61,7 +74,7 @@ class SearchData:
         tables = generate_charm_tables(game)
         apply_language(game, translations)
         validity = build_charm_validity(tables, ability_count=len(game.abilities))
-        search_data = cls(game=game, tables=tables, validity=validity)
+        search_data = cls(game=game, tables=tables, validity=validity, data_dir=data_dir)
         return search_data
 
 
@@ -195,6 +208,66 @@ def run_worker(
     return solutions
 
 
+class StepReporter:
+    """Adds up checked combinations and sends the running total at most once
+    per ``interval`` seconds."""
+
+    def __init__(
+        self,
+        send: Callable[[int], None],
+        interval: float = 0.1,
+        clock: Callable[[], float] = time.monotonic,
+    ):
+        self._send = send
+        self._interval = interval
+        self._clock = clock
+        self._done = 0
+        self._last_sent = clock()
+
+    @property
+    def done(self) -> int:
+        return self._done
+
+    def add(self, combinations: int) -> None:
+        self._done += combinations
+        now = self._clock()
+        if now - self._last_sent >= self._interval:
+            self._send(self._done)
+            self._last_sent = now
+
+
+@dataclass(frozen=True)
+class WorkerError:
+    """The first worker, in search order, whose search raised, and its error."""
+
+    worker: int
+    error: Exception
+
+
+@dataclass(frozen=True)
+class PoolResult:
+    """Each worker's solutions in loop order, stopping before ``error``'s worker
+    when one raised."""
+
+    workers: list[list[SolutionRecord]]
+    error: WorkerError | None
+
+
+class WorkerPool(Protocol):
+    """Runs a search's workers elsewhere (``parallel.SearchPool``)."""
+
+    def run(
+        self,
+        *,
+        data_dir: Path,
+        spec: QuerySpec,
+        query: Query,
+        templates: Sequence[Charm | None],
+        game: GameData,
+        on_progress: Callable[[int, int], None] | None = None,
+    ) -> PoolResult: ...
+
+
 def dotnet_exception_type(error: Exception) -> str | None:
     """The .NET exception type a port exception stands for, or ``None`` for an
     error the original never raises (such as ``UndefinedScoreError``, a
@@ -230,7 +303,8 @@ def dotnet_message(exception_type: str) -> str:
 @dataclass(frozen=True)
 class WorkerProgress:
     """A finished worker, for progress reports: its number of ``worker_count``,
-    its result, and how long it took."""
+    its result, and how long it took (in a pool, where the workers run
+    together, how long merging its solutions took)."""
 
     number: int
     worker_count: int
@@ -238,11 +312,34 @@ class WorkerProgress:
     seconds: float
 
 
+def _recorded_exception(
+    error: LegacyNullReferenceError | LookupError,
+    worker: int,
+    template: Charm | None,
+    record_exceptions: bool,
+) -> SearchException:
+    """The record of a worker's throw; raises ``error`` itself unless
+    ``record_exceptions`` and the original throws a .NET exception there."""
+    exception_type = dotnet_exception_type(error)
+    if not record_exceptions or exception_type is None:
+        raise error
+    exception = SearchException(
+        worker=worker,
+        type=exception_type,
+        message=dotnet_message(exception_type),
+        template=template,
+    )
+    return exception
+
+
 def run_search(
     spec: SearchSpec,
     data: SearchData,
     record_exceptions: bool = False,
     on_worker_done: Callable[[WorkerProgress], None] | None = None,
+    *,
+    pool: WorkerPool | None = None,
+    on_progress: Callable[[int, int], None] | None = None,
 ) -> SearchResult:
     """One search, as the harness's ``SearchDump::Run`` runs it: load the query's
     charm lines, formulate the query, start the workers in ``StartSearch``'s
@@ -254,6 +351,13 @@ def run_search(
     that worker's result, Form1.h:1804-1811); without, the error propagates.
     Errors in duplicate removal (quirk T) always propagate, as in the harness.
     ``on_worker_done`` is called after each worker's solutions are merged.
+
+    With ``pool`` the workers run there at the same time, and their solutions
+    come back as records and stay records until read (``SolutionList``); the
+    result is the same, worker by worker. ``on_progress(done, total)`` gets
+    the armour combinations checked so far over all workers, at most about
+    ten times a second and once at the end (short of ``total`` when a worker
+    threw), counting where the original reports progress (Form1.h:1874-1890).
     """
     loaded = load_query_my_charms(spec.my_charms, game=data.game, validity=data.validity)
     query = formulate_query(data.game, spec.query)
@@ -263,24 +367,8 @@ def run_search(
     results = ResultSet()
     workers = []
     exception = None
-    for number, template in enumerate(templates):
-        start = time.perf_counter()
-        try:
-            found = run_worker(query, template, data.game)
-        except (LegacyNullReferenceError, LookupError) as error:
-            exception_type = dotnet_exception_type(error)
-            if not record_exceptions or exception_type is None:
-                raise
-            exception = SearchException(
-                worker=number,
-                type=exception_type,
-                message=dotnet_message(exception_type),
-                template=template,
-            )
-            break
-        added = results.add_solutions(found)
-        worker = WorkerResult(template=template, found=found, added=added)
-        workers.append(worker)
+
+    def report_worker(number: int, worker: WorkerResult, start: float) -> None:
         if on_worker_done is not None:
             progress = WorkerProgress(
                 number=number,
@@ -289,6 +377,61 @@ def run_search(
                 seconds=time.perf_counter() - start,
             )
             on_worker_done(progress)
+
+    if pool is not None:
+        pooled = pool.run(
+            data_dir=data.data_dir,
+            spec=spec.query,
+            query=query,
+            templates=templates,
+            game=data.game,
+            on_progress=on_progress,
+        )
+        for number, records in enumerate(pooled.workers):
+            start = time.perf_counter()
+            found = SolutionList()
+            for record in records:
+                found.append_record(record, data.game)
+            added = results.add_records(records, data.game)
+            worker = WorkerResult(template=templates[number], found=found, added=added)
+            workers.append(worker)
+            report_worker(number, worker, start)
+        if pooled.error is not None:
+            failed = pooled.error.worker
+            error = pooled.error.error
+            if not isinstance(error, (LegacyNullReferenceError, LookupError)):
+                raise error
+            exception = _recorded_exception(
+                error,
+                worker=failed,
+                template=templates[failed],
+                record_exceptions=record_exceptions,
+            )
+    else:
+        total = len(templates) * prod(len(choices) for choices in armor_choices(query))
+        reporter = None
+        if on_progress is not None:
+            reporter = StepReporter(send=lambda done: on_progress(done, total))
+        for number, template in enumerate(templates):
+            start = time.perf_counter()
+            try:
+                found = run_worker(
+                    query,
+                    template,
+                    data.game,
+                    on_step=reporter.add if reporter is not None else None,
+                )
+            except (LegacyNullReferenceError, LookupError) as error:
+                exception = _recorded_exception(
+                    error, worker=number, template=template, record_exceptions=record_exceptions
+                )
+                break
+            added = results.add_solutions(found)
+            worker = WorkerResult(template=template, found=found, added=added)
+            workers.append(worker)
+            report_worker(number, worker, start)
+        if on_progress is not None and reporter is not None:
+            on_progress(reporter.done, total)
     search_result = SearchResult(
         query=query,
         my_charms_loaded=len(loaded.charms),
