@@ -13,7 +13,8 @@ Python (`src/mhp3ass/`).
 - **Never modify anything under `legacy/`.** It is the reference implementation
 - **Never hand-edit `tests/golden/`.** Golden files change only by re-running the harness on Windows
 - **Never skip, xfail or loosen a golden-comparison test** to get green. A mismatch is either a porting bug (fix the port) or a quirk of the original (log it in `docs/quirks.md` and raise it)
-- **Port faithfully before improving.** Reproduce the original's tie-breaking, iteration order, integer semantics and mutation behaviour. No algorithm changes until the differential-fuzz phase passes
+- **Port faithfully before improving.** Reproduce the original's tie-breaking, iteration order, integer semantics and mutation behaviour wherever they can change a search result or a file. No algorithm changes until the differential-fuzz phase passes
+- **Parity covers search results and file formats, not presentation.** Exact: which solutions a search finds and their fields, de-duplication, the inputs that feed the search (query, charm modes, advanced-search lists, my-charms legality), and `settings.cfg`, `.ass`, `mycharms.txt` and save import. Presentation is the port's own design: display order and tie order, the result text's layout, find's matching, and list ordering. Each departure from the original's presentation is logged in `docs/quirks.md` as **Changed by design**. To classify GUI-only behaviour, ask whether it changes a search result or a file
 - Each port module cites the original it came from (`legacy/Solution.cpp`) in its module docstring
 
 ## Never commit
@@ -59,6 +60,6 @@ uv run pre-commit run --all-files
 - C++ `unsigned` arithmetic wraps on underflow; Python ints don't
 - C++ `/` and `%` truncate towards zero; Python floors
 - .NET `Dictionary` enumeration order: insertion order while nothing has been removed
-- `>=` comparisons in "best candidate" loops pick the last tie
+- `>=` comparisons in "best candidate" loops pick the last tie (in search code; display sorting is stable, see Hard rules)
 - Object copies (`gcnew Charm(other)`) may be shallow; mutation can leak
 - Data files are UTF-8 with BOM (`encoding="utf-8-sig"`)
