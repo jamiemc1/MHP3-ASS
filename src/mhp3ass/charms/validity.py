@@ -27,8 +27,8 @@ class DecodedCharm(NamedTuple):
     """``UnhashCharm``'s fields, plus the slot count in the hash's low bits
     (``Charm::HashFunction`` adds it unshifted), which ``UnhashCharm`` doesn't read.
 
-    A named tuple rather than a frozen dataclass: start-up decodes about
-    85,000 hashes, and a tuple is several times cheaper to build."""
+    A named tuple, as building the validity index decodes every distinct
+    generated hash."""
 
     ability1_index: int
     ability2_index: int

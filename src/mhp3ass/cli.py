@@ -96,6 +96,15 @@ def _search(args: argparse.Namespace) -> int:
     throw is recorded instead, as the harness does). A port error the
     original has no counterpart for propagates.
     """
+    try:
+        # utf-8-sig: the harness's File::ReadAllText skips a byte order mark.
+        spec_json = json.loads(args.query.read_text(encoding="utf-8-sig"))
+        spec = SearchSpec.from_json(spec_json)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        # Unreadable file, invalid JSON or query (QueryError is a ValueError),
+        # a missing field, a field of the wrong JSON type.
+        print(f"{args.query}: {error}", file=sys.stderr)
+        return 1
     on_worker_done = _print_progress if args.progress else None
     with ExitStack() as stack:
         pool = stack.enter_context(SearchPool(jobs=args.jobs)) if args.jobs > 1 else None
@@ -103,13 +112,9 @@ def _search(args: argparse.Namespace) -> int:
             # The processes boot while this one builds the charm tables.
             pool.start()
         try:
-            # utf-8-sig: the harness's File::ReadAllText skips a byte order mark.
-            spec_json = json.loads(args.query.read_text(encoding="utf-8-sig"))
-            spec = SearchSpec.from_json(spec_json)
             data = SearchData.load(args.data_dir, language=spec.query.language)
         except (OSError, ValueError, KeyError, TypeError) as error:
-            # Unreadable file, invalid JSON or query (QueryError is a ValueError),
-            # a missing field, a field of the wrong JSON type, an unknown language.
+            # Unreadable or malformed data files, an unknown language.
             print(f"{args.query}: {error}", file=sys.stderr)
             return 1
         try:

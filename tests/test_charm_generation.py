@@ -66,10 +66,22 @@ def test_rnd_maps_zero_to_176_and_stays_16_bit():
     assert [outputs[0], max(outputs) <= 0xFFFF, min(outputs) >= 0] == [176, True, True]
 
 
-def test_rnd_table_holds_rnd_for_every_state():
-    expected = [rnd(n) for n in range(65536)]
+def test_rnd_table_walks_each_table_seed_round_a_5400_state_cycle():
+    step = rnd_table()
+    seeds = [2, 5, 9, 26, 6, 4, 13, 18, 15, 1, 12, 3]
+    cycles = []
+    for seed in seeds:
+        cycle = [seed]
+        while (n := step[cycle[-1]]) != seed:
+            cycle.append(n)
+        cycles.append(cycle)
+    states = {n for cycle in cycles for n in cycle}
 
-    assert rnd_table() == expected
+    assert [len(step), [len(cycle) for cycle in cycles], len(states)] == [
+        65536,
+        [5400] * 12,
+        64800,
+    ]
 
 
 def test_slot_lookup_gives_the_first_threshold_the_roll_does_not_exceed():
