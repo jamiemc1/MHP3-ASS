@@ -31,4 +31,9 @@ namespace Workers
 	// five armour pieces (head, body, arms, waist, legs; nullptr for an empty
 	// slot) and a deep copy of the worker's charm template.
 	Solution^ NewJob( array< Armor^ >^ armors, Charm^ charm_template );
+
+	// Form1::backgroundWorker1_DoWork, Form1.h:1852-1930, without progress
+	// reporting or cancellation. The GUI hands solutions over in batches, but
+	// always in this order.
+	System::Collections::Generic::List< Solution^ >^ RunWorker( Query^ query, Charm^ charm_template );
 }

@@ -110,6 +110,35 @@ Invoke-Searches (Join-Path $repoRoot "tests\corpus") (Join-Path $repoRoot "tests
 # Queries built from a personal charm list stay out of git with their results.
 Invoke-Searches (Join-Path $repoRoot "tests\savefile\corpus") (Join-Path $repoRoot "tests\savefile\golden\search")
 
+function Invoke-Results([string]$corpusDir, [string]$outDir) {
+    # Start clean so results of renamed or deleted queries don't linger.
+    if (Test-Path $outDir) {
+        Get-ChildItem -File -Filter "*.json.gz" $outDir | Remove-Item
+    }
+    if (-not (Test-Path $corpusDir)) {
+        return
+    }
+    New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+    foreach ($query in Get-ChildItem -File -Filter "*.json" $corpusDir) {
+        Invoke-Harness results $query.FullName --out (Join-Path $outDir "$($query.BaseName).json.gz")
+    }
+}
+
+Invoke-Results (Join-Path $repoRoot "tests\corpus") (Join-Path $repoRoot "tests\golden\results")
+$personalResultsDir = Join-Path $repoRoot "tests\savefile\golden\results"
+Invoke-Results (Join-Path $repoRoot "tests\savefile\corpus") $personalResultsDir
+# The settings.cfg the GUI wrote after each captured search, read back as at start-up.
+$capturesDir = Join-Path $repoRoot "tests\savefile\gui-captures"
+if (Test-Path $capturesDir) {
+    New-Item -ItemType Directory -Force -Path $personalResultsDir | Out-Null
+    foreach ($capture in Get-ChildItem -Directory $capturesDir) {
+        $settings = Join-Path $capture.FullName "settings.cfg"
+        if (Test-Path $settings) {
+            Invoke-Harness results-file $settings --out (Join-Path $personalResultsDir "capture-$($capture.Name).json.gz")
+        }
+    }
+}
+
 function Invoke-Relevance([string[]]$queryDirs, [string]$outDir) {
     # Start clean so results of renamed or deleted queries don't linger, even
     # when no queries are left.

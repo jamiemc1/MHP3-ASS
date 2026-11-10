@@ -6,6 +6,7 @@
 #include "ModelDump.h"
 #include "QueryFile.h"
 #include "RelevanceDump.h"
+#include "ResultsDump.h"
 #include "SaveDump.h"
 #include "SearchDump.h"
 #include "SolutionProbe.h"
@@ -29,9 +30,12 @@ namespace
 		Console::Error->WriteLine( L"  Harness solution-probes  --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness traces       <spec.json> --out <file.jsonl[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"  Harness charm-location --out <file.json[.gz]> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness results      <query.json> --out <file.json[.gz]> [--run-dir <dir>]" );
+		Console::Error->WriteLine( L"  Harness results-file <settings.cfg> --out <file.json[.gz]> [--run-dir <dir>]" );
 		Console::Error->WriteLine( L"" );
 		Console::Error->WriteLine( L"search writes <prefix>.manifest.json and <prefix>.solutions.txt.gz, in the query's language." );
-		Console::Error->WriteLine( L"search, relevance and traces take their language from the query file." );
+		Console::Error->WriteLine( L"search, relevance, traces and results take their language from the query file;" );
+		Console::Error->WriteLine( L"results-file takes it from the settings file's header." );
 		Console::Error->WriteLine( L"<language> is a folder name under Data/Languages, e.g. \"English (TeamHGG)\"." );
 		Console::Error->WriteLine( L"Output ending in .gz is gzip-compressed." );
 		Console::Error->WriteLine( L"--run-dir defaults to legacy/Run beside this harness." );
@@ -144,9 +148,10 @@ int main( array< String^ >^ args )
 		Console::Error->WriteLine( L"--candidates, --max-solution-lines and --record-exceptions only apply to search" );
 		return Usage();
 	}
-	if( ( options->command == L"search" || options->command == L"relevance" || options->command == L"traces" ) && options->language != nullptr )
+	if( ( options->command == L"search" || options->command == L"relevance" || options->command == L"traces" ||
+		  options->command == L"results" || options->command == L"results-file" ) && options->language != nullptr )
 	{
-		Console::Error->WriteLine( options->command + L" takes its language from the query file; remove --lang" );
+		Console::Error->WriteLine( options->command + L" takes its language from its input file; remove --lang" );
 		return Usage();
 	}
 	if( options->command == L"charm-location" && options->language != nullptr )
@@ -219,6 +224,17 @@ int main( array< String^ >^ args )
 		options->language = L"English (TeamHGG)";
 		LoadGameData( options );
 		CharmLocationDump::Write( out_path );
+	}
+	else if( options->command == L"results" && inputs->Count == 1 )
+	{
+		options->language = QueryFile::Language( inputs[ 0 ] );
+		LoadGameData( options );
+		ResultsDump::RunSearch( inputs[ 0 ], out_path );
+	}
+	else if( options->command == L"results-file" && inputs->Count == 1 )
+	{
+		LoadGameData( options );
+		ResultsDump::RunFile( inputs[ 0 ], out_path );
 	}
 	else
 		return Usage();

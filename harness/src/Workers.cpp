@@ -151,4 +151,37 @@ namespace Workers
 		job->charm = charm_template ? gcnew Charm( charm_template ) : nullptr;
 		return job;
 	}
+
+	List< Solution^ >^ RunWorker( Query^ query, Charm^ charm_template )
+	{
+		List< Solution^ >^ solutions = gcnew List< Solution^ >;
+		AddEmptySlotPieces( query );
+		List_t< Armor^ >^ head  = query->rel_armor[ int( Armor::ArmorType::HEAD ) ];
+		List_t< Armor^ >^ body  = query->rel_armor[ int( Armor::ArmorType::BODY ) ];
+		List_t< Armor^ >^ arms  = query->rel_armor[ int( Armor::ArmorType::ARMS ) ];
+		List_t< Armor^ >^ waist = query->rel_armor[ int( Armor::ArmorType::WAIST ) ];
+		List_t< Armor^ >^ legs  = query->rel_armor[ int( Armor::ArmorType::LEGS ) ];
+
+		for( int i = 0; i < head->Count; ++i )
+		{
+			for( int j = 0; j < body->Count; ++j )
+			{
+				for( int k = 0; k < arms->Count; ++k )
+				{
+					for( int l = 0; l < waist->Count; ++l )
+					{
+						for( int m = 0; m < legs->Count; ++m )
+						{
+							array< Armor^ >^ armors = { head[ i ], body[ j ], arms[ k ], waist[ l ], legs[ m ] };
+							Solution^ job = NewJob( armors, charm_template );
+
+							if( job->MatchesQuery( query ) )
+								solutions->Add( job );
+						}
+					}
+				}
+			}
+		}
+		return solutions;
+	}
 }
