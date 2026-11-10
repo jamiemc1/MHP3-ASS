@@ -124,10 +124,18 @@ def import_seconds() -> float:
     raise ValueError("-X importtime reported no mhp3ass.cli import")
 
 
-def cold_search_seconds(query_path: Path) -> float:
+def cold_search_seconds(query_path: Path, data_dir: Path) -> float:
     """``mhp3ass search`` of one query in a new process, writing its outputs."""
     with tempfile.TemporaryDirectory() as out_dir:
-        command = [str(console_script()), "search", str(query_path), "--out", f"{out_dir}/q"]
+        command = [
+            str(console_script()),
+            "search",
+            str(query_path),
+            "--out",
+            f"{out_dir}/q",
+            "--data-dir",
+            str(data_dir),
+        ]
         seconds = elapsed(lambda: subprocess.run(command, capture_output=True, check=True))
     return seconds
 
@@ -170,7 +178,10 @@ def startup_report(data_dir: Path, query_path: Path, runs: int) -> list[str]:
         ("Language", language_seconds),
         ("Charm checks (validity)", validity_seconds),
         (f"Relevance (`formulate_query`, {spec.query.id})", relevance_seconds),
-        (f"Cold `mhp3ass search {spec.query.id} --out`", lambda: cold_search_seconds(query_path)),
+        (
+            f"Cold `mhp3ass search {spec.query.id} --out`",
+            lambda: cold_search_seconds(query_path, data_dir=data_dir),
+        ),
     ]
     rows = ["| Step | Median |", "|---|---|"]
     for label, step in steps:
