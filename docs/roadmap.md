@@ -32,8 +32,8 @@ to the TUI.
 | Charm modes: none, my charms, slotted, one-skill, two-skill | `Form1.h:1293` | 6 |
 | Auto-guard special case | `Form1.h:1274` | 6 |
 | Advanced search: per-piece armour/decoration include lists | `frmAdvanced.h`, `Form1.h:1420-1459` | 4, 10 (`advanced.py`) |
-| Result sorting (the original's keys, sorted stably) | `Form1.h:20-80`, `:2149-2172` (`cmbSort`) | 10 (`results/sorting.py`) |
-| Result filtering by charm | `Form1.h` (`cmbCharms`) | 10 |
+| Result sorting (the original's keys, sorted stably) | `Form1.h:20-80`, `:2149-2172` (`cmbSort`), `:1981-1996` | 10 (`results/sorting.py`, `results/view.py`) |
+| Result filtering by charm (names listed case-insensitively) | `Form1.h:1723-1802`, `:2102-2130`, `:2226-2253` (`cmbCharms`) | 10 (`results/view.py`) |
 | Find in results (case-insensitive, wrapping) | `frmFind.h:135-144`, `Form1.h:1938-1953` | 10 (`results/find.py`) |
 | My-charms management (add, delete, persist to `mycharms.txt`) | `ManageCharms.h`, `CharmDatabase.cpp` | 3, 10 (editing: `charms/editing.py`) |
 | Charm import from a PSP save | `ImportCharms.h`, `SaveDataEncryption.cpp`, `PSPCryptoEngine.cpp` | 7, 10 |
