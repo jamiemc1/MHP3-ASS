@@ -26,6 +26,7 @@ to the TUI.
 | Feature | Original | Core phase |
 |---|---|---|
 | Skill search (Blademaster / Gunner) | `Form1.h` `FormulateQuery`, `StartSearch` | 4–6 |
+| Skill rows: per-row filters, skills offered, restore from `settings.cfg` | `Form1.h:210-247`, `:1478-1556`, `:414-426` | 10 (`skill_picker.py`) |
 | Query options: gender, HR, elder stars, weapon slots | `Form1.h:1192` | 4 |
 | Toggles: piercings, bad skills, event armour, low-rank armour | `Form1.h:1198` | 4 |
 | Charm modes: none, my charms, slotted, one-skill, two-skill | `Form1.h:1293` | 6 |
