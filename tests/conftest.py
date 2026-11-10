@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Generator
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +23,7 @@ from mhp3ass.charms.location import CharmLocationIndex
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
+from mhp3ass.parallel import SearchPool
 from mhp3ass.query import Query
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
@@ -353,6 +354,13 @@ def search_data_by_language(legacy_data_dir: Path) -> dict[str, SearchData]:
         language: SearchData.load(legacy_data_dir, language=language) for language in languages
     }
     return search_data
+
+
+@pytest.fixture(scope="session")
+def search_pool() -> Generator[SearchPool]:
+    """Four pool processes for the session, so tests pay the process start-up once."""
+    with SearchPool(jobs=4) as pool:
+        yield pool
 
 
 @pytest.fixture(scope="session")

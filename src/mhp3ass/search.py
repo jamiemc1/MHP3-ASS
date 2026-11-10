@@ -148,17 +148,31 @@ def armor_choices(query: Query) -> list[list[Armor | None]]:
     return choices
 
 
-def run_worker(query: Query, charm_template: Charm | None, game: GameData) -> list[Solution]:
+def run_worker(
+    query: Query,
+    charm_template: Charm | None,
+    game: GameData,
+    *,
+    head_start: int = 0,
+    head_stop: int | None = None,
+    on_step: Callable[[int], None] | None = None,
+) -> list[Solution]:
     """``backgroundWorker1_DoWork`` (Form1.h:1852-1930): the solutions ``MatchesQuery``
     accepts, in loop order (head, then body, arms, waist, legs).
 
     Each combination gets its own copy of the charm template, as the original's
     ``gcnew Charm( qc->charm_template )`` does (deep: the pairs are copied too),
     so reducing one combination's charm never touches the template.
+
+    ``head_start`` and ``head_stop`` limit the run to that range of the padded
+    head choices; the ranges' solutions, concatenated in order, are the whole
+    run's. ``on_step`` is called after each (head, body) pair with the number
+    of combinations it checked, where the original reports progress (:1878-1890).
     """
     head, body, arms, waist, legs = armor_choices(query)
+    combinations_per_step = len(arms) * len(waist) * len(legs)
     solutions = []
-    for head_piece in head:
+    for head_piece in head[head_start:head_stop]:
         for body_piece in body:
             for arms_piece in arms:
                 for waist_piece in waist:
@@ -169,6 +183,8 @@ def run_worker(query: Query, charm_template: Charm | None, game: GameData) -> li
                         )
                         if matches_query(job, query, game):
                             solutions.append(job)
+            if on_step is not None:
+                on_step(combinations_per_step)
     return solutions
 
 
