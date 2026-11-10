@@ -1,7 +1,9 @@
 """``ResultSet`` (AddSolutions' duplicate removal) against the harness's candidates
-files, plus the rules no golden reaches."""
+files, plus the rules no golden reaches; and the same removal on records."""
 
 from __future__ import annotations
+
+from dataclasses import dataclass, replace
 
 import pytest
 
@@ -9,7 +11,25 @@ from goldens import SearchGolden
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, ArmorType, Charm
-from mhp3ass.results.result_set import ResultSet, hash_armor, lines_sha256
+from mhp3ass.query import SearchSpec
+from mhp3ass.results.result_set import (
+    ResultSet,
+    SolutionList,
+    hash_armor,
+    hash_armor_indices,
+    lines_sha256,
+    record_line,
+    skill_indices,
+    solution_line,
+)
+from mhp3ass.search import run_search
+from mhp3ass.solution.record import (
+    CharmRecord,
+    RecordIndex,
+    SolutionRecord,
+    charm_from_record,
+    to_record,
+)
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
@@ -196,3 +216,138 @@ def test_a_throw_part_way_keeps_what_was_added_before_it(pieces, charm):
         [kept],
         {"+4 Attack O--": {hash_armor(kept.armors)}},
     ]
+
+
+@dataclass(frozen=True)
+class RecordReplay:
+    """One corpus query's workers, de-duplicated once as solutions (the search)
+    and once as their records: kept lines, each worker's added lines, the keys."""
+
+    solution_lines: list[str]
+    record_lines: list[str]
+    rebuilt_lines: list[str]
+    added_by_solutions: list[list[str]]
+    added_by_records: list[list[str]]
+    keys_by_solutions: dict[str, set[int]]
+    keys_by_records: dict[str, set[int]]
+    found: int
+    found_lines_differ: int
+
+
+@pytest.fixture(scope="module")
+def record_replays(repo_root, search_data_by_language) -> dict[str, RecordReplay]:
+    """g13 (four one-skill workers that repeat each other's sets) and g19 (one
+    worker that repeats its own), searched serially and replayed as records."""
+    replays = {}
+    for file_name in (
+        "g13-hr3-attack-health-one-skill.json",
+        "g19-gunner-load-up-piercings-event.json",
+    ):
+        spec = SearchSpec.from_file(repo_root / "tests" / "corpus" / file_name)
+        data = search_data_by_language[spec.query.language]
+        searched = run_search(spec, data=data)
+        index = RecordIndex.for_game(data.game)
+        skill_index = skill_indices(data.game)
+        from_records = ResultSet()
+        added_by_records = []
+        found_lines_differ = 0
+        for worker in searched.workers:
+            records = [to_record(solution, index) for solution in worker.found]
+            found_lines_differ += sum(
+                record_line(record) != solution_line(solution, skill_index)
+                for record, solution in zip(records, worker.found, strict=True)
+            )
+            added = from_records.add_records(records, data.game)
+            added_by_records.append(added.lines(skill_index))
+        replays[spec.query.id] = RecordReplay(
+            solution_lines=searched.results.all_solutions.lines(skill_index),
+            record_lines=from_records.all_solutions.lines(skill_index),
+            rebuilt_lines=[
+                solution_line(solution, skill_index) for solution in from_records.all_solutions
+            ],
+            added_by_solutions=[
+                [solution_line(solution, skill_index) for solution in worker.added]
+                for worker in searched.workers
+            ],
+            added_by_records=added_by_records,
+            keys_by_solutions=searched.results.existing_armor,
+            keys_by_records=from_records.existing_armor,
+            found=sum(len(worker.found) for worker in searched.workers),
+            found_lines_differ=found_lines_differ,
+        )
+    return replays
+
+
+@pytest.mark.parametrize("query_id", ["g13", "g19"])
+def test_records_keep_the_solutions_the_search_keeps(record_replays, query_id):
+    replay = record_replays[query_id]
+
+    assert replay.found_lines_differ == 0
+    assert len(replay.record_lines) < replay.found
+    assert replay.record_lines == replay.solution_lines
+    assert replay.rebuilt_lines == replay.solution_lines
+    assert replay.added_by_records == replay.added_by_solutions
+    assert replay.keys_by_records == replay.keys_by_solutions
+
+
+@pytest.fixture
+def empty_record(teamhgg_game) -> SolutionRecord:
+    """A record of a charm-free solution with every slot empty and slots counted."""
+    solution = Solution(armors=[None] * 5, charm=None, slots_spare=[0, 0, 0, 0])
+    record = to_record(solution, RecordIndex.for_game(teamhgg_game))
+    return record
+
+
+@pytest.fixture
+def attack_record() -> CharmRecord:
+    """+4 of ability 1 with one slot."""
+    return CharmRecord(num_slots=1, abilities=((1, 4),), custom=False, hacked=False)
+
+
+def test_a_record_is_rebuilt_once_and_then_read_as_that_solution(empty_record, teamhgg_game):
+    solutions = SolutionList()
+    solutions.append_record(replace(empty_record, armors=(2, 2, 2, 2, 2)), teamhgg_game)
+
+    first_read = solutions[0]
+
+    assert solutions[0] is first_read
+    assert first_read.armors == [teamhgg_game.armors[armor_type][2] for armor_type in ArmorType]
+
+
+def test_records_of_two_games_do_not_share_a_list(empty_record, teamhgg_game, load_teamhgg_game):
+    solutions = SolutionList()
+    solutions.append_record(empty_record, teamhgg_game)
+
+    with pytest.raises(ValueError, match="one game"):
+        solutions.append_record(empty_record, load_teamhgg_game())
+    assert len(solutions) == 1
+
+
+def test_a_charmed_record_with_an_empty_slot_throws(empty_record, attack_record, teamhgg_game):
+    """Quirk T on records: the charm's key is added before the hash throws."""
+    kept = replace(empty_record, armors=(1, 1, 1, 1, 1), charm=attack_record)
+    empty_slot = replace(empty_record, armors=(1, -1, 1, 1, 1), charm=attack_record)
+    results = ResultSet()
+
+    name = charm_name(charm_from_record(attack_record, teamhgg_game))
+
+    with pytest.raises(LegacyNullReferenceError):
+        results.add_records([kept, empty_slot], teamhgg_game)
+
+    assert [results.all_solutions.lines({}), results.existing_armor] == [
+        [record_line(kept)],
+        {name: {hash_armor_indices(kept.armors)}},
+    ]
+
+
+def test_charm_free_records_are_never_de_duplicated(empty_record, teamhgg_game):
+    results = ResultSet()
+
+    added = results.add_records([empty_record, empty_record], teamhgg_game)
+
+    assert [len(added), len(results.all_solutions), results.existing_armor] == [2, 2, {}]
+
+
+def test_a_record_line_needs_the_slots_counted(empty_record):
+    with pytest.raises(ValueError, match="slots"):
+        record_line(replace(empty_record, slots_spare=None))

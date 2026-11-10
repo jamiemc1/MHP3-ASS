@@ -5,6 +5,11 @@ Solution^ )`` and ``AddSolutions`` (``legacy/Form1.h:1691-1746``), as the
 harness's ``ResultSet`` (``harness/src/SearchDump.cpp``) collects them, and
 from the solution lines of ``Form1::SaveConfig`` (``legacy/Form1.h:495-538``)
 with the harness's hashes over them.
+
+A search run in a process pool hands its solutions back as ``SolutionRecord``s.
+``ResultSet.add_records`` removes duplicates on the records themselves, and a
+``SolutionList`` keeps them as records, rebuilding a ``Solution`` only when one
+is read: writing lines and hashes needs no ``Solution`` at all.
 """
 
 from __future__ import annotations
@@ -12,15 +17,16 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
+from typing import Any, overload
 
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.model import Armor, Charm, Skill
 from mhp3ass.query import Query
+from mhp3ass.solution.record import CharmRecord, SolutionRecord, charm_from_record, from_record
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
@@ -33,12 +39,90 @@ def hash_armor(armors: Sequence[Armor | None]) -> int:
     would only overflow for an index of 2**20 or more. It dereferences every
     slot, so an empty one throws.
     """
-    total = 0
-    for slot, armor in enumerate(armors):
-        if armor is None:
-            raise LegacyNullReferenceError(f"HashArmor dereferences the empty slot {slot}")
-        total += armor.index << (slot * 3)
+    indices = [-1 if armor is None else armor.index for armor in armors]
+    total = hash_armor_indices(indices)
     return total
+
+
+def hash_armor_indices(indices: Sequence[int]) -> int:
+    """``hash_armor`` of the armour with these indices, -1 for an empty slot."""
+    total = 0
+    for slot, index in enumerate(indices):
+        if index == -1:
+            raise LegacyNullReferenceError(f"HashArmor dereferences the empty slot {slot}")
+        total += index << (slot * 3)
+    return total
+
+
+class SolutionList(Sequence[Solution]):
+    """Solutions in order, each held as a ``Solution`` or as a ``SolutionRecord``.
+
+    A record is rebuilt against its game (``from_record``) the first time it
+    is read, and the rebuilt ``Solution`` replaces it, so reading it again
+    gives the same object. ``lines`` writes records' lines without rebuilding
+    them. Lists compare equal to any sequence of equal solutions.
+    """
+
+    def __init__(self) -> None:
+        self._entries: list[Solution | SolutionRecord] = []
+        self._game: GameData | None = None
+
+    def append(self, solution: Solution) -> None:
+        self._entries.append(solution)
+
+    def append_record(self, record: SolutionRecord, game: GameData) -> None:
+        """Add ``record``, a solution of ``game``; every record in one list must
+        come from the same game."""
+        if self._game is None:
+            self._game = game
+        elif self._game is not game:
+            raise ValueError("a SolutionList holds the records of one game")
+        self._entries.append(record)
+
+    def __len__(self) -> int:
+        return len(self._entries)
+
+    @overload
+    def __getitem__(self, index: int) -> Solution: ...
+
+    @overload
+    def __getitem__(self, index: slice) -> list[Solution]: ...
+
+    def __getitem__(self, index: int | slice) -> Solution | list[Solution]:
+        if isinstance(index, slice):
+            solutions = [self[position] for position in range(*index.indices(len(self)))]
+            return solutions
+        entry = self._entries[index]
+        if isinstance(entry, Solution):
+            return entry
+        if self._game is None:
+            raise ValueError("a record was added without its game")
+        solution = from_record(entry, self._game)
+        self._entries[index] = solution
+        return solution
+
+    def __iter__(self) -> Iterator[Solution]:
+        for position in range(len(self)):
+            yield self[position]
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Sequence) or isinstance(other, str):
+            return NotImplemented
+        same = list(self) == list(other)
+        return same
+
+    def __repr__(self) -> str:
+        return f"SolutionList({list(self)!r})"
+
+    def lines(self, skill_index: dict[Skill, int]) -> list[str]:
+        """Each solution's line, in order; records' lines come from their indices."""
+        lines = [
+            record_line(entry)
+            if isinstance(entry, SolutionRecord)
+            else solution_line(entry, skill_index)
+            for entry in self._entries
+        ]
+        return lines
 
 
 @dataclass
@@ -49,6 +133,7 @@ class ResultSet:
     one to arrive (quirk 5: which one depends on arrival order); charm-free
     solutions are always kept. ``existing_armor`` persists across calls, as
     the original only clears it when a new search starts (Form1.h:1257).
+    ``add_records`` applies the same rule to records.
 
     Loading saved results (``LoadConfig``, Form1.h:342-379, :430-433) reuses
     ``add_solution`` on the same keys: it empties the solution list but not
@@ -56,7 +141,7 @@ class ResultSet:
     so it calls ``add_solution`` itself rather than ``add_solutions``.
     """
 
-    all_solutions: list[Solution] = field(default_factory=list)
+    all_solutions: SolutionList = field(default_factory=SolutionList)
     existing_armor: dict[str, set[int]] = field(default_factory=dict)
 
     def _solution_exists(self, name: str, solution: Solution) -> bool:
@@ -95,6 +180,28 @@ class ResultSet:
                 added.append(solution)
         return added
 
+    def add_records(self, records: Iterable[SolutionRecord], game: GameData) -> SolutionList:
+        """``add_solutions`` for the solutions ``records`` describe in ``game``,
+        without rebuilding them: the key is the record's charm name and the
+        hash of its armour indices. Returns the records it kept, in order."""
+        added = SolutionList()
+        names: dict[CharmRecord, str] = {}
+        for record in records:
+            if record.charm is not None:
+                name = names.get(record.charm)
+                if name is None:
+                    name = charm_name(charm_from_record(record.charm, game))
+                    names[record.charm] = name
+                # The key's entry goes in before hashing, as in _solution_exists.
+                hashes = self.existing_armor.setdefault(name, set())
+                armor_hash = hash_armor_indices(record.armors)
+                if armor_hash in hashes:
+                    continue
+                hashes.add(armor_hash)
+            self.all_solutions.append_record(record, game)
+            added.append_record(record, game)
+        return added
+
 
 def solution_line(solution: Solution, skill_index: dict[Skill, int]) -> str:
     """One solution line as ``SearchDump``'s ``SolutionLine`` writes it (the
@@ -124,6 +231,31 @@ def solution_line(solution: Solution, skill_index: dict[Skill, int]) -> str:
     return line
 
 
+def record_line(record: SolutionRecord) -> str:
+    """``solution_line`` of the solution ``record`` describes: a record holds
+    the line's numbers already (skills by their position in the game's list)."""
+    slots_spare = record.slots_spare
+    if slots_spare is None:
+        raise ValueError("a solution line needs the slots MatchesQuery counted")
+    numbers = [*record.armors, record.total_slots_spare, *(slots_spare[size] for size in (1, 2, 3))]
+    numbers += [len(record.decorations), *record.decorations]
+    numbers += [len(record.extra_skills), *record.extra_skills]
+    charm = record.charm
+    if charm is not None:
+        numbers += [charm.num_slots, len(charm.abilities)]
+        for ability, amount in charm.abilities:
+            numbers += [amount, ability]
+    line = "".join(f"{number} " for number in numbers)
+    return line
+
+
+def _lines(solutions: Sequence[Solution], skill_index: dict[Skill, int]) -> list[str]:
+    if isinstance(solutions, SolutionList):
+        return solutions.lines(skill_index)
+    lines = [solution_line(solution, skill_index) for solution in solutions]
+    return lines
+
+
 def lines_sha256(lines: Iterable[str]) -> str:
     """The harness's ``LinesSha256`` (``SearchDump.cpp``): SHA-256 of the lines'
     UTF-8 text, each ending in a newline."""
@@ -151,8 +283,8 @@ class WorkerResult:
     solution it found in loop order, and the ones duplicate removal kept."""
 
     template: Charm | None
-    found: list[Solution]
-    added: list[Solution]
+    found: Sequence[Solution]
+    added: Sequence[Solution]
 
 
 @dataclass(frozen=True)
@@ -182,8 +314,7 @@ def skill_indices(game: GameData) -> dict[Skill, int]:
 
 def solution_lines(result: SearchResult, game: GameData) -> list[str]:
     """The kept solutions' lines, in the order they were kept."""
-    skill_index = skill_indices(game)
-    lines = [solution_line(solution, skill_index) for solution in result.results.all_solutions]
+    lines = result.results.all_solutions.lines(skill_indices(game))
     return lines
 
 
@@ -204,10 +335,10 @@ def candidate_lines(result: SearchResult, game: GameData) -> list[CandidateLine]
         CandidateLine(
             worker=number,
             charm_name="" if solution.charm is None else charm_name(solution.charm),
-            solution_line=solution_line(solution, skill_index),
+            solution_line=line,
         )
         for number, worker in enumerate(result.workers)
-        for solution in worker.found
+        for solution, line in zip(worker.found, _lines(worker.found, skill_index), strict=True)
     ]
     return candidates
 
@@ -228,7 +359,7 @@ def search_manifest(
     workers = []
     lines: list[str] = []
     for number, worker in enumerate(result.workers):
-        added_lines = [solution_line(solution, skill_index) for solution in worker.added]
+        added_lines = _lines(worker.added, skill_index)
         lines += added_lines
         workers.append(
             {
