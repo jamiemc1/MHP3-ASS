@@ -48,4 +48,7 @@ include = ["src", "tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = ["--strict-markers", "--strict-config"]
+addopts = ["--strict-markers", "--strict-config", "-m", "not fuzz"]
+markers = [
+    "fuzz: the full differential-fuzz gate (500 queries, minutes); run with -m fuzz",
+]

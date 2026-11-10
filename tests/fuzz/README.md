@@ -57,3 +57,21 @@ these quotas in draw order, and tops up to 500 in draw order:
 | Two-skill charms below HR 5 | 50 |
 | One-skill charms at HR 3 or below | 25 |
 | Illegal my-charms lines | exactly 10 |
+
+## The gate
+
+`tests/test_fuzz_search.py` runs the port's search on each query and holds
+it to the L3 standard: the harness's manifest field for field (every
+worker's count and hash, both set hashes, no exception) and, where the
+harness wrote one, the solutions file line for line. Queries over 5,000
+solutions have no solutions file, so a mismatch there names the first
+worker whose hash differs.
+
+- **Default run:** a smoke subset of 25. Per charm mode, a seeded sample
+  (seed 9) of three queries with solutions and two without, drawn from the
+  queries that search at least once and cost at most 20,000 evaluations
+- **Full run:** all 500, opt-in:
+
+  ```bash
+  uv run pytest -m fuzz
+  ```

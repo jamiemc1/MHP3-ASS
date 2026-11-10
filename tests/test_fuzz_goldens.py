@@ -1,7 +1,7 @@
 """The differential-fuzz goldens: current with their queries and internally consistent.
 
-Phase 9b compares the Python search with these; here they're only checked
-against their own queries and solution files.
+``test_fuzz_search.py`` compares the Python search with these; here they're
+only checked against their own queries and solution files.
 """
 
 from __future__ import annotations
