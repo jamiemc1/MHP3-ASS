@@ -30,12 +30,13 @@ from math import ceil, prod
 from multiprocessing.queues import Queue
 from pathlib import Path
 from types import TracebackType
+from typing import TypeIs
 
 from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import Charm
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
-from mhp3ass.search import armor_choices, paused_gc, run_worker
+from mhp3ass.search import armor_choices, language_dir, paused_gc, run_worker
 from mhp3ass.solution.record import (
     CharmRecord,
     RecordIndex,
@@ -99,28 +100,42 @@ def default_jobs(max_jobs: int = 8) -> int:
 
 
 class ChildStateError(RuntimeError):
-    """A pool process rebuilt a query that differs from the parent's."""
+    """A pool process couldn't rebuild the parent's query, or rebuilt a different one."""
+
+
+def armor_choice_indices(query: Query) -> tuple[tuple[int, ...], ...]:
+    """Each slot's padded armour choices (``armor_choices``) by index, -1 for the padding."""
+    indices = tuple(
+        tuple(-1 if armor is None else armor.index for armor in choices)
+        for choices in armor_choices(query)
+    )
+    return indices
 
 
 @dataclass(frozen=True)
 class PoolSearch:
     """What a pool process needs to rebuild a search: the data folder, the
-    query's spec, and the parent's padded choice count per armour slot, which
-    the rebuilt query must match."""
+    query's spec, and the parent's padded armour choices per slot by index,
+    which the rebuilt query must match."""
 
     data_dir: Path
     query: QuerySpec
-    choice_counts: tuple[int, ...]
+    armor_indices: tuple[tuple[int, ...], ...]
 
     @classmethod
     def for_query(cls, data_dir: Path, spec: QuerySpec, query: Query) -> PoolSearch:
         """``query`` is the parent's ``formulate_query`` of ``spec``."""
-        search = cls(
-            data_dir=data_dir,
-            query=spec,
-            choice_counts=tuple(len(choices) for choices in armor_choices(query)),
-        )
+        search = cls(data_dir=data_dir, query=spec, armor_indices=armor_choice_indices(query))
         return search
+
+    @property
+    def head_count(self) -> int:
+        return len(self.armor_indices[0])
+
+    @property
+    def combinations_per_head(self) -> int:
+        combinations = prod(len(choices) for choices in self.armor_indices[1:])
+        return combinations
 
 
 @dataclass(frozen=True, eq=False)
@@ -134,16 +149,23 @@ class RebuiltSearch:
 
     @classmethod
     def rebuild(cls, search: PoolSearch) -> RebuiltSearch:
-        """Load the game in the query's language and formulate the query on it;
-        raises ``ChildStateError`` if its armour choices differ from the parent's."""
-        game = load_game_data(search.data_dir)
-        apply_language(game, search.data_dir / "Languages" / search.query.language)
-        query = formulate_query(game, search.query)
-        choice_counts = tuple(len(choices) for choices in armor_choices(query))
-        if choice_counts != search.choice_counts:
+        """Load the game in the query's language and formulate the query on it.
+
+        Raises ``ChildStateError`` if that raises an error a worker could also
+        raise (the parent formulated the same query without one, so it must
+        not pass for a worker's), or if the armour choices differ from the parent's.
+        """
+        try:
+            game = load_game_data(search.data_dir)
+            apply_language(game, language_dir(search.data_dir, search.query.language))
+            query = formulate_query(game, search.query)
+        except (LegacyNullReferenceError, LookupError) as error:
+            raise ChildStateError(f"rebuilding query {search.query.id} raised {error!r}") from error
+        armor_indices = armor_choice_indices(query)
+        if armor_indices != search.armor_indices:
             raise ChildStateError(
-                f"rebuilt query {search.query.id} has armour choices {choice_counts}, "
-                f"the parent's has {search.choice_counts}"
+                f"rebuilt query {search.query.id} has armour choices {armor_indices}, "
+                f"the parent's has {search.armor_indices}"
             )
         rebuilt = cls(search=search, game=game, query=query, index=RecordIndex.for_game(game))
         return rebuilt
@@ -214,12 +236,21 @@ class PoolResult:
     error: WorkerError | None
 
 
-def is_search_error(error: BaseException) -> bool:
+def is_search_error(error: BaseException) -> TypeIs[LegacyNullReferenceError | LookupError]:
     """Whether ``error`` is one ``run_worker`` itself can raise, which the
     serial search records or propagates; anything else is a failure of the
     pool and fails the search."""
     search_error = isinstance(error, (LegacyNullReferenceError, LookupError))
     return search_error
+
+
+@dataclass(frozen=True, slots=True)
+class ProgressReport:
+    """A pool process's running total of combinations checked in one task."""
+
+    search_id: int
+    task: int
+    done: int
 
 
 def merge_tasks(
@@ -250,11 +281,35 @@ def merge_tasks(
     return merged
 
 
+def task_outcomes(
+    futures: list[Future[list[SolutionRecord]]],
+) -> dict[int, list[SolutionRecord] | Exception]:
+    """Each finished task's records by task number, in task order, up to and
+    including the first search error; raises any other error before it.
+
+    Tasks after the first search error are never looked at, whatever they
+    raised: the serial search would never have run them.
+    """
+    outcomes: dict[int, list[SolutionRecord] | Exception] = {}
+    for number, future in enumerate(futures):
+        if future.cancelled():
+            raise RuntimeError(f"task {number} was cancelled before any task raised")
+        error = future.exception()
+        if error is None:
+            outcomes[number] = future.result()
+        elif is_search_error(error):
+            outcomes[number] = error
+            break
+        else:
+            raise error
+    return outcomes
+
+
 @dataclass
 class _ProcessState:
     """A pool process's progress queue and interval, and its last rebuilt search."""
 
-    progress: Queue[tuple[int, int, int]] | None = None
+    progress: Queue[ProgressReport] | None = None
     progress_interval: float = 0.1
     search: RebuiltSearch | None = None
 
@@ -263,7 +318,11 @@ class _ProcessState:
 _process = _ProcessState()
 
 
-def _start_process(progress: Queue[tuple[int, int, int]], progress_interval: float) -> None:
+def _start_process(progress: Queue[ProgressReport], progress_interval: float) -> None:
+    # A process exits without waiting for unsent reports: once its tasks are
+    # done the parent counts them in full, and waiting on a full pipe nobody
+    # reads any more would hang the pool's shutdown.
+    progress.cancel_join_thread()
     _process.progress = progress
     _process.progress_interval = progress_interval
 
@@ -281,7 +340,7 @@ def _run_task(
         _process.search = rebuilt
     charm = charm_from_record(template, rebuilt.game)
     reporter = StepReporter(
-        send=lambda done: progress.put((search_id, number, done)),
+        send=lambda done: progress.put(ProgressReport(search_id=search_id, task=number, done=done)),
         interval=_process.progress_interval,
     )
     with paused_gc():
@@ -312,7 +371,7 @@ class SearchPool:
             raise ValueError(f"jobs must be at least 1, not {self.jobs}")
         self._progress_interval = progress_interval
         context = multiprocessing.get_context("spawn")
-        self._progress: Queue[tuple[int, int, int]] = context.Queue()
+        self._progress: Queue[ProgressReport] = context.Queue()
         self._executor = ProcessPoolExecutor(
             max_workers=self.jobs,
             mp_context=context,
@@ -336,17 +395,17 @@ class SearchPool:
 
         ``on_progress(done, total)`` gets the combinations checked so far over
         all workers, at most once per ``progress_interval`` and once at the end.
-        A search error in a worker ends up in the result; any other error in a
-        pool process is raised.
+        A search error in a worker ends up in the result, and the progress then
+        stops short of the total; any other error in a pool process, up to the
+        first search error in task order, is raised.
         """
         search = PoolSearch.for_query(data_dir, spec=spec, query=query)
         tasks = plan_tasks(
-            worker_count=len(templates), head_count=search.choice_counts[0], jobs=self.jobs
+            worker_count=len(templates), head_count=search.head_count, jobs=self.jobs
         )
         template_records = [charm_record(template, game) for template in templates]
-        combinations_per_head = prod(search.choice_counts[1:])
         tally = ProgressTally(
-            [(task.head_stop - task.head_start) * combinations_per_head for task in tasks]
+            [(task.head_stop - task.head_start) * search.combinations_per_head for task in tasks]
         )
         search_id = next(self._search_ids)
         futures = [
@@ -359,11 +418,15 @@ class SearchPool:
         pending: set[Future[list[SolutionRecord]]] = set(futures)
         last_reported = time.monotonic()
         while pending:
-            finished, pending = wait(pending, timeout=self._progress_interval)
+            # The floor keeps the parent from spinning when reports are unthrottled.
+            finished, pending = wait(pending, timeout=max(self._progress_interval, 0.01))
             for future in finished:
                 number = numbers[future]
-                tally.finish(number)
-                if not future.cancelled() and future.exception() is not None:
+                if future.cancelled():
+                    continue
+                if future.exception() is None:
+                    tally.finish(number)
+                else:
                     for later in futures[number + 1 :]:
                         later.cancel()
             self._read_progress(search_id, tally)
@@ -377,7 +440,7 @@ class SearchPool:
                 last_reported = now
         if on_progress is not None:
             on_progress(tally.done, tally.total)
-        outcomes = self._outcomes(futures)
+        outcomes = task_outcomes(futures)
         result = merge_tasks(tasks, outcomes=outcomes, worker_count=len(templates))
         return result
 
@@ -385,29 +448,11 @@ class SearchPool:
         """Count every queued report for this search; drop older searches' late ones."""
         while True:
             try:
-                reported_search, number, done = self._progress.get_nowait()
+                report = self._progress.get_nowait()
             except queue.Empty:
                 return
-            if reported_search == search_id:
-                tally.report(number, done)
-
-    @staticmethod
-    def _outcomes(
-        futures: list[Future[list[SolutionRecord]]],
-    ) -> dict[int, list[SolutionRecord] | Exception]:
-        """Each run task's records or search error; raises the first other error."""
-        outcomes: dict[int, list[SolutionRecord] | Exception] = {}
-        for number, future in enumerate(futures):
-            if future.cancelled():
-                continue
-            error = future.exception()
-            if error is None:
-                outcomes[number] = future.result()
-            elif is_search_error(error) and isinstance(error, Exception):
-                outcomes[number] = error
-            else:
-                raise error
-        return outcomes
+            if report.search_id == search_id:
+                tally.report(report.task, report.done)
 
     def close(self) -> None:
         self._executor.shutdown(cancel_futures=True)
