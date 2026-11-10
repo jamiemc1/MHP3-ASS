@@ -56,7 +56,9 @@ original's search does, and writes what the harness's `search` writes:
 `<name>.manifest.json` and `<name>.solutions.txt.gz`, plus
 `<name>.candidates.txt.gz` with `--candidates`. `--max-solution-lines N`
 leaves out the solutions file above N lines, and `--progress` reports each
-finished worker. Where the original would throw, the command exits with
+finished worker. The workers run in a pool of `--jobs N` processes (default:
+one per CPU, at most 8); `--jobs 1` runs them in turn in one process, the
+reference path. The results are the same either way. Where the original would throw, the command exits with
 code 3 naming the worker; with `--record-exceptions` it records the
 exception in the manifest instead and exits 0, as the harness does. To
 compare with a golden:
