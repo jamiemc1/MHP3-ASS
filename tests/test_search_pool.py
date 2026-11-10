@@ -4,6 +4,7 @@ progress counted in combinations."""
 
 from __future__ import annotations
 
+import multiprocessing
 from concurrent.futures import Future
 from dataclasses import dataclass, replace
 from itertools import accumulate
@@ -137,6 +138,17 @@ def test_progress_arrives_from_inside_running_tasks(
 
     assert len(tasks) == 4
     assert [done for done in reported if done not in boundaries] != []
+
+
+def test_start_launches_every_process_before_the_first_search():
+    existing = set(multiprocessing.active_children())
+
+    with SearchPool(jobs=2) as pool:
+        before_start = len(set(multiprocessing.active_children()) - existing)
+        pool.start()
+        after_start = len(set(multiprocessing.active_children()) - existing)
+
+    assert [before_start, after_start] == [0, 2]
 
 
 @pytest.fixture(scope="module")

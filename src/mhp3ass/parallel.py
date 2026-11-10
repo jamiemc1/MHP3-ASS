@@ -286,6 +286,10 @@ def _start_process(progress: Queue[ProgressReport], progress_interval: float) ->
     _process.progress_interval = progress_interval
 
 
+def _process_started() -> None:
+    """A task that does nothing: submitting one per job makes every process start."""
+
+
 def _run_task(
     search_id: int, number: int, search: PoolSearch, task: Task, template: CharmRecord | None
 ) -> list[SolutionRecord]:
@@ -338,6 +342,16 @@ class SearchPool:
             initargs=(self._progress, progress_interval),
         )
         self._search_ids = itertools.count()
+
+    def start(self) -> None:
+        """Start every process now instead of at the first search.
+
+        Returns at once: the processes boot (interpreter and imports) while
+        the caller carries on, e.g. building the charm tables, which the
+        processes don't need.
+        """
+        for _ in range(self.jobs):
+            self._executor.submit(_process_started)
 
     def run(
         self,
