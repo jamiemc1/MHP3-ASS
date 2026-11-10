@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import sys
+from contextlib import ExitStack
 from dataclasses import replace
 from pathlib import Path
 
@@ -15,6 +16,7 @@ from mhp3ass.charms.my_charms import MyCharmsFileError, save_my_charms
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.charms.validity import build_charm_validity
 from mhp3ass.data import apply_language, load_game_data
+from mhp3ass.parallel import SearchPool, default_jobs
 from mhp3ass.query import QueryError, SearchSpec
 from mhp3ass.results.result_set import (
     candidate_lines,
@@ -37,6 +39,13 @@ def _whole_number(text: str) -> int:
     value = int(text)
     if value < 0:
         raise argparse.ArgumentTypeError("needs a whole number of at least 0")
+    return value
+
+
+def _positive_number(text: str) -> int:
+    value = int(text)
+    if value < 1:
+        raise argparse.ArgumentTypeError("needs a whole number of at least 1")
     return value
 
 
@@ -99,9 +108,17 @@ def _search(args: argparse.Namespace) -> int:
         return 1
     on_worker_done = _print_progress if args.progress else None
     try:
-        # Recorded in any case, so a throw can name its worker; reported below
-        # as the harness reports it.
-        result = run_search(spec, data=data, record_exceptions=True, on_worker_done=on_worker_done)
+        with ExitStack() as stack:
+            pool = stack.enter_context(SearchPool(jobs=args.jobs)) if args.jobs > 1 else None
+            # Recorded in any case, so a throw can name its worker; reported
+            # below as the harness reports it.
+            result = run_search(
+                spec,
+                data=data,
+                record_exceptions=True,
+                on_worker_done=on_worker_done,
+                pool=pool,
+            )
     except (QueryError, MyCharmsFileError) as error:
         # The skill checks and the my-charms lines, which need the game.
         print(f"{args.query}: {error}", file=sys.stderr)
@@ -200,6 +217,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     search.add_argument(
         "--progress", action="store_true", help="report each finished worker on stderr"
+    )
+    search.add_argument(
+        "--jobs",
+        type=_positive_number,
+        default=default_jobs(),
+        help="processes to search in (default: one per CPU, at most 8); 1 searches in this "
+        "process, the workers in turn",
     )
     search.add_argument(
         "--data-dir", type=Path, default=_default_data_dir(), help="the game data folder"
