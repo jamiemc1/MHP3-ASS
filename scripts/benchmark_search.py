@@ -21,8 +21,18 @@ time is the median of ``--runs`` runs, wall clock.
 Queries: the public corpus, the personal corpus when ``tests/savefile/corpus``
 is there, and the heaviest fuzz queries (``--all-fuzz`` for all 500).
 
+With ``--jobs N`` above 1 the searches run in a process pool of N, started
+(and warmed with one search) before any timing, as the TUI keeps one. The
+workers then run together, so their column is the time spent merging their
+solutions, and the pool's time is in "Other". A pool process keeps the last
+query it rebuilt, so only a query's first run pays the rebuild (about 35 ms).
+The cold search runs ``mhp3ass search --jobs N`` with the same N.
+
+The header names the power source on macOS: on battery, Low Power Mode makes
+every timing about a third slower, so compare runs taken on the same source.
+
     uv run python scripts/benchmark_search.py
-    uv run python scripts/benchmark_search.py --runs 1 --only 1a g18 --no-startup
+    uv run python scripts/benchmark_search.py --runs 1 --only 1a g18 --no-startup --jobs 8
 """
 
 from __future__ import annotations
@@ -47,6 +57,7 @@ from pathlib import Path
 from mhp3ass.charms.generation import generate_charm_tables
 from mhp3ass.charms.validity import build_charm_validity
 from mhp3ass.data import apply_language, load_game_data
+from mhp3ass.parallel import SearchPool
 from mhp3ass.query import SearchSpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.result_set import SearchResult
@@ -124,8 +135,19 @@ def import_seconds() -> float:
     raise ValueError("-X importtime reported no mhp3ass.cli import")
 
 
-def cold_search_seconds(query_path: Path, data_dir: Path) -> float:
-    """``mhp3ass search`` of one query in a new process, writing its outputs."""
+def power_source() -> str:
+    """What ``pmset -g batt`` says the Mac is drawing from; "unknown" elsewhere."""
+    if sys.platform != "darwin":
+        return "unknown"
+    completed = subprocess.run(["pmset", "-g", "batt"], capture_output=True, text=True, check=True)
+    first_line = completed.stdout.splitlines()[0] if completed.stdout else ""
+    # The first line reads "Now drawing from 'AC Power'" or "... 'Battery Power'".
+    source = first_line.split("'")[1] if first_line.count("'") >= 2 else "unknown"
+    return source
+
+
+def cold_search_seconds(query_path: Path, data_dir: Path, jobs: int) -> float:
+    """``mhp3ass search --jobs jobs`` of one query in a new process, writing its outputs."""
     with tempfile.TemporaryDirectory() as out_dir:
         command = [
             str(console_script()),
@@ -135,12 +157,14 @@ def cold_search_seconds(query_path: Path, data_dir: Path) -> float:
             f"{out_dir}/q",
             "--data-dir",
             str(data_dir),
+            "--jobs",
+            str(jobs),
         ]
         seconds = elapsed(lambda: subprocess.run(command, capture_output=True, check=True))
     return seconds
 
 
-def startup_report(data_dir: Path, query_path: Path, runs: int) -> list[str]:
+def startup_report(data_dir: Path, query_path: Path, runs: int, jobs: int) -> list[str]:
     """Markdown rows for each start-up step and the cold search of ``query_path``."""
     spec = SearchSpec.from_file(query_path)
     language_dir = data_dir / "Languages" / spec.query.language
@@ -179,8 +203,8 @@ def startup_report(data_dir: Path, query_path: Path, runs: int) -> list[str]:
         ("Charm checks (validity)", validity_seconds),
         (f"Relevance (`formulate_query`, {spec.query.id})", relevance_seconds),
         (
-            f"Cold `mhp3ass search {spec.query.id} --out`",
-            lambda: cold_search_seconds(query_path, data_dir=data_dir),
+            f"Cold `mhp3ass search {spec.query.id} --out --jobs {jobs}`",
+            lambda: cold_search_seconds(query_path, data_dir=data_dir, jobs=jobs),
         ),
     ]
     rows = ["| Step | Median |", "|---|---|"]
@@ -199,8 +223,10 @@ class SearchRun:
     worker_seconds: float
 
 
-def run_once(spec: SearchSpec, data: SearchData, pause_gc: bool) -> SearchRun:
-    """One timed ``run_search``, inside ``paused_gc()`` if ``pause_gc``."""
+def run_once(
+    spec: SearchSpec, data: SearchData, pause_gc: bool, pool: SearchPool | None
+) -> SearchRun:
+    """One timed ``run_search``, inside ``paused_gc()`` if ``pause_gc``, in ``pool`` if given."""
     worker_seconds = []
 
     def on_worker_done(progress: WorkerProgress) -> None:
@@ -208,7 +234,7 @@ def run_once(spec: SearchSpec, data: SearchData, pause_gc: bool) -> SearchRun:
 
     start = time.perf_counter()
     with paused_gc() if pause_gc else nullcontext():
-        result = run_search(spec, data=data, on_worker_done=on_worker_done)
+        result = run_search(spec, data=data, on_worker_done=on_worker_done, pool=pool)
     search_seconds = time.perf_counter() - start
     run = SearchRun(
         result=result, search_seconds=search_seconds, worker_seconds=sum(worker_seconds)
@@ -216,7 +242,13 @@ def run_once(spec: SearchSpec, data: SearchData, pause_gc: bool) -> SearchRun:
     return run
 
 
-def time_search(query: BenchmarkQuery, data: SearchData, runs: int, pause_gc: bool) -> SearchTiming:
+def time_search(
+    query: BenchmarkQuery,
+    data: SearchData,
+    runs: int,
+    pause_gc: bool,
+    pool: SearchPool | None,
+) -> SearchTiming:
     """``run_search`` on ``query``, ``runs`` times; raises if a run's solution
     count differs from the golden manifest's."""
     spec = SearchSpec.from_file(query.path)
@@ -229,7 +261,7 @@ def time_search(query: BenchmarkQuery, data: SearchData, runs: int, pause_gc: bo
         # Drop the previous run's solutions first, so no run pays for them.
         run = None
         gc.collect()
-        run = run_once(spec, data=data, pause_gc=pause_gc)
+        run = run_once(spec, data=data, pause_gc=pause_gc, pool=pool)
         solutions = len(run.result.results.all_solutions)
         if solutions != expected_solutions:
             raise ValueError(
@@ -302,11 +334,19 @@ def main() -> None:
         "--paused-gc", action="store_true", help="run each search inside paused_gc()"
     )
     parser.add_argument(
+        "--jobs",
+        type=int,
+        default=1,
+        help="processes to search in (default 1: the workers in turn, in this process)",
+    )
+    parser.add_argument(
         "--data-dir", type=Path, default=repo_root / "legacy" / "Run" / "Data", help="game data"
     )
     args = parser.parse_args()
     if args.runs < 1:
         parser.error("--runs must be at least 1")
+    if args.jobs < 1:
+        parser.error("--jobs must be at least 1")
 
     queries = corpus_queries(tests_dir / "corpus", golden_dir=tests_dir / "golden" / "search")
     personal_dir = tests_dir / "savefile"
@@ -331,35 +371,51 @@ def main() -> None:
     commit = subprocess.run(
         ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=repo_root
     ).stdout.strip()
+    searching = "the workers in turn" if args.jobs == 1 else f"a pool of {args.jobs} processes"
     print(
         f"Commit {commit}, Python {platform.python_version()}, {platform.machine()}, "
-        f"{platform.system()}; median of {args.runs}; GC "
-        f"{'paused during each search' if args.paused_gc else 'on'}"
+        f"{platform.system()}, power: {power_source()}; median of {args.runs}; GC "
+        f"{'paused during each search' if args.paused_gc else 'on'}; {searching}"
     )
     print()
 
+    startup_query = tests_dir / "corpus" / "1a-attack-sharp-default-charms.json"
     if not args.no_startup:
-        startup_query = tests_dir / "corpus" / "1a-attack-sharp-default-charms.json"
-        for row in startup_report(args.data_dir, query_path=startup_query, runs=args.runs):
+        rows = startup_report(
+            args.data_dir, query_path=startup_query, runs=args.runs, jobs=args.jobs
+        )
+        for row in rows:
             print(row)
         print()
 
-    print(
-        "| Query | Workers | Calls | Accepted | Rejected | Solutions | Search | Workers "
-        "| Other | µs/call | Peak RSS |"
-    )
-    print("|---|---|---|---|---|---|---|---|---|---|---|")
-    data_by_language: dict[str, SearchData] = {}
-    total_search_seconds = 0.0
-    for query in queries:
-        language = SearchSpec.from_file(query.path).query.language
-        if language not in data_by_language:
-            data_by_language[language] = SearchData.load(args.data_dir, language=language)
-        timing = time_search(
-            query, data=data_by_language[language], runs=args.runs, pause_gc=args.paused_gc
+    with SearchPool(jobs=args.jobs) if args.jobs > 1 else nullcontext() as pool:
+        data_by_language: dict[str, SearchData] = {}
+
+        def data_for(path: Path) -> SearchData:
+            language = SearchSpec.from_file(path).query.language
+            if language not in data_by_language:
+                data_by_language[language] = SearchData.load(args.data_dir, language=language)
+            return data_by_language[language]
+
+        if pool is not None:
+            # Start the processes before timing anything, as a TUI's pool would be.
+            run_search(SearchSpec.from_file(startup_query), data=data_for(startup_query), pool=pool)
+        print(
+            "| Query | Workers | Calls | Accepted | Rejected | Solutions | Search | Workers "
+            "| Other | µs/call | Peak RSS |"
         )
-        total_search_seconds += timing.search_seconds
-        print(search_row(timing), flush=True)
+        print("|---|---|---|---|---|---|---|---|---|---|---|")
+        total_search_seconds = 0.0
+        for query in queries:
+            timing = time_search(
+                query,
+                data=data_for(query.path),
+                runs=args.runs,
+                pause_gc=args.paused_gc,
+                pool=pool,
+            )
+            total_search_seconds += timing.search_seconds
+            print(search_row(timing), flush=True)
     print()
     print(
         f"{len(queries)} queries, {total_search_seconds:.1f} s of median search time in all; "
