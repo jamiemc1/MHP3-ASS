@@ -30,7 +30,6 @@ from math import ceil, prod
 from multiprocessing.queues import Queue
 from pathlib import Path
 from types import TracebackType
-from typing import TypeIs
 
 from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import Charm
@@ -41,6 +40,7 @@ from mhp3ass.search import (
     StepReporter,
     WorkerError,
     armor_choices,
+    is_search_error,
     language_dir,
     paused_gc,
     run_worker,
@@ -201,14 +201,6 @@ class ProgressTally:
     @property
     def total(self) -> int:
         return sum(self._sizes)
-
-
-def is_search_error(error: BaseException) -> TypeIs[LegacyNullReferenceError | LookupError]:
-    """Whether ``error`` is one ``run_worker`` itself can raise, which the
-    serial search records or propagates; anything else is a failure of the
-    pool and fails the search."""
-    search_error = isinstance(error, (LegacyNullReferenceError, LookupError))
-    return search_error
 
 
 @dataclass(frozen=True, slots=True)

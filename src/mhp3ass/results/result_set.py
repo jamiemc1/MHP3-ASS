@@ -54,30 +54,46 @@ def hash_armor_indices(indices: Sequence[int]) -> int:
     return total
 
 
+class _RecordEntry:
+    """A record, its game, and the ``Solution`` rebuilt from it once read.
+    Lists that hold the same entry share that one ``Solution``."""
+
+    __slots__ = ("game", "record", "solution")
+
+    def __init__(self, record: SolutionRecord, game: GameData):
+        self.record = record
+        self.game = game
+        self.solution: Solution | None = None
+
+    def read(self) -> Solution:
+        if self.solution is None:
+            self.solution = from_record(self.record, self.game)
+        return self.solution
+
+
 class SolutionList(Sequence[Solution]):
     """Solutions in order, each held as a ``Solution`` or as a ``SolutionRecord``.
 
     A record is rebuilt against its game (``from_record``) the first time it
-    is read, and the rebuilt ``Solution`` replaces it, so reading it again
-    gives the same object. ``lines`` writes records' lines without rebuilding
-    them. Lists compare equal to any sequence of equal solutions.
+    is read, and only once however many lists hold it (``ResultSet.add_records``
+    shares a found list's records with the lists it keeps them in), so
+    reading it again, through any of them, gives the same object. ``lines``
+    and ``charm_names`` read records without rebuilding them. Lists compare
+    equal to any sequence of the same solutions.
     """
 
     def __init__(self) -> None:
-        self._entries: list[Solution | SolutionRecord] = []
-        self._game: GameData | None = None
+        self._entries: list[Solution | _RecordEntry] = []
+
+    @classmethod
+    def of_records(cls, records: Iterable[SolutionRecord], game: GameData) -> SolutionList:
+        """The solutions ``records`` describe in ``game``, in order."""
+        solutions = cls()
+        solutions._entries = [_RecordEntry(record, game) for record in records]
+        return solutions
 
     def append(self, solution: Solution) -> None:
         self._entries.append(solution)
-
-    def append_record(self, record: SolutionRecord, game: GameData) -> None:
-        """Add ``record``, a solution of ``game``; every record in one list must
-        come from the same game."""
-        if self._game is None:
-            self._game = game
-        elif self._game is not game:
-            raise ValueError("a SolutionList holds the records of one game")
-        self._entries.append(record)
 
     def __len__(self) -> int:
         return len(self._entries)
@@ -93,12 +109,7 @@ class SolutionList(Sequence[Solution]):
             solutions = [self[position] for position in range(*index.indices(len(self)))]
             return solutions
         entry = self._entries[index]
-        if isinstance(entry, Solution):
-            return entry
-        if self._game is None:
-            raise ValueError("a record was added without its game")
-        solution = from_record(entry, self._game)
-        self._entries[index] = solution
+        solution = entry if isinstance(entry, Solution) else entry.read()
         return solution
 
     def __iter__(self) -> Iterator[Solution]:
@@ -117,12 +128,35 @@ class SolutionList(Sequence[Solution]):
     def lines(self, skill_index: dict[Skill, int]) -> list[str]:
         """Each solution's line, in order; records' lines come from their indices."""
         lines = [
-            record_line(entry)
-            if isinstance(entry, SolutionRecord)
+            record_line(entry.record)
+            if isinstance(entry, _RecordEntry)
             else solution_line(entry, skill_index)
             for entry in self._entries
         ]
         return lines
+
+    def charm_names(self) -> list[str]:
+        """Each solution's charm name after ``MatchesQuery``, "" when it has
+        none; records' names come from their charm records."""
+        record_names: dict[CharmRecord, str] = {}
+        names = []
+        for entry in self._entries:
+            if isinstance(entry, Solution):
+                names.append("" if entry.charm is None else charm_name(entry.charm))
+            elif entry.record.charm is None:
+                names.append("")
+            else:
+                names.append(_record_charm_name(entry.record.charm, entry.game, record_names))
+        return names
+
+
+def _record_charm_name(charm: CharmRecord, game: GameData, known: dict[CharmRecord, str]) -> str:
+    """``charm``'s name in ``game``, kept in ``known`` (one search's few charms)."""
+    name = known.get(charm)
+    if name is None:
+        name = charm_name(charm_from_record(charm, game))
+        known[charm] = name
+    return name
 
 
 @dataclass
@@ -180,26 +214,28 @@ class ResultSet:
                 added.append(solution)
         return added
 
-    def add_records(self, records: Iterable[SolutionRecord], game: GameData) -> SolutionList:
-        """``add_solutions`` for the solutions ``records`` describe in ``game``,
-        without rebuilding them: the key is the record's charm name and the
-        hash of its armour indices. Returns the records it kept, in order."""
+    def add_records(self, found: SolutionList) -> SolutionList:
+        """``add_solutions`` for a list from ``SolutionList.of_records``, without
+        rebuilding its records: the key is the record's charm name and the hash
+        of its armour indices. Returns the ones it kept, in order; they and
+        ``all_solutions`` share ``found``'s entries, so each record is rebuilt
+        at most once whichever list reads it."""
         added = SolutionList()
         names: dict[CharmRecord, str] = {}
-        for record in records:
+        for entry in found._entries:
+            if not isinstance(entry, _RecordEntry):
+                raise ValueError("add_records takes the records of SolutionList.of_records")
+            record = entry.record
             if record.charm is not None:
-                name = names.get(record.charm)
-                if name is None:
-                    name = charm_name(charm_from_record(record.charm, game))
-                    names[record.charm] = name
+                name = _record_charm_name(record.charm, entry.game, names)
                 # The key's entry goes in before hashing, as in _solution_exists.
                 hashes = self.existing_armor.setdefault(name, set())
                 armor_hash = hash_armor_indices(record.armors)
                 if armor_hash in hashes:
                     continue
                 hashes.add(armor_hash)
-            self.all_solutions.append_record(record, game)
-            added.append_record(record, game)
+            self.all_solutions._entries.append(entry)
+            added._entries.append(entry)
         return added
 
 
@@ -254,6 +290,13 @@ def _lines(solutions: Sequence[Solution], skill_index: dict[Skill, int]) -> list
         return solutions.lines(skill_index)
     lines = [solution_line(solution, skill_index) for solution in solutions]
     return lines
+
+
+def _charm_names(solutions: Sequence[Solution]) -> list[str]:
+    if isinstance(solutions, SolutionList):
+        return solutions.charm_names()
+    names = ["" if solution.charm is None else charm_name(solution.charm) for solution in solutions]
+    return names
 
 
 def lines_sha256(lines: Iterable[str]) -> str:
@@ -332,13 +375,11 @@ def candidate_lines(result: SearchResult, game: GameData) -> list[CandidateLine]
     """Every solution each finished worker found, in worker and loop order."""
     skill_index = skill_indices(game)
     candidates = [
-        CandidateLine(
-            worker=number,
-            charm_name="" if solution.charm is None else charm_name(solution.charm),
-            solution_line=line,
-        )
+        CandidateLine(worker=number, charm_name=name, solution_line=line)
         for number, worker in enumerate(result.workers)
-        for solution, line in zip(worker.found, _lines(worker.found, skill_index), strict=True)
+        for name, line in zip(
+            _charm_names(worker.found), _lines(worker.found, skill_index), strict=True
+        )
     ]
     return candidates
 
