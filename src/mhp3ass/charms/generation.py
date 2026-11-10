@@ -8,6 +8,11 @@ game's RNG cycle from the table's seed and records every charm it yields.
 Charm types index the results as ``2 - omakbn``: 0 mystery, 1 shining,
 2 timeworn. Where the original's ``Assert`` would fire (a no-op in its
 Release build), this raises instead; on the shipped tables none fires.
+
+The simulator runs about 200,000 charms per start-up, so ``rnd`` and
+``getSlot``'s threshold search are precomputed as lookup tables and the
+per-charm steps run inline in one loop. The charm-database golden pins the
+output, including every list's order.
 """
 
 from __future__ import annotations
@@ -46,10 +51,11 @@ def rnd(n: int) -> int:
     return next_n
 
 
-def rnd_change(n: int) -> int:
-    """``Omaget::rndChange`` (CharmDatabase.cpp:787-792): the last two decimal digits."""
-    digits = n - n // 100 * 100
-    return digits
+@cache
+def rnd_table() -> list[int]:
+    """``rnd(n)`` for every 16-bit ``n``, so the simulator indexes rather than computes."""
+    table = [rnd(n) for n in range(65536)]
+    return table
 
 
 @cache
@@ -68,18 +74,21 @@ def rank_point(max1: int, point1: int, max2: int | None, point2: int) -> int:
     return rank
 
 
-@dataclass(frozen=True)
-class PointRange:
-    minimum: int
-    maximum: int
+@cache
+def slot_lookup(kind: int) -> tuple[tuple[int, ...], ...]:
+    """``getSlot``'s threshold search (CharmDatabase.cpp:761-771) for every rank and roll.
 
-
-def _point2_range(n: int, skill_row: tuple[int, ...]) -> PointRange:
-    """``getPoint2MaxMin`` (CharmDatabase.cpp:737-752): odd n gives 1..max, even min..0."""
-    _, minimum, maximum = skill_row
-    if n & 1:
-        return PointRange(minimum=1, maximum=maximum)
-    return PointRange(minimum=minimum, maximum=0)
+    ``slot_lookup(kind)[rank][n % 100]`` is the slot count: the first
+    threshold the roll doesn't exceed, or 0 if it exceeds them all.
+    """
+    lookup = tuple(
+        tuple(
+            next((index for index, limit in enumerate(thresholds) if roll <= limit), 0)
+            for roll in range(100)
+        )
+        for thresholds in SLOT_THRESHOLDS[kind]
+    )
+    return lookup
 
 
 @dataclass
@@ -103,107 +112,96 @@ class _CharmSimulator:
         self.kind = kind
         self.game = game
         self.tables = tables
-        self.table_number = 0
         # Omaget's constructor (CharmDatabase.cpp:535-551): FURU, HIKA, NAZO (no second skill).
         skill_tables_by_kind = {0: (0, 1), 1: (2, 3), 2: (4, None)}
         first_table, second_table = skill_tables_by_kind[kind]
         self.skill1 = SKILL_TABLES[first_table]
-        self.skill2 = SKILL_TABLES[second_table] if second_table is not None else None
+        self.skill2 = SKILL_TABLES[second_table] if second_table is not None else ()
+        # isSkill2 (CharmDatabase.cpp:719-730): a second skill when rndChange(n) reaches this.
+        second_skill_thresholds = {0: 25, 1: 35}
+        self.second_skill_threshold = second_skill_thresholds.get(kind)
 
-    def simulate_charm(self, n: int) -> None:
-        """``SimulateCharm`` (CharmDatabase.cpp:553-587)."""
-        n = rnd(n)
-        skill1 = n % len(self.skill1)
-        n = rnd(n)
-        point1 = n % self.skill1[skill1][2] + 1
-        n = rnd(n)
-        skill2 = -9999
-        point2 = -9999
-        if self._has_second_skill(n) and self.skill2 is not None:
-            n = rnd(n)
-            skill2 = n % len(self.skill2)
-            n = rnd(n)
-            point_range = _point2_range(n=n, skill_row=self.skill2[skill2])
-            n = rnd(n)
-            point2 = n % (point_range.maximum - point_range.minimum + 1) + point_range.minimum
-        n = rnd(n)
-        slots = self._slots(n=n, skill1=skill1, point1=point1, skill2=skill2, point2=point2)
-        self._update_table(skill1=skill1, point1=point1, skill2=skill2, point2=point2, slots=slots)
+    def simulate_table(self, table_number: int, seed: int) -> None:
+        """Every charm on one table's RNG cycle, in order.
 
-    def _has_second_skill(self, n: int) -> bool:
-        """``isSkill2`` (CharmDatabase.cpp:719-730)."""
-        thresholds = {0: 25, 1: 35}
-        threshold = thresholds.get(self.kind)
-        has_second = threshold is not None and rnd_change(n) >= threshold
-        return has_second
-
-    def _slots(self, n: int, skill1: int, point1: int, skill2: int, point2: int) -> int:
-        """``getSlot`` (CharmDatabase.cpp:761-771)."""
-        roll = rnd_change(n)
-        second_row = self._distinct_second_row(skill1=skill1, skill2=skill2)
-        # getRankPoint counts the second skill only with points (CharmDatabase.cpp:778).
-        counts_second = second_row is not None and point2 > 0
-        rank = rank_point(
-            max1=self.skill1[skill1][2],
-            point1=point1,
-            max2=second_row[2] if second_row is not None and counts_second else None,
-            point2=point2 if counts_second else 0,
-        )
-        thresholds = SLOT_THRESHOLDS[self.kind][rank]
-        slots = next((index for index, limit in enumerate(thresholds) if roll <= limit), 0)
-        return slots
-
-    def _distinct_second_row(self, skill1: int, skill2: int) -> tuple[int, ...] | None:
-        """The second skill's table row, if it rolled one with a different ability."""
-        if self.skill2 is None or skill2 < 0:
-            return None
-        second_row = self.skill2[skill2]
-        if second_row[0] == self.skill1[skill1][0]:
-            return None
-        return second_row
-
-    def _update_table(self, skill1: int, point1: int, skill2: int, point2: int, slots: int) -> None:
-        """``UpdateTable`` (CharmDatabase.cpp:854-878).
-
-        The second ability enters the hash whenever it differs from the
-        first, even with no points; the tables only take it with points.
+        One pass of the loop is ``SimulateCharm`` (CharmDatabase.cpp:553-587)
+        with its ``getPoint2MaxMin`` (:737-752), ``getSlot`` (:761-771) and
+        ``UpdateTable`` (:854-878) steps. ``m % 100`` is ``rndChange``
+        (:787-792), the last two decimal digits. The second ability enters the hash
+        whenever it differs from the first, even with no points; the tables
+        only take it with points.
         """
+        step = rnd_table()
+        slots_by_rank = slot_lookup(self.kind)
+        skill1_rows = self.skill1
+        skill2_rows = self.skill2
+        skill1_count = len(skill1_rows)
+        skill2_count = len(skill2_rows)
+        threshold = self.second_skill_threshold
         ordered = self.game.ordered_abilities
-        ability1 = ordered[self.skill1[skill1][0]]
-        ability2 = None
-        self._report_single(ability=ability1, points=point1, slots=slots)
-        second_row = self._distinct_second_row(skill1=skill1, skill2=skill2)
-        if second_row is not None:
-            ability2 = ordered[second_row[0]]
-            if point2 > 0:
-                self._report_single(ability=ability2, points=point2, slots=slots)
-                self._report_pair(
-                    ability1=ability1,
-                    points1=point1,
-                    ability2=ability2,
-                    points2=point2,
-                    slots=slots,
-                )
-        charm_hash = hash_function(
-            num_slots=slots,
-            ability1=ability1,
-            points1=point1,
-            ability2=ability2,
-            points2=point2,
-            ability_count=len(self.game.abilities),
-        )
-        self.tables.charm_hashes.append(charm_hash)
-        self.tables.table_hashes[self.table_number][2 - self.kind][slots].append(charm_hash)
+        ability_count = len(self.game.abilities)
+        best_by_slots = self.tables.max_points[2 - self.kind]
+        hashes_by_slots = self.tables.table_hashes[table_number][2 - self.kind]
+        all_hashes = self.tables.charm_hashes
+        n = seed
+        while True:
+            m = step[n]
+            ability1_index, _, max1 = skill1_rows[m % skill1_count]
+            m = step[m]
+            point1 = m % max1 + 1
+            m = step[m]
+            second_row = None
+            point2 = -9999
+            if threshold is not None and m % 100 >= threshold:
+                m = step[m]
+                rolled_row = skill2_rows[m % skill2_count]
+                m = step[m]
+                # getPoint2MaxMin: odd n gives 1..max, even min..0.
+                minimum, maximum = (1, rolled_row[2]) if m & 1 else (rolled_row[1], 0)
+                m = step[m]
+                point2 = m % (maximum - minimum + 1) + minimum
+                if rolled_row[0] != ability1_index:
+                    second_row = rolled_row
+            m = step[m]
+            # getRankPoint counts the second skill only with points (CharmDatabase.cpp:778).
+            counts_second = second_row is not None and point2 > 0
+            rank = rank_point(
+                max1=max1,
+                point1=point1,
+                max2=second_row[2] if second_row is not None and counts_second else None,
+                point2=point2 if counts_second else 0,
+            )
+            slots = slots_by_rank[rank][m % 100]
 
-    def _report_single(self, ability: Ability, points: int, slots: int) -> None:
-        """``ReportAbilityScore`` for one skill (CharmDatabase.cpp:794-808): keep the max."""
-        if points >= 14:
-            raise ValueError(f"{points} points for {ability.name}: the original asserts < 14")
-        best = self.tables.max_points[2 - self.kind][slots]
-        if ability in best:
-            best[ability] = max(best[ability], points)
-        else:
-            best[ability] = points
+            ability1 = ordered[ability1_index]
+            ability2 = None
+            best = best_by_slots[slots]
+            _report_single(best=best, ability=ability1, points=point1)
+            if second_row is not None:
+                ability2 = ordered[second_row[0]]
+                if point2 > 0:
+                    _report_single(best=best, ability=ability2, points=point2)
+                    self._report_pair(
+                        ability1=ability1,
+                        points1=point1,
+                        ability2=ability2,
+                        points2=point2,
+                        slots=slots,
+                    )
+            charm_hash = hash_function(
+                num_slots=slots,
+                ability1=ability1,
+                points1=point1,
+                ability2=ability2,
+                points2=point2,
+                ability_count=ability_count,
+            )
+            all_hashes.append(charm_hash)
+            hashes_by_slots[slots].append(charm_hash)
+
+            n = step[n]
+            if n == seed:
+                break
 
     def _report_pair(
         self, ability1: Ability, points1: int, ability2: Ability, points2: int, slots: int
@@ -250,6 +248,18 @@ class _CharmSimulator:
         charms.append(new_charm)
 
 
+def _report_single(best: dict[Ability, int], ability: Ability, points: int) -> None:
+    """``ReportAbilityScore`` for one skill (CharmDatabase.cpp:794-808): keep the max.
+
+    ``best`` is the charm type's and slot count's entry in ``max_points``.
+    """
+    if points >= 14:
+        raise ValueError(f"{points} points for {ability.name}: the original asserts < 14")
+    current = best.get(ability)
+    if current is None or points > current:
+        best[ability] = points
+
+
 def _empty_two_skill_table(abilities: list[Ability]) -> dict[Ability, dict[Ability, list[Charm]]]:
     """The ``table2`` set-up loop (CharmDatabase.cpp:905-924): one shared list per pair."""
     two_skill: dict[Ability, dict[Ability, list[Charm]]] = {}
@@ -278,13 +288,7 @@ def generate_charm_tables(game: GameData) -> CharmTables:
     for charm_type in range(3):
         simulator = _CharmSimulator(kind=2 - charm_type, game=game, tables=tables)
         for table_number, seed in enumerate(table_seeds):
-            simulator.table_number = table_number
-            n = seed
-            while True:
-                simulator.simulate_charm(n)
-                n = rnd(n)
-                if n == seed:
-                    break
+            simulator.simulate_table(table_number=table_number, seed=seed)
     auto_guard = next((ability for ability in game.abilities if ability.auto_guard), None)
     if auto_guard is not None:
         auto_guard_hash = hash_function(

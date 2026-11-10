@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from golden_shapes import charm_shape
-from mhp3ass.charms.generation import CharmTables, rank_point, rnd
+from mhp3ass.charms.generation import CharmTables, rank_point, rnd, rnd_table, slot_lookup
 
 
 def _charm_table_section(tables: CharmTables) -> list[dict[str, Any]]:
@@ -64,6 +64,24 @@ def test_rnd_maps_zero_to_176_and_stays_16_bit():
     outputs = [rnd(n) for n in range(65536)]
 
     assert [outputs[0], max(outputs) <= 0xFFFF, min(outputs) >= 0] == [176, True, True]
+
+
+def test_rnd_table_holds_rnd_for_every_state():
+    expected = [rnd(n) for n in range(65536)]
+
+    assert rnd_table() == expected
+
+
+def test_slot_lookup_gives_the_first_threshold_the_roll_does_not_exceed():
+    # Timeworn rank 1 thresholds are (21, 71, 91, 99); mystery rank 0 is (99,).
+    timeworn_rank1 = slot_lookup(0)[1]
+    mystery_rank0 = slot_lookup(2)[0]
+
+    assert [
+        [timeworn_rank1[roll] for roll in (0, 21, 22, 71, 72, 91, 92, 99)],
+        set(mystery_rank0),
+        [len(slot_lookup(kind)) for kind in range(3)],
+    ] == [[0, 0, 1, 1, 2, 2, 3, 3], {0}, [21, 21, 11]]
 
 
 def test_rank_point_truncates_in_single_precision():
