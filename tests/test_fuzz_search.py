@@ -3,8 +3,9 @@
 Each query is held to the L3 standard (``search_comparison.compare_search``):
 the manifest field for field, including every worker's count and hash and the
 recorded exception (none), and the solution lines in order wherever the harness
-wrote them. The default run checks a seeded, stratified smoke subset of 25;
-``pytest -m fuzz`` checks all 500.
+wrote them. The default run checks a seeded, stratified smoke subset of 25,
+with the workers in turn and in the session's process pool; ``pytest -m fuzz``
+checks all 500 in the pool.
 """
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ from typing import Any
 import pytest
 
 from goldens import FuzzGolden
-from mhp3ass.search import SearchData
+from mhp3ass.search import SearchData, WorkerPool
 from search_comparison import SearchComparison, compare_search, differences
 
 
@@ -55,7 +56,10 @@ def smoke_subset(
 
 
 def _compare(
-    golden: FuzzGolden, search_data: dict[str, SearchData], max_solution_lines: int = 5000
+    golden: FuzzGolden,
+    search_data: dict[str, SearchData],
+    pool: WorkerPool | None,
+    max_solution_lines: int = 5000,
 ) -> SearchComparison:
     """``max_solution_lines`` is the limit generate-goldens.ps1 -Fuzz gives the harness."""
     comparison = compare_search(
@@ -65,6 +69,7 @@ def _compare(
         golden_candidates=None,
         search_data=search_data,
         max_solution_lines=max_solution_lines,
+        pool=pool,
     )
     return comparison
 
@@ -74,15 +79,23 @@ def fuzz_smoke_goldens(fuzz_goldens) -> list[FuzzGolden]:
     return smoke_subset(fuzz_goldens)
 
 
-@pytest.fixture(scope="session")
-def fuzz_smoke_comparisons(fuzz_smoke_goldens, search_data_by_language) -> list[SearchComparison]:
-    comparisons = [_compare(golden, search_data_by_language) for golden in fuzz_smoke_goldens]
+@pytest.fixture(scope="session", params=["serial", "pool"])
+def fuzz_smoke_comparisons(
+    request, fuzz_smoke_goldens, search_data_by_language, search_pool
+) -> list[SearchComparison]:
+    """The smoke subset with the workers in turn, then in the session's pool."""
+    pool = search_pool if request.param == "pool" else None
+    comparisons = [
+        _compare(golden, search_data_by_language, pool=pool) for golden in fuzz_smoke_goldens
+    ]
     return comparisons
 
 
 @pytest.fixture(scope="session")
-def fuzz_comparisons(fuzz_goldens, search_data_by_language) -> list[SearchComparison]:
-    comparisons = [_compare(golden, search_data_by_language) for golden in fuzz_goldens]
+def fuzz_comparisons(fuzz_goldens, search_data_by_language, search_pool) -> list[SearchComparison]:
+    comparisons = [
+        _compare(golden, search_data_by_language, pool=search_pool) for golden in fuzz_goldens
+    ]
     return comparisons
 
 

@@ -67,10 +67,12 @@ harness wrote one, the solutions file line for line. Queries over 5,000
 solutions have no solutions file, so a mismatch there names the first
 worker whose hash differs.
 
-- **Default run:** a smoke subset of 25. Per charm mode, a seeded sample
+- **Default run:** a smoke subset of 25, searched with the workers in turn
+  and in the session's process pool. Per charm mode, a seeded sample
   (seed 9) of three queries with solutions and two without, drawn from the
   queries that search at least once and cost at most 20,000 evaluations
-- **Full run:** all 500, opt-in:
+- **Full run:** all 500 in the process pool, plus the L3 corpus queries
+  with the workers in turn (`tests/test_search.py`), opt-in:
 
   ```bash
   uv run pytest -m fuzz

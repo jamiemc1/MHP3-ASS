@@ -13,7 +13,7 @@ from typing import Any
 from goldens import Candidate
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import candidate_lines, search_manifest, solution_lines
-from mhp3ass.search import SearchData, run_search
+from mhp3ass.search import SearchData, WorkerPool, run_search
 
 
 @dataclass(frozen=True)
@@ -90,10 +90,12 @@ def compare_search(
     golden_candidates: list[Candidate] | None,
     search_data: dict[str, SearchData],
     max_solution_lines: int,
+    pool: WorkerPool | None,
 ) -> SearchComparison:
     """Run ``query`` and compare it with the harness's manifest, and with its
     solution lines and candidates where the harness wrote them.
     ``max_solution_lines`` is the limit the harness ran with (below 0: none).
+    ``pool`` runs the workers; ``None`` runs them in turn.
 
     Without solution lines (a fuzz query over 5,000 solutions) the manifest
     still pins every worker's count and hash and both set hashes.
@@ -101,7 +103,7 @@ def compare_search(
     spec = SearchSpec.from_json(query)
     data = search_data[spec.query.language]
     record_exceptions = "exception" in manifest
-    result = run_search(spec, data=data, record_exceptions=record_exceptions)
+    result = run_search(spec, data=data, record_exceptions=record_exceptions, pool=pool)
     our_manifest = search_manifest(
         query, result=result, game=data.game, max_solution_lines=max_solution_lines
     )
