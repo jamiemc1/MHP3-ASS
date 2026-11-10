@@ -41,7 +41,7 @@ to the TUI.
 | Charm tooltip: which tables can produce a charm (`FindCharm2`) and its name parser | `CharmDatabase.cpp:1006-1099`, `Common.cpp:157-230` | Side stream (logic), 10 (menu) |
 | Languages (7 data sets) | `Common.cpp:292`, `Form1.h:333` | 2 |
 | Display strings (`strings.txt`), language list order and default language | `Common.cpp:290-311`, `Common.h:90-194`, `Form1.h:331-340`, `Form1.h:441-454` | 10 (`data/strings.py`, `data/languages.py`) |
-| Persisted settings (last query, options) | `Form1.h` `SaveConfig`/load | 10 |
+| Persisted settings and results (`settings.cfg`, `.ass`) | `Form1.h:342-540` (`SaveConfig`, `LoadConfig`, `AddSolution`) | 10 (`settings_cfg.py`) |
 | About dialog | `frmAbout.h` | 10 |
 
 ## After parity

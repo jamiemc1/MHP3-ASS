@@ -7,12 +7,18 @@ the skill drop-down rows, then one line per solution.
 
 from __future__ import annotations
 
+import dataclasses
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
+from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.data.text import read_lines, split_fields, to_boolean, to_int32, to_uint32
 from mhp3ass.model import AbilityPair, Armor, ArmorType, Charm
+from mhp3ass.results.result_set import ResultSet, SolutionList, lines_of, skill_indices
+from mhp3ass.results.sorting import SortKey
+from mhp3ass.results.view import ResultsView
 from mhp3ass.skill_picker import SkillSelection
 from mhp3ass.solution import calculate_data
 from mhp3ass.solution.state import Solution
@@ -182,3 +188,58 @@ def _entry[T](table: list[T], position: int, what: str) -> T:
     if position >= len(table):
         raise IndexError(f"{what} {position} is not in this game (0-{len(table) - 1})")
     return table[position]
+
+
+def check_header(settings: SettingsCfg, language_count: int) -> None:
+    """Raise ``SettingsCfgError`` on the first header value ``LoadConfig``
+    can't apply (Form1.h:397-412): a language past the menu, a drop-down
+    index outside -1 and its last item, or a spinner value outside its range
+    (Form1.h:655-709)."""
+    checks = [
+        ("language", settings.language_index, 0, language_count - 1),
+        ("sort", settings.sort_index, -1, len(SortKey) - 1),
+        ("charm select", settings.charm_select_index, -1, 4),
+        ("HR", settings.hr, 1, 6),
+        ("village", settings.elder_star, 1, 6),
+        ("weapon slots", settings.weapon_slots, 0, 3),
+    ]
+    for name, value, minimum, maximum in checks:
+        if not minimum <= value <= maximum:
+            raise SettingsCfgError(f"{name} {value} is outside {minimum}-{maximum}")
+
+
+def load_results(
+    settings: SettingsCfg, game: GameData, results: ResultSet, language_count: int
+) -> ResultsView:
+    """``LoadConfig``'s results (Form1.h:428-438), after ``check_header``.
+
+    ``results`` keeps its ``existing_armor``, so a charmed solution a search
+    or an earlier load already kept is dropped (quirk 46). Charm-free lines go
+    only to the charm-free list, not ``all_solutions`` (quirk 45).
+    """
+    check_header(settings, language_count)
+    results.all_solutions = SolutionList()
+    no_charm_solutions: list[Solution] = []
+    for line in settings.solution_lines:
+        solution = parse_solution_line(line, game)
+        if solution.charm is None:
+            no_charm_solutions.append(solution)
+        else:
+            results.add_solution(charm_name(solution.charm), solution)
+    sort_key = SortKey(max(settings.sort_index, 0))
+    view = ResultsView.of_lists(
+        all_solutions=results.all_solutions,
+        no_charm_solutions=no_charm_solutions,
+        sort_key=sort_key,
+    )
+    return view
+
+
+def with_solutions(
+    settings: SettingsCfg, solutions: Sequence[Solution], game: GameData
+) -> SettingsCfg:
+    """``settings`` holding ``solutions``' lines, as ``SaveConfig`` writes
+    ``all_solutions``."""
+    lines = lines_of(solutions, skill_indices(game))
+    saved = dataclasses.replace(settings, solution_lines=tuple(lines))
+    return saved

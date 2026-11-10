@@ -285,7 +285,8 @@ def record_line(record: SolutionRecord) -> str:
     return line
 
 
-def _lines(solutions: Sequence[Solution], skill_index: dict[Skill, int]) -> list[str]:
+def lines_of(solutions: Sequence[Solution], skill_index: dict[Skill, int]) -> list[str]:
+    """Each solution's line, in order; a ``SolutionList``'s records aren't rebuilt."""
     if isinstance(solutions, SolutionList):
         return solutions.lines(skill_index)
     lines = [solution_line(solution, skill_index) for solution in solutions]
@@ -380,7 +381,7 @@ def candidate_lines(result: SearchResult, game: GameData) -> list[CandidateLine]
         CandidateLine(worker=number, charm_name=name, solution_line=line)
         for number, worker in enumerate(result.workers)
         for name, line in zip(
-            charm_names(worker.found), _lines(worker.found, skill_index), strict=True
+            charm_names(worker.found), lines_of(worker.found, skill_index), strict=True
         )
     ]
     return candidates
@@ -402,7 +403,7 @@ def search_manifest(
     workers = []
     lines: list[str] = []
     for number, worker in enumerate(result.workers):
-        added_lines = _lines(worker.added, skill_index)
+        added_lines = lines_of(worker.added, skill_index)
         lines += added_lines
         workers.append(
             {
