@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import bisect
 from dataclasses import dataclass, field
+from typing import NamedTuple
 
 from mhp3ass.charms.generation import CharmTables
 from mhp3ass.charms.naming import charm_hash
@@ -22,10 +23,12 @@ from mhp3ass.data.text import as_unsigned
 from mhp3ass.model import AbilityPair, Charm
 
 
-@dataclass(frozen=True)
-class DecodedCharm:
+class DecodedCharm(NamedTuple):
     """``UnhashCharm``'s fields, plus the slot count in the hash's low bits
-    (``Charm::HashFunction`` adds it unshifted), which ``UnhashCharm`` doesn't read."""
+    (``Charm::HashFunction`` adds it unshifted), which ``UnhashCharm`` doesn't read.
+
+    A named tuple rather than a frozen dataclass: start-up decodes about
+    85,000 hashes, and a tuple is several times cheaper to build."""
 
     ability1_index: int
     ability2_index: int
@@ -143,16 +146,21 @@ def build_charm_validity(tables: CharmTables, ability_count: int) -> CharmValidi
             for hashed in per_type[slot_count]
         }
         index.has_charms = bool(distinct)
+        points_by_pair = index.points_by_pair
+        best_first_by_ability = index.best_first
+        best_second_by_ability = index.best_second
         for hashed in distinct:
-            decoded = decode_charm_hash(hashed)
-            pair = (decoded.ability1_index, decoded.ability2_index)
-            index.points_by_pair.setdefault(pair, set()).add((decoded.points1, decoded.points2))
-            best_first = index.best_first.get(decoded.ability1_index)
-            if best_first is None or decoded.points1 > best_first:
-                index.best_first[decoded.ability1_index] = decoded.points1
-            best_second = index.best_second.get(decoded.ability2_index)
-            if best_second is None or decoded.points2 > best_second:
-                index.best_second[decoded.ability2_index] = decoded.points2
+            ability1, ability2, points1, points2, _ = decode_charm_hash(hashed)
+            pair_points = points_by_pair.get((ability1, ability2))
+            if pair_points is None:
+                pair_points = points_by_pair[(ability1, ability2)] = set()
+            pair_points.add((points1, points2))
+            best_first = best_first_by_ability.get(ability1)
+            if best_first is None or points1 > best_first:
+                best_first_by_ability[ability1] = points1
+            best_second = best_second_by_ability.get(ability2)
+            if best_second is None or points2 > best_second:
+                best_second_by_ability[ability2] = points2
         slots.append(index)
     validity = CharmValidity(
         charm_hashes=tables.charm_hashes, ability_count=ability_count, slots=slots
