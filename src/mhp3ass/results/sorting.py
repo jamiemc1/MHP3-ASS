@@ -3,17 +3,20 @@
 Ported from the comparison functions (``legacy/Form1.h:20-80``) and
 ``Form1::SortResults`` (``legacy/Form1.h:2149-2172``).
 
-The sort is in place and unstable (``results.dotnet_sort``), so ties keep
-whatever order the previous sort left, and "None" leaves the list as it is.
+Each key's stat and direction are the original's. The order of solutions
+with equal values is presentation, not part of the port's contract, so the
+sort is stable: ties keep the order they arrive in. The original's
+``List<T>.Sort`` is an unstable introsort whose tie order depends on the
+previous sort and the list's capacity (quirk 27).
 """
 
 from __future__ import annotations
 
+import functools
 from collections.abc import Callable
 from enum import IntEnum
 
 from mhp3ass.data.text import as_signed
-from mhp3ass.results.dotnet_sort import introsort
 from mhp3ass.solution.state import Solution
 
 
@@ -118,14 +121,12 @@ def solution_comparison(key: SortKey) -> Callable[[Solution, Solution], int] | N
     return comparison
 
 
-def sort_results(solutions: list[Solution], key: SortKey, array_length: int) -> None:
-    """``SortResults``: sort ``solutions`` in place by ``key``; None leaves them as they are.
+def sort_results(solutions: list[Solution], key: SortKey) -> None:
+    """``SortResults``: sort ``solutions`` in place by ``key``, stably; None leaves them alone.
 
-    ``array_length`` is the capacity of the ``List`` being sorted
-    (``final_solutions``), which sets the introsort's depth limit.
     ``sort_off`` is never set in the original, so it isn't modelled.
     """
     comparison = solution_comparison(key)
     if comparison is None:
         return
-    introsort(solutions, compare=comparison, array_length=array_length)
+    solutions.sort(key=functools.cmp_to_key(comparison))
