@@ -250,7 +250,8 @@ def test_an_armour_index_past_the_table_cannot_be_loaded(teamhgg_game):
 
 
 def test_a_line_that_ends_early_cannot_be_loaded(teamhgg_game):
-    with pytest.raises(SettingsCfgError, match="can't load"):
+    """Two decorations announced, one given."""
+    with pytest.raises(SettingsCfgError, match="list index out of range"):
         parse_solution_line("0 0 0 0 0 0 0 0 0 2 1 ", teamhgg_game)
 
 
@@ -265,17 +266,65 @@ def test_writes_version_2_with_crlf_and_no_byte_order_mark(version_2_settings_cf
     )
 
 
-def test_writes_the_solution_lines_it_is_given(version_2_settings_cfg):
+@pytest.fixture
+def settings_with_one_line(version_2_settings_cfg):
     settings = dataclasses.replace(
         read_settings_cfg(version_2_settings_cfg), solution_lines=("0 0 0 0 0 0 0 0 0 0 0 ",)
     )
+    return settings
 
-    assert settings_cfg_text(settings).endswith(b"\r\n1\r\n-1\r\n0 0 0 0 0 0 0 0 0 0 0 \r\n")
+
+def test_writes_the_solution_lines_it_is_given(settings_with_one_line):
+    assert settings_cfg_text(settings_with_one_line).endswith(
+        b"\r\n1\r\n-1\r\n0 0 0 0 0 0 0 0 0 0 0 \r\n"
+    )
 
 
 @pytest.fixture(scope="module")
 def language_count(legacy_data_dir):
     return len(language_folders(legacy_data_dir / "Languages"))
+
+
+@pytest.fixture
+def load(teamhgg_game, language_count):
+    """``load_results`` in English (TeamHGG), into ``results`` or a new ``ResultSet``."""
+
+    def load_into(settings, results=None):
+        view = load_results(
+            settings=settings,
+            game=teamhgg_game,
+            results=ResultSet() if results is None else results,
+            language_count=language_count,
+        )
+        return view
+
+    return load_into
+
+
+@pytest.fixture
+def capture_settings(gui_captures_dir):
+    def read(capture):
+        settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
+        return settings
+
+    return read
+
+
+@pytest.fixture
+def charmed_capture_lines(capture_settings):
+    """A capture's lines with a charm: fields left after the extra skills."""
+
+    def charmed(capture):
+        lines = []
+        for line in capture_settings(capture).solution_lines:
+            fields = line.split()
+            decorations = int(fields[9])
+            skills = int(fields[10 + decorations])
+            if 11 + decorations + skills < len(fields):
+                lines.append(line)
+        return lines
+
+    return charmed
 
 
 @pytest.fixture
@@ -289,15 +338,37 @@ def loadable_settings(version_2_settings_cfg, charmed_line, line_with_difficulty
     return settings
 
 
+@pytest.fixture
+def difficulty_sorted_settings(loadable_settings):
+    return dataclasses.replace(loadable_settings, sort_index=8)
+
+
+@pytest.fixture
+def unselected_sort_settings(loadable_settings):
+    return dataclasses.replace(loadable_settings, sort_index=-1)
+
+
+@pytest.fixture
+def results_loaded_from_capture_12(load, capture_settings):
+    results = ResultSet()
+    load(capture_settings("12"), results)
+    return results
+
+
+@pytest.fixture
+def results_loaded_from_loadable_settings(load, loadable_settings):
+    results = ResultSet()
+    load(loadable_settings, results)
+    return results
+
+
 @pytest.mark.parametrize(
     ("capture", "charmed", "charm_free"), [("16", 0, 7241), ("20", 1003, 1223), ("12", 480, 0)]
 )
 def test_a_load_keeps_charm_free_lines_out_of_all_solutions(
-    gui_captures_dir, teamhgg_game, language_count, capture, charmed, charm_free
+    load, capture_settings, capture, charmed, charm_free
 ):
-    settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
-
-    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
+    view = load(capture_settings(capture))
 
     assert [len(view.all_solutions), len(view.no_charm_solutions), len(view.final)] == [
         charmed,
@@ -308,48 +379,32 @@ def test_a_load_keeps_charm_free_lines_out_of_all_solutions(
 
 @pytest.mark.parametrize("capture", ["16", "20"])
 def test_the_save_after_a_load_keeps_only_the_charmed_lines(
-    gui_captures_dir, teamhgg_game, language_count, capture
+    load, capture_settings, charmed_capture_lines, teamhgg_game, capture
 ):
-    settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
-    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
-    charmed_lines = [
-        line
-        for line in settings.solution_lines
-        if parse_solution_line(line, teamhgg_game).charm is not None
-    ]
+    settings = capture_settings(capture)
 
-    saved = with_solutions(settings, view.all_solutions, teamhgg_game)
+    saved = with_solutions(settings, load(settings).all_solutions, teamhgg_game)
 
-    assert list(saved.solution_lines) == charmed_lines
+    assert list(saved.solution_lines) == charmed_capture_lines(capture)
 
 
 def test_loading_the_same_results_again_drops_every_charmed_solution(
-    gui_captures_dir, teamhgg_game, language_count
+    load, capture_settings, results_loaded_from_capture_12
 ):
-    settings = read_settings_cfg(gui_captures_dir / "12" / "settings.cfg")
-    results = ResultSet()
-    load_results(settings, teamhgg_game, results, language_count)
+    reloaded = load(capture_settings("12"), results_loaded_from_capture_12)
 
-    reloaded = load_results(settings, teamhgg_game, results, language_count)
-
-    assert [len(settings.solution_lines), len(reloaded.all_solutions)] == [480, 0]
+    assert [len(capture_settings("12").solution_lines), len(reloaded.all_solutions)] == [480, 0]
 
 
-def test_a_load_shows_all_sorted_by_the_saved_sort(loadable_settings, teamhgg_game, language_count):
-    settings = dataclasses.replace(loadable_settings, sort_index=8)
-
-    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
+def test_a_load_shows_all_sorted_by_the_saved_sort(load, difficulty_sorted_settings):
+    view = load(difficulty_sorted_settings)
 
     assert [view.charm_filter, view.sort_key] == [CharmFilter.every_solution(), SortKey.DIFFICULTY]
     assert [len(view.all_solutions), len(view.no_charm_solutions)] == [1, 1]
 
 
-def test_a_saved_sort_of_minus_one_sorts_nothing(loadable_settings, teamhgg_game, language_count):
-    settings = dataclasses.replace(loadable_settings, sort_index=-1)
-
-    assert load_results(settings, teamhgg_game, ResultSet(), language_count).sort_key is (
-        SortKey.NONE
-    )
+def test_a_saved_sort_of_minus_one_sorts_nothing(load, unselected_sort_settings):
+    assert load(unselected_sort_settings).sort_key is SortKey.NONE
 
 
 @pytest.mark.parametrize(
@@ -373,7 +428,7 @@ def test_a_header_value_load_config_cannot_apply_is_rejected(
     settings = dataclasses.replace(loadable_settings, **{field: value})
 
     with pytest.raises(SettingsCfgError, match=message):
-        check_header(settings, language_count)
+        check_header(settings, language_count=language_count)
 
 
 @pytest.mark.parametrize(
@@ -385,26 +440,18 @@ def test_a_header_value_load_config_cannot_apply_is_rejected(
         {"elder_star": 6, "weapon_slots": 3},
     ],
 )
-def test_header_values_at_their_limits_load(
-    loadable_settings, teamhgg_game, language_count, changes
-):
+def test_header_values_at_their_limits_load(load, loadable_settings, changes):
     settings = dataclasses.replace(loadable_settings, **changes)
 
-    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
-
-    assert len(view.all_solutions) == 1
+    assert len(load(settings).all_solutions) == 1
 
 
 def test_a_rejected_header_leaves_the_results_alone(
-    loadable_settings, teamhgg_game, language_count
+    load, loadable_settings, results_loaded_from_loadable_settings
 ):
-    results = ResultSet()
-    load_results(loadable_settings, teamhgg_game, results, language_count)
-    kept = results.all_solutions
+    kept = results_loaded_from_loadable_settings.all_solutions
 
     with pytest.raises(SettingsCfgError):
-        load_results(
-            dataclasses.replace(loadable_settings, hr=7), teamhgg_game, results, language_count
-        )
+        load(dataclasses.replace(loadable_settings, hr=7), results_loaded_from_loadable_settings)
 
-    assert [results.all_solutions is kept, len(kept)] == [True, 1]
+    assert [results_loaded_from_loadable_settings.all_solutions is kept, len(kept)] == [True, 1]

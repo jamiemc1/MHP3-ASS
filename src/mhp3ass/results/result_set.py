@@ -189,6 +189,11 @@ class ResultSet:
         hashes.add(armor_hash)
         return False
 
+    def clear_solutions(self) -> None:
+        """``LoadConfig``'s ``all_solutions.Clear()`` (Form1.h:431): a new empty
+        list; ``existing_armor`` stays (quirk 46)."""
+        self.all_solutions = SolutionList()
+
     def add_solution(self, name: str, solution: Solution) -> bool:
         """``AddSolution( String^, Solution^ )`` (Form1.h:1723-1730): keep
         ``solution`` under the charm name ``name`` unless the key is taken."""

@@ -16,7 +16,8 @@ from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.data.text import read_lines, split_fields, to_boolean, to_int32, to_uint32
 from mhp3ass.model import AbilityPair, Armor, ArmorType, Charm
-from mhp3ass.results.result_set import ResultSet, SolutionList, lines_of, skill_indices
+from mhp3ass.query import CharmMode
+from mhp3ass.results.result_set import ResultSet, lines_of, skill_indices
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.view import ResultsView
 from mhp3ass.skill_picker import SkillSelection
@@ -104,7 +105,8 @@ def read_settings_cfg(path: Path) -> SettingsCfg:
 
 def settings_cfg_text(settings: SettingsCfg) -> bytes:
     """``SaveConfig``'s file for ``settings``: version 2, six skill rows, UTF-8
-    without a byte order mark, CRLF after every line."""
+    without a byte order mark, CRLF after every line. Settings read from a
+    version 1 file need their sixth row from the skill drop-downs first."""
     if len(settings.skill_selections) != 6:
         raise ValueError(f"SaveConfig writes six skill rows, not {len(settings.skill_selections)}")
     header: list[object] = [
@@ -151,17 +153,25 @@ def parse_solution_line(line: str, game: GameData) -> Solution:
 
 def _parse_solution_fields(fields: list[str], game: GameData) -> Solution:
     armors: list[Armor | None] = [
-        _entry(game.armors[armor_type], to_uint32(fields[slot]), f"{armor_type.name} armour")
+        _entry(
+            table=game.armors[armor_type],
+            position=to_uint32(fields[slot]),
+            what=f"{armor_type.name} armour",
+        )
         for slot, armor_type in enumerate(ArmorType)
     ]
     decoration_count = to_uint32(fields[9])
     decorations = [
-        _entry(game.decorations, to_uint32(fields[10 + i]), "decoration")
+        _entry(table=game.decorations, position=to_uint32(fields[10 + i]), what="decoration")
         for i in range(decoration_count)
     ]
     skill_count = to_uint32(fields[10 + decoration_count])
     extra_skills = [
-        _entry(game.skills, to_uint32(fields[11 + decoration_count + i]), "skill")
+        _entry(
+            table=game.skills,
+            position=to_uint32(fields[11 + decoration_count + i]),
+            what="skill",
+        )
         for i in range(skill_count)
     ]
     charm = None
@@ -171,7 +181,11 @@ def _parse_solution_fields(fields: list[str], game: GameData) -> Solution:
         ability_count = to_uint32(fields[charm_start + 1])
         for i in range(ability_count):
             # The ability index is converted before the amount (Form1.h:365-366).
-            ability = _entry(game.abilities, to_uint32(fields[charm_start + 3 + i * 2]), "ability")
+            ability = _entry(
+                table=game.abilities,
+                position=to_uint32(fields[charm_start + 3 + i * 2]),
+                what="ability",
+            )
             amount = to_int32(fields[charm_start + 2 + i * 2])
             charm.abilities.append(AbilityPair(ability=ability, amount=amount))
     solution = Solution(
@@ -198,7 +212,7 @@ def check_header(settings: SettingsCfg, language_count: int) -> None:
     checks = [
         ("language", settings.language_index, 0, language_count - 1),
         ("sort", settings.sort_index, -1, len(SortKey) - 1),
-        ("charm select", settings.charm_select_index, -1, 4),
+        ("charm select", settings.charm_select_index, -1, len(CharmMode) - 1),
         ("HR", settings.hr, 1, 6),
         ("village", settings.elder_star, 1, 6),
         ("weapon slots", settings.weapon_slots, 0, 3),
@@ -218,7 +232,7 @@ def load_results(
     only to the charm-free list, not ``all_solutions`` (quirk 45).
     """
     check_header(settings, language_count)
-    results.all_solutions = SolutionList()
+    results.clear_solutions()
     no_charm_solutions: list[Solution] = []
     for line in settings.solution_lines:
         solution = parse_solution_line(line, game)
