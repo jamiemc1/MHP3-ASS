@@ -8,12 +8,17 @@ import pytest
 
 from mhp3ass.data.languages import language_folders
 from mhp3ass.model import ArmorType
-from mhp3ass.results.result_set import skill_indices, solution_line
+from mhp3ass.results.result_set import ResultSet, skill_indices, solution_line
+from mhp3ass.results.sorting import SortKey
+from mhp3ass.results.view import CharmFilter
 from mhp3ass.settings_cfg import (
     SettingsCfgError,
+    check_header,
+    load_results,
     parse_solution_line,
     read_settings_cfg,
     settings_cfg_text,
+    with_solutions,
 )
 from mhp3ass.skill_picker import SkillSelection
 
@@ -266,3 +271,140 @@ def test_writes_the_solution_lines_it_is_given(version_2_settings_cfg):
     )
 
     assert settings_cfg_text(settings).endswith(b"\r\n1\r\n-1\r\n0 0 0 0 0 0 0 0 0 0 0 \r\n")
+
+
+@pytest.fixture(scope="module")
+def language_count(legacy_data_dir):
+    return len(language_folders(legacy_data_dir / "Languages"))
+
+
+@pytest.fixture
+def loadable_settings(version_2_settings_cfg, charmed_line, line_with_difficulty_jewel):
+    """The synthetic file with HR 6 (its 7 is out of range), one charmed and one charm-free line."""
+    settings = dataclasses.replace(
+        read_settings_cfg(version_2_settings_cfg),
+        hr=6,
+        solution_lines=(charmed_line, line_with_difficulty_jewel),
+    )
+    return settings
+
+
+@pytest.mark.parametrize(
+    ("capture", "charmed", "charm_free"), [("16", 0, 7241), ("20", 1003, 1223), ("12", 480, 0)]
+)
+def test_a_load_keeps_charm_free_lines_out_of_all_solutions(
+    gui_captures_dir, teamhgg_game, language_count, capture, charmed, charm_free
+):
+    settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
+
+    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
+
+    assert [len(view.all_solutions), len(view.no_charm_solutions), len(view.final)] == [
+        charmed,
+        charm_free,
+        charmed,
+    ]
+
+
+@pytest.mark.parametrize("capture", ["16", "20"])
+def test_the_save_after_a_load_keeps_only_the_charmed_lines(
+    gui_captures_dir, teamhgg_game, language_count, capture
+):
+    settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
+    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
+    charmed_lines = [
+        line
+        for line in settings.solution_lines
+        if parse_solution_line(line, teamhgg_game).charm is not None
+    ]
+
+    saved = with_solutions(settings, view.all_solutions, teamhgg_game)
+
+    assert list(saved.solution_lines) == charmed_lines
+
+
+def test_loading_the_same_results_again_drops_every_charmed_solution(
+    gui_captures_dir, teamhgg_game, language_count
+):
+    settings = read_settings_cfg(gui_captures_dir / "12" / "settings.cfg")
+    results = ResultSet()
+    load_results(settings, teamhgg_game, results, language_count)
+
+    reloaded = load_results(settings, teamhgg_game, results, language_count)
+
+    assert [len(settings.solution_lines), len(reloaded.all_solutions)] == [480, 0]
+
+
+def test_a_load_shows_all_sorted_by_the_saved_sort(loadable_settings, teamhgg_game, language_count):
+    settings = dataclasses.replace(loadable_settings, sort_index=8)
+
+    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
+
+    assert [view.charm_filter, view.sort_key] == [CharmFilter.every_solution(), SortKey.DIFFICULTY]
+    assert [len(view.all_solutions), len(view.no_charm_solutions)] == [1, 1]
+
+
+def test_a_saved_sort_of_minus_one_sorts_nothing(loadable_settings, teamhgg_game, language_count):
+    settings = dataclasses.replace(loadable_settings, sort_index=-1)
+
+    assert load_results(settings, teamhgg_game, ResultSet(), language_count).sort_key is (
+        SortKey.NONE
+    )
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "message"),
+    [
+        ("language_index", 7, "language 7"),
+        ("sort_index", 11, "sort 11"),
+        ("sort_index", -2, "sort -2"),
+        ("charm_select_index", 5, "charm select 5"),
+        ("charm_select_index", -2, "charm select -2"),
+        ("hr", 0, "HR 0"),
+        ("hr", 7, "HR 7"),
+        ("elder_star", 7, "village 7"),
+        ("weapon_slots", 4, "weapon slots 4"),
+        ("weapon_slots", -1, "weapon slots -1"),
+    ],
+)
+def test_a_header_value_load_config_cannot_apply_is_rejected(
+    loadable_settings, language_count, field, value, message
+):
+    settings = dataclasses.replace(loadable_settings, **{field: value})
+
+    with pytest.raises(SettingsCfgError, match=message):
+        check_header(settings, language_count)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"language_index": 6, "sort_index": 10, "charm_select_index": 4, "hr": 6},
+        {"language_index": 0, "sort_index": -1, "charm_select_index": -1, "hr": 1},
+        {"elder_star": 1, "weapon_slots": 0},
+        {"elder_star": 6, "weapon_slots": 3},
+    ],
+)
+def test_header_values_at_their_limits_load(
+    loadable_settings, teamhgg_game, language_count, changes
+):
+    settings = dataclasses.replace(loadable_settings, **changes)
+
+    view = load_results(settings, teamhgg_game, ResultSet(), language_count)
+
+    assert len(view.all_solutions) == 1
+
+
+def test_a_rejected_header_leaves_the_results_alone(
+    loadable_settings, teamhgg_game, language_count
+):
+    results = ResultSet()
+    load_results(loadable_settings, teamhgg_game, results, language_count)
+    kept = results.all_solutions
+
+    with pytest.raises(SettingsCfgError):
+        load_results(
+            dataclasses.replace(loadable_settings, hr=7), teamhgg_game, results, language_count
+        )
+
+    assert [results.all_solutions is kept, len(kept)] == [True, 1]
