@@ -96,9 +96,11 @@ def test_the_charm_free_solutions_are_the_search_lines_without_a_charm(my_charms
 
     view.select_filter(CharmFilter.charm_free())
 
-    shown = [charm_free[position] for position in view.final.positions]
-    assert view.final.source is view.no_charm_solutions
-    assert [[lines[position] for position in charm_free], shown] == [expected, charm_free]
+    assert view.final.source is view.all_solutions
+    assert [[lines[position] for position in charm_free], view.final.positions] == [
+        expected,
+        charm_free,
+    ]
     assert len(expected) == 7241
 
 
@@ -313,6 +315,37 @@ def test_a_language_change_keeps_none_selected(mixed_view, guard):
         CharmFilter.charm_free(),
         [1, 2, 7],
     ]
+
+
+def test_a_language_change_follows_the_selected_charm_into_a_shared_name(mixed_view, evasion):
+    """Names rebuild by name, as the original's map does: a charm renamed onto
+    another's name joins its list, and the selection follows it there."""
+    mixed_view.select_filter(CharmFilter.charm("+2 evasion ---"))
+    evasion.name = "Guard"
+
+    mixed_view.relanguage()
+
+    assert [mixed_view.charm_filter, list(mixed_view.by_charm), _defences(mixed_view.final)] == [
+        CharmFilter.charm("+2 Guard ---"),
+        ["+2 Guard ---", "+2 Attack ---"],
+        [5, 4, 6],
+    ]
+
+
+def test_a_language_change_shows_all_for_a_name_with_no_solutions(mixed_view, guard):
+    mixed_view.select_filter(CharmFilter.charm("+9 Nothing ---"))
+    guard.name = "Garde"
+
+    mixed_view.relanguage()
+
+    assert [mixed_view.charm_filter, len(mixed_view.final)] == [CharmFilter.every_solution(), 7]
+
+
+def test_a_selection_equals_the_solutions_it_holds(mixed_view):
+    charm_free = mixed_view.no_charm_solutions
+
+    assert charm_free == [mixed_view.all_solutions[position] for position in (1, 3, 6)]
+    assert charm_free != [mixed_view.all_solutions[1]]
 
 
 @pytest.mark.parametrize(
