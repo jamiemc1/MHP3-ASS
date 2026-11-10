@@ -169,17 +169,18 @@ void ResultsDump::RunSearch( String^ query_path, String^ out_path )
 	json->Field( L"query_json", Serialize( spec ) );
 	json->Key( L"steps" );
 	json->BeginArray();
+	if( worker_charms->Count > 0 )
+	{
+		json->BeginObject();
+		json->Field( L"step", L"save" );
+		WriteCounts( json, searched );
+		json->Field( L"saved_sha256", Fixtures::Sha256Hex( saved ) );
+		json->EndObject();
 
-	json->BeginObject();
-	json->Field( L"step", L"save" );
-	WriteCounts( json, searched );
-	json->Field( L"saved_sha256", Fixtures::Sha256Hex( saved ) );
-	json->EndObject();
-
-	ResultSet^ fresh = gcnew ResultSet;
-	WriteLoad( json, L"load", fresh, LoadSolutions( fresh, Reader( saved ) ) );
-	WriteLoad( json, L"load_after_search", searched, LoadSolutions( searched, Reader( saved ) ) );
-
+		ResultSet^ fresh = gcnew ResultSet;
+		WriteLoad( json, L"load", fresh, LoadSolutions( fresh, Reader( saved ) ) );
+		WriteLoad( json, L"load_after_search", searched, LoadSolutions( searched, Reader( saved ) ) );
+	}
 	json->EndArray();
 	json->EndObject();
 	json->WriteToFile( out_path );
@@ -202,7 +203,8 @@ void ResultsDump::RunFile( String^ cfg_path, String^ out_path )
 		String^ lang = langs[ Convert::ToUInt32( fin.ReadLine() ) ];
 		StringTable::LoadLanguage( lang->Substring( lang->LastIndexOf( L'\\' ) + 1 ) );
 
-		// The options and skill rows (Form1.h:399-424): 12 lines, then 4 per row.
+		// The options and skill rows (Form1.h:399-424): 12 lines, then 4 per
+		// row; NumSkills is 6 (Form1.h:95). Their values aren't checked here.
 		const int num_skills = version == L"2" ? 6 : 5;
 		for( int i = 0; i < 12 + 4 * num_skills; ++i )
 			fin.ReadLine();
