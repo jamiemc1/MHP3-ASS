@@ -17,6 +17,7 @@ from typing import Any
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, Armor, ArmorType, Decoration, Gender, HunterType, Skill
+from mhp3ass.skill_picker import skill_choices
 
 
 class QueryError(ValueError):
@@ -176,11 +177,12 @@ def _boolean(spec: dict[str, Any], key: str) -> bool:
 def offered_skills(game: GameData) -> list[int]:
     """Indices of the skills the GUI's drop-downs can offer, in skill-list order.
 
-    ``InitSkills`` (Form1.h:224-247) lists a skill only with positive points;
-    its tag filter narrows one drop-down, but filter 0 lists them all. The
-    Blademaster and Gunner tabs build the same lists (:253-254).
+    What a row filtered by All offers with nothing chosen elsewhere
+    (``skill_choices``); other filters only narrow it. The Blademaster and
+    Gunner tabs build the same lists (Form1.h:253-254).
     """
-    offered = [index for index, skill in enumerate(game.skills) if skill.points_required > 0]
+    all_filter = set(skill_choices(game, filter_index=0, disallowed=[]))
+    offered = [index for index, skill in enumerate(game.skills) if skill in all_filter]
     return offered
 
 

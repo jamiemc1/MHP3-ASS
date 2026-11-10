@@ -11,9 +11,9 @@ from mhp3ass.settings_cfg import SkillSelection, read_settings_cfg
 from mhp3ass.skill_picker import (
     SkillRow,
     SkillRowsByHunter,
-    offered_skills,
     query_skills,
     restore_skill_rows,
+    row_choices,
     saved_skill_index,
     select_filter,
     select_skill,
@@ -37,16 +37,36 @@ def choose_skills(teamhgg_game: GameData) -> Callable[..., tuple[SkillRow, ...]]
 
 
 @pytest.fixture
+def start_up_rows() -> SkillRowsByHunter:
+    """Both tabs as the GUI starts: every row filtered by All, with no skill."""
+    rows = SkillRowsByHunter(blademaster=starting_rows(), gunner=starting_rows())
+    return rows
+
+
+@pytest.fixture
 def attack_med_in_row_three(choose_skills) -> SkillRowsByHunter:
     """Blademaster row 3 holds Attack Up [Med]; every other row of both tabs is empty."""
     rows = SkillRowsByHunter(
         blademaster=choose_skills(None, None, None, "Attack Up [Med]"),
-        gunner=choose_skills(),
+        gunner=starting_rows(),
     )
     return rows
 
 
-def selection(blademaster_skill, blademaster_filter=0, gunner_skill=-1, gunner_filter=0):
+@pytest.fixture
+def sharp_sword_in_another_game(load_teamhgg_game) -> SkillRowsByHunter:
+    """Blademaster row 0 holds Sharp Sword from a separately loaded copy of the game."""
+    other_game = load_teamhgg_game()
+    rows = SkillRowsByHunter(
+        blademaster=select_skill(
+            other_game, starting_rows(), 0, other_game.skill_map["Sharp Sword"]
+        ),
+        gunner=starting_rows(),
+    )
+    return rows
+
+
+def selection(blademaster_skill=-1, blademaster_filter=0, gunner_skill=-1, gunner_filter=0):
     built = SkillSelection(
         blademaster_filter=blademaster_filter,
         blademaster_skill=blademaster_skill,
@@ -54,6 +74,12 @@ def selection(blademaster_skill, blademaster_filter=0, gunner_skill=-1, gunner_f
         gunner_skill=gunner_skill,
     )
     return built
+
+
+def six_rows(*first: SkillSelection) -> list[SkillSelection]:
+    """A version 2 file's six rows: ``first``, then empty rows."""
+    rows = [*first, *(selection() for _ in range(6 - len(first)))]
+    return rows
 
 
 def skill_index(game: GameData, name: str) -> int:
@@ -69,12 +95,6 @@ def test_all_offers_every_skill_that_needs_points(teamhgg_game):
     choices = skill_choices(teamhgg_game, filter_index=0, disallowed=[])
 
     assert choices == [skill for skill in teamhgg_game.skills if skill.points_required > 0]
-
-
-def test_all_leaves_out_negative_skills(teamhgg_game):
-    choices = skill_choices(teamhgg_game, filter_index=0, disallowed=[])
-
-    assert [len(choices), any(skill.points_required <= 0 for skill in choices)] == [146, False]
 
 
 def test_misc_offers_skills_of_untagged_abilities(teamhgg_game):
@@ -113,7 +133,7 @@ def test_disallowed_abilities_are_left_out(teamhgg_game):
 def test_a_row_leaves_out_abilities_chosen_in_other_rows(teamhgg_game, choose_skills):
     rows = choose_skills("Attack Up [Med]")
 
-    offered = names(offered_skills(teamhgg_game, rows, 1))
+    offered = names(row_choices(teamhgg_game, rows, 1))
 
     assert [name for name in offered if name.startswith("Attack Up")] == []
 
@@ -121,13 +141,18 @@ def test_a_row_leaves_out_abilities_chosen_in_other_rows(teamhgg_game, choose_sk
 def test_a_row_still_offers_other_levels_of_its_own_ability(teamhgg_game, choose_skills):
     rows = choose_skills("Attack Up [Med]")
 
-    offered = names(offered_skills(teamhgg_game, rows, 0))
+    offered = names(row_choices(teamhgg_game, rows, 0))
 
     assert [name for name in offered if name.startswith("Attack Up")] == [
         "Attack Up [Sm]",
         "Attack Up [Med]",
         "Attack Up [Lg]",
     ]
+
+
+def test_a_row_outside_the_six_raises(teamhgg_game, choose_skills):
+    with pytest.raises(ValueError, match="row -1"):
+        row_choices(teamhgg_game, choose_skills(), -1)
 
 
 def test_choosing_a_skill_another_row_rules_out_raises(teamhgg_game, choose_skills):
@@ -143,6 +168,11 @@ def test_choosing_none_clears_the_row(teamhgg_game, choose_skills):
     cleared = select_skill(teamhgg_game, rows, 0, None)
 
     assert names(query_skills(cleared)) == ["Sharp Sword"]
+
+
+def test_clearing_a_row_outside_the_six_raises(teamhgg_game, choose_skills):
+    with pytest.raises(ValueError, match="row 6"):
+        select_skill(teamhgg_game, choose_skills(), 6, None)
 
 
 def test_a_filter_that_offers_the_skill_keeps_it(teamhgg_game, choose_skills):
@@ -174,7 +204,7 @@ def test_setting_a_filter_past_the_last_tag_raises(teamhgg_game, choose_skills):
         select_filter(teamhgg_game, choose_skills(), 0, filter_index=-2)
 
 
-def test_the_query_takes_skills_in_row_order(teamhgg_game, choose_skills):
+def test_the_query_takes_skills_in_row_order(choose_skills):
     rows = choose_skills(None, "Sharp Sword", None, None, "Attack Up [Med]")
 
     assert names(query_skills(rows)) == ["Sharp Sword", "Attack Up [Med]"]
@@ -190,14 +220,13 @@ def test_a_chosen_row_is_saved_as_its_static_index(teamhgg_game, choose_skills):
     assert saved_skill_index(teamhgg_game, rows[0]) == skill_index(teamhgg_game, "Sharp Sword")
 
 
-def test_restoring_from_start_up_gives_the_saved_rows(teamhgg_game, choose_skills):
-    start = SkillRowsByHunter(blademaster=choose_skills(), gunner=choose_skills())
-    selections = [
+def test_restoring_from_start_up_gives_the_saved_rows(teamhgg_game, start_up_rows):
+    selections = six_rows(
         selection(skill_index(teamhgg_game, "Attack Up [Med]"), blademaster_filter=2),
-        selection(-1, gunner_skill=skill_index(teamhgg_game, "Sharp Sword")),
-    ]
+        selection(gunner_skill=skill_index(teamhgg_game, "Sharp Sword")),
+    )
 
-    restored = restore_skill_rows(teamhgg_game, start, selections)
+    restored = restore_skill_rows(teamhgg_game, start_up_rows, selections)
 
     assert [names(query_skills(restored.blademaster)), names(query_skills(restored.gunner))] == [
         ["Attack Up [Med]"],
@@ -205,19 +234,18 @@ def test_restoring_from_start_up_gives_the_saved_rows(teamhgg_game, choose_skill
     ]
 
 
-def test_a_saved_skill_its_filter_doesnt_offer_leaves_the_row_empty(teamhgg_game, choose_skills):
-    start = SkillRowsByHunter(blademaster=choose_skills(), gunner=choose_skills())
+def test_a_saved_skill_its_filter_doesnt_offer_leaves_the_row_empty(teamhgg_game, start_up_rows):
     misc_attack = selection(skill_index(teamhgg_game, "Attack Up [Med]"), blademaster_filter=1)
 
-    restored = restore_skill_rows(teamhgg_game, start, [misc_attack])
+    restored = restore_skill_rows(teamhgg_game, start_up_rows, six_rows(misc_attack))
 
     assert restored.blademaster[0] == SkillRow(filter_index=1, skill=None)
 
 
-def test_a_saved_index_past_the_last_skill_leaves_the_row_empty(teamhgg_game, choose_skills):
-    start = SkillRowsByHunter(blademaster=choose_skills(), gunner=choose_skills())
+def test_a_saved_index_past_the_last_skill_leaves_the_row_empty(teamhgg_game, start_up_rows):
+    past_the_end = selection(len(teamhgg_game.skills))
 
-    restored = restore_skill_rows(teamhgg_game, start, [selection(len(teamhgg_game.skills))])
+    restored = restore_skill_rows(teamhgg_game, start_up_rows, six_rows(past_the_end))
 
     assert restored.blademaster[0] == SkillRow(filter_index=0, skill=None)
 
@@ -225,11 +253,9 @@ def test_a_saved_index_past_the_last_skill_leaves_the_row_empty(teamhgg_game, ch
 def test_restoring_drops_a_skill_a_row_not_yet_restored_rules_out(
     teamhgg_game, attack_med_in_row_three
 ):
-    selections = [selection(skill_index(teamhgg_game, "Attack Up [Lg]"))] + [
-        selection(-1) for _ in range(5)
-    ]
+    attack_lg_first = six_rows(selection(skill_index(teamhgg_game, "Attack Up [Lg]")))
 
-    restored = restore_skill_rows(teamhgg_game, attack_med_in_row_three, selections)
+    restored = restore_skill_rows(teamhgg_game, attack_med_in_row_three, attack_lg_first)
 
     assert query_skills(restored.blademaster) == []
 
@@ -237,13 +263,11 @@ def test_restoring_drops_a_skill_a_row_not_yet_restored_rules_out(
 def test_restoring_keeps_a_skill_once_the_row_ruling_it_out_is_cleared(
     teamhgg_game, attack_med_in_row_three
 ):
-    selections = [selection(-1) for _ in range(3)] + [
-        selection(-1),
-        selection(skill_index(teamhgg_game, "Attack Up [Lg]")),
-        selection(-1),
-    ]
+    attack_lg_fifth = six_rows(
+        *(selection() for _ in range(4)), selection(skill_index(teamhgg_game, "Attack Up [Lg]"))
+    )
 
-    restored = restore_skill_rows(teamhgg_game, attack_med_in_row_three, selections)
+    restored = restore_skill_rows(teamhgg_game, attack_med_in_row_three, attack_lg_fifth)
 
     assert names(query_skills(restored.blademaster)) == ["Attack Up [Lg]"]
 
@@ -251,20 +275,28 @@ def test_restoring_keeps_a_skill_once_the_row_ruling_it_out_is_cleared(
 def test_a_version_1_file_leaves_the_sixth_row_alone(teamhgg_game, choose_skills):
     start = SkillRowsByHunter(
         blademaster=choose_skills(None, None, None, None, None, "Sharp Sword"),
-        gunner=choose_skills(),
+        gunner=starting_rows(),
     )
-    five_rows = [selection(-1) for _ in range(5)]
+    five_rows = [selection() for _ in range(5)]
 
     restored = restore_skill_rows(teamhgg_game, start, five_rows)
 
     assert names(query_skills(restored.blademaster)) == ["Sharp Sword"]
 
 
-def test_restoring_raises_on_a_filter_past_the_last_tag(teamhgg_game, choose_skills):
-    start = SkillRowsByHunter(blademaster=choose_skills(), gunner=choose_skills())
-
+def test_restoring_raises_on_a_filter_past_the_last_tag(teamhgg_game, start_up_rows):
     with pytest.raises(ValueError, match="filter 9"):
-        restore_skill_rows(teamhgg_game, start, [selection(-1, blademaster_filter=9)])
+        restore_skill_rows(teamhgg_game, start_up_rows, six_rows(selection(blademaster_filter=9)))
+
+
+def test_restoring_raises_on_seven_saved_rows(teamhgg_game, start_up_rows):
+    with pytest.raises(ValueError, match="not 7"):
+        restore_skill_rows(teamhgg_game, start_up_rows, [selection() for _ in range(7)])
+
+
+def test_restoring_raises_on_rows_from_another_game(teamhgg_game, sharp_sword_in_another_game):
+    with pytest.raises(ValueError, match="Sharp Sword isn't one of this game's skills"):
+        restore_skill_rows(teamhgg_game, sharp_sword_in_another_game, six_rows())
 
 
 def _capture_mismatches(

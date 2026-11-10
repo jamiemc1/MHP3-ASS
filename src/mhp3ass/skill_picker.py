@@ -12,12 +12,15 @@ leaving out every ability another row has chosen. The original keeps that
 true after every change: picking a skill rebuilds every other row's list, and
 a row's own choice survives a rebuild whenever it is still offered. So the
 state here is just the rows, and each row's list is computed from the others.
+
+Rows hold the game's own ``Skill`` records and abilities are compared by
+identity, so rows must come from the ``GameData`` they are used with.
 """
 
 from __future__ import annotations
 
 from collections.abc import Collection, Sequence
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, Skill
@@ -77,15 +80,16 @@ def skill_choices(
     return choices
 
 
-def offered_skills(game: GameData, rows: Sequence[SkillRow], row: int) -> list[Skill]:
+def row_choices(game: GameData, rows: Sequence[SkillRow], row: int) -> list[Skill]:
     """The skills row ``row`` lists: its filter's, without the other rows' abilities."""
+    _check_row(rows, row)
     chosen_elsewhere = [
         other.skill.ability
         for index, other in enumerate(rows)
         if index != row and other.skill is not None
     ]
-    offered = skill_choices(game, filter_index=rows[row].filter_index, disallowed=chosen_elsewhere)
-    return offered
+    choices = skill_choices(game, filter_index=rows[row].filter_index, disallowed=chosen_elsewhere)
+    return choices
 
 
 def select_filter(
@@ -98,11 +102,14 @@ def select_filter(
     setting anything else throws ``ArgumentOutOfRangeException`` in the
     original, which this raises as ``ValueError``.
     """
+    _check_row(rows, row)
     _check_filter(game, filter_index)
-    filtered = _replaced(rows, row, SkillRow(filter_index=filter_index, skill=None))
+    cleared = _replaced(rows, row, SkillRow(filter_index=filter_index, skill=None))
     kept = rows[row].skill
-    if kept is not None and kept in offered_skills(game, filtered, row):
-        filtered = _replaced(filtered, row, SkillRow(filter_index=filter_index, skill=kept))
+    still_offered = kept is not None and kept in row_choices(game, cleared, row)
+    filtered = _replaced(
+        rows, row, SkillRow(filter_index=filter_index, skill=kept if still_offered else None)
+    )
     return filtered
 
 
@@ -111,12 +118,13 @@ def select_skill(
 ) -> tuple[SkillRow, ...]:
     """``cmbSkill_SelectedIndexChanged``: choose one of the row's offered skills.
 
-    ``None``, the "(none)" item, clears the row. A skill the row doesn't offer can't be
-    chosen in the drop-down, so it raises ``ValueError``.
+    ``None``, the "(none)" item, clears the row. A skill the row doesn't offer
+    can't be chosen in the drop-down, so it raises ``ValueError``.
     """
-    if skill is not None and skill not in offered_skills(game, rows, row):
+    _check_row(rows, row)
+    if skill is not None and skill not in row_choices(game, rows, row):
         raise ValueError(f"row {row} doesn't offer {skill.name}")
-    selected = _replaced(rows, row, replace(rows[row], skill=skill))
+    selected = _replaced(rows, row, SkillRow(filter_index=rows[row].filter_index, skill=skill))
     return selected
 
 
@@ -132,8 +140,16 @@ def restore_skill_rows(
     saved skill whose ability one of them has chosen is dropped (quirk 41).
     A version 1 file has five rows; the sixth keeps ``current``'s.
     """
-    blademaster = tuple(current.blademaster)
-    gunner = tuple(current.gunner)
+    for rows in (current.blademaster, current.gunner):
+        if len(rows) != 6:
+            raise ValueError(f"each tab has six skill rows, not {len(rows)}")
+        for row in rows:
+            if row.skill is not None:
+                saved_skill_index(game, row)
+    if len(selections) not in (5, 6):
+        raise ValueError(f"settings.cfg holds five or six skill rows, not {len(selections)}")
+    blademaster = current.blademaster
+    gunner = current.gunner
     for row, selection in enumerate(selections):
         blademaster = _restore_row(
             game,
@@ -163,19 +179,22 @@ def saved_skill_index(game: GameData, row: SkillRow) -> int:
     """``SaveConfig``'s value for a row's skill (``Form1.h:486-492``): its static index, or -1."""
     if row.skill is None:
         return -1
-    for index, skill in enumerate(game.skills):
-        if skill is row.skill:
-            return index
-    raise ValueError(f"{row.skill.name} isn't one of the game's skills")
+    try:
+        index = game.skills.index(row.skill)
+    except ValueError:
+        raise ValueError(f"{row.skill.name} isn't one of this game's skills") from None
+    return index
 
 
 def _restore_row(
     game: GameData, rows: tuple[SkillRow, ...], row: int, filter_index: int, skill_index: int
 ) -> tuple[SkillRow, ...]:
-    filtered = select_filter(game, rows, row, filter_index)
+    """Set the row's filter, then pick its saved skill from what the row offers."""
+    _check_filter(game, filter_index)
+    cleared = _replaced(rows, row, SkillRow(filter_index=filter_index, skill=None))
     saved = game.skills[skill_index] if 0 <= skill_index < len(game.skills) else None
-    found = saved if saved is not None and saved in offered_skills(game, filtered, row) else None
-    restored = _replaced(filtered, row, SkillRow(filter_index=filter_index, skill=found))
+    found = saved if saved is not None and saved in row_choices(game, cleared, row) else None
+    restored = _replaced(rows, row, SkillRow(filter_index=filter_index, skill=found))
     return restored
 
 
@@ -184,6 +203,11 @@ def _check_filter(game: GameData, filter_index: int) -> None:
         raise ValueError(
             f"filter {filter_index} isn't one of the {len(game.skill_tags)} filter items"
         )
+
+
+def _check_row(rows: Sequence[SkillRow], row: int) -> None:
+    if not 0 <= row < len(rows):
+        raise ValueError(f"row {row} isn't one of the {len(rows)} skill rows")
 
 
 def _replaced(rows: Sequence[SkillRow], row: int, new_row: SkillRow) -> tuple[SkillRow, ...]:
