@@ -14,7 +14,7 @@ Target: parity with every feature of the original, then a better UX on top.
 | 5 | `Solution.MatchesQuery` (decoration filling, charm reduction) | Yes (5a traces) | Done (5a traces, 5b decoration filling, 5c bad skills, 5d charm reduction and the search worker) |
 | 6 | Search loop, charm modes, CLI | No | Done (6a worker dispatch, 6b duplicate removal, 6c `run_search` with L3 parity on all corpus queries, 6d `mhp3ass search`) |
 | 7 | Save-file charm import (PSP decryption) | No | Done |
-| 8 | Performance: per-charm multiprocessing, profiling, pruning if needed | No | Not started |
+| 8 | Performance: per-charm multiprocessing, profiling, pruning if needed | No | Done (process pool `--jobs`, GC pause, faster start-up; no pruning). Budgets set from the gate run |
 | 9 | Differential fuzz over ~500 random queries | Yes (one run) | Done (9a corpus and harness goldens; 9b the port matches all 500, `pytest -m fuzz`, with a 25-query smoke subset in the default run) |
 | 10 | Textual TUI | No | Not started |
 
