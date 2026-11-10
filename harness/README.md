@@ -16,6 +16,9 @@ fixtures for the Python port.
 | `src/QueryFile.cpp` | Corpus query files and `FormulateQuery`, shared by `search` and `relevance` |
 | `src/RelevanceDump.cpp` | L2 query set-up: `GetRelevantData`, `CharmDatabase::GetCharms`, the query-based `GetBestDecoration` |
 | `src/SearchDump.cpp` | L3 Quick Search: charm dispatch, search loop and duplicate removal |
+| `src/Workers.cpp` | The workers `StartSearch` starts and the loop each runs, shared by `search` and `results` |
+| `src/Results.cpp` | Form1's result lists and duplicate removal, and the `settings.cfg` solution line |
+| `src/ResultsDump.cpp` | The solution part of `SaveConfig` and `LoadConfig` (`settings.cfg` and File > Save/Load `.ass`) |
 | `src/Fixtures.h` | Serialisation shared by every fixture (charms, ability pairs, hex) |
 | `src/Json.h` | Deterministic JSON writer (gzip when the output ends in `.gz`) |
 
@@ -54,6 +57,8 @@ harness\Release\Harness.exe                      # prints usage
 | `solution-probes --out <file>` | What `GetScore`'s `point_score` returns for indices 0-22 (in bounds verbatim; all of them as dense ranks, since past the 6-element array this build reads load-time method thunks that change per run), and the private `Solution` methods reachable by reflection |
 | `charm-location --out <file>` | `FindCharm2` called directly (no ability, every ability at points 0-15, sampled two-skill pairs and their variations, wrapped negative points; each over slots 0-3), and charm names run through the tooltip's `UpdateContextMenu` in all 7 languages (English (TeamHGG) in full, about 200 per other language), recording what it caches and its header or the exception. Takes about 9 minutes; `generate-goldens.ps1` runs it only with `-CharmLocation` |
 | `traces <spec.json> --out <file.jsonl.gz>` | `Solution::MatchesQuery` stage by stage for sampled armour combinations of the spec's query (spec schema in `tests/traces/README.md`). Every combination runs through the real `MatchesQuery` and a stepped copy of it; the command throws if they end in different states |
+| `results <query.json> --out <file>` | Runs the query's search, then three steps: `save` (the result lists, and the SHA-256 of the solution lines `SaveConfig` writes), `load` (those lines read back by a fresh GUI, as at start-up) and `load_after_search` (read back by the GUI that ran the search, whose duplicate set `LoadConfig` keeps). Each load records where every line went (`placements`: `a` all solutions, `n` charm-free list only, `d` dropped as a duplicate), the list sizes and charm map, hashes of the stats `CalculateData` leaves, and the hash of the re-save `LoadConfig` ends with. The header lines (options, skill rows) aren't covered |
+| `results-file <settings.cfg> --out <file>` | One `load` step for a saved file, in the language its header names |
 
 `<language>` is a folder under `legacy/Run/Data/Languages`. The GUI defaults
 to `English (TeamHGG)` on first run.
@@ -75,8 +80,8 @@ forever, so a hung run usually means bad input data.
 powershell -ExecutionPolicy Bypass -File scripts\windows\generate-goldens.ps1
 ```
 
-This writes `tests/golden/data/`, `tests/golden/search/`, `tests/golden/relevance/` and `tests/golden/traces/` (committed) and,
-for queries and saves from personal data, `tests/savefile/golden/`
+This writes `tests/golden/data/`, `tests/golden/search/`, `tests/golden/results/`, `tests/golden/relevance/` and `tests/golden/traces/` (committed) and,
+for queries, GUI captures and saves from personal data, `tests/savefile/golden/`
 (gitignored). Output is byte-identical across runs. Copy the files back to
 the development machine and commit them there.
 
