@@ -292,7 +292,9 @@ def _lines(solutions: Sequence[Solution], skill_index: dict[Skill, int]) -> list
     return lines
 
 
-def _charm_names(solutions: Sequence[Solution]) -> list[str]:
+def charm_names(solutions: Sequence[Solution]) -> list[str]:
+    """Each solution's charm name after ``MatchesQuery``, "" when it has none,
+    in order; a ``SolutionList``'s records are named without rebuilding them."""
     if isinstance(solutions, SolutionList):
         return solutions.charm_names()
     names = ["" if solution.charm is None else charm_name(solution.charm) for solution in solutions]
@@ -378,7 +380,7 @@ def candidate_lines(result: SearchResult, game: GameData) -> list[CandidateLine]
         CandidateLine(worker=number, charm_name=name, solution_line=line)
         for number, worker in enumerate(result.workers)
         for name, line in zip(
-            _charm_names(worker.found), _lines(worker.found, skill_index), strict=True
+            charm_names(worker.found), _lines(worker.found, skill_index), strict=True
         )
     ]
     return candidates
