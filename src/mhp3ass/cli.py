@@ -216,7 +216,10 @@ def main(argv: list[str] | None = None) -> int:
         help="record a worker the original would throw in, in the manifest, instead of failing",
     )
     search.add_argument(
-        "--progress", action="store_true", help="report each finished worker on stderr"
+        "--progress",
+        action="store_true",
+        help="report each finished worker on stderr (with --jobs above 1, every worker once "
+        "the pool has finished, with the time its merge took)",
     )
     search.add_argument(
         "--jobs",

@@ -257,7 +257,7 @@ def record_replays(repo_root, search_data_by_language) -> dict[str, RecordReplay
                 record_line(record) != solution_line(solution, skill_index)
                 for record, solution in zip(records, worker.found, strict=True)
             )
-            added = from_records.add_records(records, data.game)
+            added = from_records.add_records(SolutionList.of_records(records, data.game))
             added_by_records.append(added.lines(skill_index))
         replays[spec.query.id] = RecordReplay(
             solution_lines=searched.results.all_solutions.lines(skill_index),
@@ -305,8 +305,9 @@ def attack_record() -> CharmRecord:
 
 
 def test_a_record_is_rebuilt_once_and_then_read_as_that_solution(empty_record, teamhgg_game):
-    solutions = SolutionList()
-    solutions.append_record(replace(empty_record, armors=(2, 2, 2, 2, 2)), teamhgg_game)
+    solutions = SolutionList.of_records(
+        [replace(empty_record, armors=(2, 2, 2, 2, 2))], teamhgg_game
+    )
 
     first_read = solutions[0]
 
@@ -314,13 +315,31 @@ def test_a_record_is_rebuilt_once_and_then_read_as_that_solution(empty_record, t
     assert first_read.armors == [teamhgg_game.armors[armor_type][2] for armor_type in ArmorType]
 
 
-def test_records_of_two_games_do_not_share_a_list(empty_record, teamhgg_game, load_teamhgg_game):
-    solutions = SolutionList()
-    solutions.append_record(empty_record, teamhgg_game)
+def test_kept_records_are_the_same_solutions_in_every_list(
+    empty_record, attack_record, teamhgg_game
+):
+    """Found, added and all_solutions share one rebuilt Solution per record, as
+    the search's lists share one Solution object."""
+    first = replace(empty_record, armors=(3, 3, 3, 3, 3), charm=attack_record)
+    repeat = replace(first, total_slots_spare=1)
+    found = SolutionList.of_records([first, repeat], teamhgg_game)
+    results = ResultSet()
 
-    with pytest.raises(ValueError, match="one game"):
-        solutions.append_record(empty_record, load_teamhgg_game())
-    assert len(solutions) == 1
+    added = results.add_records(found)
+
+    assert [len(found), len(added), len(results.all_solutions)] == [2, 1, 1]
+    assert results.all_solutions[0] is added[0] is found[0]
+    assert found[0] in results.all_solutions
+    assert found[1] not in results.all_solutions
+
+
+def test_charm_names_come_from_the_records(empty_record, attack_record, teamhgg_game):
+    charmed = replace(empty_record, charm=attack_record)
+    found = SolutionList.of_records([charmed, empty_record], teamhgg_game)
+
+    names = found.charm_names()
+
+    assert names == [charm_name(charm_from_record(attack_record, teamhgg_game)), ""]
 
 
 def test_a_charmed_record_with_an_empty_slot_throws(empty_record, attack_record, teamhgg_game):
@@ -332,7 +351,7 @@ def test_a_charmed_record_with_an_empty_slot_throws(empty_record, attack_record,
     name = charm_name(charm_from_record(attack_record, teamhgg_game))
 
     with pytest.raises(LegacyNullReferenceError):
-        results.add_records([kept, empty_slot], teamhgg_game)
+        results.add_records(SolutionList.of_records([kept, empty_slot], teamhgg_game))
 
     assert [results.all_solutions.lines({}), results.existing_armor] == [
         [record_line(kept)],
@@ -343,7 +362,7 @@ def test_a_charmed_record_with_an_empty_slot_throws(empty_record, attack_record,
 def test_charm_free_records_are_never_de_duplicated(empty_record, teamhgg_game):
     results = ResultSet()
 
-    added = results.add_records([empty_record, empty_record], teamhgg_game)
+    added = results.add_records(SolutionList.of_records([empty_record, empty_record], teamhgg_game))
 
     assert [len(added), len(results.all_solutions), results.existing_armor] == [2, 2, {}]
 

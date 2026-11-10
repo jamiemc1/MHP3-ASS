@@ -58,7 +58,8 @@ original's search does, and writes what the harness's `search` writes:
 leaves out the solutions file above N lines, and `--progress` reports each
 finished worker. The workers run in a pool of `--jobs N` processes (default:
 one per CPU, at most 8); `--jobs 1` runs them in turn in one process, the
-reference path. The results are the same either way. Where the original would throw, the command exits with
+reference path. The results are the same either way; in a pool, `--progress`
+reports the workers once the pool has finished. Where the original would throw, the command exits with
 code 3 naming the worker; with `--record-exceptions` it records the
 exception in the manifest instead and exits 0, as the harness does. To
 compare with a golden:

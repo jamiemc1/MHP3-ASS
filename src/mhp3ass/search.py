@@ -19,7 +19,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from math import prod
 from pathlib import Path
-from typing import Protocol
+from typing import Protocol, TypeIs
 
 from mhp3ass.charms.comparison import add_charm_to_optimal_list
 from mhp3ass.charms.for_query import get_charms
@@ -224,16 +224,24 @@ class StepReporter:
         self._done = 0
         self._last_sent = clock()
 
-    @property
-    def done(self) -> int:
-        return self._done
-
     def add(self, combinations: int) -> None:
         self._done += combinations
         now = self._clock()
         if now - self._last_sent >= self._interval:
             self._send(self._done)
             self._last_sent = now
+
+    def send_now(self) -> None:
+        """Send the running total whatever the interval, as at the end of a search."""
+        self._send(self._done)
+
+
+def is_search_error(error: BaseException) -> TypeIs[LegacyNullReferenceError | LookupError]:
+    """Whether ``error`` is one ``run_worker`` itself can raise, which the
+    serial search records or propagates; anything else is a failure of the
+    pool and fails the search."""
+    search_error = isinstance(error, (LegacyNullReferenceError, LookupError))
+    return search_error
 
 
 @dataclass(frozen=True)
@@ -389,17 +397,15 @@ def run_search(
         )
         for number, records in enumerate(pooled.workers):
             start = time.perf_counter()
-            found = SolutionList()
-            for record in records:
-                found.append_record(record, data.game)
-            added = results.add_records(records, data.game)
+            found = SolutionList.of_records(records, data.game)
+            added = results.add_records(found)
             worker = WorkerResult(template=templates[number], found=found, added=added)
             workers.append(worker)
             report_worker(number, worker, start)
         if pooled.error is not None:
             failed = pooled.error.worker
             error = pooled.error.error
-            if not isinstance(error, (LegacyNullReferenceError, LookupError)):
+            if not is_search_error(error):
                 raise error
             exception = _recorded_exception(
                 error,
@@ -408,9 +414,10 @@ def run_search(
                 record_exceptions=record_exceptions,
             )
     else:
-        total = len(templates) * prod(len(choices) for choices in armor_choices(query))
         reporter = None
+        total = 0
         if on_progress is not None:
+            total = len(templates) * prod(len(choices) for choices in armor_choices(query))
             reporter = StepReporter(send=lambda done: on_progress(done, total))
         for number, template in enumerate(templates):
             start = time.perf_counter()
@@ -430,8 +437,8 @@ def run_search(
             worker = WorkerResult(template=template, found=found, added=added)
             workers.append(worker)
             report_worker(number, worker, start)
-        if on_progress is not None and reporter is not None:
-            on_progress(reporter.done, total)
+        if reporter is not None:
+            reporter.send_now()
     search_result = SearchResult(
         query=query,
         my_charms_loaded=len(loaded.charms),
