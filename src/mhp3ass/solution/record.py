@@ -10,6 +10,7 @@ the same ``abilities`` order and the same charm.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import overload
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, AbilityPair, Armor, ArmorType, Charm, Decoration, Skill
@@ -163,6 +164,18 @@ def _entry[T](table: list[T], position: int, what: str) -> T:
     if not 0 <= position < len(table):
         raise ValueError(f"{what} {position} is not in this game (0-{len(table) - 1})")
     return table[position]
+
+
+@overload
+def charm_from_record(record: CharmRecord, game: GameData) -> Charm: ...
+
+
+@overload
+def charm_from_record(record: None, game: GameData) -> None: ...
+
+
+@overload
+def charm_from_record(record: CharmRecord | None, game: GameData) -> Charm | None: ...
 
 
 def charm_from_record(record: CharmRecord | None, game: GameData) -> Charm | None:
