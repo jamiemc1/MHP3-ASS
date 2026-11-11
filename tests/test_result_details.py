@@ -7,7 +7,7 @@ from dataclasses import dataclass
 
 import pytest
 
-from mhp3ass.model import Ability, AbilityPair, Armor, Material, MaterialComponent, Skill
+from mhp3ass.model import Ability, Armor, Material, MaterialComponent, Skill
 from mhp3ass.query import SearchSpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.details import (
@@ -201,21 +201,35 @@ def stat_solution() -> Solution:
         max_defence=7,
         difficulty=8,
         rarity=9,
-        total_slots_spare=10,
     )
     return solution
 
 
-@pytest.mark.parametrize("key", list(SortKey))
-def test_the_sort_value_is_the_sorted_stat(key, stat_solution):
-    shown = None if key in (SortKey.NONE, SortKey.SLOTS_SPARE) else SortValue(key=key, value=key)
+@pytest.mark.parametrize(
+    ("key", "value"),
+    [
+        (SortKey.NONE, None),
+        (SortKey.DRAGON_RES, 1),
+        (SortKey.FIRE_RES, 2),
+        (SortKey.ICE_RES, 3),
+        (SortKey.THUNDER_RES, 4),
+        (SortKey.WATER_RES, 5),
+        (SortKey.DEFENCE, 6),
+        (SortKey.MAX_DEFENCE, 7),
+        (SortKey.DIFFICULTY, 8),
+        (SortKey.RARITY, 9),
+        (SortKey.SLOTS_SPARE, None),
+    ],
+)
+def test_the_sort_value_is_the_sorted_stat(key, value, stat_solution):
+    shown = None if value is None else SortValue(key=key, value=value)
 
     assert sort_value(stat_solution, key) == shown
 
 
 @pytest.fixture
 def decorated_solution(make_armor, attack, health) -> Solution:
-    """Head and legs only, a charm, jewels A, B, A, and extra skills one of
+    """Head and legs only, no charm, jewels A, B, A, and extra skills one of
     which the search asked for."""
     jewel_a = make_jewel("A", first=attack, amount=1)
     jewel_b = make_jewel("B", first=health, amount=1)
@@ -223,11 +237,11 @@ def decorated_solution(make_armor, attack, health) -> Solution:
         armors=[make_armor("Head", abilities=[(attack, 1)]), None, None, None, make_armor("Legs")],
         charm=None,
         decorations=[jewel_a, jewel_b, jewel_a],
+        extra_skills=[
+            Skill(name="Attack Up [S]", points_required=10, ability=attack),
+            Skill(name="Health +20", points_required=10, ability=health),
+        ],
     )
-    solution.extra_skills = [
-        Skill(name="Attack Up [S]", points_required=10, ability=attack),
-        Skill(name="Health +20", points_required=10, ability=health),
-    ]
     return solution
 
 
@@ -296,14 +310,18 @@ def test_a_jewel_lists_points_and_both_recipes(two_recipe_jewel, teamhgg_game, a
     ]
 
 
-def test_a_piece_lists_its_points_and_recipe(make_armor, teamhgg_game, attack):
-    armor = make_armor(abilities=[(attack, 3)])
-    armor.abilities.append(AbilityPair(ability=teamhgg_game.torso_inc, amount=1))
+@pytest.fixture
+def attack_torso_inc_piece(make_armor, teamhgg_game, attack):
+    """A piece with +3 Attack and +1 Torso Inc, no recipe."""
+    armor = make_armor(abilities=[(attack, 3), (teamhgg_game.torso_inc, 1)])
+    return armor
 
-    details = armor_details(armor, teamhgg_game)
+
+def test_a_piece_lists_its_points_and_recipe(attack_torso_inc_piece, teamhgg_game, attack):
+    details = armor_details(attack_torso_inc_piece, teamhgg_game)
 
     assert details.abilities == (
         AbilityLine(ability=attack, amount=3),
         AbilityLine(ability=teamhgg_game.torso_inc, amount=None),
     )
-    assert [details.armor, details.components] == [armor, ()]
+    assert [details.armor, details.components] == [attack_torso_inc_piece, ()]
