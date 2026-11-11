@@ -24,6 +24,7 @@ from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.charms.location import CharmLocationIndex
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.data.languages import language_folders
 from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
 from mhp3ass.parallel import SearchPool
 from mhp3ass.query import Query, SearchSpec
@@ -365,14 +366,15 @@ def games_by_language(legacy_data_dir: Path, teamhgg_game: GameData) -> dict[str
 
     Tests must not mutate them.
     """
+    languages_dir = legacy_data_dir / "Languages"
     games = {}
-    for language_dir in sorted((legacy_data_dir / "Languages").iterdir()):
-        if language_dir.name == "English (TeamHGG)":
-            games[language_dir.name] = teamhgg_game
+    for language in language_folders(languages_dir):
+        if language == "English (TeamHGG)":
+            games[language] = teamhgg_game
             continue
         game = load_game_data(legacy_data_dir)
-        apply_language(game, language_dir)
-        games[language_dir.name] = game
+        apply_language(game, languages_dir / language)
+        games[language] = game
     return games
 
 
@@ -381,9 +383,9 @@ def search_data_by_language(legacy_data_dir: Path) -> dict[str, SearchData]:
     """Search data in each shipped language, for running queries on: each query
     rewrites its game's relevance state, so these are not shared with
     ``games_by_language``."""
-    languages = sorted(path.name for path in (legacy_data_dir / "Languages").iterdir())
     search_data = {
-        language: SearchData.load(legacy_data_dir, language=language) for language in languages
+        language: SearchData.load(legacy_data_dir, language=language)
+        for language in language_folders(legacy_data_dir / "Languages")
     }
     return search_data
 
