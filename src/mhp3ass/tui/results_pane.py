@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
+from rich.cells import cell_len, set_cell_size
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
@@ -82,6 +83,7 @@ class ResultsPane(Horizontal):
         # Kept here so the next search's view is shown the same way round.
         self.reverse = False
         self._filters: list[CharmFilter] = []
+        self._options: list[Option] = []
 
     def compose(self) -> ComposeResult:
         strings = self._strings
@@ -105,14 +107,20 @@ class ResultsPane(Horizontal):
     @property
     def sort_key(self) -> SortKey:
         value = self.query_one("#sort_key", Select).value
-        key = value if isinstance(value, SortKey) else SortKey.NONE
-        return key
+        if not isinstance(value, SortKey):
+            raise TypeError(f"the sort drop-down holds {value!r}, not a SortKey")
+        return value
 
     def show(self, view: ResultsView, rows: Sequence[TableRow]) -> None:
-        """Show a new search's view, built with this pane's ``sort_key`` and
-        ``reverse``, and the rows of its ``final`` (``view_rows``)."""
+        """Show a new search's view and the rows of its ``final`` (``view_rows``).
+        The view was built with the sort and reverse of the search's start; if
+        they changed while it ran, it is sorted again here."""
         self.view = view
         self._fill_filters()
+        if view.sort_key is not self.sort_key or view.reverse != self.reverse:
+            view.select_sort(self.sort_key)
+            view.select_reverse(self.reverse)
+            rows = view_rows(view)
         self.query_one("#results", ResultsTable).set_rows(rows)
 
     def on_select_changed(self, event: Select.Changed) -> None:
@@ -127,9 +135,11 @@ class ResultsPane(Horizontal):
         if event.option_list.id != "charm_filter":
             return
         event.stop()
-        # A selection posted for a list since refilled can point past its end.
-        if self.view is not None and event.option_index < len(self._filters):
-            self.view.select_filter(self._filters[event.option_index])
+        # A selection posted before the list was refilled names an old option.
+        index = event.option_index
+        current = index < len(self._options) and event.option is self._options[index]
+        if self.view is not None and current:
+            self.view.select_filter(self._filters[index])
             self._fill_table()
 
     def reverse_sort(self) -> None:
@@ -160,12 +170,13 @@ class ResultsPane(Horizontal):
             strings.basic(StringIndex.NONE),
             *names,
         ]
+        self._options = [
+            Option(Content(f"{_fit(label, 21)} {count:>7,}"))
+            for label, count in zip(labels, counts, strict=True)
+        ]
         options = self.query_one("#charm_filter", OptionList)
         options.clear_options()
-        options.add_options(
-            Option(Content(f"{_fit(label, 21):<21} {count:>7,}"))
-            for label, count in zip(labels, counts, strict=True)
-        )
+        options.add_options(self._options)
         options.highlighted = 0
 
     def _fill_table(self) -> None:
@@ -174,8 +185,11 @@ class ResultsPane(Horizontal):
 
 
 def _fit(label: str, width: int) -> str:
-    """``label`` cut to ``width`` characters, ending in ``…`` when cut."""
-    fitted = label if len(label) <= width else label[: width - 1] + "…"
+    """``label`` padded or cut to ``width`` terminal cells (wide characters
+    count twice), ending in ``…`` when cut."""
+    if cell_len(label) <= width:
+        return set_cell_size(label, width)
+    fitted = set_cell_size(label, width - 1) + "…"
     return fitted
 
 

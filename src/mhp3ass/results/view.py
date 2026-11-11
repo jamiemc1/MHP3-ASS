@@ -181,6 +181,7 @@ class ResultsView:
         no_charm_solutions: Sequence[Solution],
         names: Sequence[str],
         sort_key: SortKey,
+        reverse: bool = False,
     ) -> ResultsView:
         """The lists with ``all_solutions``' charm ``names``, showing All."""
         view = cls(
@@ -190,6 +191,7 @@ class ResultsView:
             sort_key=sort_key,
             charm_filter=CharmFilter.every_solution(),
             final=SolutionSelection(all_solutions, []),
+            reverse=reverse,
         )
         view.show_filter()
         return view
@@ -213,10 +215,13 @@ class ResultsView:
         return view
 
     @classmethod
-    def from_search(cls, results: ResultSet, sort_key: SortKey = SortKey.NONE) -> ResultsView:
+    def from_search(
+        cls, results: ResultSet, sort_key: SortKey = SortKey.NONE, reverse: bool = False
+    ) -> ResultsView:
         """A finished search's lists: ``AddSolutions`` files each charm-free
         solution in ``all_solutions`` and in ``no_charm_solutions``, so the
-        charm-free list is a selection of ``all_solutions``."""
+        charm-free list is a selection of ``all_solutions``. Shown sorted by
+        ``sort_key``, reversed with ``reverse``, in one pass."""
         all_solutions = results.all_solutions
         names = charm_names(all_solutions)
         charm_free = [position for position, name in enumerate(names) if name == ""]
@@ -225,6 +230,7 @@ class ResultsView:
             no_charm_solutions=SolutionSelection(all_solutions, charm_free),
             names=names,
             sort_key=sort_key,
+            reverse=reverse,
         )
         return view
 
