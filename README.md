@@ -30,6 +30,8 @@ uv sync
 uv run pre-commit install
 uv run pytest
 uv run pre-commit run --all-files   # ruff format, ruff check, ty, pytest
+uv run pytest -m fuzz      # the full fuzz and L3 gates (minutes)
+uv run pytest -m results   # every settings.cfg save/load golden
 ```
 
 ## Importing charms from your save

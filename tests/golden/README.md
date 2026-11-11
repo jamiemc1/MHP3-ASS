@@ -21,7 +21,7 @@ the corpus and re-run `scripts/windows/generate-goldens.ps1` (see
 | `search/<query>.manifest.json` | Per-worker charm, solutions found and kept after duplicate removal, total |
 | `search/<query>.solutions.txt.gz` | Every solution, in `settings.cfg` line format (see `tests/corpus/README.md`) |
 | `search/<query>.candidates.txt.gz` | `gui_order_dependent` queries only: every solution found before duplicate removal, as `<worker>\t<charm name>\t<solution line>` |
-| `results/<query>.json.gz` | `results` output for each query in `tests/corpus/`: the `save`, `load` and `load_after_search` steps (see `harness/README.md`). The personal ones, plus `capture-<n>.json.gz` from each GUI capture's `settings.cfg` (`results-file`), go to `tests/savefile/golden/results/` |
+| `results/<query>.json.gz` | `results` output for each query in `tests/corpus/`: the `save`, `load` and `load_after_search` steps (see `harness/README.md`). The personal ones, plus `capture-<n>.json.gz` from each GUI capture's `settings.cfg` (`results-file`), go to `tests/savefile/golden/results/`. `tests/test_results_goldens.py` checks those of at most 8,000 lines by default and every one with `pytest -m results` |
 | `fuzz/<query>.manifest.json` | `search` output for each differential-fuzz query in `tests/fuzz/` (only with `generate-goldens.ps1 -Fuzz`): the search manifest plus `exception` (null unless a worker threw) |
 | `fuzz/<query>.solutions.txt.gz` | Solution lines, only for results of at most 5,000 lines; the manifest's hashes cover every result |
 | `traces/<spec>.jsonl.gz` | `traces` output for each spec in `tests/traces/`: a header with the per-worker census, then `MatchesQuery` stage by stage for each sampled combination (format in `tests/traces/README.md`) |

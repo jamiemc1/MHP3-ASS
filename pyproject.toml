@@ -48,7 +48,8 @@ include = ["src", "tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = ["--strict-markers", "--strict-config", "-m", "not fuzz"]
+addopts = ["--strict-markers", "--strict-config", "-m", "not fuzz and not results"]
 markers = [
-    "fuzz: the full gates (500 fuzz queries in the pool, L3 with the workers in turn, every settings.cfg results golden, the fuzz corpus's seed check; minutes); run with -m fuzz",
+    "fuzz: the full gates (500 fuzz queries in the pool, L3 with the workers in turn, the fuzz corpus's seed check; minutes); run with -m fuzz",
+    "results: the full settings.cfg save/load golden check (every results golden); run with -m results",
 ]
