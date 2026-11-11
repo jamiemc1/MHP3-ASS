@@ -259,12 +259,15 @@ def main(argv: list[str] | None = None) -> int:
     if not (sys.stdin.isatty() and sys.stdout.isatty()):
         parser.print_help()
         return 0
-    languages_dir = _default_data_dir() / "Languages"
+    data_dir = _default_data_dir()
+    languages_dir = data_dir / "Languages"
     language = default_language(language_folders(languages_dir))
     if language is None:
         raise FileNotFoundError(f"no language folders in {languages_dir}")
+    game = load_game_data(data_dir)
+    apply_language(game, languages_dir / language)
     strings = load_strings(languages_dir / language)
-    app = SearchApp(language=language, strings=strings, form=QueryForm.starting())
+    app = SearchApp(language=language, game=game, strings=strings, form=QueryForm.starting())
     app.run()
     exit_code = app.return_code if app.return_code is not None else 0
     return exit_code

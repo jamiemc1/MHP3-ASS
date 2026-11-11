@@ -50,6 +50,36 @@ def test_switching_to_gunner_shows_the_gunner_rows_and_keeps_both(form_with_gunn
     assert gunner_form.skill_rows == form_with_gunner_rows_filtered.skill_rows
 
 
+@pytest.fixture
+def misc_rows() -> tuple[SkillRow, ...]:
+    """Six empty rows filtered by Misc, unlike either tab of the fixture form."""
+    rows = tuple(SkillRow(filter_index=1, skill=None) for _ in range(6))
+    return rows
+
+
+def test_new_blademaster_rows_keep_the_gunner_tab(form_with_gunner_rows_filtered, misc_rows):
+    updated = form_with_gunner_rows_filtered.with_current_rows(misc_rows)
+
+    assert updated.skill_rows == SkillRowsByHunter(
+        blademaster=misc_rows, gunner=form_with_gunner_rows_filtered.skill_rows.gunner
+    )
+
+
+def test_new_gunner_rows_keep_the_blademaster_tab(form_with_gunner_rows_filtered, misc_rows):
+    gunner_form = replace(form_with_gunner_rows_filtered, hunter_type=HunterType.GUNNER)
+
+    updated = gunner_form.with_current_rows(misc_rows)
+
+    assert updated.skill_rows == SkillRowsByHunter(
+        blademaster=gunner_form.skill_rows.blademaster, gunner=misc_rows
+    )
+
+
+def test_new_rows_without_six_rows_raise():
+    with pytest.raises(ValueError, match="the Blademaster tab has six skill rows, not 0"):
+        QueryForm.starting().with_current_rows(())
+
+
 @pytest.mark.parametrize(
     ("field", "value", "message"),
     [

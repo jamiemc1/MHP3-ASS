@@ -13,14 +13,16 @@ from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.widgets import Label, Select
 
+from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
 from mhp3ass.query_form import QueryForm
+from mhp3ass.tui.skill_picker import SkillPicker
 
 
 class QueryEditor(Vertical):
-    """The form's drop-downs. ``form`` follows every change."""
+    """The form's drop-downs and skill picker. ``form`` follows every change."""
 
     DEFAULT_CSS = """
     QueryEditor {
@@ -47,9 +49,10 @@ class QueryEditor(Vertical):
     }
     """
 
-    def __init__(self, form: QueryForm, strings: DisplayStrings) -> None:
+    def __init__(self, form: QueryForm, game: GameData, strings: DisplayStrings) -> None:
         super().__init__(id="query")
         self.form = form
+        self._game = game
         self._strings = strings
 
     def compose(self) -> ComposeResult:
@@ -87,6 +90,7 @@ class QueryEditor(Vertical):
                 allow_blank=False,
                 id="charm_mode",
             )
+        yield SkillPicker(self._game, strings=strings, rows=self.form.current_rows())
 
     def on_select_changed(self, event: Select.Changed) -> None:
         # The form's selects are those whose id is the QueryForm field they set.
@@ -96,6 +100,12 @@ class QueryEditor(Vertical):
         event.stop()
         changes: dict[str, Any] = {field: event.value}
         self.form = replace(self.form, **changes)
+        if field == "hunter_type":
+            self.query_one(SkillPicker).show_rows(self.form.current_rows())
+
+    def on_skill_picker_rows_changed(self, event: SkillPicker.RowsChanged) -> None:
+        event.stop()
+        self.form = self.form.with_current_rows(event.rows)
 
 
 def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Select[int]:
