@@ -14,8 +14,10 @@ from mhp3ass.model import AbilityPair, ArmorType, Charm
 from mhp3ass.results.result_set import (
     ResultSet,
     SolutionList,
+    charm_names,
     hash_armor,
     hash_armor_indices,
+    lines_of,
     lines_sha256,
     record_line,
     skill_indices,
@@ -338,6 +340,47 @@ def test_charm_names_come_from_the_records(empty_record, attack_record, teamhgg_
     names = found.charm_names()
 
     assert names == [charm_name(charm_from_record(attack_record, teamhgg_game)), ""]
+
+
+@pytest.fixture
+def charmed_and_charm_free_records(empty_record, attack_record) -> list[SolutionRecord]:
+    """A charmed record with every piece, then a charm-free one with every slot empty."""
+    charmed = replace(empty_record, armors=(2, 2, 2, 2, 2), charm=attack_record)
+    return [charmed, empty_record]
+
+
+def test_charm_names_read_records_as_the_solutions_they_rebuild(
+    attack_record, charmed_and_charm_free_records, teamhgg_game
+):
+    from_records = charm_names(
+        SolutionList.of_records(charmed_and_charm_free_records, teamhgg_game)
+    )
+    rebuilt = list(SolutionList.of_records(charmed_and_charm_free_records, teamhgg_game))
+
+    from_solutions = charm_names(rebuilt)
+
+    assert (
+        from_solutions
+        == from_records
+        == [charm_name(charm_from_record(attack_record, teamhgg_game)), ""]
+    )
+
+
+def test_lines_read_records_as_the_solutions_they_rebuild(
+    charmed_and_charm_free_records, teamhgg_game
+):
+    skill_index = skill_indices(teamhgg_game)
+    from_records = lines_of(
+        SolutionList.of_records(charmed_and_charm_free_records, teamhgg_game), skill_index
+    )
+    rebuilt = list(SolutionList.of_records(charmed_and_charm_free_records, teamhgg_game))
+
+    from_solutions = lines_of(rebuilt, skill_index)
+
+    assert from_solutions == from_records
+    # Slots, pair count, then each pair's amount and ability; the charm-free line has no charm.
+    assert [line.split()[:5] for line in from_solutions] == [["2"] * 5, ["-1"] * 5]
+    assert from_solutions[0].split()[-4:] == ["1", "1", "4", "1"]
 
 
 def test_a_charmed_record_with_an_empty_slot_throws(empty_record, attack_record, teamhgg_game):
