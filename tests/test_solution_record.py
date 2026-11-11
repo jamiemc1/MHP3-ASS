@@ -245,12 +245,6 @@ def test_record_with_every_index_in_range_rebuilds(empty_record, teamhgg_game):
     assert rebuilt.abilities == {teamhgg_game.abilities[3]: 5}
 
 
-@pytest.fixture(scope="module")
-def other_game(load_teamhgg_game):
-    """A second copy of the same game: equal data, different record objects."""
-    return load_teamhgg_game()
-
-
 def _mixed_solution(own, other, foreign_field):
     """A solution with a head piece, a charm pair, a decoration, an extra skill and
     an ability total, each from ``own`` except ``foreign_field``'s, from ``other``."""
@@ -274,14 +268,14 @@ def _mixed_solution(own, other, foreign_field):
     "foreign_field",
     ["armour", "decoration", "extra_skill", "ability", "charm_ability"],
 )
-def test_record_from_another_game_raises(foreign_field, index, teamhgg_game, other_game):
-    solution = _mixed_solution(teamhgg_game, other_game, foreign_field)
+def test_record_from_another_game_raises(foreign_field, index, teamhgg_game, other_teamhgg_game):
+    solution = _mixed_solution(teamhgg_game, other_teamhgg_game, foreign_field)
     with pytest.raises(ValueError):
         to_record(solution, index)
 
 
-def test_solution_of_the_index_game_does_not_raise(index, teamhgg_game, other_game):
-    solution = _mixed_solution(teamhgg_game, other_game, foreign_field=None)
+def test_solution_of_the_index_game_does_not_raise(index, teamhgg_game, other_teamhgg_game):
+    solution = _mixed_solution(teamhgg_game, other_teamhgg_game, foreign_field=None)
     record = to_record(solution, index)
     assert record.armors == (1, -1, -1, -1, -1)
     assert record.extra_skills == (0,)

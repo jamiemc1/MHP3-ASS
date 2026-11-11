@@ -54,12 +54,11 @@ def attack_med_in_row_three(choose_skills) -> SkillRowsByHunter:
 
 
 @pytest.fixture
-def sharp_sword_in_another_game(load_teamhgg_game) -> SkillRowsByHunter:
+def sharp_sword_in_another_game(other_teamhgg_game) -> SkillRowsByHunter:
     """Blademaster row 0 holds Sharp Sword from a separately loaded copy of the game."""
-    other_game = load_teamhgg_game()
     rows = SkillRowsByHunter(
         blademaster=select_skill(
-            other_game, starting_rows(), 0, other_game.skill_map["Sharp Sword"]
+            other_teamhgg_game, starting_rows(), 0, other_teamhgg_game.skill_map["Sharp Sword"]
         ),
         gunner=starting_rows(),
     )
