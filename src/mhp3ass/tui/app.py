@@ -2,21 +2,41 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+from threading import Event
 from typing import ClassVar
 
+from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
-from textual.widgets import DataTable, Footer, Header, Static
+from textual.widgets import Button, DataTable, Footer, Header, Static
 
-from mhp3ass.data import GameData
+from mhp3ass.charms.my_charms import MyCharmsFileError
 from mhp3ass.data.strings import DisplayStrings
+from mhp3ass.data.text import read_lines
+from mhp3ass.query import QueryError, SearchSpec
 from mhp3ass.query_form import QueryForm
+from mhp3ass.results.result_set import SearchResult
+from mhp3ass.search import (
+    SearchCancelled,
+    SearchData,
+    WorkerPool,
+    dotnet_exception_type,
+    run_search,
+)
+from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.tui.query_editor import QueryEditor
+from mhp3ass.tui.search_progress import SearchProgress
+from mhp3ass.tui.skill_picker import SkillPicker
 
 
 class SearchApp(App[None]):
     """The main screen: a header naming the language, the query editor, the
-    results table and the footer of keys."""
+    search's progress, the results table and the footer of keys.
+
+    One search runs at a time, in a thread. Each search has a number, and the
+    progress and results of any search but the latest are dropped, so a
+    cancelled search can't overwrite the view."""
 
     TITLE = "MHP3 Armor Set Search"
     CSS = """
@@ -31,6 +51,8 @@ class SearchApp(App[None]):
     """
     BINDINGS: ClassVar[list[BindingType]] = [
         ("q", "quit", "Quit"),
+        Binding("ctrl+s", "search", "Search"),
+        Binding("escape", "cancel_search", "Cancel", show=False),
         Binding("h", "focus('hunter_type')", "Hunter", show=False),
         Binding("g", "focus('gender')", "Gender", show=False),
         Binding("r", "focus('hr')", "HR", show=False),
@@ -41,16 +63,30 @@ class SearchApp(App[None]):
     ]
 
     def __init__(
-        self, language: str, game: GameData, strings: DisplayStrings, form: QueryForm
+        self,
+        language: str,
+        data: SearchData,
+        strings: DisplayStrings,
+        form: QueryForm,
+        pool: WorkerPool | None,
+        my_charms_path: Path,
     ) -> None:
         super().__init__()
         self.sub_title = language
+        self._language = language
+        self._data = data
+        self._pool = pool
+        self._my_charms_path = my_charms_path
         # The editor owns the form; read it as ``self.editor.form``.
-        self.editor = QueryEditor(form, game=game, strings=strings)
+        self.editor = QueryEditor(form, game=data.game, strings=strings)
+        self.result: SearchResult | None = None
+        self._search_number = 0
+        self._cancel: Event | None = None
 
     def compose(self) -> ComposeResult:
         yield Header()
         yield self.editor
+        yield SearchProgress()
         yield Static("Choose up to six skills, then Search.", id="hint")
         yield DataTable(id="results", cursor_type="row", zebra_stripes=True)
         yield Footer()
@@ -58,3 +94,88 @@ class SearchApp(App[None]):
     def on_mount(self) -> None:
         table = self.query_one("#results", DataTable)
         table.add_columns("#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm")
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "search":
+            event.stop()
+            self.action_search()
+
+    def on_skill_picker_search_requested(self, event: SkillPicker.SearchRequested) -> None:
+        event.stop()
+        self.action_search()
+
+    def action_search(self) -> None:
+        if self._cancel is not None:
+            return
+        spec = self.editor.form.search_spec(
+            self._data.game,
+            language=self._language,
+            my_charms=tuple(read_lines(self._my_charms_path)),
+        )
+        if not spec.query.skills:
+            self.notify("Choose at least one skill first.")
+            return
+        self._search_number += 1
+        self._cancel = Event()
+        self.query_one(SearchProgress).start()
+        self._run_search(spec, number=self._search_number, cancel=self._cancel)
+
+    def action_cancel_search(self) -> None:
+        """Stop the search and keep the view as it was before it started."""
+        if self._cancel is None:
+            return
+        self._cancel.set()
+        self._finish_search()
+
+    @work(thread=True, group="search")
+    def _run_search(self, spec: SearchSpec, number: int, cancel: Event) -> None:
+        try:
+            result = run_search(
+                spec,
+                data=self._data,
+                record_exceptions=True,
+                pool=self._pool,
+                on_progress=lambda done, total: self.call_from_thread(
+                    self._show_progress, number, done, total
+                ),
+                cancel=cancel,
+            )
+        except SearchCancelled:
+            return
+        except (QueryError, MyCharmsFileError, LegacyNullReferenceError, LookupError) as error:
+            # A skill or my-charms line the original would refuse, or a throw
+            # the original's GUI reports outside the workers (quirk 35).
+            self.call_from_thread(self._search_failed, number, error)
+            return
+        self.call_from_thread(self._search_finished, number, result)
+
+    def _show_progress(self, number: int, done: int, total: int) -> None:
+        if number == self._search_number and self._cancel is not None:
+            self.query_one(SearchProgress).advance(done, total)
+
+    def _search_finished(self, number: int, result: SearchResult) -> None:
+        if number != self._search_number or self._cancel is None:
+            return
+        self._finish_search()
+        self.result = result
+        count = len(result.results.all_solutions)
+        summary = f"{count:,} sets."
+        if result.exception is not None:
+            summary += (
+                f" Worker {result.exception.worker + 1} of {result.worker_count} stopped with "
+                f"{result.exception.type}, as the original's would; its sets and later "
+                "workers' are missing."
+            )
+        self.query_one("#hint", Static).update(summary)
+
+    def _search_failed(self, number: int, error: Exception) -> None:
+        if number != self._search_number or self._cancel is None:
+            return
+        self._finish_search()
+        exception_type = dotnet_exception_type(error)
+        message = str(error) if exception_type is None else f"The original throws {exception_type}"
+        self.notify(message, title="Search failed", severity="error")
+
+    def _finish_search(self) -> None:
+        self._cancel = None
+        self.query_one(SearchProgress).stop()

@@ -259,15 +259,34 @@ def main(argv: list[str] | None = None) -> int:
     if not (sys.stdin.isatty() and sys.stdout.isatty()):
         parser.print_help()
         return 0
-    data_dir = _default_data_dir()
+    exit_code = _run_tui(_default_data_dir())
+    return exit_code
+
+
+def _run_tui(data_dir: Path) -> int:
+    """The app, with the pool's processes booting while the data loads.
+
+    Until the saved-data folder exists, my charms are the data folder's
+    ``mycharms.txt``, where the original keeps them (``Data/mycharms.txt``).
+    """
     languages_dir = data_dir / "Languages"
     language = default_language(language_folders(languages_dir))
     if language is None:
         raise FileNotFoundError(f"no language folders in {languages_dir}")
-    game = load_game_data(data_dir)
-    apply_language(game, languages_dir / language)
-    strings = load_strings(languages_dir / language)
-    app = SearchApp(language=language, game=game, strings=strings, form=QueryForm.starting())
-    app.run()
+    jobs = default_jobs()
+    with ExitStack() as stack:
+        pool = stack.enter_context(SearchPool(jobs=jobs)) if jobs > 1 else None
+        if pool is not None:
+            pool.start()
+        data = SearchData.load(data_dir, language=language)
+        app = SearchApp(
+            language=language,
+            data=data,
+            strings=load_strings(languages_dir / language),
+            form=QueryForm.starting(),
+            pool=pool,
+            my_charms_path=data_dir / "mycharms.txt",
+        )
+        app.run()
     exit_code = app.return_code if app.return_code is not None else 0
     return exit_code
