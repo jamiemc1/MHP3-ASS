@@ -28,7 +28,7 @@ class SearchApp(App[None]):
 
     def __init__(self, language: str | None) -> None:
         super().__init__()
-        self._language = language
+        self.sub_title = language if language is not None else ""
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -37,6 +37,5 @@ class SearchApp(App[None]):
         yield Footer()
 
     def on_mount(self) -> None:
-        self.sub_title = self._language if self._language is not None else ""
         table = self.query_one("#results", DataTable)
         table.add_columns("#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm")

@@ -42,7 +42,8 @@ uv run mhp3-ass
 
 Opens the search screen. It's being built: so far it shows the header,
 an empty results table and the keys (`q` quits, `^P` opens the command
-palette).
+palette). Outside a terminal it prints the help instead; `mhp3-ass --help`
+lists the `search` and `import-save` commands below.
 
 ## Importing charms from your save
 
