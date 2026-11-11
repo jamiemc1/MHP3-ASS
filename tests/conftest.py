@@ -428,8 +428,7 @@ def corpus_spec(repo_root: Path) -> Callable[[str], SearchSpec]:
 def serial_search(
     corpus_spec: Callable[[str], SearchSpec], search_data_for: Callable[[SearchSpec], SearchData]
 ) -> Callable[[str], SearchResult]:
-    """``run_search`` of a public corpus query, run once per session. Callers must
-    not mutate the result."""
+    """``run_search`` of a public corpus query, run once per session."""
 
     @lru_cache(maxsize=8)
     def search(file_name: str) -> SearchResult:
