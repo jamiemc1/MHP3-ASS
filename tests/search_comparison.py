@@ -11,8 +11,14 @@ from dataclasses import dataclass
 from typing import Any
 
 from goldens import Candidate
+from mhp3ass.data import GameData
 from mhp3ass.query import SearchSpec
-from mhp3ass.results.result_set import candidate_lines, search_manifest, solution_lines
+from mhp3ass.results.result_set import (
+    SearchResult,
+    candidate_lines,
+    search_manifest,
+    solution_lines,
+)
 from mhp3ass.search import SearchData, WorkerPool, run_search
 
 
@@ -82,6 +88,24 @@ def _rows_difference(
     return difference
 
 
+def search_golden_query(
+    query: dict[str, Any],
+    manifest: dict[str, Any],
+    search_data: dict[str, SearchData],
+    pool: WorkerPool | None,
+) -> SearchResult:
+    """``run_search`` of a golden's query, recording exceptions when its manifest does.
+    ``pool`` runs the workers; ``None`` runs them in turn."""
+    spec = SearchSpec.from_json(query)
+    result = run_search(
+        spec,
+        data=search_data[spec.query.language],
+        record_exceptions="exception" in manifest,
+        pool=pool,
+    )
+    return result
+
+
 def compare_search(
     *,
     query: dict[str, Any],
@@ -92,29 +116,48 @@ def compare_search(
     max_solution_lines: int,
     pool: WorkerPool | None,
 ) -> SearchComparison:
-    """Run ``query`` and compare it with the harness's manifest, and with its
+    """``compare_result`` of a new ``search_golden_query``."""
+    result = search_golden_query(query=query, manifest=manifest, search_data=search_data, pool=pool)
+    comparison = compare_result(
+        query=query,
+        manifest=manifest,
+        golden_lines=golden_lines,
+        golden_candidates=golden_candidates,
+        result=result,
+        game=search_data[SearchSpec.from_json(query).query.language].game,
+        max_solution_lines=max_solution_lines,
+    )
+    return comparison
+
+
+def compare_result(
+    *,
+    query: dict[str, Any],
+    manifest: dict[str, Any],
+    golden_lines: list[str] | None,
+    golden_candidates: list[Candidate] | None,
+    result: SearchResult,
+    game: GameData,
+    max_solution_lines: int,
+) -> SearchComparison:
+    """Compare ``query``'s search with the harness's manifest, and with its
     solution lines and candidates where the harness wrote them.
     ``max_solution_lines`` is the limit the harness ran with (below 0: none).
-    ``pool`` runs the workers; ``None`` runs them in turn.
 
     Without solution lines (a fuzz query over 5,000 solutions) the manifest
     still pins every worker's count and hash and both set hashes.
     """
-    spec = SearchSpec.from_json(query)
-    data = search_data[spec.query.language]
-    record_exceptions = "exception" in manifest
-    result = run_search(spec, data=data, record_exceptions=record_exceptions, pool=pool)
     our_manifest = search_manifest(
-        query, result=result, game=data.game, max_solution_lines=max_solution_lines
+        query, result=result, game=game, max_solution_lines=max_solution_lines
     )
     lines_difference = None
     if golden_lines is not None:
-        lines_difference = _lines_difference(solution_lines(result, game=data.game), golden_lines)
+        lines_difference = _lines_difference(solution_lines(result, game=game), golden_lines)
     candidates_difference = None
     if golden_candidates is not None:
         ours = [
             (candidate.worker, candidate.charm_name, candidate.solution_line)
-            for candidate in candidate_lines(result, game=data.game)
+            for candidate in candidate_lines(result, game=game)
         ]
         expected = [
             (candidate.worker, candidate.charm_name, candidate.solution_line)

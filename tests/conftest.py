@@ -33,6 +33,7 @@ from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
 from mhp3ass.search import SearchData, run_search
 from mhp3ass.solution.state import Solution, new_calculation_data
+from search_comparison import search_golden_query
 
 
 @pytest.fixture(scope="session")
@@ -408,6 +409,39 @@ def search_pool() -> Generator[SearchPool]:
     """A pool at the default width for the session, so tests pay the process start-up once."""
     with SearchPool() as pool:
         yield pool
+
+
+def _pooled_searches(
+    goldens: list[SearchGolden], search_data: dict[str, SearchData], pool: SearchPool
+) -> dict[str, SearchResult]:
+    searches = {
+        golden.manifest["id"]: search_golden_query(
+            query=golden.query, manifest=golden.manifest, search_data=search_data, pool=pool
+        )
+        for golden in goldens
+    }
+    return searches
+
+
+@pytest.fixture(scope="session")
+def pooled_searches(
+    search_goldens: list[SearchGolden],
+    search_data_by_language: dict[str, SearchData],
+    search_pool: SearchPool,
+) -> dict[str, SearchResult]:
+    """Each committed corpus query's search in the session pool, by query id, run
+    once. A test that loads into a search's ``ResultSet`` copies it first."""
+    return _pooled_searches(search_goldens, search_data_by_language, search_pool)
+
+
+@pytest.fixture(scope="session")
+def personal_pooled_searches(
+    personal_search_goldens: list[SearchGolden],
+    search_data_by_language: dict[str, SearchData],
+    search_pool: SearchPool,
+) -> dict[str, SearchResult]:
+    """``pooled_searches`` for the personal corpus."""
+    return _pooled_searches(personal_search_goldens, search_data_by_language, search_pool)
 
 
 @pytest.fixture(params=["serial", "pool"])
