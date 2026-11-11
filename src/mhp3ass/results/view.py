@@ -10,9 +10,10 @@ Ported from ``Form1``'s result lists (``legacy/Form1.h:110-113``),
 Which list holds which solutions is the original's, since ``settings.cfg``
 and the filters are built from them: ``all_solutions`` in arrival order, the
 charm-free ones, and each charm name's solutions. How they are shown is the
-port's own: a sort is stable from the order on screen, None shows the
-arrival order (quirk 27), and the charm names are listed in case-insensitive
-alphabetical order rather than by the Windows culture's rules (quirk 42).
+port's own: each key's ties are in a fixed order (highest defence, fewest
+jewels, arrival), a sort can be reversed, None shows the arrival order
+(quirk 27), and the charm names are listed in case-insensitive alphabetical
+order rather than by the Windows culture's rules (quirk 42).
 """
 
 from __future__ import annotations
@@ -23,6 +24,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, overload
 
+from mhp3ass.data.text import as_signed
 from mhp3ass.results.result_set import ResultSet, charm_names
 from mhp3ass.results.sorting import SortKey, solution_comparison
 from mhp3ass.solution.state import Solution
@@ -70,21 +72,35 @@ class SolutionSelection(Sequence[Solution]):
 
 
 def sorted_positions(
-    source: Sequence[Solution], positions: Sequence[int], key: SortKey
+    source: Sequence[Solution], positions: Sequence[int], key: SortKey, reverse: bool = False
 ) -> list[int]:
-    """``SortResults`` on ``source``'s solutions at ``positions``: stable, so
-    ties keep the order of ``positions``; None leaves it alone. Each solution
-    is read from ``source`` once."""
+    """The order ``source``'s solutions at ``positions`` (in arrival order) are
+    shown in: by ``key``'s stat and direction, as ``SortResults``, with ties
+    in a fixed order, highest defence, then fewest jewels, then arrival.
+    ``reverse`` flips the key's direction and leaves the ties' order alone.
+    None shows the arrival order (reversed with ``reverse``). Each solution is
+    read from ``source`` once."""
     comparison = solution_comparison(key)
     if comparison is None:
-        return list(positions)
-    solution_order = functools.cmp_to_key(comparison)
+        shown = list(reversed(positions)) if reverse else list(positions)
+        return shown
+    solutions = [source[position] for position in positions]
 
-    def order_of(position: int) -> Any:
-        order = solution_order(source[position])
+    def tie_order(rank: int) -> tuple[int, int, int]:
+        solution = solutions[rank]
+        order = (-as_signed(solution.defence), len(solution.decorations), rank)
         return order
 
-    ordered = sorted(positions, key=order_of)
+    solution_order = functools.cmp_to_key(comparison)
+
+    def key_order(rank: int) -> Any:
+        order = solution_order(solutions[rank])
+        return order
+
+    # Two stable sorts: ties first, then the key, so equal keys keep the tie order.
+    ranks = sorted(range(len(solutions)), key=tie_order)
+    ranks.sort(key=key_order, reverse=reverse)
+    ordered = [positions[rank] for rank in ranks]
     return ordered
 
 
@@ -156,6 +172,7 @@ class ResultsView:
     sort_key: SortKey
     charm_filter: CharmFilter
     final: SolutionSelection
+    reverse: bool = False
 
     @classmethod
     def _showing_all(
@@ -235,7 +252,8 @@ class ResultsView:
             positions = range(len(source))
         elif charm_filter.charm_name is not None and charm_filter.charm_name in self.by_charm:
             positions = self.by_charm[charm_filter.charm_name]
-        self.final = SolutionSelection(source, sorted_positions(source, positions, self.sort_key))
+        ordered = sorted_positions(source, positions, self.sort_key, reverse=self.reverse)
+        self.final = SolutionSelection(source, ordered)
 
     def select_filter(self, charm_filter: CharmFilter) -> None:
         """Choose a charm filter item."""
@@ -243,21 +261,19 @@ class ResultsView:
         self.show_filter()
 
     def select_sort(self, key: SortKey) -> None:
-        """``cmbSort_SelectedIndexChanged``: sort what is shown by ``key``,
-        from its current order, so ties keep the previous sort's order.
-        None shows the filter's list in arrival order."""
+        """``cmbSort_SelectedIndexChanged``: show the filter's list sorted by
+        ``key`` (``sorted_positions``); the previous sort leaves no trace."""
         if key == self.sort_key:
             return
         self.sort_key = key
-        if len(self.final) == 0:
+        self.show_filter()
+
+    def select_reverse(self, reverse: bool) -> None:
+        """Flip the sort key's direction, or set it back."""
+        if reverse == self.reverse:
             return
-        if key is SortKey.NONE:
-            self.show_filter()
-            return
-        self.final = SolutionSelection(
-            self.final.source,
-            sorted_positions(self.final.source, self.final.positions, key),
-        )
+        self.reverse = reverse
+        self.show_filter()
 
     def relanguage(self) -> None:
         """The results part of ``LanguageSelect_Click``, after the game's
