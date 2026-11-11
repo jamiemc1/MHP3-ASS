@@ -45,6 +45,14 @@ class QueryForm:
             raise ValueError(f"village must be 1 to 6, not {self.elder_star}")
         if not 0 <= self.weapon_slots <= 3:
             raise ValueError(f"weapon slots must be 0 to 3, not {self.weapon_slots}")
+        if not isinstance(self.charm_mode, CharmMode):
+            raise ValueError(f"charm mode must be a CharmMode, not {self.charm_mode!r}")
+        for tab, rows in (
+            ("Blademaster", self.skill_rows.blademaster),
+            ("Gunner", self.skill_rows.gunner),
+        ):
+            if len(rows) != 6:
+                raise ValueError(f"the {tab} tab has six skill rows, not {len(rows)}")
 
     @classmethod
     def starting(cls) -> QueryForm:

@@ -41,12 +41,12 @@ class SearchApp(App[None]):
     def __init__(self, language: str, strings: DisplayStrings, form: QueryForm) -> None:
         super().__init__()
         self.sub_title = language
-        self._strings = strings
-        self._form = form
+        # The editor owns the form; read it as ``self.editor.form``.
+        self.editor = QueryEditor(form, strings=strings)
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield QueryEditor(self._form, strings=self._strings)
+        yield self.editor
         yield Static("Choose up to six skills, then Search.", id="hint")
         yield DataTable(id="results", cursor_type="row", zebra_stripes=True)
         yield Footer()
