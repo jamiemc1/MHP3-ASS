@@ -90,6 +90,7 @@ class SkillPicker(Vertical):
         self.rows = rows
         self.hunter_type = hunter_type
         self._offered: list[Skill] = []
+        self._browsed = False
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="chips"):
@@ -119,7 +120,8 @@ class SkillPicker(Vertical):
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         event.stop()
-        if event.value.strip() == "":
+        # An empty box searches, unless ▲▼ has picked a skill from the list.
+        if event.value.strip() == "" and not self._browsed:
             self.post_message(self.SearchRequested())
             return
         options = self.query_one("#skill_options", OptionList)
@@ -160,6 +162,7 @@ class SkillPicker(Vertical):
         if event.key not in ("up", "down") or not isinstance(self.app.focused, SkillSearch):
             return
         event.stop()
+        self._browsed = True
         options = self.query_one("#skill_options", OptionList)
         if event.key == "up":
             options.action_cursor_up()
@@ -187,6 +190,8 @@ class SkillPicker(Vertical):
         self._refresh_offered()
 
     def _refresh_offered(self) -> None:
+        # A rebuilt list starts at its top, so nothing has been picked from it yet.
+        self._browsed = False
         tag = self.query_one("#skill_tag", Select).value
         text = self.query_one("#skill_search", SkillSearch).value
         full = rows_full(self.rows)

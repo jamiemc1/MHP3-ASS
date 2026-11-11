@@ -9,12 +9,14 @@ from typing import ClassVar
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
+from textual.message import Message
 from textual.widgets import Button, DataTable, Footer, Header, Static
+from textual.worker import Worker
 
 from mhp3ass.charms.my_charms import MyCharmsFileError
 from mhp3ass.data.strings import DisplayStrings
 from mhp3ass.data.text import read_lines
-from mhp3ass.query import QueryError, SearchSpec
+from mhp3ass.query import QueryError
 from mhp3ass.query_form import QueryForm
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.search import (
@@ -28,6 +30,16 @@ from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.tui.query_editor import QueryEditor
 from mhp3ass.tui.search_progress import SearchProgress
 from mhp3ass.tui.skill_picker import SkillPicker
+
+
+class Progressed(Message):
+    """A search's combinations checked so far, posted from its thread."""
+
+    def __init__(self, number: int, done: int, total: int) -> None:
+        super().__init__()
+        self.number = number
+        self.done = done
+        self.total = total
 
 
 class SearchApp(App[None]):
@@ -82,6 +94,8 @@ class SearchApp(App[None]):
         self.result: SearchResult | None = None
         self._search_number = 0
         self._cancel: Event | None = None
+        self._worker: Worker[None] | None = None
+        self._search_waiting = False
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -107,18 +121,20 @@ class SearchApp(App[None]):
     def action_search(self) -> None:
         if self._cancel is not None:
             return
-        spec = self.editor.form.search_spec(
-            self._data.game,
-            language=self._language,
-            my_charms=tuple(read_lines(self._my_charms_path)),
-        )
-        if not spec.query.skills:
+        # A cancelled search's thread may still be stopping, and the pool runs
+        # one search at a time: this one starts when that thread returns.
+        if self._worker is not None and not self._worker.is_finished:
+            self._search_waiting = True
+            return
+        self._search_waiting = False
+        form = self.editor.form
+        if not any(row.skill is not None for row in form.current_rows()):
             self.notify("Choose at least one skill first.")
             return
         self._search_number += 1
         self._cancel = Event()
         self.query_one(SearchProgress).start()
-        self._run_search(spec, number=self._search_number, cancel=self._cancel)
+        self._worker = self._run_search(form, number=self._search_number, cancel=self._cancel)
 
     def action_cancel_search(self) -> None:
         """Stop the search and keep the view as it was before it started."""
@@ -127,31 +143,56 @@ class SearchApp(App[None]):
         self._cancel.set()
         self._finish_search()
 
+    async def action_quit(self) -> None:
+        # The search thread can't be killed; cancelling lets it return.
+        if self._cancel is not None:
+            self._cancel.set()
+        self.exit()
+
+    def on_worker_state_changed(self, event: Worker.StateChanged) -> None:
+        if event.worker is self._worker and event.worker.is_finished and self._search_waiting:
+            self.action_search()
+
+    def on_progressed(self, event: Progressed) -> None:
+        if event.number == self._search_number and self._cancel is not None:
+            self.query_one(SearchProgress).advance(event.done, event.total)
+
     @work(thread=True, group="search")
-    def _run_search(self, spec: SearchSpec, number: int, cancel: Event) -> None:
+    def _run_search(self, form: QueryForm, number: int, cancel: Event) -> None:
+        def report(done: int, total: int) -> None:
+            # post_message doesn't wait for the UI, so the search doesn't either.
+            self.post_message(Progressed(number=number, done=done, total=total))
+
         try:
+            spec = form.search_spec(
+                self._data.game,
+                language=self._language,
+                my_charms=tuple(read_lines(self._my_charms_path)),
+            )
             result = run_search(
                 spec,
                 data=self._data,
                 record_exceptions=True,
                 pool=self._pool,
-                on_progress=lambda done, total: self.call_from_thread(
-                    self._show_progress, number, done, total
-                ),
+                on_progress=report,
                 cancel=cancel,
             )
         except SearchCancelled:
             return
-        except (QueryError, MyCharmsFileError, LegacyNullReferenceError, LookupError) as error:
-            # A skill or my-charms line the original would refuse, or a throw
-            # the original's GUI reports outside the workers (quirk 35).
+        except (
+            OSError,
+            UnicodeDecodeError,
+            QueryError,
+            MyCharmsFileError,
+            LegacyNullReferenceError,
+            LookupError,
+        ) as error:
+            # mycharms.txt missing or not UTF-8, a skill or my-charms line the
+            # original would refuse, or a throw the original's GUI reports
+            # outside the workers (quirk 35).
             self.call_from_thread(self._search_failed, number, error)
             return
         self.call_from_thread(self._search_finished, number, result)
-
-    def _show_progress(self, number: int, done: int, total: int) -> None:
-        if number == self._search_number and self._cancel is not None:
-            self.query_one(SearchProgress).advance(done, total)
 
     def _search_finished(self, number: int, result: SearchResult) -> None:
         if number != self._search_number or self._cancel is None:
