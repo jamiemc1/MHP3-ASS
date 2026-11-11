@@ -13,9 +13,16 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 
+from mhp3ass.data import GameData
 from mhp3ass.model import Gender, HunterType
-from mhp3ass.query import CharmMode
-from mhp3ass.skill_picker import SkillRow, SkillRowsByHunter, starting_rows
+from mhp3ass.query import CharmMode, QuerySpec, SearchSpec
+from mhp3ass.skill_picker import (
+    SkillRow,
+    SkillRowsByHunter,
+    query_skills,
+    saved_skill_index,
+    starting_rows,
+)
 
 
 @dataclass(frozen=True)
@@ -77,6 +84,32 @@ class QueryForm:
         if self.hunter_type is HunterType.GUNNER:
             return self.skill_rows.gunner
         return self.skill_rows.blademaster
+
+    def search_spec(
+        self, game: GameData, language: str, my_charms: tuple[str, ...], query_id: str = "tui"
+    ) -> SearchSpec:
+        """The search ``FormulateQuery`` builds from the form (``Form1.h:1184-1214``):
+        the shown tab's skills in row order, with ``my_charms`` (``mycharms.txt``'s
+        lines) for the charm modes that read them. ``game`` must be in ``language``."""
+        chosen_rows = [row for row in self.current_rows() if row.skill is not None]
+        skills = query_skills(chosen_rows)
+        query = QuerySpec(
+            id=query_id,
+            language=language,
+            hunter_type=self.hunter_type,
+            gender=self.gender,
+            hr=self.hr,
+            elder_star=self.elder_star,
+            weapon_slots=self.weapon_slots,
+            allow_bad=self.allow_bad,
+            include_piercings=self.allow_piercings,
+            allow_event=self.allow_event,
+            allow_low_rank=self.allow_low_rank,
+            skills=tuple(saved_skill_index(game, row) for row in chosen_rows),
+            skill_names=tuple(skill.name for skill in skills),
+        )
+        spec = SearchSpec(query=query, charm_mode=self.charm_mode, my_charms=my_charms)
+        return spec
 
     def with_rows(self, hunter_type: HunterType, rows: tuple[SkillRow, ...]) -> QueryForm:
         """The form with ``hunter_type``'s tab's rows replaced; the other tab's are kept."""
