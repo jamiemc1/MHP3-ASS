@@ -50,5 +50,5 @@ include = ["src", "tests"]
 testpaths = ["tests"]
 addopts = ["--strict-markers", "--strict-config", "-m", "not fuzz"]
 markers = [
-    "fuzz: the full gates (500 fuzz queries in the pool, L3 with the workers in turn; minutes); run with -m fuzz",
+    "fuzz: the full gates (500 fuzz queries in the pool, L3 with the workers in turn, the fuzz corpus's seed check; minutes); run with -m fuzz",
 ]
