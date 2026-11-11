@@ -7,7 +7,7 @@ search filled (quirk 46). Each GUI capture's ``settings.cfg`` is loaded once.
 Every step must match the harness: where each line went, the list sizes, the
 charm map, the loaded solutions' stats and the file the load re-saves.
 
-The default run checks the goldens of at most 8,000 lines; ``pytest -m fuzz``
+The default run checks the goldens of at most 8,000 lines; ``pytest -m results``
 checks every one.
 """
 
@@ -236,7 +236,7 @@ def _largest_step(golden: ResultsGolden) -> int:
 
 def _in_default_run(goldens: list[ResultsGolden]) -> list[ResultsGolden]:
     """The goldens of at most 8,000 lines, which include the all-charm-free and
-    mixed files behind quirks 45 and 46; ``-m fuzz`` checks every one."""
+    mixed files behind quirks 45 and 46; ``-m results`` checks every one."""
     selected = [golden for golden in goldens if _largest_step(golden) <= 8000]
     return selected
 
@@ -273,7 +273,7 @@ def languages(legacy_data_dir) -> list[str]:
     ("selection", "count"),
     [
         pytest.param(_in_default_run, 6, id="default"),
-        pytest.param(list, 10, id="all", marks=pytest.mark.fuzz),
+        pytest.param(list, 10, id="all", marks=pytest.mark.results),
     ],
 )
 def test_corpus_results_save_and_load_as_the_harness_does(
@@ -295,7 +295,7 @@ def test_corpus_results_save_and_load_as_the_harness_does(
     ("selection", "count"),
     [
         pytest.param(_in_default_run, 5, id="default"),
-        pytest.param(list, 12, id="all", marks=pytest.mark.fuzz),
+        pytest.param(list, 12, id="all", marks=pytest.mark.results),
     ],
 )
 def test_personal_results_save_and_load_as_the_harness_does(
@@ -319,7 +319,7 @@ def test_personal_results_save_and_load_as_the_harness_does(
     ("selection", "count"),
     [
         pytest.param(_in_default_run, 11, id="default"),
-        pytest.param(list, 20, id="all", marks=pytest.mark.fuzz),
+        pytest.param(list, 20, id="all", marks=pytest.mark.results),
     ],
 )
 def test_gui_captures_load_as_the_harness_does(
