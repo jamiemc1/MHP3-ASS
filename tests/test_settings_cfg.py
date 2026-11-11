@@ -6,7 +6,6 @@ import dataclasses
 
 import pytest
 
-from mhp3ass.data.languages import language_folders
 from mhp3ass.model import ArmorType
 from mhp3ass.results.result_set import ResultSet, skill_indices, solution_line
 from mhp3ass.results.sorting import SortKey
@@ -176,9 +175,10 @@ def test_every_gui_capture_is_written_back_byte_for_byte(gui_settings_paths):
     assert [len(gui_settings_paths), rewritten] == [21, []]
 
 
-def test_gui_captures_are_in_english_teamhgg(gui_settings_paths, legacy_data_dir):
-    folders = language_folders(legacy_data_dir / "Languages")
-    languages = {folders[read_settings_cfg(path).language_index] for path in gui_settings_paths}
+def test_gui_captures_are_in_english_teamhgg(gui_settings_paths, shipped_languages):
+    languages = {
+        shipped_languages[read_settings_cfg(path).language_index] for path in gui_settings_paths
+    }
 
     assert languages == {"English (TeamHGG)"}
 
@@ -278,11 +278,6 @@ def test_writes_the_solution_lines_it_is_given(settings_with_one_line):
     assert settings_cfg_text(settings_with_one_line).endswith(
         b"\r\n1\r\n-1\r\n0 0 0 0 0 0 0 0 0 0 0 \r\n"
     )
-
-
-@pytest.fixture(scope="module")
-def language_count(legacy_data_dir):
-    return len(language_folders(legacy_data_dir / "Languages"))
 
 
 @pytest.fixture

@@ -6,7 +6,6 @@ from pathlib import Path
 import pytest
 
 from mhp3ass.data import GameData
-from mhp3ass.data.languages import language_folders
 from mhp3ass.settings_cfg import read_settings_cfg
 from mhp3ass.skill_picker import (
     SkillRow,
@@ -300,13 +299,12 @@ def test_restoring_raises_on_rows_from_another_game(teamhgg_game, sharp_sword_in
 
 
 def _capture_mismatches(
-    gui_captures_dir: Path, legacy_data_dir: Path, games_by_language: dict[str, GameData]
+    gui_captures_dir: Path, shipped_languages: list[str], games_by_language: dict[str, GameData]
 ) -> list[str]:
-    languages = language_folders(legacy_data_dir / "Languages")
     mismatched = []
     for capture in sorted(gui_captures_dir.iterdir()):
         settings = read_settings_cfg(capture / "settings.cfg")
-        game = games_by_language[languages[settings.language_index]]
+        game = games_by_language[shipped_languages[settings.language_index]]
         start = SkillRowsByHunter(blademaster=starting_rows(), gunner=starting_rows())
         restored = restore_skill_rows(game, start, settings.skill_selections)
         resaved = tuple(
@@ -324,6 +322,6 @@ def _capture_mismatches(
 
 
 def test_every_gui_capture_restores_its_saved_rows(
-    gui_captures_dir, legacy_data_dir, games_by_language
+    gui_captures_dir, shipped_languages, games_by_language
 ):
-    assert _capture_mismatches(gui_captures_dir, legacy_data_dir, games_by_language) == []
+    assert _capture_mismatches(gui_captures_dir, shipped_languages, games_by_language) == []

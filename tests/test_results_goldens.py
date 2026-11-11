@@ -22,7 +22,6 @@ import pytest
 
 from goldens import ResultsGolden, read_results_goldens
 from mhp3ass.data import GameData
-from mhp3ass.data.languages import language_folders
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import ResultSet, SearchResult, lines_of, skill_indices
 from mhp3ass.results.view import ResultsView
@@ -182,11 +181,6 @@ def _step_differences(ours: list[dict[str, Any]], golden: list[dict[str, Any]]) 
     return f"steps {steps}; {'; '.join(differing)}"
 
 
-@pytest.fixture(scope="session")
-def language_count(legacy_data_dir) -> int:
-    return len(language_folders(legacy_data_dir / "Languages"))
-
-
 def _query_differences(
     goldens: list[ResultsGolden],
     searches: dict[str, SearchResult],
@@ -264,11 +258,6 @@ def capture_results_goldens(personal_results_goldens) -> list[ResultsGolden]:
     return [golden for golden in personal_results_goldens if golden.query is None]
 
 
-@pytest.fixture(scope="session")
-def languages(legacy_data_dir) -> list[str]:
-    return language_folders(legacy_data_dir / "Languages")
-
-
 @pytest.mark.parametrize(
     ("selection", "count"),
     [
@@ -325,7 +314,7 @@ def test_personal_results_save_and_load_as_the_harness_does(
 def test_gui_captures_load_as_the_harness_does(
     capture_results_goldens,
     gui_captures_dir,
-    languages,
+    shipped_languages,
     search_data_by_language,
     language_count,
     selection,
@@ -334,7 +323,7 @@ def test_gui_captures_load_as_the_harness_does(
     goldens = selection(capture_results_goldens)
 
     found = _capture_differences(
-        goldens, gui_captures_dir, languages, search_data_by_language, language_count
+        goldens, gui_captures_dir, shipped_languages, search_data_by_language, language_count
     )
 
     assert [len(goldens), found] == [count, {}]

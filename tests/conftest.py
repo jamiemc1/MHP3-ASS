@@ -363,14 +363,27 @@ def charm_location_golden(golden_data_dir: Path) -> Any:
 
 
 @pytest.fixture(scope="session")
-def games_by_language(legacy_data_dir: Path, teamhgg_game: GameData) -> dict[str, GameData]:
+def shipped_languages(legacy_data_dir: Path) -> list[str]:
+    """The language folders, in the order the GUI's menu (and ``settings.cfg``) indexes them."""
+    return language_folders(legacy_data_dir / "Languages")
+
+
+@pytest.fixture(scope="session")
+def language_count(shipped_languages: list[str]) -> int:
+    return len(shipped_languages)
+
+
+@pytest.fixture(scope="session")
+def games_by_language(
+    legacy_data_dir: Path, shipped_languages: list[str], teamhgg_game: GameData
+) -> dict[str, GameData]:
     """A game in each shipped language, ``teamhgg_game`` for English (TeamHGG).
 
     Tests must not mutate them.
     """
     languages_dir = legacy_data_dir / "Languages"
     games = {}
-    for language in language_folders(languages_dir):
+    for language in shipped_languages:
         if language == "English (TeamHGG)":
             games[language] = teamhgg_game
             continue
@@ -381,13 +394,15 @@ def games_by_language(legacy_data_dir: Path, teamhgg_game: GameData) -> dict[str
 
 
 @pytest.fixture(scope="session")
-def search_data_by_language(legacy_data_dir: Path) -> dict[str, SearchData]:
+def search_data_by_language(
+    legacy_data_dir: Path, shipped_languages: list[str]
+) -> dict[str, SearchData]:
     """Search data in each shipped language, for running queries on: each query
     rewrites its game's relevance state, so these are not shared with
     ``games_by_language``."""
     search_data = {
         language: SearchData.load(legacy_data_dir, language=language)
-        for language in language_folders(legacy_data_dir / "Languages")
+        for language in shipped_languages
     }
     return search_data
 
