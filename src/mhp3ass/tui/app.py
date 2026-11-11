@@ -212,8 +212,7 @@ class SearchApp(App[None]):
             return
         if cancel.is_set():
             return
-        view = ResultsView.from_search(result.results, sort_key=sort_key)
-        view.select_reverse(reverse)
+        view = ResultsView.from_search(result.results, sort_key=sort_key, reverse=reverse)
         rows = view_rows(view)
         self.call_from_thread(self._search_finished, number, result, view, rows)
 

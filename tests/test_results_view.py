@@ -222,6 +222,21 @@ def test_setting_reverse_back_shows_the_key_order_again(alternating_view):
     assert alternating_view.final.positions == [6, 4, 2, 0, 7, 5, 3, 1]
 
 
+def test_a_search_view_built_reversed_matches_reversing_after(alternating_fire_rising_defence):
+    built_reversed = ResultsView.of_lists(
+        all_solutions=alternating_fire_rising_defence,
+        no_charm_solutions=[],
+        sort_key=SortKey.FIRE_RES,
+    )
+    built_reversed.select_reverse(True)
+    results = ResultSet()
+    results.add_solutions(alternating_fire_rising_defence)
+
+    view = ResultsView.from_search(results, sort_key=SortKey.FIRE_RES, reverse=True)
+
+    assert (view.reverse, view.final.positions) == (True, built_reversed.final.positions)
+
+
 @pytest.fixture
 def equal_defence_more_jewels_first(teamhgg_game) -> ResultsView:
     """Three charm-free solutions, all defence 5: two jewels, none, one."""

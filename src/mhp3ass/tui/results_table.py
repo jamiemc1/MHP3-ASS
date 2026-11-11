@@ -103,10 +103,14 @@ class ResultsTable(ScrollView, can_focus=True):
                     widths[column] = width
         self._widths = widths
         self._update_size()
-        self.cursor = 0
         self.scroll_to(0, 0, animate=False)
         self.refresh()
-        self.post_message(self.Highlighted(0))
+        # Moving the cursor posts Highlighted; a cursor already at the top needs it posted here.
+        if self.cursor == 0:
+            if rows:
+                self.post_message(self.Highlighted(0))
+        else:
+            self.cursor = 0
 
     def _update_size(self) -> None:
         line_width = sum(self._widths) + 2 * len(self._widths)
@@ -168,5 +172,7 @@ class ResultsTable(ScrollView, can_focus=True):
         self.cursor = self._clamped(row if row >= 0 else len(self._rows) - 1)
 
     def on_click(self, event: events.Click) -> None:
-        if event.y >= 1:
-            self.cursor = self._clamped(int(self.scroll_offset.y) + event.y - 1)
+        row = int(self.scroll_offset.y) + event.y - 1
+        # The header line, and the blank lines below the last row, aren't rows.
+        if event.y >= 1 and row < len(self._rows):
+            self.cursor = row
