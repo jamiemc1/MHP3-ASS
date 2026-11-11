@@ -15,8 +15,10 @@ from __future__ import annotations
 import pytest
 
 from goldens import SearchGolden
+from mhp3ass.query import SearchSpec
+from mhp3ass.results.result_set import SearchResult
 from mhp3ass.search import SearchData, WorkerPool
-from search_comparison import SearchComparison, compare_search, differences
+from search_comparison import SearchComparison, compare_result, compare_search, differences
 
 
 def _compare(
@@ -34,22 +36,39 @@ def _compare(
     return comparison
 
 
+def _compare_pooled(
+    golden: SearchGolden, search_data: dict[str, SearchData], searches: dict[str, SearchResult]
+) -> SearchComparison:
+    language = SearchSpec.from_json(golden.query).query.language
+    comparison = compare_result(
+        query=golden.query,
+        manifest=golden.manifest,
+        golden_lines=golden.solution_lines,
+        golden_candidates=golden.candidates,
+        result=searches[golden.manifest["id"]],
+        game=search_data[language].game,
+        max_solution_lines=-1,
+    )
+    return comparison
+
+
 @pytest.fixture(scope="session")
 def public_comparisons(
-    search_goldens, search_data_by_language, search_pool
+    search_goldens, search_data_by_language, pooled_searches
 ) -> list[SearchComparison]:
     comparisons = [
-        _compare(golden, search_data_by_language, pool=search_pool) for golden in search_goldens
+        _compare_pooled(golden, search_data_by_language, pooled_searches)
+        for golden in search_goldens
     ]
     return comparisons
 
 
 @pytest.fixture(scope="session")
 def personal_comparisons(
-    personal_search_goldens, search_data_by_language, search_pool
+    personal_search_goldens, search_data_by_language, personal_pooled_searches
 ) -> list[SearchComparison]:
     comparisons = [
-        _compare(golden, search_data_by_language, pool=search_pool)
+        _compare_pooled(golden, search_data_by_language, personal_pooled_searches)
         for golden in personal_search_goldens
     ]
     return comparisons

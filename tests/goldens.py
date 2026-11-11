@@ -134,6 +134,29 @@ def read_search_goldens(corpus_dir: Path, golden_dir: Path) -> list[SearchGolden
 
 
 @dataclass(frozen=True)
+class ResultsGolden:
+    """Harness ``results`` (one query) or ``results-file`` (one ``settings.cfg``) output."""
+
+    name: str
+    steps: list[dict[str, Any]]
+    # The query for ``results``; None for ``results-file``.
+    query: dict[str, Any] | None
+
+
+def read_results_goldens(golden_dir: Path) -> list[ResultsGolden]:
+    """Every ``<golden_dir>/*.json.gz``, by name."""
+    goldens = []
+    for path in sorted(golden_dir.glob("*.json.gz")):
+        data = read_golden(path)
+        query = json.loads(data["query_json"]) if "query_json" in data else None
+        golden = ResultsGolden(
+            name=path.name.removesuffix(".json.gz"), steps=data["steps"], query=query
+        )
+        goldens.append(golden)
+    return goldens
+
+
+@dataclass(frozen=True)
 class FuzzGolden:
     """Harness search output for one fuzz query: always a manifest; solution
     lines only when the harness wrote them (at most 5,000 lines)."""
