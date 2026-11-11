@@ -167,12 +167,20 @@ def alternating_view(alternating_fire_rising_defence) -> ResultsView:
     return view
 
 
-def test_a_sort_change_sorts_from_the_order_shown(alternating_view):
-    alternating_view.select_sort(SortKey.DEFENCE)
-
+def test_a_sorts_ties_go_to_the_highest_defence_first(alternating_view):
     alternating_view.select_sort(SortKey.FIRE_RES)
 
     assert alternating_view.final.positions == [6, 4, 2, 0, 7, 5, 3, 1]
+
+
+def test_the_previous_sort_leaves_no_trace(alternating_view):
+    """Rarity ties every solution; sorting by it after fire gives the tie
+    order alone, as it would straight after the search."""
+    alternating_view.select_sort(SortKey.FIRE_RES)
+
+    alternating_view.select_sort(SortKey.RARITY)
+
+    assert alternating_view.final.positions == [6, 7, 4, 5, 2, 3, 0, 1]
 
 
 def test_none_shows_the_arrival_order_again(alternating_view):
@@ -183,14 +191,54 @@ def test_none_shows_the_arrival_order_again(alternating_view):
     assert alternating_view.final.positions == list(range(8))
 
 
-def test_a_filter_change_sorts_its_list_from_arrival_order(alternating_view):
-    """Only the current key counts: the defence sort before it leaves no trace."""
-    alternating_view.select_sort(SortKey.DEFENCE)
+def test_a_filter_change_keeps_the_sort_and_its_tie_order(alternating_view):
     alternating_view.select_sort(SortKey.FIRE_RES)
 
     alternating_view.select_filter(CharmFilter.every_solution())
 
-    assert alternating_view.final.positions == [0, 2, 4, 6, 1, 3, 5, 7]
+    assert alternating_view.final.positions == [6, 4, 2, 0, 7, 5, 3, 1]
+
+
+def test_reversing_flips_the_key_and_keeps_the_tie_order(alternating_view):
+    alternating_view.select_sort(SortKey.FIRE_RES)
+
+    alternating_view.select_reverse(True)
+
+    assert alternating_view.final.positions == [7, 5, 3, 1, 6, 4, 2, 0]
+
+
+def test_reversing_none_shows_the_arrival_order_backwards(alternating_view):
+    alternating_view.select_reverse(True)
+
+    assert alternating_view.final.positions == list(reversed(range(8)))
+
+
+def test_setting_reverse_back_shows_the_key_order_again(alternating_view):
+    alternating_view.select_sort(SortKey.FIRE_RES)
+    alternating_view.select_reverse(True)
+
+    alternating_view.select_reverse(False)
+
+    assert alternating_view.final.positions == [6, 4, 2, 0, 7, 5, 3, 1]
+
+
+@pytest.fixture
+def equal_defence_more_jewels_first(teamhgg_game) -> ResultsView:
+    """Three charm-free solutions, all defence 5: two jewels, none, one."""
+    jewel = teamhgg_game.decorations[0]
+    solutions = []
+    for jewel_count in (2, 0, 1):
+        solution = Solution(armors=[None] * 5, charm=None, defence=5)
+        solution.decorations = [jewel] * jewel_count
+        solutions.append(solution)
+    view = ResultsView.of_lists(all_solutions=solutions, no_charm_solutions=[])
+    return view
+
+
+def test_equal_defence_goes_to_the_fewest_jewels(equal_defence_more_jewels_first):
+    equal_defence_more_jewels_first.select_sort(SortKey.DEFENCE)
+
+    assert equal_defence_more_jewels_first.final.positions == [1, 2, 0]
 
 
 def test_selecting_the_shown_sort_again_changes_nothing(alternating_view):
