@@ -34,6 +34,16 @@ uv run pytest -m fuzz      # the full fuzz and L3 gates (minutes)
 uv run pytest -m results   # every settings.cfg save/load golden
 ```
 
+## Running the terminal UI
+
+```bash
+uv run mhp3-ass
+```
+
+Opens the search screen. It's being built: so far it shows the header,
+an empty results table and the keys (`q` quits, `^P` opens the command
+palette).
+
 ## Importing charms from your save
 
 ```bash
