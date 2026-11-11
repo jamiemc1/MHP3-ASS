@@ -169,6 +169,19 @@ class SkillPicker(Vertical):
         else:
             options.action_cursor_down()
 
+    def on_descendant_focus(self, event: events.DescendantFocus) -> None:
+        self._show_options()
+
+    def on_descendant_blur(self, event: events.DescendantBlur) -> None:
+        self._show_options()
+
+    def _show_options(self) -> None:
+        """The offered skills show while the search box or the list has focus."""
+        options = self.query_one("#skill_options", OptionList)
+        focused = self.app.focused
+        in_use = isinstance(focused, SkillSearch) or focused is options
+        options.display = bool(self._offered) and in_use
+
     def _add(self, skill: Skill) -> None:
         if rows_full(self.rows) or skill not in self._offered:
             return
@@ -205,6 +218,6 @@ class SkillPicker(Vertical):
             Option(Content(f"{skill.name:<24} {skill.ability.name} {skill.points_required:+d}"))
             for skill in self._offered
         )
-        options.display = bool(self._offered)
+        self._show_options()
         if self._offered:
             options.highlighted = 0

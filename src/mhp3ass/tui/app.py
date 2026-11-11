@@ -10,7 +10,7 @@ from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
 from textual.message import Message
-from textual.widgets import Button, DataTable, Footer, Header, Static
+from textual.widgets import Button, Footer, Header, Static
 from textual.worker import Worker
 
 from mhp3ass.charms.my_charms import MyCharmsFileError
@@ -19,6 +19,9 @@ from mhp3ass.data.text import read_lines
 from mhp3ass.query import QueryError
 from mhp3ass.query_form import QueryForm
 from mhp3ass.results.result_set import SearchResult
+from mhp3ass.results.sorting import SortKey
+from mhp3ass.results.table import TableRow
+from mhp3ass.results.view import ResultsView
 from mhp3ass.search import (
     SearchCancelled,
     SearchData,
@@ -28,6 +31,7 @@ from mhp3ass.search import (
 )
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.tui.query_editor import QueryEditor
+from mhp3ass.tui.results_pane import ResultsPane, view_rows
 from mhp3ass.tui.search_progress import SearchProgress
 from mhp3ass.tui.skill_picker import SkillPicker
 
@@ -72,6 +76,8 @@ class SearchApp(App[None]):
         Binding("w", "focus('weapon_slots')", "Weapon slots", show=False),
         Binding("m", "focus('charm_mode')", "Charm mode", show=False),
         Binding("k", "focus('skill_search')", "Skills", show=False),
+        Binding("s", "focus('sort_key')", "Sort"),
+        Binding("S", "reverse_sort", "Reverse"),
     ]
 
     def __init__(
@@ -89,6 +95,7 @@ class SearchApp(App[None]):
         self._data = data
         self._pool = pool
         self._my_charms_path = my_charms_path
+        self._strings = strings
         # The editor owns the form; read it as ``self.editor.form``.
         self.editor = QueryEditor(form, game=data.game, strings=strings)
         self.result: SearchResult | None = None
@@ -102,12 +109,8 @@ class SearchApp(App[None]):
         yield self.editor
         yield SearchProgress()
         yield Static("Choose up to six skills, then Search.", id="hint")
-        yield DataTable(id="results", cursor_type="row", zebra_stripes=True)
+        yield ResultsPane(self._strings)
         yield Footer()
-
-    def on_mount(self) -> None:
-        table = self.query_one("#results", DataTable)
-        table.add_columns("#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "search":
@@ -134,7 +137,14 @@ class SearchApp(App[None]):
         self._search_number += 1
         self._cancel = Event()
         self.query_one(SearchProgress).start()
-        self._worker = self._run_search(form, number=self._search_number, cancel=self._cancel)
+        pane = self.query_one(ResultsPane)
+        self._worker = self._run_search(
+            form,
+            number=self._search_number,
+            cancel=self._cancel,
+            sort_key=pane.sort_key,
+            reverse=pane.reverse,
+        )
 
     def action_cancel_search(self) -> None:
         """Stop the search and keep the view as it was before it started."""
@@ -149,6 +159,9 @@ class SearchApp(App[None]):
             self._cancel.set()
         self.exit()
 
+    def action_reverse_sort(self) -> None:
+        self.query_one(ResultsPane).reverse_sort()
+
     def on_worker_state_changed(self, event: Worker.StateChanged) -> None:
         if event.worker is self._worker and event.worker.is_finished and self._search_waiting:
             self.action_search()
@@ -158,7 +171,12 @@ class SearchApp(App[None]):
             self.query_one(SearchProgress).advance(event.done, event.total)
 
     @work(thread=True, group="search")
-    def _run_search(self, form: QueryForm, number: int, cancel: Event) -> None:
+    def _run_search(
+        self, form: QueryForm, number: int, cancel: Event, sort_key: SortKey, reverse: bool
+    ) -> None:
+        """The search, then its view sorted as the pane shows results (reading
+        every solution back from the pool's records, so off the UI thread)."""
+
         def report(done: int, total: int) -> None:
             # post_message doesn't wait for the UI, so the search doesn't either.
             self.post_message(Progressed(number=number, done=done, total=total))
@@ -192,13 +210,21 @@ class SearchApp(App[None]):
             # outside the workers (quirk 35).
             self.call_from_thread(self._search_failed, number, error)
             return
-        self.call_from_thread(self._search_finished, number, result)
+        if cancel.is_set():
+            return
+        view = ResultsView.from_search(result.results, sort_key=sort_key)
+        view.select_reverse(reverse)
+        rows = view_rows(view)
+        self.call_from_thread(self._search_finished, number, result, view, rows)
 
-    def _search_finished(self, number: int, result: SearchResult) -> None:
+    def _search_finished(
+        self, number: int, result: SearchResult, view: ResultsView, rows: list[TableRow]
+    ) -> None:
         if number != self._search_number or self._cancel is None:
             return
         self._finish_search()
         self.result = result
+        self.query_one(ResultsPane).show(view, rows=rows)
         count = len(result.results.all_solutions)
         summary = f"{count:,} sets."
         if result.exception is not None:
