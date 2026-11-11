@@ -254,6 +254,11 @@ def main(argv: list[str] | None = None) -> int:
         except KeyboardInterrupt:
             # Files are only written once the search has finished.
             return 130
+    if not (sys.stdin.isatty() and sys.stdout.isatty()):
+        parser.print_help()
+        return 0
     languages = language_folders(_default_data_dir() / "Languages")
-    SearchApp(language=default_language(languages)).run()
-    return 0
+    app = SearchApp(language=default_language(languages))
+    app.run()
+    exit_code = app.return_code if app.return_code is not None else 0
+    return exit_code
