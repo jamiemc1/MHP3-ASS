@@ -12,6 +12,7 @@ from goldens import (
     RelevanceGolden,
     SearchGolden,
     TraceGolden,
+    formulate_query_json,
     read_fuzz_goldens,
     read_golden,
     read_relevance_goldens,
@@ -317,6 +318,13 @@ def attack_sharp_query_json() -> dict[str, Any]:
         "skill_names": ["Attack Up [Med]", "Sharp Sword"],
     }
     return spec
+
+
+@pytest.fixture
+def attack_sharp_query(scratch_game: GameData, attack_sharp_query_json: dict[str, Any]) -> Query:
+    """``attack_sharp_query_json`` formulated on the scratch game. Function-scoped:
+    formulating rewrites the game's relevance state."""
+    return formulate_query_json(scratch_game, attack_sharp_query_json)
 
 
 @pytest.fixture(scope="session")

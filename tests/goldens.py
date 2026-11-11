@@ -8,6 +8,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from mhp3ass.data import GameData
+from mhp3ass.query import Query, QuerySpec
+from mhp3ass.relevance import formulate_query
+
+
+def formulate_query_json(game: GameData, query_json: dict[str, Any]) -> Query:
+    """``formulate_query`` on a query file's JSON, as goldens and corpus files hold it."""
+    query = formulate_query(game, QuerySpec.from_json(query_json))
+    return query
+
 
 def read_golden(path: Path) -> Any:
     """Load a harness fixture; files ending in .gz are gzip-compressed JSON."""
