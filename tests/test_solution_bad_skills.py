@@ -9,8 +9,6 @@ import pytest
 from mhp3ass.data import GameData
 from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import Ability, Skill
-from mhp3ass.query import QuerySpec
-from mhp3ass.relevance import formulate_query
 from mhp3ass.solution.bad_skills import (
     OneSlotGems,
     best_available_decoration,
@@ -270,11 +268,10 @@ def test_replace_ignores_the_torso_multiplier_and_the_body_list(attack, defense)
 
 
 @pytest.fixture
-def attack_sharp_data(scratch_game, attack_sharp_query_json):
+def attack_sharp_data(attack_sharp_query):
     """CalculationData for the Attack Up [Med] + Sharp Sword query on shipped data,
     with no armour and no decorations yet."""
-    query = formulate_query(scratch_game, QuerySpec.from_json(attack_sharp_query_json))
-    data = new_calculation_data(Solution(armors=[None] * 5, charm=None), query)
+    data = new_calculation_data(Solution(armors=[None] * 5, charm=None), attack_sharp_query)
     return data
 
 

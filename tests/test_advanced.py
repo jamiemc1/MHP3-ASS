@@ -5,6 +5,7 @@ from __future__ import annotations
 import pytest
 
 from golden_shapes import relevance_shape
+from goldens import formulate_query_json
 from mhp3ass.advanced import (
     ArmorOption,
     RememberedTicks,
@@ -15,8 +16,6 @@ from mhp3ass.advanced import (
     default_box,
 )
 from mhp3ass.model import ArmorType, HunterType
-from mhp3ass.query import QuerySpec
-from mhp3ass.relevance import formulate_query
 
 
 def _default_selection_mismatches(goldens, load_game):
@@ -25,19 +24,13 @@ def _default_selection_mismatches(goldens, load_game):
     mismatched = []
     for golden in goldens:
         game = load_game()
-        query = formulate_query(game, QuerySpec.from_json(golden.query))
+        query = formulate_query_json(game, golden.query)
         apply_selection(query, advanced_choices(query).default_ticks())
         shaped = relevance_shape(game, query)
         ours = {section: shaped[section] for section in sections}
         if ours != {section: golden.relevance[section] for section in sections}:
             mismatched.append(golden.query["id"])
     return mismatched
-
-
-@pytest.fixture
-def attack_sharp_query(scratch_game, attack_sharp_query_json):
-    """Attack Up [Med] + Sharp Sword at HR 6, formulated on the scratch game."""
-    return formulate_query(scratch_game, QuerySpec.from_json(attack_sharp_query_json))
 
 
 @pytest.fixture
