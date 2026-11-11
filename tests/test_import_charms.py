@@ -3,7 +3,6 @@ harness's decrypt-save dump (SaveDump.cpp)."""
 
 from __future__ import annotations
 
-from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -189,16 +188,15 @@ def _personal_characters(
 def test_select_best_matches_golden_for_every_character(
     save_game_layer: bytes,
     save_golden: Any,
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
     validity: CharmValidity,
 ):
     """On a fresh game: Select Best marks every ability relevant."""
-    game = load_teamhgg_game()
     ours = [
         []
         if character is None
-        else select_best([imported.charm for imported in character.charms], game)
-        for character in _personal_characters(save_game_layer, game, validity)
+        else select_best([imported.charm for imported in character.charms], fresh_game)
+        for character in _personal_characters(save_game_layer, fresh_game, validity)
     ]
     expected = [
         [charm["select_best"] for charm in character["charms"]]
@@ -212,16 +210,15 @@ def test_importing_the_default_selection_writes_the_guis_file(
     save_game_layer: bytes,
     save_golden: Any,
     gui_imported_mycharms: list[str],
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
     validity: CharmValidity,
 ):
     """The dialog opens on the first character with charms, with Select Best's ticks."""
-    game = load_teamhgg_game()
-    characters = _personal_characters(save_game_layer, game, validity)
+    characters = _personal_characters(save_game_layer, fresh_game, validity)
     default = next(character for character in characters if character and character.charms)
     charms = [imported.charm for imported in default.charms]
 
-    imported = import_charms(charms, select_best(charms, game))
+    imported = import_charms(charms, select_best(charms, fresh_game))
     lines = my_charms_text(imported).split("\r\n")[:-1]
 
     assert lines == save_golden["mycharms_txt"]
@@ -238,76 +235,69 @@ def _charm(game: GameData, slots: int, *skills: tuple[int, int], hacked: bool = 
     return charm
 
 
-def test_select_best_never_ticks_a_hacked_charm(load_teamhgg_game: Callable[[], GameData]):
-    game = load_teamhgg_game()
-    charms = [_charm(game, 3, (0, 13), hacked=True), _charm(game, 0, (0, 1))]
+def test_select_best_never_ticks_a_hacked_charm(fresh_game: GameData):
+    charms = [_charm(fresh_game, 3, (0, 13), hacked=True), _charm(fresh_game, 0, (0, 1))]
 
-    assert select_best(charms, game) == [False, True]
+    assert select_best(charms, fresh_game) == [False, True]
 
 
 def test_a_hacked_charm_does_not_untick_a_weaker_earlier_one(
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
 ):
     """A hacked charm skips the comparisons too (ImportCharms.h:347-351)."""
-    game = load_teamhgg_game()
-    charms = [_charm(game, 0, (0, 1)), _charm(game, 3, (0, 13), hacked=True)]
+    charms = [_charm(fresh_game, 0, (0, 1)), _charm(fresh_game, 3, (0, 13), hacked=True)]
 
-    assert select_best(charms, game) == [True, False]
+    assert select_best(charms, fresh_game) == [True, False]
 
 
 def test_an_unticked_charm_keeps_unticking_earlier_ones(
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
 ):
     """StrictlyBetterThan isn't transitive: a negative skill the other charm lacks is
     skipped. X beats Z, Z beats Y (Y's only skill is negative), but X doesn't beat Y
     (-4 < -2). Z is unticked by X and still unticks Y (ImportCharms.h:354-364)."""
-    game = load_teamhgg_game()
     first, second = 0, 1
-    x = _charm(game, 0, (first, 1), (second, -4))
-    y = _charm(game, 0, (second, -2))
-    z = _charm(game, 0, (first, 1))
+    x = _charm(fresh_game, 0, (first, 1), (second, -4))
+    y = _charm(fresh_game, 0, (second, -2))
+    z = _charm(fresh_game, 0, (first, 1))
 
-    assert select_best([x, y, z], game) == [True, False, False]
+    assert select_best([x, y, z], fresh_game) == [True, False, False]
 
 
 def test_select_best_keeps_the_first_of_value_equal_charms(
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
 ):
     """Neither charm is strictly better (each has more of one skill), but operator==
     ignores amounts (quirk 1), so the second counts as a duplicate of the first."""
-    game = load_teamhgg_game()
-    charms = [_charm(game, 1, (0, 4), (1, 1)), _charm(game, 1, (0, 2), (1, 3))]
+    charms = [_charm(fresh_game, 1, (0, 4), (1, 1)), _charm(fresh_game, 1, (0, 2), (1, 3))]
 
-    assert select_best(charms, game) == [True, False]
-    assert select_best(list(reversed(charms)), game) == [True, False]
+    assert select_best(charms, fresh_game) == [True, False]
+    assert select_best(list(reversed(charms)), fresh_game) == [True, False]
 
 
 def test_a_later_strictly_better_charm_unticks_an_earlier_one(
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
 ):
-    game = load_teamhgg_game()
-    charms = [_charm(game, 0, (0, 4)), _charm(game, 1, (0, 4))]
+    charms = [_charm(fresh_game, 0, (0, 4)), _charm(fresh_game, 1, (0, 4))]
 
-    assert select_best(charms, game) == [False, True]
+    assert select_best(charms, fresh_game) == [False, True]
 
 
-def test_select_best_marks_every_ability_relevant(load_teamhgg_game: Callable[[], GameData]):
-    game = load_teamhgg_game()
+def test_select_best_marks_every_ability_relevant(fresh_game: GameData):
 
-    select_best([], game)
+    select_best([], fresh_game)
 
-    assert all(ability.relevant for ability in game.abilities)
+    assert all(ability.relevant for ability in fresh_game.abilities)
 
 
 def test_import_skips_hacked_and_unticked_charms_and_marks_the_rest_custom(
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
 ):
     """AddCharms checks hacked itself: the dialog lets a hacked charm be ticked (quirk
     candidate: listView1_ItemChecked is never wired up)."""
-    game = load_teamhgg_game()
-    kept = _charm(game, 1, (0, 4))
-    unticked = _charm(game, 0, (1, 3))
-    hacked = _charm(game, 3, (0, 13), hacked=True)
+    kept = _charm(fresh_game, 1, (0, 4))
+    unticked = _charm(fresh_game, 0, (1, 3))
+    hacked = _charm(fresh_game, 3, (0, 13), hacked=True)
 
     imported = import_charms([kept, unticked, hacked], [True, False, True])
 
@@ -319,16 +309,15 @@ def test_importing_your_save_writes_the_guis_file(
     save_bytes: bytes,
     save_golden: Any,
     gui_imported_mycharms: list[str],
-    load_teamhgg_game: Callable[[], GameData],
+    fresh_game: GameData,
     validity: CharmValidity,
     tmp_path: Path,
 ):
     """Save file in, mycharms.txt out, as pressing Import straight away does."""
-    game = load_teamhgg_game()
-    save_import = read_save(save_bytes, game, validity)
+    save_import = read_save(save_bytes, fresh_game, validity)
     output = tmp_path / "mycharms.txt"
 
-    save_my_charms(output, default_import(save_import, game))
+    save_my_charms(output, default_import(save_import, fresh_game))
 
     expected_default = next(
         character["slot"]
@@ -353,23 +342,21 @@ def test_a_file_of_any_other_size_is_not_a_save(
         read_save(bytes(length), teamhgg_game, validity)
 
 
-def test_a_save_without_charms_imports_nothing(load_teamhgg_game: Callable[[], GameData]):
-    game = load_teamhgg_game()
+def test_a_save_without_charms_imports_nothing(fresh_game: GameData):
     save_import = SaveImport(characters=[None, ImportedCharacter(slot=1, name=None), None])
 
     assert save_import.default_character is None
-    assert default_import(save_import, game) == []
+    assert default_import(save_import, fresh_game) == []
 
 
-def test_the_default_character_is_the_first_with_charms(load_teamhgg_game: Callable[[], GameData]):
+def test_the_default_character_is_the_first_with_charms(fresh_game: GameData):
     """An empty slot and a character without charms are both passed over
     (ImportCharms.h:417-424, :448-455); cheats comes from any slot."""
-    game = load_teamhgg_game()
     without_charms = ImportedCharacter(slot=1, name=None, cheats=False)
     with_charms = ImportedCharacter(
         slot=2,
         name="B",
-        charms=[ImportedCharm(charm=_charm(game, 0, (0, 1)), raw=bytes(6))],
+        charms=[ImportedCharm(charm=_charm(fresh_game, 0, (0, 1)), raw=bytes(6))],
         cheats=True,
     )
     save_import = SaveImport(characters=[None, without_charms, with_charms])

@@ -140,6 +140,18 @@ def teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
     return load_teamhgg_game()
 
 
+@pytest.fixture
+def fresh_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
+    """A new game per test, for tests that mutate it (``select_best`` marks abilities relevant)."""
+    return load_teamhgg_game()
+
+
+@pytest.fixture(scope="session")
+def other_teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
+    """A second copy of ``teamhgg_game``: equal data, different objects. Read-only."""
+    return load_teamhgg_game()
+
+
 @pytest.fixture(scope="session")
 def scratch_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
     """A game in English (TeamHGG) that tests may run queries on, which rewrite its
