@@ -1,4 +1,4 @@
-"""Command-line entry point."""
+"""Command-line entry point: the TUI with no command, else ``search`` or ``import-save``."""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from mhp3ass.charms.my_charms import MyCharmsFileError, save_my_charms
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.charms.validity import build_charm_validity
 from mhp3ass.data import apply_language, load_game_data
+from mhp3ass.data.languages import default_language, language_folders
 from mhp3ass.parallel import SearchPool, default_jobs
 from mhp3ass.query import QueryError, SearchSpec
 from mhp3ass.results.result_set import (
@@ -27,6 +28,9 @@ from mhp3ass.results.result_set import (
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
 from mhp3ass.search import SearchData, WorkerProgress, dotnet_exception_type, run_search
 from mhp3ass.solution.state import LegacyNullReferenceError
+
+# Lazy, so `search` and `import-save` don't load Textual.
+lazy from mhp3ass.tui.app import SearchApp
 
 
 def _default_data_dir() -> Path:
@@ -250,5 +254,6 @@ def main(argv: list[str] | None = None) -> int:
         except KeyboardInterrupt:
             # Files are only written once the search has finished.
             return 130
-    parser.print_help()
+    languages = language_folders(_default_data_dir() / "Languages")
+    SearchApp(language=default_language(languages)).run()
     return 0
