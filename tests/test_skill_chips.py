@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 
 from mhp3ass.data import GameData
-from mhp3ass.skill_chips import add_chip, addable_skills, chip_rows, remove_chip
+from mhp3ass.skill_chips import add_chip, addable_skills, chip_rows, remove_chip, rows_full
 from mhp3ass.skill_picker import SkillRow, query_skills, skill_choices
 
 
@@ -106,6 +106,21 @@ def test_a_skill_of_a_chosen_ability_cant_be_added(teamhgg_game, attack_and_shar
         add_chip(
             teamhgg_game, attack_and_sharp_sword_rows, teamhgg_game.skill_map["Attack Up [Lg]"]
         )
+
+
+def test_a_skill_with_no_points_cant_be_added(teamhgg_game):
+    negative = next(skill for skill in teamhgg_game.skills if skill.points_required < 0)
+
+    with pytest.raises(ValueError, match="isn't offered with these skills chosen"):
+        add_chip(teamhgg_game, chip_rows([]), negative)
+
+
+def test_rows_with_an_empty_row_arent_full(teamhgg_game, attack_and_sharp_sword_rows):
+    assert not rows_full(attack_and_sharp_sword_rows)
+
+
+def test_six_chosen_skills_fill_the_rows(six_skill_rows):
+    assert rows_full(six_skill_rows)
 
 
 def test_a_seventh_skill_cant_be_added(teamhgg_game, six_skill_rows):

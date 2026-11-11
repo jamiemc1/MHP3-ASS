@@ -90,7 +90,12 @@ class QueryEditor(Vertical):
                 allow_blank=False,
                 id="charm_mode",
             )
-        yield SkillPicker(self._game, strings=strings, rows=self.form.current_rows())
+        yield SkillPicker(
+            self._game,
+            strings=strings,
+            rows=self.form.current_rows(),
+            hunter_type=self.form.hunter_type,
+        )
 
     def on_select_changed(self, event: Select.Changed) -> None:
         # The form's selects are those whose id is the QueryForm field they set.
@@ -101,11 +106,13 @@ class QueryEditor(Vertical):
         changes: dict[str, Any] = {field: event.value}
         self.form = replace(self.form, **changes)
         if field == "hunter_type":
-            self.query_one(SkillPicker).show_rows(self.form.current_rows())
+            self.query_one(SkillPicker).show_rows(
+                self.form.current_rows(), hunter_type=self.form.hunter_type
+            )
 
     def on_skill_picker_rows_changed(self, event: SkillPicker.RowsChanged) -> None:
         event.stop()
-        self.form = self.form.with_current_rows(event.rows)
+        self.form = self.form.with_rows(event.hunter_type, rows=event.rows)
 
 
 def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Select[int]:

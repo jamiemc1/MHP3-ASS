@@ -13,17 +13,17 @@ from textual.widgets.option_list import Option
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
-from mhp3ass.model import Skill
-from mhp3ass.skill_chips import add_chip, addable_skills, remove_chip
+from mhp3ass.model import HunterType, Skill
+from mhp3ass.skill_chips import add_chip, addable_skills, remove_chip, rows_full
 from mhp3ass.skill_picker import SkillRow, query_skills
 
 
 class ChipButton(Button):
     """A chosen skill; pressing it removes the skill."""
 
-    def __init__(self, skill: Skill, chip: int) -> None:
+    def __init__(self, skill: Skill) -> None:
         super().__init__(Content(f"{skill.name} ✕"), compact=True)
-        self.chip = chip
+        self.skill = skill
 
 
 class SkillSearch(Input):
@@ -67,15 +67,25 @@ class SkillPicker(Vertical):
     """
 
     class RowsChanged(Message):
-        def __init__(self, rows: tuple[SkillRow, ...]) -> None:
+        """New rows for ``hunter_type``'s tab (the tab shown when they changed)."""
+
+        def __init__(self, rows: tuple[SkillRow, ...], hunter_type: HunterType) -> None:
             super().__init__()
             self.rows = rows
+            self.hunter_type = hunter_type
 
-    def __init__(self, game: GameData, strings: DisplayStrings, rows: tuple[SkillRow, ...]) -> None:
+    def __init__(
+        self,
+        game: GameData,
+        strings: DisplayStrings,
+        rows: tuple[SkillRow, ...],
+        hunter_type: HunterType,
+    ) -> None:
         super().__init__()
         self._game = game
         self._strings = strings
         self.rows = rows
+        self.hunter_type = hunter_type
         self._offered: list[Skill] = []
 
     def compose(self) -> ComposeResult:
@@ -94,9 +104,10 @@ class SkillPicker(Vertical):
     def on_mount(self) -> None:
         self._refresh()
 
-    def show_rows(self, rows: tuple[SkillRow, ...]) -> None:
+    def show_rows(self, rows: tuple[SkillRow, ...], hunter_type: HunterType) -> None:
         """Show another tab's rows, without posting ``RowsChanged``."""
         self.rows = rows
+        self.hunter_type = hunter_type
         self._refresh()
 
     def on_input_changed(self, event: Input.Changed) -> None:
@@ -113,7 +124,9 @@ class SkillPicker(Vertical):
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
         event.stop()
-        self._add(self._offered[event.option_index])
+        # The list may have been rebuilt since the selection was posted.
+        if event.option_index < len(self._offered):
+            self._add(self._offered[event.option_index])
 
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id != "skill_tag":
@@ -125,7 +138,10 @@ class SkillPicker(Vertical):
         if not isinstance(event.button, ChipButton):
             return
         event.stop()
-        self._change(remove_chip(self.rows, chip=event.button.chip))
+        # A press posted before the chips were rebuilt may name a removed skill.
+        chosen = query_skills(self.rows)
+        if event.button.skill in chosen:
+            self._change(remove_chip(self.rows, chip=chosen.index(event.button.skill)))
 
     def on_skill_search_backspace_when_empty(self, event: SkillSearch.BackspaceWhenEmpty) -> None:
         event.stop()
@@ -145,34 +161,29 @@ class SkillPicker(Vertical):
             options.action_cursor_down()
 
     def _add(self, skill: Skill) -> None:
+        if rows_full(self.rows) or skill not in self._offered:
+            return
         self.query_one("#skill_search", SkillSearch).value = ""
         self._change(add_chip(self._game, self.rows, skill))
 
     def _change(self, rows: tuple[SkillRow, ...]) -> None:
         self.rows = rows
         self._refresh()
-        self.post_message(self.RowsChanged(rows))
-
-    def _full(self) -> bool:
-        full = all(row.skill is not None for row in self.rows)
-        return full
+        self.post_message(self.RowsChanged(rows, hunter_type=self.hunter_type))
 
     def _refresh(self) -> None:
         chips = self.query_one("#chips", Horizontal)
         chips.remove_children(ChipButton)
-        chips.mount_all(
-            ChipButton(skill, chip=chip) for chip, skill in enumerate(query_skills(self.rows))
-        )
-        full = self._full()
+        chips.mount_all(ChipButton(skill) for skill in query_skills(self.rows))
+        full = rows_full(self.rows)
         search = self.query_one("#skill_search", SkillSearch)
-        search.disabled = full
         search.placeholder = "six skills chosen" if full else "add skill"
         self._refresh_offered()
 
     def _refresh_offered(self) -> None:
         tag = self.query_one("#skill_tag", Select).value
         text = self.query_one("#skill_search", SkillSearch).value
-        full = self._full()
+        full = rows_full(self.rows)
         tag_index = tag if isinstance(tag, int) else 0
         self._offered = (
             [] if full else addable_skills(self._game, self.rows, tag_index=tag_index, text=text)
