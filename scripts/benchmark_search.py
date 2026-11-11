@@ -5,9 +5,9 @@ Markdown report for PR bodies, to compare before and after a change. Every
 time is the median of ``--runs`` runs, wall clock.
 
 - **Start-up:** importing the package (``python -X importtime`` on the
-  ``mhp3ass`` console script, in a new process), loading the data files,
+  ``mhp3-ass`` console script, in a new process), loading the data files,
   generating the charm tables, applying the language, building the charm
-  checks, and formulating query 1a; then a cold ``mhp3ass search`` of 1a,
+  checks, and formulating query 1a; then a cold ``mhp3-ass search`` of 1a,
   start to finish in a new process
 - **Searches:** each query's ``run_search`` on data already loaded (the TUI's
   warm path), split into the workers (each worker's loop and its duplicate
@@ -105,10 +105,10 @@ def peak_rss_mb() -> float:
 
 
 def console_script() -> Path:
-    """The installed ``mhp3ass`` command."""
-    script = Path(sysconfig.get_path("scripts")) / "mhp3ass"
+    """The installed ``mhp3-ass`` command."""
+    script = Path(sysconfig.get_path("scripts")) / "mhp3-ass"
     if not script.is_file():
-        raise FileNotFoundError(f"no mhp3ass console script at {script}; run uv sync")
+        raise FileNotFoundError(f"no mhp3-ass console script at {script}; run uv sync")
     return script
 
 
@@ -140,7 +140,7 @@ def power_source() -> str:
 
 
 def cold_search_seconds(query_path: Path, data_dir: Path, jobs: int) -> float:
-    """``mhp3ass search --jobs jobs`` of one query in a new process, writing its outputs."""
+    """``mhp3-ass search --jobs jobs`` of one query in a new process, writing its outputs."""
     with tempfile.TemporaryDirectory() as out_dir:
         command = [
             str(console_script()),
@@ -196,7 +196,7 @@ def startup_report(data_dir: Path, query_path: Path, runs: int, jobs: int) -> li
         ("Charm checks (validity)", validity_seconds),
         (f"Relevance (`formulate_query`, {spec.query.id})", relevance_seconds),
         (
-            f"Cold `mhp3ass search {spec.query.id} --out --jobs {jobs}`",
+            f"Cold `mhp3-ass search {spec.query.id} --out --jobs {jobs}`",
             lambda: cold_search_seconds(query_path, data_dir=data_dir, jobs=jobs),
         ),
     ]

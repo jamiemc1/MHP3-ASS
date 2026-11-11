@@ -37,7 +37,7 @@ uv run pytest -m results   # every settings.cfg save/load golden
 ## Importing charms from your save
 
 ```bash
-uv run mhp3ass import-save <path to MHP3RD.BIN> --out mycharms.txt
+uv run mhp3-ass import-save <path to MHP3RD.BIN> --out mycharms.txt
 ```
 
 Does what the original's import dialog does with its defaults: the first
@@ -49,8 +49,8 @@ skipped. The output file is replaced, as the original replaces its list.
 ## Searching
 
 ```bash
-uv run mhp3ass search <query.json>                    # solution lines on stdout
-uv run mhp3ass search <query.json> --out out/<name>   # the harness's output files
+uv run mhp3-ass search <query.json>                    # solution lines on stdout
+uv run mhp3-ass search <query.json> --out out/<name>   # the harness's output files
 ```
 
 Runs a query file in the corpus format (`tests/corpus/README.md`) as the

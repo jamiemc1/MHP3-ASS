@@ -177,7 +177,7 @@ def _search(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        prog="mhp3ass",
+        prog="mhp3-ass",
         description="Armor set search for Monster Hunter Portable 3rd.",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")

@@ -1,4 +1,4 @@
-"""The search writers against the harness's own files: what ``mhp3ass search
+"""The search writers against the harness's own files: what ``mhp3-ass search
 --out`` writes for a corpus query is what the harness wrote for it."""
 
 from __future__ import annotations
