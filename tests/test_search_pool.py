@@ -7,6 +7,7 @@ from __future__ import annotations
 import multiprocessing
 from concurrent.futures import Future
 from dataclasses import dataclass, replace
+from functools import lru_cache
 from itertools import accumulate
 from math import prod
 
@@ -44,14 +45,16 @@ class PoolComparison:
     combinations: int
 
 
-@pytest.fixture
-def compare_with_serial(corpus_spec, legacy_data_dir, search_data_for, search_pool):
-    """Search a public corpus query with ``run_search`` and in the session pool."""
+@pytest.fixture(scope="module")
+def compare_with_serial(corpus_spec, legacy_data_dir, search_data_for, search_pool, serial_search):
+    """Search a public corpus query with ``run_search`` and in the session pool,
+    once per query for the module."""
 
+    @lru_cache(maxsize=8)
     def compare(file_name: str) -> PoolComparison:
         spec = corpus_spec(f"corpus/{file_name}")
         data = search_data_for(spec)
-        serial = run_search(spec, data=data)
+        serial = serial_search(file_name)
         reports: list[tuple[int, int]] = []
         pooled = search_pool.run(
             data_dir=legacy_data_dir,

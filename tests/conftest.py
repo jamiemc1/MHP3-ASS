@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Generator
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -26,9 +27,10 @@ from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
 from mhp3ass.parallel import SearchPool
 from mhp3ass.query import Query, SearchSpec
+from mhp3ass.results.result_set import SearchResult
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
-from mhp3ass.search import SearchData
+from mhp3ass.search import SearchData, run_search
 from mhp3ass.solution.state import Solution, new_calculation_data
 
 
@@ -420,6 +422,21 @@ def corpus_spec(repo_root: Path) -> Callable[[str], SearchSpec]:
         return SearchSpec.from_file(repo_root / "tests" / relative_path)
 
     return read
+
+
+@pytest.fixture(scope="session")
+def serial_search(
+    corpus_spec: Callable[[str], SearchSpec], search_data_for: Callable[[SearchSpec], SearchData]
+) -> Callable[[str], SearchResult]:
+    """``run_search`` of a public corpus query, run once per session. Callers must
+    not mutate the result."""
+
+    @lru_cache(maxsize=8)
+    def search(file_name: str) -> SearchResult:
+        spec = corpus_spec(f"corpus/{file_name}")
+        return run_search(spec, data=search_data_for(spec))
+
+    return search
 
 
 @pytest.fixture(scope="session")

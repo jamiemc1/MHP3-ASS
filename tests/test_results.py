@@ -11,7 +11,6 @@ from goldens import SearchGolden
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, ArmorType, Charm
-from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import (
     ResultSet,
     SolutionList,
@@ -22,7 +21,6 @@ from mhp3ass.results.result_set import (
     skill_indices,
     solution_line,
 )
-from mhp3ass.search import run_search
 from mhp3ass.solution.record import (
     CharmRecord,
     RecordIndex,
@@ -235,7 +233,7 @@ class RecordReplay:
 
 
 @pytest.fixture(scope="module")
-def record_replays(repo_root, search_data_by_language) -> dict[str, RecordReplay]:
+def record_replays(corpus_spec, search_data_for, serial_search) -> dict[str, RecordReplay]:
     """g13 (four one-skill workers that repeat each other's sets) and g19 (one
     worker that repeats its own), searched serially and replayed as records."""
     replays = {}
@@ -243,9 +241,9 @@ def record_replays(repo_root, search_data_by_language) -> dict[str, RecordReplay
         "g13-hr3-attack-health-one-skill.json",
         "g19-gunner-load-up-piercings-event.json",
     ):
-        spec = SearchSpec.from_file(repo_root / "tests" / "corpus" / file_name)
-        data = search_data_by_language[spec.query.language]
-        searched = run_search(spec, data=data)
+        spec = corpus_spec(f"corpus/{file_name}")
+        data = search_data_for(spec)
+        searched = serial_search(file_name)
         index = RecordIndex.for_game(data.game)
         skill_index = skill_indices(data.game)
         from_records = ResultSet()
