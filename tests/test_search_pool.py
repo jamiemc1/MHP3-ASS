@@ -26,7 +26,6 @@ from mhp3ass.parallel import (
     plan_tasks,
     task_outcomes,
 )
-from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import skill_indices, solution_line
 from mhp3ass.search import StepReporter, armor_choices, run_search, worker_charms
 from mhp3ass.solution.record import SolutionRecord, from_record
@@ -46,12 +45,12 @@ class PoolComparison:
 
 
 @pytest.fixture
-def compare_with_serial(repo_root, legacy_data_dir, search_data_by_language, search_pool):
+def compare_with_serial(corpus_spec, legacy_data_dir, search_data_for, search_pool):
     """Search a public corpus query with ``run_search`` and in the session pool."""
 
     def compare(file_name: str) -> PoolComparison:
-        spec = SearchSpec.from_file(repo_root / "tests" / "corpus" / file_name)
-        data = search_data_by_language[spec.query.language]
+        spec = corpus_spec(f"corpus/{file_name}")
+        data = search_data_for(spec)
         serial = run_search(spec, data=data)
         reports: list[tuple[int, int]] = []
         pooled = search_pool.run(
@@ -108,13 +107,11 @@ def test_progress_rises_to_every_combination_of_every_worker(compare_with_serial
     assert comparison.reports[-1] == (comparison.combinations, comparison.combinations)
 
 
-def test_progress_arrives_from_inside_running_tasks(
-    repo_root, legacy_data_dir, search_data_by_language
-):
+def test_progress_arrives_from_inside_running_tasks(corpus_spec, legacy_data_dir, search_data_for):
     """With one process and no throttling, some report must fall between task
     boundaries: only a pool process's own messages can put it there."""
-    spec = SearchSpec.from_file(repo_root / "tests" / "corpus" / "g16-attack-sharp-no-charms.json")
-    data = search_data_by_language[spec.query.language]
+    spec = corpus_spec("corpus/g16-attack-sharp-no-charms.json")
+    data = search_data_for(spec)
     serial = run_search(spec, data=data)
     search = PoolSearch.for_query(legacy_data_dir, spec=spec.query, query=serial.query)
     tasks = plan_tasks(worker_count=1, head_count=search.head_count, jobs=1)
@@ -151,17 +148,10 @@ def test_start_launches_every_process_before_the_first_search():
     assert [before_start, after_start] == [0, 2]
 
 
-@pytest.fixture(scope="module")
-def empty_armor_spec(repo_root) -> SearchSpec:
-    """t05: every armour slot empty, my charms; worker 1 of 3 throws."""
-    path = repo_root / "tests" / "traces" / "queries" / "t05-empty-armor-my-charms.json"
-    return SearchSpec.from_file(path)
-
-
 def test_a_throwing_worker_ends_the_merge_as_in_the_serial_search(
-    empty_armor_spec, legacy_data_dir, search_data_by_language, search_pool
+    empty_armor_spec, legacy_data_dir, search_data_for, search_pool
 ):
-    data = search_data_by_language[empty_armor_spec.query.language]
+    data = search_data_for(empty_armor_spec)
     serial = run_search(empty_armor_spec, data=data, record_exceptions=True)
     loaded = load_query_my_charms(
         empty_armor_spec.my_charms, game=data.game, validity=data.validity
@@ -305,13 +295,10 @@ def test_progress_tally_keeps_the_highest_report_and_counts_finished_tasks_in_fu
 
 
 def test_a_rebuilt_query_must_match_the_parents_armour_choices(
-    repo_root, legacy_data_dir, search_data_by_language
+    one_skill_spec, legacy_data_dir, search_data_for
 ):
-    spec = SearchSpec.from_file(
-        repo_root / "tests" / "corpus" / "g13-hr3-attack-health-one-skill.json"
-    )
-    serial = run_search(spec, data=search_data_by_language[spec.query.language])
-    search = PoolSearch.for_query(legacy_data_dir, spec=spec.query, query=serial.query)
+    serial = run_search(one_skill_spec, data=search_data_for(one_skill_spec))
+    search = PoolSearch.for_query(legacy_data_dir, spec=one_skill_spec.query, query=serial.query)
     heads, *other_slots = search.armor_indices
     one_head_fewer = replace(search, armor_indices=(heads[:-1], *other_slots))
     heads_reordered = replace(search, armor_indices=(heads[::-1], *other_slots))
