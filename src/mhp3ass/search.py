@@ -4,10 +4,12 @@ that merges the workers' solutions.
 Ported from ``Form1::StartSearch`` (``legacy/Form1.h:1251-1375``),
 ``Form1::backgroundWorker1_DoWork`` (``legacy/Form1.h:1852-1930``) and
 ``backgroundWorker1_RunWorkerCompleted`` (``legacy/Form1.h:1804-1836``),
-without the threads and cancellation, in the order the harness's
-``SearchDump::Run`` (``harness/src/SearchDump.cpp``) runs them. The workers
-run one after another, or in a ``WorkerPool`` (``parallel.SearchPool``); the
-results are merged in worker order either way.
+without the threads, in the order the harness's ``SearchDump::Run``
+(``harness/src/SearchDump.cpp``) runs them. The workers run one after
+another, or in a ``WorkerPool`` (``parallel.SearchPool``); the results are
+merged in worker order either way. A cancelled search raises
+``SearchCancelled`` and returns nothing, unlike the original's, which keeps
+its partial results (quirk 38).
 """
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from math import prod
 from pathlib import Path
+from threading import Event
 from typing import Protocol, TypeIs
 
 from mhp3ass.charms.comparison import add_charm_to_optimal_list
@@ -236,6 +239,15 @@ class StepReporter:
         self._send(self._done)
 
 
+class SearchCancelled(Exception):
+    """The caller's cancel event was set before the search finished."""
+
+
+def raise_if_cancelled(cancel: Event | None) -> None:
+    if cancel is not None and cancel.is_set():
+        raise SearchCancelled("the search was cancelled")
+
+
 def is_search_error(error: BaseException) -> TypeIs[LegacyNullReferenceError | LookupError]:
     """Whether ``error`` is one ``run_worker`` itself can raise, which the
     serial search records or propagates; anything else is a failure of the
@@ -273,6 +285,7 @@ class WorkerPool(Protocol):
         templates: Sequence[Charm | None],
         game: GameData,
         on_progress: Callable[[int, int], None] | None = None,
+        cancel: Event | None = None,
     ) -> PoolResult: ...
 
 
@@ -348,6 +361,7 @@ def run_search(
     *,
     pool: WorkerPool | None = None,
     on_progress: Callable[[int, int], None] | None = None,
+    cancel: Event | None = None,
 ) -> SearchResult:
     """One search, as the harness's ``SearchDump::Run`` runs it: load the query's
     charm lines, formulate the query, start the workers in ``StartSearch``'s
@@ -368,6 +382,11 @@ def run_search(
     threw), counting where the original reports progress (Form1.h:1874-1890).
     Cyclic garbage collection is off (``paused_gc``) while the workers run and
     their solutions are merged, callbacks included.
+
+    Setting ``cancel`` (from another thread) stops the search and raises
+    ``SearchCancelled``: serially after the current (head, body) pair, in a
+    pool within one progress interval, where tasks already running finish
+    unread and the rest never start.
     """
     loaded = load_query_my_charms(spec.my_charms, game=data.game, validity=data.validity)
     query = formulate_query(data.game, spec.query)
@@ -399,6 +418,7 @@ def run_search(
                 templates=templates,
                 game=data.game,
                 on_progress=on_progress,
+                cancel=cancel,
             )
             for number, records in enumerate(pooled.workers):
                 start = time.perf_counter()
@@ -424,14 +444,22 @@ def run_search(
             if on_progress is not None:
                 total = len(templates) * prod(len(choices) for choices in armor_choices(query))
                 reporter = StepReporter(send=lambda done: on_progress(done, total))
+
+            def step(combinations: int) -> None:
+                raise_if_cancelled(cancel)
+                if reporter is not None:
+                    reporter.add(combinations)
+
+            needs_steps = reporter is not None or cancel is not None
             for number, template in enumerate(templates):
+                raise_if_cancelled(cancel)
                 start = time.perf_counter()
                 try:
                     found = run_worker(
                         query,
                         template,
                         data.game,
-                        on_step=reporter.add if reporter is not None else None,
+                        on_step=step if needs_steps else None,
                     )
                 except (LegacyNullReferenceError, LookupError) as error:
                     exception = _recorded_exception(

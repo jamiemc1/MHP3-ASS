@@ -29,6 +29,7 @@ from dataclasses import dataclass
 from math import ceil, prod
 from multiprocessing.queues import Queue
 from pathlib import Path
+from threading import Event
 from types import TracebackType
 
 from mhp3ass.data import GameData, apply_language, load_game_data
@@ -43,6 +44,7 @@ from mhp3ass.search import (
     is_search_error,
     language_dir,
     paused_gc,
+    raise_if_cancelled,
     run_worker,
 )
 from mhp3ass.solution.record import (
@@ -366,6 +368,7 @@ class SearchPool:
         templates: Sequence[Charm | None],
         game: GameData,
         on_progress: Callable[[int, int], None] | None = None,
+        cancel: Event | None = None,
     ) -> PoolResult:
         """Every worker's solutions for ``query`` (the parent's ``formulate_query``
         of ``spec`` on ``game``, loaded from ``data_dir``), one worker per template.
@@ -375,6 +378,10 @@ class SearchPool:
         A search error in a worker ends up in the result, and the progress then
         stops short of the total; any other error in a pool process, up to the
         first search error in task order, is raised.
+
+        Setting ``cancel`` raises ``SearchCancelled`` within one progress
+        interval: tasks not yet started are cancelled, and those running finish
+        in their processes unread (their late progress is dropped by search).
         """
         search = PoolSearch.for_query(data_dir, spec=spec, query=query)
         tasks = plan_tasks(
@@ -395,6 +402,10 @@ class SearchPool:
         pending: set[Future[list[SolutionRecord]]] = set(futures)
         last_reported = time.monotonic()
         while pending:
+            if cancel is not None and cancel.is_set():
+                for future in pending:
+                    future.cancel()
+                raise_if_cancelled(cancel)
             # The floor keeps the parent from spinning when reports are unthrottled.
             finished, pending = wait(pending, timeout=max(self._progress_interval, 0.01))
             for future in finished:
