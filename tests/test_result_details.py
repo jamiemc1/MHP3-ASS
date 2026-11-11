@@ -7,16 +7,19 @@ from dataclasses import dataclass
 
 import pytest
 
-from mhp3ass.model import Ability, Skill
+from mhp3ass.model import Ability, AbilityPair, Armor, Material, MaterialComponent, Skill
 from mhp3ass.query import SearchSpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.details import (
+    AbilityLine,
     ArmorLine,
     ArmorNote,
     DecorationCount,
     SlotsSpare,
     SortValue,
+    armor_details,
     armor_note,
+    decoration_details,
     slots_spare,
     solution_details,
     sort_value,
@@ -252,3 +255,55 @@ def test_details_list_pieces_jewel_counts_and_the_unsearched_extra_skills(
         None,
         SortValue(key=SortKey.DEFENCE, value=0),
     ]
+
+
+@pytest.fixture
+def torso_inc_pieces(teamhgg_game) -> list[Armor]:
+    pieces = [
+        armor for armors in teamhgg_game.armors.values() for armor in armors if armor.torso_inc
+    ]
+    return pieces
+
+
+def test_torso_inc_pieces_list_torso_inc_by_name_alone(torso_inc_pieces, teamhgg_game):
+    torso_inc_line = AbilityLine(ability=teamhgg_game.torso_inc, amount=None)
+
+    lines = [armor_details(armor, teamhgg_game).abilities for armor in torso_inc_pieces]
+
+    assert len(torso_inc_pieces) > 0
+    assert all(torso_inc_line in piece_lines for piece_lines in lines)
+
+
+@pytest.fixture
+def two_recipe_jewel(attack, health):
+    """A jewel with +2 Attack, 0 Health and a second recipe."""
+    jewel = make_jewel("Jewel", first=attack, amount=2, second=health, second_amount=0)
+    jewel.components = [MaterialComponent(material=Material(name="Ore"), amount=3)]
+    jewel.components2 = [MaterialComponent(material=Material(name="Bone"), amount=1)]
+    return jewel
+
+
+def test_a_jewel_lists_points_and_both_recipes(two_recipe_jewel, teamhgg_game, attack, health):
+    details = decoration_details(two_recipe_jewel, teamhgg_game)
+
+    assert details.abilities == (
+        AbilityLine(ability=attack, amount=2),
+        AbilityLine(ability=health, amount=None),
+    )
+    assert [details.components, details.alternative_components] == [
+        tuple(two_recipe_jewel.components),
+        tuple(two_recipe_jewel.components2),
+    ]
+
+
+def test_a_piece_lists_its_points_and_recipe(make_armor, teamhgg_game, attack):
+    armor = make_armor(abilities=[(attack, 3)])
+    armor.abilities.append(AbilityPair(ability=teamhgg_game.torso_inc, amount=1))
+
+    details = armor_details(armor, teamhgg_game)
+
+    assert details.abilities == (
+        AbilityLine(ability=attack, amount=3),
+        AbilityLine(ability=teamhgg_game.torso_inc, amount=None),
+    )
+    assert [details.armor, details.components] == [armor, ()]

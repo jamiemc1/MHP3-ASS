@@ -1,6 +1,7 @@
 """What each result shows, as data; the TUI lays it out.
 
-Ported from ``Form1::UpdateResultString`` (``legacy/Form1.h:1569-1655``).
+Ported from ``Form1::UpdateResultString`` (``legacy/Form1.h:1569-1655``) and
+the armour and decoration ``UpdateContextMenu`` (``legacy/Common.cpp:77-122``).
 Armour notes and extra skills come from the search's own query, not the
 latest relevance pass (quirk 47).
 """
@@ -10,7 +11,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
-from mhp3ass.model import Armor, Charm, Decoration, Skill
+from mhp3ass.data import GameData
+from mhp3ass.model import (
+    Ability,
+    AbilityPair,
+    Armor,
+    Charm,
+    Decoration,
+    MaterialComponent,
+    Skill,
+)
 from mhp3ass.query import Query
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.solution.state import Solution
@@ -57,6 +67,66 @@ class SolutionDetails:
     slots_spare: SlotsSpare | None
     sort_value: SortValue | None
     extra_skills: tuple[Skill, ...]
+
+
+@dataclass(frozen=True)
+class AbilityLine:
+    """``amount`` is ``None`` where the menu shows the name alone: no points, or Torso Inc."""
+
+    ability: Ability
+    amount: int | None
+
+
+@dataclass(frozen=True)
+class ArmorDetails:
+    """The piece's menu: its name, slots, defence range and resistances, then these."""
+
+    armor: Armor
+    abilities: tuple[AbilityLine, ...]
+    components: tuple[MaterialComponent, ...]
+
+
+@dataclass(frozen=True)
+class DecorationDetails:
+    """The jewel's menu: its name and slots, then these; no second recipe is empty."""
+
+    decoration: Decoration
+    abilities: tuple[AbilityLine, ...]
+    components: tuple[MaterialComponent, ...]
+    alternative_components: tuple[MaterialComponent, ...]
+
+
+def ability_lines(pairs: list[AbilityPair], game: GameData) -> tuple[AbilityLine, ...]:
+    """Common.cpp:77-86."""
+    lines = tuple(
+        AbilityLine(
+            ability=pair.ability,
+            amount=pair.amount if pair.amount != 0 and pair.ability is not game.torso_inc else None,
+        )
+        for pair in pairs
+    )
+    return lines
+
+
+def armor_details(armor: Armor, game: GameData) -> ArmorDetails:
+    """Common.cpp:107-122."""
+    details = ArmorDetails(
+        armor=armor,
+        abilities=ability_lines(armor.abilities, game),
+        components=tuple(armor.components),
+    )
+    return details
+
+
+def decoration_details(decoration: Decoration, game: GameData) -> DecorationDetails:
+    """Common.cpp:95-105."""
+    details = DecorationDetails(
+        decoration=decoration,
+        abilities=ability_lines(decoration.abilities, game),
+        components=tuple(decoration.components),
+        alternative_components=tuple(decoration.components2),
+    )
+    return details
 
 
 def armor_note(armor: Armor, query: Query) -> ArmorNote | None:
