@@ -24,7 +24,16 @@ from dataclasses import dataclass
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, Skill
-from mhp3ass.settings_cfg import SkillSelection
+
+
+@dataclass(frozen=True)
+class SkillSelection:
+    """One skill drop-down row. Skills are ``Skill::static_skills`` indices, -1 when empty."""
+
+    blademaster_filter: int
+    blademaster_skill: int
+    gunner_filter: int
+    gunner_skill: int
 
 
 @dataclass(frozen=True)

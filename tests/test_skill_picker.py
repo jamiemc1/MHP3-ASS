@@ -7,10 +7,11 @@ import pytest
 
 from mhp3ass.data import GameData
 from mhp3ass.data.languages import language_folders
-from mhp3ass.settings_cfg import SkillSelection, read_settings_cfg
+from mhp3ass.settings_cfg import read_settings_cfg
 from mhp3ass.skill_picker import (
     SkillRow,
     SkillRowsByHunter,
+    SkillSelection,
     query_skills,
     restore_skill_rows,
     row_choices,
