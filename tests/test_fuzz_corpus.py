@@ -12,10 +12,10 @@ import pytest
 
 from mhp3ass.charms.my_charms import LineOutcome, load_my_charms
 from mhp3ass.charms.validity import CharmValidity
-from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.data.loaders import other_hunter_types_skill, read_skill_types
 from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import formulate_query
+from mhp3ass.search import SearchData
 
 
 @dataclass(frozen=True)
@@ -42,34 +42,25 @@ def fuzz_dir(repo_root: Path) -> Path:
 
 
 @pytest.fixture(scope="module")
-def games_by_language(legacy_data_dir: Path) -> dict[str, GameData]:
-    """A game per language, private to this module: relevance rewrites their flags."""
-    games = {}
-    for folder in sorted((legacy_data_dir / "Languages").iterdir()):
-        game = load_game_data(legacy_data_dir)
-        apply_language(game, folder)
-        games[folder.name] = game
-    return games
-
-
-@pytest.fixture(scope="module")
 def fuzz_facts(
     fuzz_dir: Path,
-    games_by_language: dict[str, GameData],
+    search_data_by_language: dict[str, SearchData],
     validity: CharmValidity,
     legacy_data_dir: Path,
     tmp_path_factory: pytest.TempPathFactory,
 ) -> list[FuzzFacts]:
     """Builds every query as the GUI would and loads its my-charms lines as ``LoadCustom`` does.
 
-    ``validity`` only reads abilities' static indices, so it serves every language.
+    The search games are query-mutable: formulating a query rewrites all their
+    relevance state. ``validity`` only reads abilities' static indices, so it
+    serves every language.
     """
     skill_types = read_skill_types(legacy_data_dir / "skills.txt")
     charms_dir = tmp_path_factory.mktemp("fuzz-my-charms")
     facts = []
     for path in sorted(fuzz_dir.glob("f*.json")):
         contents = json.loads(path.read_text(encoding="utf-8"))
-        game = games_by_language[contents["language"]]
+        game = search_data_by_language[contents["language"]].game
         spec = QuerySpec.from_json(contents)
         query = formulate_query(game, spec)
         charms_path = charms_dir / f"{path.stem}.txt"
