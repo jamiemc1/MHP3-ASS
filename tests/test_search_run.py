@@ -11,8 +11,6 @@ import pytest
 
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.decorations import NoDecorationsError
-from mhp3ass.parallel import SearchPool
-from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import candidate_lines, search_manifest, solution_lines
 from mhp3ass.search import armor_choices, dotnet_exception_type, run_search
 from mhp3ass.solution.charm_reduction import LegacyListIndexError
@@ -20,32 +18,15 @@ from mhp3ass.solution.fill import UndefinedScoreError
 from mhp3ass.solution.state import LegacyNullReferenceError
 
 
-@pytest.fixture(params=["serial", "pool"])
-def pool(request, search_pool) -> SearchPool | None:
-    """No pool (the workers run in turn), then the session's pool."""
-    chosen = search_pool if request.param == "pool" else None
-    return chosen
-
-
-@pytest.fixture(scope="module")
-def empty_armor_spec(repo_root) -> SearchSpec:
-    path = repo_root / "tests" / "traces" / "queries" / "t05-empty-armor-my-charms.json"
-    return SearchSpec.from_file(path)
-
-
-@pytest.fixture(scope="module")
-def one_skill_spec(repo_root) -> SearchSpec:
-    """g13: four one-skill workers."""
-    path = repo_root / "tests" / "corpus" / "g13-hr3-attack-health-one-skill.json"
-    return SearchSpec.from_file(path)
-
-
 def test_a_throwing_worker_is_recorded_and_stops_the_search(
-    empty_armor_spec, search_data_by_language, pool
+    empty_armor_spec, search_data_for, pool_or_serial
 ):
-    data = search_data_by_language[empty_armor_spec.query.language]
-
-    result = run_search(empty_armor_spec, data=data, record_exceptions=True, pool=pool)
+    result = run_search(
+        empty_armor_spec,
+        data=search_data_for(empty_armor_spec),
+        record_exceptions=True,
+        pool=pool_or_serial,
+    )
 
     exception = result.exception
     assert [
@@ -59,19 +40,18 @@ def test_a_throwing_worker_is_recorded_and_stops_the_search(
 
 
 def test_without_recording_the_worker_error_propagates(
-    empty_armor_spec, search_data_by_language, pool
+    empty_armor_spec, search_data_for, pool_or_serial
 ):
-    data = search_data_by_language[empty_armor_spec.query.language]
-
     with pytest.raises(LegacyNullReferenceError):
-        run_search(empty_armor_spec, data=data, pool=pool)
+        run_search(empty_armor_spec, data=search_data_for(empty_armor_spec), pool=pool_or_serial)
 
 
-def test_empty_slots_are_padded_on_a_copy(empty_armor_spec, search_data_by_language):
+def test_empty_slots_are_padded_on_a_copy(empty_armor_spec, search_data_for):
     """DoWork pads the shared query's empty lists (Form1.h:1865-1869); the port
     pads a copy per worker, so the query's lists stay as relevance left them."""
-    data = search_data_by_language[empty_armor_spec.query.language]
-    query = run_search(empty_armor_spec, data=data, record_exceptions=True).query
+    query = run_search(
+        empty_armor_spec, data=search_data_for(empty_armor_spec), record_exceptions=True
+    ).query
 
     assert [query.rel_armor, armor_choices(query)] == [[[]] * 5, [[None]] * 5]
 
@@ -92,14 +72,14 @@ def test_port_errors_map_to_the_dotnet_exceptions_they_stand_for(error, expected
     assert dotnet_exception_type(error) == expected
 
 
-def test_each_finished_worker_is_reported_in_order(one_skill_spec, search_data_by_language, pool):
+def test_each_finished_worker_is_reported_in_order(one_skill_spec, search_data_for, pool_or_serial):
     reports = []
 
     result = run_search(
         one_skill_spec,
-        data=search_data_by_language[one_skill_spec.query.language],
+        data=search_data_for(one_skill_spec),
         on_worker_done=reports.append,
-        pool=pool,
+        pool=pool_or_serial,
     )
 
     assert [
@@ -109,14 +89,14 @@ def test_each_finished_worker_is_reported_in_order(one_skill_spec, search_data_b
 
 
 def test_progress_counts_every_combination_of_every_worker(
-    one_skill_spec, search_data_by_language, pool
+    one_skill_spec, search_data_for, pool_or_serial
 ):
     reports: list[tuple[int, int]] = []
 
     result = run_search(
         one_skill_spec,
-        data=search_data_by_language[one_skill_spec.query.language],
-        pool=pool,
+        data=search_data_for(one_skill_spec),
+        pool=pool_or_serial,
         on_progress=lambda done, total: reports.append((done, total)),
     )
 
@@ -129,23 +109,23 @@ def test_progress_counts_every_combination_of_every_worker(
     assert reports[-1] == (combinations, combinations)
 
 
-def test_progress_stops_short_when_a_worker_throws(empty_armor_spec, search_data_by_language, pool):
+def test_progress_stops_short_when_a_worker_throws(
+    empty_armor_spec, search_data_for, pool_or_serial
+):
     reports: list[tuple[int, int]] = []
 
     run_search(
         empty_armor_spec,
-        data=search_data_by_language[empty_armor_spec.query.language],
+        data=search_data_for(empty_armor_spec),
         record_exceptions=True,
-        pool=pool,
+        pool=pool_or_serial,
         on_progress=lambda done, total: reports.append((done, total)),
     )
 
     assert reports[-1][0] < reports[-1][1] == 3
 
 
-def test_the_pool_gives_the_serial_result(
-    repo_root, one_skill_spec, search_data_by_language, search_pool
-):
+def test_the_pool_gives_the_serial_result(repo_root, one_skill_spec, search_data_for, search_pool):
     """g13's workers repeat each other's sets, so the pool's duplicate removal
     on records must keep the serial search's solutions, worker by worker."""
     spec_json = json.loads(
@@ -153,7 +133,7 @@ def test_the_pool_gives_the_serial_result(
             encoding="utf-8-sig"
         )
     )
-    data = search_data_by_language[one_skill_spec.query.language]
+    data = search_data_for(one_skill_spec)
     manifests = []
     outputs = []
 
