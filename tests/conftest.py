@@ -24,7 +24,7 @@ from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
 from mhp3ass.parallel import SearchPool
-from mhp3ass.query import Query
+from mhp3ass.query import Query, SearchSpec
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
 from mhp3ass.search import SearchData
@@ -367,10 +367,51 @@ def search_data_by_language(legacy_data_dir: Path) -> dict[str, SearchData]:
 
 
 @pytest.fixture(scope="session")
+def search_data_for(
+    search_data_by_language: dict[str, SearchData],
+) -> Callable[[SearchSpec], SearchData]:
+    """The search data in a spec's language."""
+
+    def lookup(spec: SearchSpec) -> SearchData:
+        return search_data_by_language[spec.query.language]
+
+    return lookup
+
+
+@pytest.fixture(scope="session")
 def search_pool() -> Generator[SearchPool]:
     """Four pool processes for the session, so tests pay the process start-up once."""
     with SearchPool(jobs=4) as pool:
         yield pool
+
+
+@pytest.fixture(params=["serial", "pool"])
+def pool_or_serial(request, search_pool: SearchPool) -> SearchPool | None:
+    """No pool (the workers run in turn), then the session's pool."""
+    chosen = search_pool if request.param == "pool" else None
+    return chosen
+
+
+@pytest.fixture(scope="session")
+def corpus_spec(repo_root: Path) -> Callable[[str], SearchSpec]:
+    """Reads a committed query file by its path under ``tests/``."""
+
+    def read(relative_path: str) -> SearchSpec:
+        return SearchSpec.from_file(repo_root / "tests" / relative_path)
+
+    return read
+
+
+@pytest.fixture(scope="session")
+def empty_armor_spec(corpus_spec: Callable[[str], SearchSpec]) -> SearchSpec:
+    """t05: every armour slot empty, Poison charms; its second worker throws."""
+    return corpus_spec("traces/queries/t05-empty-armor-my-charms.json")
+
+
+@pytest.fixture(scope="session")
+def one_skill_spec(corpus_spec: Callable[[str], SearchSpec]) -> SearchSpec:
+    """g13: four one-skill workers."""
+    return corpus_spec("corpus/g13-hr3-attack-health-one-skill.json")
 
 
 @pytest.fixture(scope="session")
