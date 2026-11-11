@@ -2,12 +2,14 @@
 
 Ported from ``Form1::UpdateResultString`` (``legacy/Form1.h:1569-1655``) and
 the armour and decoration ``UpdateContextMenu`` (``legacy/Common.cpp:77-122``).
-Armour notes and extra skills come from the search's own query, not the
-latest relevance pass (quirk 47).
+Armour notes and extra skills come from the results' own query (the search's,
+or the one loaded with them from ``settings.cfg``), not the latest relevance
+pass (quirk 47).
 """
 
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 from enum import Enum
 
@@ -88,7 +90,8 @@ class ArmorDetails:
 
 @dataclass(frozen=True)
 class DecorationDetails:
-    """The jewel's menu: its name and slots, then these; no second recipe is empty."""
+    """The jewel's menu: its name and slots, then these. ``alternative_components``
+    is empty for a jewel with one recipe."""
 
     decoration: Decoration
     abilities: tuple[AbilityLine, ...]
@@ -133,7 +136,8 @@ def armor_note(armor: Armor, query: Query) -> ArmorNote | None:
     """``no_skills`` as ``Armor::MatchesQuery`` sets it for ``query`` (Armor.cpp:115-139).
 
     Torso-up pieces return before ``no_skills`` is written, so they only ever
-    get the Torso Inc note.
+    get the Torso Inc note. Worked out for any piece, including one the
+    query's requirement checks would skip (the original keeps a stale flag).
     """
     if armor.torso_inc:
         return ArmorNote.ANY_TORSO_INC
@@ -146,9 +150,7 @@ def armor_note(armor: Armor, query: Query) -> ArmorNote | None:
 
 def decoration_counts(solution: Solution) -> tuple[DecorationCount, ...]:
     """Each distinct decoration and how many, in first-placed order (Form1.h:1597-1606)."""
-    counts: dict[Decoration, int] = {}
-    for decoration in solution.decorations:
-        counts[decoration] = counts.get(decoration, 0) + 1
+    counts = Counter(solution.decorations)
     decorations = tuple(
         DecorationCount(decoration=decoration, count=count) for decoration, count in counts.items()
     )
@@ -188,7 +190,7 @@ def sort_value(solution: Solution, sort_key: SortKey) -> SortValue | None:
 
 
 def solution_details(solution: Solution, query: Query, sort_key: SortKey) -> SolutionDetails:
-    """One result's details, for the search ``query`` that found it."""
+    """One result's details, for the results' own ``query``."""
     armors = tuple(
         ArmorLine(armor=armor, note=armor_note(armor, query))
         for armor in solution.armors
