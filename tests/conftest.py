@@ -405,8 +405,8 @@ def search_data_for(
 
 @pytest.fixture(scope="session")
 def search_pool() -> Generator[SearchPool]:
-    """Four pool processes for the session, so tests pay the process start-up once."""
-    with SearchPool(jobs=4) as pool:
+    """A pool at the default width for the session, so tests pay the process start-up once."""
+    with SearchPool() as pool:
         yield pool
 
 

@@ -92,7 +92,10 @@ def fuzz_facts(
     return facts
 
 
+@pytest.mark.fuzz
 def test_corpus_matches_its_seed(repo_root):
+    """Regenerates all 500 queries (about 6 s); the default run still checks every
+    manifest's query hash (``test_fuzz_goldens.py``)."""
     script = repo_root / "scripts" / "generate_fuzz_corpus.py"
     result = subprocess.run(
         [sys.executable, str(script), "--check"], capture_output=True, text=True, check=False

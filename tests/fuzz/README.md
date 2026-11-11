@@ -13,8 +13,8 @@ Don't edit these files by hand. They are written by:
 uv run python scripts/generate_fuzz_corpus.py --seed 9 --count 500
 ```
 
-`tests/test_fuzz_corpus.py` runs the same command with `--check` and fails
-if the committed files differ. The generator uses the data loaders, the
+`tests/test_fuzz_corpus.py` runs the same command with `--check` under
+`pytest -m fuzz` and fails if the committed files differ. The generator uses the data loaders, the
 relevance port and the charm tables to choose queries, so a deliberate
 change to any of them may change the corpus: regenerate it, then the fuzz
 goldens.
