@@ -46,7 +46,9 @@ starting from the original's defaults; `h`, `g`, `r`, `v`, `w` and `m` jump to
 each), the skill picker (`k`: type to filter, ▲▼ and ⏎ to add, up to six;
 backspace in the empty box or ⏎ on a chip removes one), Search (`^S`, the
 button, or ⏎ in the empty skill box; esc cancels and keeps the previous
-results), the number of sets found, an empty results table and the keys (`q` quits, `^P` opens the command
+results), the number of sets found, and the results: a charm sidebar with
+counts (⏎ filters), the sort (`s`; `S` reverses; ties go to the highest
+defence, then fewest jewels, then search order) and a table of every set and the keys (`q` quits, `^P` opens the command
 palette). Outside a terminal it prints the help instead; `mhp3-ass --help`
 lists the `search` and `import-save` commands below.
 
