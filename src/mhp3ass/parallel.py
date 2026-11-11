@@ -22,12 +22,14 @@ import itertools
 import multiprocessing
 import os
 import queue
+import sys
 import time
 from collections.abc import Callable, Mapping, Sequence
 from concurrent.futures import Future, ProcessPoolExecutor, wait
 from dataclasses import dataclass
 from math import ceil, prod
 from multiprocessing.queues import Queue
+from multiprocessing.sharedctypes import Synchronized
 from pathlib import Path
 from threading import Event
 from types import TracebackType
@@ -38,6 +40,7 @@ from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.search import (
     PoolResult,
+    SearchCancelled,
     StepReporter,
     WorkerError,
     armor_choices,
@@ -268,10 +271,12 @@ def task_outcomes(
 
 @dataclass
 class _ProcessState:
-    """A pool process's progress queue and interval, and its last rebuilt search."""
+    """A pool process's progress queue and interval, the pool's latest
+    cancelled search id, and the process's last rebuilt search."""
 
     progress: Queue[ProgressReport] | None = None
     progress_interval: float = 0.1
+    cancelled: Synchronized[int] | None = None
     search: RebuiltSearch | None = None
 
 
@@ -279,13 +284,16 @@ class _ProcessState:
 _process = _ProcessState()
 
 
-def _start_process(progress: Queue[ProgressReport], progress_interval: float) -> None:
+def _start_process(
+    progress: Queue[ProgressReport], progress_interval: float, cancelled: Synchronized[int]
+) -> None:
     # A process exits without waiting for unsent reports: once its tasks are
     # done the parent counts them in full, and waiting on a full pipe nobody
     # reads any more would hang the pool's shutdown.
     progress.cancel_join_thread()
     _process.progress = progress
     _process.progress_interval = progress_interval
+    _process.cancelled = cancelled
 
 
 def _process_started() -> None:
@@ -295,9 +303,14 @@ def _process_started() -> None:
 def _run_task(
     search_id: int, number: int, search: PoolSearch, task: Task, template: CharmRecord | None
 ) -> list[SolutionRecord]:
-    """One task in a pool process: the worker's solutions over the task's head range."""
+    """One task in a pool process: the worker's solutions over the task's head range.
+
+    Raises ``SearchCancelled`` at the first (head, body) step after the pool
+    cancels this search or any later one, so a cancelled search frees its
+    processes at once."""
     progress = _process.progress
-    if progress is None:
+    cancelled = _process.cancelled
+    if progress is None or cancelled is None:
         raise RuntimeError("_run_task runs only in a SearchPool process")
     rebuilt = _process.search
     if rebuilt is None or rebuilt.search != search:
@@ -308,6 +321,12 @@ def _run_task(
         send=lambda done: progress.put(ProgressReport(search_id=search_id, task=number, done=done)),
         interval=_process.progress_interval,
     )
+
+    def step(combinations: int) -> None:
+        if cancelled.value >= search_id:
+            raise SearchCancelled(f"search {search_id} was cancelled")
+        reporter.add(combinations)
+
     with paused_gc():
         solutions = run_worker(
             rebuilt.query,
@@ -315,7 +334,7 @@ def _run_task(
             rebuilt.game,
             head_start=task.head_start,
             head_stop=task.head_stop,
-            on_step=reporter.add,
+            on_step=step,
         )
         records = [to_record(solution, rebuilt.index) for solution in solutions]
     return records
@@ -337,11 +356,13 @@ class SearchPool:
         self._progress_interval = progress_interval
         context = multiprocessing.get_context("spawn")
         self._progress: Queue[ProgressReport] = context.Queue()
+        # The highest search id cancelled so far; every process reads it.
+        self._cancelled: Synchronized[int] = context.Value("q", -1)
         self._executor = ProcessPoolExecutor(
             max_workers=self.jobs,
             mp_context=context,
             initializer=_start_process,
-            initargs=(self._progress, progress_interval),
+            initargs=(self._progress, progress_interval, self._cancelled),
         )
         self._search_ids = itertools.count()
 
@@ -380,9 +401,11 @@ class SearchPool:
         first search error in task order, is raised.
 
         Setting ``cancel`` raises ``SearchCancelled`` within one progress
-        interval: tasks not yet started are cancelled, and those running finish
-        in their processes unread (their late progress is dropped by search).
+        interval: tasks not yet started are cancelled, and those running stop
+        at their next (head, body) step, unread (their late progress is
+        dropped by search). A cancel set before the call submits nothing.
         """
+        raise_if_cancelled(cancel)
         search = PoolSearch.for_query(data_dir, spec=spec, query=query)
         tasks = plan_tasks(
             worker_count=len(templates), head_count=search.head_count, jobs=self.jobs
@@ -403,6 +426,7 @@ class SearchPool:
         last_reported = time.monotonic()
         while pending:
             if cancel is not None and cancel.is_set():
+                self._cancelled.value = search_id
                 for future in pending:
                     future.cancel()
                 raise_if_cancelled(cancel)
@@ -443,6 +467,8 @@ class SearchPool:
                 tally.report(report.task, report.done)
 
     def close(self) -> None:
+        # Running tasks stop at their next step rather than holding up the shutdown.
+        self._cancelled.value = sys.maxsize
         self._executor.shutdown(cancel_futures=True)
         self._progress.close()
         self._progress.join_thread()

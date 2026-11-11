@@ -90,7 +90,8 @@ class QueryForm:
     ) -> SearchSpec:
         """The search ``FormulateQuery`` builds from the form (``Form1.h:1184-1214``):
         the shown tab's skills in row order, with ``my_charms`` (``mycharms.txt``'s
-        lines) for the charm modes that read them. ``game`` must be in ``language``."""
+        lines), which every charm mode reads (Auto-Guard looks its charm up there).
+        ``game`` must be in ``language``."""
         chosen_rows = [row for row in self.current_rows() if row.skill is not None]
         skills = query_skills(chosen_rows)
         query = QuerySpec(

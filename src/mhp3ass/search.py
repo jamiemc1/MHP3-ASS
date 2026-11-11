@@ -384,10 +384,12 @@ def run_search(
     their solutions are merged, callbacks included.
 
     Setting ``cancel`` (from another thread) stops the search and raises
-    ``SearchCancelled``: serially after the current (head, body) pair, in a
-    pool within one progress interval, where tasks already running finish
-    unread and the rest never start.
+    ``SearchCancelled``: before the setup, serially after the current
+    (head, body) pair, in a pool within one progress interval (its tasks stop
+    at their next step), and between the workers while their solutions are
+    merged.
     """
+    raise_if_cancelled(cancel)
     loaded = load_query_my_charms(spec.my_charms, game=data.game, validity=data.validity)
     query = formulate_query(data.game, spec.query)
     templates = worker_charms(
@@ -421,6 +423,7 @@ def run_search(
                 cancel=cancel,
             )
             for number, records in enumerate(pooled.workers):
+                raise_if_cancelled(cancel)
                 start = time.perf_counter()
                 found = SolutionList.of_records(records, data.game)
                 added = results.add_records(found)
