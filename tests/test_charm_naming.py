@@ -8,17 +8,12 @@ import pytest
 
 from mhp3ass.charms.naming import charm_hash, charm_name, charms_equal, hash_function
 from mhp3ass.data import GameData
-from mhp3ass.model import Ability, AbilityPair, Charm
+from mhp3ass.model import AbilityPair, Charm
 
 
 @pytest.fixture
-def attack():
-    return Ability(name="Attack", static_index=0)
-
-
-@pytest.fixture
-def sharpness():
-    return Ability(name="Sharpness", static_index=5)
+def sharpness(make_ability):
+    return make_ability("Sharpness", 5)
 
 
 @pytest.fixture
