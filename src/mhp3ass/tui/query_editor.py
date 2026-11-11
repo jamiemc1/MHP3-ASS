@@ -11,7 +11,7 @@ from typing import Any
 
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
-from textual.widgets import Label, Select
+from textual.widgets import Button, Label, Select
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
@@ -90,6 +90,8 @@ class QueryEditor(Vertical):
                 allow_blank=False,
                 id="charm_mode",
             )
+            # The app handles the press: searching needs its data and pool.
+            yield Button(strings.basic(StringIndex.SEARCH), variant="primary", id="search")
         yield SkillPicker(
             self._game,
             strings=strings,

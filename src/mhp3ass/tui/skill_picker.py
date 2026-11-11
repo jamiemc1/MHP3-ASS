@@ -66,6 +66,9 @@ class SkillPicker(Vertical):
     }
     """
 
+    class SearchRequested(Message):
+        """Enter in the empty search box: search with the chosen skills."""
+
     class RowsChanged(Message):
         """New rows for ``hunter_type``'s tab (the tab shown when they changed)."""
 
@@ -116,6 +119,9 @@ class SkillPicker(Vertical):
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         event.stop()
+        if event.value.strip() == "":
+            self.post_message(self.SearchRequested())
+            return
         options = self.query_one("#skill_options", OptionList)
         if not self._offered:
             return
@@ -194,5 +200,6 @@ class SkillPicker(Vertical):
             Option(Content(f"{skill.name:<24} {skill.ability.name} {skill.points_required:+d}"))
             for skill in self._offered
         )
+        options.display = bool(self._offered)
         if self._offered:
             options.highlighted = 0
