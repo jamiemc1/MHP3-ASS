@@ -156,16 +156,17 @@ def other_teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
 
 
 @pytest.fixture(scope="session")
-def scratch_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
+def scratch_game(search_data_by_language: dict[str, SearchData]) -> GameData:
     """A game in English (TeamHGG) that tests may run queries on, which rewrite its
-    relevance state (ability flags, armour no_skills and danger)."""
-    return load_teamhgg_game()
+    relevance state (ability flags, armour no_skills and danger). It is the
+    English (TeamHGG) search game."""
+    return search_data_by_language["English (TeamHGG)"].game
 
 
 @pytest.fixture(scope="session")
-def scratch_charm_tables(scratch_game: GameData) -> CharmTables:
+def scratch_charm_tables(search_data_by_language: dict[str, SearchData]) -> CharmTables:
     """Charm tables for ``scratch_game``: they are keyed by its abilities."""
-    return generate_charm_tables(scratch_game)
+    return search_data_by_language["English (TeamHGG)"].tables
 
 
 @pytest.fixture(scope="session")
