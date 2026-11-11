@@ -1,5 +1,5 @@
 [project]
-name = "mhp3ass"
+name = "mhp3-ass"
 version = "0.1.0"
 description = "Armor set search for Monster Hunter Portable 3rd, ported from Athena's ASS"
 authors = [{ name = "Jamie McMillan" }]
@@ -10,7 +10,7 @@ requires-python = ">=3.15"
 dependencies = []
 
 [project.scripts]
-mhp3ass = "mhp3ass.cli:main"
+mhp3-ass = "mhp3ass.cli:main"
 
 [dependency-groups]
 dev = [
