@@ -12,16 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from mhp3ass.data.text import read_lines, to_boolean, to_int32, to_uint32
-
-
-@dataclass(frozen=True)
-class SkillSelection:
-    """One skill drop-down row. Skills are ``Skill::static_skills`` indices, -1 when empty."""
-
-    blademaster_filter: int
-    blademaster_skill: int
-    gunner_filter: int
-    gunner_skill: int
+from mhp3ass.skill_picker import SkillSelection
 
 
 @dataclass(frozen=True)
