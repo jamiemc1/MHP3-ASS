@@ -205,13 +205,23 @@ def relevance_goldens(repo_root: Path) -> list[RelevanceGolden]:
 
 
 @pytest.fixture
-def attack() -> Ability:
-    return Ability(name="Attack", static_index=0)
+def make_ability() -> Callable[[str, int], Ability]:
+    """Builds a standalone ability for pure-logic tests."""
+
+    def make(name: str, static_index: int) -> Ability:
+        return Ability(name=name, static_index=static_index)
+
+    return make
 
 
 @pytest.fixture
-def defense() -> Ability:
-    return Ability(name="Defense", static_index=1)
+def attack(make_ability) -> Ability:
+    return make_ability("Attack", 0)
+
+
+@pytest.fixture
+def defense(make_ability) -> Ability:
+    return make_ability("Defense", 1)
 
 
 @pytest.fixture
