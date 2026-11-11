@@ -34,6 +34,7 @@ to the TUI.
 | Advanced search: per-piece armour/decoration include lists | `frmAdvanced.h`, `Form1.h:1420-1459` | 4, 10 (`advanced.py`) |
 | Result sorting (the original's keys, sorted stably) | `Form1.h:20-80`, `:2149-2172` (`cmbSort`), `:1981-1996` | 10 (`results/sorting.py`, `results/view.py`) |
 | Result filtering by charm (names listed case-insensitively) | `Form1.h:1723-1802`, `:2102-2130`, `:2226-2253` (`cmbCharms`) | 10 (`results/view.py`) |
+| Result details (pieces and their notes, charm, jewels, slots spare, sort value, extra skills; layout is the TUI's) | `Form1.h:1569-1655` | 10 (`results/details.py`) |
 | Find in results (case-insensitive, wrapping) | `frmFind.h:135-144`, `Form1.h:1938-1953` | 10 (`results/find.py`) |
 | My-charms management (add, delete, persist to `mycharms.txt`) | `ManageCharms.h`, `CharmDatabase.cpp` | 3, 10 (editing: `charms/editing.py`) |
 | Charm import from a PSP save | `ImportCharms.h`, `SaveDataEncryption.cpp`, `PSPCryptoEngine.cpp` | 7, 10 |
