@@ -7,6 +7,7 @@ import pytest
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
 from mhp3ass.query_form import QueryForm
+from mhp3ass.skill_chips import chip_rows
 from mhp3ass.skill_picker import SkillRow, SkillRowsByHunter, starting_rows
 
 
@@ -79,6 +80,76 @@ def test_new_gunner_rows_go_to_the_gunner_tab_while_blademaster_is_shown(
 def test_new_rows_without_six_rows_raise():
     with pytest.raises(ValueError, match="the Blademaster tab has six skill rows, not 0"):
         QueryForm.starting().with_rows(HunterType.BLADEMASTER, rows=())
+
+
+@pytest.fixture
+def g19_form(teamhgg_game) -> QueryForm:
+    """g19's controls (Gunner, Load Up + Accuracy+1, slotted charms), with
+    Attack Up [Med] left on the Blademaster tab."""
+    skill_map = teamhgg_game.skill_map
+    form = QueryForm(
+        hunter_type=HunterType.GUNNER,
+        gender=Gender.MALE,
+        hr=6,
+        elder_star=6,
+        weapon_slots=0,
+        charm_mode=CharmMode.SLOTTED,
+        allow_bad=False,
+        allow_piercings=True,
+        allow_event=True,
+        allow_low_rank=True,
+        skill_rows=SkillRowsByHunter(
+            blademaster=chip_rows([skill_map["Attack Up [Med]"]]),
+            gunner=chip_rows([skill_map["Load Up"], skill_map["Accuracy+1"]]),
+        ),
+    )
+    return form
+
+
+@pytest.fixture
+def form_1a(teamhgg_game) -> QueryForm:
+    """1a's controls: Blademaster, Attack Up [Med] + Sharp Sword, my charms."""
+    skill_map = teamhgg_game.skill_map
+    form = replace(
+        QueryForm.starting(),
+        charm_mode=CharmMode.MY_CHARMS,
+        skill_rows=SkillRowsByHunter(
+            blademaster=chip_rows([skill_map["Attack Up [Med]"], skill_map["Sharp Sword"]]),
+            gunner=starting_rows(),
+        ),
+    )
+    return form
+
+
+def test_the_shown_tabs_search_is_the_query_files(teamhgg_game, corpus_spec, g19_form):
+    expected = corpus_spec("corpus/g19-gunner-load-up-piercings-event.json")
+
+    spec = g19_form.search_spec(
+        teamhgg_game, language="English (TeamHGG)", my_charms=(), query_id="g19"
+    )
+
+    assert spec == expected
+
+
+def test_the_my_charms_lines_go_into_the_search(teamhgg_game, corpus_spec, form_1a):
+    expected = corpus_spec("corpus/1a-attack-sharp-default-charms.json")
+
+    spec = form_1a.search_spec(
+        teamhgg_game,
+        language="English (TeamHGG)",
+        my_charms=expected.my_charms,
+        query_id="1a",
+    )
+
+    assert spec == expected
+
+
+def test_no_skills_give_a_search_with_no_skills(teamhgg_game):
+    spec = QueryForm.starting().search_spec(
+        teamhgg_game, language="English (TeamHGG)", my_charms=()
+    )
+
+    assert (spec.query.skills, spec.query.skill_names) == ((), ())
 
 
 @pytest.mark.parametrize(
