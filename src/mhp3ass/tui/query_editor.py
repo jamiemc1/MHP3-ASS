@@ -1,8 +1,12 @@
-"""The query editor: the search form's controls, labelled in the game's language."""
+"""The query editor: the search form's controls, labelled in the game's language.
+
+A new layout over ``Form1``'s controls (``legacy/Form1.h``), with their text
+as ``UpdateLanguage`` sets it (``:2065-2089``, ``StaticString``).
+"""
 
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import fields, replace
 from typing import Any
 
 from textual.app import ComposeResult
@@ -53,8 +57,8 @@ class QueryEditor(Vertical):
         with Horizontal():
             yield Select(
                 [
-                    (strings.basic(StringIndex.BLADEMASTER), HunterType.BLADEMASTER),
-                    (strings.basic(StringIndex.GUNNER), HunterType.GUNNER),
+                    (strings.static(StringIndex.BLADEMASTER), HunterType.BLADEMASTER),
+                    (strings.static(StringIndex.GUNNER), HunterType.GUNNER),
                 ],
                 value=self.form.hunter_type,
                 allow_blank=False,
@@ -62,33 +66,34 @@ class QueryEditor(Vertical):
             )
             yield Select(
                 [
-                    (strings.basic(StringIndex.MALE), Gender.MALE),
-                    (strings.basic(StringIndex.FEMALE), Gender.FEMALE),
+                    (strings.static(StringIndex.MALE), Gender.MALE),
+                    (strings.static(StringIndex.FEMALE), Gender.FEMALE),
                 ],
                 value=self.form.gender,
                 allow_blank=False,
                 id="gender",
             )
-            yield Label(strings.basic(StringIndex.HR))
+            yield Label(strings.static(StringIndex.HR))
             yield _number_select(1, 6, value=self.form.hr, select_id="hr")
-            yield Label(strings.basic(StringIndex.VILLAGE_QUESTS))
+            yield Label(strings.static(StringIndex.VILLAGE_QUESTS))
             yield _number_select(1, 6, value=self.form.elder_star, select_id="elder_star")
-            yield Label(strings.basic(StringIndex.MAX_WEAPON_SLOTS))
+            yield Label(strings.static(StringIndex.MAX_WEAPON_SLOTS))
             yield _number_select(0, 3, value=self.form.weapon_slots, select_id="weapon_slots")
         with Horizontal():
-            yield Label(strings.basic(StringIndex.CHARMS))
+            yield Label(strings.static(StringIndex.CHARMS))
             yield Select(
-                [(strings.basic(_charm_mode_label(mode)), mode) for mode in CharmMode],
+                [(strings.static(_charm_mode_label(mode)), mode) for mode in CharmMode],
                 value=self.form.charm_mode,
                 allow_blank=False,
                 id="charm_mode",
             )
 
     def on_select_changed(self, event: Select.Changed) -> None:
-        # Each select's id is the QueryForm field it sets.
+        # The form's selects are those whose id is the QueryForm field they set.
         field = event.select.id
-        if field is None:
-            raise ValueError("a query editor select has no id")
+        if field not in {form_field.name for form_field in fields(QueryForm)}:
+            return
+        event.stop()
         changes: dict[str, Any] = {field: event.value}
         self.form = replace(self.form, **changes)
 
@@ -105,12 +110,14 @@ def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Se
 
 def _charm_mode_label(mode: CharmMode) -> StringIndex:
     """``cmbCharmSelect``'s item text (``Form1.h:2085-2089``)."""
-    labels = {
-        CharmMode.NONE: StringIndex.USE_NO_CHARMS,
-        CharmMode.MY_CHARMS: StringIndex.USE_ONLY_MY_CHARMS,
-        CharmMode.SLOTTED: StringIndex.USE_ONLY_SLOTTED_CHARMS,
-        CharmMode.ONE_SKILL: StringIndex.USE_UP_TO_ONE_SKILL_CHARMS,
-        CharmMode.TWO_SKILL: StringIndex.USE_ONLY_TWO_SKILL_CHARMS,
-    }
-    label = labels[mode]
-    return label
+    match mode:
+        case CharmMode.NONE:
+            return StringIndex.USE_NO_CHARMS
+        case CharmMode.MY_CHARMS:
+            return StringIndex.USE_ONLY_MY_CHARMS
+        case CharmMode.SLOTTED:
+            return StringIndex.USE_ONLY_SLOTTED_CHARMS
+        case CharmMode.ONE_SKILL:
+            return StringIndex.USE_UP_TO_ONE_SKILL_CHARMS
+        case CharmMode.TWO_SKILL:
+            return StringIndex.USE_ONLY_TWO_SKILL_CHARMS

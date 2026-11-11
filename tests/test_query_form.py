@@ -68,6 +68,31 @@ def test_values_the_controls_cant_hold_raise(field, value, message):
         replace(QueryForm.starting(), **{field: value})
 
 
+def test_a_charm_mode_that_isnt_a_charm_mode_raises():
+    with pytest.raises(ValueError, match="charm mode must be a CharmMode, not 7"):
+        replace(QueryForm.starting(), charm_mode=7)
+
+
+@pytest.mark.parametrize(
+    ("skill_rows", "message"),
+    [
+        (
+            SkillRowsByHunter(blademaster=starting_rows()[:5], gunner=starting_rows()),
+            "the Blademaster tab has six skill rows, not 5",
+        ),
+        (
+            SkillRowsByHunter(
+                blademaster=starting_rows(), gunner=(*starting_rows(), *starting_rows())
+            ),
+            "the Gunner tab has six skill rows, not 12",
+        ),
+    ],
+)
+def test_a_tab_without_six_skill_rows_raises(skill_rows, message):
+    with pytest.raises(ValueError, match=message):
+        replace(QueryForm.starting(), skill_rows=skill_rows)
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [("hr", 1), ("elder_star", 1), ("weapon_slots", 3)],
