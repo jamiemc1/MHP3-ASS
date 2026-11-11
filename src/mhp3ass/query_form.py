@@ -78,9 +78,9 @@ class QueryForm:
             return self.skill_rows.gunner
         return self.skill_rows.blademaster
 
-    def with_current_rows(self, rows: tuple[SkillRow, ...]) -> QueryForm:
-        """The form with the shown hunter type's rows replaced; the other tab's are kept."""
-        if self.hunter_type is HunterType.GUNNER:
+    def with_rows(self, hunter_type: HunterType, rows: tuple[SkillRow, ...]) -> QueryForm:
+        """The form with ``hunter_type``'s tab's rows replaced; the other tab's are kept."""
+        if hunter_type is HunterType.GUNNER:
             skill_rows = replace(self.skill_rows, gunner=rows)
         else:
             skill_rows = replace(self.skill_rows, blademaster=rows)

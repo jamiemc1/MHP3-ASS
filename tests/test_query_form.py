@@ -58,26 +58,27 @@ def misc_rows() -> tuple[SkillRow, ...]:
 
 
 def test_new_blademaster_rows_keep_the_gunner_tab(form_with_gunner_rows_filtered, misc_rows):
-    updated = form_with_gunner_rows_filtered.with_current_rows(misc_rows)
+    updated = form_with_gunner_rows_filtered.with_rows(HunterType.BLADEMASTER, rows=misc_rows)
 
     assert updated.skill_rows == SkillRowsByHunter(
         blademaster=misc_rows, gunner=form_with_gunner_rows_filtered.skill_rows.gunner
     )
 
 
-def test_new_gunner_rows_keep_the_blademaster_tab(form_with_gunner_rows_filtered, misc_rows):
-    gunner_form = replace(form_with_gunner_rows_filtered, hunter_type=HunterType.GUNNER)
-
-    updated = gunner_form.with_current_rows(misc_rows)
+def test_new_gunner_rows_go_to_the_gunner_tab_while_blademaster_is_shown(
+    form_with_gunner_rows_filtered, misc_rows
+):
+    updated = form_with_gunner_rows_filtered.with_rows(HunterType.GUNNER, rows=misc_rows)
 
     assert updated.skill_rows == SkillRowsByHunter(
-        blademaster=gunner_form.skill_rows.blademaster, gunner=misc_rows
+        blademaster=form_with_gunner_rows_filtered.skill_rows.blademaster, gunner=misc_rows
     )
+    assert updated.hunter_type is HunterType.BLADEMASTER
 
 
 def test_new_rows_without_six_rows_raise():
     with pytest.raises(ValueError, match="the Blademaster tab has six skill rows, not 0"):
-        QueryForm.starting().with_current_rows(())
+        QueryForm.starting().with_rows(HunterType.BLADEMASTER, rows=())
 
 
 @pytest.mark.parametrize(

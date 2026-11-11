@@ -28,6 +28,12 @@ def chip_rows(skills: Sequence[Skill], row_count: int = 6) -> tuple[SkillRow, ..
     return rows
 
 
+def rows_full(rows: Sequence[SkillRow]) -> bool:
+    """Every row has a skill, so no chip can be added."""
+    full = all(row.skill is not None for row in rows)
+    return full
+
+
 def addable_skills(
     game: GameData, rows: Sequence[SkillRow], tag_index: int, text: str
 ) -> list[Skill]:
@@ -43,9 +49,9 @@ def addable_skills(
 def add_chip(game: GameData, rows: Sequence[SkillRow], skill: Skill) -> tuple[SkillRow, ...]:
     """Add ``skill`` after the chosen ones. Raises when every row is taken, or
     when the skill isn't offered (its ability is chosen, or it has no points)."""
-    chosen = query_skills(rows)
-    if len(chosen) == len(rows):
+    if rows_full(rows):
         raise ValueError(f"all {len(rows)} skill rows are taken")
+    chosen = query_skills(rows)
     if skill not in addable_skills(game, rows, tag_index=0, text=""):
         raise ValueError(f"{skill.name} isn't offered with these skills chosen")
     added = chip_rows([*chosen, skill], row_count=len(rows))
