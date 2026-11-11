@@ -8,6 +8,7 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
 from textual.widgets import DataTable, Footer, Header, Static
 
+from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings
 from mhp3ass.query_form import QueryForm
 from mhp3ass.tui.query_editor import QueryEditor
@@ -36,13 +37,16 @@ class SearchApp(App[None]):
         Binding("v", "focus('elder_star')", "Village", show=False),
         Binding("w", "focus('weapon_slots')", "Weapon slots", show=False),
         Binding("m", "focus('charm_mode')", "Charm mode", show=False),
+        Binding("k", "focus('skill_search')", "Skills", show=False),
     ]
 
-    def __init__(self, language: str, strings: DisplayStrings, form: QueryForm) -> None:
+    def __init__(
+        self, language: str, game: GameData, strings: DisplayStrings, form: QueryForm
+    ) -> None:
         super().__init__()
         self.sub_title = language
         # The editor owns the form; read it as ``self.editor.form``.
-        self.editor = QueryEditor(form, strings=strings)
+        self.editor = QueryEditor(form, game=game, strings=strings)
 
     def compose(self) -> ComposeResult:
         yield Header()

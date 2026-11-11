@@ -11,7 +11,7 @@ values ``FormulateQuery`` reads (``:1184-1214``) and ``SaveConfig`` writes
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
@@ -77,3 +77,12 @@ class QueryForm:
         if self.hunter_type is HunterType.GUNNER:
             return self.skill_rows.gunner
         return self.skill_rows.blademaster
+
+    def with_current_rows(self, rows: tuple[SkillRow, ...]) -> QueryForm:
+        """The form with the shown hunter type's rows replaced; the other tab's are kept."""
+        if self.hunter_type is HunterType.GUNNER:
+            skill_rows = replace(self.skill_rows, gunner=rows)
+        else:
+            skill_rows = replace(self.skill_rows, blademaster=rows)
+        updated = replace(self, skill_rows=skill_rows)
+        return updated

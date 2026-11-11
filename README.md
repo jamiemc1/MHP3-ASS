@@ -43,7 +43,8 @@ uv run mhp3-ass
 Opens the search screen. It's being built: so far it shows the header,
 the query editor (hunter, gender, HR, village, weapon slots and charm mode,
 starting from the original's defaults; `h`, `g`, `r`, `v`, `w` and `m` jump to
-each), an empty results table and the keys (`q` quits, `^P` opens the command
+each), the skill picker (`k`: type to filter, ▲▼ and ⏎ to add, up to six;
+backspace in the empty box or ⏎ on a chip removes one), an empty results table and the keys (`q` quits, `^P` opens the command
 palette). Outside a terminal it prints the help instead; `mhp3-ass --help`
 lists the `search` and `import-save` commands below.
 
