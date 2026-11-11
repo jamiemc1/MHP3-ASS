@@ -6,7 +6,7 @@ import gc
 
 import pytest
 
-from mhp3ass.query import QuerySpec, SearchSpec
+from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.search import paused_gc, run_search, run_worker
 from mhp3ass.solution.state import LegacyNullReferenceError
@@ -86,28 +86,18 @@ def test_search_leaves_no_cyclic_garbage(gc_enabled, trace_worker, scratch_game,
     assert unreachable == 0
 
 
-@pytest.fixture(params=["serial", "pool"])
-def pool(request, search_pool):
-    """No pool (the workers run in turn), then the session's pool."""
-    chosen = search_pool if request.param == "pool" else None
-    return chosen
-
-
 def test_run_search_pauses_collection_and_restores_it_when_a_worker_raises(
-    gc_enabled, repo_root, search_data_by_language, pool
+    gc_enabled, empty_armor_spec, search_data_for, pool_or_serial
 ):
     """t05's worker 1 throws; ``on_worker_done`` sees collection off for worker 0."""
-    spec = SearchSpec.from_file(
-        repo_root / "tests" / "traces" / "queries" / "t05-empty-armor-my-charms.json"
-    )
     seen = []
 
     with pytest.raises(LegacyNullReferenceError):
         run_search(
-            spec,
-            data=search_data_by_language[spec.query.language],
+            empty_armor_spec,
+            data=search_data_for(empty_armor_spec),
             on_worker_done=lambda progress: seen.append(gc.isenabled()),
-            pool=pool,
+            pool=pool_or_serial,
         )
 
     assert [seen, gc.isenabled()] == [[False], True]
