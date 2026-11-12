@@ -326,14 +326,14 @@ def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
     ``settings.cfg`` when it has one."""
     languages_dir = data_dir / "Languages"
     languages = language_folders(languages_dir)
+    # Checked before settings.cfg is read, which would otherwise be set aside for its language.
+    language = default_language(languages)
+    if language is None:
+        raise FileNotFoundError(f"no language folders in {languages_dir}")
     settings_path = folders.saved / "settings.cfg"
     read = read_startup_settings(settings_path, language_count=len(languages))
     if read.settings is not None:
         language = languages[read.settings.language_index]
-    else:
-        language = default_language(languages)
-    if language is None:
-        raise FileNotFoundError(f"no language folders in {languages_dir}")
     jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
     with ExitStack() as stack:
         pool = stack.enter_context(SearchPool(jobs=jobs)) if jobs > 1 else None

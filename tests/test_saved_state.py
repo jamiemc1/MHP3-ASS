@@ -342,6 +342,7 @@ def test_a_missing_file_gives_no_settings_and_no_notice(settings_path, language_
 )
 def test_a_file_that_cant_be_read_is_set_aside(request, language_count, file, message):
     path = request.getfixturevalue(file)
+    contents = path.read_bytes()
 
     read = read_startup_settings(path, language_count=language_count)
 
@@ -349,7 +350,44 @@ def test_a_file_that_cant_be_read_is_set_aside(request, language_count, file, me
     assert read.notice is not None
     assert message in read.notice
     assert "kept as settings.cfg.unreadable" in read.notice
-    assert path.with_name("settings.cfg.unreadable").read_bytes() == path.read_bytes()
+    assert [path.exists(), path.with_name("settings.cfg.unreadable").read_bytes()] == [
+        False,
+        contents,
+    ]
+
+
+@pytest.fixture
+def folder_named_settings_cfg(settings_path):
+    settings_path.mkdir()
+    return settings_path
+
+
+def test_a_settings_cfg_that_isnt_a_file_is_set_aside(folder_named_settings_cfg, language_count):
+    read = read_startup_settings(folder_named_settings_cfg, language_count=language_count)
+
+    assert read.settings is None
+    assert read.notice is not None
+    assert "kept as settings.cfg.unreadable" in read.notice
+    assert folder_named_settings_cfg.with_name("settings.cfg.unreadable").is_dir()
+
+
+@pytest.fixture
+def unreadable_file_in_a_locked_folder(unknown_version_file):
+    """The file can be read but its folder can't be written, so it can't be renamed."""
+    folder = unknown_version_file.parent
+    folder.chmod(0o500)
+    yield unknown_version_file
+    folder.chmod(0o700)
+
+
+def test_a_file_that_cant_be_renamed_is_replaced_at_the_next_save(
+    unreadable_file_in_a_locked_folder, language_count
+):
+    read = read_startup_settings(unreadable_file_in_a_locked_folder, language_count=language_count)
+
+    assert read.notice is not None
+    assert "couldn't be renamed" in read.notice
+    assert unreadable_file_in_a_locked_folder.exists()
 
 
 @pytest.fixture

@@ -85,7 +85,7 @@ changes and when it quits, as the original does; a cancelled search leaves
 the previous results in it. Every skill row is written with the All filter.
 As in the original, a load keeps charm-free sets only under None, so the
 next save leaves them out (a notice says how many). A file that can't be
-loaded is copied to `settings.cfg.unreadable` and the TUI starts from the
+loaded is renamed to `settings.cfg.unreadable` and the TUI starts from the
 defaults. `tui.toml` keeps what `settings.cfg` has no line for: whether the
 sort is reversed (`S`), the search's processes (`jobs`) and `data_dir`.
 

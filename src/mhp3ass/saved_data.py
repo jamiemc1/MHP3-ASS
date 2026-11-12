@@ -12,7 +12,9 @@ it isn't the TUI's own, and the settings ``settings.cfg`` has no line for.
 from __future__ import annotations
 
 import json
+import os
 import shutil
+import tempfile
 import tomllib
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -94,8 +96,26 @@ def tui_settings_text(settings: TuiSettings) -> str:
 
 
 def write_tui_settings(path: Path, settings: TuiSettings) -> None:
+    write_atomically(path, tui_settings_text(settings).encode("utf-8"))
+
+
+def write_atomically(path: Path, data: bytes) -> None:
+    """Write ``data`` to ``path`` through a new temporary file beside it,
+    flushed to disk before it replaces ``path``, so a crash or a full disk
+    part-way leaves the old file whole. A failed write removes the
+    temporary file; the new file is readable only by its owner."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(tui_settings_text(settings), encoding="utf-8")
+    descriptor, temporary_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as file:
+            file.write(data)
+            file.flush()
+            os.fsync(file.fileno())
+        os.replace(temporary, path)
+    finally:
+        # Gone after a successful replace; left behind by a failed write.
+        temporary.unlink(missing_ok=True)
 
 
 def saved_data_dir(env: Mapping[str, str], settings: TuiSettings, own_dir: Path) -> Path:
