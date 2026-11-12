@@ -12,6 +12,7 @@ from mhp3ass.saved_data import (
     read_tui_settings,
     saved_data_dir,
     tui_settings_text,
+    write_atomically,
     write_tui_settings,
 )
 
@@ -179,3 +180,55 @@ def test_mhp3ass_home_overrides_the_folders_saved_data(tmp_path):
     folders = TuiFolders.find(env, "linux", home=tmp_path)
 
     assert folders.saved == tmp_path / "home"
+
+
+@pytest.fixture
+def old_file(tmp_path):
+    path = tmp_path / "settings.cfg"
+    path.write_bytes(b"old")
+    return path
+
+
+def test_an_atomic_write_replaces_the_file_and_leaves_nothing_else(old_file):
+    write_atomically(old_file, b"new")
+
+    assert [old_file.read_bytes(), [path.name for path in old_file.parent.iterdir()]] == [
+        b"new",
+        ["settings.cfg"],
+    ]
+
+
+def test_an_atomic_write_makes_missing_folders(tmp_path):
+    path = tmp_path / "a" / "b" / "tui.toml"
+
+    write_atomically(path, b"jobs = 2\n")
+
+    assert path.read_bytes() == b"jobs = 2\n"
+
+
+@pytest.fixture
+def folder_in_the_way(tmp_path):
+    """A folder holding a file where the write is going, so the rename fails."""
+    path = tmp_path / "settings.cfg"
+    path.mkdir()
+    (path / "inside").write_bytes(b"kept")
+    return path
+
+
+def test_a_failed_atomic_write_removes_its_temporary_file(folder_in_the_way):
+    with pytest.raises(OSError):
+        write_atomically(folder_in_the_way, b"new")
+
+    assert [path.name for path in folder_in_the_way.parent.iterdir()] == ["settings.cfg"]
+    assert (folder_in_the_way / "inside").read_bytes() == b"kept"
+
+
+def test_tui_toml_is_written_atomically(tmp_path):
+    path = tmp_path / "tui.toml"
+
+    write_tui_settings(path, TuiSettings(reverse=True))
+
+    assert [path.read_text(encoding="utf-8"), [entry.name for entry in tmp_path.iterdir()]] == [
+        "reverse = true\n",
+        ["tui.toml"],
+    ]

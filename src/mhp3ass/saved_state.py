@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import dataclasses
 import os
-import shutil
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -24,6 +23,7 @@ from mhp3ass.relevance import formulate_query
 from mhp3ass.results.result_set import ResultSet
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.view import ResultsView
+from mhp3ass.saved_data import write_atomically
 from mhp3ass.settings_cfg import (
     SettingsCfg,
     SettingsCfgError,
@@ -267,21 +267,21 @@ def startup(
 
 
 def set_aside(path: Path, error: Exception) -> str:
-    """Copy ``path`` to ``<name>.unreadable`` beside it, so the next save
-    doesn't overwrite it, and return the notice naming both and ``error``."""
+    """Rename ``path`` to ``<name>.unreadable`` beside it, so the next save
+    doesn't overwrite it, and return the notice naming both and ``error``.
+    A rename needs no read access, so it works on a file that can't be read;
+    if it fails as well, the notice says the file will be replaced."""
     kept = path.with_name(f"{path.name}.unreadable")
-    shutil.copyfile(path, kept)
-    notice = (
-        f"{path} can't be loaded ({error}), so the search starts from the defaults. "
-        f"The file is kept as {kept.name}."
-    )
+    opening = f"{path} can't be loaded ({error}), so the search starts from the defaults."
+    try:
+        os.replace(path, kept)
+    except OSError as rename_error:
+        notice = f"{opening} It couldn't be renamed ({rename_error}), so the next save replaces it."
+        return notice
+    notice = f"{opening} The file is kept as {kept.name}."
     return notice
 
 
 def write_settings_cfg(path: Path, settings: SettingsCfg) -> None:
-    """Write ``settings`` to ``path`` through a temporary file beside it, so
-    a crash part-way leaves the old file whole."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f"{path.name}.tmp")
-    temporary.write_bytes(settings_cfg_text(settings))
-    os.replace(temporary, path)
+    """Write ``settings`` to ``path`` atomically (``write_atomically``)."""
+    write_atomically(path, settings_cfg_text(settings))

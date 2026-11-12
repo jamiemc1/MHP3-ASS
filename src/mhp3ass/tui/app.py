@@ -159,7 +159,10 @@ class SearchApp(App[None]):
         if results is not None:
             self._searched_form = results.form
             view = results.view
-            self.query_one(ResultsPane).show(view, rows=view_rows(view), query=results.query)
+            pane = self.query_one(ResultsPane)
+            # Reversed before the rows are built, so show needn't build them again.
+            view.select_reverse(pane.reverse)
+            pane.show(view, rows=view_rows(view), query=results.query)
             self._collapse_editor()
             count = len(view.all_solutions) + results.charm_free_only_under_none
             self.query_one("#hint", Static).update(f"{count:,} sets from last time.")
@@ -259,7 +262,8 @@ class SearchApp(App[None]):
         self.set_focus(self.query_one(ResultsTable))
 
     async def action_quit(self) -> None:
-        """Save, as closing the original's window does (``Form1.h:564``), then exit."""
+        """Save, as closing the original's window does (``Form1.h:564``), then
+        exit; a failed save is printed after the exit, where it can be seen."""
         # The search thread can't be killed; cancelling lets it return.
         if self._cancel is not None:
             self._cancel.set()
