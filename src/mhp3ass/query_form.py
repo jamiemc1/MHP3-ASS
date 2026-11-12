@@ -115,8 +115,9 @@ class QueryForm:
 
     def summary(self, strings: DisplayStrings) -> str:
         """The form on one line, for the collapsed editor: hunter type and
-        gender, HR, village, weapon slots, the shown tab's skills and the
-        charm mode, labelled with the language's strings."""
+        gender, HR, village, weapon slots, the shown tab's skills, the charm
+        mode and the options that are on, labelled with the language's
+        strings (the Options menu's, without their ``&``)."""
         hunter = (
             StringIndex.GUNNER if self.hunter_type is HunterType.GUNNER else StringIndex.BLADEMASTER
         )
@@ -129,9 +130,21 @@ class QueryForm:
             f"{strings.static(StringIndex.MAX_WEAPON_SLOTS)} {self.weapon_slots}",
             skills,
             strings.static(charm_mode_label(self.charm_mode)),
+            *self._options_on(strings),
         ]
         line = " · ".join(part for part in parts if part != "")
         return line
+
+    def _options_on(self, strings: DisplayStrings) -> list[str]:
+        """The Options menu's labels of the armour options that are on, in menu order."""
+        options = [
+            (StringIndex.ALLOW_BAD_SKILLS, self.allow_bad),
+            (StringIndex.ALLOW_PIERCINGS, self.allow_piercings),
+            (StringIndex.ALLOW_EVENT_ARMOR, self.allow_event),
+            (StringIndex.ALLOW_LOW_RANK_ARMOR, self.allow_low_rank),
+        ]
+        labels = [strings.basic(label) for label, on in options if on]
+        return labels
 
     def with_rows(self, hunter_type: HunterType, rows: tuple[SkillRow, ...]) -> QueryForm:
         """The form with ``hunter_type``'s tab's rows replaced; the other tab's are kept."""
