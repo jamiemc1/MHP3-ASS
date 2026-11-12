@@ -223,7 +223,7 @@ class SearchApp(App[None]):
             return
         self._finish_search()
         self.result = result
-        self.query_one(ResultsPane).show(view, rows=rows)
+        self.query_one(ResultsPane).show(view, rows=rows, query=result.query)
         count = len(result.results.all_solutions)
         summary = f"{count:,} sets."
         if result.exception is not None:
