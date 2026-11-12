@@ -9,6 +9,7 @@ from typing import ClassVar
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
+from textual.content import Content
 from textual.message import Message
 from textual.widgets import Button, Footer, Header, Static
 from textual.worker import Worker
@@ -32,6 +33,7 @@ from mhp3ass.search import (
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.tui.query_editor import QueryEditor
 from mhp3ass.tui.results_pane import ResultsPane, view_rows
+from mhp3ass.tui.results_table import ResultsTable
 from mhp3ass.tui.search_progress import SearchProgress
 from mhp3ass.tui.skill_picker import SkillPicker
 
@@ -56,6 +58,12 @@ class SearchApp(App[None]):
 
     TITLE = "MHP3 Armor Set Search"
     CSS = """
+    #query_summary {
+        display: none;
+        height: auto;
+        padding: 0 2;
+        background: $panel;
+    }
     #hint {
         height: auto;
         padding: 1 2;
@@ -79,6 +87,7 @@ class SearchApp(App[None]):
         Binding("s", "focus('sort_key')", "Sort"),
         Binding("S", "reverse_sort", "Reverse"),
         Binding("slash", "find", "Find"),
+        Binding("e", "edit_query", "Edit query"),
         Binding("n", "find_next(1)", "Next", show=False),
         Binding("N", "find_next(-1)", "Previous", show=False),
     ]
@@ -109,6 +118,7 @@ class SearchApp(App[None]):
 
     def compose(self) -> ComposeResult:
         yield Header()
+        yield Static(id="query_summary")
         yield self.editor
         yield SearchProgress()
         yield Static("Choose up to six skills, then Search.", id="hint")
@@ -150,11 +160,27 @@ class SearchApp(App[None]):
         )
 
     def action_cancel_search(self) -> None:
-        """Stop the search and keep the view as it was before it started."""
+        """Stop the search and keep the view as it was before it started; with
+        no search running, close the reopened editor over the results."""
         if self._cancel is None:
+            if self.result is not None and self.editor.display:
+                self._collapse_editor()
             return
         self._cancel.set()
         self._finish_search()
+
+    def action_edit_query(self) -> None:
+        """Reopen the editor over the results, unchanged."""
+        self.editor.display = True
+        self.query_one("#query_summary", Static).display = False
+        self.set_focus(self.query_one("#skill_search"))
+
+    def _collapse_editor(self) -> None:
+        summary = self.query_one("#query_summary", Static)
+        summary.update(Content(f"{self.editor.form.summary(self._strings)}   e edit"))
+        summary.display = True
+        self.editor.display = False
+        self.set_focus(self.query_one(ResultsTable))
 
     async def action_quit(self) -> None:
         # The search thread can't be killed; cancelling lets it return.
@@ -233,6 +259,7 @@ class SearchApp(App[None]):
         self._finish_search()
         self.result = result
         self.query_one(ResultsPane).show(view, rows=rows, query=result.query)
+        self._collapse_editor()
         count = len(result.results.all_solutions)
         summary = f"{count:,} sets."
         if result.exception is not None:

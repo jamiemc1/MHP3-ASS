@@ -49,7 +49,11 @@ button, or ⏎ in the empty skill box; esc cancels and keeps the previous
 results), the number of sets found, and the results: a charm sidebar with
 counts (⏎ filters), the sort (`s`; `S` reverses the key, or the search
 order under None; ties go to the highest defence, then fewest jewels, then
-search order) and a table of every set and the keys (`q` quits, `^P` opens the command
+search order), a table of every set, and the inspector beside it showing the
+selected set's pieces, jewels, spare slots, extra skills and stats. Find
+(`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
+After a search the editor collapses to a one-line summary: `e` reopens it,
+esc closes it again and the keys (`q` quits, `^P` opens the command
 palette). Outside a terminal it prints the help instead; `mhp3-ass --help`
 lists the `search` and `import-save` commands below.
 

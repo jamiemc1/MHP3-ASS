@@ -4,9 +4,10 @@ from dataclasses import replace
 
 import pytest
 
+from mhp3ass.data.strings import DisplayStrings, StringIndex, load_strings
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
-from mhp3ass.query_form import QueryForm
+from mhp3ass.query_form import QueryForm, charm_mode_label
 from mhp3ass.skill_chips import chip_rows
 from mhp3ass.skill_picker import SkillRow, SkillRowsByHunter, starting_rows
 
@@ -203,3 +204,45 @@ def test_the_range_ends_are_allowed(field, value):
     form = replace(QueryForm.starting(), **{field: value})
 
     assert getattr(form, field) == value
+
+
+@pytest.fixture(scope="module")
+def english_strings(legacy_data_dir) -> DisplayStrings:
+    strings = load_strings(legacy_data_dir / "Languages" / "English (TeamHGG)")
+    return strings
+
+
+def test_the_summary_names_the_shown_tabs_query(english_strings, form_1a):
+    assert form_1a.summary(english_strings) == (
+        "Blademaster ♂ · HR 6 · Village Quests 6 · Max Weapon Slots 0"
+        " · Attack Up [Med], Sharp Sword · Use only my charms"
+    )
+
+
+def test_the_summary_follows_the_gunner_tab_and_a_female_hunter(english_strings, g19_form):
+    female = replace(g19_form, gender=Gender.FEMALE, hr=4, weapon_slots=2)
+
+    assert female.summary(english_strings) == (
+        "Gunner ♀ · HR 4 · Village Quests 6 · Max Weapon Slots 2"
+        " · Load Up, Accuracy+1 · Use only slotted charms"
+    )
+
+
+def test_a_summary_without_skills_leaves_them_out(english_strings):
+    assert QueryForm.starting().summary(english_strings) == (
+        "Blademaster ♂ · HR 6 · Village Quests 6 · Max Weapon Slots 0 · Use only slotted charms"
+    )
+
+
+@pytest.mark.parametrize(
+    ("mode", "label"),
+    [
+        (CharmMode.NONE, StringIndex.USE_NO_CHARMS),
+        (CharmMode.MY_CHARMS, StringIndex.USE_ONLY_MY_CHARMS),
+        (CharmMode.SLOTTED, StringIndex.USE_ONLY_SLOTTED_CHARMS),
+        (CharmMode.ONE_SKILL, StringIndex.USE_UP_TO_ONE_SKILL_CHARMS),
+        (CharmMode.TWO_SKILL, StringIndex.USE_ONLY_TWO_SKILL_CHARMS),
+    ],
+)
+def test_each_charm_mode_has_its_drop_down_label(mode, label):
+    assert charm_mode_label(mode) is label
