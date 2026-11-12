@@ -1,5 +1,6 @@
-"""The search's progress: a bar weighted by armour combinations and a cat
-whose tail wags while the search runs (quirk 40, changed by design)."""
+"""The search's progress: a one-line cat flicking its tail, beside a bar
+weighted by armour combinations (quirk 40, changed by design). It shows
+only once a search has run for a second; quicker searches never show it."""
 
 from __future__ import annotations
 
@@ -11,23 +12,10 @@ from textual.widgets import Label, ProgressBar, Static
 
 
 def cat_frames() -> list[str]:
-    """A sitting cat, three lines high, wagging its tail and blinking once."""
-    body = ["  /\\_/\\  ", " ( o.o ) ", "  /|_|\\"]
-    blink = ["  /\\_/\\  ", " ( -.- ) ", "  /|_|\\"]
-    tails = [
-        ["     ", "   ) ", "_/   "],
-        ["   _ ", "  /  ", "_/   "],
-        ["     ", "  (  ", "_/   "],
-        ["     ", "   ) ", "_/   "],
-        ["     ", "     ", "__~  "],
-        ["     ", "     ", "__/  "],
-    ]
-    frames = []
-    for step in range(12):
-        face = blink if step == 5 else body
-        tail = tails[step % len(tails)]
-        lines = [face_line + tail_line for face_line, tail_line in zip(face, tail, strict=True)]
-        frames.append("\n".join(lines))
+    """A small cat, one line high, flicking its tail: ``~``, then the tilde
+    operator (U+223C, a little higher), then ``⌒``, and back."""
+    raised_tail = "\u223c"
+    frames = ["~ᓚᘏᗢ", f"{raised_tail}ᓚᘏᗢ", "⌒ᓚᘏᗢ", f"{raised_tail}ᓚᘏᗢ"]
     return frames
 
 
@@ -55,11 +43,11 @@ class CatSpinner(Static):
 
 
 class SearchProgress(Horizontal):
-    """Shown only while a search runs."""
+    """Shown while a search runs, from ``delay`` seconds after it starts."""
 
     DEFAULT_CSS = """
     SearchProgress {
-        height: 3;
+        height: 1;
         padding: 0 2;
         display: none;
     }
@@ -67,17 +55,21 @@ class SearchProgress(Horizontal):
         display: block;
     }
     SearchProgress CatSpinner {
-        width: 16;
+        width: 6;
     }
     SearchProgress ProgressBar {
-        margin-top: 1;
         width: 52;
     }
     SearchProgress Label {
-        padding: 1 2;
+        padding: 0 2;
         color: $text-muted;
     }
     """
+
+    def __init__(self, delay: float = 1.0) -> None:
+        super().__init__()
+        self._delay = delay
+        self._reveal: Timer | None = None
 
     def compose(self) -> ComposeResult:
         yield CatSpinner()
@@ -85,13 +77,21 @@ class SearchProgress(Horizontal):
         yield Label("esc cancel")
 
     def start(self) -> None:
+        """Reset the bar, and show it if the search is still running after ``delay``."""
         self.query_one(ProgressBar).update(total=None, progress=0)
-        self.query_one(CatSpinner).start()
-        self.add_class("running")
+        self._reveal = self.set_timer(self._delay, self._show)
 
     def advance(self, done: int, total: int) -> None:
         self.query_one(ProgressBar).update(total=total, progress=done)
 
     def stop(self) -> None:
+        if self._reveal is not None:
+            self._reveal.stop()
+            self._reveal = None
         self.query_one(CatSpinner).stop()
         self.remove_class("running")
+
+    def _show(self) -> None:
+        self._reveal = None
+        self.query_one(CatSpinner).start()
+        self.add_class("running")
