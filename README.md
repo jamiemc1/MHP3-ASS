@@ -42,7 +42,7 @@ uv run mhp3-ass
 
 Opens the search screen. It's being built: so far it shows the header,
 the query editor (hunter, gender, HR, village, weapon slots and charm mode,
-starting from the original's defaults; `h`, `g`, `r`, `v`, `w` and `m` jump to
+starting from the saved `settings.cfg`, else the original's defaults; `h`, `g`, `r`, `v`, `w` and `m` jump to
 each), the skill picker (`k`: type to filter, ▲▼ and ⏎ to add, up to six;
 backspace in the empty box or ⏎ on a chip removes one), Search (`^S`, the
 button, or ⏎ in the empty skill box; esc cancels and keeps the previous
@@ -77,6 +77,18 @@ original's formats, in its saved-data folder: `~/.config/mhp3-ass/`
 `MHP3ASS_HOME` points it elsewhere, as does `data_dir` in that folder's
 `tui.toml`; a first run copies the original's shipped charm list there.
 `mhp3-ass info` prints the folders in use.
+
+`settings.cfg` holds the language, the form (both hunter types' skills), the
+four armour options, the sort and the last search's results. The TUI starts
+from it and saves it when it starts, when a search finishes, when the sort
+changes and when it quits, as the original does; a cancelled search leaves
+the previous results in it. Every skill row is written with the All filter.
+As in the original, a load keeps charm-free sets only under None, so the
+next save leaves them out (a notice says how many). A file that can't be
+loaded is copied to `settings.cfg.unreadable` and the TUI starts from the
+defaults. `tui.toml` keeps what `settings.cfg` has no line for: whether the
+sort is reversed (`S`), the search's processes (`jobs`) and `data_dir`.
+
 `--lang <language folder>` names skills in another language (default
 `English (TeamHGG)`).
 
