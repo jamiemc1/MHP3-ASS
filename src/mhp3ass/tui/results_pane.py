@@ -72,6 +72,9 @@ class FindBox(Input):
 class ResultsPane(Horizontal):
     """Shows one ``ResultsView``; the sidebar and the sort line change it."""
 
+    class SortChanged(Message):
+        """The sort drop-down was changed from the keyboard or mouse."""
+
     DEFAULT_CSS = """
     ResultsPane {
         height: 1fr;
@@ -97,12 +100,14 @@ class ResultsPane(Horizontal):
     }
     """
 
-    def __init__(self, strings: DisplayStrings) -> None:
+    def __init__(self, strings: DisplayStrings, sort_key: SortKey, reverse: bool) -> None:
         super().__init__()
         self._strings = strings
         self.view: ResultsView | None = None
+        # The drop-down's value: a Changed event that leaves it as it was is no change.
+        self._sort_key = sort_key
         # Kept here so the next search's view is shown the same way round.
-        self.reverse = False
+        self.reverse = reverse
         self._filters: list[CharmFilter] = []
         self._options: list[Option] = []
         self._query: Query | None = None
@@ -118,11 +123,11 @@ class ResultsPane(Horizontal):
                 yield Label(strings.static(StringIndex.SORT_RESULTS_BY))
                 yield Select(
                     [(strings.basic(sort_label(key)), key) for key in SortKey],
-                    value=SortKey.NONE,
+                    value=self._sort_key,
                     allow_blank=False,
                     id="sort_key",
                 )
-                yield Label("", id="reversed")
+                yield Label("reversed" if self.reverse else "", id="reversed")
             yield ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
@@ -169,9 +174,13 @@ class ResultsPane(Horizontal):
         if event.select.id != "sort_key":
             return
         event.stop()
+        if self.sort_key is self._sort_key:
+            return
+        self._sort_key = self.sort_key
         if self.view is not None:
             self.view.select_sort(self.sort_key)
             self._fill_table()
+        self.post_message(self.SortChanged())
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
         if event.option_list.id != "charm_filter":

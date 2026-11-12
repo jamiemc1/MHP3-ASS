@@ -20,7 +20,6 @@ from mhp3ass.data.languages import default_language, language_folders
 from mhp3ass.data.strings import load_strings
 from mhp3ass.parallel import SearchPool, default_jobs
 from mhp3ass.query import QueryError, SearchSpec
-from mhp3ass.query_form import QueryForm
 from mhp3ass.results.result_set import (
     candidate_lines,
     search_manifest,
@@ -31,12 +30,13 @@ from mhp3ass.saved_data import (
     TuiFolders,
     my_charms_file,
 )
+from mhp3ass.saved_state import read_startup_settings, startup
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
 from mhp3ass.search import SearchData, WorkerProgress, dotnet_exception_type, run_search
 from mhp3ass.solution.state import LegacyNullReferenceError
 
 # Lazy, so `search` and `import-save` don't load Textual.
-lazy from mhp3ass.tui.app import SearchApp
+lazy from mhp3ass.tui.app import AppFiles, SearchApp
 
 
 def _default_data_dir() -> Path:
@@ -321,9 +321,17 @@ def _info(data_dir: Path, folders: TuiFolders) -> int:
 def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
     """The app, with the pool's processes booting while the data loads. My
     charms are the saved-data folder's ``mycharms.txt``, copied from the
-    original's shipped list (``Data/mycharms.txt``) on the first run."""
+    original's shipped list (``Data/mycharms.txt``) on the first run. The
+    language, form, sort and results come from the saved-data folder's
+    ``settings.cfg`` when it has one."""
     languages_dir = data_dir / "Languages"
-    language = default_language(language_folders(languages_dir))
+    languages = language_folders(languages_dir)
+    settings_path = folders.saved / "settings.cfg"
+    read = read_startup_settings(settings_path, language_count=len(languages))
+    if read.settings is not None:
+        language = languages[read.settings.language_index]
+    else:
+        language = default_language(languages)
     if language is None:
         raise FileNotFoundError(f"no language folders in {languages_dir}")
     jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
@@ -332,13 +340,27 @@ def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
         if pool is not None:
             pool.start()
         data = SearchData.load(data_dir, language=language)
+        started = startup(
+            settings_path,
+            settings=read.settings,
+            game=data.game,
+            language=language,
+            language_count=len(languages),
+        )
+        notices = [notice for notice in (read.notice, started.notice) if notice is not None]
         app = SearchApp(
             language=language,
             data=data,
             strings=load_strings(languages_dir / language),
-            form=QueryForm.starting(),
             pool=pool,
-            my_charms_path=my_charms_path,
+            files=AppFiles(
+                settings_cfg=settings_path,
+                language_index=languages.index(language),
+                my_charms=my_charms_path,
+                tui_toml=folders.settings_file,
+                tui_settings=folders.settings,
+            ),
+            startup=replace(started, notice=" ".join(notices) if notices else None),
         )
         app.run()
     exit_code = app.return_code if app.return_code is not None else 0
