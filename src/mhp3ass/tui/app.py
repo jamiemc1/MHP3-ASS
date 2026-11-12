@@ -78,6 +78,9 @@ class SearchApp(App[None]):
         Binding("k", "focus('skill_search')", "Skills", show=False),
         Binding("s", "focus('sort_key')", "Sort"),
         Binding("S", "reverse_sort", "Reverse"),
+        Binding("slash", "find", "Find"),
+        Binding("n", "find_next(1)", "Next", show=False),
+        Binding("N", "find_next(-1)", "Previous", show=False),
     ]
 
     def __init__(
@@ -161,6 +164,12 @@ class SearchApp(App[None]):
 
     def action_reverse_sort(self) -> None:
         self.query_one(ResultsPane).reverse_sort()
+
+    def action_find(self) -> None:
+        self.query_one(ResultsPane).open_find()
+
+    def action_find_next(self, step: int) -> None:
+        self.query_one(ResultsPane).find(step=step)
 
     def on_worker_state_changed(self, event: Worker.StateChanged) -> None:
         if event.worker is self._worker and event.worker.is_finished and self._search_waiting:
