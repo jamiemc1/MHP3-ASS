@@ -137,6 +137,11 @@ class ResultsPane(Horizontal):
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
 
     @property
+    def results_query(self) -> Query | None:
+        """The shown results' own query, as ``show`` was given it."""
+        return self._query
+
+    @property
     def sort_key(self) -> SortKey:
         value = self.query_one("#sort_key", Select).value
         if not isinstance(value, SortKey):
