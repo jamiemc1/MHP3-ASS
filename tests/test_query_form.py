@@ -210,6 +210,7 @@ def test_the_summary_names_the_shown_tabs_query(english_strings, form_1a):
     assert form_1a.summary(english_strings) == (
         "Blademaster ♂ · HR 6 · Village Quests 6 · Max Weapon Slots 0"
         " · Attack Up [Med], Sharp Sword · Use only my charms"
+        " · Allow Piercings · Allow Event Armor · Allow Low Rank Armor"
     )
 
 
@@ -219,12 +220,25 @@ def test_the_summary_follows_the_gunner_tab_and_a_female_hunter(english_strings,
     assert female.summary(english_strings) == (
         "Gunner ♀ · HR 4 · Village Quests 6 · Max Weapon Slots 2"
         " · Load Up, Accuracy+1 · Use only slotted charms"
+        " · Allow Piercings · Allow Event Armor · Allow Low Rank Armor"
     )
 
 
-def test_a_summary_without_skills_leaves_them_out(english_strings):
-    assert QueryForm.starting().summary(english_strings) == (
+def test_a_summary_without_skills_or_options_leaves_them_out(english_strings):
+    form = replace(
+        QueryForm.starting(), allow_piercings=False, allow_event=False, allow_low_rank=False
+    )
+
+    assert form.summary(english_strings) == (
         "Blademaster ♂ · HR 6 · Village Quests 6 · Max Weapon Slots 0 · Use only slotted charms"
+    )
+
+
+def test_the_summary_names_bad_skills_first_as_the_menu_does(english_strings):
+    form = replace(QueryForm.starting(), allow_bad=True, allow_event=False)
+
+    assert form.summary(english_strings).endswith(
+        " · Allow Bad Skills · Allow Piercings · Allow Low Rank Armor"
     )
 
 
