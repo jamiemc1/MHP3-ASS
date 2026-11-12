@@ -335,10 +335,11 @@ def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
     if read.settings is not None:
         language = languages[read.settings.language_index]
     jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
-    with ExitStack() as stack:
-        pool = stack.enter_context(SearchPool(jobs=jobs)) if jobs > 1 else None
-        if pool is not None:
-            pool.start()
+    pool = SearchPool(jobs=jobs) if jobs > 1 else None
+    if pool is not None:
+        pool.start()
+    app: SearchApp | None = None
+    try:
         data = SearchData.load(data_dir, language=language)
         started = startup(
             settings_path,
@@ -349,10 +350,12 @@ def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
         )
         notices = [notice for notice in (read.notice, started.notice) if notice is not None]
         app = SearchApp(
+            languages=languages,
             language=language,
             data=data,
             strings=load_strings(languages_dir / language),
             pool=pool,
+            jobs=jobs,
             files=AppFiles(
                 settings_cfg=settings_path,
                 language_index=languages.index(language),
@@ -363,5 +366,10 @@ def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
             startup=replace(started, notice=" ".join(notices) if notices else None),
         )
         app.run()
+    finally:
+        # Options may have replaced the pool; the app holds the current one.
+        current_pool = app.pool if app is not None else pool
+        if current_pool is not None:
+            current_pool.close()
     exit_code = app.return_code if app.return_code is not None else 0
     return exit_code

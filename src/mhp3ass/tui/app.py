@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, replace
 from pathlib import Path
 from threading import Event
-from typing import ClassVar
+from typing import Any, ClassVar
 
 from textual import work
 from textual.app import App, ComposeResult
@@ -18,7 +19,9 @@ from textual.worker import Worker
 from mhp3ass.charms.my_charms import MyCharmsFileError
 from mhp3ass.data.strings import DisplayStrings
 from mhp3ass.data.text import read_lines
+from mhp3ass.language_switch import switch_language
 from mhp3ass.model import HunterType
+from mhp3ass.parallel import SearchPool
 from mhp3ass.query import QueryError
 from mhp3ass.query_form import QueryForm
 from mhp3ass.results.result_set import SearchResult
@@ -30,12 +33,12 @@ from mhp3ass.saved_state import Startup, settings_for, write_settings_cfg
 from mhp3ass.search import (
     SearchCancelled,
     SearchData,
-    WorkerPool,
     dotnet_exception_type,
     run_search,
 )
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
+from mhp3ass.tui.options import OptionsScreen
 from mhp3ass.tui.query_editor import QueryEditor
 from mhp3ass.tui.results_pane import ResultsPane, view_rows
 from mhp3ass.tui.results_table import ResultsTable
@@ -106,28 +109,39 @@ class SearchApp(App[None]):
         Binding("S", "reverse_sort", "Reverse"),
         Binding("slash", "find", "Find"),
         Binding("e", "edit_query", "Edit query"),
+        Binding("o", "options", "Options"),
         Binding("n", "find_next(1)", "Next", show=False),
         Binding("N", "find_next(-1)", "Previous", show=False),
     ]
 
     def __init__(
         self,
+        languages: list[str],
         language: str,
         data: SearchData,
         strings: DisplayStrings,
-        pool: WorkerPool | None,
+        pool: SearchPool | None,
+        jobs: int,
         files: AppFiles,
         startup: Startup,
     ) -> None:
+        """``pool`` searches in ``jobs`` processes (``None`` with one job,
+        which searches in this process). Options can replace the pool, so
+        whoever runs the app closes ``app.pool`` afterwards."""
         super().__init__()
         self.sub_title = language
+        self._languages = languages
         self._language = language
         self._data = data
-        self._pool = pool
+        self.pool = pool
+        self._jobs = jobs
         self._files = files
         self._strings = strings
         self._startup = startup
         self._last_search_gunner = startup.search.last_search_gunner
+        # What the results pane and the hint show, kept to rebuild them in another language.
+        self._sort_key = startup.search.sort_key
+        self._hint = "Choose up to six skills, then Search."
         # The editor owns the form; read it as ``self.editor.form``.
         self.editor = QueryEditor(startup.search.form, game=data.game, strings=strings)
         self.result: SearchResult | None = None
@@ -144,13 +158,17 @@ class SearchApp(App[None]):
         yield Static(id="query_summary")
         yield self.editor
         yield SearchProgress()
-        yield Static("Choose up to six skills, then Search.", id="hint")
+        yield Static(self._hint, id="hint")
         yield ResultsPane(
             self._strings,
-            sort_key=self._startup.search.sort_key,
+            sort_key=self._sort_key,
             reverse=self._files.tui_settings.reverse,
         )
         yield Footer()
+
+    def _set_hint(self, text: str) -> None:
+        self._hint = text
+        self.query_one("#hint", Static).update(text)
 
     def on_mount(self) -> None:
         """Show the loaded results, if any, then save, as every load ends
@@ -165,7 +183,7 @@ class SearchApp(App[None]):
             pane.show(view, rows=view_rows(view), query=results.query)
             self._collapse_editor()
             count = len(view.all_solutions) + results.charm_free_only_under_none
-            self.query_one("#hint", Static).update(f"{count:,} sets from last time.")
+            self._set_hint(f"{count:,} sets from last time.")
         if self._startup.notice is not None:
             self.notify(self._startup.notice, timeout=15)
         self._save()
@@ -194,6 +212,105 @@ class SearchApp(App[None]):
     def on_results_pane_sort_changed(self, event: ResultsPane.SortChanged) -> None:
         event.stop()
         self._save()
+
+    def action_options(self) -> None:
+        self.push_screen(
+            OptionsScreen(
+                self.editor.form,
+                strings=self._strings,
+                languages=self._languages,
+                language=self._language,
+                jobs=self._jobs,
+                max_jobs=max(os.cpu_count() or 1, self._jobs),
+            )
+        )
+
+    def on_options_screen_option_changed(self, event: OptionsScreen.OptionChanged) -> None:
+        """A toggle applies to the next search and saves, as ``OptionsChanged``
+        does (``Form1.h:1218-1223``)."""
+        event.stop()
+        changes: dict[str, Any] = {event.field: event.value}
+        self.editor.form = replace(self.editor.form, **changes)
+        self._save()
+
+    def _searching(self) -> bool:
+        """A search, or a cancelled one's thread, is still running."""
+        running = self._cancel is not None or (
+            self._worker is not None and not self._worker.is_finished
+        )
+        return running
+
+    async def on_options_screen_language_chosen(self, event: OptionsScreen.LanguageChosen) -> None:
+        """``LanguageSelect_Click``: rename everything, rewrite my charms in the
+        new language, then show every widget again in it and save."""
+        event.stop()
+        await self.pop_screen()
+        if self._searching():
+            self.notify("The language can change once the search has finished.")
+            return
+        language_dir = self._data.data_dir / "Languages" / event.language
+        try:
+            strings = switch_language(
+                self._data.game,
+                validity=self._data.validity,
+                language_dir=language_dir,
+                my_charms_path=self._files.my_charms,
+            )
+        except (OSError, ValueError, MyCharmsFileError) as error:
+            # A missing or short strings file, an unreadable mycharms.txt, or
+            # one the original couldn't load.
+            self.notify(f"Can't switch to {event.language}: {error}", severity="error")
+            return
+        self._language = event.language
+        self._strings = strings
+        self._files = replace(self._files, language_index=self._languages.index(event.language))
+        self.sub_title = event.language
+        await self._rebuild()
+        self._save()
+        self.action_options()
+
+    async def _rebuild(self) -> None:
+        """Compose the screen again in the current language, keeping the form,
+        the sort, the results and whether the editor is collapsed."""
+        pane = self.query_one(ResultsPane)
+        view = pane.view
+        query = pane.results_query
+        collapsed = not self.editor.display
+        self._sort_key = pane.sort_key
+        self.editor = QueryEditor(self.editor.form, game=self._data.game, strings=self._strings)
+        await self.recompose()
+        if view is not None and query is not None:
+            view.relanguage()
+            self.query_one(ResultsPane).show(view, rows=view_rows(view), query=query)
+        if collapsed:
+            self._collapse_editor()
+
+    def on_options_screen_jobs_chosen(self, event: OptionsScreen.JobsChosen) -> None:
+        """Start a pool of the new size at once, close the old one in the
+        background, and keep the choice in ``tui.toml``."""
+        event.stop()
+        if self._searching():
+            self.pop_screen()
+            self.notify("The search's processes can change once the search has finished.")
+            return
+        old_pool = self.pool
+        self.pool = SearchPool(jobs=event.jobs) if event.jobs > 1 else None
+        if self.pool is not None:
+            self.pool.start()
+        self._jobs = event.jobs
+        if old_pool is not None:
+            self._close_pool(old_pool)
+        tui_settings = replace(self._files.tui_settings, jobs=event.jobs)
+        try:
+            write_tui_settings(self._files.tui_toml, tui_settings)
+        except OSError as error:
+            self.notify(f"Can't save {self._files.tui_toml}: {error}", severity="error")
+            return
+        self._files = replace(self._files, tui_settings=tui_settings)
+
+    @work(thread=True, group="pool")
+    def _close_pool(self, pool: SearchPool) -> None:
+        pool.close()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "search":
@@ -320,7 +437,7 @@ class SearchApp(App[None]):
                 spec,
                 data=self._data,
                 record_exceptions=True,
-                pool=self._pool,
+                pool=self.pool,
                 on_progress=report,
                 cancel=cancel,
             )
@@ -366,7 +483,7 @@ class SearchApp(App[None]):
                 f"{result.exception.type}, as the original's would; its sets and later "
                 "workers' are missing."
             )
-        self.query_one("#hint", Static).update(summary)
+        self._set_hint(summary)
 
     def _search_failed(self, number: int, error: Exception) -> None:
         if number != self._search_number or self._cancel is None:
