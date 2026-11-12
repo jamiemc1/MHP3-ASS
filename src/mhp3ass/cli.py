@@ -5,10 +5,9 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import shutil
 import sys
 from contextlib import ExitStack
-from dataclasses import dataclass, replace
+from dataclasses import replace
 from pathlib import Path
 
 from mhp3ass import __version__
@@ -29,11 +28,8 @@ from mhp3ass.results.result_set import (
     write_search_outputs,
 )
 from mhp3ass.saved_data import (
-    TuiSettings,
-    config_dir,
+    TuiFolders,
     my_charms_file,
-    read_tui_settings,
-    saved_data_dir,
 )
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
 from mhp3ass.search import SearchData, WorkerProgress, dotnet_exception_type, run_search
@@ -202,7 +198,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     import_save.add_argument("save", type=Path, help="your MHP3RD.BIN save file")
     import_save.add_argument(
-        "--out", type=Path, required=True, help="the my-charms file to write (replaced)"
+        "--out",
+        type=Path,
+        help="the my-charms file to write (replaced); default: the saved-data folder's, "
+        "which the TUI reads",
     )
     import_save.add_argument(
         "--lang", default="English (TeamHGG)", help="language folder for skill names"
@@ -255,9 +254,18 @@ def main(argv: list[str] | None = None) -> int:
     )
     commands.add_parser("info", help="print the version, the folders in use and the terminal size")
     args = parser.parse_args(argv)
+    if args.command in ("info", "import-save") or args.command is None:
+        try:
+            folders = _tui_folders()
+        except (OSError, ValueError, KeyError) as error:
+            # tui.toml unreadable or invalid, or no APPDATA on Windows.
+            print(f"mhp3-ass: {error}", file=sys.stderr)
+            return 1
     if args.command == "info":
-        return _info(_default_data_dir())
+        return _info(_default_data_dir(), folders=folders)
     if args.command == "import-save":
+        if args.out is None:
+            args.out = folders.saved / "mycharms.txt"
         return _import_save(args)
     if args.command == "search":
         if args.out is None and (args.candidates or args.max_solution_lines >= 0):
@@ -270,45 +278,47 @@ def main(argv: list[str] | None = None) -> int:
     if not (sys.stdin.isatty() and sys.stdout.isatty()):
         parser.print_help()
         return 0
-    exit_code = _run_tui(_default_data_dir())
+    data_dir = _default_data_dir()
+    try:
+        my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
+    except OSError as error:
+        # No shipped list to copy, or the saved-data folder can't be written.
+        print(f"mhp3-ass: {error}", file=sys.stderr)
+        return 1
+    exit_code = _run_tui(data_dir, folders=folders, my_charms_path=my_charms_path)
     return exit_code
 
 
-@dataclass(frozen=True)
-class TuiFolders:
-    """The TUI's own folder (``tui.toml``) and the saved-data folder."""
-
-    own: Path
-    saved: Path
-    settings: TuiSettings
-
-
 def _tui_folders() -> TuiFolders:
-    own = config_dir(os.environ, platform=sys.platform, home=Path.home())
-    settings = read_tui_settings(own / "tui.toml")
-    folders = TuiFolders(
-        own=own, saved=saved_data_dir(os.environ, settings, own_dir=own), settings=settings
-    )
+    folders = TuiFolders.find(os.environ, platform=sys.platform, home=Path.home())
     return folders
 
 
-def _info(data_dir: Path) -> int:
+def _terminal_size() -> str:
+    # stderr stays the terminal when the report itself is redirected.
+    try:
+        size = os.get_terminal_size(sys.stderr.fileno())
+    except OSError:
+        return "no terminal"
+    text = f"{size.columns}x{size.lines}"
+    return text
+
+
+def _info(data_dir: Path, folders: TuiFolders) -> int:
     """What a bug report needs: versions, folders and the terminal's size."""
-    folders = _tui_folders()
-    terminal = shutil.get_terminal_size()
     lines = [
         f"mhp3-ass {__version__}",
         f"Python {sys.version.split()[0]} on {sys.platform}",
-        f"Settings file: {folders.own / 'tui.toml'}",
+        f"Settings file: {folders.settings_file}",
         f"Saved data: {folders.saved}",
         f"Game data: {data_dir}",
-        f"Terminal: {terminal.columns}x{terminal.lines}",
+        f"Terminal: {_terminal_size()}",
     ]
     print("\n".join(lines))
     return 0
 
 
-def _run_tui(data_dir: Path) -> int:
+def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
     """The app, with the pool's processes booting while the data loads. My
     charms are the saved-data folder's ``mycharms.txt``, copied from the
     original's shipped list (``Data/mycharms.txt``) on the first run."""
@@ -316,8 +326,6 @@ def _run_tui(data_dir: Path) -> int:
     language = default_language(language_folders(languages_dir))
     if language is None:
         raise FileNotFoundError(f"no language folders in {languages_dir}")
-    folders = _tui_folders()
-    my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
     jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
     with ExitStack() as stack:
         pool = stack.enter_context(SearchPool(jobs=jobs)) if jobs > 1 else None

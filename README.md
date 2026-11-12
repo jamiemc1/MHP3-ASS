@@ -60,12 +60,23 @@ lists the `search` and `import-save` commands below.
 ## Importing charms from your save
 
 ```bash
-uv run mhp3-ass import-save <path to MHP3RD.BIN> --out mycharms.txt
+uv run mhp3-ass import-save <path to MHP3RD.BIN>
 ```
 
 Does what the original's import dialog does with its defaults: the first
 character with charms, the charms "Select Best" ticks, hacked charms
-skipped. The output file is replaced, as the original replaces its list.
+skipped. It writes the saved-data folder's `mycharms.txt`, the one the TUI
+reads (`--out <file>` writes elsewhere), and replaces it, as the original
+replaces its list.
+
+## Saved data
+
+The TUI keeps the original's `settings.cfg` and `mycharms.txt`, in the
+original's formats, in its saved-data folder: `~/.config/mhp3-ass/`
+(`$XDG_CONFIG_HOME/mhp3-ass/` when set, `%APPDATA%\mhp3-ass\` on Windows).
+`MHP3ASS_HOME` points it elsewhere, as does `data_dir` in that folder's
+`tui.toml`; a first run copies the original's shipped charm list there.
+`mhp3-ass info` prints the folders in use.
 `--lang <language folder>` names skills in another language (default
 `English (TeamHGG)`).
 

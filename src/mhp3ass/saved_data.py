@@ -54,8 +54,11 @@ def read_tui_settings(path: Path) -> TuiSettings:
     and values of the wrong type raise ``ValueError``."""
     if not path.exists():
         return TuiSettings()
-    with path.open("rb") as file:
-        table = tomllib.load(file)
+    try:
+        with path.open("rb") as file:
+            table = tomllib.load(file)
+    except tomllib.TOMLDecodeError as error:
+        raise ValueError(f"{path}: {error}") from error
     unknown = set(table) - {"data_dir", "jobs", "reverse"}
     if unknown:
         raise ValueError(f"{path}: unknown settings {sorted(unknown)}")
@@ -78,8 +81,10 @@ def tui_settings_text(settings: TuiSettings) -> str:
     """``settings`` as ``tui.toml``; defaults are left out."""
     lines = []
     if settings.data_dir is not None:
-        # A JSON string's escapes are TOML basic-string escapes.
-        lines.append(f"data_dir = {json.dumps(str(settings.data_dir))}")
+        # JSON's escapes for quotes, backslashes and control characters are
+        # TOML's; other characters stay literal, since TOML rejects JSON's
+        # surrogate-pair escapes for characters above U+FFFF.
+        lines.append(f"data_dir = {json.dumps(str(settings.data_dir), ensure_ascii=False)}")
     if settings.jobs is not None:
         lines.append(f"jobs = {settings.jobs}")
     if settings.reverse:
@@ -95,13 +100,42 @@ def write_tui_settings(path: Path, settings: TuiSettings) -> None:
 
 def saved_data_dir(env: Mapping[str, str], settings: TuiSettings, own_dir: Path) -> Path:
     """Where ``settings.cfg`` and ``mycharms.txt`` live: ``MHP3ASS_HOME`` when
-    set, else ``tui.toml``'s ``data_dir``, else the TUI's own folder."""
+    set, else ``tui.toml``'s ``data_dir``, else the TUI's own folder. A
+    leading ``~`` is the home folder; a relative ``data_dir`` is under the
+    TUI's own folder, so it doesn't depend on where the TUI is started."""
     override = env.get("MHP3ASS_HOME")
     if override is not None and override != "":
-        return Path(override)
+        return Path(override).expanduser()
     if settings.data_dir is not None:
-        return settings.data_dir
+        chosen = settings.data_dir.expanduser()
+        folder = chosen if chosen.is_absolute() else own_dir / chosen
+        return folder
     return own_dir
+
+
+@dataclass(frozen=True)
+class TuiFolders:
+    """The TUI's own folder, its settings, and ``MHP3ASS_HOME`` if set."""
+
+    own: Path
+    settings: TuiSettings
+    env: Mapping[str, str]
+
+    @classmethod
+    def find(cls, env: Mapping[str, str], platform: str, home: Path) -> TuiFolders:
+        """The folders for ``env``, ``platform`` (``sys.platform``) and ``home``,
+        with ``tui.toml`` read from the TUI's own folder."""
+        own = config_dir(env, platform=platform, home=home)
+        folders = cls(own=own, settings=read_tui_settings(own / "tui.toml"), env=env)
+        return folders
+
+    @property
+    def settings_file(self) -> Path:
+        return self.own / "tui.toml"
+
+    @property
+    def saved(self) -> Path:
+        return saved_data_dir(self.env, self.settings, own_dir=self.own)
 
 
 def my_charms_file(folder: Path, shipped: Path) -> Path:

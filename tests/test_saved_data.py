@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from mhp3ass.saved_data import (
+    TuiFolders,
     TuiSettings,
     config_dir,
     my_charms_file,
@@ -122,3 +123,59 @@ def test_an_existing_list_is_left_alone(tmp_path, shipped_list):
     path = my_charms_file(tmp_path / "saved", shipped=shipped_list)
 
     assert path.read_bytes() == b"0,Guard,10,,\r\n"
+
+
+def test_a_folder_name_beyond_the_basic_plane_survives_a_write_and_read(tmp_path):
+    path = tmp_path / "tui.toml"
+    settings = TuiSettings(data_dir=Path("/Volumes/MHP3 \U0001f600 ハンター"))
+
+    write_tui_settings(path, settings)
+
+    assert read_tui_settings(path) == settings
+
+
+def test_broken_toml_names_the_file(tmp_path):
+    path = tmp_path / "tui.toml"
+    path.write_text("jobs = = 4\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match=r"tui\.toml: "):
+        read_tui_settings(path)
+
+
+def test_a_tilde_in_mhp3ass_home_is_the_home_folder(tmp_path):
+    folder = saved_data_dir({"MHP3ASS_HOME": "~/mhp3"}, TuiSettings(), own_dir=tmp_path)
+
+    assert folder == Path.home() / "mhp3"
+
+
+def test_a_tilde_in_the_chosen_folder_is_the_home_folder(tmp_path):
+    settings = TuiSettings(data_dir=Path("~/mhp3"))
+
+    assert saved_data_dir({}, settings, own_dir=tmp_path) == Path.home() / "mhp3"
+
+
+def test_a_relative_chosen_folder_is_under_the_tuis_own_folder(tmp_path):
+    settings = TuiSettings(data_dir=Path("saves"))
+
+    assert saved_data_dir({}, settings, own_dir=tmp_path) == tmp_path / "saves"
+
+
+def test_the_folders_read_tui_toml_from_the_tuis_own_folder(tmp_path):
+    own = tmp_path / "xdg" / "mhp3-ass"
+    write_tui_settings(own / "tui.toml", TuiSettings(data_dir=tmp_path / "saves", jobs=2))
+
+    folders = TuiFolders.find({"XDG_CONFIG_HOME": str(tmp_path / "xdg")}, "linux", home=tmp_path)
+
+    assert (folders.settings_file, folders.saved, folders.settings.jobs) == (
+        own / "tui.toml",
+        tmp_path / "saves",
+        2,
+    )
+
+
+def test_mhp3ass_home_overrides_the_folders_saved_data(tmp_path):
+    env = {"XDG_CONFIG_HOME": str(tmp_path / "xdg"), "MHP3ASS_HOME": str(tmp_path / "home")}
+
+    folders = TuiFolders.find(env, "linux", home=tmp_path)
+
+    assert folders.saved == tmp_path / "home"
