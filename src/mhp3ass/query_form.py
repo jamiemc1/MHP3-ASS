@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 
 from mhp3ass.data import GameData
+from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode, QuerySpec, SearchSpec
 from mhp3ass.skill_picker import (
@@ -112,6 +113,26 @@ class QueryForm:
         spec = SearchSpec(query=query, charm_mode=self.charm_mode, my_charms=my_charms)
         return spec
 
+    def summary(self, strings: DisplayStrings) -> str:
+        """The form on one line, for the collapsed editor: hunter type and
+        gender, HR, village, weapon slots, the shown tab's skills and the
+        charm mode, labelled with the language's strings."""
+        hunter = (
+            StringIndex.GUNNER if self.hunter_type is HunterType.GUNNER else StringIndex.BLADEMASTER
+        )
+        gender = "♂" if self.gender is Gender.MALE else "♀"
+        skills = ", ".join(skill.name for skill in query_skills(self.current_rows()))
+        parts = [
+            f"{strings.static(hunter)} {gender}",
+            f"{strings.static(StringIndex.HR)} {self.hr}",
+            f"{strings.static(StringIndex.VILLAGE_QUESTS)} {self.elder_star}",
+            f"{strings.static(StringIndex.MAX_WEAPON_SLOTS)} {self.weapon_slots}",
+            skills,
+            strings.static(charm_mode_label(self.charm_mode)),
+        ]
+        line = " · ".join(part for part in parts if part != "")
+        return line
+
     def with_rows(self, hunter_type: HunterType, rows: tuple[SkillRow, ...]) -> QueryForm:
         """The form with ``hunter_type``'s tab's rows replaced; the other tab's are kept."""
         if hunter_type is HunterType.GUNNER:
@@ -120,3 +141,18 @@ class QueryForm:
             skill_rows = replace(self.skill_rows, blademaster=rows)
         updated = replace(self, skill_rows=skill_rows)
         return updated
+
+
+def charm_mode_label(mode: CharmMode) -> StringIndex:
+    """``cmbCharmSelect``'s item text for ``mode`` (``Form1.h:2085-2089``)."""
+    match mode:
+        case CharmMode.NONE:
+            return StringIndex.USE_NO_CHARMS
+        case CharmMode.MY_CHARMS:
+            return StringIndex.USE_ONLY_MY_CHARMS
+        case CharmMode.SLOTTED:
+            return StringIndex.USE_ONLY_SLOTTED_CHARMS
+        case CharmMode.ONE_SKILL:
+            return StringIndex.USE_UP_TO_ONE_SKILL_CHARMS
+        case CharmMode.TWO_SKILL:
+            return StringIndex.USE_ONLY_TWO_SKILL_CHARMS

@@ -17,7 +17,7 @@ from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
-from mhp3ass.query_form import QueryForm
+from mhp3ass.query_form import QueryForm, charm_mode_label
 from mhp3ass.tui.skill_picker import SkillPicker
 
 
@@ -85,7 +85,7 @@ class QueryEditor(Vertical):
         with Horizontal():
             yield Label(strings.static(StringIndex.CHARMS))
             yield Select(
-                [(strings.static(_charm_mode_label(mode)), mode) for mode in CharmMode],
+                [(strings.static(charm_mode_label(mode)), mode) for mode in CharmMode],
                 value=self.form.charm_mode,
                 allow_blank=False,
                 id="charm_mode",
@@ -125,18 +125,3 @@ def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Se
         id=select_id,
     )
     return select
-
-
-def _charm_mode_label(mode: CharmMode) -> StringIndex:
-    """``cmbCharmSelect``'s item text (``Form1.h:2085-2089``)."""
-    match mode:
-        case CharmMode.NONE:
-            return StringIndex.USE_NO_CHARMS
-        case CharmMode.MY_CHARMS:
-            return StringIndex.USE_ONLY_MY_CHARMS
-        case CharmMode.SLOTTED:
-            return StringIndex.USE_ONLY_SLOTTED_CHARMS
-        case CharmMode.ONE_SKILL:
-            return StringIndex.USE_UP_TO_ONE_SKILL_CHARMS
-        case CharmMode.TWO_SKILL:
-            return StringIndex.USE_ONLY_TWO_SKILL_CHARMS
