@@ -4,7 +4,7 @@ from dataclasses import replace
 
 import pytest
 
-from mhp3ass.data.strings import DisplayStrings, StringIndex, load_strings
+from mhp3ass.data.strings import StringIndex
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
 from mhp3ass.query_form import QueryForm, charm_mode_label
@@ -204,12 +204,6 @@ def test_the_range_ends_are_allowed(field, value):
     form = replace(QueryForm.starting(), **{field: value})
 
     assert getattr(form, field) == value
-
-
-@pytest.fixture(scope="module")
-def english_strings(legacy_data_dir) -> DisplayStrings:
-    strings = load_strings(legacy_data_dir / "Languages" / "English (TeamHGG)")
-    return strings
 
 
 def test_the_summary_names_the_shown_tabs_query(english_strings, form_1a):

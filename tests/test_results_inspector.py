@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import pytest
 
-from mhp3ass.data.strings import DisplayStrings, StringIndex, load_strings
+from mhp3ass.data.strings import StringIndex
 from mhp3ass.model import AbilityPair, Charm
 from mhp3ass.results.details import (
     ArmorLine,
@@ -15,12 +15,6 @@ from mhp3ass.results.details import (
 )
 from mhp3ass.results.inspector import InspectorLine, inspector_lines, note_text, spare_text
 from mhp3ass.solution.state import Solution
-
-
-@pytest.fixture(scope="module")
-def english_strings(legacy_data_dir) -> DisplayStrings:
-    strings = load_strings(legacy_data_dir / "Languages" / "English (TeamHGG)")
-    return strings
 
 
 @pytest.mark.parametrize(

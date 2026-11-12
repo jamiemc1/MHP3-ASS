@@ -77,13 +77,13 @@ class SearchApp(App[None]):
         ("q", "quit", "Quit"),
         Binding("ctrl+s", "search", "Search"),
         Binding("escape", "cancel_search", "Cancel", show=False),
-        Binding("h", "focus('hunter_type')", "Hunter", show=False),
-        Binding("g", "focus('gender')", "Gender", show=False),
-        Binding("r", "focus('hr')", "HR", show=False),
-        Binding("v", "focus('elder_star')", "Village", show=False),
-        Binding("w", "focus('weapon_slots')", "Weapon slots", show=False),
-        Binding("m", "focus('charm_mode')", "Charm mode", show=False),
-        Binding("k", "focus('skill_search')", "Skills", show=False),
+        Binding("h", "edit_field('hunter_type')", "Hunter", show=False),
+        Binding("g", "edit_field('gender')", "Gender", show=False),
+        Binding("r", "edit_field('hr')", "HR", show=False),
+        Binding("v", "edit_field('elder_star')", "Village", show=False),
+        Binding("w", "edit_field('weapon_slots')", "Weapon slots", show=False),
+        Binding("m", "edit_field('charm_mode')", "Charm mode", show=False),
+        Binding("k", "edit_field('skill_search')", "Skills", show=False),
         Binding("s", "focus('sort_key')", "Sort"),
         Binding("S", "reverse_sort", "Reverse"),
         Binding("slash", "find", "Find"),
@@ -115,6 +115,9 @@ class SearchApp(App[None]):
         self._cancel: Event | None = None
         self._worker: Worker[None] | None = None
         self._search_waiting = False
+        # The form the running search started from, and the one the shown results came from.
+        self._running_form: QueryForm | None = None
+        self._searched_form: QueryForm | None = None
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -149,6 +152,7 @@ class SearchApp(App[None]):
             return
         self._search_number += 1
         self._cancel = Event()
+        self._running_form = form
         self.query_one(SearchProgress).start()
         pane = self.query_one(ResultsPane)
         self._worker = self._run_search(
@@ -171,13 +175,21 @@ class SearchApp(App[None]):
 
     def action_edit_query(self) -> None:
         """Reopen the editor over the results, unchanged."""
+        self.action_edit_field("skill_search")
+
+    def action_edit_field(self, widget_id: str) -> None:
+        """Focus one of the editor's fields, reopening the editor if it's collapsed."""
         self.editor.display = True
         self.query_one("#query_summary", Static).display = False
-        self.set_focus(self.query_one("#skill_search"))
+        self.set_focus(self.query_one(f"#{widget_id}"))
 
     def _collapse_editor(self) -> None:
+        """Show the summary of the form the results came from, not the form
+        as edited since."""
+        if self._searched_form is None:
+            return
         summary = self.query_one("#query_summary", Static)
-        summary.update(Content(f"{self.editor.form.summary(self._strings)}   e edit"))
+        summary.update(Content(f"{self._searched_form.summary(self._strings)}   e edit"))
         summary.display = True
         self.editor.display = False
         self.set_focus(self.query_one(ResultsTable))
@@ -258,6 +270,7 @@ class SearchApp(App[None]):
             return
         self._finish_search()
         self.result = result
+        self._searched_form = self._running_form
         self.query_one(ResultsPane).show(view, rows=rows, query=result.query)
         self._collapse_editor()
         count = len(result.results.all_solutions)

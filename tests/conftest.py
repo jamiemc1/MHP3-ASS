@@ -25,6 +25,7 @@ from mhp3ass.charms.location import CharmLocationIndex
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.data.languages import language_folders
+from mhp3ass.data.strings import DisplayStrings, load_strings
 from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
 from mhp3ass.parallel import SearchPool
 from mhp3ass.query import Query, SearchSpec
@@ -98,6 +99,13 @@ def write_files(tmp_path: Path):
 def legacy_data_dir(repo_root: Path) -> Path:
     """Game data shipped with the original application: the input both implementations read."""
     return repo_root / "legacy" / "Run" / "Data"
+
+
+@pytest.fixture(scope="session")
+def english_strings(legacy_data_dir: Path) -> DisplayStrings:
+    """The English (TeamHGG) display strings."""
+    strings = load_strings(legacy_data_dir / "Languages" / "English (TeamHGG)")
+    return strings
 
 
 @pytest.fixture(scope="session")
