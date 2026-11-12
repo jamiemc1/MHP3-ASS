@@ -107,7 +107,8 @@ class ResultsPane(Horizontal):
         self._options: list[Option] = []
         self._query: Query | None = None
         self._needle = ""
-        self._row_texts: list[str] | None = None
+        # Find texts by id(solution); the view keeps every solution alive.
+        self._text_by_set: dict[int, str] = {}
 
     def compose(self) -> ComposeResult:
         strings = self._strings
@@ -144,6 +145,7 @@ class ResultsPane(Horizontal):
         they changed while it ran, it is sorted again here."""
         self.view = view
         self._query = query
+        self._text_by_set = {}
         self._fill_filters()
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
@@ -192,23 +194,35 @@ class ResultsPane(Horizontal):
             return
         event.stop()
         self._needle = event.value
-        self.find(step=1)
-        self.query_one("#results", ResultsTable).focus()
+        self._close_find()
+        self.find(step=1, from_cursor=True)
 
     def on_find_box_closed(self, event: FindBox.Closed) -> None:
         event.stop()
+        self._close_find()
+
+    def _close_find(self) -> None:
         self.query_one("#find_box", FindBox).display = False
         self.query_one("#results", ResultsTable).focus()
 
-    def find(self, step: int) -> None:
+    def find(self, step: int, from_cursor: bool = False) -> None:
         """Move the cursor to the next (``step`` 1) or previous (-1) set
-        matching the find text; a notice when none does."""
+        matching the find text; with ``from_cursor`` (a new find text) the
+        set under the cursor counts too. A notice when none matches."""
         table = self.query_one("#results", ResultsTable)
-        if self.view is None or table.row_count == 0 or self._needle == "":
+        view = self.view
+        query = self._query
+        if view is None or query is None or table.row_count == 0 or self._needle == "":
             return
-        if self._row_texts is None:
-            self._row_texts = [row_text(solution) for solution in self.view.final]
-        row = find_row(self._row_texts, needle=self._needle, start=table.cursor, step=step)
+        texts = []
+        for solution in view.final:
+            # Each set's text is built once per search, whatever the sort or filter.
+            key = id(solution)
+            if key not in self._text_by_set:
+                self._text_by_set[key] = row_text(solution, query=query)
+            texts.append(self._text_by_set[key])
+        start = (table.cursor - step) % len(texts) if from_cursor else table.cursor
+        row = find_row(texts, needle=self._needle, start=start, step=step)
         if row is None:
             self.notify(f"No set has {self._needle!r}.")
             return
@@ -252,9 +266,10 @@ class ResultsPane(Horizontal):
         options.highlighted = 0
 
     def _set_rows(self, rows: Sequence[TableRow]) -> None:
-        # Find's texts follow the rows shown; they're rebuilt at the next find.
-        self._row_texts = None
         self.query_one("#results", ResultsTable).set_rows(rows)
+        # With no rows the table moves no cursor, so nothing else clears the inspector.
+        if not rows:
+            self.query_one(Inspector).clear()
 
     def _fill_table(self) -> None:
         if self.view is not None:

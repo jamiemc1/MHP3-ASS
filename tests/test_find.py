@@ -123,7 +123,7 @@ def test_a_start_off_the_rows_or_a_bad_step_raises(row_texts, start, step):
         find_row(row_texts, needle="Helm", start=start, step=step)
 
 
-def test_a_rows_text_has_its_pieces_jewels_charm_and_extra_skills(teamhgg_game):
+def test_a_rows_text_has_its_pieces_jewels_charm_and_extra_skills(teamhgg_game, make_query):
     solution = Solution(
         armors=[teamhgg_game.armor_map["Jinouga Helm"], None, None, None, None],
         charm=Charm(
@@ -134,7 +134,7 @@ def test_a_rows_text_has_its_pieces_jewels_charm_and_extra_skills(teamhgg_game):
     solution.decorations = [teamhgg_game.decorations[0]]
     solution.extra_skills = [teamhgg_game.skill_map["Guard +1"]]
 
-    text = row_text(solution)
+    text = row_text(solution, query=make_query())
 
     assert text.split("\n") == [
         "Jinouga Helm",
@@ -142,3 +142,15 @@ def test_a_rows_text_has_its_pieces_jewels_charm_and_extra_skills(teamhgg_game):
         "+4 Attack ---",
         "Guard +1",
     ]
+
+
+def test_a_rows_text_leaves_out_extra_skills_the_query_asked_for(teamhgg_game, make_query):
+    guard = teamhgg_game.skill_map["Guard +1"]
+    solution = Solution(
+        armors=[teamhgg_game.armor_map["Jinouga Helm"], None, None, None, None], charm=None
+    )
+    solution.extra_skills = [guard]
+
+    text = row_text(solution, query=make_query(skills=[guard]))
+
+    assert text == "Jinouga Helm"
