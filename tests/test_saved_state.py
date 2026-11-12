@@ -13,9 +13,14 @@ from mhp3ass.query_form import QueryForm
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.saved_state import (
     SavedSearch,
+    Startup,
+    StartupSettings,
     form_from_settings,
+    read_startup_settings,
     restore_search,
     settings_for,
+    startup,
+    write_settings_cfg,
 )
 from mhp3ass.settings_cfg import (
     SettingsCfg,
@@ -283,8 +288,8 @@ def test_the_1b_capture_loads_the_guis_count(restore, capture_settings):
 
 
 def test_results_belong_to_the_last_searchs_hunter_type(restore, capture_settings, capture_names):
-    """A capture searched as Gunner and saved with the Gunner tab shown; its
-    results' form and query say Gunner whatever tab is shown."""
+    """A capture searched as Gunner, loaded with the Blademaster tab shown:
+    its results' form and query are still Gunner's."""
     gunner_capture = next(
         name for name in capture_names if capture_settings(name).last_search_gunner
     )
@@ -304,3 +309,113 @@ def test_the_starting_state_is_the_starting_form():
     assert SavedSearch.starting() == SavedSearch(
         form=QueryForm.starting(), sort_key=SortKey.NONE, last_search_gunner=False, results=None
     )
+
+
+@pytest.fixture
+def settings_path(tmp_path):
+    return tmp_path / "settings.cfg"
+
+
+@pytest.fixture
+def unknown_version_file(settings_path):
+    settings_path.write_bytes(b"3\r\n")
+    return settings_path
+
+
+@pytest.fixture
+def file_with_language_7(settings_path, two_tab_settings):
+    settings_path.write_bytes(
+        settings_cfg_text(dataclasses.replace(two_tab_settings, language_index=7))
+    )
+    return settings_path
+
+
+def test_a_missing_file_gives_no_settings_and_no_notice(settings_path, language_count):
+    assert read_startup_settings(settings_path, language_count=language_count) == StartupSettings(
+        settings=None, notice=None
+    )
+
+
+@pytest.mark.parametrize(
+    ("file", "message"),
+    [("unknown_version_file", "unsupported"), ("file_with_language_7", "language 7")],
+)
+def test_a_file_that_cant_be_read_is_set_aside(request, language_count, file, message):
+    path = request.getfixturevalue(file)
+
+    read = read_startup_settings(path, language_count=language_count)
+
+    assert read.settings is None
+    assert read.notice is not None
+    assert message in read.notice
+    assert "kept as settings.cfg.unreadable" in read.notice
+    assert path.with_name("settings.cfg.unreadable").read_bytes() == path.read_bytes()
+
+
+@pytest.fixture
+def start(settings_path, scratch_game, language_count):
+    def start_from(settings):
+        started = startup(
+            settings_path,
+            settings=settings,
+            game=scratch_game,
+            language="English (TeamHGG)",
+            language_count=language_count,
+        )
+        return started
+
+    return start_from
+
+
+def test_no_settings_start_from_the_defaults(start):
+    assert start(None) == Startup(search=SavedSearch.starting(), notice=None)
+
+
+@pytest.fixture
+def file_with_no_charm_mode(settings_path, two_tab_settings):
+    settings = dataclasses.replace(two_tab_settings, charm_select_index=-1)
+    settings_path.write_bytes(settings_cfg_text(settings))
+    return settings
+
+
+def test_settings_that_cant_be_restored_start_from_the_defaults(
+    start, settings_path, file_with_no_charm_mode
+):
+    started = start(file_with_no_charm_mode)
+
+    assert started.search == SavedSearch.starting()
+    assert started.notice is not None
+    assert "no charm mode" in started.notice
+    assert settings_path.with_name("settings.cfg.unreadable").exists()
+
+
+def test_charm_free_sets_shown_only_under_none_get_a_notice(start, capture_settings):
+    """Capture 20: Gunner Load Up + Accuracy+1, slotted charms, piercings and event armour off."""
+    started = start(capture_settings("20"))
+
+    assert started.notice == (
+        "1,223 charm-free sets from last time show only under None, as in the original."
+    )
+
+
+def test_a_load_with_only_charmed_sets_has_no_notice(start, capture_settings):
+    """Capture 12: 480 sets, every one with a charm."""
+    started = start(capture_settings("12"))
+
+    assert started.search.results is not None
+    assert [len(started.search.results.view.all_solutions), started.notice] == [480, None]
+
+
+@pytest.fixture
+def old_settings_file(settings_path):
+    settings_path.write_bytes(b"old")
+    return settings_path
+
+
+def test_writing_replaces_the_file_and_leaves_no_temporary_file(
+    old_settings_file, two_tab_settings
+):
+    write_settings_cfg(old_settings_file, two_tab_settings)
+
+    assert [path.name for path in old_settings_file.parent.iterdir()] == ["settings.cfg"]
+    assert old_settings_file.read_bytes() == settings_cfg_text(two_tab_settings)
