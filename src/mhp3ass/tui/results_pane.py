@@ -18,9 +18,11 @@ from textual.widgets import Label, OptionList, Select
 from textual.widgets.option_list import Option
 
 from mhp3ass.data.strings import DisplayStrings, StringIndex
+from mhp3ass.query import Query
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow, table_row
 from mhp3ass.results.view import CharmFilter, ResultsView
+from mhp3ass.tui.inspector import Inspector
 from mhp3ass.tui.results_table import ResultsTable
 
 
@@ -84,6 +86,7 @@ class ResultsPane(Horizontal):
         self.reverse = False
         self._filters: list[CharmFilter] = []
         self._options: list[Option] = []
+        self._query: Query | None = None
 
     def compose(self) -> ComposeResult:
         strings = self._strings
@@ -103,6 +106,7 @@ class ResultsPane(Horizontal):
                 right_aligned=frozenset({0, 6}),
                 id="results",
             )
+        yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
 
     @property
     def sort_key(self) -> SortKey:
@@ -111,17 +115,31 @@ class ResultsPane(Horizontal):
             raise TypeError(f"the sort drop-down holds {value!r}, not a SortKey")
         return value
 
-    def show(self, view: ResultsView, rows: Sequence[TableRow]) -> None:
-        """Show a new search's view and the rows of its ``final`` (``view_rows``).
+    def show(self, view: ResultsView, rows: Sequence[TableRow], query: Query) -> None:
+        """Show a new search's view and the rows of its ``final`` (``view_rows``);
+        ``query`` is the results' own, for the inspector's notes and extra skills.
         The view was built with the sort and reverse of the search's start; if
         they changed while it ran, it is sorted again here."""
         self.view = view
+        self._query = query
         self._fill_filters()
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
             rows = view_rows(view)
         self.query_one("#results", ResultsTable).set_rows(rows)
+
+    def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
+        event.stop()
+        view = self.view
+        inspector = self.query_one(Inspector)
+        # A highlight posted before the rows were replaced can be past the new end.
+        if view is None or self._query is None or event.row >= len(view.final):
+            inspector.clear()
+            return
+        inspector.show(
+            event.row + 1, view.final[event.row], query=self._query, sort_key=view.sort_key
+        )
 
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id != "sort_key":
