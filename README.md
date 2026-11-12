@@ -54,7 +54,10 @@ selected set's pieces, jewels, spare slots, extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
 After a search the editor collapses to a one-line summary: `e` reopens it,
 esc closes it again and the keys (`q` quits, `^P` opens the command
-palette). Outside a terminal it prints the help instead; `mhp3-ass --help`
+palette). `o` opens the options: the four armour options (space toggles),
+the language (skill, armour and charm names and the labels switch at once,
+and `mycharms.txt` is rewritten in it, as the original does) and the number
+of search processes; each change is saved straight away. Outside a terminal it prints the help instead; `mhp3-ass --help`
 lists the `search` and `import-save` commands below.
 
 ## Importing charms from your save
