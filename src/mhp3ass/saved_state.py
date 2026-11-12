@@ -10,8 +10,11 @@ up into chips in the same order.
 from __future__ import annotations
 
 import dataclasses
+import os
+import shutil
 from collections.abc import Sequence
 from dataclasses import dataclass
+from pathlib import Path
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Gender, HunterType
@@ -26,6 +29,8 @@ from mhp3ass.settings_cfg import (
     SettingsCfgError,
     check_header,
     load_results,
+    read_settings_cfg,
+    settings_cfg_text,
     with_solutions,
 )
 from mhp3ass.skill_chips import chip_rows
@@ -194,3 +199,89 @@ def restore_search(
         results=results,
     )
     return search
+
+
+@dataclass(frozen=True)
+class StartupSettings:
+    """``settings.cfg`` as start-up reads it, before the game data is loaded
+    (its language comes from the file): the settings, or ``None`` when there
+    is no file or it can't be read, and the notice to show."""
+
+    settings: SettingsCfg | None
+    notice: str | None
+
+
+@dataclass(frozen=True)
+class Startup:
+    """What the TUI starts from, and the notice to show."""
+
+    search: SavedSearch
+    notice: str | None
+
+
+def read_startup_settings(path: Path, language_count: int) -> StartupSettings:
+    """``path``'s settings with a header ``LoadConfig`` can apply. A file
+    that can't be read or applied is set aside (``set_aside``), and the
+    notice says so; a missing one gives no settings and no notice."""
+    if not path.exists():
+        return StartupSettings(settings=None, notice=None)
+    try:
+        settings = read_settings_cfg(path)
+        check_header(settings, language_count=language_count)
+    except (OSError, ValueError, OverflowError) as error:
+        # Unreadable, not UTF-8, a field that isn't a number or Boolean, a
+        # number past its type, or a value LoadConfig can't apply.
+        notice = set_aside(path, error)
+        return StartupSettings(settings=None, notice=notice)
+    startup_settings = StartupSettings(settings=settings, notice=None)
+    return startup_settings
+
+
+def startup(
+    path: Path,
+    settings: SettingsCfg | None,
+    game: GameData,
+    language: str,
+    language_count: int,
+) -> Startup:
+    """The search ``settings`` restore (``restore_search``), or the defaults
+    when there are none or they can't be restored, in which case ``path`` is
+    set aside: a load either applies whole or not at all."""
+    if settings is None:
+        return Startup(search=SavedSearch.starting(), notice=None)
+    try:
+        search = restore_search(
+            settings, game=game, language=language, language_count=language_count
+        )
+    except SettingsCfgError as error:
+        notice = set_aside(path, error)
+        return Startup(search=SavedSearch.starting(), notice=notice)
+    notice = None
+    hidden = search.results.charm_free_only_under_none if search.results is not None else 0
+    if hidden > 0:
+        notice = (
+            f"{hidden:,} charm-free sets from last time show only under None, as in the original."
+        )
+    started = Startup(search=search, notice=notice)
+    return started
+
+
+def set_aside(path: Path, error: Exception) -> str:
+    """Copy ``path`` to ``<name>.unreadable`` beside it, so the next save
+    doesn't overwrite it, and return the notice naming both and ``error``."""
+    kept = path.with_name(f"{path.name}.unreadable")
+    shutil.copyfile(path, kept)
+    notice = (
+        f"{path} can't be loaded ({error}), so the search starts from the defaults. "
+        f"The file is kept as {kept.name}."
+    )
+    return notice
+
+
+def write_settings_cfg(path: Path, settings: SettingsCfg) -> None:
+    """Write ``settings`` to ``path`` through a temporary file beside it, so
+    a crash part-way leaves the old file whole."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f"{path.name}.tmp")
+    temporary.write_bytes(settings_cfg_text(settings))
+    os.replace(temporary, path)
