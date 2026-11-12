@@ -5,9 +5,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import sys
 from contextlib import ExitStack
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from mhp3ass import __version__
@@ -26,6 +27,13 @@ from mhp3ass.results.result_set import (
     search_manifest,
     solution_lines,
     write_search_outputs,
+)
+from mhp3ass.saved_data import (
+    TuiSettings,
+    config_dir,
+    my_charms_file,
+    read_tui_settings,
+    saved_data_dir,
 )
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
 from mhp3ass.search import SearchData, WorkerProgress, dotnet_exception_type, run_search
@@ -245,7 +253,10 @@ def main(argv: list[str] | None = None) -> int:
     search.add_argument(
         "--data-dir", type=Path, default=_default_data_dir(), help="the game data folder"
     )
+    commands.add_parser("info", help="print the version, the folders in use and the terminal size")
     args = parser.parse_args(argv)
+    if args.command == "info":
+        return _info(_default_data_dir())
     if args.command == "import-save":
         return _import_save(args)
     if args.command == "search":
@@ -263,17 +274,51 @@ def main(argv: list[str] | None = None) -> int:
     return exit_code
 
 
-def _run_tui(data_dir: Path) -> int:
-    """The app, with the pool's processes booting while the data loads.
+@dataclass(frozen=True)
+class TuiFolders:
+    """The TUI's own folder (``tui.toml``) and the saved-data folder."""
 
-    Until the saved-data folder exists, my charms are the data folder's
-    ``mycharms.txt``, where the original keeps them (``Data/mycharms.txt``).
-    """
+    own: Path
+    saved: Path
+    settings: TuiSettings
+
+
+def _tui_folders() -> TuiFolders:
+    own = config_dir(os.environ, platform=sys.platform, home=Path.home())
+    settings = read_tui_settings(own / "tui.toml")
+    folders = TuiFolders(
+        own=own, saved=saved_data_dir(os.environ, settings, own_dir=own), settings=settings
+    )
+    return folders
+
+
+def _info(data_dir: Path) -> int:
+    """What a bug report needs: versions, folders and the terminal's size."""
+    folders = _tui_folders()
+    terminal = shutil.get_terminal_size()
+    lines = [
+        f"mhp3-ass {__version__}",
+        f"Python {sys.version.split()[0]} on {sys.platform}",
+        f"Settings file: {folders.own / 'tui.toml'}",
+        f"Saved data: {folders.saved}",
+        f"Game data: {data_dir}",
+        f"Terminal: {terminal.columns}x{terminal.lines}",
+    ]
+    print("\n".join(lines))
+    return 0
+
+
+def _run_tui(data_dir: Path) -> int:
+    """The app, with the pool's processes booting while the data loads. My
+    charms are the saved-data folder's ``mycharms.txt``, copied from the
+    original's shipped list (``Data/mycharms.txt``) on the first run."""
     languages_dir = data_dir / "Languages"
     language = default_language(language_folders(languages_dir))
     if language is None:
         raise FileNotFoundError(f"no language folders in {languages_dir}")
-    jobs = default_jobs()
+    folders = _tui_folders()
+    my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
+    jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
     with ExitStack() as stack:
         pool = stack.enter_context(SearchPool(jobs=jobs)) if jobs > 1 else None
         if pool is not None:
@@ -285,7 +330,7 @@ def _run_tui(data_dir: Path) -> int:
             strings=load_strings(languages_dir / language),
             form=QueryForm.starting(),
             pool=pool,
-            my_charms_path=data_dir / "mycharms.txt",
+            my_charms_path=my_charms_path,
         )
         app.run()
     exit_code = app.return_code if app.return_code is not None else 0
