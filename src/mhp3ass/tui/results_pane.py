@@ -9,16 +9,20 @@ shows ``ResultsView.final`` one row per set.
 from __future__ import annotations
 
 from collections.abc import Sequence
+from typing import ClassVar
 
 from rich.cells import cell_len, set_cell_size
 from textual.app import ComposeResult
+from textual.binding import Binding, BindingType
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
-from textual.widgets import Label, OptionList, Select
+from textual.message import Message
+from textual.widgets import Input, Label, OptionList, Select
 from textual.widgets.option_list import Option
 
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.query import Query
+from mhp3ass.results.find import find_row, row_text
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow, table_row
 from mhp3ass.results.view import CharmFilter, ResultsView
@@ -53,6 +57,18 @@ def sort_label(key: SortKey) -> StringIndex:
             return StringIndex.SORT_SLOTS_SPARE
 
 
+class FindBox(Input):
+    """The find text; Esc closes it."""
+
+    BINDINGS: ClassVar[list[BindingType]] = [Binding("escape", "close", "Close", show=False)]
+
+    class Closed(Message):
+        pass
+
+    def action_close(self) -> None:
+        self.post_message(self.Closed())
+
+
 class ResultsPane(Horizontal):
     """Shows one ``ResultsView``; the sidebar and the sort line change it."""
 
@@ -76,6 +92,9 @@ class ResultsPane(Horizontal):
     ResultsPane #results {
         height: 1fr;
     }
+    ResultsPane #find_box {
+        display: none;
+    }
     """
 
     def __init__(self, strings: DisplayStrings) -> None:
@@ -87,6 +106,8 @@ class ResultsPane(Horizontal):
         self._filters: list[CharmFilter] = []
         self._options: list[Option] = []
         self._query: Query | None = None
+        self._needle = ""
+        self._row_texts: list[str] | None = None
 
     def compose(self) -> ComposeResult:
         strings = self._strings
@@ -106,6 +127,7 @@ class ResultsPane(Horizontal):
                 right_aligned=frozenset({0, 6}),
                 id="results",
             )
+            yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
 
     @property
@@ -127,7 +149,7 @@ class ResultsPane(Horizontal):
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
             rows = view_rows(view)
-        self.query_one("#results", ResultsTable).set_rows(rows)
+        self._set_rows(rows)
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
         event.stop()
@@ -159,6 +181,38 @@ class ResultsPane(Horizontal):
         if self.view is not None and current:
             self.view.select_filter(self._filters[index])
             self._fill_table()
+
+    def open_find(self) -> None:
+        box = self.query_one("#find_box", FindBox)
+        box.display = True
+        box.focus()
+
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        if event.input.id != "find_box":
+            return
+        event.stop()
+        self._needle = event.value
+        self.find(step=1)
+        self.query_one("#results", ResultsTable).focus()
+
+    def on_find_box_closed(self, event: FindBox.Closed) -> None:
+        event.stop()
+        self.query_one("#find_box", FindBox).display = False
+        self.query_one("#results", ResultsTable).focus()
+
+    def find(self, step: int) -> None:
+        """Move the cursor to the next (``step`` 1) or previous (-1) set
+        matching the find text; a notice when none does."""
+        table = self.query_one("#results", ResultsTable)
+        if self.view is None or table.row_count == 0 or self._needle == "":
+            return
+        if self._row_texts is None:
+            self._row_texts = [row_text(solution) for solution in self.view.final]
+        row = find_row(self._row_texts, needle=self._needle, start=table.cursor, step=step)
+        if row is None:
+            self.notify(f"No set has {self._needle!r}.")
+            return
+        table.cursor = row
 
     def reverse_sort(self) -> None:
         self.reverse = not self.reverse
@@ -197,9 +251,14 @@ class ResultsPane(Horizontal):
         options.add_options(self._options)
         options.highlighted = 0
 
+    def _set_rows(self, rows: Sequence[TableRow]) -> None:
+        # Find's texts follow the rows shown; they're rebuilt at the next find.
+        self._row_texts = None
+        self.query_one("#results", ResultsTable).set_rows(rows)
+
     def _fill_table(self) -> None:
         if self.view is not None:
-            self.query_one("#results", ResultsTable).set_rows(view_rows(self.view))
+            self._set_rows(view_rows(self.view))
 
 
 def _fit(label: str, width: int) -> str:
