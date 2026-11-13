@@ -180,20 +180,23 @@ class ResultsPane(Horizontal):
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
         event.stop()
+        self._inspect(event.row)
+
+    def redraw_inspector(self) -> None:
+        """Show the highlighted set again: once a search stops using the game,
+        a loaded set's placement, pending until then, can be worked out."""
+        self._inspect(self.query_one(ResultsTable).cursor)
+
+    def _inspect(self, row: int) -> None:
         view = self.view
         inspector = self.query_one(Inspector)
         # A highlight posted before the rows were replaced can be past the new end.
-        if (
-            view is None
-            or self._query is None
-            or self._game is None
-            or event.row >= len(view.final)
-        ):
+        if view is None or self._query is None or self._game is None or row >= len(view.final):
             inspector.clear()
             return
         inspector.show(
-            event.row + 1,
-            view.final[event.row],
+            row + 1,
+            view.final[row],
             query=self._query,
             sort_key=view.sort_key,
             refill_game=None if self._is_searching() else self._game,

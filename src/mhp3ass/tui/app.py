@@ -570,8 +570,12 @@ class SearchApp(App[bool]):
         self.query_one(ResultsPane).find(step=step)
 
     def on_worker_state_changed(self, event: Worker.StateChanged) -> None:
-        if event.worker is self._worker and event.worker.is_finished and self._search_waiting:
+        if event.worker is not self._worker or not event.worker.is_finished:
+            return
+        if self._search_waiting:
             self.action_search()
+        elif not self._searching():
+            self.query_one(ResultsPane).redraw_inspector()
 
     def on_progressed(self, event: Progressed) -> None:
         if event.number == self._search_number and self._cancel is not None:
@@ -657,3 +661,6 @@ class SearchApp(App[bool]):
     def _finish_search(self) -> None:
         self._cancel = None
         self.query_one(SearchProgress).stop()
+        # Its thread may still be running; if so, its end redraws instead.
+        if not self._searching():
+            self.query_one(ResultsPane).redraw_inspector()

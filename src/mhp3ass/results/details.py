@@ -79,7 +79,14 @@ class SortValue:
 
 @dataclass(frozen=True)
 class UnknownPlacement:
-    """A Torso Inc set whose jewels no placement fits (``jewel_placement``)."""
+    """A Torso Inc set whose jewels no placement fits (``jewel_placement``),
+    or a loaded one the search's fill doesn't reproduce (``refilled``)."""
+
+
+@dataclass(frozen=True)
+class PlacementPending:
+    """A loaded Torso Inc set whose placement waits for a search to stop
+    using the game, which filling it again needs."""
 
 
 @dataclass(frozen=True)
@@ -90,7 +97,7 @@ class SolutionDetails:
     armors: tuple[ArmorLine, ...]
     charm: Charm | None
     decorations: tuple[DecorationCount, ...]
-    chest_jewels: ChestJewels | UnknownPlacement | None
+    chest_jewels: ChestJewels | UnknownPlacement | PlacementPending | None
     slots_spare: SlotsSpare | None
     sort_value: SortValue | None
     extra_skills: tuple[Skill, ...]
@@ -184,7 +191,7 @@ def decoration_counts(decorations: Sequence[Decoration]) -> tuple[DecorationCoun
 
 def chest_jewels(
     solution: Solution, query: Query, refill_game: GameData | None
-) -> ChestJewels | UnknownPlacement | None:
+) -> ChestJewels | UnknownPlacement | PlacementPending | None:
     """``jewel_placement`` as counts, for the results' own ``query``: ``None``
     where a jewel's place can't change its points, ``UnknownPlacement`` where
     no placement fits the set's slots and points.
@@ -192,14 +199,15 @@ def chest_jewels(
     A set loaded from ``settings.cfg`` is recognised by its multiplier of 0
     (the search sets it to 1 or more for every set it fills, and the file
     doesn't keep it). It is ``refilled`` in ``refill_game`` first, and is
-    ``UnknownPlacement`` when the refill isn't the loaded set, or when
-    ``refill_game`` is ``None`` because a search is using the game."""
+    ``UnknownPlacement`` when the refill isn't the loaded set, or
+    ``PlacementPending`` when ``refill_game`` is ``None`` because a search
+    is using the game."""
     searched = solution
     if solution.torso_multiplier == 0:
         if not place_can_matter(solution):
             return None
         if refill_game is None:
-            return UnknownPlacement()
+            return PlacementPending()
         refill = refilled(solution, query=query, game=refill_game)
         if refill is None:
             return UnknownPlacement()

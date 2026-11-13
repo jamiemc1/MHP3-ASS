@@ -11,6 +11,7 @@ from mhp3ass.results.details import (
     ArmorNote,
     ChestJewels,
     DecorationCount,
+    PlacementPending,
     SlotsSpare,
     SolutionDetails,
     UnknownPlacement,
@@ -167,7 +168,8 @@ def jewel_counts(teamhgg_game) -> list[DecorationCount]:
 
 
 def _jewel_details(
-    counts: list[DecorationCount], chest_jewels: ChestJewels | UnknownPlacement | None
+    counts: list[DecorationCount],
+    chest_jewels: ChestJewels | UnknownPlacement | PlacementPending | None,
 ) -> SolutionDetails:
     details = SolutionDetails(
         armors=(),
@@ -212,6 +214,13 @@ def test_an_unknown_placement_keeps_one_list_and_says_so(jewel_counts):
         InspectorLine("", f"1x {razor.decoration.name}"),
         InspectorLine("", "(placement not known)"),
     ]
+
+
+def test_a_pending_placement_keeps_one_list_and_says_it_waits(jewel_counts):
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=PlacementPending()))
+
+    assert lines[-1] == InspectorLine("", "(placement after the search)")
+    assert [line.label for line in lines] == ["Jewels", "", ""]
 
 
 def test_a_set_without_a_split_has_no_note(jewel_counts):
