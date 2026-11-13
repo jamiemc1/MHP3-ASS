@@ -3,11 +3,12 @@ than once, and the rest.
 
 ``MatchesQuery`` fills the chest's slots with the torso multiplier and the
 other slots once (``legacy/Solution.cpp:57-93``, ``:410-484``), keeping the
-two apart in ``body_decorations`` and ``non_body_decorations``. Charm
-reduction's ``SwapOut`` then merges 1-slot jewels in ``decorations`` alone
-(``Solution.cpp:537-558``, quirk 22), so for some sets those lists no longer
-hold the jewels shown, and the placement is worked out again from the shown
-jewels, the slots and the set's points.
+two apart in ``body_decorations`` and ``non_body_decorations``. The
+bad-skill check's ``Replace`` and charm reduction's ``SwapOut`` then change
+jewels in ``decorations`` alone, by raw amounts (``Solution.cpp:193-206``,
+``:537-558``, quirk 22), so for some sets those lists no longer hold the
+jewels shown, and the placement is worked out again from the shown jewels,
+the slots and the set's points.
 """
 
 from __future__ import annotations
@@ -42,16 +43,19 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
     from ``settings.cfg`` carry neither the multiplier nor the points (their
     multiplier is 0), so they get ``None`` too.
 
-    When the stored lists hold exactly the shown jewels, they are the
-    placement. Otherwise every split of the shown jewels between the chest
-    and the rest is tried. A split is valid when the chest's jewels fit the
-    chest's slots, the rest fit the other slot groups the search counts (each
-    other piece's, the weapon's and the charm's; ``Solution.cpp:212``,
-    ``:249``, ``:265``), and the points it gives (the chest piece and its
-    jewels times the multiplier, everything else once; ``:262``) are the
-    set's ``abilities``. Of several valid splits, the first is taken: the
-    fewest jewels in the chest, then the earliest in the shown order. Raises
-    ``PlacementUnknownError`` when no split is valid (quirk 52).
+    A placement is valid when the chest's jewels fit the chest's slots, the
+    rest fit the other slot groups the search counts (each other piece's, the
+    weapon's and the charm's; ``Solution.cpp:212``, ``:249``, ``:265``), and
+    the points it gives are the set's ``abilities``: the chest's jewels count
+    the final multiplier times, the chest piece the multiplier before its own
+    Torso Inc (``GetInitialData`` adds it last, ``:258-262``), everything
+    else once.
+
+    The stored lists are the placement when they hold exactly the shown
+    jewels and are valid. Otherwise every split of the shown jewels between
+    the chest and the rest is tried, and of the valid ones the first is
+    taken: the fewest jewels in the chest, then the earliest in the shown
+    order. Raises ``PlacementUnknownError`` when no split is valid (quirk 52).
     """
     chest_armor = solution.armors[1]
     multiplier = solution.torso_multiplier
@@ -60,31 +64,55 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
     jewels = solution.decorations
     if not jewels:
         return None
-    if Counter(jewels) == Counter(solution.body_decorations + solution.non_body_decorations):
-        stored = JewelPlacement(
-            multiplier=multiplier,
-            chest=tuple(solution.body_decorations),
-            elsewhere=tuple(solution.non_body_decorations),
-        )
+    check = _PlacementCheck(
+        solution=solution,
+        chest_slots=chest_armor.num_slots,
+        other_groups=_other_slot_groups(solution, weapon_slots=weapon_slots),
+        points=_nonzero(solution.abilities),
+    )
+    stored = JewelPlacement(
+        multiplier=multiplier,
+        chest=tuple(solution.body_decorations),
+        elsewhere=tuple(solution.non_body_decorations),
+    )
+    holds_the_shown = Counter(jewels) == Counter(stored.chest + stored.elsewhere)
+    if holds_the_shown and check.valid(stored):
         return stored
-    groups = _other_slot_groups(solution, weapon_slots=weapon_slots)
-    target = _nonzero(solution.abilities)
     for count in range(min(chest_armor.num_slots, len(jewels)) + 1):
         for chosen in combinations(range(len(jewels)), count):
-            chest = tuple(jewels[i] for i in chosen)
-            elsewhere = tuple(jewel for i, jewel in enumerate(jewels) if i not in chosen)
-            if sum(jewel.slots_required for jewel in chest) > chest_armor.num_slots:
-                continue
-            if not fits([jewel.slots_required for jewel in elsewhere], groups=groups):
-                continue
-            if _nonzero(_points(solution, chest=chest, elsewhere=elsewhere)) != target:
-                continue
-            placement = JewelPlacement(multiplier=multiplier, chest=chest, elsewhere=elsewhere)
-            return placement
+            placement = JewelPlacement(
+                multiplier=multiplier,
+                chest=tuple(jewels[i] for i in chosen),
+                elsewhere=tuple(jewel for i, jewel in enumerate(jewels) if i not in chosen),
+            )
+            if check.valid(placement):
+                return placement
     names = ", ".join(jewel.name for jewel in jewels)
     raise PlacementUnknownError(
         f"no placement of {names} fits the set's slots and gives its points"
     )
+
+
+@dataclass(frozen=True)
+class _PlacementCheck:
+    """What a placement of ``solution``'s jewels must meet: the chest's slots,
+    the other slot groups, and the set's non-zero points."""
+
+    solution: Solution
+    chest_slots: int
+    other_groups: list[int]
+    points: dict[Ability, int]
+
+    def valid(self, placement: JewelPlacement) -> bool:
+        if sum(jewel.slots_required for jewel in placement.chest) > self.chest_slots:
+            return False
+        if not fits(
+            [jewel.slots_required for jewel in placement.elsewhere], groups=self.other_groups
+        ):
+            return False
+        given = _nonzero(_points(self.solution, placement))
+        valid = given == self.points
+        return valid
 
 
 def fits(sizes: Sequence[int], groups: Sequence[int]) -> bool:
@@ -129,20 +157,20 @@ def _other_slot_groups(solution: Solution, weapon_slots: int) -> list[int]:
     return groups
 
 
-def _points(
-    solution: Solution, chest: Sequence[Decoration], elsewhere: Sequence[Decoration]
-) -> Counter[Ability]:
+def _points(solution: Solution, placement: JewelPlacement) -> Counter[Ability]:
     """The points the armour, the charm and the jewels so placed give."""
-    multiplier = solution.torso_multiplier
     totals: Counter[Ability] = Counter()
     for slot, armor in enumerate(solution.armors):
-        if armor is not None:
-            _add(totals, armor.abilities, weight=multiplier if slot == 1 else 1)
+        if armor is None:
+            continue
+        # The chest piece is added before its own Torso Inc counts (Solution.cpp:262).
+        weight = placement.multiplier - armor.torso_inc if slot == 1 else 1
+        _add(totals, armor.abilities, weight=weight)
     if solution.charm is not None:
         _add(totals, solution.charm.abilities, weight=1)
-    for jewel in chest:
-        _add(totals, jewel.abilities, weight=multiplier)
-    for jewel in elsewhere:
+    for jewel in placement.chest:
+        _add(totals, jewel.abilities, weight=placement.multiplier)
+    for jewel in placement.elsewhere:
         _add(totals, jewel.abilities, weight=1)
     return totals
 

@@ -13,6 +13,7 @@ from mhp3ass.results.details import (
     DecorationCount,
     SlotsSpare,
     SolutionDetails,
+    UnknownPlacement,
 )
 from mhp3ass.results.inspector import (
     InspectorLine,
@@ -112,7 +113,6 @@ def set_with_an_empty_arms_slot(teamhgg_game) -> InspectedSet:
             DecorationCount(decoration=razor_jewel, count=2),
         ),
         chest_jewels=None,
-        placement_known=True,
         slots_spare=SlotsSpare(total=2, groups=(1, 1)),
         sort_value=None,
         extra_skills=(teamhgg_game.skill_map["Guard +1"],),
@@ -167,14 +167,13 @@ def jewel_counts(teamhgg_game) -> list[DecorationCount]:
 
 
 def _jewel_details(
-    counts: list[DecorationCount], chest_jewels: ChestJewels | None, placement_known: bool
+    counts: list[DecorationCount], chest_jewels: ChestJewels | UnknownPlacement | None
 ) -> SolutionDetails:
     details = SolutionDetails(
         armors=(),
         charm=None,
         decorations=tuple(counts),
         chest_jewels=chest_jewels,
-        placement_known=placement_known,
         slots_spare=None,
         sort_value=None,
         extra_skills=(),
@@ -186,7 +185,7 @@ def test_torso_inc_jewels_are_listed_by_place(jewel_counts):
     attack, razor = jewel_counts
     split = ChestJewels(multiplier=3, chest=(attack,), elsewhere=(razor,))
 
-    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split, placement_known=True))
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split))
 
     assert lines == [
         InspectorLine("Chest x3", f"2x {attack.decoration.name}"),
@@ -197,7 +196,7 @@ def test_torso_inc_jewels_are_listed_by_place(jewel_counts):
 def test_an_empty_chest_says_none(jewel_counts):
     split = ChestJewels(multiplier=2, chest=(), elsewhere=tuple(jewel_counts))
 
-    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split, placement_known=True))
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split))
 
     assert lines[0] == InspectorLine("Chest x2", "none")
     assert [line.label for line in lines[1:]] == ["Elsewhere", ""]
@@ -206,7 +205,7 @@ def test_an_empty_chest_says_none(jewel_counts):
 def test_an_unknown_placement_keeps_one_list_and_says_so(jewel_counts):
     attack, razor = jewel_counts
 
-    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=None, placement_known=False))
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=UnknownPlacement()))
 
     assert lines == [
         InspectorLine("Jewels", f"2x {attack.decoration.name}"),
@@ -215,8 +214,8 @@ def test_an_unknown_placement_keeps_one_list_and_says_so(jewel_counts):
     ]
 
 
-def test_a_known_placement_without_a_split_has_no_note(jewel_counts):
-    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=None, placement_known=True))
+def test_a_set_without_a_split_has_no_note(jewel_counts):
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=None))
 
     assert [line.label for line in lines] == ["Jewels", ""]
 
@@ -240,7 +239,6 @@ def test_the_hard_materials_follow_the_difficulty(english_strings, hard_piece):
         charm=None,
         decorations=(),
         chest_jewels=None,
-        placement_known=True,
         slots_spare=None,
         sort_value=None,
         extra_skills=(),

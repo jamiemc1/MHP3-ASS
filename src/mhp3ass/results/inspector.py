@@ -20,9 +20,11 @@ from mhp3ass.data.text import as_signed
 from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
+    ChestJewels,
     DecorationCount,
     SlotsSpare,
     SolutionDetails,
+    UnknownPlacement,
 )
 from mhp3ass.results.difficulty import hard_materials
 from mhp3ass.solution.state import Solution
@@ -74,12 +76,12 @@ def jewel_lines(details: SolutionDetails) -> list[InspectorLine]:
     "Chest xN", N being how many times its points count ("none" when it
     takes none), and the rest under "Elsewhere". A Torso Inc set whose
     placement isn't known keeps the one list, saying so."""
-    if details.chest_jewels is None:
+    jewels = details.chest_jewels
+    if not isinstance(jewels, ChestJewels):
         lines = _counted_lines("Jewels", details.decorations)
-        if not details.placement_known:
+        if isinstance(jewels, UnknownPlacement):
             lines.append(InspectorLine(label="", text="(placement not known)"))
         return lines
-    jewels = details.chest_jewels
     chest_label = f"Chest x{jewels.multiplier}"
     chest_lines = _counted_lines(chest_label, jewels.chest)
     if not chest_lines:

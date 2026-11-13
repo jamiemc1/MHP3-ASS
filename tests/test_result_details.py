@@ -19,6 +19,7 @@ from mhp3ass.results.details import (
     DecorationCount,
     SlotsSpare,
     SortValue,
+    UnknownPlacement,
     armor_details,
     armor_note,
     chest_jewels,
@@ -394,12 +395,13 @@ def _unknown(sets: TorsoIncSets) -> list[Solution]:
 
 
 def _placed_points(solution: Solution, placement: JewelPlacement) -> dict[Ability, int]:
-    """The points a placement gives: the chest piece and the chest's jewels
-    count ``multiplier`` times, the other pieces, the charm and the other
+    """The points a placement gives: the chest's jewels count ``multiplier``
+    times and the chest piece the multiplier less its own Torso Inc (it is
+    added before that counts), the other pieces, the charm and the other
     jewels once. Zero totals left out, as ``abilities`` may hold them."""
     totals: Counter[Ability] = Counter()
     weighted = [
-        (armor.abilities, placement.multiplier if slot == 1 else 1)
+        (armor.abilities, placement.multiplier - armor.torso_inc if slot == 1 else 1)
         for slot, armor in enumerate(solution.armors)
         if armor is not None
     ]
@@ -505,7 +507,7 @@ def test_a_set_no_placement_fits_keeps_one_list(torso_inc_sets):
 
     details = solution_details(unknown, query=torso_inc_sets.query, sort_key=SortKey.NONE)
 
-    assert [details.chest_jewels, details.placement_known] == [None, False]
+    assert details.chest_jewels == UnknownPlacement()
 
 
 def test_a_torso_inc_set_lists_its_chest_jewels_apart(torso_inc_sets):
