@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import asyncio
+import signal
+import sys
 from dataclasses import dataclass, replace
 from pathlib import Path
 from threading import Event
@@ -199,6 +202,18 @@ class SearchApp(App[bool]):
         if self._startup.notice is not None:
             self.notify(self._startup.notice, timeout=15)
         self._save()
+        self._save_on_close_signals()
+
+    def _save_on_close_signals(self) -> None:
+        """Closing the terminal sends SIGHUP and a shutdown sends SIGTERM; Textual
+        handles neither, so either would kill the app without the save that
+        closing the original's window makes. Windows has no SIGHUP, and its event
+        loop can't take signal handlers."""
+        if sys.platform == "win32":
+            return
+        loop = asyncio.get_running_loop()
+        for number in (signal.SIGHUP, signal.SIGTERM):
+            loop.add_signal_handler(number, self._save_and_exit)
 
     def _settings(self) -> SettingsCfg:
         """What ``SaveConfig`` writes: the form as edited, the sort and the
@@ -491,6 +506,9 @@ class SearchApp(App[bool]):
         self.set_focus(self.query_one(ResultsTable))
 
     async def action_quit(self) -> None:
+        self._save_and_exit()
+
+    def _save_and_exit(self) -> None:
         """Save, as closing the original's window does (``Form1.h:564``), then
         exit; a failed save is printed after the exit, where it can be seen."""
         # The search thread can't be killed; cancelling lets it return.
