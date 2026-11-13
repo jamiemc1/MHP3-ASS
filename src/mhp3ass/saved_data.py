@@ -157,6 +157,13 @@ class TuiFolders:
     def saved(self) -> Path:
         return saved_data_dir(self.env, self.settings, own_dir=self.own)
 
+    @property
+    def saved_set_by_env(self) -> bool:
+        """``MHP3ASS_HOME`` chooses the saved-data folder, whatever ``tui.toml`` says."""
+        override = self.env.get("MHP3ASS_HOME")
+        set_by_env = override is not None and override != ""
+        return set_by_env
+
 
 def my_charms_file(folder: Path, shipped: Path) -> Path:
     """``folder``'s ``mycharms.txt``, copied from the original's shipped list
