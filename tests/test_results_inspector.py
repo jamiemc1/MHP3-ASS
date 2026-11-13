@@ -145,3 +145,38 @@ def test_the_lines_list_pieces_charm_jewels_spare_extra_skills_and_stats(
         InspectorLine("Rarity", "30"),
         InspectorLine("Difficulty", "7"),
     ]
+
+
+@pytest.fixture
+def hard_piece(teamhgg_game):
+    """The first piece whose recipe has a material with a difficulty."""
+    piece = next(
+        armor
+        for armors in teamhgg_game.armors.values()
+        for armor in armors
+        if any(component.material.difficulty > 0 for component in armor.components)
+    )
+    return piece
+
+
+def test_the_hard_materials_follow_the_difficulty(english_strings, hard_piece):
+    solution = Solution(armors=[hard_piece, None, None, None, None], charm=None, difficulty=3)
+    details = SolutionDetails(
+        armors=(ArmorLine(armor=hard_piece, note=None),),
+        charm=None,
+        decorations=(),
+        slots_spare=None,
+        sort_value=None,
+        extra_skills=(),
+    )
+    expected = [
+        InspectorLine("", f"{component.amount}x {component.material.name}")
+        for component in hard_piece.components
+        if component.material.difficulty > 0
+    ]
+
+    lines = inspector_lines(solution, details, english_strings, piece_labels=["Head"] * 5)
+
+    difficulty_line = lines.index(InspectorLine("Difficulty", "3"))
+    assert lines[difficulty_line + 1 :] == expected
+    assert expected != []

@@ -3,7 +3,8 @@
 A new layout of what ``Form1::UpdateResultString`` writes for a result
 (``legacy/Form1.h:1569-1655``), in its wording: the pieces with their "or
 anything with" notes, the charm, the jewels with counts, the spare slots,
-the extra skills, and every stat the sort can use.
+the extra skills, every stat the sort can use, and under the difficulty the
+materials it comes from.
 """
 
 from __future__ import annotations
@@ -15,6 +16,7 @@ from mhp3ass.charms.naming import charm_name
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import as_signed
 from mhp3ass.results.details import ArmorLine, ArmorNote, SlotsSpare, SolutionDetails
+from mhp3ass.results.difficulty import hard_materials
 from mhp3ass.solution.state import Solution
 
 
@@ -102,5 +104,10 @@ def inspector_lines(
     ]
     lines.extend(
         InspectorLine(label=strings.static(index), text=str(value)) for index, value in stats
+    )
+    # Under the difficulty: the materials that make it up.
+    lines.extend(
+        InspectorLine(label="", text=f"{part.count}x {part.material.name}")
+        for part in hard_materials(solution)
     )
     return lines
