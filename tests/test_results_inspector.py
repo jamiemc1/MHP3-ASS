@@ -9,11 +9,18 @@ from mhp3ass.model import AbilityPair, Charm
 from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
+    ChestJewels,
     DecorationCount,
     SlotsSpare,
     SolutionDetails,
 )
-from mhp3ass.results.inspector import InspectorLine, inspector_lines, note_text, spare_text
+from mhp3ass.results.inspector import (
+    InspectorLine,
+    inspector_lines,
+    jewel_lines,
+    note_text,
+    spare_text,
+)
 from mhp3ass.solution.state import Solution
 
 
@@ -104,6 +111,8 @@ def set_with_an_empty_arms_slot(teamhgg_game) -> InspectedSet:
             DecorationCount(decoration=attack_jewel, count=3),
             DecorationCount(decoration=razor_jewel, count=2),
         ),
+        chest_jewels=None,
+        placement_known=True,
         slots_spare=SlotsSpare(total=2, groups=(1, 1)),
         sort_value=None,
         extra_skills=(teamhgg_game.skill_map["Guard +1"],),
@@ -148,6 +157,71 @@ def test_the_lines_list_pieces_charm_jewels_spare_extra_skills_and_stats(
 
 
 @pytest.fixture
+def jewel_counts(teamhgg_game) -> list[DecorationCount]:
+    attack_jewel, razor_jewel = teamhgg_game.decorations[0], teamhgg_game.decorations[1]
+    counts = [
+        DecorationCount(decoration=attack_jewel, count=2),
+        DecorationCount(decoration=razor_jewel, count=1),
+    ]
+    return counts
+
+
+def _jewel_details(
+    counts: list[DecorationCount], chest_jewels: ChestJewels | None, placement_known: bool
+) -> SolutionDetails:
+    details = SolutionDetails(
+        armors=(),
+        charm=None,
+        decorations=tuple(counts),
+        chest_jewels=chest_jewels,
+        placement_known=placement_known,
+        slots_spare=None,
+        sort_value=None,
+        extra_skills=(),
+    )
+    return details
+
+
+def test_torso_inc_jewels_are_listed_by_place(jewel_counts):
+    attack, razor = jewel_counts
+    split = ChestJewels(multiplier=3, chest=(attack,), elsewhere=(razor,))
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split, placement_known=True))
+
+    assert lines == [
+        InspectorLine("Chest x3", f"2x {attack.decoration.name}"),
+        InspectorLine("Elsewhere", f"1x {razor.decoration.name}"),
+    ]
+
+
+def test_an_empty_chest_says_none(jewel_counts):
+    split = ChestJewels(multiplier=2, chest=(), elsewhere=tuple(jewel_counts))
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split, placement_known=True))
+
+    assert lines[0] == InspectorLine("Chest x2", "none")
+    assert [line.label for line in lines[1:]] == ["Elsewhere", ""]
+
+
+def test_an_unknown_placement_keeps_one_list_and_says_so(jewel_counts):
+    attack, razor = jewel_counts
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=None, placement_known=False))
+
+    assert lines == [
+        InspectorLine("Jewels", f"2x {attack.decoration.name}"),
+        InspectorLine("", f"1x {razor.decoration.name}"),
+        InspectorLine("", "(placement not known)"),
+    ]
+
+
+def test_a_known_placement_without_a_split_has_no_note(jewel_counts):
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=None, placement_known=True))
+
+    assert [line.label for line in lines] == ["Jewels", ""]
+
+
+@pytest.fixture
 def hard_piece(teamhgg_game):
     """The first piece whose recipe has a material with a difficulty."""
     piece = next(
@@ -165,6 +239,8 @@ def test_the_hard_materials_follow_the_difficulty(english_strings, hard_piece):
         armors=(ArmorLine(armor=hard_piece, note=None),),
         charm=None,
         decorations=(),
+        chest_jewels=None,
+        placement_known=True,
         slots_spare=None,
         sort_value=None,
         extra_skills=(),
