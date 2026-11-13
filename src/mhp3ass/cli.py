@@ -336,10 +336,10 @@ def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
         language = languages[read.settings.language_index]
     jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
     pool = SearchPool(jobs=jobs) if jobs > 1 else None
-    if pool is not None:
-        pool.start()
     app: SearchApp | None = None
     try:
+        if pool is not None:
+            pool.start()
         data = SearchData.load(data_dir, language=language)
         started = startup(
             settings_path,

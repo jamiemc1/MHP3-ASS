@@ -27,6 +27,16 @@ from mhp3ass.skill_picker import (
 
 
 @dataclass(frozen=True)
+class ArmourOption:
+    """One of the Options menu's armour options: its ``QueryForm`` field, the
+    menu item's label and whether it is on."""
+
+    field: str
+    label: StringIndex
+    on: bool
+
+
+@dataclass(frozen=True)
 class QueryForm:
     """What the form's controls hold. The tab not shown keeps its skill rows."""
 
@@ -135,15 +145,19 @@ class QueryForm:
         line = " · ".join(part for part in parts if part != "")
         return line
 
-    def _options_on(self, strings: DisplayStrings) -> list[str]:
-        """The Options menu's labels of the armour options that are on, in menu order."""
+    def armour_options(self) -> list[ArmourOption]:
+        """The four armour options in the Options menu's order (``Form1.h:883-884``)."""
         options = [
-            (StringIndex.ALLOW_BAD_SKILLS, self.allow_bad),
-            (StringIndex.ALLOW_PIERCINGS, self.allow_piercings),
-            (StringIndex.ALLOW_EVENT_ARMOR, self.allow_event),
-            (StringIndex.ALLOW_LOW_RANK_ARMOR, self.allow_low_rank),
+            ArmourOption("allow_bad", StringIndex.ALLOW_BAD_SKILLS, self.allow_bad),
+            ArmourOption("allow_piercings", StringIndex.ALLOW_PIERCINGS, self.allow_piercings),
+            ArmourOption("allow_event", StringIndex.ALLOW_EVENT_ARMOR, self.allow_event),
+            ArmourOption("allow_low_rank", StringIndex.ALLOW_LOW_RANK_ARMOR, self.allow_low_rank),
         ]
-        labels = [strings.basic(label) for label, on in options if on]
+        return options
+
+    def _options_on(self, strings: DisplayStrings) -> list[str]:
+        """The labels of the armour options that are on, in menu order."""
+        labels = [strings.basic(option.label) for option in self.armour_options() if option.on]
         return labels
 
     def with_rows(self, hunter_type: HunterType, rows: tuple[SkillRow, ...]) -> QueryForm:

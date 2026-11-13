@@ -277,7 +277,9 @@ class ResultsPane(Horizontal):
         options = self.query_one("#charm_filter", OptionList)
         options.clear_options()
         options.add_options(self._options)
-        options.highlighted = 0
+        # The view's own filter: All after a search, the charm it kept after a language switch.
+        chosen = view.charm_filter
+        options.highlighted = self._filters.index(chosen) if chosen in self._filters else 0
 
     def _set_rows(self, rows: Sequence[TableRow]) -> None:
         self.query_one("#results", ResultsTable).set_rows(rows)

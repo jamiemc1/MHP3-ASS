@@ -107,9 +107,15 @@ def plan_tasks(worker_count: int, head_count: int, jobs: int, tasks_per_job: int
 def default_jobs(max_jobs: int = 8) -> int:
     """Processes for a search: one per CPU this process may use, at most
     ``max_jobs`` (more than 8 lose on a Mac, whose efficiency cores finish late)."""
-    cpu_count = os.process_cpu_count()
-    jobs = min(max_jobs, cpu_count if cpu_count is not None else 1)
+    jobs = min(max_jobs, usable_cpus())
     return jobs
+
+
+def usable_cpus() -> int:
+    """The CPUs this process may use (``os.process_cpu_count``), 1 when that's unknown."""
+    cpu_count = os.process_cpu_count()
+    cpus = cpu_count if cpu_count is not None else 1
+    return cpus
 
 
 class ChildStateError(RuntimeError):
