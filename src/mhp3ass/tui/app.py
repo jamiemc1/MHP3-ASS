@@ -167,6 +167,8 @@ class SearchApp(App[bool]):
         # The form the running search started from, and the one the shown results came from.
         self._running_form: QueryForm | None = None
         self._searched_form: QueryForm | None = None
+        # Set once the app has asked to exit, so a late signal doesn't save over what it left.
+        self._exiting = False
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -230,13 +232,19 @@ class SearchApp(App[bool]):
         )
         return settings
 
-    def _save(self) -> None:
+    def _write_settings(self) -> str | None:
+        """Write ``settings.cfg``; why it couldn't be written, or ``None``."""
         try:
             write_settings_cfg(self._files.settings_cfg, self._settings())
         except OSError as error:
-            self.notify(
-                f"Can't save {self._files.settings_cfg}: {error}", severity="error", markup=False
-            )
+            failure = f"Can't save {self._files.settings_cfg}: {error}"
+            return failure
+        return None
+
+    def _save(self) -> None:
+        failure = self._write_settings()
+        if failure is not None:
+            self.notify(failure, severity="error", markup=False)
 
     def on_results_pane_sort_changed(self, event: ResultsPane.SortChanged) -> None:
         event.stop()
@@ -294,7 +302,7 @@ class SearchApp(App[bool]):
             self.notify(f"Can't use {folder}: {error}", severity="error", markup=False)
             return
         if self._save_tui_settings(with_folder(self._files.folders, folder)):
-            self.exit(result=True)
+            self._start_again()
 
     def on_options_screen_clear_requested(self, event: OptionsScreen.ClearRequested) -> None:
         event.stop()
@@ -348,7 +356,7 @@ class SearchApp(App[bool]):
         except OSError as error:
             self.notify(f"Can't clear: {error}", severity="error", markup=False)
             return
-        self.exit(result=True)
+        self._start_again()
 
     def on_options_screen_option_changed(self, event: OptionsScreen.OptionChanged) -> None:
         """A toggle applies to the next search and saves, as ``OptionsChanged``
@@ -510,16 +518,30 @@ class SearchApp(App[bool]):
 
     def _save_and_exit(self) -> None:
         """Save, as closing the original's window does (``Form1.h:564``), then
-        exit; a failed save is printed after the exit, where it can be seen."""
+        exit; a failed save is printed after the exit, where it can be seen.
+        Once the app is on its way out, a second call (a SIGTERM after a
+        SIGHUP, or a signal after a clear or a folder change has asked to
+        start again) changes nothing. The exit happens even if saving raises:
+        as a signal handler, an error would otherwise only be logged, leaving
+        an app that ignores the signal."""
+        if self._exiting:
+            return
+        self._exiting = True
         # The search thread can't be killed; cancelling lets it return.
         if self._cancel is not None:
             self._cancel.set()
+        failure = None
+        saved = False
         try:
-            write_settings_cfg(self._files.settings_cfg, self._settings())
-        except OSError as error:
-            self.exit(return_code=1, message=f"Can't save {self._files.settings_cfg}: {error}")
-            return
-        self.exit()
+            failure = self._write_settings()
+            saved = failure is None
+        finally:
+            self.exit(return_code=0 if saved else 1, message=failure)
+
+    def _start_again(self) -> None:
+        """Exit and have the CLI run the app again, reading the saved data afresh."""
+        self._exiting = True
+        self.exit(result=True)
 
     def action_reverse_sort(self) -> None:
         pane = self.query_one(ResultsPane)
