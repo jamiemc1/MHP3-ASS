@@ -3,28 +3,32 @@ synthetic solutions."""
 
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 
 import pytest
 
 from mhp3ass.model import Ability, Armor, Material, MaterialComponent, Skill
-from mhp3ass.query import SearchSpec
+from mhp3ass.query import Query, SearchSpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.details import (
     AbilityLine,
     ArmorLine,
     ArmorNote,
+    ChestJewels,
     DecorationCount,
     SlotsSpare,
     SortValue,
     armor_details,
     armor_note,
+    chest_jewels,
     decoration_details,
     slots_spare,
     solution_details,
     sort_value,
 )
 from mhp3ass.results.difficulty import hard_materials
+from mhp3ass.results.placement import JewelPlacement, PlacementUnknownError, jewel_placement
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.search import SearchData, run_search
@@ -338,6 +342,206 @@ def test_the_hard_materials_add_up_to_every_found_sets_difficulty(one_skill_sear
     ]
 
     assert mismatched == []
+
+
+@dataclass(frozen=True)
+class TorsoIncSets:
+    """g13's Torso Inc sets whose chest has slots and that hold jewels, by
+    whether their stored chest/elsewhere lists still hold the shown jewels;
+    the search's query and its weapon slots."""
+
+    agreeing: list[Solution]
+    disagreeing: list[Solution]
+    query: Query
+    weapon_slots: int
+
+
+def _lists_agree(solution: Solution) -> bool:
+    stored = Counter(solution.body_decorations + solution.non_body_decorations)
+    agree = stored == Counter(solution.decorations)
+    return agree
+
+
+@pytest.fixture(scope="module")
+def torso_inc_sets(one_skill_search) -> TorsoIncSets:
+    placeable = [
+        solution
+        for solution in one_skill_search.result.results.all_solutions
+        if solution.torso_multiplier > 1
+        and solution.armors[1] is not None
+        and solution.armors[1].num_slots > 0
+        and solution.decorations
+    ]
+    query = one_skill_search.result.query
+    sets = TorsoIncSets(
+        agreeing=[solution for solution in placeable if _lists_agree(solution)],
+        disagreeing=[solution for solution in placeable if not _lists_agree(solution)],
+        query=query,
+        weapon_slots=query.weapon_slots_allowed,
+    )
+    return sets
+
+
+def _unknown(sets: TorsoIncSets) -> list[Solution]:
+    """The disagreeing sets no placement fits."""
+    unknown = []
+    for solution in sets.disagreeing:
+        try:
+            jewel_placement(solution, weapon_slots=sets.weapon_slots)
+        except PlacementUnknownError:
+            unknown.append(solution)
+    return unknown
+
+
+def _placed_points(solution: Solution, placement: JewelPlacement) -> dict[Ability, int]:
+    """The points a placement gives: the chest piece and the chest's jewels
+    count ``multiplier`` times, the other pieces, the charm and the other
+    jewels once. Zero totals left out, as ``abilities`` may hold them."""
+    totals: Counter[Ability] = Counter()
+    weighted = [
+        (armor.abilities, placement.multiplier if slot == 1 else 1)
+        for slot, armor in enumerate(solution.armors)
+        if armor is not None
+    ]
+    if solution.charm is not None:
+        weighted.append((solution.charm.abilities, 1))
+    weighted += [(jewel.abilities, placement.multiplier) for jewel in placement.chest]
+    weighted += [(jewel.abilities, 1) for jewel in placement.elsewhere]
+    for pairs, weight in weighted:
+        for pair in pairs:
+            totals[pair.ability] += pair.amount * weight
+    points = {ability: amount for ability, amount in totals.items() if amount != 0}
+    return points
+
+
+def _stored_points(solution: Solution) -> dict[Ability, int]:
+    points = {ability: amount for ability, amount in solution.abilities.items() if amount != 0}
+    return points
+
+
+def test_agreeing_lists_are_the_placement(torso_inc_sets):
+    """g13: the stored lists hold the shown jewels in 1,242 of these sets."""
+    sets = torso_inc_sets.agreeing
+
+    placements = [
+        jewel_placement(solution, weapon_slots=torso_inc_sets.weapon_slots) for solution in sets
+    ]
+
+    differ = [
+        solution
+        for solution, placement in zip(sets, placements, strict=True)
+        if placement is None
+        or placement.chest != tuple(solution.body_decorations)
+        or placement.elsewhere != tuple(solution.non_body_decorations)
+        or _placed_points(solution, placement) != _stored_points(solution)
+    ]
+    assert [len(sets), differ] == [1242, []]
+
+
+def test_disagreeing_lists_are_placed_from_the_shown_jewels(torso_inc_sets):
+    """g13: of the 58 of these sets whose stored lists don't hold the shown
+    jewels, 25 have a placement that fits the slots and gives the stored
+    points. Each places every shown jewel once."""
+    placed = []
+    for solution in torso_inc_sets.disagreeing:
+        try:
+            placement = jewel_placement(solution, weapon_slots=torso_inc_sets.weapon_slots)
+        except PlacementUnknownError:
+            continue
+        placed.append((solution, placement))
+
+    wrong = [
+        solution
+        for solution, placement in placed
+        if placement is None
+        or Counter(placement.chest + placement.elsewhere) != Counter(solution.decorations)
+        or _placed_points(solution, placement) != _stored_points(solution)
+    ]
+    assert [len(torso_inc_sets.disagreeing), len(placed), wrong] == [58, 25, []]
+
+
+def test_jewels_no_placement_fits_raise(torso_inc_sets):
+    """The other 33 (quirk 52)."""
+    assert len(_unknown(torso_inc_sets)) == 33
+
+
+def test_a_torso_inc_set_with_nothing_for_the_chest_has_no_split(one_skill_search):
+    """g13's Torso Inc sets whose chest has no slots or that hold no jewels:
+    every jewel is elsewhere, which gives the stored points."""
+    weapon_slots = one_skill_search.result.query.weapon_slots_allowed
+    nothing_for_the_chest = [
+        solution
+        for solution in one_skill_search.result.results.all_solutions
+        if solution.torso_multiplier > 1
+        and (
+            solution.armors[1] is None
+            or solution.armors[1].num_slots == 0
+            or not solution.decorations
+        )
+    ]
+
+    placements = [
+        jewel_placement(solution, weapon_slots=weapon_slots) for solution in nothing_for_the_chest
+    ]
+
+    all_elsewhere_wrong = [
+        solution
+        for solution in nothing_for_the_chest
+        if _placed_points(
+            solution,
+            JewelPlacement(
+                multiplier=solution.torso_multiplier,
+                chest=(),
+                elsewhere=tuple(solution.decorations),
+            ),
+        )
+        != _stored_points(solution)
+    ]
+    assert [len(placements), set(placements), all_elsewhere_wrong] == [336, {None}, []]
+
+
+def test_a_set_no_placement_fits_keeps_one_list(torso_inc_sets):
+    unknown = _unknown(torso_inc_sets)[0]
+
+    details = solution_details(unknown, query=torso_inc_sets.query, sort_key=SortKey.NONE)
+
+    assert [details.chest_jewels, details.placement_known] == [None, False]
+
+
+def test_a_torso_inc_set_lists_its_chest_jewels_apart(torso_inc_sets):
+    """g13's first Torso Inc set with a Baggi Mail chest: one Health Jewel in
+    the chest, one elsewhere."""
+    solution = next(
+        solution
+        for solution in torso_inc_sets.agreeing
+        if solution.armors[1] is not None and solution.armors[1].name == "Baggi Mail"
+    )
+    health_jewel = solution.decorations[0]
+
+    jewels = chest_jewels(solution, query=torso_inc_sets.query)
+
+    assert health_jewel.name == "Health Jewel[1]"
+    assert jewels == ChestJewels(
+        multiplier=2,
+        chest=(DecorationCount(decoration=health_jewel, count=1),),
+        elsewhere=(DecorationCount(decoration=health_jewel, count=1),),
+    )
+
+
+def test_a_set_without_torso_inc_has_no_split(one_skill_search):
+    """g13's sets without Torso Inc whose chest holds jewels: the place would
+    matter but for the multiplier."""
+    unmultiplied = [
+        solution
+        for solution in one_skill_search.result.results.all_solutions
+        if solution.torso_multiplier == 1 and solution.body_decorations
+    ]
+
+    weapon_slots = one_skill_search.result.query.weapon_slots_allowed
+
+    placements = [jewel_placement(solution, weapon_slots=weapon_slots) for solution in unmultiplied]
+
+    assert [len(placements), set(placements)] == [2071, {None}]
 
 
 @pytest.fixture

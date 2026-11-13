@@ -2,7 +2,9 @@
 
 A new layout of what ``Form1::UpdateResultString`` writes for a result
 (``legacy/Form1.h:1569-1655``), in its wording: the pieces with their "or
-anything with" notes, the charm, the jewels with counts, the spare slots,
+anything with" notes, the charm, the jewels with counts (split into the
+chest's and the rest when Torso Inc makes the chest's count more, which the
+original doesn't show; quirk 53), the spare slots,
 the extra skills, every stat the sort can use, and under the difficulty the
 materials it comes from.
 """
@@ -15,7 +17,13 @@ from dataclasses import dataclass
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import as_signed
-from mhp3ass.results.details import ArmorLine, ArmorNote, SlotsSpare, SolutionDetails
+from mhp3ass.results.details import (
+    ArmorLine,
+    ArmorNote,
+    DecorationCount,
+    SlotsSpare,
+    SolutionDetails,
+)
 from mhp3ass.results.difficulty import hard_materials
 from mhp3ass.solution.state import Solution
 
@@ -60,6 +68,37 @@ def spare_text(spare: SlotsSpare, strings: DisplayStrings) -> str:
     return text
 
 
+def jewel_lines(details: SolutionDetails) -> list[InspectorLine]:
+    """The jewel counts under "Jewels"; for a set where a jewel's place
+    changes its points (``details.chest_jewels``), the chest's under
+    "Chest xN", N being how many times its points count ("none" when it
+    takes none), and the rest under "Elsewhere". A Torso Inc set whose
+    placement isn't known keeps the one list, saying so."""
+    if details.chest_jewels is None:
+        lines = _counted_lines("Jewels", details.decorations)
+        if not details.placement_known:
+            lines.append(InspectorLine(label="", text="(placement not known)"))
+        return lines
+    jewels = details.chest_jewels
+    chest_label = f"Chest x{jewels.multiplier}"
+    chest_lines = _counted_lines(chest_label, jewels.chest)
+    if not chest_lines:
+        chest_lines = [InspectorLine(label=chest_label, text="none")]
+    lines = chest_lines + _counted_lines("Elsewhere", jewels.elsewhere)
+    return lines
+
+
+def _counted_lines(label: str, counts: Sequence[DecorationCount]) -> list[InspectorLine]:
+    """``label`` on the first count's line, blank on the rest."""
+    lines = [
+        InspectorLine(
+            label=label if number == 0 else "", text=f"{count.count}x {count.decoration.name}"
+        )
+        for number, count in enumerate(counts)
+    ]
+    return lines
+
+
 def inspector_lines(
     solution: Solution,
     details: SolutionDetails,
@@ -80,13 +119,7 @@ def inspector_lines(
             lines.append(InspectorLine(label="", text=note))
     if details.charm is not None:
         lines.append(InspectorLine(label="Charm", text=charm_name(details.charm)))
-    for number, count in enumerate(details.decorations):
-        lines.append(
-            InspectorLine(
-                label="Jewels" if number == 0 else "",
-                text=f"{count.count}x {count.decoration.name}",
-            )
-        )
+    lines.extend(jewel_lines(details))
     if details.slots_spare is not None:
         lines.append(InspectorLine(label="Spare", text=spare_text(details.slots_spare, strings)))
     for number, skill in enumerate(details.extra_skills):
