@@ -20,6 +20,7 @@ from textual.message import Message
 from textual.widgets import Input, Label, OptionList, Select
 from textual.widgets.option_list import Option
 
+from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.query import Query
 from mhp3ass.results.find import find_row, row_text
@@ -111,6 +112,7 @@ class ResultsPane(Horizontal):
         self._filters: list[CharmFilter] = []
         self._options: list[Option] = []
         self._query: Query | None = None
+        self._game: GameData | None = None
         self._needle = ""
         # Find texts by id(solution); the view keeps every solution alive.
         self._text_by_set: dict[int, str] = {}
@@ -148,13 +150,17 @@ class ResultsPane(Horizontal):
             raise TypeError(f"the sort drop-down holds {value!r}, not a SortKey")
         return value
 
-    def show(self, view: ResultsView, rows: Sequence[TableRow], query: Query) -> None:
+    def show(
+        self, view: ResultsView, rows: Sequence[TableRow], query: Query, game: GameData
+    ) -> None:
         """Show a new search's view and the rows of its ``final`` (``view_rows``);
-        ``query`` is the results' own, for the inspector's notes and extra skills.
+        ``query`` is the results' own, for the inspector's notes and extra skills,
+        and ``game`` the one they were found in, for its jewel placements.
         The view was built with the sort and reverse of the search's start; if
         they changed while it ran, it is sorted again here."""
         self.view = view
         self._query = query
+        self._game = game
         self._text_by_set = {}
         self._fill_filters()
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
@@ -168,11 +174,20 @@ class ResultsPane(Horizontal):
         view = self.view
         inspector = self.query_one(Inspector)
         # A highlight posted before the rows were replaced can be past the new end.
-        if view is None or self._query is None or event.row >= len(view.final):
+        if (
+            view is None
+            or self._query is None
+            or self._game is None
+            or event.row >= len(view.final)
+        ):
             inspector.clear()
             return
         inspector.show(
-            event.row + 1, view.final[event.row], query=self._query, sort_key=view.sort_key
+            event.row + 1,
+            view.final[event.row],
+            query=self._query,
+            sort_key=view.sort_key,
+            game=self._game,
         )
 
     def on_select_changed(self, event: Select.Changed) -> None:

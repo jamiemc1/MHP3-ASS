@@ -7,6 +7,7 @@ from textual.containers import VerticalScroll
 from textual.content import Content
 from textual.widgets import Static
 
+from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings
 from mhp3ass.query import Query
 from mhp3ass.results.details import solution_details
@@ -35,9 +36,11 @@ class Inspector(VerticalScroll):
     def compose(self):
         yield Static(id="inspector_text")
 
-    def show(self, number: int, solution: Solution, query: Query, sort_key: SortKey) -> None:
+    def show(
+        self, number: int, solution: Solution, query: Query, sort_key: SortKey, game: GameData
+    ) -> None:
         """Set ``number`` (counting from 1 in the table), for the results' own ``query``."""
-        details = solution_details(solution, query=query, sort_key=sort_key)
+        details = solution_details(solution, query=query, sort_key=sort_key, game=game)
         lines = inspector_lines(solution, details, self._strings, piece_labels=self._piece_labels)
         label_width = max((cell_len(line.label) for line in lines), default=0)
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)
