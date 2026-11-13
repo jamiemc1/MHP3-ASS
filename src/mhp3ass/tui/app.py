@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass, replace
 from pathlib import Path
 from threading import Event
@@ -21,7 +20,7 @@ from mhp3ass.data.strings import DisplayStrings
 from mhp3ass.data.text import read_lines
 from mhp3ass.language_switch import switch_language
 from mhp3ass.model import HunterType
-from mhp3ass.parallel import SearchPool
+from mhp3ass.parallel import SearchPool, usable_cpus
 from mhp3ass.query import QueryError
 from mhp3ass.query_form import QueryForm
 from mhp3ass.results.result_set import SearchResult
@@ -141,6 +140,7 @@ class SearchApp(App[None]):
         self._last_search_gunner = startup.search.last_search_gunner
         # What the results pane and the hint show, kept to rebuild them in another language.
         self._sort_key = startup.search.sort_key
+        self._reverse = files.tui_settings.reverse
         self._hint = "Choose up to six skills, then Search."
         # The editor owns the form; read it as ``self.editor.form``.
         self.editor = QueryEditor(startup.search.form, game=data.game, strings=strings)
@@ -162,7 +162,7 @@ class SearchApp(App[None]):
         yield ResultsPane(
             self._strings,
             sort_key=self._sort_key,
-            reverse=self._files.tui_settings.reverse,
+            reverse=self._reverse,
         )
         yield Footer()
 
@@ -221,7 +221,7 @@ class SearchApp(App[None]):
                 languages=self._languages,
                 language=self._language,
                 jobs=self._jobs,
-                max_jobs=max(os.cpu_count() or 1, self._jobs),
+                max_jobs=max(usable_cpus(), self._jobs),
             )
         )
 
@@ -244,22 +244,25 @@ class SearchApp(App[None]):
         """``LanguageSelect_Click``: rename everything, rewrite my charms in the
         new language, then show every widget again in it and save."""
         event.stop()
+        # The modal is opened again on every path, so it shows what is in use.
         await self.pop_screen()
         if self._searching():
             self.notify("The language can change once the search has finished.")
+            self.action_options()
             return
-        language_dir = self._data.data_dir / "Languages" / event.language
         try:
             strings = switch_language(
                 self._data.game,
                 validity=self._data.validity,
-                language_dir=language_dir,
+                data_dir=self._data.data_dir,
+                language=event.language,
                 my_charms_path=self._files.my_charms,
             )
         except (OSError, ValueError, MyCharmsFileError) as error:
-            # A missing or short strings file, an unreadable mycharms.txt, or
-            # one the original couldn't load.
+            # No such language folder or a broken file in it, an unreadable or
+            # unwritable mycharms.txt, or one the original couldn't load.
             self.notify(f"Can't switch to {event.language}: {error}", severity="error")
+            self.action_options()
             return
         self._language = event.language
         self._strings = strings
@@ -271,17 +274,21 @@ class SearchApp(App[None]):
 
     async def _rebuild(self) -> None:
         """Compose the screen again in the current language, keeping the form,
-        the sort, the results and whether the editor is collapsed."""
+        the sort and its direction, the results with the charm chosen and the
+        cursor's set, and whether the editor is collapsed."""
         pane = self.query_one(ResultsPane)
         view = pane.view
         query = pane.results_query
+        cursor = self.query_one(ResultsTable).cursor
         collapsed = not self.editor.display
         self._sort_key = pane.sort_key
+        self._reverse = pane.reverse
         self.editor = QueryEditor(self.editor.form, game=self._data.game, strings=self._strings)
         await self.recompose()
         if view is not None and query is not None:
             view.relanguage()
             self.query_one(ResultsPane).show(view, rows=view_rows(view), query=query)
+            self.query_one(ResultsTable).cursor = cursor
         if collapsed:
             self._collapse_editor()
 
@@ -292,6 +299,7 @@ class SearchApp(App[None]):
         if self._searching():
             self.pop_screen()
             self.notify("The search's processes can change once the search has finished.")
+            self.action_options()
             return
         old_pool = self.pool
         self.pool = SearchPool(jobs=event.jobs) if event.jobs > 1 else None

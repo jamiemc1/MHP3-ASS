@@ -92,17 +92,11 @@ class OptionsScreen(ModalScreen[None]):
 
     def compose(self) -> ComposeResult:
         strings = self._strings
-        form = self._form
         options = Vertical(id="options")
         options.border_title = strings.basic(StringIndex.OPTIONS)
         with options:
-            for field, label, value in (
-                ("allow_piercings", StringIndex.ALLOW_PIERCINGS, form.allow_piercings),
-                ("allow_event", StringIndex.ALLOW_EVENT_ARMOR, form.allow_event),
-                ("allow_low_rank", StringIndex.ALLOW_LOW_RANK_ARMOR, form.allow_low_rank),
-                ("allow_bad", StringIndex.ALLOW_BAD_SKILLS, form.allow_bad),
-            ):
-                yield Checkbox(strings.basic(label), value=value, id=field)
+            for option in self._form.armour_options():
+                yield Checkbox(strings.basic(option.label), value=option.on, id=option.field)
             with Horizontal():
                 yield Label(strings.basic(StringIndex.LANGUAGE))
                 yield Select(

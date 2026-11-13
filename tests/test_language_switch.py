@@ -9,6 +9,7 @@ import pytest
 from mhp3ass.charms.my_charms import MyCharmsFileError, load_my_charms, my_charms_text
 from mhp3ass.data.strings import load_strings
 from mhp3ass.language_switch import switch_language
+from mhp3ass.model import ArmorType
 from mhp3ass.search import SearchData
 
 
@@ -32,7 +33,8 @@ def switch(switch_data, legacy_data_dir, my_charms_copy):
         strings = switch_language(
             switch_data.game,
             validity=switch_data.validity,
-            language_dir=legacy_data_dir / "Languages" / language,
+            data_dir=legacy_data_dir,
+            language=language,
             my_charms_path=my_charms_copy,
         )
         return strings
@@ -97,3 +99,61 @@ def test_a_list_that_cannot_load_changes_nothing(
         "Attack" in switch_data.game.ability_map,
         my_charms_the_original_cannot_load.read_bytes(),
     ] == [True, b"x,Attack,4,,\r\n"]
+
+
+@pytest.fixture
+def data_with_a_short_skills_file(tmp_path, legacy_data_dir):
+    """A copy of the game data whose German skills.txt stops half-way."""
+    data_dir = tmp_path / "Data"
+    shutil.copytree(legacy_data_dir, data_dir)
+    skills = data_dir / "Languages" / "Deutsch (Vuze)" / "skills.txt"
+    lines = skills.read_bytes().splitlines(keepends=True)
+    skills.write_bytes(b"".join(lines[: len(lines) // 2]))
+    return data_dir
+
+
+def test_a_broken_language_changes_nothing(
+    switch_data, my_charms_copy, data_with_a_short_skills_file
+):
+    """The armour files come before skills.txt, so a rename in place would have renamed them."""
+    head = switch_data.game.armors[ArmorType.HEAD][1]
+    head_name = head.name
+    before = my_charms_copy.read_bytes()
+
+    with pytest.raises(ValueError, match="Unexpected end of file"):
+        switch_language(
+            switch_data.game,
+            validity=switch_data.validity,
+            data_dir=data_with_a_short_skills_file,
+            language="Deutsch (Vuze)",
+            my_charms_path=my_charms_copy,
+        )
+
+    assert [head.name, my_charms_copy.read_bytes()] == [head_name, before]
+
+
+def test_an_unknown_language_raises(switch):
+    with pytest.raises(FileNotFoundError, match="no language folder"):
+        switch("Klingon")
+
+
+@pytest.fixture
+def my_charms_in_a_locked_folder(my_charms_copy):
+    """mycharms.txt can be read, but its folder can't be written."""
+    my_charms_copy.parent.chmod(0o500)
+    yield my_charms_copy
+    my_charms_copy.parent.chmod(0o700)
+
+
+def test_a_list_that_cannot_be_written_changes_nothing(
+    switch, switch_data, my_charms_in_a_locked_folder
+):
+    before = my_charms_in_a_locked_folder.read_bytes()
+
+    with pytest.raises(OSError):
+        switch("Deutsch (Vuze)")
+
+    assert [
+        "Attack" in switch_data.game.ability_map,
+        my_charms_in_a_locked_folder.read_bytes(),
+    ] == [True, before]

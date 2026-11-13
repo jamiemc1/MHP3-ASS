@@ -234,6 +234,23 @@ def test_a_summary_without_skills_or_options_leaves_them_out(english_strings):
     )
 
 
+def test_the_armour_options_are_in_the_menus_order_with_their_fields():
+    form = replace(QueryForm.starting(), allow_bad=True, allow_event=False)
+
+    assert [(option.field, option.label, option.on) for option in form.armour_options()] == [
+        ("allow_bad", StringIndex.ALLOW_BAD_SKILLS, True),
+        ("allow_piercings", StringIndex.ALLOW_PIERCINGS, True),
+        ("allow_event", StringIndex.ALLOW_EVENT_ARMOR, False),
+        ("allow_low_rank", StringIndex.ALLOW_LOW_RANK_ARMOR, True),
+    ]
+    assert [getattr(form, option.field) for option in form.armour_options()] == [
+        True,
+        True,
+        False,
+        True,
+    ]
+
+
 def test_the_summary_names_bad_skills_first_as_the_menu_does(english_strings):
     form = replace(QueryForm.starting(), allow_bad=True, allow_event=False)
 

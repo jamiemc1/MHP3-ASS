@@ -10,27 +10,52 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from mhp3ass.charms.my_charms import load_my_charms, save_my_charms
+from mhp3ass.charms.my_charms import load_my_charms, my_charms_text
 from mhp3ass.charms.validity import CharmValidity
-from mhp3ass.data import GameData, apply_language
+from mhp3ass.data import GameData, apply_language, load_game_data
 from mhp3ass.data.strings import DisplayStrings, load_strings
+from mhp3ass.model import AbilityPair, Charm
+from mhp3ass.saved_data import write_atomically
+from mhp3ass.search import language_dir
 
 
 def switch_language(
-    game: GameData, validity: CharmValidity, language_dir: Path, my_charms_path: Path
+    game: GameData,
+    validity: CharmValidity,
+    data_dir: Path,
+    language: str,
+    my_charms_path: Path,
 ) -> DisplayStrings:
-    """Rename ``game``'s records into the language of ``language_dir``,
-    rewrite ``my_charms_path`` in it, and return its display strings.
+    """Rename ``game``'s records into ``language`` (a folder of
+    ``data_dir``'s ``Languages``), rewrite ``my_charms_path`` in it, and
+    return its display strings.
 
     The original saves the my-charms list it holds, which a line that failed
     to load at start-up isn't in; here the file is read in the current
-    language first, so such a line is dropped the same way. The strings and
-    the charms are read before anything is renamed, so a strings file that
-    is too short (``ValueError``), an unreadable my-charms file (``OSError``)
-    or one the original couldn't load (``MyCharmsFileError``) changes
-    nothing."""
-    strings = load_strings(language_dir)
+    language first, so such a line is dropped the same way.
+
+    Everything that can fail happens before ``game`` is renamed: the strings
+    are read, the language is applied to a fresh copy of the game data (so a
+    short or broken language file raises here), and the new ``mycharms.txt``
+    is written from that copy's names. An error (``FileNotFoundError`` for
+    no such language, ``OSError``, ``ValueError``, ``MyCharmsFileError``)
+    leaves ``game`` and the files as they were."""
+    folder = language_dir(data_dir, language)
+    strings = load_strings(folder)
+    renamed = load_game_data(data_dir)
+    apply_language(renamed, folder)
     loaded = load_my_charms(my_charms_path, game=game, validity=validity)
-    apply_language(game, language_dir)
-    save_my_charms(my_charms_path, loaded.charms)
+    charms = [_charm_in(renamed, charm) for charm in loaded.charms]
+    write_atomically(my_charms_path, my_charms_text(charms).encode("utf-8"))
+    apply_language(game, folder)
     return strings
+
+
+def _charm_in(game: GameData, charm: Charm) -> Charm:
+    """``charm`` with ``game``'s abilities, matched by their place in the list."""
+    pairs = [
+        AbilityPair(ability=game.abilities[pair.ability.static_index], amount=pair.amount)
+        for pair in charm.abilities
+    ]
+    copy = Charm(num_slots=charm.num_slots, abilities=pairs)
+    return copy

@@ -6,7 +6,7 @@ from itertools import product
 
 import pytest
 
-from mhp3ass.parallel import Task, plan_tasks
+from mhp3ass.parallel import Task, default_jobs, plan_tasks, usable_cpus
 from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.result_set import solution_line
@@ -140,3 +140,21 @@ def test_each_head_and_body_pair_reports_the_combinations_it_checked(
 def test_invalid_arguments_raise(arguments):
     with pytest.raises(ValueError):
         plan_tasks(**arguments)
+
+
+@pytest.fixture
+def unknown_cpu_count(monkeypatch):
+    monkeypatch.setattr("os.process_cpu_count", lambda: None)
+
+
+@pytest.fixture
+def twelve_cpus(monkeypatch):
+    monkeypatch.setattr("os.process_cpu_count", lambda: 12)
+
+
+def test_an_unknown_cpu_count_counts_as_one(unknown_cpu_count):
+    assert [usable_cpus(), default_jobs()] == [1, 1]
+
+
+def test_jobs_are_the_usable_cpus_up_to_the_cap(twelve_cpus):
+    assert [usable_cpus(), default_jobs(), default_jobs(max_jobs=16)] == [12, 8, 12]
