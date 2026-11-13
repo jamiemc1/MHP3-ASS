@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from collections.abc import Iterable
 from pathlib import Path
 from typing import ClassVar
 
@@ -20,7 +21,8 @@ from textual.containers import Horizontal, Vertical
 from textual.content import Content
 from textual.message import Message
 from textual.screen import ModalScreen
-from textual.widgets import Button, Checkbox, DirectoryTree, Input, Label, Select, Static
+from textual.widgets import Button, Checkbox, DirectoryTree, Input, Label, Select, Static, Tree
+from textual.widgets.directory_tree import DirEntry
 
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.query_form import QueryForm
@@ -227,29 +229,79 @@ class OptionsScreen(ModalScreen[None]):
         self.dismiss()
 
 
+class FolderTree(DirectoryTree):
+    """A ``DirectoryTree`` of folders only, so whatever is highlighted can be chosen."""
+
+    def filter_paths(self, paths: Iterable[Path]) -> Iterable[Path]:
+        folders = [path for path in paths if path.is_dir()]
+        return folders
+
+
 class FolderPicker(ModalScreen[Path | None]):
-    """A folder tree from the home folder; ⏎ on a folder chooses it, Esc cancels."""
+    """A folder tree from the home folder. A click or ⏎ opens or closes a
+    folder; Choose (or ``c``) picks the highlighted one; Esc cancels."""
 
     DEFAULT_CSS = """
     FolderPicker {
         align: center middle;
     }
-    FolderPicker DirectoryTree {
+    FolderPicker #picker {
         width: 70;
-        height: 24;
+        height: auto;
         border: round $accent;
     }
+    FolderPicker FolderTree {
+        height: 22;
+    }
+    FolderPicker #highlighted {
+        color: $text-muted;
+        padding: 0 1;
+    }
+    FolderPicker #picker_buttons {
+        height: auto;
+        align-horizontal: right;
+    }
+    FolderPicker #picker_buttons Button {
+        margin: 0 0 0 2;
+    }
     """
-    BINDINGS: ClassVar[list[BindingType]] = [Binding("escape", "cancel", "Cancel")]
+    BINDINGS: ClassVar[list[BindingType]] = [
+        Binding("escape", "cancel", "Cancel"),
+        Binding("c", "choose", "Choose"),
+    ]
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._highlighted = Path.home()
 
     def compose(self) -> ComposeResult:
-        tree = DirectoryTree(Path.home())
-        tree.border_title = "Choose a folder (⏎)"
-        yield tree
+        with Vertical(id="picker"):
+            yield FolderTree(self._highlighted)
+            yield Static(Content(str(self._highlighted)), id="highlighted")
+            with Horizontal(id="picker_buttons"):
+                yield Button("Cancel", id="cancel")
+                yield Button("Choose", id="choose", variant="primary")
 
-    def on_directory_tree_directory_selected(self, event: DirectoryTree.DirectorySelected) -> None:
+    def on_mount(self) -> None:
+        picker = self.query_one("#picker", Vertical)
+        picker.border_title = "Choose a folder: ⏎ opens, c chooses, Esc cancels"
+
+    def on_tree_node_highlighted(self, event: Tree.NodeHighlighted[DirEntry]) -> None:
         event.stop()
-        self.dismiss(event.path)
+        if event.node.data is None:
+            return
+        self._highlighted = event.node.data.path
+        self.query_one("#highlighted", Static).update(Content(str(self._highlighted)))
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        event.stop()
+        if event.button.id == "choose":
+            self.action_choose()
+        else:
+            self.action_cancel()
+
+    def action_choose(self) -> None:
+        self.dismiss(self._highlighted)
 
     def action_cancel(self) -> None:
         self.dismiss(None)
