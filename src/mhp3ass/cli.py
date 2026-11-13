@@ -323,17 +323,25 @@ def _run_tui(data_dir: Path, folders: TuiFolders) -> int:
             pool.start()
         while True:
             try:
-                app = _run_app(data_dir, folders=folders, pool=pool, jobs=jobs)
+                my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
             except OSError as error:
                 # No shipped charm list to copy, or the saved-data folder can't be written.
                 print(f"mhp3-ass: {error}", file=sys.stderr)
                 return 1
-            # Options may have replaced the pool; the app holds the current one.
+            app = _run_app(
+                data_dir, folders=folders, my_charms_path=my_charms_path, pool=pool, jobs=jobs
+            )
+            # Options may have replaced the pool; the app holds the current one and its size.
             pool = app.pool
+            jobs = app.jobs
             if app.return_value is not True:
                 break
-            folders = _tui_folders()
-            jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
+            try:
+                folders = _tui_folders()
+            except (OSError, ValueError, KeyError) as error:
+                # tui.toml became unreadable or invalid since start-up.
+                print(f"mhp3-ass: {error}", file=sys.stderr)
+                return 1
     finally:
         if pool is not None:
             pool.close()
@@ -341,13 +349,18 @@ def _run_tui(data_dir: Path, folders: TuiFolders) -> int:
     return exit_code
 
 
-def _run_app(data_dir: Path, folders: TuiFolders, pool: SearchPool | None, jobs: int) -> SearchApp:
+def _run_app(
+    data_dir: Path,
+    folders: TuiFolders,
+    my_charms_path: Path,
+    pool: SearchPool | None,
+    jobs: int,
+) -> SearchApp:
     """One run of the app. My charms are the saved-data folder's
     ``mycharms.txt``, copied from the original's shipped list
     (``Data/mycharms.txt``) the first time. The language, form, sort and
     results come from the saved-data folder's ``settings.cfg`` when it has
     one."""
-    my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
     languages_dir = data_dir / "Languages"
     languages = language_folders(languages_dir)
     # Checked before settings.cfg is read, which would otherwise be set aside for its language.

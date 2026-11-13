@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import shutil
+
 import pytest
 
 from mhp3ass.saved_data import TuiFolders, TuiSettings
@@ -133,3 +135,30 @@ def test_clearing_deletes_what_it_names(current, choice, names):
 
 def test_clearing_a_folder_without_the_files_deletes_nothing(empty_folder):
     assert clear(empty_folder, ClearChoice.EVERYTHING) == []
+
+
+@pytest.fixture
+def second_move_fails(monkeypatch):
+    """shutil.move works once, then raises, as a full disk part-way would."""
+    real_move = shutil.move
+    calls = []
+
+    def move(source, destination):
+        calls.append(source)
+        if len(calls) == 2:
+            raise OSError("no space left")
+        return real_move(source, destination)
+
+    monkeypatch.setattr("shutil.move", move)
+
+
+def test_a_failed_move_puts_the_moved_files_back(current, tmp_path, second_move_fails):
+    new = tmp_path / "new"
+
+    with pytest.raises(OSError, match="no space left"):
+        change_folder(current, new, FolderChoice.MOVE)
+
+    assert [[path.name for path in saved_files_in(current)], saved_files_in(new)] == [
+        ["settings.cfg", "mycharms.txt"],
+        [],
+    ]

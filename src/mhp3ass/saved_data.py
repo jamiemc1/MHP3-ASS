@@ -123,8 +123,8 @@ def saved_data_dir(env: Mapping[str, str], settings: TuiSettings, own_dir: Path)
     set, else ``tui.toml``'s ``data_dir``, else the TUI's own folder. A
     leading ``~`` is the home folder; a relative ``data_dir`` is under the
     TUI's own folder, so it doesn't depend on where the TUI is started."""
-    override = env.get("MHP3ASS_HOME")
-    if override is not None and override != "":
+    override = _home_override(env)
+    if override is not None:
         return Path(override).expanduser()
     if settings.data_dir is not None:
         chosen = settings.data_dir.expanduser()
@@ -160,9 +160,16 @@ class TuiFolders:
     @property
     def saved_set_by_env(self) -> bool:
         """``MHP3ASS_HOME`` chooses the saved-data folder, whatever ``tui.toml`` says."""
-        override = self.env.get("MHP3ASS_HOME")
-        set_by_env = override is not None and override != ""
+        set_by_env = _home_override(self.env) is not None
         return set_by_env
+
+
+def _home_override(env: Mapping[str, str]) -> str | None:
+    """``MHP3ASS_HOME`` when it is set and not empty."""
+    override = env.get("MHP3ASS_HOME")
+    if override is None or override == "":
+        return None
+    return override
 
 
 def my_charms_file(folder: Path, shipped: Path) -> Path:
