@@ -232,3 +232,13 @@ def test_tui_toml_is_written_atomically(tmp_path):
         "reverse = true\n",
         ["tui.toml"],
     ]
+
+
+@pytest.mark.parametrize(
+    ("env", "set_by_env"),
+    [({}, False), ({"MHP3ASS_HOME": ""}, False), ({"MHP3ASS_HOME": "x"}, True)],
+)
+def test_only_a_non_empty_mhp3ass_home_sets_the_folder(tmp_path, env, set_by_env):
+    folders = TuiFolders(own=tmp_path, settings=TuiSettings(), env=env)
+
+    assert folders.saved_set_by_env is set_by_env

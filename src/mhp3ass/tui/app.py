@@ -27,7 +27,16 @@ from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow
 from mhp3ass.results.view import ResultsView
-from mhp3ass.saved_data import TuiSettings, write_tui_settings
+from mhp3ass.saved_data import TuiFolders, TuiSettings, write_tui_settings
+from mhp3ass.saved_folder import (
+    ClearChoice,
+    FolderChoice,
+    change_folder,
+    clear,
+    clear_targets,
+    folder_choices,
+    with_folder,
+)
 from mhp3ass.saved_state import Startup, settings_for, write_settings_cfg
 from mhp3ass.search import (
     SearchCancelled,
@@ -37,7 +46,7 @@ from mhp3ass.search import (
 )
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
-from mhp3ass.tui.options import OptionsScreen
+from mhp3ass.tui.options import ChoiceScreen, OptionsScreen
 from mhp3ass.tui.query_editor import QueryEditor
 from mhp3ass.tui.results_pane import ResultsPane, view_rows
 from mhp3ass.tui.results_table import ResultsTable
@@ -48,14 +57,13 @@ from mhp3ass.tui.skill_picker import SkillPicker
 @dataclass(frozen=True)
 class AppFiles:
     """The files the app reads and saves: ``settings.cfg`` (and the index of
-    the language it is in), ``mycharms.txt`` and ``tui.toml`` with its
-    settings."""
+    the language it is in), ``mycharms.txt``, and the folders with
+    ``tui.toml``'s settings."""
 
     settings_cfg: Path
     language_index: int
     my_charms: Path
-    tui_toml: Path
-    tui_settings: TuiSettings
+    folders: TuiFolders
 
 
 class Progressed(Message):
@@ -68,9 +76,13 @@ class Progressed(Message):
         self.total = total
 
 
-class SearchApp(App[None]):
+class SearchApp(App[bool]):
     """The main screen: a header naming the language, the query editor, the
     search's progress, the results table and the footer of keys.
+
+    The app's result is whether to start again: after the saved-data folder
+    changes or is cleared, it exits with ``True`` so that start-up reads the
+    folder afresh.
 
     One search runs at a time, in a thread. Each search has a number, and the
     progress and results of any search but the latest are dropped, so a
@@ -140,7 +152,7 @@ class SearchApp(App[None]):
         self._last_search_gunner = startup.search.last_search_gunner
         # What the results pane and the hint show, kept to rebuild them in another language.
         self._sort_key = startup.search.sort_key
-        self._reverse = files.tui_settings.reverse
+        self._reverse = files.folders.settings.reverse
         self._hint = "Choose up to six skills, then Search."
         # The editor owns the form; read it as ``self.editor.form``.
         self.editor = QueryEditor(startup.search.form, game=data.game, strings=strings)
@@ -222,8 +234,85 @@ class SearchApp(App[None]):
                 language=self._language,
                 jobs=self._jobs,
                 max_jobs=max(usable_cpus(), self._jobs),
+                saved_folder=self._files.folders.saved,
+                folder_locked=self._files.folders.saved_set_by_env,
             )
         )
+
+    def on_options_screen_folder_chosen(self, event: OptionsScreen.FolderChosen) -> None:
+        """Ask what to do with the files, as ``folder_choices`` allows."""
+        event.stop()
+        current = self._files.folders.saved
+        choices = folder_choices(current, event.folder)
+        if not choices:
+            self.notify(f"{event.folder} is the folder in use, or isn't a folder.")
+            return
+        labels = {
+            FolderChoice.MOVE: f"Move settings.cfg and mycharms.txt from {current} there",
+            FolderChoice.FRESH: "Start fresh there (the files here stay where they are)",
+            FolderChoice.USE: "Use the files already there",
+        }
+        self.push_screen(
+            ChoiceScreen(
+                title="Saved data",
+                text=f"Keep saved data in {event.folder}?",
+                answers=[(labels[choice], choice) for choice in choices],
+            ),
+            lambda choice: self._change_folder(event.folder, choice),
+        )
+
+    def _change_folder(self, folder: Path, choice: FolderChoice | None) -> None:
+        """Save, carry out ``choice``, record the folder in ``tui.toml``, then
+        start again from it."""
+        if choice is None:
+            return
+        if self._searching():
+            self.notify("The folder can change once the search has finished.")
+            return
+        self._save()
+        current = self._files.folders.saved
+        try:
+            change_folder(current, folder, choice)
+        except OSError as error:
+            self.notify(f"Can't use {folder}: {error}", severity="error")
+            return
+        if self._save_tui_settings(with_folder(self._files.folders, folder)):
+            self.exit(result=True)
+
+    def on_options_screen_clear_requested(self, event: OptionsScreen.ClearRequested) -> None:
+        event.stop()
+        folder = self._files.folders.saved
+        answers = []
+        for label, choice in (
+            ("The saved search and results", ClearChoice.SEARCH),
+            ("My charms (back to the shipped list)", ClearChoice.MY_CHARMS),
+            ("Everything", ClearChoice.EVERYTHING),
+        ):
+            targets = clear_targets(folder, choice)
+            if targets:
+                names = ", ".join(path.name for path in targets)
+                answers.append((f"{label}: deletes {names}", choice))
+        if not answers:
+            self.notify(f"{folder} has nothing to clear.")
+            return
+        self.push_screen(
+            ChoiceScreen(title="Clear", text=f"Delete from {folder}:", answers=answers),
+            self._clear,
+        )
+
+    def _clear(self, choice: ClearChoice | None) -> None:
+        """Delete the chosen files, then start again without them."""
+        if choice is None:
+            return
+        if self._searching():
+            self.notify("Saved data can be cleared once the search has finished.")
+            return
+        try:
+            clear(self._files.folders.saved, choice)
+        except OSError as error:
+            self.notify(f"Can't clear: {error}", severity="error")
+            return
+        self.exit(result=True)
 
     def on_options_screen_option_changed(self, event: OptionsScreen.OptionChanged) -> None:
         """A toggle applies to the next search and saves, as ``OptionsChanged``
@@ -308,13 +397,7 @@ class SearchApp(App[None]):
         self._jobs = event.jobs
         if old_pool is not None:
             self._close_pool(old_pool)
-        tui_settings = replace(self._files.tui_settings, jobs=event.jobs)
-        try:
-            write_tui_settings(self._files.tui_toml, tui_settings)
-        except OSError as error:
-            self.notify(f"Can't save {self._files.tui_toml}: {error}", severity="error")
-            return
-        self._files = replace(self._files, tui_settings=tui_settings)
+        self._save_tui_settings(replace(self._files.folders.settings, jobs=event.jobs))
 
     @work(thread=True, group="pool")
     def _close_pool(self, pool: SearchPool) -> None:
@@ -402,13 +485,19 @@ class SearchApp(App[None]):
     def action_reverse_sort(self) -> None:
         pane = self.query_one(ResultsPane)
         pane.reverse_sort()
-        tui_settings = replace(self._files.tui_settings, reverse=pane.reverse)
+        self._save_tui_settings(replace(self._files.folders.settings, reverse=pane.reverse))
+
+    def _save_tui_settings(self, settings: TuiSettings) -> bool:
+        """Write ``tui.toml`` and keep its settings; a failure is reported.
+        Returns whether it was written."""
+        path = self._files.folders.settings_file
         try:
-            write_tui_settings(self._files.tui_toml, tui_settings)
+            write_tui_settings(path, settings)
         except OSError as error:
-            self.notify(f"Can't save {self._files.tui_toml}: {error}", severity="error")
-            return
-        self._files = replace(self._files, tui_settings=tui_settings)
+            self.notify(f"Can't save {path}: {error}", severity="error")
+            return False
+        self._files = replace(self._files, folders=replace(self._files.folders, settings=settings))
+        return True
 
     def action_find(self) -> None:
         self.query_one(ResultsPane).open_find()

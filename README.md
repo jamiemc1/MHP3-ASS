@@ -79,7 +79,14 @@ original's formats, in its saved-data folder: `~/.config/mhp3-ass/`
 (`$XDG_CONFIG_HOME/mhp3-ass/` when set, `%APPDATA%\mhp3-ass\` on Windows).
 `MHP3ASS_HOME` points it elsewhere, as does `data_dir` in that folder's
 `tui.toml`; a first run copies the original's shipped charm list there.
-`mhp3-ass info` prints the folders in use.
+`mhp3-ass info` prints the folders in use. In the options (`o`), the saved
+data box changes the folder (type a path and ⏎, or Browse…): for an empty or
+new folder you can move both files there or start fresh; a folder that
+already holds either file, such as a Windows install's `Run` folder, is used
+as it is. "clear…" deletes the saved search, my charms (the next start copies
+the shipped list again) or both, saying which files first. Either restarts
+the TUI from the folder. With `MHP3ASS_HOME` set, the folder can't be
+changed there.
 
 `settings.cfg` holds the language, the form (both hunter types' skills), the
 four armour options, the sort and the last search's results. The TUI starts

@@ -278,14 +278,7 @@ def main(argv: list[str] | None = None) -> int:
     if not (sys.stdin.isatty() and sys.stdout.isatty()):
         parser.print_help()
         return 0
-    data_dir = _default_data_dir()
-    try:
-        my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
-    except OSError as error:
-        # No shipped list to copy, or the saved-data folder can't be written.
-        print(f"mhp3-ass: {error}", file=sys.stderr)
-        return 1
-    exit_code = _run_tui(data_dir, folders=folders, my_charms_path=my_charms_path)
+    exit_code = _run_tui(_default_data_dir(), folders=folders)
     return exit_code
 
 
@@ -318,12 +311,43 @@ def _info(data_dir: Path, folders: TuiFolders) -> int:
     return 0
 
 
-def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
-    """The app, with the pool's processes booting while the data loads. My
-    charms are the saved-data folder's ``mycharms.txt``, copied from the
-    original's shipped list (``Data/mycharms.txt``) on the first run. The
-    language, form, sort and results come from the saved-data folder's
-    ``settings.cfg`` when it has one."""
+def _run_tui(data_dir: Path, folders: TuiFolders) -> int:
+    """The app, with the pool's processes booting while the data loads; run
+    again, with ``tui.toml`` read afresh, while it asks to start again (after
+    the saved-data folder changes or is cleared). The pool is kept across
+    runs."""
+    jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
+    pool = SearchPool(jobs=jobs) if jobs > 1 else None
+    try:
+        if pool is not None:
+            pool.start()
+        while True:
+            try:
+                app = _run_app(data_dir, folders=folders, pool=pool, jobs=jobs)
+            except OSError as error:
+                # No shipped charm list to copy, or the saved-data folder can't be written.
+                print(f"mhp3-ass: {error}", file=sys.stderr)
+                return 1
+            # Options may have replaced the pool; the app holds the current one.
+            pool = app.pool
+            if app.return_value is not True:
+                break
+            folders = _tui_folders()
+            jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
+    finally:
+        if pool is not None:
+            pool.close()
+    exit_code = app.return_code if app.return_code is not None else 0
+    return exit_code
+
+
+def _run_app(data_dir: Path, folders: TuiFolders, pool: SearchPool | None, jobs: int) -> SearchApp:
+    """One run of the app. My charms are the saved-data folder's
+    ``mycharms.txt``, copied from the original's shipped list
+    (``Data/mycharms.txt``) the first time. The language, form, sort and
+    results come from the saved-data folder's ``settings.cfg`` when it has
+    one."""
+    my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
     languages_dir = data_dir / "Languages"
     languages = language_folders(languages_dir)
     # Checked before settings.cfg is read, which would otherwise be set aside for its language.
@@ -334,42 +358,29 @@ def _run_tui(data_dir: Path, folders: TuiFolders, my_charms_path: Path) -> int:
     read = read_startup_settings(settings_path, language_count=len(languages))
     if read.settings is not None:
         language = languages[read.settings.language_index]
-    jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
-    pool = SearchPool(jobs=jobs) if jobs > 1 else None
-    app: SearchApp | None = None
-    try:
-        if pool is not None:
-            pool.start()
-        data = SearchData.load(data_dir, language=language)
-        started = startup(
-            settings_path,
-            settings=read.settings,
-            game=data.game,
-            language=language,
-            language_count=len(languages),
-        )
-        notices = [notice for notice in (read.notice, started.notice) if notice is not None]
-        app = SearchApp(
-            languages=languages,
-            language=language,
-            data=data,
-            strings=load_strings(languages_dir / language),
-            pool=pool,
-            jobs=jobs,
-            files=AppFiles(
-                settings_cfg=settings_path,
-                language_index=languages.index(language),
-                my_charms=my_charms_path,
-                tui_toml=folders.settings_file,
-                tui_settings=folders.settings,
-            ),
-            startup=replace(started, notice=" ".join(notices) if notices else None),
-        )
-        app.run()
-    finally:
-        # Options may have replaced the pool; the app holds the current one.
-        current_pool = app.pool if app is not None else pool
-        if current_pool is not None:
-            current_pool.close()
-    exit_code = app.return_code if app.return_code is not None else 0
-    return exit_code
+    data = SearchData.load(data_dir, language=language)
+    started = startup(
+        settings_path,
+        settings=read.settings,
+        game=data.game,
+        language=language,
+        language_count=len(languages),
+    )
+    notices = [notice for notice in (read.notice, started.notice) if notice is not None]
+    app = SearchApp(
+        languages=languages,
+        language=language,
+        data=data,
+        strings=load_strings(languages_dir / language),
+        pool=pool,
+        jobs=jobs,
+        files=AppFiles(
+            settings_cfg=settings_path,
+            language_index=languages.index(language),
+            my_charms=my_charms_path,
+            folders=folders,
+        ),
+        startup=replace(started, notice=" ".join(notices) if notices else None),
+    )
+    app.run()
+    return app
