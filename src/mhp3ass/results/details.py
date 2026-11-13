@@ -73,16 +73,19 @@ class SortValue:
 
 
 @dataclass(frozen=True)
+class UnknownPlacement:
+    """A Torso Inc set whose jewels no placement fits (``jewel_placement``)."""
+
+
+@dataclass(frozen=True)
 class SolutionDetails:
     """``chest_jewels``: the jewels by place, for a set where that changes
-    their points. ``placement_known`` is ``False`` for a Torso Inc set whose
-    jewels no placement fits (``jewel_placement``); it has no split."""
+    their points; ``None`` where it doesn't."""
 
     armors: tuple[ArmorLine, ...]
     charm: Charm | None
     decorations: tuple[DecorationCount, ...]
-    chest_jewels: ChestJewels | None
-    placement_known: bool
+    chest_jewels: ChestJewels | UnknownPlacement | None
     slots_spare: SlotsSpare | None
     sort_value: SortValue | None
     extra_skills: tuple[Skill, ...]
@@ -165,33 +168,29 @@ def armor_note(armor: Armor, query: Query) -> ArmorNote | None:
     return note
 
 
-def _counts(decorations: Sequence[Decoration]) -> tuple[DecorationCount, ...]:
-    """Each distinct decoration in ``decorations`` and how many, in first-placed order."""
+def decoration_counts(decorations: Sequence[Decoration]) -> tuple[DecorationCount, ...]:
+    """Each distinct decoration and how many, in first-placed order (Form1.h:1597-1606)."""
     counts = Counter(decorations)
-    decoration_counts = tuple(
+    decoration_count = tuple(
         DecorationCount(decoration=decoration, count=count) for decoration, count in counts.items()
     )
-    return decoration_counts
+    return decoration_count
 
 
-def decoration_counts(solution: Solution) -> tuple[DecorationCount, ...]:
-    """Each distinct decoration and how many, in first-placed order (Form1.h:1597-1606)."""
-    decorations = _counts(solution.decorations)
-    return decorations
-
-
-def chest_jewels(solution: Solution, query: Query) -> ChestJewels | None:
+def chest_jewels(solution: Solution, query: Query) -> ChestJewels | UnknownPlacement | None:
     """``jewel_placement`` as counts, for the results' own ``query``: ``None``
-    where a jewel's place can't change its points. Raises
-    ``PlacementUnknownError`` when no placement fits the set's slots and
-    points."""
-    placement = jewel_placement(solution, weapon_slots=query.weapon_slots_allowed)
+    where a jewel's place can't change its points, ``UnknownPlacement`` where
+    no placement fits the set's slots and points."""
+    try:
+        placement = jewel_placement(solution, weapon_slots=query.weapon_slots_allowed)
+    except PlacementUnknownError:
+        return UnknownPlacement()
     if placement is None:
         return None
     jewels = ChestJewels(
         multiplier=placement.multiplier,
-        chest=_counts(placement.chest),
-        elsewhere=_counts(placement.elsewhere),
+        chest=decoration_counts(placement.chest),
+        elsewhere=decoration_counts(placement.elsewhere),
     )
     return jewels
 
@@ -236,18 +235,11 @@ def solution_details(solution: Solution, query: Query, sort_key: SortKey) -> Sol
         if armor is not None
     )
     extra_skills = tuple(skill for skill in solution.extra_skills if skill not in query.skills)
-    try:
-        jewels = chest_jewels(solution, query=query)
-        placement_known = True
-    except PlacementUnknownError:
-        jewels = None
-        placement_known = False
     details = SolutionDetails(
         armors=armors,
         charm=solution.charm,
-        decorations=decoration_counts(solution),
-        chest_jewels=jewels,
-        placement_known=placement_known,
+        decorations=decoration_counts(solution.decorations),
+        chest_jewels=chest_jewels(solution, query=query),
         slots_spare=slots_spare(solution, sort_key),
         sort_value=sort_value(solution, sort_key),
         extra_skills=extra_skills,
