@@ -233,8 +233,20 @@ class FolderTree(DirectoryTree):
     """A ``DirectoryTree`` of folders only, so whatever is highlighted can be chosen."""
 
     def filter_paths(self, paths: Iterable[Path]) -> Iterable[Path]:
-        folders = [path for path in paths if path.is_dir()]
+        # DirectoryTree's own check, which treats an unreadable entry as not a folder.
+        folders = [path for path in paths if self._safe_is_dir(path)]
         return folders
+
+    @property
+    def chosen(self) -> Path:
+        """The highlighted folder, or the tree's root when nothing is highlighted
+        (the cursor is cleared when a collapse hides it)."""
+        node = self.cursor_node
+        entry = node.data if node is not None else self.root.data
+        if entry is None:
+            raise ValueError("The folder tree has no root folder")
+        folder = entry.path.resolve()
+        return folder
 
 
 class FolderPicker(ModalScreen[Path | None]):
@@ -270,14 +282,11 @@ class FolderPicker(ModalScreen[Path | None]):
         Binding("c", "choose", "Choose"),
     ]
 
-    def __init__(self) -> None:
-        super().__init__()
-        self._highlighted = Path.home()
-
     def compose(self) -> ComposeResult:
+        home = Path.home()
         with Vertical(id="picker"):
-            yield FolderTree(self._highlighted)
-            yield Static(Content(str(self._highlighted)), id="highlighted")
+            yield FolderTree(home)
+            yield Static(Content(str(home)), id="highlighted")
             with Horizontal(id="picker_buttons"):
                 yield Button("Cancel", id="cancel")
                 yield Button("Choose", id="choose", variant="primary")
@@ -285,23 +294,31 @@ class FolderPicker(ModalScreen[Path | None]):
     def on_mount(self) -> None:
         picker = self.query_one("#picker", Vertical)
         picker.border_title = "Choose a folder: ⏎ opens, c chooses, Esc cancels"
+        # The tree starts with no cursor; start it on the home folder that Choose would pick.
+        self.query_one(FolderTree).cursor_line = 0
 
     def on_tree_node_highlighted(self, event: Tree.NodeHighlighted[DirEntry]) -> None:
         event.stop()
-        if event.node.data is None:
-            return
-        self._highlighted = event.node.data.path
-        self.query_one("#highlighted", Static).update(Content(str(self._highlighted)))
+        self._show_chosen()
+
+    def on_tree_node_collapsed(self, event: Tree.NodeCollapsed[DirEntry]) -> None:
+        # A collapse can clear the cursor without a highlight message.
+        event.stop()
+        self._show_chosen()
+
+    def _show_chosen(self) -> None:
+        chosen = self.query_one(FolderTree).chosen
+        self.query_one("#highlighted", Static).update(Content(str(chosen)))
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         event.stop()
         if event.button.id == "choose":
             self.action_choose()
-        else:
+        elif event.button.id == "cancel":
             self.action_cancel()
 
     def action_choose(self) -> None:
-        self.dismiss(self._highlighted)
+        self.dismiss(self.query_one(FolderTree).chosen)
 
     def action_cancel(self) -> None:
         self.dismiss(None)
