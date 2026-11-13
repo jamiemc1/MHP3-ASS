@@ -8,7 +8,7 @@ shows ``ResultsView.final`` one row per set.
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from typing import ClassVar
 
 from rich.cells import cell_len, set_cell_size
@@ -101,9 +101,18 @@ class ResultsPane(Horizontal):
     }
     """
 
-    def __init__(self, strings: DisplayStrings, sort_key: SortKey, reverse: bool) -> None:
+    def __init__(
+        self,
+        strings: DisplayStrings,
+        sort_key: SortKey,
+        reverse: bool,
+        is_searching: Callable[[], bool],
+    ) -> None:
+        """``is_searching`` says whether a search is using the game, when loaded
+        sets can't be filled again for their placements."""
         super().__init__()
         self._strings = strings
+        self._is_searching = is_searching
         self.view: ResultsView | None = None
         # The drop-down's value: a Changed event that leaves it as it was is no change.
         self._sort_key = sort_key
@@ -187,7 +196,7 @@ class ResultsPane(Horizontal):
             view.final[event.row],
             query=self._query,
             sort_key=view.sort_key,
-            game=self._game,
+            refill_game=None if self._is_searching() else self._game,
         )
 
     def on_select_changed(self, event: Select.Changed) -> None:

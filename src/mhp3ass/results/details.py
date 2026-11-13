@@ -183,19 +183,24 @@ def decoration_counts(decorations: Sequence[Decoration]) -> tuple[DecorationCoun
 
 
 def chest_jewels(
-    solution: Solution, query: Query, game: GameData
+    solution: Solution, query: Query, refill_game: GameData | None
 ) -> ChestJewels | UnknownPlacement | None:
     """``jewel_placement`` as counts, for the results' own ``query``: ``None``
     where a jewel's place can't change its points, ``UnknownPlacement`` where
-    no placement fits the set's slots and points. A set loaded from
-    ``settings.cfg`` (multiplier 0: the search never filled it here) is
-    ``refilled`` first, and is ``UnknownPlacement`` when the refill isn't the
-    loaded set."""
+    no placement fits the set's slots and points.
+
+    A set loaded from ``settings.cfg`` is recognised by its multiplier of 0
+    (the search sets it to 1 or more for every set it fills, and the file
+    doesn't keep it). It is ``refilled`` in ``refill_game`` first, and is
+    ``UnknownPlacement`` when the refill isn't the loaded set, or when
+    ``refill_game`` is ``None`` because a search is using the game."""
     searched = solution
     if solution.torso_multiplier == 0:
         if not place_can_matter(solution):
             return None
-        refill = refilled(solution, query=query, game=game)
+        if refill_game is None:
+            return UnknownPlacement()
+        refill = refilled(solution, query=query, game=refill_game)
         if refill is None:
             return UnknownPlacement()
         searched = refill
@@ -246,9 +251,10 @@ def sort_value(solution: Solution, sort_key: SortKey) -> SortValue | None:
 
 
 def solution_details(
-    solution: Solution, query: Query, sort_key: SortKey, game: GameData
+    solution: Solution, query: Query, sort_key: SortKey, refill_game: GameData | None
 ) -> SolutionDetails:
-    """One result's details, for the results' own ``query`` in ``game``."""
+    """One result's details, for the results' own ``query``; ``refill_game`` as
+    ``chest_jewels`` takes it."""
     armors = tuple(
         ArmorLine(armor=armor, note=armor_note(armor, query))
         for armor in solution.armors
@@ -259,7 +265,7 @@ def solution_details(
         armors=armors,
         charm=solution.charm,
         decorations=decoration_counts(solution.decorations),
-        chest_jewels=chest_jewels(solution, query=query, game=game),
+        chest_jewels=chest_jewels(solution, query=query, refill_game=refill_game),
         slots_spare=slots_spare(solution, sort_key),
         sort_value=sort_value(solution, sort_key),
         extra_skills=extra_skills,

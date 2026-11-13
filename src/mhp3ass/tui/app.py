@@ -180,6 +180,7 @@ class SearchApp(App[bool]):
             self._strings,
             sort_key=self._sort_key,
             reverse=self._reverse,
+            is_searching=self._searching,
         )
         yield Footer()
 

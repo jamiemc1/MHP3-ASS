@@ -37,10 +37,18 @@ class Inspector(VerticalScroll):
         yield Static(id="inspector_text")
 
     def show(
-        self, number: int, solution: Solution, query: Query, sort_key: SortKey, game: GameData
+        self,
+        number: int,
+        solution: Solution,
+        query: Query,
+        sort_key: SortKey,
+        refill_game: GameData | None,
     ) -> None:
-        """Set ``number`` (counting from 1 in the table), for the results' own ``query``."""
-        details = solution_details(solution, query=query, sort_key=sort_key, game=game)
+        """Set ``number`` (counting from 1 in the table), for the results' own
+        ``query``; ``refill_game`` as ``solution_details`` takes it."""
+        details = solution_details(
+            solution, query=query, sort_key=sort_key, refill_game=refill_game
+        )
         lines = inspector_lines(solution, details, self._strings, piece_labels=self._piece_labels)
         label_width = max((cell_len(line.label) for line in lines), default=0)
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)

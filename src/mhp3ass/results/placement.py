@@ -63,13 +63,13 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
     taken: the fewest jewels in the chest, then the earliest in the shown
     order. Raises ``PlacementUnknownError`` when no split is valid (quirk 52).
     """
+    if solution.torso_multiplier <= 1 or not place_can_matter(solution):
+        return None
     chest_armor = solution.armors[1]
+    if chest_armor is None:
+        raise ValueError("place_can_matter passed a set without a chest piece")
     multiplier = solution.torso_multiplier
-    if multiplier <= 1 or chest_armor is None or chest_armor.num_slots == 0:
-        return None
     jewels = solution.decorations
-    if not jewels:
-        return None
     check = _PlacementCheck(
         solution=solution,
         chest_slots=chest_armor.num_slots,
@@ -103,7 +103,8 @@ def place_can_matter(solution: Solution) -> bool:
     """Whether a jewel's place could change ``solution``'s points, from its
     armour and jewels alone: a Torso Inc piece (the multiplier is one more
     for each, ``Solution.cpp:223``, :246), a chest with slots, and jewels.
-    For sets loaded from ``settings.cfg``, whose multiplier isn't kept."""
+    From the armour, so it also answers for sets loaded from
+    ``settings.cfg``, whose multiplier isn't kept."""
     chest_armor = solution.armors[1]
     multiplier = 1 + sum(armor.torso_inc for armor in solution.armors if armor is not None)
     can_matter = (
@@ -122,15 +123,19 @@ def refilled(solution: Solution, query: Query, game: GameData) -> Solution | Non
     reduced one the file holds, so it is filled as a custom charm, which
     ``ReduceCharm`` leaves alone; reducing it again would change the set.
 
+    The fill reads the abilities' ``relevant`` flags, which the last
+    relevance pass, a charm import or a cancelled search may have left set
+    for something else, so they are first set to ``query``'s again, as its
+    own relevance pass set them (``GetRelevantData``, ``LoadedData.cpp:121-130``).
+    Call it only while no search is using ``game``.
+
     ``None`` when the refill isn't the loaded set: it is rejected, or it
     gives other jewels (where the search had filled the set with the charm
-    before reducing it, which the file doesn't keep), or the abilities'
-    ``relevant`` flags belong to another query (after a later relevance pass,
-    such as a search's), which would fill it for that query instead.
+    before reducing it, which the file doesn't keep).
     """
-    query_abilities = {skill.ability for skill in query.skills}
-    if any(ability.relevant != (ability in query_abilities) for ability in game.abilities):
-        return None
+    relevant = set(query.rel_abilities)
+    for ability in game.abilities:
+        ability.relevant = ability in relevant
     charm = solution.charm.copy() if solution.charm is not None else None
     if charm is not None:
         charm.custom = True
