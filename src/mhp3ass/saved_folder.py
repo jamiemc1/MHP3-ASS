@@ -14,8 +14,6 @@ from pathlib import Path
 
 from mhp3ass.saved_data import TuiFolders, TuiSettings
 
-SAVED_FILES = ("settings.cfg", "mycharms.txt")
-
 
 class FolderChoice(Enum):
     MOVE = "move"
@@ -33,7 +31,7 @@ class ClearChoice(Enum):
 
 def saved_files_in(folder: Path) -> list[Path]:
     """``settings.cfg`` and ``mycharms.txt`` in ``folder``, those that exist."""
-    files = [folder / name for name in SAVED_FILES if (folder / name).exists()]
+    files = [folder / name for name in ("settings.cfg", "mycharms.txt") if (folder / name).exists()]
     return files
 
 
@@ -55,15 +53,23 @@ def change_folder(current: Path, new: Path, choice: FolderChoice) -> None:
     """Carry out ``choice`` (one of ``folder_choices``): move the files from
     ``current`` into ``new``, or make ``new`` for a fresh start; using what's
     there moves nothing. Raises ``ValueError`` for a choice ``folder_choices``
-    doesn't offer, before anything moves."""
+    doesn't offer, before anything moves. If a move fails, the files already
+    moved are moved back before the error is raised, so they stay together."""
     if choice not in folder_choices(current, new):
         raise ValueError(f"can't {choice.value} from {current} to {new}")
     if choice is FolderChoice.USE:
         return
     new.mkdir(parents=True, exist_ok=True)
     if choice is FolderChoice.MOVE:
-        for path in saved_files_in(current):
-            shutil.move(path, new / path.name)
+        moved: list[Path] = []
+        try:
+            for path in saved_files_in(current):
+                shutil.move(path, new / path.name)
+                moved.append(path)
+        except OSError:
+            for path in moved:
+                shutil.move(new / path.name, path)
+            raise
 
 
 def with_folder(folders: TuiFolders, new: Path) -> TuiSettings:
@@ -76,12 +82,14 @@ def with_folder(folders: TuiFolders, new: Path) -> TuiSettings:
 
 def clear_targets(folder: Path, choice: ClearChoice) -> list[Path]:
     """The files in ``folder`` that clearing ``choice`` would delete."""
-    names = {
-        ClearChoice.SEARCH: ["settings.cfg"],
-        ClearChoice.MY_CHARMS: ["mycharms.txt"],
-        ClearChoice.EVERYTHING: list(SAVED_FILES),
-    }[choice]
-    targets = [folder / name for name in names if (folder / name).exists()]
+    match choice:
+        case ClearChoice.SEARCH:
+            names = {"settings.cfg"}
+        case ClearChoice.MY_CHARMS:
+            names = {"mycharms.txt"}
+        case ClearChoice.EVERYTHING:
+            names = {"settings.cfg", "mycharms.txt"}
+    targets = [path for path in saved_files_in(folder) if path.name in names]
     return targets
 
 

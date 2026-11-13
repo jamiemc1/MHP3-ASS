@@ -83,9 +83,9 @@ original's formats, in its saved-data folder: `~/.config/mhp3-ass/`
 data box changes the folder (type a path and ⏎, or Browse…): for an empty or
 new folder you can move both files there or start fresh; a folder that
 already holds either file, such as a Windows install's `Run` folder, is used
-as it is. "clear…" deletes the saved search, my charms (the next start copies
-the shipped list again) or both, saying which files first. Either restarts
-the TUI from the folder. With `MHP3ASS_HOME` set, the folder can't be
+as it is. "clear…" resets the saved search (keeping the language), deletes
+my charms (the next start copies the shipped list again) or deletes both,
+saying which files first. Either restarts the TUI from the folder. With `MHP3ASS_HOME` set, the folder can't be
 changed there.
 
 `settings.cfg` holds the language, the form (both hunter types' skills), the

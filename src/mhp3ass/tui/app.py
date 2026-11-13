@@ -145,7 +145,7 @@ class SearchApp(App[bool]):
         self._language = language
         self._data = data
         self.pool = pool
-        self._jobs = jobs
+        self.jobs = jobs
         self._files = files
         self._strings = strings
         self._startup = startup
@@ -219,7 +219,9 @@ class SearchApp(App[bool]):
         try:
             write_settings_cfg(self._files.settings_cfg, self._settings())
         except OSError as error:
-            self.notify(f"Can't save {self._files.settings_cfg}: {error}", severity="error")
+            self.notify(
+                f"Can't save {self._files.settings_cfg}: {error}", severity="error", markup=False
+            )
 
     def on_results_pane_sort_changed(self, event: ResultsPane.SortChanged) -> None:
         event.stop()
@@ -232,8 +234,8 @@ class SearchApp(App[bool]):
                 strings=self._strings,
                 languages=self._languages,
                 language=self._language,
-                jobs=self._jobs,
-                max_jobs=max(usable_cpus(), self._jobs),
+                jobs=self.jobs,
+                max_jobs=max(usable_cpus(), self.jobs),
                 saved_folder=self._files.folders.saved,
                 folder_locked=self._files.folders.saved_set_by_env,
             )
@@ -245,7 +247,7 @@ class SearchApp(App[bool]):
         current = self._files.folders.saved
         choices = folder_choices(current, event.folder)
         if not choices:
-            self.notify(f"{event.folder} is the folder in use, or isn't a folder.")
+            self.notify(f"{event.folder} is the folder in use, or isn't a folder.", markup=False)
             return
         labels = {
             FolderChoice.MOVE: f"Move settings.cfg and mycharms.txt from {current} there",
@@ -274,7 +276,7 @@ class SearchApp(App[bool]):
         try:
             change_folder(current, folder, choice)
         except OSError as error:
-            self.notify(f"Can't use {folder}: {error}", severity="error")
+            self.notify(f"Can't use {folder}: {error}", severity="error", markup=False)
             return
         if self._save_tui_settings(with_folder(self._files.folders, folder)):
             self.exit(result=True)
@@ -289,28 +291,47 @@ class SearchApp(App[bool]):
             ("Everything", ClearChoice.EVERYTHING),
         ):
             targets = clear_targets(folder, choice)
-            if targets:
-                names = ", ".join(path.name for path in targets)
+            if not targets:
+                continue
+            names = ", ".join(path.name for path in targets)
+            if choice is ClearChoice.SEARCH:
+                # The language lives in settings.cfg too; it stays, so my charms still load.
+                answers.append((f"{label}: resets {names}, keeping the language", choice))
+            else:
                 answers.append((f"{label}: deletes {names}", choice))
         if not answers:
-            self.notify(f"{folder} has nothing to clear.")
+            self.notify(f"{folder} has nothing to clear.", markup=False)
             return
         self.push_screen(
-            ChoiceScreen(title="Clear", text=f"Delete from {folder}:", answers=answers),
+            ChoiceScreen(title="Clear", text=f"Clear in {folder}:", answers=answers),
             self._clear,
         )
 
     def _clear(self, choice: ClearChoice | None) -> None:
-        """Delete the chosen files, then start again without them."""
+        """Clear the chosen files, then start again without them. Clearing the
+        search writes the starting form in the current language rather than
+        deleting the file, so a ``mycharms.txt`` written in that language
+        (quirk 30) still loads."""
         if choice is None:
             return
         if self._searching():
             self.notify("Saved data can be cleared once the search has finished.")
             return
         try:
-            clear(self._files.folders.saved, choice)
+            if choice is ClearChoice.SEARCH:
+                starting = settings_for(
+                    QueryForm.starting(),
+                    game=self._data.game,
+                    language_index=self._files.language_index,
+                    last_search_gunner=False,
+                    sort_key=SortKey.NONE,
+                    solutions=[],
+                )
+                write_settings_cfg(self._files.settings_cfg, starting)
+            else:
+                clear(self._files.folders.saved, choice)
         except OSError as error:
-            self.notify(f"Can't clear: {error}", severity="error")
+            self.notify(f"Can't clear: {error}", severity="error", markup=False)
             return
         self.exit(result=True)
 
@@ -394,7 +415,7 @@ class SearchApp(App[bool]):
         self.pool = SearchPool(jobs=event.jobs) if event.jobs > 1 else None
         if self.pool is not None:
             self.pool.start()
-        self._jobs = event.jobs
+        self.jobs = event.jobs
         if old_pool is not None:
             self._close_pool(old_pool)
         self._save_tui_settings(replace(self._files.folders.settings, jobs=event.jobs))
@@ -494,7 +515,7 @@ class SearchApp(App[bool]):
         try:
             write_tui_settings(path, settings)
         except OSError as error:
-            self.notify(f"Can't save {path}: {error}", severity="error")
+            self.notify(f"Can't save {path}: {error}", severity="error", markup=False)
             return False
         self._files = replace(self._files, folders=replace(self._files.folders, settings=settings))
         return True

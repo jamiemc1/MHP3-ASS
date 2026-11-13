@@ -181,7 +181,8 @@ class OptionsScreen(ModalScreen[None]):
         event.stop()
         text = event.value.strip()
         if text != "":
-            self.post_message(self.FolderChosen(Path(text).expanduser()))
+            # Resolved here, as tui.toml would read a relative folder as under its own.
+            self.post_message(self.FolderChosen(Path(text).expanduser().resolve()))
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         event.stop()
@@ -197,7 +198,7 @@ class OptionsScreen(ModalScreen[None]):
         else:
             self.app.push_screen(FolderPicker(), self._picked)
 
-    @work(thread=True, group="browse")
+    @work(thread=True, group="browse", exclusive=True)
     def _choose_folder_on_macos(self) -> None:
         try:
             completed = subprocess.run(
@@ -216,7 +217,8 @@ class OptionsScreen(ModalScreen[None]):
             self.app.call_from_thread(self._picked, Path(chosen))
 
     def _picked(self, folder: Path | None) -> None:
-        if folder is None:
+        # The macOS dialog can answer after this modal has been closed.
+        if folder is None or not self.is_attached:
             return
         self.query_one("#saved_folder", Input).value = str(folder)
         self.post_message(self.FolderChosen(folder))
