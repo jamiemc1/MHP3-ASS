@@ -197,7 +197,7 @@ class SearchApp(App[bool]):
             pane = self.query_one(ResultsPane)
             # Reversed before the rows are built, so show needn't build them again.
             view.select_reverse(pane.reverse)
-            pane.show(view, rows=view_rows(view), query=results.query)
+            pane.show(view, rows=view_rows(view), query=results.query, game=self._data.game)
             self._collapse_editor()
             count = len(view.all_solutions) + results.charm_free_only_under_none
             self._set_hint(f"{count:,} sets from last time.")
@@ -420,7 +420,9 @@ class SearchApp(App[bool]):
         await self.recompose()
         if view is not None and query is not None:
             view.relanguage()
-            self.query_one(ResultsPane).show(view, rows=view_rows(view), query=query)
+            self.query_one(ResultsPane).show(
+                view, rows=view_rows(view), query=query, game=self._data.game
+            )
             self.query_one(ResultsTable).cursor = cursor
         if collapsed:
             self._collapse_editor()
@@ -629,7 +631,7 @@ class SearchApp(App[bool]):
         self.result = result
         self._searched_form = self._running_form
         self._last_search_gunner = result.query.hunter_type is HunterType.GUNNER
-        self.query_one(ResultsPane).show(view, rows=rows, query=result.query)
+        self.query_one(ResultsPane).show(view, rows=rows, query=result.query, game=self._data.game)
         self._collapse_editor()
         # SaveConfig once the last worker returns (Form1.h:1830).
         self._save()

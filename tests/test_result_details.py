@@ -8,7 +8,9 @@ from dataclasses import dataclass
 
 import pytest
 
-from mhp3ass.model import Ability, Armor, Material, MaterialComponent, Skill
+from mhp3ass.charms.naming import charm_name
+from mhp3ass.data import GameData
+from mhp3ass.model import Ability, Armor, ArmorType, Material, MaterialComponent, Skill
 from mhp3ass.query import Query, SearchSpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.details import (
@@ -29,10 +31,18 @@ from mhp3ass.results.details import (
     sort_value,
 )
 from mhp3ass.results.difficulty import hard_materials
-from mhp3ass.results.placement import JewelPlacement, PlacementUnknownError, jewel_placement
+from mhp3ass.results.placement import (
+    JewelPlacement,
+    PlacementUnknownError,
+    jewel_placement,
+    place_can_matter,
+    refilled,
+)
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.sorting import SortKey
+from mhp3ass.saved_state import LoadedResults, restore_search
 from mhp3ass.search import SearchData, run_search
+from mhp3ass.settings_cfg import read_settings_cfg
 from mhp3ass.solution.state import Solution
 from solution_builders import make_jewel
 
@@ -78,7 +88,7 @@ def _notes(search: CorpusSearch) -> list[list[ArmorNote | None]]:
         [
             line.note
             for line in solution_details(
-                solution, query=search.result.query, sort_key=SortKey.NONE
+                solution, query=search.result.query, sort_key=SortKey.NONE, game=search.data.game
             ).armors
         ]
         for solution in search.result.results.all_solutions
@@ -252,12 +262,14 @@ def decorated_solution(make_armor, attack, health) -> Solution:
 
 
 def test_details_list_pieces_jewel_counts_and_the_unsearched_extra_skills(
-    decorated_solution, make_query, attack
+    decorated_solution, make_query, attack, teamhgg_game
 ):
     asked = decorated_solution.extra_skills[0]
     query = make_query(rel_abilities=[attack], skills=[asked])
 
-    details = solution_details(decorated_solution, query=query, sort_key=SortKey.DEFENCE)
+    details = solution_details(
+        decorated_solution, query=query, sort_key=SortKey.DEFENCE, game=teamhgg_game
+    )
 
     head, legs = decorated_solution.armors[0], decorated_solution.armors[4]
     jewel_a, jewel_b = decorated_solution.decorations[:2]
@@ -349,11 +361,12 @@ def test_the_hard_materials_add_up_to_every_found_sets_difficulty(one_skill_sear
 class TorsoIncSets:
     """g13's Torso Inc sets whose chest has slots and that hold jewels, by
     whether their stored chest/elsewhere lists still hold the shown jewels;
-    the search's query and its weapon slots."""
+    the search's query, its weapon slots and its game."""
 
     agreeing: list[Solution]
     disagreeing: list[Solution]
     query: Query
+    game: GameData
     weapon_slots: int
 
 
@@ -379,6 +392,7 @@ def torso_inc_sets(one_skill_search) -> TorsoIncSets:
         disagreeing=[solution for solution in placeable if not _lists_agree(solution)],
         query=query,
         weapon_slots=query.weapon_slots_allowed,
+        game=one_skill_search.data.game,
     )
     return sets
 
@@ -505,7 +519,9 @@ def test_a_torso_inc_set_with_nothing_for_the_chest_has_no_split(one_skill_searc
 def test_a_set_no_placement_fits_keeps_one_list(torso_inc_sets):
     unknown = _unknown(torso_inc_sets)[0]
 
-    details = solution_details(unknown, query=torso_inc_sets.query, sort_key=SortKey.NONE)
+    details = solution_details(
+        unknown, query=torso_inc_sets.query, sort_key=SortKey.NONE, game=torso_inc_sets.game
+    )
 
     assert details.chest_jewels == UnknownPlacement()
 
@@ -520,7 +536,7 @@ def test_a_torso_inc_set_lists_its_chest_jewels_apart(torso_inc_sets):
     )
     health_jewel = solution.decorations[0]
 
-    jewels = chest_jewels(solution, query=torso_inc_sets.query)
+    jewels = chest_jewels(solution, query=torso_inc_sets.query, game=torso_inc_sets.game)
 
     assert health_jewel.name == "Health Jewel[1]"
     assert jewels == ChestJewels(
@@ -589,3 +605,220 @@ def test_a_set_without_hard_materials_lists_none(make_armor):
     solution = Solution(armors=[make_armor(), None, None, None, None], charm=None)
 
     assert hard_materials(solution) == []
+
+
+@dataclass(frozen=True)
+class LoadedCapture:
+    """A GUI capture's settings.cfg loaded into its own game data."""
+
+    data: SearchData
+    results: LoadedResults
+
+
+def _load_capture(path, legacy_data_dir, language, shipped_languages) -> LoadedCapture:
+    data = SearchData.load(legacy_data_dir, language=language)
+    search = restore_search(
+        read_settings_cfg(path),
+        game=data.game,
+        language=language,
+        language_count=len(shipped_languages),
+    )
+    if search.results is None:
+        raise ValueError(f"{path} holds no results")
+    capture = LoadedCapture(data=data, results=search.results)
+    return capture
+
+
+@pytest.fixture(scope="module")
+def loaded_capture_13(gui_captures_dir, legacy_data_dir, shipped_languages, one_skill_search):
+    """GUI capture 13: g13's query searched in the original, saved to settings.cfg."""
+    capture = _load_capture(
+        gui_captures_dir / "13" / "settings.cfg",
+        legacy_data_dir=legacy_data_dir,
+        language=one_skill_search.spec.query.language,
+        shipped_languages=shipped_languages,
+    )
+    return capture
+
+
+def _set_key(solution: Solution) -> tuple:
+    """A set by its pieces', charm's and jewels' names, to match it across games."""
+    armour = tuple(armor.name if armor is not None else None for armor in solution.armors)
+    charm = charm_name(solution.charm) if solution.charm is not None else None
+    jewels = tuple(sorted(decoration.name for decoration in solution.decorations))
+    key = (armour, charm, jewels)
+    return key
+
+
+def _named(split: ChestJewels | UnknownPlacement | None) -> object:
+    """A split by jewel names, to compare it across games; in name order, as
+    a refill's stored lists and a search's split list jewels in different
+    orders."""
+    if not isinstance(split, ChestJewels):
+        return split
+    named = (
+        split.multiplier,
+        tuple(sorted((count.decoration.name, count.count) for count in split.chest)),
+        tuple(sorted((count.decoration.name, count.count) for count in split.elsewhere)),
+    )
+    return named
+
+
+def _loaded_sets(capture: LoadedCapture) -> list[Solution]:
+    view = capture.results.view
+    solutions = list(view.all_solutions) + list(view.no_charm_solutions)
+    return solutions
+
+
+def test_loaded_torso_inc_sets_get_the_split_they_get_after_the_search(
+    loaded_capture_13, one_skill_search
+):
+    """Capture 13 has 1,300 Torso Inc sets with jewels and a chest with slots:
+    1,154 refill to the loaded jewels, and each of the 1,149 that g13's
+    search finds too gets the split it gets straight after the search. The
+    other 5 are duplicates (same charm name and armour) where the original
+    kept another copy than the port's ordered search does (quirk 5)."""
+    fresh: dict[tuple, set[object]] = {}
+    for solution in one_skill_search.result.results.all_solutions:
+        split = chest_jewels(
+            solution, query=one_skill_search.result.query, game=one_skill_search.data.game
+        )
+        fresh.setdefault(_set_key(solution), set()).add(_named(split))
+    results = loaded_capture_13.results
+    game = loaded_capture_13.data.game
+    loaded = [
+        solution for solution in _loaded_sets(loaded_capture_13) if place_can_matter(solution)
+    ]
+
+    refilling = [
+        solution
+        for solution in loaded
+        if refilled(solution, query=results.query, game=game) is not None
+    ]
+
+    in_both = [solution for solution in refilling if _set_key(solution) in fresh]
+    different = [
+        solution
+        for solution in in_both
+        if _named(chest_jewels(solution, query=results.query, game=game))
+        not in fresh[_set_key(solution)]
+    ]
+    assert [len(loaded), len(refilling), len(in_both), different] == [1300, 1154, 1149, []]
+
+
+def test_a_loaded_set_the_refill_cant_reproduce_has_no_placement(loaded_capture_13):
+    """Capture 13's other 146: the search filled them with the charm before
+    reducing it, which settings.cfg doesn't keep."""
+    results = loaded_capture_13.results
+    game = loaded_capture_13.data.game
+    unreproduced = [
+        solution
+        for solution in _loaded_sets(loaded_capture_13)
+        if place_can_matter(solution) and refilled(solution, query=results.query, game=game) is None
+    ]
+
+    splits = {
+        _named(chest_jewels(solution, query=results.query, game=game)) for solution in unreproduced
+    }
+
+    assert [len(unreproduced), splits] == [146, {UnknownPlacement()}]
+
+
+@pytest.fixture
+def capture_13_after_another_search(
+    gui_captures_dir, legacy_data_dir, shipped_languages, one_skill_search, other_query_spec
+):
+    """Capture 13 loaded into its own game data, then another query's
+    relevance pass (1a's), as a search started after the load makes. Returns
+    the capture and the first loaded set that refilled before that pass."""
+    capture = _load_capture(
+        gui_captures_dir / "13" / "settings.cfg",
+        legacy_data_dir=legacy_data_dir,
+        language=one_skill_search.spec.query.language,
+        shipped_languages=shipped_languages,
+    )
+    query = capture.results.query
+    game = capture.data.game
+    refilling = next(
+        solution
+        for solution in _loaded_sets(capture)
+        if place_can_matter(solution) and refilled(solution, query=query, game=game) is not None
+    )
+    formulate_query(game, other_query_spec.query)
+    return capture, refilling
+
+
+def test_a_loaded_set_isnt_refilled_for_another_querys_relevance(
+    capture_13_after_another_search,
+):
+    capture, refilling = capture_13_after_another_search
+
+    refill = refilled(refilling, query=capture.results.query, game=capture.data.game)
+
+    assert refill is None
+
+
+@pytest.fixture
+def torso_inc_head(teamhgg_game) -> Armor:
+    head = next(armor for armor in teamhgg_game.armors[ArmorType.HEAD] if armor.torso_inc)
+    return head
+
+
+@pytest.fixture
+def slotted_chest(teamhgg_game) -> Armor:
+    chest = next(
+        armor
+        for armor in teamhgg_game.armors[ArmorType.BODY]
+        if armor.num_slots > 0 and not armor.torso_inc
+    )
+    return chest
+
+
+@pytest.fixture
+def slotless_chest(teamhgg_game) -> Armor:
+    chest = next(
+        armor
+        for armor in teamhgg_game.armors[ArmorType.BODY]
+        if armor.num_slots == 0 and not armor.torso_inc
+    )
+    return chest
+
+
+def test_a_jewel_place_can_matter_with_torso_inc_a_slotted_chest_and_jewels(
+    teamhgg_game, torso_inc_head, slotted_chest
+):
+    solution = Solution(
+        armors=[torso_inc_head, slotted_chest, None, None, None],
+        charm=None,
+        decorations=[teamhgg_game.decorations[0]],
+    )
+
+    assert place_can_matter(solution) is True
+
+
+def test_a_jewel_place_cant_matter_without_torso_inc(teamhgg_game, slotted_chest):
+    solution = Solution(
+        armors=[None, slotted_chest, None, None, None],
+        charm=None,
+        decorations=[teamhgg_game.decorations[0]],
+    )
+
+    assert place_can_matter(solution) is False
+
+
+def test_a_jewel_place_cant_matter_with_a_slotless_chest(
+    teamhgg_game, torso_inc_head, slotless_chest
+):
+    solution = Solution(
+        armors=[torso_inc_head, slotless_chest, None, None, None],
+        charm=None,
+        decorations=[teamhgg_game.decorations[0]],
+    )
+
+    assert place_can_matter(solution) is False
+
+
+def test_a_jewel_place_cant_matter_without_jewels(torso_inc_head, slotted_chest):
+    solution = Solution(armors=[torso_inc_head, slotted_chest, None, None, None], charm=None)
+
+    assert place_can_matter(solution) is False

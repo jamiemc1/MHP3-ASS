@@ -25,7 +25,12 @@ from mhp3ass.model import (
     Skill,
 )
 from mhp3ass.query import Query
-from mhp3ass.results.placement import PlacementUnknownError, jewel_placement
+from mhp3ass.results.placement import (
+    PlacementUnknownError,
+    jewel_placement,
+    place_can_matter,
+    refilled,
+)
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.solution.state import Solution
 
@@ -177,12 +182,25 @@ def decoration_counts(decorations: Sequence[Decoration]) -> tuple[DecorationCoun
     return decoration_count
 
 
-def chest_jewels(solution: Solution, query: Query) -> ChestJewels | UnknownPlacement | None:
+def chest_jewels(
+    solution: Solution, query: Query, game: GameData
+) -> ChestJewels | UnknownPlacement | None:
     """``jewel_placement`` as counts, for the results' own ``query``: ``None``
     where a jewel's place can't change its points, ``UnknownPlacement`` where
-    no placement fits the set's slots and points."""
+    no placement fits the set's slots and points. A set loaded from
+    ``settings.cfg`` (multiplier 0: the search never filled it here) is
+    ``refilled`` first, and is ``UnknownPlacement`` when the refill isn't the
+    loaded set."""
+    searched = solution
+    if solution.torso_multiplier == 0:
+        if not place_can_matter(solution):
+            return None
+        refill = refilled(solution, query=query, game=game)
+        if refill is None:
+            return UnknownPlacement()
+        searched = refill
     try:
-        placement = jewel_placement(solution, weapon_slots=query.weapon_slots_allowed)
+        placement = jewel_placement(searched, weapon_slots=query.weapon_slots_allowed)
     except PlacementUnknownError:
         return UnknownPlacement()
     if placement is None:
@@ -227,8 +245,10 @@ def sort_value(solution: Solution, sort_key: SortKey) -> SortValue | None:
     return value
 
 
-def solution_details(solution: Solution, query: Query, sort_key: SortKey) -> SolutionDetails:
-    """One result's details, for the results' own ``query``."""
+def solution_details(
+    solution: Solution, query: Query, sort_key: SortKey, game: GameData
+) -> SolutionDetails:
+    """One result's details, for the results' own ``query`` in ``game``."""
     armors = tuple(
         ArmorLine(armor=armor, note=armor_note(armor, query))
         for armor in solution.armors
@@ -239,7 +259,7 @@ def solution_details(solution: Solution, query: Query, sort_key: SortKey) -> Sol
         armors=armors,
         charm=solution.charm,
         decorations=decoration_counts(solution.decorations),
-        chest_jewels=chest_jewels(solution, query=query),
+        chest_jewels=chest_jewels(solution, query=query, game=game),
         slots_spare=slots_spare(solution, sort_key),
         sort_value=sort_value(solution, sort_key),
         extra_skills=extra_skills,
