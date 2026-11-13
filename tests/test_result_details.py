@@ -19,6 +19,7 @@ from mhp3ass.results.details import (
     ArmorNote,
     ChestJewels,
     DecorationCount,
+    PlacementPending,
     SlotsSpare,
     SortValue,
     UnknownPlacement,
@@ -41,6 +42,7 @@ from mhp3ass.results.placement import (
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.saved_state import LoadedResults, restore_search
+from mhp3ass.savefile.import_charms import select_best
 from mhp3ass.search import SearchData, run_search
 from mhp3ass.settings_cfg import read_settings_cfg
 from mhp3ass.solution import matches_query
@@ -675,8 +677,8 @@ class NamedSplit:
 
 
 def _named(
-    split: ChestJewels | UnknownPlacement | None,
-) -> NamedSplit | UnknownPlacement | None:
+    split: ChestJewels | UnknownPlacement | PlacementPending | None,
+) -> NamedSplit | UnknownPlacement | PlacementPending | None:
     if not isinstance(split, ChestJewels):
         return split
     named = NamedSplit(
@@ -701,7 +703,7 @@ def test_loaded_torso_inc_sets_get_the_split_they_get_after_the_search(
     search finds too gets the split it gets straight after the search. The
     other 5 are duplicates (same charm name and armour) where the original
     kept another copy than the port's ordered search does (quirk 5)."""
-    fresh: dict[SetKey, set[NamedSplit | UnknownPlacement | None]] = {}
+    fresh: dict[SetKey, set[NamedSplit | UnknownPlacement | PlacementPending | None]] = {}
     for solution in one_skill_search.result.results.all_solutions:
         split = chest_jewels(
             solution,
@@ -750,33 +752,57 @@ def test_a_loaded_set_the_refill_cant_reproduce_has_no_placement(loaded_capture_
     assert [len(unreproduced), splits] == [146, {UnknownPlacement()}]
 
 
+def _plain_fill(solution: Solution, query: Query, game: GameData) -> Solution | None:
+    """``solution``'s armour and charm (as custom) through MatchesQuery with
+    whatever relevance the game holds; ``None`` if rejected."""
+    charm = solution.charm.copy() if solution.charm is not None else None
+    if charm is not None:
+        charm.custom = True
+    job = Solution(armors=list(solution.armors), charm=charm)
+    if not matches_query(job, query, game):
+        return None
+    return job
+
+
+@dataclass(frozen=True)
+class RefillingSet:
+    """A loaded set and its refill."""
+
+    solution: Solution
+    refill: Solution
+
+
 @pytest.fixture(scope="module")
-def first_refilling_loaded_set(loaded_capture_13) -> Solution:
-    """Capture 13's first loaded Torso Inc set the refill reproduces."""
+def refilling_loaded_set(loaded_capture_13) -> RefillingSet:
+    """Capture 13's first loaded Torso Inc set that refills."""
     results = loaded_capture_13.results
     game = loaded_capture_13.data.game
-    solution = next(
-        solution
-        for solution in _loaded_sets(loaded_capture_13)
-        if place_can_matter(solution)
-        and refilled(solution, query=results.query, game=game) is not None
-    )
-    return solution
+    for solution in _loaded_sets(loaded_capture_13):
+        if not place_can_matter(solution):
+            continue
+        refill = refilled(solution, query=results.query, game=game)
+        if refill is not None:
+            return RefillingSet(solution=solution, refill=refill)
+    raise LookupError("capture 13 has no loaded set that refills")
 
 
-def test_a_loaded_set_refills_the_same_after_another_relevance_pass(
-    loaded_capture_13, first_refilling_loaded_set, other_query_spec
+def test_a_loaded_set_refills_the_same_after_a_charm_import(
+    loaded_capture_13, refilling_loaded_set
 ):
-    """1a's relevance pass, as a later search makes, leaves other abilities
-    relevant; the refill sets the loaded query's again."""
-    results = loaded_capture_13.results
+    """A charm import's select_best leaves every ability relevant, under which
+    the search's fill fails on this set (a relevant ability it has no need
+    for); the refill sets the loaded query's relevance again."""
     game = loaded_capture_13.data.game
-    before = refilled(first_refilling_loaded_set, query=results.query, game=game)
-    formulate_query(game, other_query_spec.query)
+    query = loaded_capture_13.results.query
+    select_best([], game=game)
+    with pytest.raises(KeyError):
+        _plain_fill(refilling_loaded_set.solution, query=query, game=game)
 
-    after = refilled(first_refilling_loaded_set, query=results.query, game=game)
+    after = refilled(
+        refilling_loaded_set.solution, query=loaded_capture_13.results.query, game=game
+    )
 
-    assert before is not None
+    before = refilling_loaded_set.refill
     assert after is not None
     assert [after.torso_multiplier, after.body_decorations, after.non_body_decorations] == [
         before.torso_multiplier,
@@ -785,42 +811,45 @@ def test_a_loaded_set_refills_the_same_after_another_relevance_pass(
     ]
 
 
-def test_a_loaded_set_has_no_placement_while_a_search_runs(
-    loaded_capture_13, first_refilling_loaded_set
-):
+def test_a_loaded_set_waits_while_a_search_runs(loaded_capture_13, refilling_loaded_set):
     split = chest_jewels(
-        first_refilling_loaded_set, query=loaded_capture_13.results.query, refill_game=None
+        refilling_loaded_set.solution,
+        query=loaded_capture_13.results.query,
+        refill_game=None,
     )
 
-    assert split == UnknownPlacement()
+    assert split == PlacementPending()
 
 
-def test_a_refill_leaves_the_loaded_charm_as_it_was(loaded_capture_13, first_refilling_loaded_set):
-    charm = first_refilling_loaded_set.charm
+def test_a_refill_leaves_the_loaded_charm_as_it_was(loaded_capture_13, refilling_loaded_set):
+    charm = refilling_loaded_set.solution.charm
+    if charm is None:
+        raise LookupError("the flag-dependent set has no charm")
+    before = (charm.num_slots, charm.custom, [(p.ability, p.amount) for p in charm.abilities])
 
     refilled(
-        first_refilling_loaded_set,
+        refilling_loaded_set.solution,
         query=loaded_capture_13.results.query,
         game=loaded_capture_13.data.game,
     )
 
-    assert charm is not None
-    assert charm.custom is False
+    after = (charm.num_slots, charm.custom, [(p.ability, p.amount) for p in charm.abilities])
+    assert after == before
 
 
 @pytest.fixture(scope="module")
 def rejected_loaded_set(loaded_capture_13) -> Solution:
     """Capture 13's first loaded Torso Inc set whose armour and charm
-    MatchesQuery rejects when filled again."""
+    MatchesQuery rejects when filled again under its own relevance."""
     results = loaded_capture_13.results
     game = loaded_capture_13.data.game
     for solution in _loaded_sets(loaded_capture_13):
-        if not place_can_matter(solution) or solution.charm is None:
+        if not place_can_matter(solution):
             continue
-        charm = solution.charm.copy()
-        charm.custom = True
-        job = Solution(armors=list(solution.armors), charm=charm)
-        if not matches_query(job, results.query, game):
+        # Sets the loaded query's relevance, for the plain fill after it.
+        if refilled(solution, query=results.query, game=game) is not None:
+            continue
+        if _plain_fill(solution, query=results.query, game=game) is None:
             return solution
     raise LookupError("capture 13 has no loaded set the refill rejects")
 

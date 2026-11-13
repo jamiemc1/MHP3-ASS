@@ -22,6 +22,7 @@ from mhp3ass.results.details import (
     ArmorNote,
     ChestJewels,
     DecorationCount,
+    PlacementPending,
     SlotsSpare,
     SolutionDetails,
     UnknownPlacement,
@@ -75,12 +76,15 @@ def jewel_lines(details: SolutionDetails) -> list[InspectorLine]:
     changes its points (``details.chest_jewels``), the chest's under
     "Chest xN", N being how many times its points count ("none" when it
     takes none), and the rest under "Elsewhere". A Torso Inc set whose
-    placement isn't known keeps the one list, saying so."""
+    placement isn't known, or waits for a search to finish, keeps the one
+    list, saying which."""
     jewels = details.chest_jewels
     if not isinstance(jewels, ChestJewels):
         lines = _counted_lines("Jewels", details.decorations)
         if isinstance(jewels, UnknownPlacement):
             lines.append(InspectorLine(label="", text="(placement not known)"))
+        elif isinstance(jewels, PlacementPending):
+            lines.append(InspectorLine(label="", text="(placement after the search)"))
         return lines
     chest_label = f"Chest x{jewels.multiplier}"
     chest_lines = _counted_lines(chest_label, jewels.chest)

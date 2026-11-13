@@ -63,11 +63,9 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
     taken: the fewest jewels in the chest, then the earliest in the shown
     order. Raises ``PlacementUnknownError`` when no split is valid (quirk 52).
     """
-    if solution.torso_multiplier <= 1 or not place_can_matter(solution):
-        return None
     chest_armor = solution.armors[1]
-    if chest_armor is None:
-        raise ValueError("place_can_matter passed a set without a chest piece")
+    if solution.torso_multiplier <= 1 or chest_armor is None or not place_can_matter(solution):
+        return None
     multiplier = solution.torso_multiplier
     jewels = solution.decorations
     check = _PlacementCheck(
