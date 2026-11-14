@@ -7,7 +7,7 @@ import signal
 import sys
 from dataclasses import dataclass, replace
 from pathlib import Path
-from threading import Event
+from threading import Event, Lock
 from typing import Any, ClassVar
 
 from textual import work
@@ -152,6 +152,8 @@ class SearchApp(App[bool]):
         self._files = files
         self._strings = strings
         self._startup = startup
+        # Held by a search and by the inspector's placements: both set the abilities' relevance.
+        self._game_lock = Lock()
         self._last_search_gunner = startup.search.last_search_gunner
         # What the results pane and the hint show, kept to rebuild them in another language.
         self._sort_key = startup.search.sort_key
@@ -181,6 +183,7 @@ class SearchApp(App[bool]):
             sort_key=self._sort_key,
             reverse=self._reverse,
             is_searching=self._searching,
+            game_lock=self._game_lock,
         )
         yield Footer()
 
@@ -198,7 +201,14 @@ class SearchApp(App[bool]):
             pane = self.query_one(ResultsPane)
             # Reversed before the rows are built, so show needn't build them again.
             view.select_reverse(pane.reverse)
-            pane.show(view, rows=view_rows(view), query=results.query, game=self._data.game)
+            # The file doesn't keep which charms the search ran with.
+            pane.show(
+                view,
+                rows=view_rows(view),
+                query=results.query,
+                game=self._data.game,
+                charm_templates=None,
+            )
             self._collapse_editor()
             count = len(view.all_solutions) + results.charm_free_only_under_none
             self._set_hint(f"{count:,} sets from last time.")
@@ -413,6 +423,7 @@ class SearchApp(App[bool]):
         pane = self.query_one(ResultsPane)
         view = pane.view
         query = pane.results_query
+        charm_templates = pane.charm_templates
         cursor = self.query_one(ResultsTable).cursor
         collapsed = not self.editor.display
         self._sort_key = pane.sort_key
@@ -422,7 +433,11 @@ class SearchApp(App[bool]):
         if view is not None and query is not None:
             view.relanguage()
             self.query_one(ResultsPane).show(
-                view, rows=view_rows(view), query=query, game=self._data.game
+                view,
+                rows=view_rows(view),
+                query=query,
+                game=self._data.game,
+                charm_templates=charm_templates,
             )
             self.query_one(ResultsTable).cursor = cursor
         if collapsed:
@@ -598,14 +613,16 @@ class SearchApp(App[bool]):
                 language=self._language,
                 my_charms=tuple(read_lines(self._files.my_charms)),
             )
-            result = run_search(
-                spec,
-                data=self._data,
-                record_exceptions=True,
-                pool=self.pool,
-                on_progress=report,
-                cancel=cancel,
-            )
+            # The inspector works out placements in the same game in a thread.
+            with self._game_lock:
+                result = run_search(
+                    spec,
+                    data=self._data,
+                    record_exceptions=True,
+                    pool=self.pool,
+                    on_progress=report,
+                    cancel=cancel,
+                )
         except SearchCancelled:
             return
         except (
@@ -636,7 +653,13 @@ class SearchApp(App[bool]):
         self.result = result
         self._searched_form = self._running_form
         self._last_search_gunner = result.query.hunter_type is HunterType.GUNNER
-        self.query_one(ResultsPane).show(view, rows=rows, query=result.query, game=self._data.game)
+        self.query_one(ResultsPane).show(
+            view,
+            rows=rows,
+            query=result.query,
+            game=self._data.game,
+            charm_templates=tuple(worker.template for worker in result.workers),
+        )
         self._collapse_editor()
         # SaveConfig once the last worker returns (Form1.h:1830).
         self._save()

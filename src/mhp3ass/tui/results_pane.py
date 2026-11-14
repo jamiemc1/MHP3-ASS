@@ -9,9 +9,12 @@ shows ``ResultsView.final`` one row per set.
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
+from dataclasses import dataclass, replace
+from threading import Lock
 from typing import ClassVar
 
 from rich.cells import cell_len, set_cell_size
+from textual import work
 from textual.app import ComposeResult
 from textual.binding import Binding, BindingType
 from textual.containers import Horizontal, Vertical
@@ -19,14 +22,18 @@ from textual.content import Content
 from textual.message import Message
 from textual.widgets import Input, Label, OptionList, Select
 from textual.widgets.option_list import Option
+from textual.worker import get_current_worker
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
+from mhp3ass.model import Charm
 from mhp3ass.query import Query
+from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow, table_row
 from mhp3ass.results.view import CharmFilter, ResultsView
+from mhp3ass.solution.state import Solution
 from mhp3ass.tui.inspector import Inspector
 from mhp3ass.tui.results_table import ResultsTable
 
@@ -70,6 +77,20 @@ class FindBox(Input):
         self.post_message(self.Closed())
 
 
+@dataclass(frozen=True)
+class JewelJob:
+    """A placement to work out: highlight ``inspection``'s set ``number``,
+    and what ``solution_details`` needs for it."""
+
+    inspection: int
+    number: int
+    solution: Solution
+    query: Query
+    sort_key: SortKey
+    game: GameData
+    charm_templates: tuple[Charm | None, ...] | None
+
+
 class ResultsPane(Horizontal):
     """Shows one ``ResultsView``; the sidebar and the sort line change it."""
 
@@ -107,12 +128,17 @@ class ResultsPane(Horizontal):
         sort_key: SortKey,
         reverse: bool,
         is_searching: Callable[[], bool],
+        game_lock: Lock,
     ) -> None:
-        """``is_searching`` says whether a search is using the game, when loaded
-        sets can't be filled again for their placements."""
+        """``is_searching`` says whether a search is using the game, when sets
+        can't be filled again for their placements; ``game_lock`` is held
+        while a search or a placement uses it."""
         super().__init__()
         self._strings = strings
         self._is_searching = is_searching
+        self._game_lock = game_lock
+        # Counts highlights, so a placement worked out for an earlier one is dropped.
+        self._inspection = 0
         self.view: ResultsView | None = None
         # The drop-down's value: a Changed event that leaves it as it was is no change.
         self._sort_key = sort_key
@@ -122,6 +148,7 @@ class ResultsPane(Horizontal):
         self._options: list[Option] = []
         self._query: Query | None = None
         self._game: GameData | None = None
+        self._charm_templates: tuple[Charm | None, ...] | None = None
         self._needle = ""
         # Find texts by id(solution); the view keeps every solution alive.
         self._text_by_set: dict[int, str] = {}
@@ -153,6 +180,11 @@ class ResultsPane(Horizontal):
         return self._query
 
     @property
+    def charm_templates(self) -> tuple[Charm | None, ...] | None:
+        """The shown results' charm templates, as ``show`` was given them."""
+        return self._charm_templates
+
+    @property
     def sort_key(self) -> SortKey:
         value = self.query_one("#sort_key", Select).value
         if not isinstance(value, SortKey):
@@ -160,16 +192,24 @@ class ResultsPane(Horizontal):
         return value
 
     def show(
-        self, view: ResultsView, rows: Sequence[TableRow], query: Query, game: GameData
+        self,
+        view: ResultsView,
+        rows: Sequence[TableRow],
+        query: Query,
+        game: GameData,
+        charm_templates: tuple[Charm | None, ...] | None,
     ) -> None:
         """Show a new search's view and the rows of its ``final`` (``view_rows``);
         ``query`` is the results' own, for the inspector's notes and extra skills,
-        and ``game`` the one they were found in, for its jewel placements.
+        ``game`` the one they were found in, for its jewel placements, and
+        ``charm_templates`` the search's workers' charms (``None`` for loaded
+        results), for a set that can't be built as listed (quirk 52).
         The view was built with the sort and reverse of the search's start; if
         they changed while it ran, it is sorted again here."""
         self.view = view
         self._query = query
         self._game = game
+        self._charm_templates = charm_templates
         self._text_by_set = {}
         self._fill_filters()
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
@@ -188,19 +228,63 @@ class ResultsPane(Horizontal):
         self._inspect(self.query_one(ResultsTable).cursor)
 
     def _inspect(self, row: int) -> None:
+        """Show set ``row`` at once; a placement that needs the set filled
+        again (a loaded set, or one whose shown jewels don't fit, quirk 52)
+        shows as being worked out, and is worked out in a thread."""
+        self._inspection += 1
         view = self.view
         inspector = self.query_one(Inspector)
         # A highlight posted before the rows were replaced can be past the new end.
         if view is None or self._query is None or self._game is None or row >= len(view.final):
             inspector.clear()
             return
-        inspector.show(
-            row + 1,
-            view.final[row],
+        solution = view.final[row]
+        details = solution_details(
+            solution,
             query=self._query,
             sort_key=view.sort_key,
-            refill_game=None if self._is_searching() else self._game,
+            refill_game=None,
+            charm_templates=self._charm_templates,
         )
+        if not isinstance(details.chest_jewels, PlacementPending) or self._is_searching():
+            inspector.show(row + 1, solution, details)
+            return
+        working = replace(details, chest_jewels=PlacementPending(while_searching=False))
+        inspector.show(row + 1, solution, working)
+        self._work_out_jewels(
+            JewelJob(
+                inspection=self._inspection,
+                number=row + 1,
+                solution=solution,
+                query=self._query,
+                sort_key=view.sort_key,
+                game=self._game,
+                charm_templates=self._charm_templates,
+            )
+        )
+
+    @work(thread=True, exclusive=True, group="jewels")
+    def _work_out_jewels(self, job: JewelJob) -> None:
+        """The set's details with its placement, under the game lock a search
+        also takes (both fill sets and set the abilities' relevance)."""
+        with self._game_lock:
+            # A later highlight cancelled this one while it waited: skip the work.
+            if get_current_worker().is_cancelled:
+                return
+            details = solution_details(
+                job.solution,
+                query=job.query,
+                sort_key=job.sort_key,
+                refill_game=job.game,
+                charm_templates=job.charm_templates,
+            )
+        self.app.call_from_thread(self._jewels_worked_out, job, details)
+
+    def _jewels_worked_out(self, job: JewelJob, details: SolutionDetails) -> None:
+        # Moving on since the job started makes its result stale.
+        if job.inspection != self._inspection:
+            return
+        self.query_one(Inspector).show(job.number, job.solution, details)
 
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id != "sort_key":

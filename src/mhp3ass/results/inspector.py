@@ -21,10 +21,12 @@ from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
     ChestJewels,
+    CorrectedJewels,
     DecorationCount,
     PlacementPending,
     SlotsSpare,
     SolutionDetails,
+    UnbuildableJewels,
     UnknownPlacement,
 )
 from mhp3ass.results.difficulty import hard_materials
@@ -77,15 +79,59 @@ def jewel_lines(details: SolutionDetails) -> list[InspectorLine]:
     "Chest xN", N being how many times its points count ("none" when it
     takes none), and the rest under "Elsewhere". A Torso Inc set whose
     placement isn't known, or waits for a search to finish, keeps the one
-    list, saying which."""
+    list, saying which.
+
+    A set whose listed jewels can't be placed (quirk 52) shows the version
+    that builds instead, after a note, and under "Builds with" the charm it
+    needs when that isn't the listed one; one no jewel list builds keeps the
+    listed jewels and says why."""
     jewels = details.chest_jewels
-    if not isinstance(jewels, ChestJewels):
-        lines = _counted_lines("Jewels", details.decorations)
-        if isinstance(jewels, UnknownPlacement):
+    match jewels:
+        case ChestJewels():
+            return _split_lines(jewels)
+        case CorrectedJewels(charm_changed=False):
+            note = "(the listed jewels don't fit; these build it)"
+            return [InspectorLine(label="Jewels", text=note), *_split_lines(jewels.jewels)]
+        case CorrectedJewels():
+            note = "(the listed charm and jewels don't fit; these build it)"
+            charm = "no charm" if jewels.charm is None else charm_name(jewels.charm)
+            lines = [
+                InspectorLine(label="Jewels", text=note),
+                InspectorLine(label="Builds with", text=charm),
+                *_split_lines(jewels.jewels),
+            ]
+            return lines
+    lines = _counted_lines("Jewels", details.decorations)
+    match jewels:
+        case UnknownPlacement():
             lines.append(InspectorLine(label="", text="(placement not known)"))
-        elif isinstance(jewels, PlacementPending):
+        case PlacementPending(while_searching=True):
             lines.append(InspectorLine(label="", text="(placement after the search)"))
-        return lines
+        case PlacementPending():
+            lines.append(InspectorLine(label="", text="(working out jewels…)"))
+        case UnbuildableJewels():
+            lines.append(
+                InspectorLine(label="", text=f"(can't be built as listed: {_why(jewels)})")
+            )
+    return lines
+
+
+def _why(jewels: UnbuildableJewels) -> str:
+    reason = jewels.reason
+    if reason.bad_skills:
+        names = ", ".join(skill.name for skill in reason.bad_skills)
+        verb = "stays" if len(reason.bad_skills) == 1 else "stay"
+        return f"{names} {verb} active"
+    if not reason.short:
+        return "the skills can't all reach their points together"
+    short = ", ".join(
+        f"{line.skill.ability.name} reaches {line.most} of {line.skill.points_required}"
+        for line in reason.short
+    )
+    return short
+
+
+def _split_lines(jewels: ChestJewels) -> list[InspectorLine]:
     chest_label = f"Chest x{jewels.multiplier}"
     chest_lines = _counted_lines(chest_label, jewels.chest)
     if not chest_lines:
