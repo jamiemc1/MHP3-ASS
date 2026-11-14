@@ -42,6 +42,7 @@ re-read docs and PR text before pushing.
 - **Making a private function public needs its own tests in the same PR.** Its callers' tests don't count: test every input type it accepts (e.g. both `SolutionRecord`s and `Solution`s), its edge cases and the errors it raises
 - PR bodies follow the workspace template (Why / Testing / Risk / How to revert) and the "Never commit" rules above
 - **Merges are rebase merges**, which give the commits new SHAs. Never reuse a merged branch; start the next one from the updated `master`
+- After a restack, the agent updates a stacked PR's "Stacked on" line with `gh-personal pr edit`; no other PR-body or title edits without asking
 - **Tidy branches as you go.** Once a PR merges: fast-forward local `master`, delete the branch locally and on the remote (`git push origin --delete <branch>`), and `git fetch --prune`. Do the same on the Windows build machine's checkout. Leave no stale branches behind on any machine
 - **Branch names** describe the work (`phase-1-harness`, `docs/branch-hygiene`), one branch per PR
 
