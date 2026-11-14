@@ -12,7 +12,7 @@ from pathlib import Path
 from threading import Event, Lock
 from typing import Any, ClassVar
 
-from textual import work
+from textual import events, work
 from textual.app import App, ComposeResult, SystemCommand
 from textual.binding import BindingType
 from textual.containers import Horizontal
@@ -234,6 +234,9 @@ class SearchApp(App[bool]):
         self.theme_changed_signal.subscribe(self, self._theme_changed)
         self._save()
         self._save_on_close_signals()
+
+    def on_resize(self, event: events.Resize) -> None:
+        self.editor.fit_height(event.size.height)
 
     def _save_on_close_signals(self) -> None:
         """Closing the terminal sends SIGHUP and a shutdown sends SIGTERM; Textual
@@ -632,23 +635,41 @@ class SearchApp(App[bool]):
     def action_spatial(self, direction: str) -> None:
         """An arrow on an editor field: the field beside it, or on the row
         above or below (``spatial.neighbour``). Each of the editor's
-        horizontal containers is a row; a field outside one is a row of its own."""
+        horizontal containers is a row; a field outside one is a row of its own.
+        An arrow with no field that way does nothing (⏎ or space opens a drop-down)."""
         fields = self._editor_fields()
+        current = self._focused_field(fields)
+        if current is None:
+            return
         rows: dict[Widget, list[FieldBox]] = {}
         for key, widget in enumerate(fields):
             row = next(
                 (ancestor for ancestor in widget.ancestors if isinstance(ancestor, Horizontal)),
                 widget,
             )
-            region = widget.virtual_region
-            rows.setdefault(row, []).append(FieldBox(key, x=region.x, width=region.width))
-        focused = self.focused
-        current = next((key for key, field in enumerate(fields) if field is focused), None)
-        if current is None:
-            return
+            rows.setdefault(row, []).append(
+                FieldBox(key, x=self._editor_x(widget), width=widget.virtual_region.width)
+            )
         target = neighbour(list(rows.values()), current=current, direction=Direction(direction))
         if target is not None:
             fields[target].focus()
+
+    def _focused_field(self, fields: list[Widget]) -> int | None:
+        """The index of the focused widget in ``fields``, or ``None``."""
+        focused = self.focused
+        index = next((index for index, field in enumerate(fields) if field is focused), None)
+        return index
+
+    def _editor_x(self, widget: Widget) -> int:
+        """``widget``'s column in the editor's own frame, whatever the
+        containers between them (each ``virtual_region`` is its container's)."""
+        x = widget.virtual_region.x
+        for ancestor in widget.ancestors:
+            if ancestor is self.editor:
+                break
+            if isinstance(ancestor, Widget):
+                x += ancestor.virtual_region.x
+        return x
 
     def action_cycle(self, step: int) -> None:
         """Tab (``step`` 1) and Shift+Tab (-1): inside the open editor, the
@@ -662,8 +683,7 @@ class SearchApp(App[bool]):
         editor_open = self.editor.display
         if region is Region.QUERY and editor_open:
             fields = self._editor_fields()
-            focused = self.focused
-            current = next((index for index, field in enumerate(fields) if field is focused), None)
+            current = self._focused_field(fields)
             if current is not None and 0 <= current + step < len(fields):
                 fields[current + step].focus()
                 return
