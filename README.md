@@ -28,8 +28,8 @@ implementations.
 ```bash
 uv sync
 uv run pre-commit install
-uv run pytest
-uv run pre-commit run --all-files   # ruff format, ruff check, ty, pytest
+uv run pytest -n 4         # the default suite on 4 workers; drop -n for one test or --pdb
+uv run pre-commit run --all-files   # ruff format, ruff check, ty, pytest (on 4 workers)
 uv run pytest -m fuzz      # the full fuzz and L3 gates (minutes)
 uv run pytest -m results   # every settings.cfg save/load golden
 ```
