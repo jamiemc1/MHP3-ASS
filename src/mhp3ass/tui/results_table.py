@@ -22,12 +22,7 @@ from textual.reactive import reactive
 from textual.scroll_view import ScrollView
 from textual.strip import Strip
 
-from mhp3ass.column_window import (
-    ColumnWindow,
-    column_window,
-    last_first,
-    spare_cells,
-)
+from mhp3ass.column_window import column_window, spare_cells
 from mhp3ass.keys import results_keys
 from mhp3ass.results.table import TableRow, fit_widths, truncate
 
@@ -59,6 +54,7 @@ class ResultsTable(ScrollView, can_focus=True):
     DEFAULT_CSS = """
     ResultsTable {
         height: 1fr;
+        overflow-x: hidden;
     }
     ResultsTable > .results-table--header {
         text-style: bold;
@@ -116,12 +112,12 @@ class ResultsTable(ScrollView, can_focus=True):
         # Each column's widest cell, and the widths the table's width leaves them.
         self._widths = [cell_len(header) for header in self._headers]
         self._fitted = list(self._widths)
-        # The first scrolled column in view, an index into the columns that aren't pinned.
-        self._first = 0
+        # The columns in view, and the width they were worked out for.
         self._window = column_window(self._fitted, pinned=pinned, first=0, width=0)
+        self._layout_width = 0
         # Shown on the first line while there are no rows.
         self.empty_text = ""
-        self._update_size()
+        self._update_size(first=0)
 
     @property
     def row_count(self) -> int:
@@ -132,7 +128,7 @@ class ResultsTable(ScrollView, can_focus=True):
         return cells
 
     def set_rows(self, rows: Sequence[TableRow]) -> None:
-        """Show ``rows``, with the cursor on the first."""
+        """Show ``rows``, with the cursor on the first and the columns scrolled to the start."""
         self._rows = rows
         widths = [cell_len(header) for header in self._headers]
         widths[0] = max(widths[0], len(str(len(rows))))
@@ -142,7 +138,7 @@ class ResultsTable(ScrollView, can_focus=True):
                 if width > widths[column]:
                     widths[column] = width
         self._widths = widths
-        self._update_size()
+        self._update_size(first=0)
         self.scroll_to(0, 0, animate=False)
         self.refresh()
         # Moving the cursor posts Highlighted; a cursor already at the top needs it posted here.
@@ -153,17 +149,14 @@ class ResultsTable(ScrollView, can_focus=True):
             self.cursor = 0
 
     def on_resize(self, event: events.Resize) -> None:
-        self._update_size()
+        self._update_size(first=self._window.first)
         self.refresh()
 
-    def _line_width(self) -> int:
-        width = self.scrollable_content_region.width
-        return width
-
-    def _update_size(self) -> None:
+    def _update_size(self, first: int) -> None:
         """Fit the ``must_fit`` columns to the table's width (``fit_widths``),
-        then work out which columns show and size the scroll area."""
-        width = self._line_width()
+        then work out which columns show from ``first`` (``column_window``)
+        and size the scroll area."""
+        width = self.scrollable_content_region.width
         scrolled_must_fit = len(self._must_fit - self._pinned)
         available = width - spare_cells(len(self._pinned), scrolled=scrolled_must_fit)
         self._fitted = (
@@ -176,17 +169,10 @@ class ResultsTable(ScrollView, can_focus=True):
             if width > 0
             else list(self._widths)
         )
-        self._first = min(self._first, last_first(self._fitted, pinned=self._pinned, width=width))
-        self._window = column_window(
-            self._fitted, pinned=self._pinned, first=self._first, width=width
-        )
-        # The window scrolls the columns, so the scroll area is only as wide as the table.
-        self.virtual_size = Size(width, len(self._rows) + 1)
-
-    @property
-    def window(self) -> ColumnWindow:
-        """The columns in view."""
-        return self._window
+        self._window = column_window(self._fitted, pinned=self._pinned, first=first, width=width)
+        self._layout_width = width
+        # The window scrolls the columns, so the scroll area has no width of its own.
+        self.virtual_size = Size(0, len(self._rows) + 1)
 
     def _cell(self, column: int, full: str, width: int) -> str:
         cell = truncate(full, width)
@@ -198,7 +184,7 @@ class ResultsTable(ScrollView, can_focus=True):
         """A line of ``cells`` laid out as ``column_window`` says, with the
         ``<`` and ``>`` markers if ``markers`` (the header line)."""
         window = self._window
-        width = self._line_width()
+        width = self._layout_width
         pinned = "  ".join(
             self._cell(column, cells[column], self._fitted[column]) for column in window.pinned
         )
@@ -221,8 +207,11 @@ class ResultsTable(ScrollView, can_focus=True):
         return text
 
     def render_line(self, y: int) -> Strip:
+        # The vertical scrollbar comes and goes with the rows without a resize.
+        if self.scrollable_content_region.width != self._layout_width:
+            self._update_size(first=self._window.first)
         scroll_y = int(self.scroll_offset.y)
-        width = self._line_width()
+        width = self._layout_width
         if y == 0:
             text = self._line_text(self._headers, markers=True)
             style = self.get_component_rich_style("results-table--header")
@@ -271,20 +260,16 @@ class ResultsTable(ScrollView, can_focus=True):
     def action_jump(self, row: int) -> None:
         self.cursor = self._clamped(row if row >= 0 else len(self._rows) - 1)
 
-    def _scroll_to_column(self, first: int) -> None:
-        last = last_first(self._fitted, pinned=self._pinned, width=self._line_width())
-        self._first = min(max(first, 0), last)
-        self._update_size()
-        self.refresh()
-
     def action_column_step(self, step: int) -> None:
         """Scroll the unpinned columns by ``step`` whole columns."""
-        self._scroll_to_column(self._first + step)
+        self._update_size(first=self._window.first + step)
+        self.refresh()
 
     def action_column_end(self, direction: int) -> None:
-        """Scroll to the first unpinned column (``direction`` -1) or the last (1)."""
-        last = last_first(self._fitted, pinned=self._pinned, width=self._line_width())
-        self._scroll_to_column(0 if direction < 0 else last)
+        """Scroll to the first unpinned column (``direction`` -1) or the last
+        (1; ``column_window`` stops at the furthest it need go)."""
+        self._update_size(first=0 if direction < 0 else len(self._widths))
+        self.refresh()
 
     def on_click(self, event: events.Click) -> None:
         row = int(self.scroll_offset.y) + event.y - 1
