@@ -54,7 +54,9 @@ def test_no_tui_toml_gives_the_defaults(tmp_path):
 
 def test_settings_survive_a_write_and_read(tmp_path):
     path = tmp_path / "config" / "tui.toml"
-    settings = TuiSettings(data_dir=Path('/Volumes/Shared/MHP3 "Run"'), jobs=4, reverse=True)
+    settings = TuiSettings(
+        data_dir=Path('/Volumes/Shared/MHP3 "Run"'), jobs=4, reverse=True, theme="tokyo-night"
+    )
 
     write_tui_settings(path, settings)
 
@@ -65,6 +67,17 @@ def test_defaults_write_an_empty_file():
     assert tui_settings_text(TuiSettings()) == ""
 
 
+def test_a_theme_is_written_as_a_string():
+    assert tui_settings_text(TuiSettings(theme="nord")) == 'theme = "nord"\n'
+
+
+def test_a_theme_is_read_back(tmp_path):
+    path = tmp_path / "tui.toml"
+    path.write_text('theme = "gruvbox"\n', encoding="utf-8")
+
+    assert read_tui_settings(path) == TuiSettings(theme="gruvbox")
+
+
 @pytest.mark.parametrize(
     ("text", "message"),
     [
@@ -73,6 +86,7 @@ def test_defaults_write_an_empty_file():
         ("jobs = 'eight'\n", "jobs must be a whole number"),
         ("jobs = true\n", "jobs must be a whole number"),
         ("reverse = 'yes'\n", "reverse must be true or false"),
+        ("theme = 3\n", "theme must be a string"),
         ("jobs = 0\n", "jobs must be at least 1"),
     ],
 )
