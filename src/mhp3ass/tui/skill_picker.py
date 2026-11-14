@@ -50,10 +50,11 @@ class SkillPicker(Vertical):
         height: auto;
     }
     SkillPicker #chips ChipButton {
-        margin: 1 1 0 0;
+        margin: 0 1 0 0;
     }
     SkillPicker #skill_search {
         width: 40;
+        margin: 0 1 0 2;
     }
     SkillPicker #skill_tag {
         width: 22;
@@ -68,6 +69,10 @@ class SkillPicker(Vertical):
 
     class SearchRequested(Message):
         """Enter in the empty search box: search with the chosen skills."""
+
+    class LeftUpwards(Message):
+        """Up in the search box at the top of the offered skills: the field
+        above should take the focus."""
 
     class RowsChanged(Message):
         """New rows for ``hunter_type``'s tab (the tab shown when they changed)."""
@@ -98,14 +103,15 @@ class SkillPicker(Vertical):
         with Horizontal(id="chips"):
             yield Label(self._strings.static(StringIndex.SKILLS))
         with Horizontal():
-            yield SkillSearch(placeholder="add skill", id="skill_search")
+            yield SkillSearch(placeholder="add skill", compact=True, id="skill_search")
             yield Select(
                 [(tag.name, index) for index, tag in enumerate(self._game.skill_tags)],
                 value=0,
                 allow_blank=False,
+                compact=True,
                 id="skill_tag",
             )
-        yield OptionList(id="skill_options")
+        yield OptionList(compact=True, id="skill_options")
 
     def on_mount(self) -> None:
         self._refresh()
@@ -183,10 +189,15 @@ class SkillPicker(Vertical):
         if event.key not in ("up", "down") or not isinstance(self.app.focused, SkillSearch):
             return
         event.stop()
+        options = self.query_one("#skill_options", OptionList)
+        # Up from the top of the list (or with none shown) goes to the row above.
+        at_top = not options.display or options.highlighted in (None, 0)
+        if event.key == "up" and at_top:
+            self.post_message(self.LeftUpwards())
+            return
         self._browsed = True
         self._dismissed = False
         self._show_options()
-        options = self.query_one("#skill_options", OptionList)
         if event.key == "up":
             options.action_cursor_up()
         else:

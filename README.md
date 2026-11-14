@@ -55,7 +55,11 @@ selected set's pieces, jewels, spare slots, extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
 After a search the editor collapses to a one-line summary (the options
 show only where they differ from the defaults): `e` (or `1`) reopens it.
-The screen has three regions, numbered in their
+The open editor takes at most about 40 % of the screen and scrolls past
+that. In it, ←/→ move between the fields on a row and ↑/↓ between rows;
+⏎ or space opens a drop-down, which then takes ↑/↓ itself. The skill box
+keeps its own arrows (▲▼ browse the offered skills; ▲ at the top of the
+list goes up a row). The screen has three regions, numbered in their
 titles: ¹ the query, ² the charm sidebar and ³ the sets. Tab and Shift+Tab
 move between them (inside the open editor, between its fields first), and
 `1`, `2` and `3` jump to one (in the skill box the digits type: Esc or Tab

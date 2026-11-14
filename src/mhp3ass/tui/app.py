@@ -58,6 +58,7 @@ from mhp3ass.search import (
 )
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
+from mhp3ass.spatial import Direction, FieldBox, neighbour
 from mhp3ass.themes import starting_theme
 from mhp3ass.tui.options import ChoiceScreen, OptionsScreen, ThemeList
 from mhp3ass.tui.query_editor import QueryEditor
@@ -520,6 +521,10 @@ class SearchApp(App[bool]):
         event.stop()
         self.action_search()
 
+    def on_skill_picker_left_upwards(self, event: SkillPicker.LeftUpwards) -> None:
+        event.stop()
+        self.action_spatial(Direction.UP.value)
+
     def action_search(self) -> None:
         if self._cancel is not None:
             return
@@ -609,7 +614,41 @@ class SearchApp(App[bool]):
         # Esc closes the keys panel ahead of anything else, a modal under it included.
         if action == "hide_help_panel" and not self.screen.query(HelpPanel):
             return False
+        # Text boxes and lists keep their own arrows, and an open drop-down its ▲▼.
+        if action == "spatial" and not self._on_spatial_field():
+            return False
         return super().check_action(action, parameters)
+
+    def _on_spatial_field(self) -> bool:
+        """The focus is on one of the main screen's editor's drop-downs or buttons."""
+        focused = self.focused
+        on_field = (
+            len(self.screen_stack) == 1
+            and isinstance(focused, Select | Button)
+            and self.editor in focused.ancestors
+        )
+        return on_field
+
+    def action_spatial(self, direction: str) -> None:
+        """An arrow on an editor field: the field beside it, or on the row
+        above or below (``spatial.neighbour``). Each of the editor's
+        horizontal containers is a row; a field outside one is a row of its own."""
+        fields = self._editor_fields()
+        rows: dict[Widget, list[FieldBox]] = {}
+        for key, widget in enumerate(fields):
+            row = next(
+                (ancestor for ancestor in widget.ancestors if isinstance(ancestor, Horizontal)),
+                widget,
+            )
+            region = widget.virtual_region
+            rows.setdefault(row, []).append(FieldBox(key, x=region.x, width=region.width))
+        focused = self.focused
+        current = next((key for key, field in enumerate(fields) if field is focused), None)
+        if current is None:
+            return
+        target = neighbour(list(rows.values()), current=current, direction=Direction(direction))
+        if target is not None:
+            fields[target].focus()
 
     def action_cycle(self, step: int) -> None:
         """Tab (``step`` 1) and Shift+Tab (-1): inside the open editor, the
