@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from mhp3ass.editor_rows import chip_width, chips_share_row, select_width
+from mhp3ass.editor_rows import chip_label, chip_width, chips_cells, chips_share_row, select_width
 
 
 def test_a_drop_down_is_its_longest_label_and_four_cells():
@@ -45,3 +45,15 @@ def test_a_chip_is_its_name_the_cross_and_a_cell_either_side():
 
 def test_a_chip_counts_wide_characters_as_two_cells():
     assert chip_width("攻撃力") == 10
+
+
+def test_a_chip_reads_as_the_skill_and_a_cross():
+    assert chip_label("Sharp Sword") == "Sharp Sword ✕"
+
+
+def test_the_chips_take_their_widths_and_a_cell_after_each():
+    assert chips_cells([10, 12]) == 24
+
+
+def test_no_chips_take_no_cells():
+    assert chips_cells([]) == 0

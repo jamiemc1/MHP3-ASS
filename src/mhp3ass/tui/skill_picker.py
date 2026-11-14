@@ -13,7 +13,13 @@ from textual.widgets.option_list import Option
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
-from mhp3ass.editor_rows import chip_width, chips_share_row, select_width
+from mhp3ass.editor_rows import (
+    chip_label,
+    chip_width,
+    chips_cells,
+    chips_share_row,
+    select_width,
+)
 from mhp3ass.model import HunterType, Skill
 from mhp3ass.skill_chips import add_chip, addable_skills, remove_chip, rows_full
 from mhp3ass.skill_picker import SkillRow, query_skills
@@ -23,7 +29,7 @@ class ChipButton(Button):
     """A chosen skill; pressing it removes the skill."""
 
     def __init__(self, skill: Skill) -> None:
-        super().__init__(Content(f"{skill.name} ✕"), compact=True)
+        super().__init__(Content(chip_label(skill.name)), compact=True)
         self.skill = skill
 
 
@@ -45,8 +51,8 @@ class SkillPicker(Vertical):
 
     The chosen skills' chips follow the skills' label, on the search box's
     row where they fit before it (``chips_share_row``), else on a row of
-    their own above it. The label and the search box start at the editor's
-    ``lead`` column."""
+    their own above it. The label takes the editor's ``lead`` column, and
+    the offered skills open under the search box."""
 
     DEFAULT_CSS = """
     SkillPicker {
@@ -62,10 +68,14 @@ class SkillPicker(Vertical):
     SkillPicker #skill_search {
         margin: 0 1 0 0;
     }
+    SkillPicker #skill_tag {
+        margin: 0;
+    }
     SkillPicker #skill_options {
         height: auto;
         max-height: 6;
-        width: 64;
+        width: 1fr;
+        max-width: 64;
     }
     """
 
@@ -133,22 +143,21 @@ class SkillPicker(Vertical):
             )
             tags.styles.width = self._tag_width
             yield tags
-        options = OptionList(compact=True, id="skill_options")
-        options.styles.margin = (0, 0, 0, self._lead)
-        yield options
+        yield OptionList(compact=True, id="skill_options")
 
     def on_mount(self) -> None:
         self._refresh()
 
     def on_resize(self, event: events.Resize) -> None:
-        if self._shares_row(event.size.width) != self._chips_shared:
+        widths = [chip_width(skill.name) for skill in query_skills(self.rows)]
+        if self._shares_row(widths, room=event.size.width) != self._chips_shared:
             self._place_chips()
 
-    def _shares_row(self, room: int) -> bool:
-        """The chosen skills' chips fit on the search box's row, ``room`` cells wide."""
+    def _shares_row(self, chip_widths: list[int], room: int) -> bool:
+        """Chips ``chip_widths`` wide fit on the search box's row, ``room`` cells wide."""
         shared = chips_share_row(
             label=self._lead,
-            chips=[chip_width(skill.name) for skill in query_skills(self.rows)],
+            chips=chip_widths,
             fields=self._search_width + 1 + self._tag_width,
             room=room,
         )
@@ -156,11 +165,23 @@ class SkillPicker(Vertical):
 
     def _place_chips(self) -> None:
         """Show a chip for each chosen skill, on the search box's row if
-        they fit there, else on their own row above it."""
-        shared = self._shares_row(self.size.width)
+        they fit there, else on their own row above it, keeping the focus on
+        the chip that had it. Before the picker has a width, the first
+        resize places them."""
+        if self.size.width == 0:
+            return
+        skills = query_skills(self.rows)
+        widths = [chip_width(skill.name) for skill in skills]
+        shared = self._shares_row(widths, room=self.size.width)
         self._chips_shared = shared
+        focused = self.app.focused
+        focused_skill = (
+            focused.skill
+            if isinstance(focused, ChipButton) and focused in self.query(ChipButton)
+            else None
+        )
         self.query(ChipButton).remove()
-        chips = [ChipButton(skill) for skill in query_skills(self.rows)]
+        chips = [ChipButton(skill) for skill in skills]
         if shared:
             row = self.query_one("#skill_row", Horizontal)
             row.mount_all(chips, before=self.query_one("#skill_search", SkillSearch))
@@ -169,6 +190,12 @@ class SkillPicker(Vertical):
         self.query_one("#chips", Horizontal).display = not shared
         label = self._strings.static(StringIndex.SKILLS) if shared else ""
         self.query_one("#skill_row_label", Label).update(label)
+        # The offered skills open under the search box, after the chips beside it.
+        offset = self._lead + (chips_cells(widths) if shared else 0)
+        self.query_one("#skill_options", OptionList).styles.margin = (0, 0, 0, offset)
+        for chip in chips:
+            if chip.skill == focused_skill:
+                self.call_after_refresh(chip.focus)
 
     def show_rows(self, rows: tuple[SkillRow, ...], hunter_type: HunterType) -> None:
         """Show another tab's rows, without posting ``RowsChanged``."""

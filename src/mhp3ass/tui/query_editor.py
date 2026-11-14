@@ -166,13 +166,13 @@ class QueryEditor(Vertical):
 
 
 def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Select[int]:
-    numbers = [str(number) for number in range(minimum, maximum + 1)]
+    numbers = range(minimum, maximum + 1)
     select = Select(
-        [(number, int(number)) for number in numbers],
+        [(str(number), number) for number in numbers],
         value=value,
         allow_blank=False,
         compact=True,
         id=select_id,
     )
-    select.styles.width = select_width(numbers)
+    select.styles.width = select_width(str(number) for number in numbers)
     return select
