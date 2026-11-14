@@ -3,6 +3,7 @@ from __future__ import annotations
 from textual.actions import parse
 
 from mhp3ass.keys import app_keys, palette_commands, results_keys
+from mhp3ass.tui.app import SearchApp
 
 
 def test_the_app_keys_are_search_keys_quit_options_and_the_regions():
@@ -35,6 +36,18 @@ def test_the_results_keys_run_the_apps_actions():
     namespaces = {parse(binding.action)[0] for binding in results_keys()}
 
     assert namespaces == {"app"}
+
+
+def test_every_key_and_command_names_an_action_the_app_has():
+    actions = [
+        *(binding.action for binding in app_keys()),
+        *(binding.action for binding in results_keys()),
+        *(command.action for command in palette_commands()),
+    ]
+
+    missing = [action for action in actions if not hasattr(SearchApp, f"action_{parse(action)[1]}")]
+
+    assert missing == []
 
 
 def test_the_palette_reaches_the_fields_by_name():
