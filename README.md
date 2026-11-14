@@ -93,7 +93,7 @@ the language (skill, armour and charm names and the labels switch at once,
 and `mycharms.txt` is rewritten in it, as the original does), the colour
 theme (`dracula` to start with; moving through the list shows each theme,
 ⏎ or leaving the list keeps it, esc goes back; the palette's Theme command
-works the same way) and the number
+previews too, where only ⏎ keeps a theme) and the number
 of search processes; each change is saved straight away. Outside a terminal it prints the help instead; `mhp3-ass --help`
 lists the `search` and `import-save` commands below.
 

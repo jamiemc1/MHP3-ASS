@@ -1011,9 +1011,12 @@ class SearchApp(App[bool]):
         (not over the help itself) and, on the main screen, ``z`` in place
         of its maximise; then the main screen's by name (``palette_commands``).
         Over a modal only Textual's and the help, as the main screen's
-        fields aren't there."""
+        fields aren't there; over Options not its Theme, as Options' own
+        theme list would then keep a theme from before it."""
         main = screen is self.screen_stack[0]
         replaced = {"Keys", "Maximize", "Minimize"} if main else {"Keys"}
+        if isinstance(screen, OptionsScreen):
+            replaced.add("Theme")
         yield from (
             command
             for command in super().get_system_commands(screen)
@@ -1069,8 +1072,11 @@ class SearchApp(App[bool]):
         failure = None
         saved = False
         try:
-            # Quitting from Options' theme list keeps the theme on show.
-            if self._theme_previewing:
+            # Quitting from the palette's theme picker goes back, as its Esc
+            # does; from Options' theme list it keeps the theme on show.
+            if self._palette_preview is not None:
+                self._keep_theme(self._palette_preview.close(chosen=False))
+            elif self._theme_previewing:
                 self._keep_theme(self.theme)
             failure = self._write_settings()
             saved = failure is None
