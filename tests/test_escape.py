@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import fields, replace
+from itertools import product
 
 import pytest
 
@@ -12,7 +13,6 @@ def nothing_open():
     state = EscapeState(
         popup_open=False,
         find_open=False,
-        modal_open=False,
         editor_open=False,
         can_collapse=False,
         editor_focused=False,
@@ -27,7 +27,6 @@ def everything_open(nothing_open):
         nothing_open,
         popup_open=True,
         find_open=True,
-        modal_open=True,
         editor_open=True,
         can_collapse=True,
         editor_focused=True,
@@ -40,16 +39,22 @@ def test_with_nothing_open_esc_does_nothing(nothing_open):
     assert escape_step(nothing_open) is EscapeStep.NOTHING
 
 
-def test_esc_never_quits():
-    assert [step.name for step in EscapeStep] == [
-        "CLOSE_POPUP",
-        "CLEAR_FIND",
-        "CLOSE_MODAL",
-        "COLLAPSE_EDITOR",
-        "LEAVE_EDITOR",
-        "CANCEL_SEARCH",
-        "NOTHING",
-    ]
+def test_esc_does_nothing_only_when_there_is_nothing_to_back_out_of():
+    names = [field.name for field in fields(EscapeState)]
+    idle = []
+    for values in product([False, True], repeat=len(names)):
+        state = EscapeState(**dict(zip(names, values, strict=True)))
+        if escape_step(state) is EscapeStep.NOTHING:
+            idle.append(state)
+
+    # Nothing to close, collapse, leave or cancel: a collapsed editor, or an open one
+    # with no results to collapse over and the focus elsewhere.
+    assert all(
+        not (state.popup_open or state.find_open or state.searching)
+        and not (state.editor_open and (state.can_collapse or state.editor_focused))
+        for state in idle
+    )
+    assert len(idle) == 5
 
 
 def test_backing_out_one_level_at_a_time_ends_with_the_search(everything_open):
@@ -58,7 +63,6 @@ def test_backing_out_one_level_at_a_time_ends_with_the_search(everything_open):
     closed_by = {
         EscapeStep.CLOSE_POPUP: {"popup_open": False},
         EscapeStep.CLEAR_FIND: {"find_open": False},
-        EscapeStep.CLOSE_MODAL: {"modal_open": False},
         EscapeStep.COLLAPSE_EDITOR: {"editor_open": False, "editor_focused": False},
         EscapeStep.CANCEL_SEARCH: {"searching": False},
     }
@@ -69,7 +73,6 @@ def test_backing_out_one_level_at_a_time_ends_with_the_search(everything_open):
     assert steps == [
         EscapeStep.CLOSE_POPUP,
         EscapeStep.CLEAR_FIND,
-        EscapeStep.CLOSE_MODAL,
         EscapeStep.COLLAPSE_EDITOR,
         EscapeStep.CANCEL_SEARCH,
     ]
