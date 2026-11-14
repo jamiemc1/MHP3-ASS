@@ -142,7 +142,8 @@ class ResultsTable(ScrollView, can_focus=True):
         then size the scroll area."""
         # Each column has two spaces between it and the next, and one at either end.
         gaps = 2 * len(self._widths)
-        available = self.size.width - 2 * len(self._must_fit)
+        # The must-fit columns take one space before the first and two between each.
+        available = self.size.width - (2 * len(self._must_fit) - 1)
         self._fitted = (
             fit_widths(
                 self._widths,

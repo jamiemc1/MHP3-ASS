@@ -367,7 +367,9 @@ class ResultsPane(Horizontal):
             # Each set's text is built once per search, whatever the sort or filter.
             key = id(solution)
             if key not in self._text_by_set:
-                self._text_by_set[key] = row_text(solution, query=query)
+                self._text_by_set[key] = row_text(
+                    solution, query=query, short_names=self._short_names
+                )
             texts.append(self._text_by_set[key])
         start = (table.cursor - step) % len(texts) if from_cursor else table.cursor
         row = find_row(texts, needle=self._needle, start=start, step=step)
