@@ -129,15 +129,16 @@ class QueryForm:
         mode and the options set otherwise than in ``starting``, labelled
         with the language's strings (the Options menu's, without their
         ``&``)."""
-        hunter = (
-            StringIndex.GUNNER if self.hunter_type is HunterType.GUNNER else StringIndex.BLADEMASTER
-        )
-        gender = "♂" if self.gender is Gender.MALE else "♀"
         skills = ", ".join(skill.name for skill in query_skills(self.current_rows()))
+        hunter = hunter_summary(
+            hunter_type=self.hunter_type,
+            gender=self.gender,
+            hr=self.hr,
+            elder_star=self.elder_star,
+            strings=strings,
+        )
         parts = [
-            f"{strings.static(hunter)} {gender}",
-            f"{strings.static(StringIndex.HR)} {self.hr}",
-            f"{strings.static(StringIndex.VILLAGE_QUESTS)} {self.elder_star}",
+            hunter,
             f"{strings.static(StringIndex.MAX_WEAPON_SLOTS)} {self.weapon_slots}",
             skills,
             strings.static(charm_mode_label(self.charm_mode)),
@@ -175,6 +176,22 @@ class QueryForm:
             skill_rows = replace(self.skill_rows, blademaster=rows)
         updated = replace(self, skill_rows=skill_rows)
         return updated
+
+
+def hunter_summary(
+    hunter_type: HunterType, gender: Gender, hr: int, elder_star: int, strings: DisplayStrings
+) -> str:
+    """The hunter type and gender, HR and village on one line, labelled with
+    the language's strings: ``Blademaster ♂ · HR 6 · Village Quests 6``."""
+    hunter = StringIndex.GUNNER if hunter_type is HunterType.GUNNER else StringIndex.BLADEMASTER
+    symbol = "♂" if gender is Gender.MALE else "♀"
+    parts = [
+        f"{strings.static(hunter)} {symbol}",
+        f"{strings.static(StringIndex.HR)} {hr}",
+        f"{strings.static(StringIndex.VILLAGE_QUESTS)} {elder_star}",
+    ]
+    line = " · ".join(parts)
+    return line
 
 
 def charm_mode_label(mode: CharmMode) -> StringIndex:

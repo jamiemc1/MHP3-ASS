@@ -4,10 +4,10 @@ from dataclasses import replace
 
 import pytest
 
-from mhp3ass.data.strings import StringIndex
+from mhp3ass.data.strings import DisplayStrings, StringIndex, load_strings
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
-from mhp3ass.query_form import QueryForm, charm_mode_label
+from mhp3ass.query_form import QueryForm, charm_mode_label, hunter_summary
 from mhp3ass.skill_chips import chip_rows
 from mhp3ass.skill_picker import SkillRow, SkillRowsByHunter, starting_rows
 
@@ -220,6 +220,53 @@ def test_the_summary_follows_the_gunner_tab_and_a_female_hunter(english_strings,
         "Gunner ♀ · HR 4 · Village Quests 6 · Max Weapon Slots 2"
         " · Load Up, Accuracy+1 · Use only slotted charms"
     )
+
+
+def test_the_hunter_summary_names_a_male_blademaster_and_both_ranks(english_strings):
+    line = hunter_summary(
+        hunter_type=HunterType.BLADEMASTER,
+        gender=Gender.MALE,
+        hr=6,
+        elder_star=5,
+        strings=english_strings,
+    )
+
+    assert line == "Blademaster ♂ · HR 6 · Village Quests 5"
+
+
+def test_the_hunter_summary_names_a_female_gunner(english_strings):
+    line = hunter_summary(
+        hunter_type=HunterType.GUNNER,
+        gender=Gender.FEMALE,
+        hr=1,
+        elder_star=1,
+        strings=english_strings,
+    )
+
+    assert line == "Gunner ♀ · HR 1 · Village Quests 1"
+
+
+@pytest.fixture
+def german_strings(legacy_data_dir) -> DisplayStrings:
+    strings = load_strings(legacy_data_dir / "Languages" / "Deutsch (Vuze)")
+    return strings
+
+
+def test_the_hunter_summary_is_labelled_in_the_language(german_strings):
+    line = hunter_summary(
+        hunter_type=HunterType.GUNNER,
+        gender=Gender.MALE,
+        hr=3,
+        elder_star=2,
+        strings=german_strings,
+    )
+
+    assert line == (
+        f"{german_strings.static(StringIndex.GUNNER)} ♂"
+        f" · {german_strings.static(StringIndex.HR)} 3"
+        f" · {german_strings.static(StringIndex.VILLAGE_QUESTS)} 2"
+    )
+    assert german_strings.static(StringIndex.VILLAGE_QUESTS) != "Village Quests"
 
 
 def test_a_summary_of_the_starting_form_leaves_out_the_skills_and_options(english_strings):
