@@ -10,6 +10,7 @@ from mhp3ass.layout import (
     breakpoint_class,
     height_breakpoints,
     layout_for,
+    layout_label,
     width_breakpoints,
 )
 
@@ -219,3 +220,17 @@ def test_a_short_wide_screen_shows_the_charm_drop_down_not_the_sidebar():
 )
 def test_only_huge_names_the_pieces_in_full(width_class, full):
     assert _layout(width_class).full_names is full
+
+
+@pytest.mark.parametrize(
+    ("width", "height", "label"),
+    [
+        (88, 14, "88x14 · -narrow -short · small"),
+        (160, 50, "160x50 · -wide -tall"),
+        (130, 40, "130x40 · -medium -normal"),
+        (60, 30, "60x30 · -narrow -normal · small"),
+        (240, 70, "240x70 · -huge -tall"),
+    ],
+)
+def test_the_debug_label_names_the_size_its_classes_and_whether_it_is_small(width, height, label):
+    assert layout_label(width, height=height) == label

@@ -97,7 +97,9 @@ theme (`dracula` to start with; moving through the list shows each theme,
 ⏎ or leaving the list keeps it, esc goes back; the palette's Theme command
 previews too, where only ⏎ keeps a theme) and the number
 of search processes; each change is saved straight away. Outside a terminal it prints the help instead; `mhp3-ass --help`
-lists the `search` and `import-save` commands below.
+lists the `search` and `import-save` commands below. `mhp3-ass --debug`
+adds the terminal's size and layout classes to the `?` help's box (e.g.
+`88x14 · -narrow -short · small`), for checking the layout at a given size.
 
 ## Importing charms from your save
 

@@ -151,3 +151,14 @@ def layout_for(width: int, height: int) -> Layout:
         charms_shown=width > 60,
     )
     return layout
+
+
+def layout_label(width: int, height: int) -> str:
+    """A terminal ``width`` columns by ``height`` rows and its layout's classes,
+    as ``--debug`` shows them on the help's box: ``88x14 · -narrow -short · small``."""
+    layout = layout_for(width, height=height)
+    parts = [f"{width}x{height}", f"{layout.width.value} {layout.height.value}"]
+    if layout.small:
+        parts.append("small")
+    label = " · ".join(parts)
+    return label
