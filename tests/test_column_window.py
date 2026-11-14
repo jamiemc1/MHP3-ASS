@@ -5,9 +5,11 @@ import pytest
 from mhp3ass.column_window import (
     ColumnWindow,
     column_window,
+    first_keeping_column,
     last_first,
     scrolled_columns,
     spare_cells,
+    wide_notice,
 )
 
 
@@ -150,3 +152,60 @@ def test_the_furthest_scroll_ignores_hidden_columns(table_widths, pinned):
     # 10 + 10 + 10 + 5 and three gaps fit 46; the charm, hidden, isn't reached for.
     assert window.scrolled == (3, 4, 5, 7)
     assert not window.more_right
+
+
+def test_showing_the_wide_columns_keeps_the_column_the_window_started_on():
+    before = [1, 2, 3, 4, 5, 7, 8]
+    after = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+
+    first = first_keeping_column(3, before=before, after=after)
+
+    assert after[first] == 4
+
+
+def test_hiding_the_wide_columns_keeps_a_column_that_still_shows():
+    before = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+    after = [1, 2, 3, 4, 5, 7, 8]
+
+    first = first_keeping_column(5, before=before, after=after)
+
+    assert after[first] == 7
+
+
+def test_hiding_the_wide_column_the_window_started_on_goes_to_the_nearest_left_of_it():
+    before = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+    after = [1, 2, 3, 4, 5, 7, 8]
+
+    first = first_keeping_column(8, before=before, after=after)
+
+    assert after[first] == 8
+
+
+def test_a_column_left_of_every_shown_one_goes_to_the_first():
+    first = first_keeping_column(0, before=[1, 2, 3], after=[2, 3])
+
+    assert first == 0
+
+
+def test_a_first_past_the_end_counts_as_the_last_column():
+    first = first_keeping_column(9, before=[1, 2, 3], after=[1, 2, 3, 4])
+
+    assert first == 2
+
+
+def test_no_columns_start_at_the_first():
+    assert first_keeping_column(2, before=[], after=[1, 2]) == 0
+    assert first_keeping_column(2, before=[1, 2, 3], after=[]) == 0
+
+
+@pytest.mark.parametrize(
+    ("shown", "more_right", "notice"),
+    [
+        (True, True, "Wide columns on: → to reach them"),
+        (True, False, "Wide columns on"),
+        (False, True, "Wide columns off"),
+        (False, False, "Wide columns off"),
+    ],
+)
+def test_w_says_whether_the_wide_columns_are_on_and_how_to_reach_them(shown, more_right, notice):
+    assert wide_notice(shown, more_right=more_right) == notice

@@ -105,3 +105,25 @@ def column_window(
         more_right=end < len(columns),
     )
     return window
+
+
+def first_keeping_column(first: int, before: Sequence[int], after: Sequence[int]) -> int:
+    """The ``first`` of a window onto the scrolled columns ``after`` that
+    starts on the column the window onto ``before`` started on (``first``,
+    an index into ``before``): where that column is no longer among them,
+    the nearest one left of it that is, else the first."""
+    if not before or not after:
+        return 0
+    column = before[min(max(first, 0), len(before) - 1)]
+    kept = [index for index, shown in enumerate(after) if shown <= column]
+    start = kept[-1] if kept else 0
+    return start
+
+
+def wide_notice(shown: bool, more_right: bool) -> str:
+    """What ``w`` says: the wide columns are on (and, while some are
+    off-screen to the right, how to reach them) or off."""
+    if not shown:
+        return "Wide columns off"
+    notice = "Wide columns on: → to reach them" if more_right else "Wide columns on"
+    return notice

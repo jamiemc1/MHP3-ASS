@@ -55,7 +55,8 @@ Sharpn (1)` for the charm; the pieces are cut with `…` where they don't
 fit, and the spare slots and charm scroll into view: `#` and Def stay at
 the left, ←/→ scroll a whole column and Shift+←/→ to the first or last,
 and `<` or `>` in the header shows there are more that way; `w` shows or
-hides the resistances and extra skills), and the inspector
+hides the resistances and extra skills, after the other columns and
+keeping the one in view), and the inspector
 beside it showing the selected set's full pieces, jewels, spare slots,
 extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
@@ -67,7 +68,8 @@ over it and `i` or Esc goes back. And its height: below 30 rows the
 editor, reopened over results, takes their place until Esc collapses it;
 from 46 rows a narrow screen shows the inspector below the table. At 60
 columns or 16 rows and below only the table shows, with a note that `?`
-lists the keys.
+lists the keys, and the charm drop-down while there are more than 60
+columns.
 After a search the editor collapses to a one-line summary (the options
 show only where they differ from the defaults): `e` (or `1`) reopens it.
 The open editor takes at most about 40 % of the screen and scrolls past
