@@ -54,7 +54,8 @@ the sort, with short names (`Barroth S` for Barroth Tasset S, `+4 Att +3
 Sharpn (1)` for the charm; the pieces are cut with `…` where they don't
 fit, and the spare slots and charm scroll into view: `#` and Def stay at
 the left, ←/→ scroll a whole column and Shift+←/→ to the first or last,
-and `<` or `>` in the header shows there are more that way), and the inspector
+and `<` or `>` in the header shows there are more that way; `w` shows or
+hides the resistances and extra skills), and the inspector
 beside it showing the selected set's full pieces, jewels, spare slots,
 extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
@@ -77,9 +78,11 @@ list goes up a row). The screen has three regions, numbered in their
 titles: ¹ the query, ² the charm sidebar and ³ the sets. Tab and Shift+Tab
 move between them (inside the open editor, between its fields first), and
 `1`, `2` and `3` jump to one (in the skill box the digits type: Esc or Tab
-out first). Esc backs out one level at a time: it closes an open
+out first). `z` fills the screen with the region the focus is in, and
+restores it. Esc backs out one level at a time: it closes an open
 drop-down, the skill list or the keys panel, then clears and closes the
-find box, then closes a modal or collapses the editor (before the first
+find box, then closes a modal or the inspector over the table, restores a
+maximised region, or collapses the editor (before the first
 search, leaves it), then cancels a running search. It never quits. The
 footer shows the keys that work where the focus is: the sort
 and find keys (`s`, `S`, `/`, `n`, `N`) are the sets table's. `q` quits,
