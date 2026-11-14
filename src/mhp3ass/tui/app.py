@@ -606,6 +606,7 @@ class SearchApp(App[bool]):
         charm_templates = pane.charm_templates
         note = pane.note
         cursor = self.query_one(ResultsTable).cursor
+        show_wide = self.query_one(ResultsTable).show_wide
         collapsed = not self.editor.display
         self._sort_key = pane.sort_key
         self._reverse = pane.reverse
@@ -623,6 +624,7 @@ class SearchApp(App[bool]):
                 note=note,
             )
             self.query_one(ResultsTable).cursor = cursor
+        self.query_one(ResultsTable).set_show_wide(show_wide)
         if collapsed:
             self._collapse_editor()
         else:
@@ -715,6 +717,7 @@ class SearchApp(App[bool]):
             popup_open=skill_picker.options_open,
             find_open=pane.find_open,
             inspector_open=pane.inspecting,
+            maximised=self.screen.maximized is not None,
             editor_open=self.editor.display,
             can_collapse=self._searched_form is not None,
             editor_focused=focused is not None and self.editor in focused.ancestors_with_self,
@@ -725,6 +728,8 @@ class SearchApp(App[bool]):
                 skill_picker.dismiss_options()
             case EscapeStep.CLEAR_FIND:
                 pane.clear_find()
+            case EscapeStep.RESTORE_REGION:
+                self.screen.minimize()
             case EscapeStep.CLOSE_INSPECTOR:
                 pane.show_inspector(False)
                 self._focus_region(Region.SETS)
@@ -752,8 +757,8 @@ class SearchApp(App[bool]):
             self._focus_region(region)
 
     def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
-        # Regions are the main screen's: over a modal or the palette, Tab is theirs.
-        if action == "cycle" and len(self.screen_stack) > 1:
+        # Regions are the main screen's: over a modal or the palette, Tab and z are theirs.
+        if action in {"cycle", "maximise"} and len(self.screen_stack) > 1:
             return False
         # Esc closes the keys panel ahead of anything else, a modal under it included.
         if action == "hide_help_panel" and not self.screen.query(HelpPanel):
@@ -877,7 +882,15 @@ class SearchApp(App[bool]):
         1), its last going back."""
         fields = self._editor_fields()
         if fields:
+            self._restore_unless_within(self.editor)
             fields[0 if step > 0 else -1].focus()
+
+    def _restore_unless_within(self, widget: Widget) -> None:
+        """Restore a maximised region, unless ``widget`` is in it: the
+        focus is moving to ``widget``."""
+        maximised = self.screen_stack[0].maximized
+        if maximised is not None and maximised not in widget.ancestors_with_self:
+            self.screen_stack[0].minimize()
 
     def _focus_region(self, region: Region) -> None:
         """Focus the charm sidebar (the charm drop-down where the sidebar
@@ -898,17 +911,18 @@ class SearchApp(App[bool]):
                 if layout.sidebar
                 else self.query_one("#charm_choice", Select)
             )
+            self._restore_unless_within(charms)
             charms.focus()
             return
         find_box = self.query_one("#find_box")
-        if find_box.display:
-            find_box.focus()
-        else:
-            self.query_one(ResultsTable).focus()
+        target = find_box if find_box.display else self.query_one(ResultsTable)
+        self._restore_unless_within(target)
+        target.focus()
 
     def action_edit_field(self, widget_id: str) -> None:
         """Focus one of the editor's fields, reopening the editor if it's collapsed."""
         self._close_inspector()
+        self._restore_unless_within(self.editor)
         self.editor.display = True
         self.set_focus(self.query_one(f"#{widget_id}"))
         # With the focus in the editor, covering the results moves nothing.
@@ -1027,6 +1041,26 @@ class SearchApp(App[bool]):
         pane = self.query_one(ResultsPane)
         if pane.inspecting:
             pane.show_inspector(False)
+
+    def action_maximise(self) -> None:
+        """``z``: fill the screen with the focused region (the editor, the
+        charm sidebar or the sets), or restore the one that fills it."""
+        main = self.screen_stack[0]
+        if main.maximized is not None:
+            main.minimize()
+            return
+        focused = self.focused
+        if focused is None:
+            return
+        regions = [self.editor, self.query_one("#charm_filter"), self.query_one("#sets")]
+        region = next((widget for widget in regions if widget in focused.ancestors_with_self), None)
+        if region is not None:
+            main.maximized = region
+
+    def action_wide_columns(self) -> None:
+        """``w``: show or hide the table's wide columns, the resistances and extra skills."""
+        table = self.query_one(ResultsTable)
+        table.set_show_wide(not table.show_wide)
 
     def action_inspect(self) -> None:
         """Show the inspector over the table, or the table again (a narrow screen's)."""

@@ -14,20 +14,24 @@ def test_the_app_keys_are_search_keys_quit_options_and_the_regions():
     every = {binding.key for binding in app_keys()}
 
     assert shown == {"ctrl+s", "question_mark", "q", "o"}
-    regions = {"1", "2", "3", "e", "tab", "shift+tab"}
+    regions = {"1", "2", "3", "e", "z", "tab", "shift+tab"}
     assert every == shown | regions | {"escape", "left", "right", "up", "down"}
 
 
 def test_the_form_fields_have_no_letter_of_their_own():
     every = {binding.key for binding in app_keys()} | {binding.key for binding in results_keys()}
 
-    assert every.isdisjoint({"h", "g", "r", "v", "w", "m", "k"})
+    # w was the weapon slots' letter; it is the sets table's wide columns now.
+    assert every.isdisjoint({"h", "g", "r", "v", "m", "k"})
+    assert [binding.action for binding in results_keys() if binding.key == "w"] == [
+        "app.wide_columns"
+    ]
 
 
-def test_the_results_keys_are_sort_reverse_find_and_inspect():
+def test_the_results_keys_are_sort_reverse_find_inspect_and_wide_columns():
     keys = [binding.key for binding in results_keys()]
 
-    assert keys == ["s", "S", "slash", "n", "N", "i", "enter"]
+    assert keys == ["s", "S", "slash", "n", "N", "i", "enter", "w"]
 
 
 def test_no_results_key_is_also_an_app_key():
