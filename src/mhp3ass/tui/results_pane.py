@@ -256,12 +256,10 @@ class ResultsPane(Horizontal):
 
     def set_text(self, shown: ShownSet) -> str:
         """``shown`` as Markdown (``set_markdown``), with the jewels the inspector shows."""
-        if self._query is None:
-            raise ValueError("a set shows without the results' query")
         text = set_markdown(
             shown.solution,
             shown.details,
-            query=self._query,
+            query=shown.query,
             strings=self._strings,
             short_names=self._short_names,
             piece_labels=self._piece_labels,
@@ -358,11 +356,12 @@ class ResultsPane(Horizontal):
             refill_game=None,
             charm_templates=self._charm_templates,
         )
+        shown = ShownSet(number=row + 1, solution=solution, details=details, query=self._query)
         if not isinstance(details.chest_jewels, PlacementPending) or self._is_searching():
-            inspector.show(row + 1, solution, details)
+            inspector.show(shown)
             return
         working = replace(details, chest_jewels=PlacementPending(while_searching=False))
-        inspector.show(row + 1, solution, working)
+        inspector.show(replace(shown, details=working))
         self._work_out_jewels(
             JewelJob(
                 inspection=self._inspection,
@@ -400,7 +399,9 @@ class ResultsPane(Horizontal):
         # Moving on since the job started, or a rebuild that removed this pane, makes it stale.
         if job.inspection != self._inspection or not self.is_attached:
             return
-        self.query_one(Inspector).show(job.number, job.solution, details)
+        self.query_one(Inspector).show(
+            ShownSet(number=job.number, solution=job.solution, details=details, query=job.query)
+        )
 
     def show_searching(self, running: bool) -> None:
         """Before the first results, the empty table says whether a search is running."""
