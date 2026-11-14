@@ -11,9 +11,8 @@ Not a port: the TUI's own key. The order, first match wins:
 
 A modal closes on its own Esc, since closing one has its own steps (Options
 keeps the theme on show, a picker answers ``None``), and a drop-down open in
-it takes Esc first. So ``escape_step`` decides the main screen's levels, and
-the keys panel, the one popup that can show over a modal, is closed before
-the modal is. Esc never quits; ``q`` does.
+it takes Esc first; the ``?`` help is a modal too. So ``escape_step``
+decides the main screen's levels. Esc never quits; ``q`` does.
 """
 
 from __future__ import annotations

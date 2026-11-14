@@ -22,13 +22,14 @@ from textual.message import Message
 from textual.screen import Screen
 from textual.theme import Theme
 from textual.widget import Widget
-from textual.widgets import Button, Footer, HelpPanel, Label, OptionList, Select, Static
+from textual.widgets import Button, Footer, Label, OptionList, Select, Static
 from textual.worker import Worker
 
 from mhp3ass.charms.my_charms import MyCharmsFileError
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import read_lines
 from mhp3ass.escape import EscapeState, EscapeStep, escape_step
+from mhp3ass.key_help import KeyEntry, help_sections
 from mhp3ass.keys import app_keys, palette_commands
 from mhp3ass.language_switch import switch_language
 from mhp3ass.layout import (
@@ -69,6 +70,7 @@ from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
 from mhp3ass.themes import starting_theme
+from mhp3ass.tui.help_screen import HelpScreen
 from mhp3ass.tui.inspector import Inspector
 from mhp3ass.tui.options import ChoiceScreen, OptionsScreen, ThemeList
 from mhp3ass.tui.query_editor import QueryEditor
@@ -715,7 +717,6 @@ class SearchApp(App[bool]):
             # The screen is being composed again (a language switch).
             return
         focused = self.focused
-        # The keys panel, a popup too, has its own Esc binding (``check_action``).
         state = EscapeState(
             popup_open=skill_picker.options_open,
             find_open=pane.find_open,
@@ -762,9 +763,6 @@ class SearchApp(App[bool]):
     def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
         # Regions are the main screen's: over a modal or the palette, Tab and z are theirs.
         if action in {"cycle", "maximise"} and len(self.screen_stack) > 1:
-            return False
-        # Esc closes the keys panel ahead of anything else, a modal under it included.
-        if action == "hide_help_panel" and not self.screen.query(HelpPanel):
             return False
         # Text boxes and lists keep their own arrows, and an open drop-down its ▲▼.
         if action == "spatial" and not self._on_spatial_field():
@@ -937,17 +935,44 @@ class SearchApp(App[bool]):
         # A collapsed editor has just been shown: open the drop-down once it is laid out.
         self.call_after_refresh(self.query_one(f"#{widget_id}", Select).action_show_overlay)
 
-    def action_toggle_keys(self) -> None:
-        """Show Textual's keys panel for the focused widget, or hide it."""
-        if self.screen.query(HelpPanel):
-            self.action_hide_help_panel()
-        else:
-            self.action_show_help_panel()
+    def action_help(self) -> None:
+        """``?``: the keys that work where the focus is (``help_sections``),
+        from the screen's active bindings, over the screen."""
+        screen = self.screen
+        entries = [
+            KeyEntry(
+                key=self.get_key_display(active.binding),
+                action=active.binding.action,
+                description=active.binding.description,
+                everywhere=active.node is self or isinstance(active.node, Screen),
+            )
+            for active in screen.active_bindings.values()
+            if active.enabled
+        ]
+        region = self._help_region() if screen is self.screen_stack[0] else "Here"
+        self.push_screen(HelpScreen(help_sections(entries, region=region), title=f"Keys: {region}"))
+
+    def _help_region(self) -> str:
+        """The name of the region the focus is in, for the help's title."""
+        focused = self.focused
+        if focused is not None and isinstance(focused, Inspector):
+            return "Inspector"
+        region = self._focused_region()
+        name = region.name.title() if region is not None else "Here"
+        return name
 
     def get_system_commands(self, screen: Screen[Any]) -> Iterable[SystemCommand]:
-        """Textual's commands, then the main screen's by name (``palette_commands``);
-        over a modal only Textual's, as the main screen's fields aren't there."""
-        yield from super().get_system_commands(screen)
+        """Textual's commands, but ``?``'s help in place of its keys panel and
+        ``z`` in place of its maximise; then the main screen's by name
+        (``palette_commands``); over a modal only Textual's and the help, as
+        the main screen's fields aren't there."""
+        replaced = {"Keys", "Maximize", "Minimize"}
+        yield from (
+            command
+            for command in super().get_system_commands(screen)
+            if command.title not in replaced
+        )
+        yield SystemCommand("Keys", "The keys that work where the focus is (?)", self.action_help)
         if screen is not self.screen_stack[0]:
             return
         commands = palette_commands(
