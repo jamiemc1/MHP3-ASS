@@ -26,28 +26,37 @@ from mhp3ass.tui.titles import region_title
 class QueryEditor(Vertical):
     """The form's drop-downs and skill picker. ``form`` follows every change."""
 
+    # Its max-height is set by fit_height; past it the editor scrolls.
     DEFAULT_CSS = """
     QueryEditor {
         height: auto;
+        overflow-y: auto;
         padding: 0 1;
     }
     QueryEditor Horizontal {
         height: auto;
     }
     QueryEditor Label {
-        padding: 1 1 0 2;
+        padding: 0 1 0 2;
+    }
+    QueryEditor Select {
+        margin-right: 1;
     }
     QueryEditor #hunter_type {
-        width: 22;
+        width: 16;
+        margin-left: 2;
     }
     QueryEditor #gender {
-        width: 14;
+        width: 12;
     }
     QueryEditor #hr, QueryEditor #elder_star, QueryEditor #weapon_slots {
-        width: 9;
+        width: 7;
     }
     QueryEditor #charm_mode {
-        width: 38;
+        width: 30;
+    }
+    QueryEditor #search {
+        min-width: 10;
     }
     """
 
@@ -68,6 +77,7 @@ class QueryEditor(Vertical):
                 ],
                 value=self.form.hunter_type,
                 allow_blank=False,
+                compact=True,
                 id="hunter_type",
             )
             yield Select(
@@ -77,30 +87,43 @@ class QueryEditor(Vertical):
                 ],
                 value=self.form.gender,
                 allow_blank=False,
+                compact=True,
                 id="gender",
             )
             yield Label(strings.static(StringIndex.HR))
             yield _number_select(1, 6, value=self.form.hr, select_id="hr")
             yield Label(strings.static(StringIndex.VILLAGE_QUESTS))
             yield _number_select(1, 6, value=self.form.elder_star, select_id="elder_star")
+        # Weapon slots start the second row, so the first fits in 80 columns.
+        with Horizontal():
             yield Label(strings.static(StringIndex.MAX_WEAPON_SLOTS))
             yield _number_select(0, 3, value=self.form.weapon_slots, select_id="weapon_slots")
-        with Horizontal():
             yield Label(strings.static(StringIndex.CHARMS))
             yield Select(
                 [(strings.static(charm_mode_label(mode)), mode) for mode in CharmMode],
                 value=self.form.charm_mode,
                 allow_blank=False,
+                compact=True,
                 id="charm_mode",
             )
             # The app handles the press: searching needs its data and pool.
-            yield Button(strings.basic(StringIndex.SEARCH), variant="primary", id="search")
+            yield Button(
+                strings.basic(StringIndex.SEARCH), variant="primary", compact=True, id="search"
+            )
         yield SkillPicker(
             self._game,
             strings=strings,
             rows=self.form.current_rows(),
             hunter_type=self.form.hunter_type,
         )
+
+    def on_mount(self) -> None:
+        self.fit_height(self.app.size.height)
+
+    def fit_height(self, screen_height: int) -> None:
+        """Take at most about 40 % of a ``screen_height``-row screen, and
+        never less than 8 rows of it, so the results stay in view."""
+        self.styles.max_height = max(8, screen_height * 40 // 100)
 
     def on_select_changed(self, event: Select.Changed) -> None:
         # The form's selects are those whose id is the QueryForm field they set.
@@ -125,6 +148,7 @@ def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Se
         [(str(number), number) for number in range(minimum, maximum + 1)],
         value=value,
         allow_blank=False,
+        compact=True,
         id=select_id,
     )
     return select

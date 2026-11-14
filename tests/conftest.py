@@ -30,6 +30,7 @@ from mhp3ass.model import Ability, AbilityPair, Armor, Gender, HunterType
 from mhp3ass.parallel import SearchPool
 from mhp3ass.query import Query, SearchSpec
 from mhp3ass.results.result_set import SearchResult
+from mhp3ass.results.short_names import ShortNames
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
 from mhp3ass.search import SearchData, run_search
@@ -150,6 +151,12 @@ def teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
     Shared across the session: tests must not mutate it.
     """
     return load_teamhgg_game()
+
+
+@pytest.fixture(scope="session")
+def teamhgg_short_names(teamhgg_game: GameData) -> ShortNames:
+    """The results table's short names for ``teamhgg_game``."""
+    return ShortNames.from_game(teamhgg_game)
 
 
 @pytest.fixture

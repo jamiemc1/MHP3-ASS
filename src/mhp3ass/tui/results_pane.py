@@ -11,12 +11,10 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, replace
 from threading import Lock
-from typing import ClassVar
 
-from rich.cells import cell_len, set_cell_size
+from rich.cells import set_cell_size
 from textual import work
 from textual.app import ComposeResult
-from textual.binding import Binding, BindingType
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
 from textual.message import Message
@@ -32,8 +30,9 @@ from mhp3ass.query import Query
 from mhp3ass.regions import Region
 from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
+from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
-from mhp3ass.results.table import TableRow, table_row
+from mhp3ass.results.table import TableRow, table_row, truncate
 from mhp3ass.results.view import CharmFilter, ResultsView
 from mhp3ass.solution.state import Solution
 from mhp3ass.tui.inspector import Inspector
@@ -69,18 +68,6 @@ def sort_label(key: SortKey) -> StringIndex:
             return StringIndex.RARITY
         case SortKey.SLOTS_SPARE:
             return StringIndex.SORT_SLOTS_SPARE
-
-
-class FindBox(Input):
-    """The find text; Esc closes it."""
-
-    BINDINGS: ClassVar[list[BindingType]] = [Binding("escape", "close", "Close", show=False)]
-
-    class Closed(Message):
-        pass
-
-    def action_close(self) -> None:
-        self.post_message(self.Closed())
 
 
 @dataclass(frozen=True)
@@ -126,12 +113,15 @@ class ResultsPane(Horizontal):
         reverse: bool,
         is_searching: Callable[[], bool],
         game_lock: Lock,
+        short_names: ShortNames,
     ) -> None:
         """``is_searching`` says whether a search is using the game, when sets
         can't be filled again for their placements; ``game_lock`` is held
-        while a search or a placement uses it."""
+        while a search or a placement uses it; ``short_names`` shorten the
+        table's cells."""
         super().__init__()
         self._strings = strings
+        self._short_names = short_names
         self._is_searching = is_searching
         self._game_lock = game_lock
         # Counts highlights, so a placement worked out for an earlier one is dropped.
@@ -163,11 +153,15 @@ class ResultsPane(Horizontal):
             table = ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
+                # The number, the five pieces and the defence; the spare slots and charm scroll.
+                must_fit=frozenset(range(7)),
+                # The number and the defence stay in view while the rest scroll.
+                pinned=frozenset({0, 6}),
                 id="results",
             )
             table.empty_text = _BEFORE_SEARCH
             yield table
-            yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
+            yield Input(placeholder="find: piece, jewel, charm or skill", id="find_box")
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
 
     @property
@@ -221,7 +215,7 @@ class ResultsPane(Horizontal):
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
-            rows = view_rows(view)
+            rows = view_rows(view, names=self._short_names)
         self._set_rows(rows)
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
@@ -334,10 +328,20 @@ class ResultsPane(Horizontal):
             self.view.select_filter(self._filters[index])
             self._fill_table()
 
+    @property
+    def find_open(self) -> bool:
+        return self.query_one("#find_box", Input).display
+
     def open_find(self) -> None:
-        box = self.query_one("#find_box", FindBox)
+        box = self.query_one("#find_box", Input)
         box.display = True
         box.focus()
+
+    def clear_find(self) -> None:
+        """Close the find box with its text cleared, as Esc does; the last
+        find text submitted stays for ``n`` and ``N``."""
+        self.query_one("#find_box", Input).value = ""
+        self._close_find()
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         if event.input.id != "find_box":
@@ -347,12 +351,8 @@ class ResultsPane(Horizontal):
         self._close_find()
         self.find(step=1, from_cursor=True)
 
-    def on_find_box_closed(self, event: FindBox.Closed) -> None:
-        event.stop()
-        self._close_find()
-
     def _close_find(self) -> None:
-        self.query_one("#find_box", FindBox).display = False
+        self.query_one("#find_box", Input).display = False
         self.query_one("#results", ResultsTable).focus()
 
     def find(self, step: int, from_cursor: bool = False) -> None:
@@ -369,7 +369,9 @@ class ResultsPane(Horizontal):
             # Each set's text is built once per search, whatever the sort or filter.
             key = id(solution)
             if key not in self._text_by_set:
-                self._text_by_set[key] = row_text(solution, query=query)
+                self._text_by_set[key] = row_text(
+                    solution, query=query, short_names=self._short_names
+                )
             texts.append(self._text_by_set[key])
         start = (table.cursor - step) % len(texts) if from_cursor else table.cursor
         row = find_row(texts, needle=self._needle, start=start, step=step)
@@ -436,19 +438,16 @@ class ResultsPane(Horizontal):
 
     def _fill_table(self) -> None:
         if self.view is not None:
-            self._set_rows(view_rows(self.view))
+            self._set_rows(view_rows(self.view, names=self._short_names))
 
 
 def _fit(label: str, width: int) -> str:
-    """``label`` padded or cut to ``width`` terminal cells (wide characters
-    count twice), ending in ``…`` when cut."""
-    if cell_len(label) <= width:
-        return set_cell_size(label, width)
-    fitted = set_cell_size(label, width - 1) + "…"
+    """``label`` padded or cut (``truncate``) to ``width`` terminal cells."""
+    fitted = set_cell_size(truncate(label, width), width)
     return fitted
 
 
-def view_rows(view: ResultsView) -> list[TableRow]:
-    """The table's rows for what ``view`` shows."""
-    rows = [table_row(solution, view.sort_key) for solution in view.final]
+def view_rows(view: ResultsView, names: ShortNames) -> list[TableRow]:
+    """The table's rows for what ``view`` shows, shortened by ``names``."""
+    rows = [table_row(solution, view.sort_key, names=names) for solution in view.final]
     return rows
