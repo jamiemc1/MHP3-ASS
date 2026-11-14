@@ -12,7 +12,7 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass, replace
 from threading import Lock
 
-from rich.cells import cell_len, set_cell_size
+from rich.cells import set_cell_size
 from textual import work
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
@@ -30,8 +30,9 @@ from mhp3ass.query import Query
 from mhp3ass.regions import Region
 from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
+from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
-from mhp3ass.results.table import TableRow, table_row
+from mhp3ass.results.table import TableRow, table_row, truncate
 from mhp3ass.results.view import CharmFilter, ResultsView
 from mhp3ass.solution.state import Solution
 from mhp3ass.tui.inspector import Inspector
@@ -112,12 +113,15 @@ class ResultsPane(Horizontal):
         reverse: bool,
         is_searching: Callable[[], bool],
         game_lock: Lock,
+        short_names: ShortNames,
     ) -> None:
         """``is_searching`` says whether a search is using the game, when sets
         can't be filled again for their placements; ``game_lock`` is held
-        while a search or a placement uses it."""
+        while a search or a placement uses it; ``short_names`` shorten the
+        table's cells."""
         super().__init__()
         self._strings = strings
+        self._short_names = short_names
         self._is_searching = is_searching
         self._game_lock = game_lock
         # Counts highlights, so a placement worked out for an earlier one is dropped.
@@ -149,6 +153,8 @@ class ResultsPane(Horizontal):
             table = ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
+                # The number, the five pieces and the defence; the spare slots and charm scroll.
+                must_fit=frozenset(range(7)),
                 id="results",
             )
             table.empty_text = _BEFORE_SEARCH
@@ -207,7 +213,7 @@ class ResultsPane(Horizontal):
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
-            rows = view_rows(view)
+            rows = view_rows(view, names=self._short_names)
         self._set_rows(rows)
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
@@ -428,19 +434,16 @@ class ResultsPane(Horizontal):
 
     def _fill_table(self) -> None:
         if self.view is not None:
-            self._set_rows(view_rows(self.view))
+            self._set_rows(view_rows(self.view, names=self._short_names))
 
 
 def _fit(label: str, width: int) -> str:
-    """``label`` padded or cut to ``width`` terminal cells (wide characters
-    count twice), ending in ``…`` when cut."""
-    if cell_len(label) <= width:
-        return set_cell_size(label, width)
-    fitted = set_cell_size(label, width - 1) + "…"
+    """``label`` padded or cut (``truncate``) to ``width`` terminal cells."""
+    fitted = set_cell_size(truncate(label, width), width)
     return fitted
 
 
-def view_rows(view: ResultsView) -> list[TableRow]:
-    """The table's rows for what ``view`` shows."""
-    rows = [table_row(solution, view.sort_key) for solution in view.final]
+def view_rows(view: ResultsView, names: ShortNames) -> list[TableRow]:
+    """The table's rows for what ``view`` shows, shortened by ``names``."""
+    rows = [table_row(solution, view.sort_key, names=names) for solution in view.final]
     return rows
