@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from mhp3ass.model import AbilityPair, Charm
@@ -47,14 +49,21 @@ def first_1a_set(teamhgg_game) -> Solution:
         defence=412,
         total_slots_spare=2,
         slots_spare=[0, 2, 0, 0],
+        fire_res=2,
+        water_res=-13,
+        thunder_res=7,
+        ice_res=-9,
+        dragon_res=-3,
     )
     return solution
 
 
-def test_a_row_has_the_short_pieces_defence_spare_slots_and_short_charm(
+def test_a_row_has_the_short_pieces_defence_spare_slots_short_charm_and_resistances(
     first_1a_set, teamhgg_short_names
 ):
-    row = table_row(first_1a_set, sort_key=SortKey.DEFENCE, names=teamhgg_short_names)
+    row = table_row(
+        first_1a_set, sort_key=SortKey.DEFENCE, names=teamhgg_short_names, query_skills=()
+    )
 
     assert row == TableRow(
         head="Jinouga Helm",
@@ -65,15 +74,35 @@ def test_a_row_has_the_short_pieces_defence_spare_slots_and_short_charm(
         defence="412",
         spare="2x1",
         charm="+4 Att +3 Sharpn (1)",
+        fire="2",
+        water="-13",
+        thunder="7",
+        ice="-9",
+        dragon="-3",
+        extra="",
     )
+
+
+def test_the_extra_skills_are_those_beyond_the_query_joined_by_commas(
+    first_1a_set, teamhgg_game, teamhgg_short_names
+):
+    skills = teamhgg_game.skill_map
+    attack, sharp, guard = skills["Attack Up [Med]"], skills["Sharp Sword"], skills["Guard +1"]
+    solution = replace(first_1a_set, extra_skills=[attack, guard, sharp])
+
+    row = table_row(
+        solution, sort_key=SortKey.NONE, names=teamhgg_short_names, query_skills=[attack]
+    )
+
+    assert row.extra == "Guard +1, Sharp Sword"
 
 
 def test_an_empty_slot_and_no_charm_are_blank(teamhgg_short_names):
     solution = Solution(armors=[None] * 5, charm=None, defence=0)
 
-    row = table_row(solution, sort_key=SortKey.NONE, names=teamhgg_short_names)
+    row = table_row(solution, sort_key=SortKey.NONE, names=teamhgg_short_names, query_skills=())
 
-    assert (row.head, row.legs, row.charm, row.spare) == ("", "", "", "")
+    assert (row.head, row.legs, row.charm, row.spare, row.extra) == ("", "", "", "", "")
 
 
 @pytest.mark.parametrize(

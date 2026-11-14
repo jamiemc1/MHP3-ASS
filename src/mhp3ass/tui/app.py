@@ -285,7 +285,7 @@ class SearchApp(App[bool]):
             # The file doesn't keep which charms the search ran with.
             pane.show(
                 view,
-                rows=view_rows(view, names=pane.table_names),
+                rows=view_rows(view, names=pane.table_names, query=results.query),
                 query=results.query,
                 game=self._data.game,
                 charm_templates=None,
@@ -616,7 +616,7 @@ class SearchApp(App[bool]):
             pane = self.query_one(ResultsPane)
             pane.show(
                 view,
-                rows=view_rows(view, names=pane.table_names),
+                rows=view_rows(view, names=pane.table_names, query=query),
                 query=query,
                 game=self._data.game,
                 charm_templates=charm_templates,
@@ -1102,7 +1102,7 @@ class SearchApp(App[bool]):
         if cancel.is_set():
             return
         view = ResultsView.from_search(result.results, sort_key=sort_key, reverse=reverse)
-        rows = view_rows(view, names=names)
+        rows = view_rows(view, names=names, query=result.query)
         self.call_from_thread(self._search_finished, number, result, view, rows, names)
 
     def _search_finished(
@@ -1135,7 +1135,7 @@ class SearchApp(App[bool]):
         pane = self.query_one(ResultsPane)
         # The screen's width class may have changed while the search ran.
         if names != pane.table_names:
-            rows = view_rows(view, names=pane.table_names)
+            rows = view_rows(view, names=pane.table_names, query=result.query)
         pane.show(
             view,
             rows=rows,
