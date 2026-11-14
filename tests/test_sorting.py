@@ -70,28 +70,32 @@ def test_difficulty_sorts_lowest_first(shuffled_values):
     assert [item.difficulty for item in solutions] == list(range(20))
 
 
-@pytest.mark.parametrize(
-    ("key", "field"),
-    [
-        (SortKey.DRAGON_RES, "dragon_res"),
-        (SortKey.FIRE_RES, "fire_res"),
-        (SortKey.ICE_RES, "ice_res"),
-        (SortKey.THUNDER_RES, "thunder_res"),
-        (SortKey.WATER_RES, "water_res"),
-        (SortKey.DEFENCE, "defence"),
-        (SortKey.MAX_DEFENCE, "max_defence"),
-        (SortKey.DIFFICULTY, "difficulty"),
-        (SortKey.RARITY, "rarity"),
-        (SortKey.SLOTS_SPARE, "total_slots_spare"),
-    ],
-)
-def test_sorts_ascending_says_which_way_each_key_sorts(shuffled_values, key, field):
-    solutions = [solution(**{field: value}) for value in shuffled_values]
+def test_sorts_ascending_says_which_way_every_key_sorts(shuffled_values):
+    """Every key but None, so a new key without a direction fails here."""
+    fields = {
+        SortKey.DRAGON_RES: "dragon_res",
+        SortKey.FIRE_RES: "fire_res",
+        SortKey.ICE_RES: "ice_res",
+        SortKey.THUNDER_RES: "thunder_res",
+        SortKey.WATER_RES: "water_res",
+        SortKey.DEFENCE: "defence",
+        SortKey.MAX_DEFENCE: "max_defence",
+        SortKey.DIFFICULTY: "difficulty",
+        SortKey.RARITY: "rarity",
+        SortKey.SLOTS_SPARE: "total_slots_spare",
+    }
+    directions = {}
+    for key in SortKey:
+        if key is SortKey.NONE:
+            continue
+        field = fields[key]
+        solutions = [solution(**{field: value}) for value in shuffled_values]
+        sort_results(solutions, key)
+        first_is_lowest = getattr(solutions[0], field) < getattr(solutions[-1], field)
+        directions[key] = (sorts_ascending(key), first_is_lowest)
 
-    sort_results(solutions, key)
-
-    first_is_lowest = getattr(solutions[0], field) < getattr(solutions[-1], field)
-    assert sorts_ascending(key) is first_is_lowest
+    assert all(said is found for said, found in directions.values())
+    assert [key for key, (said, _) in directions.items() if said] == [SortKey.DIFFICULTY]
 
 
 def test_none_sorts_neither_way():
