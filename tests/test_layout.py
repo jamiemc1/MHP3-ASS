@@ -12,11 +12,12 @@ from mhp3ass.layout import (
     layout_for,
     width_breakpoints,
 )
+from mhp3ass.regions import Region
 
 
 def _layout(width_class, height_class=HeightClass.NORMAL, small=False):
-    """A layout of ``width_class`` at a normal height, not small."""
-    layout = Layout(width=width_class, height=height_class, small=small)
+    """A layout of ``width_class`` at a normal height, not small, with the charms shown."""
+    layout = Layout(width=width_class, height=height_class, small=small, charms_shown=True)
     return layout
 
 
@@ -186,9 +187,38 @@ def test_a_short_screens_footer_drops_the_palette_hint(height_class, palette):
     assert _layout(WidthClass.WIDE, height_class=height_class).footer_palette is palette
 
 
-@pytest.mark.parametrize(("small", "shown"), [(False, True), (True, False)])
-def test_a_small_screen_shows_no_charms(small, shown):
-    assert _layout(WidthClass.NARROW, small=small).charms_shown is shown
+@pytest.mark.parametrize(
+    ("width", "height", "shown"),
+    [
+        (88, 14, True),
+        (200, 16, True),
+        (61, 16, True),
+        (80, 24, True),
+        (60, 16, False),
+        (60, 50, False),
+    ],
+)
+def test_the_charms_show_over_60_columns_however_short(width, height, shown):
+    assert layout_for(width, height=height).charms_shown is shown
+
+
+def test_a_short_wide_screen_shows_the_charm_drop_down_not_the_sidebar():
+    layout = layout_for(200, height=14)
+
+    assert layout.charms_shown
+    assert not layout.sidebar
+
+
+@pytest.mark.parametrize("region", list(Region))
+def test_every_region_is_shown_while_the_charms_are(region):
+    assert layout_for(88, height=14).region_shown(region)
+
+
+@pytest.mark.parametrize(
+    ("region", "shown"), [(Region.QUERY, True), (Region.CHARMS, False), (Region.SETS, True)]
+)
+def test_at_60_columns_only_the_charms_region_is_hidden(region, shown):
+    assert layout_for(60, height=16).region_shown(region) is shown
 
 
 @pytest.mark.parametrize(

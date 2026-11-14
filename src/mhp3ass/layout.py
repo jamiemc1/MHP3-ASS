@@ -22,7 +22,8 @@ The heights:
   a portrait, the inspector below the table following the cursor.
 
 At 60 columns or 16 rows and below, the screen is small: the table only, with a
-note in place of the footer.
+note in place of the footer, and the charm drop-down while it is over 60
+columns wide.
 
 The thresholds are starting values, to be tuned by trying them.
 """
@@ -31,6 +32,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum, StrEnum
+
+from mhp3ass.regions import Region
 
 
 class WidthClass(StrEnum):
@@ -92,11 +95,13 @@ def breakpoint_class(size: int, breakpoints: list[tuple[int, str]]) -> str:
 @dataclass(frozen=True)
 class Layout:
     """What the main screen shows at one size; ``small``: at most 60
-    columns or 16 rows."""
+    columns or 16 rows; ``charms_shown``: the charm sidebar or drop-down
+    shows (over 60 columns)."""
 
     width: WidthClass
     height: HeightClass
     small: bool
+    charms_shown: bool
 
     @property
     def sidebar(self) -> bool:
@@ -113,10 +118,11 @@ class Layout:
             return InspectorPlace.BELOW
         return InspectorPlace.BESIDE
 
-    @property
-    def charms_shown(self) -> bool:
-        """The charm sidebar or drop-down shows (not on a small screen)."""
-        shown = not self.small
+    def region_shown(self, region: Region) -> bool:
+        """``region`` is on the screen for its key (``1``/``2``/``3``) to
+        focus. The query always is (``1`` opens a collapsed editor), and the
+        sets; the charms only while they show."""
+        shown = self.charms_shown or region is not Region.CHARMS
         return shown
 
     @property
@@ -151,5 +157,6 @@ def layout_for(width: int, height: int) -> Layout:
         width=WidthClass(breakpoint_class(width, width_breakpoints())),
         height=HeightClass(breakpoint_class(height, height_breakpoints())),
         small=width <= 60 or height <= 16,
+        charms_shown=width > 60,
     )
     return layout

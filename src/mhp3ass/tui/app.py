@@ -194,7 +194,14 @@ class SearchApp(App[bool]):
     Screen.-editor-over ResultsPane {
         display: none;
     }
-    Screen.-small ResultsPane #charm_filter, Screen.-small ResultsPane #charms_bar {
+    /* A small screen keeps the one-line charm drop-down, unless it is too narrow for it. */
+    Screen.-small ResultsPane #charm_filter {
+        display: none;
+    }
+    Screen.-small ResultsPane #charms_bar {
+        display: block;
+    }
+    Screen.-no-charms ResultsPane #charms_bar {
         display: none;
     }
     Screen.-small Footer {
@@ -355,6 +362,7 @@ class SearchApp(App[bool]):
             self.call_after_refresh(pane.query_one(Inspector).relayout)
         main.set_class(over_results, "-editor-over")
         main.set_class(layout.small, "-small")
+        main.set_class(not layout.charms_shown, "-no-charms")
         main.query_one("#query_line", Horizontal).display = layout.shows_query_line(
             editor_open=self.editor.display, has_results=has_results
         )
@@ -938,14 +946,15 @@ class SearchApp(App[bool]):
         table."""
         if region is Region.QUERY:
             raise ValueError("the query is entered through its fields, not as a whole")
+        layout = self._layout()
+        # Checked before anything moves, so a region that can't show changes nothing.
+        if not layout.region_shown(region):
+            self.notify("The charms are hidden on a screen this narrow.", timeout=3)
+            return
         # The editor over the results gives them back.
         if self.screen_stack[0].has_class("-editor-over"):
             self._collapse_editor()
-        layout = self._layout()
         if region is Region.CHARMS:
-            # A small screen shows neither the sidebar nor the drop-down.
-            if not layout.charms_shown:
-                return
             charms = (
                 self.query_one("#charm_filter", OptionList)
                 if layout.sidebar
