@@ -23,3 +23,17 @@ def region_hint(region: Region) -> str:
     superscripts = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
     hint = str(int(region)).translate(superscripts)
     return hint
+
+
+def next_region(current: Region | None, step: int, editor_open: bool) -> Region:
+    """The region Tab (``step`` 1) or Shift+Tab (-1) moves to from
+    ``current``, round in screen order. The query is a stop only while its
+    editor is open (``1`` opens it); with focus in no region, Tab goes to
+    the first and Shift+Tab to the last."""
+    stops = [region for region in Region if editor_open or region is not Region.QUERY]
+    if current is None or current not in stops:
+        start = -1 if step > 0 else len(stops)
+    else:
+        start = stops.index(current)
+    region = stops[(start + step) % len(stops)]
+    return region
