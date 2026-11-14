@@ -6,7 +6,7 @@ import random
 
 import pytest
 
-from mhp3ass.results.sorting import SortKey, solution_comparison, sort_results
+from mhp3ass.results.sorting import SortKey, solution_comparison, sort_results, sorts_ascending
 from mhp3ass.solution.state import Solution
 
 
@@ -68,6 +68,34 @@ def test_difficulty_sorts_lowest_first(shuffled_values):
     sort_results(solutions, SortKey.DIFFICULTY)
 
     assert [item.difficulty for item in solutions] == list(range(20))
+
+
+@pytest.mark.parametrize(
+    ("key", "field"),
+    [
+        (SortKey.DRAGON_RES, "dragon_res"),
+        (SortKey.FIRE_RES, "fire_res"),
+        (SortKey.ICE_RES, "ice_res"),
+        (SortKey.THUNDER_RES, "thunder_res"),
+        (SortKey.WATER_RES, "water_res"),
+        (SortKey.DEFENCE, "defence"),
+        (SortKey.MAX_DEFENCE, "max_defence"),
+        (SortKey.DIFFICULTY, "difficulty"),
+        (SortKey.RARITY, "rarity"),
+        (SortKey.SLOTS_SPARE, "total_slots_spare"),
+    ],
+)
+def test_sorts_ascending_says_which_way_each_key_sorts(shuffled_values, key, field):
+    solutions = [solution(**{field: value}) for value in shuffled_values]
+
+    sort_results(solutions, key)
+
+    first_is_lowest = getattr(solutions[0], field) < getattr(solutions[-1], field)
+    assert sorts_ascending(key) is first_is_lowest
+
+
+def test_none_sorts_neither_way():
+    assert sorts_ascending(SortKey.NONE) is None
 
 
 def test_none_leaves_the_order_alone(shuffled_values):
