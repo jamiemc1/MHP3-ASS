@@ -57,7 +57,7 @@ def test_a_row_has_the_short_pieces_defence_spare_slots_and_short_charm(
     row = table_row(first_1a_set, sort_key=SortKey.DEFENCE, names=teamhgg_short_names)
 
     assert row == TableRow(
-        head="Jinouga",
+        head="Jinouga Helm",
         body="Agnaktor",
         arms="Jinouga",
         waist="Barroth S",
