@@ -126,8 +126,9 @@ class QueryForm:
     def summary(self, strings: DisplayStrings) -> str:
         """The form on one line, for the collapsed editor: hunter type and
         gender, HR, village, weapon slots, the shown tab's skills, the charm
-        mode and the options that are on, labelled with the language's
-        strings (the Options menu's, without their ``&``)."""
+        mode and the options set otherwise than in ``starting``, labelled
+        with the language's strings (the Options menu's, without their
+        ``&``)."""
         hunter = (
             StringIndex.GUNNER if self.hunter_type is HunterType.GUNNER else StringIndex.BLADEMASTER
         )
@@ -140,7 +141,7 @@ class QueryForm:
             f"{strings.static(StringIndex.MAX_WEAPON_SLOTS)} {self.weapon_slots}",
             skills,
             strings.static(charm_mode_label(self.charm_mode)),
-            *self._options_on(strings),
+            *self._options_changed(strings),
         ]
         line = " · ".join(part for part in parts if part != "")
         return line
@@ -155,9 +156,15 @@ class QueryForm:
         ]
         return options
 
-    def _options_on(self, strings: DisplayStrings) -> list[str]:
-        """The labels of the armour options that are on, in menu order."""
-        labels = [strings.basic(option.label) for option in self.armour_options() if option.on]
+    def _options_changed(self, strings: DisplayStrings) -> list[str]:
+        """The armour options that differ from ``starting``'s, in menu order:
+        the label of one turned on, the label and ``off`` for one turned off."""
+        defaults = QueryForm.starting().armour_options()
+        labels = [
+            strings.basic(option.label) if option.on else f"{strings.basic(option.label)} off"
+            for option, default in zip(self.armour_options(), defaults, strict=True)
+            if option.on != default.on
+        ]
         return labels
 
     def with_rows(self, hunter_type: HunterType, rows: tuple[SkillRow, ...]) -> QueryForm:
