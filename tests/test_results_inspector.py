@@ -22,6 +22,8 @@ from mhp3ass.results.details import (
 )
 from mhp3ass.results.inspector import (
     InspectorLine,
+    PieceLine,
+    charm_text,
     inspector_lines,
     jewel_lines,
     note_text,
@@ -163,7 +165,7 @@ def test_the_lines_list_pieces_charm_jewels_spare_extra_skills_and_stats(
     ]
 
 
-def test_the_piece_lines_skip_the_empty_slot_and_note_after_the_piece(
+def test_the_piece_lines_skip_the_empty_slot_and_carry_each_note(
     teamhgg_game, english_strings, set_with_an_empty_arms_slot
 ):
     waist = teamhgg_game.armor_map["Barroth Tasset S"]
@@ -176,12 +178,24 @@ def test_the_piece_lines_skip_the_empty_slot_and_note_after_the_piece(
     )
 
     assert lines == [
-        InspectorLine("Head", "Jinouga Helm"),
-        InspectorLine("Body", "Agnaktor Mail"),
-        InspectorLine("Waist", "Barroth Tasset S"),
-        InspectorLine("", f"(or anything with {waist.num_slots} slots)"),
-        InspectorLine("Legs", "Baggi Greaves S"),
+        PieceLine(label="Head", name="Jinouga Helm", note=None),
+        PieceLine(label="Body", name="Agnaktor Mail", note=None),
+        PieceLine(
+            label="Waist",
+            name="Barroth Tasset S",
+            note=f"(or anything with {waist.num_slots} slots)",
+        ),
+        PieceLine(label="Legs", name="Baggi Greaves S", note=None),
     ]
+
+
+def test_a_charm_is_named_and_no_charm_says_so(teamhgg_game):
+    charm = Charm(
+        num_slots=1,
+        abilities=[AbilityPair(ability=teamhgg_game.ability_map["Attack"], amount=4)],
+    )
+
+    assert [charm_text(charm), charm_text(None)] == ["+4 Attack O--", "no charm"]
 
 
 def test_a_set_without_armour_has_no_piece_lines(english_strings):

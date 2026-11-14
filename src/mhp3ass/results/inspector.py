@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import as_signed
+from mhp3ass.model import Charm
 from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
@@ -94,10 +95,9 @@ def jewel_lines(details: SolutionDetails) -> list[InspectorLine]:
             return [InspectorLine(label="Jewels", text=note), *_split_lines(jewels.jewels)]
         case CorrectedJewels():
             note = "(the listed charm and jewels don't fit; these build it)"
-            charm = "no charm" if jewels.charm is None else charm_name(jewels.charm)
             lines = [
                 InspectorLine(label="Jewels", text=note),
-                InspectorLine(label="Builds with", text=charm),
+                InspectorLine(label="Builds with", text=charm_text(jewels.charm)),
                 *_split_lines(jewels.jewels),
             ]
             return lines
@@ -151,26 +151,37 @@ def _counted_lines(label: str, counts: Sequence[DecorationCount]) -> list[Inspec
     return lines
 
 
+@dataclass(frozen=True)
+class PieceLine:
+    """A piece: its slot's ``label``, its ``name`` and its ``note`` (``note_text``)."""
+
+    label: str
+    name: str
+    note: str | None
+
+
 def piece_lines(
     solution: Solution,
     details: SolutionDetails,
     strings: DisplayStrings,
     piece_labels: Sequence[str],
-) -> list[InspectorLine]:
-    """Each piece under its slot's label, from ``piece_labels`` (the five
-    armour slots in order), its note on the line after it. An empty slot
-    has no line."""
+) -> list[PieceLine]:
+    """Each piece, labelled from ``piece_labels`` (the five armour slots in
+    order). An empty slot has no line."""
     lines = []
     armor_lines = iter(details.armors)
     for label, armor in zip(piece_labels, solution.armors, strict=True):
         if armor is None:
             continue
-        line = next(armor_lines)
-        lines.append(InspectorLine(label=label, text=armor.name))
-        note = note_text(line, strings)
-        if note is not None:
-            lines.append(InspectorLine(label="", text=note))
+        note = note_text(next(armor_lines), strings)
+        lines.append(PieceLine(label=label, name=armor.name, note=note))
     return lines
+
+
+def charm_text(charm: Charm | None) -> str:
+    """``charm``'s name, or "no charm"."""
+    text = "no charm" if charm is None else charm_name(charm)
+    return text
 
 
 def inspector_lines(
@@ -180,8 +191,13 @@ def inspector_lines(
     piece_labels: Sequence[str],
 ) -> list[InspectorLine]:
     """``solution``'s lines from its ``details``; ``piece_labels`` name the five
-    armour slots in order. An empty slot has no line."""
-    lines = piece_lines(solution, details, strings, piece_labels=piece_labels)
+    armour slots in order. An empty slot has no line, and a piece's note
+    goes on the line after it."""
+    lines = []
+    for piece in piece_lines(solution, details, strings, piece_labels=piece_labels):
+        lines.append(InspectorLine(label=piece.label, text=piece.name))
+        if piece.note is not None:
+            lines.append(InspectorLine(label="", text=piece.note))
     if details.charm is not None:
         lines.append(InspectorLine(label="Charm", text=charm_name(details.charm)))
     lines.extend(jewel_lines(details))
