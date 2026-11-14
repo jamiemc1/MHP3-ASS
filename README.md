@@ -62,7 +62,11 @@ The layout follows the terminal's width: from 150 columns, the sidebar,
 table and inspector side by side (from 220, with the table's names in
 full); from 110, a charm drop-down at the top of the sets replaces the
 sidebar; below 110, the table only, where `i` or ⏎ shows the inspector
-over it and `i` or Esc goes back.
+over it and `i` or Esc goes back. And its height: below 30 rows the
+editor, reopened over results, takes their place until Esc collapses it;
+from 46 rows a narrow screen shows the inspector below the table. At 60
+columns or 16 rows and below only the table shows, with a note that `?`
+lists the keys.
 After a search the editor collapses to a one-line summary (the options
 show only where they differ from the defaults): `e` (or `1`) reopens it.
 The open editor takes at most about 40 % of the screen and scrolls past
