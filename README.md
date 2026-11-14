@@ -58,6 +58,11 @@ and `<` or `>` in the header shows there are more that way), and the inspector
 beside it showing the selected set's full pieces, jewels, spare slots,
 extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
+The layout follows the terminal's width: from 150 columns, the sidebar,
+table and inspector side by side (from 220, with the table's names in
+full); from 110, a charm drop-down at the top of the sets replaces the
+sidebar; below 110, the table only, where `i` or ⏎ shows the inspector
+over it and `i` or Esc goes back.
 After a search the editor collapses to a one-line summary (the options
 show only where they differ from the defaults): `e` (or `1`) reopens it.
 The open editor takes at most about 40 % of the screen and scrolls past
