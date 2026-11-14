@@ -1,9 +1,10 @@
-"""The Options modal: the four armour options, the language, the search's
-processes and the saved-data folder; and the small modals it opens.
+"""The Options modal: the four armour options, the language, the colour
+theme, the search's processes and the saved-data folder; and the small
+modals it opens.
 
 A new layout over the original's Options and Language menus
 (``legacy/Form1.h:911-931``, ``LanguageSelect_Click`` ``:2011``); the
-processes and the folder are the TUI's own (``tui.toml``).
+theme, the processes and the folder are the TUI's own (``tui.toml``).
 """
 
 from __future__ import annotations
@@ -17,15 +18,84 @@ from typing import ClassVar
 from textual import work
 from textual.app import ComposeResult
 from textual.binding import Binding, BindingType
-from textual.containers import Horizontal, Vertical
+from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.content import Content
 from textual.message import Message
 from textual.screen import ModalScreen
-from textual.widgets import Button, Checkbox, DirectoryTree, Input, Label, Select, Static, Tree
+from textual.widgets import (
+    Button,
+    Checkbox,
+    DirectoryTree,
+    Input,
+    Label,
+    OptionList,
+    Select,
+    Static,
+    Tree,
+)
 from textual.widgets.directory_tree import DirEntry
+from textual.widgets.option_list import Option
 
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.query_form import QueryForm
+
+
+class ThemeList(OptionList):
+    """The themes by name. While it has focus, moving the cursor shows each
+    theme at once; ⏎, or leaving the list, keeps the highlighted one; Esc
+    goes back to the theme it had when it got focus (a second Esc closes
+    Options)."""
+
+    BINDINGS: ClassVar[list[BindingType]] = [Binding("escape", "revert", "Revert theme")]
+
+    class Previewed(Message):
+        """Show ``theme`` while the cursor is on it, without keeping it."""
+
+        def __init__(self, theme: str) -> None:
+            super().__init__()
+            self.theme = theme
+
+    class Kept(Message):
+        """``theme`` was chosen: keep it and save it."""
+
+        def __init__(self, theme: str) -> None:
+            super().__init__()
+            self.theme = theme
+
+    def __init__(self, themes: list[str], current: str) -> None:
+        super().__init__(*(Option(Content(theme)) for theme in themes), id="theme")
+        self._themes = themes
+        self._current = current
+        # The theme when the list got focus, which Esc goes back to.
+        self._original = current
+
+    def on_mount(self) -> None:
+        self.highlighted = self._themes.index(self._current)
+
+    def on_focus(self) -> None:
+        self._original = self._themes[self.highlighted] if self.highlighted is not None else ""
+
+    def on_option_list_option_highlighted(self, event: OptionList.OptionHighlighted) -> None:
+        event.stop()
+        # Highlighting the current theme on mount is no preview.
+        if self.has_focus:
+            self.post_message(self.Previewed(self._themes[event.option_index]))
+
+    def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
+        event.stop()
+        self.post_message(self.Kept(self._themes[event.option_index]))
+
+    def on_blur(self) -> None:
+        if self.highlighted is not None:
+            self.post_message(self.Kept(self._themes[self.highlighted]))
+
+    async def action_revert(self) -> None:
+        highlighted = self._themes[self.highlighted] if self.highlighted is not None else None
+        if highlighted == self._original:
+            await self.run_action("screen.close")
+            return
+        self.highlighted = self._themes.index(self._original)
+        self.post_message(self.Kept(self._original))
 
 
 class OptionsScreen(ModalScreen[None]):
@@ -38,6 +108,7 @@ class OptionsScreen(ModalScreen[None]):
     OptionsScreen #options {
         width: 60;
         height: auto;
+        max-height: 100%;
         border: round $accent;
         padding: 0 1;
     }
@@ -50,6 +121,10 @@ class OptionsScreen(ModalScreen[None]):
     }
     OptionsScreen #language {
         width: 36;
+    }
+    OptionsScreen #theme {
+        width: 36;
+        height: 6;
     }
     OptionsScreen #jobs {
         width: 12;
@@ -115,9 +190,14 @@ class OptionsScreen(ModalScreen[None]):
         max_jobs: int,
         saved_folder: Path,
         folder_locked: bool,
+        themes: list[str],
+        theme: str,
     ) -> None:
-        """``folder_locked``: ``MHP3ASS_HOME`` chooses the folder, so it can't be changed here."""
+        """``folder_locked``: ``MHP3ASS_HOME`` chooses the folder, so it can't
+        be changed here. ``themes``: every theme's name, ``theme`` the one in use."""
         super().__init__()
+        self._themes = themes
+        self._theme = theme
         self._form = form
         self._strings = strings
         self._languages = languages
@@ -129,7 +209,8 @@ class OptionsScreen(ModalScreen[None]):
 
     def compose(self) -> ComposeResult:
         strings = self._strings
-        options = Vertical(id="options")
+        # Scrolls when the terminal is too short for every option.
+        options = VerticalScroll(id="options", can_focus=False)
         options.border_title = strings.basic(StringIndex.OPTIONS)
         with options:
             for option in self._form.armour_options():
@@ -142,6 +223,9 @@ class OptionsScreen(ModalScreen[None]):
                     allow_blank=False,
                     id="language",
                 )
+            with Horizontal():
+                yield Label("Theme")
+                yield ThemeList(self._themes, current=self._theme)
             with Horizontal():
                 yield Label("Search jobs")
                 yield Select(

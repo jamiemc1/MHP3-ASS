@@ -15,6 +15,7 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
 from textual.containers import Horizontal
 from textual.message import Message
+from textual.theme import Theme
 from textual.widgets import Button, Footer, Label, Static
 from textual.worker import Worker
 
@@ -50,7 +51,8 @@ from mhp3ass.search import (
 )
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
-from mhp3ass.tui.options import ChoiceScreen, OptionsScreen
+from mhp3ass.themes import starting_theme
+from mhp3ass.tui.options import ChoiceScreen, OptionsScreen, ThemeList
 from mhp3ass.tui.query_editor import QueryEditor
 from mhp3ass.tui.results_pane import ResultsPane, view_rows
 from mhp3ass.tui.results_table import ResultsTable
@@ -190,6 +192,13 @@ class SearchApp(App[bool]):
         self._searched_form: QueryForm | None = None
         # Set once the app has asked to exit, so a late signal doesn't save over what it left.
         self._exiting = False
+        theme = starting_theme(files.folders.settings.theme, available=self.available_themes)
+        self.theme = theme.name
+        self._theme_unavailable = theme.unavailable
+        # The theme last kept, so a change back to it saves nothing.
+        self._kept_theme = theme.name
+        # While Options' theme list shows a theme under its cursor, that theme isn't kept.
+        self._theme_previewing = False
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="query_line"):
@@ -227,6 +236,14 @@ class SearchApp(App[bool]):
             self._collapse_editor()
         if self._startup.notice is not None:
             self.notify(self._startup.notice, timeout=15)
+        if self._theme_unavailable is not None:
+            self.notify(
+                f"{self._files.folders.settings_file} names the theme "
+                f"{self._theme_unavailable!r}, which isn't available; using {self.theme}.",
+                markup=False,
+            )
+        # The command palette's Theme command changes the theme too.
+        self.theme_changed_signal.subscribe(self, self._theme_changed)
         self._save()
         self._save_on_close_signals()
 
@@ -285,8 +302,34 @@ class SearchApp(App[bool]):
                 max_jobs=max(usable_cpus(), self.jobs),
                 saved_folder=self._files.folders.saved,
                 folder_locked=self._files.folders.saved_set_by_env,
-            )
+                themes=sorted(self.available_themes),
+                theme=self.theme,
+            ),
+            # Closing Options while a theme is shown keeps it.
+            lambda _: self._keep_theme(self.theme) if self._theme_previewing else None,
         )
+
+    def on_theme_list_previewed(self, event: ThemeList.Previewed) -> None:
+        event.stop()
+        self._theme_previewing = True
+        self.theme = event.theme
+
+    def on_theme_list_kept(self, event: ThemeList.Kept) -> None:
+        event.stop()
+        self._keep_theme(event.theme)
+
+    def _theme_changed(self, theme: Theme) -> None:
+        if not self._theme_previewing:
+            self._keep_theme(self.theme)
+
+    def _keep_theme(self, name: str) -> None:
+        """Use theme ``name`` and save it in ``tui.toml``."""
+        self._theme_previewing = False
+        self.theme = name
+        if name == self._kept_theme:
+            return
+        self._kept_theme = name
+        self._save_tui_settings(replace(self._files.folders.settings, theme=name))
 
     def on_options_screen_folder_chosen(self, event: OptionsScreen.FolderChosen) -> None:
         """Ask what to do with the files, as ``folder_choices`` allows."""
