@@ -208,12 +208,23 @@ class ResultsTable(ScrollView, can_focus=True):
     def show_wide(self) -> bool:
         return self._show_wide
 
-    def set_show_wide(self, shown: bool) -> None:
-        """Show the wide columns, or hide them, keeping the cursor; shown,
-        the first of them scrolls to the start of the window."""
+    @property
+    def column_start(self) -> int:
+        """The first scrolled column in view, as ``column_window`` counts it."""
+        return self._window.first
+
+    @property
+    def wide_start(self) -> int:
+        """The ``column_start`` that brings the first wide column to the
+        start of the window, with the wide columns shown."""
+        columns = scrolled_columns(len(self._widths), pinned=self._pinned, hidden=frozenset())
+        start = columns.index(min(self._wide))
+        return start
+
+    def set_show_wide(self, shown: bool, first: int) -> None:
+        """Show the wide columns, or hide them, keeping the cursor, with the
+        scrolled columns starting at ``first``."""
         self._show_wide = shown
-        columns = scrolled_columns(len(self._widths), self._pinned, hidden=self._hidden())
-        first = columns.index(min(self._wide)) if shown else self._window.first
         self._update_size(first=first)
         self.refresh()
 

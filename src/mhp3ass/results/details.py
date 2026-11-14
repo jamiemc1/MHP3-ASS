@@ -291,6 +291,14 @@ def _counted(placement: JewelPlacement) -> ChestJewels:
     return jewels
 
 
+def extra_skills(solution: Solution, query_skills: Sequence[Skill]) -> tuple[Skill, ...]:
+    """The skills ``solution`` has beyond ``query_skills`` (its search's),
+    in its own order, as the original lists them under the set
+    (``Form1.h:1646-1653``)."""
+    extras = tuple(skill for skill in solution.extra_skills if skill not in query_skills)
+    return extras
+
+
 def slots_spare(solution: Solution, sort_key: SortKey) -> SlotsSpare | None:
     """Form1.h:1608-1632: shown when any slot is spare or when sorting by slots spare."""
     total = solution.total_slots_spare
@@ -337,7 +345,7 @@ def solution_details(
         for armor in solution.armors
         if armor is not None
     )
-    extra_skills = tuple(skill for skill in solution.extra_skills if skill not in query.skills)
+    extras = extra_skills(solution, query_skills=query.skills)
     details = SolutionDetails(
         armors=armors,
         charm=solution.charm,
@@ -347,6 +355,6 @@ def solution_details(
         ),
         slots_spare=slots_spare(solution, sort_key),
         sort_value=sort_value(solution, sort_key),
-        extra_skills=extra_skills,
+        extra_skills=extras,
     )
     return details

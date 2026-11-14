@@ -21,7 +21,6 @@ def test_the_app_keys_are_search_keys_quit_options_and_the_regions():
 def test_the_form_fields_have_no_letter_of_their_own():
     every = {binding.key for binding in app_keys()} | {binding.key for binding in results_keys()}
 
-    # w was the weapon slots' letter; it is the sets table's wide columns now.
     assert every.isdisjoint({"h", "g", "r", "v", "m", "k"})
     assert [binding.action for binding in results_keys() if binding.key == "w"] == [
         "app.wide_columns"
