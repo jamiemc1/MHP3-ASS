@@ -1,10 +1,10 @@
 """The Options modal: the four armour options, the language, the colour
-theme, the search's processes and the saved-data folder; and the small
-modals it opens.
+theme, the search's processes, the saved-data folder and the export folder;
+and the small modals it opens.
 
 A new layout over the original's Options and Language menus
 (``legacy/Form1.h:911-931``, ``LanguageSelect_Click`` ``:2011``); the
-theme, the processes and the folder are the TUI's own (``tui.toml``).
+theme, the processes and the folders are the TUI's own (``tui.toml``).
 """
 
 from __future__ import annotations
@@ -12,6 +12,7 @@ from __future__ import annotations
 import subprocess
 import sys
 from collections.abc import Callable, Iterable
+from functools import partial
 from pathlib import Path
 from typing import ClassVar
 
@@ -160,13 +161,13 @@ class OptionsScreen(ModalScreen[None]):
     OptionsScreen #jobs {
         width: 12;
     }
-    OptionsScreen #saved_folder {
+    OptionsScreen #saved_folder, OptionsScreen #export_folder {
         width: 1fr;
     }
-    OptionsScreen #folder_buttons {
+    OptionsScreen .folder_buttons {
         padding: 0 0 0 16;
     }
-    OptionsScreen #folder_buttons Button {
+    OptionsScreen .folder_buttons Button {
         margin: 0 2 0 0;
     }
     OptionsScreen #folder_note {
@@ -208,6 +209,14 @@ class OptionsScreen(ModalScreen[None]):
             super().__init__()
             self.folder = folder
 
+    class ExportFolderChosen(Message):
+        """The folder exported sets go to, typed (⏎) or picked with Browse…;
+        ``None`` (an empty box): the folder mhp3-ass starts in."""
+
+        def __init__(self, folder: Path | None) -> None:
+            super().__init__()
+            self.folder = folder
+
     class ClearRequested(Message):
         pass
 
@@ -221,11 +230,15 @@ class OptionsScreen(ModalScreen[None]):
         max_jobs: int,
         saved_folder: Path,
         folder_locked: bool,
+        export_folder: Path | None,
+        start_folder: Path,
         themes: list[str],
         theme: str,
     ) -> None:
         """``folder_locked``: ``MHP3ASS_HOME`` chooses the folder, so it can't
-        be changed here. ``themes``: every theme's name, ``theme`` the one in use."""
+        be changed here. ``export_folder``: ``tui.toml``'s folder for exported
+        sets, ``None`` for ``start_folder``, the one mhp3-ass started in.
+        ``themes``: every theme's name, ``theme`` the one in use."""
         super().__init__()
         self._themes = themes
         self._theme = theme
@@ -237,6 +250,8 @@ class OptionsScreen(ModalScreen[None]):
         self._max_jobs = max_jobs
         self._saved_folder = saved_folder
         self._folder_locked = folder_locked
+        self._export_folder = export_folder
+        self._start_folder = start_folder
 
     def compose(self) -> ComposeResult:
         strings = self._strings
@@ -270,12 +285,21 @@ class OptionsScreen(ModalScreen[None]):
                 yield Input(
                     str(self._saved_folder), disabled=self._folder_locked, id="saved_folder"
                 )
-            with Horizontal(id="folder_buttons"):
+            with Horizontal(id="folder_buttons", classes="folder_buttons"):
                 if self._folder_locked:
                     yield Label("set by MHP3ASS_HOME", id="folder_note")
                 else:
                     yield Button("Browse…", compact=True, id="browse")
                 yield Button("clear…", compact=True, id="clear")
+            with Horizontal():
+                yield Label("Export sets to")
+                yield Input(
+                    str(self._export_folder) if self._export_folder is not None else "",
+                    placeholder=f"{self._start_folder} (where mhp3-ass started)",
+                    id="export_folder",
+                )
+            with Horizontal(id="export_buttons", classes="folder_buttons"):
+                yield Button("Browse…", compact=True, id="export_browse")
             yield Label("Space toggle · ⏎ use folder · Esc close", id="keys")
 
     def on_checkbox_changed(self, event: Checkbox.Changed) -> None:
@@ -297,7 +321,11 @@ class OptionsScreen(ModalScreen[None]):
     def on_input_submitted(self, event: Input.Submitted) -> None:
         event.stop()
         text = event.value.strip()
-        if text != "":
+        if event.input.id == "export_folder":
+            # Empty goes back to the folder mhp3-ass starts in.
+            folder = Path(text).expanduser().resolve() if text != "" else None
+            self.post_message(self.ExportFolderChosen(folder))
+        elif text != "":
             # Resolved here, as tui.toml would read a relative folder as under its own.
             self.post_message(self.FolderChosen(Path(text).expanduser().resolve()))
 
@@ -306,17 +334,20 @@ class OptionsScreen(ModalScreen[None]):
         if event.button.id == "clear":
             self.post_message(self.ClearRequested())
         elif event.button.id == "browse":
-            self._browse()
+            self._browse("saved_folder")
+        elif event.button.id == "export_browse":
+            self._browse("export_folder")
 
-    def _browse(self) -> None:
-        """The macOS folder dialog, else a folder tree in the terminal."""
+    def _browse(self, input_id: str) -> None:
+        """The macOS folder dialog, else a folder tree in the terminal, for
+        the folder in the ``input_id`` box."""
         if sys.platform == "darwin":
-            self._choose_folder_on_macos()
+            self._choose_folder_on_macos(input_id)
         else:
-            self.app.push_screen(FolderPicker(), self._picked)
+            self.app.push_screen(FolderPicker(), partial(self._picked, input_id))
 
     @work(thread=True, group="browse", exclusive=True)
-    def _choose_folder_on_macos(self) -> None:
+    def _choose_folder_on_macos(self, input_id: str) -> None:
         try:
             completed = subprocess.run(
                 ["osascript", "-e", "POSIX path of (choose folder)"],
@@ -331,14 +362,17 @@ class OptionsScreen(ModalScreen[None]):
         # A cancelled dialog exits non-zero with nothing on stdout.
         chosen = completed.stdout.strip()
         if completed.returncode == 0 and chosen != "":
-            self.app.call_from_thread(self._picked, Path(chosen))
+            self.app.call_from_thread(self._picked, input_id, Path(chosen))
 
-    def _picked(self, folder: Path | None) -> None:
+    def _picked(self, input_id: str, folder: Path | None) -> None:
         # The macOS dialog can answer after this modal has been closed.
         if folder is None or not self.is_attached:
             return
-        self.query_one("#saved_folder", Input).value = str(folder)
-        self.post_message(self.FolderChosen(folder))
+        self.query_one(f"#{input_id}", Input).value = str(folder)
+        if input_id == "export_folder":
+            self.post_message(self.ExportFolderChosen(folder))
+        else:
+            self.post_message(self.FolderChosen(folder))
 
     def action_close(self) -> None:
         self.dismiss()

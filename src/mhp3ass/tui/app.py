@@ -74,6 +74,7 @@ from mhp3ass.search import (
     run_search,
 )
 from mhp3ass.set_copy import copied_notice, jewels_being_worked_out, system_copy_command
+from mhp3ass.set_export import append_set, export_file, export_wait
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
@@ -290,6 +291,8 @@ class SearchApp(App[bool]):
         self._theme_previewing = False
         # The palette's theme picker, while it is open.
         self._palette_preview: ThemePreview | None = None
+        # Exported sets go here unless tui.toml names a folder.
+        self._launch_dir = Path.cwd()
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="query_line"):
@@ -462,6 +465,8 @@ class SearchApp(App[bool]):
                 max_jobs=max(usable_cpus(), self.jobs),
                 saved_folder=self._files.folders.saved,
                 folder_locked=self._files.folders.saved_set_by_env,
+                export_folder=self._files.folders.settings.export_dir,
+                start_folder=self._launch_dir,
                 themes=sorted(self.available_themes),
                 theme=self.theme,
             ),
@@ -539,6 +544,22 @@ class SearchApp(App[bool]):
             ),
             lambda choice: self._change_folder(event.folder, choice),
         )
+
+    def on_options_screen_export_folder_chosen(
+        self, event: OptionsScreen.ExportFolderChosen
+    ) -> None:
+        """Keep the export folder in ``tui.toml`` (``None``: the start folder)."""
+        event.stop()
+        folder = event.folder
+        if folder is not None and not folder.is_dir():
+            self.notify(f"{folder} isn't a folder.", severity="warning", markup=False)
+            return
+        if self._save_tui_settings(replace(self._files.folders.settings, export_dir=folder)):
+            self.notify(f"Sets will be exported to {self._export_path()}.", markup=False)
+
+    def _export_path(self) -> Path:
+        path = export_file(self._files.folders.settings.export_dir, launch_dir=self._launch_dir)
+        return path
 
     def _change_folder(self, folder: Path, choice: FolderChoice | None) -> None:
         """Save, carry out ``choice``, record the folder in ``tui.toml``, then
@@ -1197,6 +1218,27 @@ class SearchApp(App[bool]):
 
     def action_find_next(self, step: int) -> None:
         self.query_one(ResultsPane).find(step=step)
+
+    def action_export_set(self) -> None:
+        """``Y``: append the highlighted set's Markdown to ``mhp3-ass-sets.md``
+        in the export folder, once its jewels are placed. An unwritable
+        folder writes nothing and says why."""
+        pane = self.query_one(ResultsPane)
+        shown = pane.shown_set
+        if shown is None:
+            self.notify("No set to export.", timeout=3)
+            return
+        wait = export_wait(shown.details)
+        if wait is not None:
+            self.notify(wait)
+            return
+        path = self._export_path()
+        try:
+            append_set(path, pane.set_text(shown))
+        except OSError as error:
+            self.notify(f"Can't export to {path}: {error}", severity="error", markup=False)
+            return
+        self.notify(f"Added set {shown.number:,} to {path}.", markup=False)
 
     def action_copy_set(self) -> None:
         """``y``: copy the highlighted set as Markdown, with the jewels the

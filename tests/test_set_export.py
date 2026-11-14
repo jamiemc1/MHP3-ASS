@@ -5,7 +5,47 @@ from pathlib import Path
 
 import pytest
 
-from mhp3ass.set_export import append_set, export_entry, export_file
+from mhp3ass.results.details import (
+    ChestJewels,
+    Placement,
+    PlacementPending,
+    SolutionDetails,
+    UnknownPlacement,
+)
+from mhp3ass.set_export import append_set, export_entry, export_file, export_wait
+
+
+def _details(chest_jewels: Placement) -> SolutionDetails:
+    details = SolutionDetails(
+        armors=(),
+        charm=None,
+        decorations=(),
+        chest_jewels=chest_jewels,
+        slots_spare=None,
+        sort_value=None,
+        extra_skills=(),
+    )
+    return details
+
+
+@pytest.mark.parametrize(
+    "chest_jewels",
+    [None, ChestJewels(multiplier=2, chest=(), elsewhere=()), UnknownPlacement()],
+)
+def test_a_set_whose_jewels_are_placed_or_cant_be_exports_now(chest_jewels):
+    assert export_wait(_details(chest_jewels)) is None
+
+
+def test_a_set_waiting_for_the_search_waits_for_it():
+    wait = export_wait(_details(PlacementPending(while_searching=True)))
+
+    assert wait == "The set's jewels are placed once the search finishes: export it then."
+
+
+def test_a_set_being_worked_out_waits_a_moment():
+    wait = export_wait(_details(PlacementPending(while_searching=False)))
+
+    assert wait == "Still working out the set's jewels: export it again in a moment."
 
 
 def test_sets_go_to_the_folder_the_tui_was_started_from():

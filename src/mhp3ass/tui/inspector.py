@@ -35,11 +35,13 @@ class Inspector(VerticalScroll, can_focus=False):
     """Shows one set as ``inspector_lines``, labels in a column. It follows
     the table's cursor, so it isn't a Tab stop; the mouse wheel scrolls it.
     Shown over a narrow screen's table it takes the focus, ▲▼ scroll it,
-    ``y`` copies the set, and ``i`` (or Esc) goes back to the table."""
+    ``y`` copies the set, ``Y`` exports it, and ``i`` (or Esc) goes back
+    to the table."""
 
     BINDINGS: ClassVar[list[BindingType]] = [
         Binding("i", "app.inspect", "Back to sets"),
         Binding("y", "app.copy_set", "Copy set"),
+        Binding("Y", "app.export_set", "Export set"),
     ]
 
     DEFAULT_CSS = """
