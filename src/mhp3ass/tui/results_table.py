@@ -227,14 +227,12 @@ class ResultsTable(ScrollView, can_focus=True):
         """Show the wide columns, or hide them, keeping the cursor and the
         column the window starts on (``first_keeping_column``); whether they
         now show."""
-        shown = not self._show_wide
         before = scrolled_columns(len(self._widths), pinned=self._pinned, hidden=self._hidden())
-        after = scrolled_columns(
-            len(self._widths), pinned=self._pinned, hidden=frozenset() if shown else self._wide
-        )
+        self._show_wide = not self._show_wide
+        after = scrolled_columns(len(self._widths), pinned=self._pinned, hidden=self._hidden())
         first = first_keeping_column(self._window.first, before=before, after=after)
-        self.set_show_wide(shown, first=first)
-        return shown
+        self.set_show_wide(self._show_wide, first=first)
+        return self._show_wide
 
     def set_show_wide(self, shown: bool, first: int) -> None:
         """Show the wide columns, or hide them, keeping the cursor, with the
