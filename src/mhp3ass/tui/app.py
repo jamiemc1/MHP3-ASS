@@ -16,7 +16,8 @@ from textual.binding import Binding, BindingType
 from textual.containers import Horizontal
 from textual.message import Message
 from textual.theme import Theme
-from textual.widgets import Button, Footer, Label, Static
+from textual.widget import Widget
+from textual.widgets import Button, Footer, Label, OptionList, Static
 from textual.worker import Worker
 
 from mhp3ass.charms.my_charms import MyCharmsFileError
@@ -27,7 +28,7 @@ from mhp3ass.model import HunterType
 from mhp3ass.parallel import SearchPool, usable_cpus
 from mhp3ass.query import QueryError
 from mhp3ass.query_form import QueryForm
-from mhp3ass.regions import Region
+from mhp3ass.regions import Region, next_region
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow
@@ -149,6 +150,12 @@ class SearchApp(App[bool]):
         Binding("o", "options", "Options"),
         Binding("n", "find_next(1)", "Next", show=False),
         Binding("N", "find_next(-1)", "Previous", show=False),
+        Binding("1", "region(1)", "Query", show=False),
+        Binding("2", "region(2)", "Charms", show=False),
+        Binding("3", "region(3)", "Sets", show=False),
+        # Ahead of the screen's own Tab, which visits every widget.
+        Binding("tab", "cycle(1)", "Next region", show=False, priority=True),
+        Binding("shift+tab", "cycle(-1)", "Previous region", show=False, priority=True),
     ]
 
     def __init__(
@@ -571,6 +578,67 @@ class SearchApp(App[bool]):
     def action_edit_query(self) -> None:
         """Reopen the editor over the results, unchanged."""
         self.action_edit_field("skill_search")
+
+    def action_region(self, number: int) -> None:
+        """``1`` opens the editor at the skills (as ``e`` does), ``2`` and ``3``
+        focus the charm sidebar and the sets."""
+        region = Region(number)
+        if region is Region.QUERY:
+            self.action_edit_query()
+        else:
+            self._focus_region(region, step=1)
+
+    def action_cycle(self, step: int) -> None:
+        """Tab (``step`` 1) and Shift+Tab (-1): inside the open editor, the
+        next or previous field, leaving it past either end; elsewhere, the
+        next or previous region (``next_region``). Over a modal, its own
+        widgets in turn, as Textual's Tab does."""
+        if len(self.screen_stack) > 1:
+            if step > 0:
+                self.screen.focus_next()
+            else:
+                self.screen.focus_previous()
+            return
+        region = self._focused_region()
+        editor_open = bool(self.editor.display)
+        if region is Region.QUERY and editor_open:
+            fields = self._editor_fields()
+            focused = self.focused
+            current = next((index for index, field in enumerate(fields) if field is focused), None)
+            if current is not None and 0 <= current + step < len(fields):
+                fields[current + step].focus()
+                return
+        self._focus_region(next_region(region, step=step, editor_open=editor_open), step=step)
+
+    def _focused_region(self) -> Region | None:
+        focused = self.focused
+        if focused is None:
+            return None
+        ancestors = focused.ancestors_with_self
+        if self.editor in ancestors:
+            return Region.QUERY
+        if self.query_one("#charm_filter", OptionList) in ancestors:
+            return Region.CHARMS
+        if self.query_one("#sets") in ancestors:
+            return Region.SETS
+        return None
+
+    def _editor_fields(self) -> list[Widget]:
+        """The open editor's widgets that take focus, in Tab order."""
+        fields = [widget for widget in self.screen.focus_chain if self.editor in widget.ancestors]
+        return fields
+
+    def _focus_region(self, region: Region, step: int) -> None:
+        """Focus ``region``: the editor's first field going forwards, its last
+        going back; the charm sidebar; the sets table."""
+        if region is Region.QUERY:
+            fields = self._editor_fields()
+            if fields:
+                fields[0 if step > 0 else -1].focus()
+        elif region is Region.CHARMS:
+            self.query_one("#charm_filter", OptionList).focus()
+        else:
+            self.query_one(ResultsTable).focus()
 
     def action_edit_field(self, widget_id: str) -> None:
         """Focus one of the editor's fields, reopening the editor if it's collapsed."""
