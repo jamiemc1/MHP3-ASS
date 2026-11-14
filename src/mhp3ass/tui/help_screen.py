@@ -18,7 +18,7 @@ from mhp3ass.key_help import HelpSection
 
 class HelpScreen(ModalScreen[None]):
     """``help_sections``' keys, a section to a heading; Esc, ``?`` or ``q``
-    closes it."""
+    closes it. A ``subtitle`` shows whole on the box's bottom border."""
 
     DEFAULT_CSS = """
     HelpScreen {
@@ -43,10 +43,13 @@ class HelpScreen(ModalScreen[None]):
         Binding("q", "close", "Close", show=False),
     ]
 
-    def __init__(self, sections: Sequence[HelpSection], title: str) -> None:
+    def __init__(
+        self, sections: Sequence[HelpSection], title: str, subtitle: str | None = None
+    ) -> None:
         super().__init__()
         self._sections = sections
         self._title = title
+        self._subtitle = subtitle
 
     def compose(self) -> ComposeResult:
         rows = [row for section in self._sections for row in section.rows]
@@ -66,6 +69,10 @@ class HelpScreen(ModalScreen[None]):
             )
         with VerticalScroll() as scroll:
             scroll.border_title = Content(self._title)
+            if self._subtitle is not None:
+                scroll.border_subtitle = Content(self._subtitle)
+                # Room for the subtitle, the corners and a cell either side of it.
+                scroll.styles.min_width = cell_len(self._subtitle) + 4
             yield Static(Content("\n").join(lines))
 
     def action_close(self) -> None:

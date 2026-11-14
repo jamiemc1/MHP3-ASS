@@ -39,6 +39,7 @@ from mhp3ass.layout import (
     Layout,
     height_breakpoints,
     layout_for,
+    layout_label,
     width_breakpoints,
 )
 from mhp3ass.model import HunterType
@@ -228,11 +229,14 @@ class SearchApp(App[bool]):
         jobs: int,
         files: AppFiles,
         startup: Startup,
+        debug: bool = False,
     ) -> None:
         """``pool`` searches in ``jobs`` processes (``None`` with one job,
         which searches in this process). Options can replace the pool, so
-        whoever runs the app closes ``app.pool`` afterwards."""
+        whoever runs the app closes ``app.pool`` afterwards. ``debug``: the
+        help's box shows the terminal's size and layout classes."""
         super().__init__()
+        self._debug = debug
         self._languages = languages
         self._language = language
         self._data = data
@@ -993,7 +997,12 @@ class SearchApp(App[bool]):
             if active.enabled
         ]
         region = self._help_region() if screen is self.screen_stack[0] else "Here"
-        self.push_screen(HelpScreen(help_sections(entries, region=region), title=f"Keys: {region}"))
+        subtitle = layout_label(self.size.width, height=self.size.height) if self._debug else None
+        self.push_screen(
+            HelpScreen(
+                help_sections(entries, region=region), title=f"Keys: {region}", subtitle=subtitle
+            )
+        )
 
     def _help_region(self) -> str:
         """The name of the region the focus is in, for the help's title."""

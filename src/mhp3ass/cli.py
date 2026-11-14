@@ -191,6 +191,11 @@ def main(argv: list[str] | None = None) -> int:
         description="Armor set search for Monster Hunter Portable 3rd.",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="show the terminal's size and layout classes on the ? help's box",
+    )
     commands = parser.add_subparsers(dest="command")
     import_save = commands.add_parser(
         "import-save",
@@ -278,7 +283,7 @@ def main(argv: list[str] | None = None) -> int:
     if not (sys.stdin.isatty() and sys.stdout.isatty()):
         parser.print_help()
         return 0
-    exit_code = _run_tui(_default_data_dir(), folders=folders)
+    exit_code = _run_tui(_default_data_dir(), folders=folders, debug=args.debug)
     return exit_code
 
 
@@ -311,11 +316,11 @@ def _info(data_dir: Path, folders: TuiFolders) -> int:
     return 0
 
 
-def _run_tui(data_dir: Path, folders: TuiFolders) -> int:
+def _run_tui(data_dir: Path, folders: TuiFolders, debug: bool) -> int:
     """The app, with the pool's processes booting while the data loads; run
     again, with ``tui.toml`` read afresh, while it asks to start again (after
     the saved-data folder changes or is cleared). The pool is kept across
-    runs."""
+    runs. ``debug``: ``--debug``, for the app."""
     jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
     pool = SearchPool(jobs=jobs) if jobs > 1 else None
     try:
@@ -329,7 +334,12 @@ def _run_tui(data_dir: Path, folders: TuiFolders) -> int:
                 print(f"mhp3-ass: {error}", file=sys.stderr)
                 return 1
             app = _run_app(
-                data_dir, folders=folders, my_charms_path=my_charms_path, pool=pool, jobs=jobs
+                data_dir,
+                folders=folders,
+                my_charms_path=my_charms_path,
+                pool=pool,
+                jobs=jobs,
+                debug=debug,
             )
             # Options may have replaced the pool; the app holds the current one and its size.
             pool = app.pool
@@ -355,6 +365,7 @@ def _run_app(
     my_charms_path: Path,
     pool: SearchPool | None,
     jobs: int,
+    debug: bool,
 ) -> SearchApp:
     """One run of the app. My charms are the saved-data folder's
     ``mycharms.txt``, copied from the original's shipped list
@@ -394,6 +405,7 @@ def _run_app(
             folders=folders,
         ),
         startup=replace(started, notice=" ".join(notices) if notices else None),
+        debug=debug,
     )
     app.run()
     return app
