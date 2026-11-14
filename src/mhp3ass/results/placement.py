@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import operator
 from collections import Counter
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
 from itertools import combinations, combinations_with_replacement
 
@@ -78,26 +78,12 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
     check = _PlacementCheck(
         solution=solution,
         chest_slots=chest_armor.num_slots,
-        other_groups=_other_slot_groups(solution, weapon_slots=weapon_slots),
+        other_groups=_slot_groups(solution.armors, solution.charm, weapon_slots=weapon_slots),
         points=_nonzero(solution.abilities),
     )
-    stored = JewelPlacement(
-        multiplier=multiplier,
-        chest=tuple(solution.body_decorations),
-        elsewhere=tuple(solution.non_body_decorations),
-    )
-    holds_the_shown = Counter(jewels) == Counter(stored.chest + stored.elsewhere)
-    if holds_the_shown and check.valid(stored):
-        return stored
-    for count in range(min(chest_armor.num_slots, len(jewels)) + 1):
-        for chosen in combinations(range(len(jewels)), count):
-            placement = JewelPlacement(
-                multiplier=multiplier,
-                chest=tuple(jewels[i] for i in chosen),
-                elsewhere=tuple(jewel for i, jewel in enumerate(jewels) if i not in chosen),
-            )
-            if check.valid(placement):
-                return placement
+    for placement in _splits(solution, jewels=jewels, multiplier=multiplier):
+        if check.valid(placement):
+            return placement
     names = ", ".join(jewel.name for jewel in jewels)
     raise PlacementUnknownError(
         f"no placement of {names} fits the set's slots and gives its points"
@@ -111,14 +97,44 @@ def place_can_matter(solution: Solution) -> bool:
     From the armour, so it also answers for sets loaded from
     ``settings.cfg``, whose multiplier isn't kept."""
     chest_armor = solution.armors[1]
-    multiplier = 1 + sum(armor.torso_inc for armor in solution.armors if armor is not None)
     can_matter = (
-        multiplier > 1
+        _torso_multiplier(solution.armors) > 1
         and chest_armor is not None
         and chest_armor.num_slots > 0
         and bool(solution.decorations)
     )
     return can_matter
+
+
+def _torso_multiplier(armors: Sequence[Armor | None]) -> int:
+    """One more for each Torso Inc piece (``Solution.cpp:223``, ``:246``)."""
+    multiplier = 1 + sum(armor.torso_inc for armor in armors if armor is not None)
+    return multiplier
+
+
+def _splits(
+    filled: Solution, jewels: Sequence[Decoration], multiplier: int
+) -> Iterator[JewelPlacement]:
+    """The ways of placing ``jewels`` in ``filled``'s armour to try, in order:
+    ``filled``'s own chest and other lists when they hold exactly ``jewels``,
+    then every split between the chest and the rest, the fewest in the chest
+    first, then the earliest in ``jewels``' order."""
+    stored = JewelPlacement(
+        multiplier=multiplier,
+        chest=tuple(filled.body_decorations),
+        elsewhere=tuple(filled.non_body_decorations),
+    )
+    if Counter(stored.chest + stored.elsewhere) == Counter(jewels):
+        yield stored
+    chest_armor = filled.armors[1]
+    chest_slots = chest_armor.num_slots if chest_armor is not None else 0
+    for count in range(min(chest_slots, len(jewels)) + 1):
+        for chosen in combinations(range(len(jewels)), count):
+            yield JewelPlacement(
+                multiplier=multiplier,
+                chest=tuple(jewels[i] for i in chosen),
+                elsewhere=tuple(jewel for i, jewel in enumerate(jewels) if i not in chosen),
+            )
 
 
 def refilled(solution: Solution, query: Query, game: GameData) -> Solution | None:
@@ -212,7 +228,8 @@ def correction(
             query=query,
         )
         if placed is None:
-            break
+            # Another worker's charm may reduce to the same listed one and build.
+            continue
         rebuilt = Correction(charm=template, placement=placed, charm_changed=True)
         return rebuilt
     return picked
@@ -238,17 +255,36 @@ def _filled(
 
 def _same_set(filled: Solution, solution: Solution) -> bool:
     """The same charm as shown, and the same jewels."""
-    same = _charm_key(filled.charm) == _charm_key(solution.charm) and Counter(
+    same = _CharmKey.of(filled.charm) == _CharmKey.of(solution.charm) and Counter(
         filled.decorations
     ) == Counter(solution.decorations)
     return same
 
 
-def _charm_key(charm: Charm | None) -> tuple[int, tuple[tuple[Ability, int], ...]] | None:
-    if charm is None:
-        return None
-    key = (charm.num_slots, tuple((pair.ability, pair.amount) for pair in charm.abilities))
-    return key
+@dataclass(frozen=True)
+class _CharmPoints:
+    """One of a charm's pairs as a value (``AbilityPair`` compares by identity)."""
+
+    ability: Ability
+    amount: int
+
+
+@dataclass(frozen=True)
+class _CharmKey:
+    """A charm by its slots and points, to compare charms that are different objects."""
+
+    num_slots: int
+    points: tuple[_CharmPoints, ...]
+
+    @classmethod
+    def of(cls, charm: Charm | None) -> _CharmKey | None:
+        if charm is None:
+            return None
+        points = tuple(
+            _CharmPoints(ability=pair.ability, amount=pair.amount) for pair in charm.abilities
+        )
+        key = cls(num_slots=charm.num_slots, points=points)
+        return key
 
 
 def _buildable_split(
@@ -258,29 +294,12 @@ def _buildable_split(
     multiplier: int,
     query: Query,
 ) -> JewelPlacement | None:
-    """The first split of ``jewels`` that ``builds`` ``filled``'s armour with
-    ``charm``: ``filled``'s own chest and other lists when they hold exactly
-    ``jewels``, then the splits in ``jewel_placement``'s order."""
+    """The first of ``_splits`` of ``jewels`` that ``builds`` ``filled``'s
+    armour with ``charm``."""
     weapon_slots = query.weapon_slots_allowed
-    stored = JewelPlacement(
-        multiplier=multiplier,
-        chest=tuple(filled.body_decorations),
-        elsewhere=tuple(filled.non_body_decorations),
-    )
-    holds_them = Counter(stored.chest + stored.elsewhere) == Counter(jewels)
-    if holds_them and builds(filled.armors, charm, stored, query=query, weapon_slots=weapon_slots):
-        return stored
-    chest_armor = filled.armors[1]
-    chest_slots = chest_armor.num_slots if chest_armor is not None else 0
-    for count in range(min(chest_slots, len(jewels)) + 1):
-        for chosen in combinations(range(len(jewels)), count):
-            placement = JewelPlacement(
-                multiplier=multiplier,
-                chest=tuple(jewels[i] for i in chosen),
-                elsewhere=tuple(jewel for i, jewel in enumerate(jewels) if i not in chosen),
-            )
-            if builds(filled.armors, charm, placement, query=query, weapon_slots=weapon_slots):
-                return placement
+    for placement in _splits(filled, jewels=jewels, multiplier=multiplier):
+        if builds(filled.armors, charm, placement, query=query, weapon_slots=weapon_slots):
+            return placement
     return None
 
 
@@ -331,7 +350,7 @@ def pick_jewels(
     be reached, those short of their points (none when each can be reached
     alone but not together).
     """
-    multiplier = 1 + sum(armor.torso_inc for armor in armors if armor is not None)
+    multiplier = _torso_multiplier(armors)
     base = _armor_and_charm_points(armors, charm, multiplier=multiplier)
     useful = _useful_decorations(base, query=query, game=game)
     abilities = sorted(useful.watched, key=lambda ability: ability.name)
@@ -576,16 +595,10 @@ def builds(
     its points, and no bad skill shows unless the query allows them."""
     chest_armor = armors[1]
     chest_slots = chest_armor.num_slots if chest_armor is not None else 0
-    if sum(jewel.slots_required for jewel in placement.chest) > chest_slots:
+    other_groups = _slot_groups(armors, charm, weapon_slots=weapon_slots)
+    if not _fits_slots(placement, chest_slots=chest_slots, other_groups=other_groups):
         return False
-    sizes = [jewel.slots_required for jewel in placement.elsewhere]
-    if not fits(sizes, groups=_slot_groups(armors, charm, weapon_slots)):
-        return False
-    totals = _armor_and_charm_points(armors, charm, multiplier=placement.multiplier)
-    for jewel in placement.chest:
-        _add(totals, jewel.abilities, weight=placement.multiplier)
-    for jewel in placement.elsewhere:
-        _add(totals, jewel.abilities, weight=1)
+    totals = _placed_points(armors, charm, placement)
     abilities = sorted(
         set(totals) | {skill.ability for skill in query.skills}, key=lambda a: a.name
     )
@@ -774,13 +787,9 @@ class _PlacementCheck:
     points: dict[Ability, int]
 
     def valid(self, placement: JewelPlacement) -> bool:
-        if sum(jewel.slots_required for jewel in placement.chest) > self.chest_slots:
+        if not _fits_slots(placement, chest_slots=self.chest_slots, other_groups=self.other_groups):
             return False
-        if not fits(
-            [jewel.slots_required for jewel in placement.elsewhere], groups=self.other_groups
-        ):
-            return False
-        given = _nonzero(_points(self.solution, placement))
+        given = _nonzero(_placed_points(self.solution.armors, self.solution.charm, placement))
         valid = given == self.points
         return valid
 
@@ -812,37 +821,24 @@ def _place(sizes: list[int], free: list[int]) -> bool:
     return False
 
 
-def _other_slot_groups(solution: Solution, weapon_slots: int) -> list[int]:
-    """The slot groups outside the chest: each other piece's, the weapon's
-    and the charm's, as ``GetInitialData`` counts them into ``slots_spare``."""
-    groups = [
-        armor.num_slots
-        for slot, armor in enumerate(solution.armors)
-        if slot != 1 and armor is not None and armor.num_slots > 0
-    ]
-    if weapon_slots > 0:
-        groups.append(weapon_slots)
-    if solution.charm is not None and solution.charm.num_slots > 0:
-        groups.append(solution.charm.num_slots)
-    return groups
-
-
-def _points(solution: Solution, placement: JewelPlacement) -> Counter[Ability]:
+def _placed_points(
+    armors: Sequence[Armor | None], charm: Charm | None, placement: JewelPlacement
+) -> Counter[Ability]:
     """The points the armour, the charm and the jewels so placed give."""
-    totals: Counter[Ability] = Counter()
-    for slot, armor in enumerate(solution.armors):
-        if armor is None:
-            continue
-        # The chest piece is added before its own Torso Inc counts (Solution.cpp:262).
-        weight = placement.multiplier - armor.torso_inc if slot == 1 else 1
-        _add(totals, armor.abilities, weight=weight)
-    if solution.charm is not None:
-        _add(totals, solution.charm.abilities, weight=1)
+    totals = _armor_and_charm_points(armors, charm, multiplier=placement.multiplier)
     for jewel in placement.chest:
         _add(totals, jewel.abilities, weight=placement.multiplier)
     for jewel in placement.elsewhere:
         _add(totals, jewel.abilities, weight=1)
     return totals
+
+
+def _fits_slots(placement: JewelPlacement, chest_slots: int, other_groups: Sequence[int]) -> bool:
+    """The chest's jewels fit its slots and the rest fit the other groups."""
+    if sum(jewel.slots_required for jewel in placement.chest) > chest_slots:
+        return False
+    fitting = fits([jewel.slots_required for jewel in placement.elsewhere], groups=other_groups)
+    return fitting
 
 
 def _add(totals: Counter[Ability], pairs: Sequence[AbilityPair], weight: int) -> None:

@@ -231,8 +231,9 @@ def chest_jewels(
     ``correction`` that builds, ``UnbuildableJewels`` where none does, or
     ``UnknownPlacement`` where that can't be told without the search's
     ``charm_templates`` (``None`` for loaded results). Working it out fills
-    sets in ``refill_game``: ``PlacementPending`` when that is ``None``
-    because a search is using the game.
+    sets in ``refill_game``; with ``None`` (a search is using the game, or
+    the caller works it out later in a thread) it is ``PlacementPending``,
+    which the caller says the reason for (``while_searching``).
 
     A set loaded from ``settings.cfg`` is recognised by its multiplier of 0
     (the search sets it to 1 or more for every set it fills, and the file
