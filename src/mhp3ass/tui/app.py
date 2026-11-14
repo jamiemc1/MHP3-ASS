@@ -394,14 +394,17 @@ class SearchApp(App[bool]):
             self.notify("The language can change once the search has finished.")
             self.action_options()
             return
+        self.query_one(ResultsPane).stop_placements()
         try:
-            strings = switch_language(
-                self._data.game,
-                validity=self._data.validity,
-                data_dir=self._data.data_dir,
-                language=event.language,
-                my_charms_path=self._files.my_charms,
-            )
+            # Waits for a placement already being worked out, which reads the game's records.
+            with self._game_lock:
+                strings = switch_language(
+                    self._data.game,
+                    validity=self._data.validity,
+                    data_dir=self._data.data_dir,
+                    language=event.language,
+                    my_charms_path=self._files.my_charms,
+                )
         except (OSError, ValueError, MyCharmsFileError) as error:
             # No such language folder or a broken file in it, an unreadable or
             # unwritable mycharms.txt, or one the original couldn't load.

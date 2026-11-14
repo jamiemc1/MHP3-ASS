@@ -224,14 +224,20 @@ class ResultsPane(Horizontal):
 
     def redraw_inspector(self) -> None:
         """Show the highlighted set again: once a search stops using the game,
-        a loaded set's placement, pending until then, can be worked out."""
+        a placement pending until then can be worked out."""
         self._inspect(self.query_one(ResultsTable).cursor)
+
+    def stop_placements(self) -> None:
+        """Cancel the placement being worked out; a result already on its way
+        is dropped as stale."""
+        self._inspection += 1
+        self.workers.cancel_group(self, "jewels")
 
     def _inspect(self, row: int) -> None:
         """Show set ``row`` at once; a placement that needs the set filled
         again (a loaded set, or one whose shown jewels don't fit, quirk 52)
         shows as being worked out, and is worked out in a thread."""
-        self._inspection += 1
+        self.stop_placements()
         view = self.view
         inspector = self.query_one(Inspector)
         # A highlight posted before the rows were replaced can be past the new end.
@@ -278,11 +284,15 @@ class ResultsPane(Horizontal):
                 refill_game=job.game,
                 charm_templates=job.charm_templates,
             )
-        self.app.call_from_thread(self._jewels_worked_out, job, details)
+        try:
+            self.app.call_from_thread(self._jewels_worked_out, job, details)
+        except RuntimeError:
+            # The app stopped running while the placement was worked out.
+            return
 
     def _jewels_worked_out(self, job: JewelJob, details: SolutionDetails) -> None:
-        # Moving on since the job started makes its result stale.
-        if job.inspection != self._inspection:
+        # Moving on since the job started, or a rebuild that removed this pane, makes it stale.
+        if job.inspection != self._inspection or not self.is_attached:
             return
         self.query_one(Inspector).show(job.number, job.solution, details)
 
