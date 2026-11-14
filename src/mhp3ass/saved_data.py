@@ -25,13 +25,15 @@ from pathlib import Path
 class TuiSettings:
     """``tui.toml``: the saved-data folder (``None``: the TUI's own folder),
     the search's processes (``None``: one per CPU, at most 8), whether the
-    results are shown reversed and the colour theme's name (``None``: the
-    default)."""
+    results are shown reversed, the colour theme's name (``None``: the
+    default) and the folder exported sets go to (``None``: the folder the
+    TUI is started from)."""
 
     data_dir: Path | None = None
     jobs: int | None = None
     reverse: bool = False
     theme: str | None = None
+    export_dir: Path | None = None
 
     def __post_init__(self) -> None:
         if self.jobs is not None and self.jobs < 1:
@@ -63,15 +65,18 @@ def read_tui_settings(path: Path) -> TuiSettings:
             table = tomllib.load(file)
     except tomllib.TOMLDecodeError as error:
         raise ValueError(f"{path}: {error}") from error
-    unknown = set(table) - {"data_dir", "jobs", "reverse", "theme"}
+    unknown = set(table) - {"data_dir", "jobs", "reverse", "theme", "export_dir"}
     if unknown:
         raise ValueError(f"{path}: unknown settings {sorted(unknown)}")
     data_dir = table.get("data_dir")
     jobs = table.get("jobs")
     reverse = table.get("reverse", False)
     theme = table.get("theme")
+    export_dir = table.get("export_dir")
     if data_dir is not None and not isinstance(data_dir, str):
         raise ValueError(f"{path}: data_dir must be a string, not {data_dir!r}")
+    if export_dir is not None and not isinstance(export_dir, str):
+        raise ValueError(f"{path}: export_dir must be a string, not {export_dir!r}")
     if jobs is not None and (not isinstance(jobs, int) or isinstance(jobs, bool)):
         raise ValueError(f"{path}: jobs must be a whole number, not {jobs!r}")
     if not isinstance(reverse, bool):
@@ -83,6 +88,7 @@ def read_tui_settings(path: Path) -> TuiSettings:
         jobs=jobs,
         reverse=reverse,
         theme=theme,
+        export_dir=Path(export_dir) if export_dir is not None else None,
     )
     return settings
 
@@ -93,7 +99,8 @@ def tui_settings_text(settings: TuiSettings) -> str:
     if settings.data_dir is not None:
         # JSON's escapes for quotes, backslashes and control characters are
         # TOML's; other characters stay literal, since TOML rejects JSON's
-        # surrogate-pair escapes for characters above U+FFFF.
+        # surrogate-pair escapes for characters above U+FFFF. The same goes
+        # for export_dir below.
         lines.append(f"data_dir = {json.dumps(str(settings.data_dir), ensure_ascii=False)}")
     if settings.jobs is not None:
         lines.append(f"jobs = {settings.jobs}")
@@ -101,6 +108,8 @@ def tui_settings_text(settings: TuiSettings) -> str:
         lines.append("reverse = true")
     if settings.theme is not None:
         lines.append(f"theme = {json.dumps(settings.theme, ensure_ascii=False)}")
+    if settings.export_dir is not None:
+        lines.append(f"export_dir = {json.dumps(str(settings.export_dir), ensure_ascii=False)}")
     text = "".join(f"{line}\n" for line in lines)
     return text
 

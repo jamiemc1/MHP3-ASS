@@ -55,7 +55,11 @@ def test_no_tui_toml_gives_the_defaults(tmp_path):
 def test_settings_survive_a_write_and_read(tmp_path):
     path = tmp_path / "config" / "tui.toml"
     settings = TuiSettings(
-        data_dir=Path('/Volumes/Shared/MHP3 "Run"'), jobs=4, reverse=True, theme="tokyo-night"
+        data_dir=Path('/Volumes/Shared/MHP3 "Run"'),
+        jobs=4,
+        reverse=True,
+        theme="tokyo-night",
+        export_dir=Path("/Volumes/Shared/MHP3 sets"),
     )
 
     write_tui_settings(path, settings)
@@ -87,6 +91,7 @@ def test_a_theme_is_read_back(tmp_path):
         ("jobs = true\n", "jobs must be a whole number"),
         ("reverse = 'yes'\n", "reverse must be true or false"),
         ("theme = 3\n", "theme must be a string"),
+        ("export_dir = false\n", "export_dir must be a string"),
         ("jobs = 0\n", "jobs must be at least 1"),
     ],
 )
@@ -147,6 +152,29 @@ def test_a_folder_name_beyond_the_basic_plane_survives_a_write_and_read(tmp_path
     write_tui_settings(path, settings)
 
     assert read_tui_settings(path) == settings
+
+
+def test_an_export_folder_with_quotes_and_wide_characters_survives_a_write_and_read(tmp_path):
+    path = tmp_path / "tui.toml"
+    settings = TuiSettings(export_dir=Path('C:\\Sets "\U0001f600" ハンター'))
+
+    write_tui_settings(path, settings)
+
+    assert read_tui_settings(path) == settings
+
+
+def test_an_export_folder_is_written_as_a_string():
+    text = tui_settings_text(TuiSettings(export_dir=Path("/sets")))
+
+    assert text == 'export_dir = "/sets"\n'
+
+
+def test_without_an_export_folder_tui_toml_has_no_export_line(tmp_path):
+    path = tmp_path / "tui.toml"
+    write_tui_settings(path, TuiSettings(jobs=2))
+
+    assert "export_dir" not in path.read_text(encoding="utf-8")
+    assert read_tui_settings(path).export_dir is None
 
 
 def test_broken_toml_names_the_file(tmp_path):
