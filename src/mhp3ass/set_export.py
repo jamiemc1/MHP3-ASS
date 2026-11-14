@@ -13,6 +13,20 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+from mhp3ass.results.details import PlacementPending, SolutionDetails
+
+
+def export_wait(details: SolutionDetails) -> str | None:
+    """Why a set with ``details`` can't be exported yet, or ``None`` when it
+    can: a file keeps what it is given, so a set whose jewels aren't placed
+    yet (during a search, or while the inspector works them out) waits."""
+    jewels = details.chest_jewels
+    if not isinstance(jewels, PlacementPending):
+        return None
+    if jewels.while_searching:
+        return "The set's jewels are placed once the search finishes: export it then."
+    return "Still working out the set's jewels: export it again in a moment."
+
 
 def export_file(export_dir: Path | None, launch_dir: Path) -> Path:
     """The file sets are appended to: ``mhp3-ass-sets.md`` in ``export_dir``

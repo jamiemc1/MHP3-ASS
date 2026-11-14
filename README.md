@@ -65,7 +65,13 @@ Markdown: a heading of its pieces, the hunter, HR and village, a table of
 the pieces, the charm and the jewels as the inspector places them, then
 the spare slots and every skill it gives. It copies through the terminal,
 and on macOS through `pbcopy` as well, since Terminal.app ignores the
-terminal's way.
+terminal's way. `Y` appends the same text, after a `---` rule, to
+`mhp3-ass-sets.md` in the folder `mhp3-ass` was started from (or the one
+Options names under "Export sets to"), so sets exported one after another
+collect in one file; the notice names the file, and a folder that can't
+be written gets a notice and nothing written. A set whose jewels are
+still being placed (during a search, or a moment after it is highlighted)
+waits until they are.
 The layout follows the terminal's width: from 150 columns, the sidebar,
 table and inspector side by side (from 220, with the table's names in
 full); from 110, a charm drop-down at the top of the sets replaces the
@@ -93,7 +99,7 @@ find box, then closes a modal or the inspector over the table, restores a
 maximised region, or collapses the editor (before the first
 search, leaves it), then cancels a running search. It never quits. The
 footer shows the keys that work where the focus is: the sort,
-find and copy keys (`s`, `S`, `/`, `n`, `N`, `y`) are the sets table's. `q` quits,
+find, copy and export keys (`s`, `S`, `/`, `n`, `N`, `y`, `Y`) are the sets table's. `q` quits,
 `?` lists every key that works where the focus is (built from the key bindings, so it stays up to date), and `^P` opens the command palette, which lists
 every action by name, the fields included ("Set hunter…", "Set HR…", "Add
 skill…"). `o` opens the options: the four armour options (space toggles),
@@ -101,8 +107,8 @@ the language (skill, armour and charm names and the labels switch at once,
 and `mycharms.txt` is rewritten in it, as the original does), the colour
 theme (`dracula` to start with; moving through the list shows each theme,
 ⏎ or leaving the list keeps it, esc goes back; the palette's Theme command
-previews too, where only ⏎ keeps a theme) and the number
-of search processes; each change is saved straight away. Outside a terminal it prints the help instead; `mhp3-ass --help`
+previews too, where only ⏎ keeps a theme), the number
+of search processes and the export folder (Browse…, or empty for the start folder); each change is saved straight away. Outside a terminal it prints the help instead; `mhp3-ass --help`
 lists the `search` and `import-save` commands below. `mhp3-ass --debug`
 adds the terminal's size and layout classes to the `?` help's box (e.g.
 `88x14 · -narrow -short · small`), for checking the layout at a given size.
@@ -147,7 +153,7 @@ next save leaves them out (a notice says how many). A file that can't be
 loaded is renamed to `settings.cfg.unreadable` and the TUI starts from the
 defaults. `tui.toml` keeps what `settings.cfg` has no line for: whether the
 sort is reversed (`S`), the search's processes (`jobs`), the colour `theme`
-(also set by the palette's theme command) and `data_dir`.
+(also set by the palette's theme command), `data_dir` and `export_dir`.
 
 `--lang <language folder>` names skills in another language (default
 `English (TeamHGG)`).

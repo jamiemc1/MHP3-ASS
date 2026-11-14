@@ -44,12 +44,13 @@ def results_keys() -> list[Binding]:
     their actions are the app's. ``i`` and Enter show the inspector over
     the table where it has no room beside it; ``w`` shows or hides the
     wide columns (resistances and extra skills); ``y`` copies the
-    highlighted set as Markdown."""
+    highlighted set as Markdown and ``Y`` appends it to the export file."""
     keys = [
         Binding("s", "app.sort", "Sort"),
         Binding("S", "app.reverse_sort", "Reverse"),
         Binding("slash", "app.find", "Find"),
         Binding("y", "app.copy_set", "Copy set"),
+        Binding("Y", "app.export_set", "Export set"),
         Binding("n", "app.find_next(1)", "Next", show=False),
         Binding("N", "app.find_next(-1)", "Previous", show=False),
         # Only where the inspector isn't beside the table (a narrow screen).
@@ -120,6 +121,9 @@ def palette_commands(
 def _results_commands() -> list[PaletteCommand]:
     commands = [
         PaletteCommand("Copy set", "Copy the highlighted set as Markdown (y)", "copy_set"),
+        PaletteCommand(
+            "Export set", "Add the highlighted set to mhp3-ass-sets.md (Y)", "export_set"
+        ),
         PaletteCommand("Find…", "Find sets by piece, jewel, charm or skill", "find"),
         PaletteCommand("Find next", "The next set the find text matches", "find_next(1)"),
         PaletteCommand("Find previous", "The previous set the find text matches", "find_next(-1)"),
