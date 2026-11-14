@@ -201,6 +201,8 @@ class SearchApp(App[bool]):
     }
     """
     BINDINGS: ClassVar[list[BindingType]] = [*app_keys()]
+    # Esc restores a maximised region in its turn (``escape_step``), not first.
+    ESCAPE_TO_MINIMIZE = False
     # The screen's width and height classes (``layout``), for the CSS's ``Screen.-narrow …``.
     HORIZONTAL_BREAKPOINTS = width_breakpoints()
     VERTICAL_BREAKPOINTS = height_breakpoints()
@@ -607,6 +609,7 @@ class SearchApp(App[bool]):
         note = pane.note
         cursor = self.query_one(ResultsTable).cursor
         show_wide = self.query_one(ResultsTable).show_wide
+        column_start = self.query_one(ResultsTable).column_start
         collapsed = not self.editor.display
         self._sort_key = pane.sort_key
         self._reverse = pane.reverse
@@ -624,7 +627,7 @@ class SearchApp(App[bool]):
                 note=note,
             )
             self.query_one(ResultsTable).cursor = cursor
-        self.query_one(ResultsTable).set_show_wide(show_wide)
+        self.query_one(ResultsTable).set_show_wide(show_wide, first=column_start)
         if collapsed:
             self._collapse_editor()
         else:
@@ -962,6 +965,7 @@ class SearchApp(App[bool]):
         as edited since."""
         if self._searched_form is None:
             return
+        self._restore_unless_within(self.query_one(ResultsTable))
         summary = self.query_one("#query_summary", Static)
         summary.update(region_title(Region.QUERY, self._searched_form.summary(self._strings)))
         self.editor.display = False
@@ -1060,11 +1064,14 @@ class SearchApp(App[bool]):
     def action_wide_columns(self) -> None:
         """``w``: show or hide the table's wide columns, the resistances and extra skills."""
         table = self.query_one(ResultsTable)
-        table.set_show_wide(not table.show_wide)
+        shown = not table.show_wide
+        table.set_show_wide(shown, first=table.wide_start if shown else table.column_start)
 
     def action_inspect(self) -> None:
         """Show the inspector over the table, or the table again (a narrow screen's)."""
         pane = self.query_one(ResultsPane)
+        # The inspector is beside the sets, so a maximised region gives way to it.
+        self.screen_stack[0].minimize()
         pane.show_inspector(not pane.inspecting)
         if not pane.inspecting:
             self._focus_region(Region.SETS)

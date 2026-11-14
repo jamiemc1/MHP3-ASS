@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.model import ArmorType
 from mhp3ass.query import Query
+from mhp3ass.results.details import extra_skills
 from mhp3ass.results.short_names import ShortNames
 from mhp3ass.solution.state import Solution
 
@@ -71,7 +72,7 @@ def row_text(solution: Solution, query: Query, short_names: ShortNames | None = 
     names.extend(decoration.name for decoration in solution.decorations)
     if solution.charm is not None:
         names.append(charm_name(solution.charm))
-    names.extend(skill.name for skill in solution.extra_skills if skill not in query.skills)
+    names.extend(skill.name for skill in extra_skills(solution, query_skills=query.skills))
     if short_names is not None:
         names.extend(
             short_names.armor(armor.name, slot)

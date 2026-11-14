@@ -22,7 +22,7 @@ from rich.cells import cell_len, set_cell_size
 
 from mhp3ass.data.text import as_signed
 from mhp3ass.model import ArmorType, Skill
-from mhp3ass.results.details import SlotsSpare, slots_spare
+from mhp3ass.results.details import SlotsSpare, extra_skills, slots_spare
 from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.solution.state import Solution
@@ -86,7 +86,7 @@ def table_row(
         thunder=str(solution.thunder_res),
         ice=str(solution.ice_res),
         dragon=str(solution.dragon_res),
-        extra=", ".join(skill.name for skill in solution.extra_skills if skill not in query_skills),
+        extra=", ".join(skill.name for skill in extra_skills(solution, query_skills=query_skills)),
     )
     return row
 
