@@ -25,12 +25,18 @@ def region_hint(region: Region) -> str:
     return hint
 
 
-def next_region(current: Region | None, step: int, editor_open: bool) -> Region:
+def next_region(current: Region | None, step: int, editor_open: bool, charms_shown: bool) -> Region:
     """The region Tab (``step`` 1) or Shift+Tab (-1) moves to from
     ``current``, round in screen order. The query is a stop only while its
-    editor is open (``1`` opens it); with focus in no region, Tab goes to
-    the first and Shift+Tab to the last."""
-    stops = [region for region in Region if editor_open or region is not Region.QUERY]
+    editor is open (``1`` opens it), and the charms only while they show
+    (``charms_shown``); with focus in no region, Tab goes to the first and
+    Shift+Tab to the last."""
+    stops = [
+        region
+        for region in Region
+        if (editor_open or region is not Region.QUERY)
+        and (charms_shown or region is not Region.CHARMS)
+    ]
     if current is None or current not in stops:
         start = -1 if step > 0 else len(stops)
     else:

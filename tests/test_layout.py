@@ -145,11 +145,50 @@ def test_a_small_screen_puts_the_inspector_over_the_table(width_class, height_cl
 
 
 @pytest.mark.parametrize(
-    ("height_class", "over"),
+    ("height_class", "covers"),
     [(HeightClass.SHORT, True), (HeightClass.NORMAL, False), (HeightClass.TALL, False)],
 )
-def test_only_a_short_screen_opens_the_editor_in_the_results_place(height_class, over):
-    assert _layout(WidthClass.WIDE, height_class=height_class).editor_over_results is over
+def test_only_a_short_screen_opens_the_editor_in_the_results_place(height_class, covers):
+    layout = _layout(WidthClass.WIDE, height_class=height_class)
+
+    assert layout.editor_covers_results(editor_open=True, has_results=True) is covers
+
+
+@pytest.mark.parametrize(("editor_open", "has_results"), [(False, True), (True, False)])
+def test_a_closed_editor_or_no_results_leaves_the_results_in_place(editor_open, has_results):
+    layout = _layout(WidthClass.WIDE, height_class=HeightClass.SHORT)
+
+    assert not layout.editor_covers_results(editor_open=editor_open, has_results=has_results)
+
+
+@pytest.mark.parametrize(
+    ("editor_open", "has_results", "small", "shown"),
+    [
+        (False, True, False, True),
+        (True, True, False, False),
+        (False, False, False, False),
+        (False, True, True, False),
+    ],
+)
+def test_the_query_line_shows_for_results_with_the_editor_closed_unless_small(
+    editor_open, has_results, small, shown
+):
+    layout = _layout(WidthClass.NARROW, small=small)
+
+    assert layout.shows_query_line(editor_open=editor_open, has_results=has_results) is shown
+
+
+@pytest.mark.parametrize(
+    ("height_class", "palette"),
+    [(HeightClass.SHORT, False), (HeightClass.NORMAL, True), (HeightClass.TALL, True)],
+)
+def test_a_short_screens_footer_drops_the_palette_hint(height_class, palette):
+    assert _layout(WidthClass.WIDE, height_class=height_class).footer_palette is palette
+
+
+@pytest.mark.parametrize(("small", "shown"), [(False, True), (True, False)])
+def test_a_small_screen_shows_no_charms(small, shown):
+    assert _layout(WidthClass.NARROW, small=small).charms_shown is shown
 
 
 @pytest.mark.parametrize(
