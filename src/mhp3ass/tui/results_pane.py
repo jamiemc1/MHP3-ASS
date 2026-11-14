@@ -236,14 +236,13 @@ class ResultsPane(Horizontal):
 
     def show_inspector(self, shown: bool) -> None:
         """Show the inspector over the table, or the table again. The hidden
-        table can't keep the focus, so the inspector takes it meanwhile."""
+        table can't keep the focus, so the inspector takes it meanwhile;
+        once it is hidden again, the caller puts the focus where it goes."""
         self.set_class(shown, "-inspecting")
         inspector = self.query_one(Inspector)
         inspector.can_focus = shown
         if shown:
             inspector.focus()
-        else:
-            self.query_one("#results", ResultsTable).focus()
 
     def sort_names(self) -> list[tuple[SortKey, str]]:
         """Each sort key with its name in the game's language, in drop-down order."""
@@ -254,16 +253,14 @@ class ResultsPane(Horizontal):
         self,
         view: ResultsView,
         rows: Sequence[TableRow],
-        names: ShortNames,
         query: Query,
         game: GameData,
         charm_templates: tuple[Charm | None, ...] | None,
         note: str | None = None,
     ) -> None:
         """Show a new search's view and the rows of its ``final``
-        (``view_rows``), named by ``names`` (``table_names`` when the rows
-        were built; built again if the screen has changed since); ``query``
-        is the results' own, for the inspector's notes and extra skills,
+        (``view_rows``, named by ``table_names``); ``query`` is the results'
+        own, for the inspector's notes and extra skills,
         ``game`` the one they were found in, for its jewel placements, and
         ``charm_templates`` the search's workers' charms (``None`` for loaded
         results), for a set that can't be built as listed (quirk 52).
@@ -285,8 +282,6 @@ class ResultsPane(Horizontal):
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
-            rows = view_rows(view, names=self.table_names)
-        elif names != self.table_names:
             rows = view_rows(view, names=self.table_names)
         self._set_rows(rows)
 

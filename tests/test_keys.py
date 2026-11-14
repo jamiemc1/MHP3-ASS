@@ -46,7 +46,10 @@ def test_every_key_and_command_calls_an_app_action_with_arguments_it_takes():
     actions = [
         *(binding.action for binding in app_keys()),
         *(binding.action for binding in results_keys()),
-        *(command.action for command in palette_commands(has_results=True, searching=True)),
+        *(
+            command.action
+            for command in palette_commands(has_results=True, searching=True, inspector_over=True)
+        ),
     ]
 
     unfit = []
@@ -65,14 +68,20 @@ def test_every_key_and_command_calls_an_app_action_with_arguments_it_takes():
 
 
 def test_the_palette_reaches_the_fields_by_name():
-    titles = [command.title for command in palette_commands(has_results=True, searching=True)]
+    titles = [
+        command.title
+        for command in palette_commands(has_results=True, searching=True, inspector_over=True)
+    ]
 
     assert {"Set hunter…", "Set HR…", "Add skill…"} <= set(titles)
     assert len(titles) == len(set(titles))
 
 
 def test_every_dropped_field_letter_has_a_palette_command():
-    actions = {command.action for command in palette_commands(has_results=False, searching=False)}
+    actions = {
+        command.action
+        for command in palette_commands(has_results=False, searching=False, inspector_over=False)
+    }
 
     assert {
         "set_field('hunter_type')",
@@ -97,7 +106,22 @@ def test_every_dropped_field_letter_has_a_palette_command():
 def test_find_needs_results_and_cancel_a_running_search(has_results, searching, expected):
     state_dependent = {"Find…", "Find next", "Find previous", "Cancel search"}
 
-    titles = {command.title for command in palette_commands(has_results, searching=searching)}
+    titles = {
+        command.title
+        for command in palette_commands(has_results, searching=searching, inspector_over=False)
+    }
 
     assert titles & state_dependent == expected
     assert {"Search", "Sort…", "Options"} <= titles
+
+
+@pytest.mark.parametrize(
+    ("has_results", "inspector_over", "offered"),
+    [(True, True, True), (True, False, False), (False, True, False), (False, False, False)],
+)
+def test_inspect_needs_results_and_the_inspector_over_the_table(
+    has_results, inspector_over, offered
+):
+    commands = palette_commands(has_results, searching=False, inspector_over=inspector_over)
+
+    assert ("Inspect set" in {command.title for command in commands}) is offered
