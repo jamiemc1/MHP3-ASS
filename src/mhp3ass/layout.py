@@ -114,10 +114,29 @@ class Layout:
         return InspectorPlace.BESIDE
 
     @property
-    def editor_over_results(self) -> bool:
-        """The query editor, opened over results, takes their place."""
-        over = self.height is HeightClass.SHORT
-        return over
+    def charms_shown(self) -> bool:
+        """The charm sidebar or drop-down shows (not on a small screen)."""
+        shown = not self.small
+        return shown
+
+    @property
+    def footer_palette(self) -> bool:
+        """The footer keeps its command palette hint (not on a short screen)."""
+        shown = self.height is not HeightClass.SHORT
+        return shown
+
+    def editor_covers_results(self, editor_open: bool, has_results: bool) -> bool:
+        """The open editor (``editor_open``) takes the place of the results
+        (``has_results``): on a short screen."""
+        covers = self.height is HeightClass.SHORT and editor_open and has_results
+        return covers
+
+    def shows_query_line(self, editor_open: bool, has_results: bool) -> bool:
+        """The collapsed editor's one-line summary shows: once there are
+        results for it to sum up, while the editor is closed, unless the
+        screen is small."""
+        shown = not editor_open and has_results and not self.small
+        return shown
 
     @property
     def full_names(self) -> bool:

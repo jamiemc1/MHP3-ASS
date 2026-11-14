@@ -123,7 +123,9 @@ class QueryEditor(Vertical):
     def fit_height(self, screen_height: int, over_results: bool) -> None:
         """Take at most about 40 % of a ``screen_height``-row screen, and
         never less than 8 rows of it, so the results stay in view; or, open
-        in the results' place (``over_results``), all the room it needs."""
+        in the results' place (``over_results``), the room they leave, past
+        which it scrolls."""
+        self.styles.height = "1fr" if over_results else "auto"
         self.styles.max_height = None if over_results else max(8, screen_height * 40 // 100)
 
     def on_select_changed(self, event: Select.Changed) -> None:
