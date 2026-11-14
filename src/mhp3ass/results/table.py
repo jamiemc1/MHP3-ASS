@@ -2,7 +2,10 @@
 
 A new layout of what ``Form1::UpdateResultString`` shows for each result
 (``legacy/Form1.h:1569-1655``): the five pieces, defence, the spare slots
-and the charm. The pieces and the charm are shortened (``short_names``);
+and the charm, then the wide columns: the five resistances and the extra
+skills (the original shows a resistance only as the sort's value,
+``Form1.h:1633-1644``, and the extra skills under the set,
+``:1646-1653``). The pieces and the charm are shortened (``short_names``);
 the pieces are cut with ``…`` where the number, the five pieces and the
 defence would not fit otherwise (``fit_widths``, ``truncate``), never below
 6 characters; the columns after them are reached by scrolling, so the table
@@ -18,7 +21,7 @@ from dataclasses import dataclass
 from rich.cells import cell_len, set_cell_size
 
 from mhp3ass.data.text import as_signed
-from mhp3ass.model import ArmorType
+from mhp3ass.model import ArmorType, Skill
 from mhp3ass.results.details import SlotsSpare, slots_spare
 from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
@@ -37,6 +40,12 @@ class TableRow:
     defence: str
     spare: str
     charm: str
+    fire: str
+    water: str
+    thunder: str
+    ice: str
+    dragon: str
+    extra: str
 
 
 def spare_text(spare: SlotsSpare | None) -> str:
@@ -51,9 +60,13 @@ def spare_text(spare: SlotsSpare | None) -> str:
     return text
 
 
-def table_row(solution: Solution, sort_key: SortKey, names: ShortNames) -> TableRow:
+def table_row(
+    solution: Solution, sort_key: SortKey, names: ShortNames, query_skills: Sequence[Skill]
+) -> TableRow:
     """``solution``'s cells with the pieces and charm shortened by ``names``;
-    an empty armour slot is blank, as is a charm-free set's charm."""
+    an empty armour slot is blank, as is a charm-free set's charm. The extra
+    skills are those it has beyond ``query_skills`` (the search's), as the
+    inspector lists them, joined by commas."""
     pieces = [
         names.armor(armor.name, slot) if armor is not None else ""
         for armor, slot in zip(solution.armors, ArmorType, strict=True)
@@ -68,6 +81,12 @@ def table_row(solution: Solution, sort_key: SortKey, names: ShortNames) -> Table
         defence=str(as_signed(solution.defence)),
         spare=spare_text(slots_spare(solution, sort_key)),
         charm=names.charm(solution.charm) if solution.charm is not None else "",
+        fire=str(solution.fire_res),
+        water=str(solution.water_res),
+        thunder=str(solution.thunder_res),
+        ice=str(solution.ice_res),
+        dragon=str(solution.dragon_res),
+        extra=", ".join(skill.name for skill in solution.extra_skills if skill not in query_skills),
     )
     return row
 
