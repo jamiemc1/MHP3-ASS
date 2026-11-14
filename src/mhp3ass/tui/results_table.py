@@ -22,7 +22,12 @@ from textual.reactive import reactive
 from textual.scroll_view import ScrollView
 from textual.strip import Strip
 
-from mhp3ass.column_window import column_window, scrolled_columns, spare_cells
+from mhp3ass.column_window import (
+    column_window,
+    first_keeping_column,
+    scrolled_columns,
+    spare_cells,
+)
 from mhp3ass.keys import results_keys
 from mhp3ass.results.table import TableRow, fit_widths, truncate
 
@@ -214,12 +219,22 @@ class ResultsTable(ScrollView, can_focus=True):
         return self._window.first
 
     @property
-    def wide_start(self) -> int:
-        """The ``column_start`` that brings the first wide column to the
-        start of the window, with the wide columns shown."""
-        columns = scrolled_columns(len(self._widths), pinned=self._pinned, hidden=frozenset())
-        start = columns.index(min(self._wide))
-        return start
+    def more_right(self) -> bool:
+        """Columns are off-screen to the right."""
+        return self._window.more_right
+
+    def toggle_wide(self) -> bool:
+        """Show the wide columns, or hide them, keeping the cursor and the
+        column the window starts on (``first_keeping_column``); whether they
+        now show."""
+        shown = not self._show_wide
+        before = scrolled_columns(len(self._widths), pinned=self._pinned, hidden=self._hidden())
+        after = scrolled_columns(
+            len(self._widths), pinned=self._pinned, hidden=frozenset() if shown else self._wide
+        )
+        first = first_keeping_column(self._window.first, before=before, after=after)
+        self.set_show_wide(shown, first=first)
+        return shown
 
     def set_show_wide(self, shown: bool, first: int) -> None:
         """Show the wide columns, or hide them, keeping the cursor, with the

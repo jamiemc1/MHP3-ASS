@@ -28,6 +28,7 @@ from textual.widgets import Button, Footer, Label, OptionList, Select, Static
 from textual.worker import Worker
 
 from mhp3ass.charms.my_charms import MyCharmsFileError
+from mhp3ass.column_window import wide_notice
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import read_lines
 from mhp3ass.escape import EscapeState, EscapeStep, escape_step
@@ -1154,8 +1155,8 @@ class SearchApp(App[bool]):
     def action_wide_columns(self) -> None:
         """``w``: show or hide the table's wide columns, the resistances and extra skills."""
         table = self.query_one(ResultsTable)
-        shown = not table.show_wide
-        table.set_show_wide(shown, first=table.wide_start if shown else table.column_start)
+        shown = table.toggle_wide()
+        self.notify(wide_notice(shown, more_right=table.more_right), timeout=3)
 
     def action_inspect(self) -> None:
         """Show the inspector over the table, or the table again (a narrow screen's)."""

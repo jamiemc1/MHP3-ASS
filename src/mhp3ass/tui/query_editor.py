@@ -52,8 +52,10 @@ class QueryEditor(Vertical):
     QueryEditor #hr, QueryEditor #elder_star, QueryEditor #weapon_slots {
         width: 7;
     }
+    /* The charm mode gives way, so the Search button beside it is never cut. */
     QueryEditor #charm_mode {
-        width: 30;
+        width: 1fr;
+        max-width: 30;
     }
     QueryEditor #search {
         min-width: 10;
