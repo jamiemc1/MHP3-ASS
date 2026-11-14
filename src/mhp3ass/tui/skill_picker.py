@@ -61,7 +61,7 @@ class SkillPicker(Vertical):
     }
     SkillPicker #skill_options {
         height: auto;
-        max-height: 8;
+        max-height: 6;
         width: 64;
         margin-left: 2;
     }
@@ -190,11 +190,16 @@ class SkillPicker(Vertical):
             return
         event.stop()
         options = self.query_one("#skill_options", OptionList)
-        # Up from the top of the list (or with none shown) goes to the row above.
-        at_top = not options.display or options.highlighted in (None, 0)
-        if event.key == "up" and at_top:
-            self.post_message(self.LeftUpwards())
-            return
+        if event.key == "up":
+            # Up from the first offered skill, or with none offered, goes to the row
+            # above; a list Esc hid comes back first, at the skill it was on.
+            if not self._offered or (options.display and options.highlighted in (None, 0)):
+                self.post_message(self.LeftUpwards())
+                return
+            if not options.display:
+                self._dismissed = False
+                self._show_options()
+                return
         self._browsed = True
         self._dismissed = False
         self._show_options()
@@ -216,6 +221,10 @@ class SkillPicker(Vertical):
         focused = self.app.focused
         in_use = isinstance(focused, SkillSearch) or focused is options
         options.display = bool(self._offered) and in_use and not self._dismissed
+        if options.display:
+            # The editor scrolls on a short screen: bring the whole list into view, with
+            # the search box above it, so the list's own scrolling keeps its cursor seen.
+            self.call_after_refresh(options.scroll_visible, animate=False)
 
     def _add(self, skill: Skill) -> None:
         if rows_full(self.rows) or skill not in self._offered:

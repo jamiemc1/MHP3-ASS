@@ -26,12 +26,10 @@ from mhp3ass.tui.titles import region_title
 class QueryEditor(Vertical):
     """The form's drop-downs and skill picker. ``form`` follows every change."""
 
-    # The editor never takes more than about 40 % of the screen; past that it scrolls.
+    # Its max-height is set by fit_height; past it the editor scrolls.
     DEFAULT_CSS = """
     QueryEditor {
         height: auto;
-        max-height: 40%;
-        min-height: 8;
         overflow-y: auto;
         padding: 0 1;
     }
@@ -118,6 +116,14 @@ class QueryEditor(Vertical):
             rows=self.form.current_rows(),
             hunter_type=self.form.hunter_type,
         )
+
+    def on_mount(self) -> None:
+        self.fit_height(self.app.size.height)
+
+    def fit_height(self, screen_height: int) -> None:
+        """Take at most about 40 % of a ``screen_height``-row screen, and
+        never less than 8 rows of it, so the results stay in view."""
+        self.styles.max_height = max(8, screen_height * 40 // 100)
 
     def on_select_changed(self, event: Select.Changed) -> None:
         # The form's selects are those whose id is the QueryForm field they set.
