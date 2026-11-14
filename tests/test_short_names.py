@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import pytest
 
-from mhp3ass.model import Ability, AbilityPair, ArmorType, Charm
+from mhp3ass.model import Ability, AbilityPair, ArmorType, Charm, HunterType
 from mhp3ass.results.short_names import (
     ShortNames,
     ability_abbreviations,
     piece_words,
     short_armor_name,
+    short_armor_names,
     short_charm_name,
 )
 
@@ -117,6 +118,79 @@ def test_a_slotless_charm_has_no_brackets_and_an_ability_with_no_short_name_stay
     assert short_charm_name(charm, {}) == "+3 Guard"
 
 
+def test_a_charm_with_no_abilities_or_slots_is_not_blank():
+    assert short_charm_name(Charm(num_slots=0, abilities=[]), {}) == "---"
+
+
+def test_a_prefix_ending_in_a_hyphen_or_dot_is_passed_over():
+    abbreviations = ability_abbreviations(["Feu-Res", "Feu-Angr", "Abc.d", "Abc.e"])
+
+    assert abbreviations == {
+        "Feu-Res": "Feu-R",
+        "Feu-Angr": "Feu-A",
+        "Abc.d": "Abc.d",
+        "Abc.e": "Abc.e",
+    }
+
+
+def test_pieces_one_search_can_return_keep_full_names_where_they_would_shorten_alike(
+    make_armor,
+):
+    armors = [
+        make_armor("Barroth Helm"),
+        make_armor("Barroth Cap"),
+        make_armor("Jaggi Helm"),
+    ]
+
+    shorts = short_armor_names(armors, words=frozenset({"Helm", "Cap"}))
+
+    assert shorts == {
+        "Barroth Helm": "Barroth Helm",
+        "Barroth Cap": "Barroth Cap",
+        "Jaggi Helm": "Jaggi",
+    }
+
+
+def test_a_blademasters_piece_and_a_gunners_may_shorten_alike(make_armor):
+    armors = [
+        make_armor("Agnaktor Mail", hunter_type=HunterType.BLADEMASTER),
+        make_armor("Agnaktor Vest", hunter_type=HunterType.GUNNER),
+    ]
+
+    shorts = short_armor_names(armors, words=frozenset({"Mail", "Vest"}))
+
+    assert shorts == {"Agnaktor Mail": "Agnaktor", "Agnaktor Vest": "Agnaktor"}
+
+
+def test_a_piece_for_both_clashes_with_either_hunters(make_armor):
+    armors = [
+        make_armor("Bone Mail", hunter_type=HunterType.BLADEMASTER),
+        make_armor("Bone Vest", hunter_type=HunterType.BOTH_TYPES),
+    ]
+
+    shorts = short_armor_names(armors, words=frozenset({"Mail", "Vest"}))
+
+    assert shorts == {"Bone Mail": "Bone Mail", "Bone Vest": "Bone Vest"}
+
+
+def test_no_two_pieces_one_search_can_return_share_a_short_name(games_by_language):
+    clashes = []
+    for language, game in games_by_language.items():
+        names = ShortNames.from_game(game)
+        for slot, armors in game.armors.items():
+            for hunter_type in (HunterType.BLADEMASTER, HunterType.GUNNER):
+                searchable = {
+                    armor.name
+                    for armor in armors
+                    if armor.hunter_type in (hunter_type, HunterType.BOTH_TYPES)
+                }
+                shorts = [names.armor(name, slot) for name in searchable]
+                if len(shorts) != len(set(shorts)):
+                    clashes.append((language, slot, hunter_type))
+
+    assert clashes == []
+
+
 def test_the_english_game_drops_its_piece_words(teamhgg_short_names):
     pieces = [
         ("Jinouga Helm", ArmorType.HEAD),
@@ -128,7 +202,8 @@ def test_the_english_game_drops_its_piece_words(teamhgg_short_names):
 
     shorts = [teamhgg_short_names.armor(name, slot) for name, slot in pieces]
 
-    assert shorts == ["Jinouga", "Agnaktor", "Jinouga", "Barroth S", "Baggi S"]
+    # Jinouga Cap is a head any search can return too, so the helm keeps its name.
+    assert shorts == ["Jinouga Helm", "Agnaktor", "Jinouga", "Barroth S", "Baggi S"]
 
 
 def test_every_language_shortens_some_pieces_except_japanese(games_by_language):
