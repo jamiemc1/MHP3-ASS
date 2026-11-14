@@ -21,11 +21,13 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class ColumnWindow:
     """The columns a line shows, by index, left to right: the ``pinned``
-    ones, then the ``scrolled`` ones in view. ``more_left`` and
-    ``more_right``: columns are off-screen that way."""
+    ones, then the ``scrolled`` ones in view, from ``first`` (an index
+    into ``scrolled_columns``). ``more_left`` and ``more_right``: columns
+    are off-screen that way."""
 
     pinned: tuple[int, ...]
     scrolled: tuple[int, ...]
+    first: int
     more_left: bool
     more_right: bool
 
@@ -90,6 +92,7 @@ def column_window(
     window = ColumnWindow(
         pinned=tuple(column for column in range(len(widths)) if column in pinned),
         scrolled=tuple(columns[start:end]),
+        first=start,
         more_left=start > 0,
         more_right=end < len(columns),
     )

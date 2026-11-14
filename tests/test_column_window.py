@@ -25,7 +25,7 @@ def pinned():
     return columns
 
 
-def _line_cells(widths, pinned, window):
+def _line_cells(widths, window):
     """The cells a line showing ``window`` takes."""
     shown = [*window.pinned, *window.scrolled]
     cells = sum(widths[column] for column in shown) + spare_cells(
@@ -51,7 +51,11 @@ def test_a_wide_enough_line_shows_every_column(table_widths, pinned):
     window = column_window(table_widths, pinned=pinned, first=0, width=200)
 
     assert window == ColumnWindow(
-        pinned=(0, 6), scrolled=(1, 2, 3, 4, 5, 7, 8), more_left=False, more_right=False
+        pinned=(0, 6),
+        scrolled=(1, 2, 3, 4, 5, 7, 8),
+        first=0,
+        more_left=False,
+        more_right=False,
     )
 
 
@@ -62,7 +66,7 @@ def test_a_narrow_line_shows_whole_columns_and_marks_the_rest(table_widths, pinn
     assert window.scrolled == (1, 2, 3, 4)
     assert window.more_right
     assert not window.more_left
-    assert _line_cells(table_widths, pinned, window) <= 62
+    assert _line_cells(table_widths, window) <= 62
 
 
 def test_one_cell_narrower_drops_a_whole_column(table_widths, pinned):
@@ -93,12 +97,14 @@ def test_scrolling_past_the_end_stops_at_last_first(table_widths, pinned):
     window = column_window(table_widths, pinned=pinned, first=99, width=62)
 
     assert window.scrolled == (5, 7, 8)
+    assert window.first == 4
 
 
 def test_scrolling_before_the_start_stops_at_the_first_column(table_widths, pinned):
     window = column_window(table_widths, pinned=pinned, first=-3, width=62)
 
     assert window.scrolled[0] == 1
+    assert window.first == 0
     assert not window.more_left
 
 
