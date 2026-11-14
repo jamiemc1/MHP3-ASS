@@ -3,7 +3,8 @@ onto the rest.
 
 Not a port: the TUI's own table. The pinned columns (``#`` and Def) stay at
 the left, and the others scroll by whole columns, so a cell is never shown
-cut by the table's edge. A line is laid out as::
+cut by the table's edge. Hidden columns (the wide set, until ``w`` shows
+it) take no part. A line is laid out as::
 
      #  Def < Head  Body  ...  Charm >
 
@@ -42,9 +43,10 @@ def spare_cells(pinned: int, scrolled: int) -> int:
     return cells
 
 
-def scrolled_columns(count: int, pinned: frozenset[int]) -> list[int]:
-    """The indexes of ``count`` columns that aren't ``pinned``, in order."""
-    columns = [column for column in range(count) if column not in pinned]
+def scrolled_columns(count: int, pinned: frozenset[int], hidden: frozenset[int]) -> list[int]:
+    """The indexes of ``count`` columns that are neither ``pinned`` nor
+    ``hidden``, in order."""
+    columns = [column for column in range(count) if column not in pinned | hidden]
     return columns
 
 
@@ -62,11 +64,13 @@ def _fits(widths: Sequence[int], room: int) -> bool:
     return fits
 
 
-def last_first(widths: Sequence[int], pinned: frozenset[int], width: int) -> int:
+def last_first(
+    widths: Sequence[int], pinned: frozenset[int], hidden: frozenset[int], width: int
+) -> int:
     """The furthest the window need scroll: the first scrolled column (an
     index into ``scrolled_columns``) from which every one to the end fits,
     or the last column when it doesn't fit even on its own."""
-    columns = scrolled_columns(len(widths), pinned)
+    columns = scrolled_columns(len(widths), pinned, hidden=hidden)
     room = _room(widths, pinned, width)
     first = max(len(columns) - 1, 0)
     while first > 0 and _fits([widths[column] for column in columns[first - 1 :]], room):
@@ -75,14 +79,18 @@ def last_first(widths: Sequence[int], pinned: frozenset[int], width: int) -> int
 
 
 def column_window(
-    widths: Sequence[int], pinned: frozenset[int], first: int, width: int
+    widths: Sequence[int],
+    pinned: frozenset[int],
+    hidden: frozenset[int],
+    first: int,
+    width: int,
 ) -> ColumnWindow:
     """The columns a line ``width`` wide shows, for columns ``widths``
     wide, with the scrolled columns starting at ``first`` (an index into
     ``scrolled_columns``, held between 0 and ``last_first``). As many whole
     columns as fit show; the first always does, cut if need be."""
-    columns = scrolled_columns(len(widths), pinned)
-    start = min(max(first, 0), last_first(widths, pinned=pinned, width=width))
+    columns = scrolled_columns(len(widths), pinned, hidden=hidden)
+    start = min(max(first, 0), last_first(widths, pinned=pinned, hidden=hidden, width=width))
     room = _room(widths, pinned, width)
     end = min(start + 1, len(columns))
     while end < len(columns) and _fits(

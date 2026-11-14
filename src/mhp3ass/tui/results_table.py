@@ -22,7 +22,7 @@ from textual.reactive import reactive
 from textual.scroll_view import ScrollView
 from textual.strip import Strip
 
-from mhp3ass.column_window import column_window, spare_cells
+from mhp3ass.column_window import column_window, scrolled_columns, spare_cells
 from mhp3ass.keys import results_keys
 from mhp3ass.results.table import TableRow, fit_widths, truncate
 
@@ -38,13 +38,20 @@ def row_cells(number: int, row: TableRow) -> tuple[str, ...]:
         row.defence,
         row.spare,
         row.charm,
+        row.fire,
+        row.water,
+        row.thunder,
+        row.ice,
+        row.dragon,
+        row.extra,
     )
     return cells
 
 
 class ResultsTable(ScrollView, can_focus=True):
     """A header line, then one line per row; ▲▼ PgUp PgDn Home End move the
-    cursor, ◀▶ scroll a column and Shift+◀▶ to either end."""
+    cursor, ◀▶ scroll a column and Shift+◀▶ to either end. The wide
+    columns show only while ``show_wide`` is set."""
 
     COMPONENT_CLASSES: ClassVar[set[str]] = {
         "results-table--header",
@@ -97,23 +104,27 @@ class ResultsTable(ScrollView, can_focus=True):
         right_aligned: frozenset[int],
         must_fit: frozenset[int],
         pinned: frozenset[int],
+        wide: frozenset[int],
         id: str | None = None,
     ) -> None:
         """The ``right_aligned`` columns are numbers and never cut; the
         ``must_fit`` columns are cut, if need be, to fit the table's width,
         and the others are reached by scrolling. The ``pinned`` columns
-        show first, whatever the scroll."""
+        show first, whatever the scroll; the ``wide`` ones are hidden until
+        ``show_wide``."""
         super().__init__(id=id)
         self._headers = tuple(headers)
         self._right_aligned = right_aligned
         self._must_fit = must_fit
         self._pinned = pinned
+        self._wide = wide
+        self._show_wide = False
         self._rows: Sequence[TableRow] = ()
         # Each column's widest cell, and the widths the table's width leaves them.
         self._widths = [cell_len(header) for header in self._headers]
         self._fitted = list(self._widths)
         # The columns in view, and the width they were worked out for.
-        self._window = column_window(self._fitted, pinned=pinned, first=0, width=0)
+        self._window = column_window(self._fitted, pinned=pinned, hidden=wide, first=0, width=0)
         self._layout_width = 0
         # Shown on the first line while there are no rows.
         self.empty_text = ""
@@ -182,10 +193,29 @@ class ResultsTable(ScrollView, can_focus=True):
             if width > 0
             else list(self._widths)
         )
-        self._window = column_window(self._fitted, pinned=self._pinned, first=first, width=width)
+        self._window = column_window(
+            self._fitted, pinned=self._pinned, hidden=self._hidden(), first=first, width=width
+        )
         self._layout_width = width
         # The window scrolls the columns, so the scroll area has no width of its own.
         self.virtual_size = Size(0, len(self._rows) + 1)
+
+    def _hidden(self) -> frozenset[int]:
+        hidden = frozenset() if self._show_wide else self._wide
+        return hidden
+
+    @property
+    def show_wide(self) -> bool:
+        return self._show_wide
+
+    def set_show_wide(self, shown: bool) -> None:
+        """Show the wide columns, or hide them, keeping the cursor; shown,
+        the first of them scrolls to the start of the window."""
+        self._show_wide = shown
+        columns = scrolled_columns(len(self._widths), self._pinned, hidden=self._hidden())
+        first = columns.index(min(self._wide)) if shown else self._window.first
+        self._update_size(first=first)
+        self.refresh()
 
     def _cell(self, column: int, full: str, width: int) -> str:
         cell = truncate(full, width)
