@@ -30,7 +30,14 @@ from mhp3ass.data.text import read_lines
 from mhp3ass.escape import EscapeState, EscapeStep, escape_step
 from mhp3ass.keys import app_keys, palette_commands
 from mhp3ass.language_switch import switch_language
-from mhp3ass.layout import InspectorPlace, Layout, layout_for, width_breakpoints
+from mhp3ass.layout import (
+    HeightClass,
+    InspectorPlace,
+    Layout,
+    height_breakpoints,
+    layout_for,
+    width_breakpoints,
+)
 from mhp3ass.model import HunterType
 from mhp3ass.parallel import SearchPool, usable_cpus
 from mhp3ass.query import QueryError
@@ -62,6 +69,7 @@ from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
 from mhp3ass.themes import starting_theme
+from mhp3ass.tui.inspector import Inspector
 from mhp3ass.tui.options import ChoiceScreen, OptionsScreen, ThemeList
 from mhp3ass.tui.query_editor import QueryEditor
 from mhp3ass.tui.results_pane import ResultsPane, view_rows
@@ -140,6 +148,14 @@ class SearchApp(App[bool]):
         border: none;
         border-top: round $accent;
     }
+    #small_note {
+        display: none;
+        dock: bottom;
+        height: 1;
+        padding: 0 1;
+        background: $panel;
+        color: $text-muted;
+    }
     /* The width classes (``layout``); the results pane's own CSS is scoped to it. */
     Screen.-huge ResultsPane Inspector {
         width: 56;
@@ -150,20 +166,44 @@ class SearchApp(App[bool]):
     Screen.-medium ResultsPane #charms_bar, Screen.-narrow ResultsPane #charms_bar {
         display: block;
     }
-    Screen.-narrow ResultsPane Inspector {
+    /* The classes ``_fit_layout`` sets from the layout as a whole. */
+    Screen.-inspector-over ResultsPane Inspector {
         display: none;
     }
-    Screen.-narrow ResultsPane.-inspecting Inspector {
+    Screen.-inspector-over ResultsPane.-inspecting Inspector {
         display: block;
         width: 1fr;
     }
-    Screen.-narrow ResultsPane.-inspecting #sets {
+    Screen.-inspector-over ResultsPane.-inspecting #sets {
         display: none;
+    }
+    Screen.-portrait ResultsPane {
+        layout: vertical;
+    }
+    Screen.-portrait ResultsPane #sets {
+        height: 3fr;
+    }
+    Screen.-portrait ResultsPane Inspector {
+        width: 1fr;
+        height: 2fr;
+    }
+    Screen.-editor-over ResultsPane {
+        display: none;
+    }
+    Screen.-small ResultsPane #charm_filter, Screen.-small ResultsPane #charms_bar {
+        display: none;
+    }
+    Screen.-small Footer {
+        display: none;
+    }
+    Screen.-small #small_note {
+        display: block;
     }
     """
     BINDINGS: ClassVar[list[BindingType]] = [*app_keys()]
-    # The screen's width class (``layout``), for the CSS's ``Screen.-narrow …``.
+    # The screen's width and height classes (``layout``), for the CSS's ``Screen.-narrow …``.
     HORIZONTAL_BREAKPOINTS = width_breakpoints()
+    VERTICAL_BREAKPOINTS = height_breakpoints()
 
     def __init__(
         self,
@@ -229,6 +269,7 @@ class SearchApp(App[bool]):
             short_names=self._short_names,
             full_names=self._layout().full_names,
         )
+        yield Static("terminal small: ? for keys", id="small_note")
         yield Footer(compact=True)
 
     def on_mount(self) -> None:
@@ -264,19 +305,46 @@ class SearchApp(App[bool]):
         self._save_on_close_signals()
 
     def on_resize(self, event: events.Resize) -> None:
-        self.editor.fit_height(event.size.height)
+        self._fit_layout()
+
+    def _layout(self) -> Layout:
+        """The main screen's layout at the terminal's size."""
+        layout = layout_for(self.size.width, height=self.size.height)
+        return layout
+
+    def _fit_layout(self) -> None:
+        """Lay the main screen out for its size and what is open: the
+        classes its CSS reads beyond the breakpoints' own, the editor's
+        height, the table's names and the footer."""
         main = self.screen_stack[0]
         try:
             # The main screen's, though a modal may be the one showing.
             pane = main.query_one(ResultsPane)
+            footer = main.query_one(Footer)
             sidebar = main.query_one("#charm_filter", OptionList)
             choice = main.query_one("#charm_choice", Select)
         except NoMatches:
             # The screen is being composed again (a language switch).
             return
-        layout = layout_for(event.size.width)
+        layout = self._layout()
+        over_results = (
+            layout.editor_over_results and self.editor.display and self._searched_form is not None
+        )
+        main.set_class(layout.inspector is InspectorPlace.OVER, "-inspector-over")
+        portrait = layout.inspector is InspectorPlace.BELOW
+        if portrait != main.has_class("-portrait"):
+            main.set_class(portrait, "-portrait")
+            # Its text keeps the height it had at its old width until laid out again.
+            self.call_after_refresh(pane.query_one(Inspector).relayout)
+        main.set_class(over_results, "-editor-over")
+        main.set_class(layout.small, "-small")
+        # The collapsed editor's summary, unless the screen is small.
+        main.query_one("#query_line", Horizontal).display = (
+            not self.editor.display and self._searched_form is not None and not layout.small
+        )
+        self.editor.fit_height(self.size.height, over_results=over_results)
         pane.name_in_full(layout.full_names)
-        # Wider, the inspector is back beside the table.
+        # The inspector has a place of its own again.
         if layout.inspector is not InspectorPlace.OVER and pane.inspecting:
             pane.show_inspector(False)
             self._focus_region(Region.SETS)
@@ -286,13 +354,10 @@ class SearchApp(App[bool]):
         focused = main.focused
         if focused is not None and hidden in focused.ancestors_with_self:
             self.call_after_refresh(self._focus_region, Region.CHARMS)
-        # Whether ``i`` shows in the footer depends on the width.
+        # A short screen's footer keeps its room for the keys.
+        footer.show_command_palette = layout.height is not HeightClass.SHORT
+        # Whether ``i`` shows in the footer depends on the layout.
         self.refresh_bindings()
-
-    def _layout(self) -> Layout:
-        """The main screen's layout at the terminal's size."""
-        layout = layout_for(self.size.width)
-        return layout
 
     def _save_on_close_signals(self) -> None:
         """Closing the terminal sends SIGHUP and a shutdown sends SIGTERM; Textual
@@ -550,6 +615,8 @@ class SearchApp(App[bool]):
             self.query_one(ResultsTable).cursor = cursor
         if collapsed:
             self._collapse_editor()
+        else:
+            self._fit_layout()
 
     def on_options_screen_jobs_chosen(self, event: OptionsScreen.JobsChosen) -> None:
         """Start a pool of the new size at once, close the old one in the
@@ -802,6 +869,9 @@ class SearchApp(App[bool]):
         if region is Region.QUERY:
             raise ValueError("the query is entered through its fields, not as a whole")
         if region is Region.CHARMS:
+            # A small screen shows neither the sidebar nor the drop-down.
+            if self._layout().small:
+                return
             charms = (
                 self.query_one("#charm_filter", OptionList)
                 if self._layout().sidebar
@@ -820,6 +890,7 @@ class SearchApp(App[bool]):
         self._close_inspector()
         self.editor.display = True
         self.query_one("#query_line", Horizontal).display = False
+        self._fit_layout()
         self.set_focus(self.query_one(f"#{widget_id}"))
 
     def action_set_field(self, widget_id: str) -> None:
@@ -860,6 +931,7 @@ class SearchApp(App[bool]):
         summary.update(region_title(Region.QUERY, self._searched_form.summary(self._strings)))
         self.query_one("#query_line", Horizontal).display = True
         self.editor.display = False
+        self._fit_layout()
         # The inspector over the table keeps the focus while it shows.
         if not self.query_one(ResultsPane).inspecting:
             self.set_focus(self.query_one(ResultsTable))

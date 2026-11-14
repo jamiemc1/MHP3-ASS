@@ -3,13 +3,21 @@ from __future__ import annotations
 import pytest
 
 from mhp3ass.layout import (
+    HeightClass,
     InspectorPlace,
     Layout,
     WidthClass,
     breakpoint_class,
+    height_breakpoints,
     layout_for,
     width_breakpoints,
 )
+
+
+def _layout(width_class, height_class=HeightClass.NORMAL, small=False):
+    """A layout of ``width_class`` at a normal height, not small."""
+    layout = Layout(width=width_class, height=height_class, small=small)
+    return layout
 
 
 @pytest.mark.parametrize(
@@ -28,13 +36,43 @@ from mhp3ass.layout import (
     ],
 )
 def test_each_width_takes_the_class_of_the_widest_breakpoint_it_reaches(width, expected):
-    assert layout_for(width).width is expected
+    assert layout_for(width, height=40).width is expected
 
 
-def test_the_breakpoints_name_every_class_once():
+@pytest.mark.parametrize(
+    ("height", "expected"),
+    [
+        (16, HeightClass.SHORT),
+        (24, HeightClass.SHORT),
+        (29, HeightClass.SHORT),
+        (30, HeightClass.NORMAL),
+        (45, HeightClass.NORMAL),
+        (46, HeightClass.TALL),
+        (70, HeightClass.TALL),
+    ],
+)
+def test_each_height_takes_the_class_of_the_tallest_breakpoint_it_reaches(height, expected):
+    assert layout_for(160, height=height).height is expected
+
+
+@pytest.mark.parametrize(
+    ("width", "height", "small"),
+    [(61, 17, False), (60, 50, True), (200, 16, True), (60, 16, True), (80, 24, False)],
+)
+def test_a_screen_is_small_at_60_columns_or_16_rows_and_below(width, height, small):
+    assert layout_for(width, height=height).small is small
+
+
+def test_the_width_breakpoints_name_every_width_class_once():
     names = [name for _, name in width_breakpoints()]
 
     assert sorted(names) == sorted(width_class.value for width_class in WidthClass)
+
+
+def test_the_height_breakpoints_name_every_height_class_once():
+    names = [name for _, name in height_breakpoints()]
+
+    assert sorted(names) == sorted(height_class.value for height_class in HeightClass)
 
 
 def test_breakpoint_class_does_not_depend_on_the_order_given():
@@ -58,7 +96,11 @@ def test_breakpoint_class_below_every_breakpoint_raises():
     ],
 )
 def test_the_sidebar_shows_from_wide_and_the_drop_down_below(width_class, sidebar):
-    assert Layout(width=width_class).sidebar is sidebar
+    assert _layout(width_class).sidebar is sidebar
+
+
+def test_a_small_screen_has_no_sidebar_however_wide():
+    assert not _layout(WidthClass.HUGE, height_class=HeightClass.SHORT, small=True).sidebar
 
 
 @pytest.mark.parametrize(
@@ -70,8 +112,44 @@ def test_the_sidebar_shows_from_wide_and_the_drop_down_below(width_class, sideba
         (WidthClass.HUGE, InspectorPlace.BESIDE),
     ],
 )
-def test_only_narrow_puts_the_inspector_over_the_table(width_class, place):
-    assert Layout(width=width_class).inspector is place
+def test_at_a_normal_height_only_narrow_puts_the_inspector_over_the_table(width_class, place):
+    assert _layout(width_class).inspector is place
+
+
+@pytest.mark.parametrize(
+    ("width_class", "place"),
+    [
+        (WidthClass.NARROW, InspectorPlace.BELOW),
+        (WidthClass.MEDIUM, InspectorPlace.BESIDE),
+        (WidthClass.WIDE, InspectorPlace.BESIDE),
+    ],
+)
+def test_a_narrow_tall_screen_puts_the_inspector_below_the_table(width_class, place):
+    assert _layout(width_class, height_class=HeightClass.TALL).inspector is place
+
+
+def test_a_narrow_short_screen_puts_the_inspector_over_the_table():
+    layout = _layout(WidthClass.NARROW, height_class=HeightClass.SHORT)
+
+    assert layout.inspector is InspectorPlace.OVER
+
+
+@pytest.mark.parametrize(
+    ("width_class", "height_class"),
+    [(WidthClass.NARROW, HeightClass.TALL), (WidthClass.WIDE, HeightClass.SHORT)],
+)
+def test_a_small_screen_puts_the_inspector_over_the_table(width_class, height_class):
+    layout = _layout(width_class, height_class=height_class, small=True)
+
+    assert layout.inspector is InspectorPlace.OVER
+
+
+@pytest.mark.parametrize(
+    ("height_class", "over"),
+    [(HeightClass.SHORT, True), (HeightClass.NORMAL, False), (HeightClass.TALL, False)],
+)
+def test_only_a_short_screen_opens_the_editor_in_the_results_place(height_class, over):
+    assert _layout(WidthClass.WIDE, height_class=height_class).editor_over_results is over
 
 
 @pytest.mark.parametrize(
@@ -84,4 +162,4 @@ def test_only_narrow_puts_the_inspector_over_the_table(width_class, place):
     ],
 )
 def test_only_huge_names_the_pieces_in_full(width_class, full):
-    assert Layout(width=width_class).full_names is full
+    assert _layout(width_class).full_names is full

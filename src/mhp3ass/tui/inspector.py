@@ -48,6 +48,10 @@ class Inspector(VerticalScroll, can_focus=False):
         self.border_title = Content(f"Set {number:,}")
         self.query_one("#inspector_text", Static).update(Content(text))
 
+    def relayout(self) -> None:
+        """Lay the text out again, after the inspector moves to a new width."""
+        self.query_one("#inspector_text", Static).refresh(layout=True)
+
     def clear(self) -> None:
         self.border_title = None
         self.query_one("#inspector_text", Static).update("")
