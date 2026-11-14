@@ -30,6 +30,12 @@ class SetSearch:
     game: GameData
 
 
+@dataclass(frozen=True)
+class DetailedSet:
+    solution: Solution
+    details: SolutionDetails
+
+
 @pytest.fixture(scope="module")
 def one_skill_sets(pooled_searches, search_data_by_language) -> SetSearch:
     """g13's search, in English (TeamHGG), with the game its sets are filled in again."""
@@ -39,30 +45,32 @@ def one_skill_sets(pooled_searches, search_data_by_language) -> SetSearch:
     return search
 
 
-def _details(solution: Solution, search: SetSearch) -> SolutionDetails:
-    details = solution_details(
-        solution,
-        query=search.result.query,
-        sort_key=SortKey.NONE,
-        refill_game=search.game,
-        charm_templates=tuple(worker.template for worker in search.result.workers),
-    )
-    return details
+def _first(
+    search: SetSearch,
+    chosen: Callable[[Solution], bool],
+    shown: Callable[[SolutionDetails], bool],
+) -> DetailedSet:
+    """The first of the search's ``chosen`` sets whose worked-out details are ``shown``."""
+    templates = tuple(worker.template for worker in search.result.workers)
+    for solution in search.result.results.all_solutions:
+        if not chosen(solution):
+            continue
+        details = solution_details(
+            solution,
+            query=search.result.query,
+            sort_key=SortKey.NONE,
+            refill_game=search.game,
+            charm_templates=templates,
+        )
+        if shown(details):
+            return DetailedSet(solution=solution, details=details)
+    raise LookupError("no such set in the search")
 
 
-def _first(search: SetSearch, wanted: Callable[[Solution, SolutionDetails], bool]) -> Solution:
-    solution = next(
-        solution
-        for solution in search.result.results.all_solutions
-        if wanted(solution, _details(solution, search))
-    )
-    return solution
-
-
-def _markdown(solution: Solution, search: SetSearch, strings, short_names) -> str:
+def _markdown(found: DetailedSet, search: SetSearch, strings, short_names) -> str:
     text = set_markdown(
-        solution,
-        _details(solution, search),
+        found.solution,
+        found.details,
         query=search.result.query,
         strings=strings,
         short_names=short_names,
@@ -74,16 +82,13 @@ def _markdown(solution: Solution, search: SetSearch, strings, short_names) -> st
 def test_a_set_without_torso_inc_lists_its_jewels_together(
     one_skill_sets, english_strings, teamhgg_short_names
 ):
-    solution = _first(
+    found = _first(
         one_skill_sets,
-        lambda solution, details: (
-            solution.charm is not None
-            and not place_can_matter(solution)
-            and len(details.extra_skills) == 1
-        ),
+        chosen=lambda solution: solution.charm is not None and not place_can_matter(solution),
+        shown=lambda details: len(details.extra_skills) == 1,
     )
 
-    text = _markdown(solution, one_skill_sets, english_strings, teamhgg_short_names)
+    text = _markdown(found, one_skill_sets, english_strings, teamhgg_short_names)
 
     assert text == (
         "## Baggi Cap · Zuwaro Mantle · Chain · Chain Belt · Ranguro\n"
@@ -97,9 +102,9 @@ def test_a_set_without_torso_inc_lists_its_jewels_together(
         "| Arms | Chain Vambraces |\n"
         "| Waist | Chain Belt |\n"
         "| Legs | Ranguro Greaves (or anything with Torso Inc) |\n"
+        "| Charm | +3 Attack --- |\n"
         "| Jewels | 3x Attack Jewel[1] |\n"
         "\n"
-        "- Charm: +3 Attack ---\n"
         "- Spare: 0 slots spare\n"
         "- Skills: Attack Up [Sm], Health +20, Health +50\n"
     )
@@ -108,14 +113,13 @@ def test_a_set_without_torso_inc_lists_its_jewels_together(
 def test_a_torso_inc_set_lists_its_chest_jewels_apart(
     one_skill_sets, english_strings, teamhgg_short_names
 ):
-    solution = _first(
+    found = _first(
         one_skill_sets,
-        lambda solution, details: (
-            solution.charm is not None and isinstance(details.chest_jewels, ChestJewels)
-        ),
+        chosen=lambda solution: solution.charm is not None,
+        shown=lambda details: isinstance(details.chest_jewels, ChestJewels),
     )
 
-    text = _markdown(solution, one_skill_sets, english_strings, teamhgg_short_names)
+    text = _markdown(found, one_skill_sets, english_strings, teamhgg_short_names)
 
     assert text == (
         "## Baggi Cap · Rathian · Chain · Chain Belt · Ranguro\n"
@@ -129,10 +133,10 @@ def test_a_torso_inc_set_lists_its_chest_jewels_apart(
         "| Arms | Chain Vambraces |\n"
         "| Waist | Chain Belt |\n"
         "| Legs | Ranguro Greaves (or anything with Torso Inc) |\n"
+        "| Charm | +1 Attack --- |\n"
         "| Chest x2 | 1x Attack Jewel[1] |\n"
         "| Elsewhere | 3x Attack Jewel[1] |\n"
         "\n"
-        "- Charm: +1 Attack ---\n"
         "- Spare: 0 slots spare\n"
         "- Skills: Attack Up [Sm], Health +20\n"
     )
@@ -143,18 +147,18 @@ def test_a_set_whose_listed_jewels_dont_fit_lists_the_jewels_that_build_it(
 ):
     """Quirk 52: the set's own jewels (2x Health Jewel[1], Attack Jewel[1],
     Attack Jewel[2]) have no placement, so the text has the inspector's."""
-    solution = _first(
+    found = _first(
         one_skill_sets,
-        lambda solution, details: (
-            solution.charm is not None
-            and isinstance(details.chest_jewels, CorrectedJewels)
+        chosen=lambda solution: solution.charm is not None,
+        shown=lambda details: (
+            isinstance(details.chest_jewels, CorrectedJewels)
             and not details.chest_jewels.charm_changed
         ),
     )
 
-    text = _markdown(solution, one_skill_sets, english_strings, teamhgg_short_names)
+    text = _markdown(found, one_skill_sets, english_strings, teamhgg_short_names)
 
-    assert sorted(decoration.name for decoration in solution.decorations) == [
+    assert sorted(decoration.name for decoration in found.solution.decorations) == [
         "Attack Jewel[1]",
         "Attack Jewel[2]",
         "Health Jewel[1]",
@@ -172,23 +176,48 @@ def test_a_set_whose_listed_jewels_dont_fit_lists_the_jewels_that_build_it(
         "| Arms | Chain Vambraces |\n"
         "| Waist | Chain Belt |\n"
         "| Legs | Ranguro Greaves (or anything with Torso Inc) |\n"
+        "| Charm | +1 Attack --- |\n"
         "| Jewels | (the listed jewels don't fit; these build it) |\n"
         "| Chest x2 | 1x Attack Jewel[2] |\n"
         "| Elsewhere | 3x Health Jewel[1] |\n"
         "\n"
-        "- Charm: +1 Attack ---\n"
         "- Spare: 0 slots spare\n"
         "- Skills: Attack Up [Sm], Health +20\n"
     )
 
 
-def test_a_charmless_set_says_it_has_no_charm(one_skill_sets, english_strings, teamhgg_short_names):
-    solution = _first(
+def test_a_set_only_another_charm_builds_names_that_charm_under_its_own(
+    one_skill_sets, english_strings, teamhgg_short_names
+):
+    found = _first(
         one_skill_sets,
-        lambda solution, details: solution.charm is None and details.chest_jewels is None,
+        chosen=lambda solution: solution.charm is not None,
+        shown=lambda details: (
+            isinstance(details.chest_jewels, CorrectedJewels) and details.chest_jewels.charm_changed
+        ),
     )
 
-    text = _markdown(solution, one_skill_sets, english_strings, teamhgg_short_names)
+    text = _markdown(found, one_skill_sets, english_strings, teamhgg_short_names)
+
+    assert (
+        "| Charm | +1 Attack --- |\n"
+        "| Jewels | (the listed charm and jewels don't fit; these build it) |\n"
+        "| Builds with | +3 Attack O-- |\n"
+        "| Chest x3 | 1x Attack Jewel[1] |\n"
+        "|  | 1x Health Jewel[1] |\n"
+        "| Elsewhere | 2x Attack Jewel[1] |\n"
+        "\n"
+    ) in text
+
+
+def test_a_charmless_set_says_it_has_no_charm(one_skill_sets, english_strings, teamhgg_short_names):
+    found = _first(
+        one_skill_sets,
+        chosen=lambda solution: solution.charm is None,
+        shown=lambda details: details.chest_jewels is None,
+    )
+
+    text = _markdown(found, one_skill_sets, english_strings, teamhgg_short_names)
 
     assert text == (
         "## Baggi Cap · Baggi · Chain · Chain Belt · Barroth\n"
@@ -202,10 +231,10 @@ def test_a_charmless_set_says_it_has_no_charm(one_skill_sets, english_strings, t
         "| Arms | Chain Vambraces |\n"
         "| Waist | Chain Belt |\n"
         "| Legs | Barroth Greaves |\n"
+        "| Charm | no charm |\n"
         "| Jewels | 3x Health Jewel[1] |\n"
         "|  | 1x Attack Jewel[1] |\n"
         "\n"
-        "- Charm: no charm\n"
         "- Spare: 2 slots spare\n"
         "- Skills: Attack Up [Sm], Health +20\n"
     )
@@ -227,9 +256,16 @@ def test_the_heading_leaves_out_an_empty_slot(teamhgg_game, teamhgg_short_names)
     assert heading.count(" · ") == 1
 
 
-def _no_jewels(armor_lines: tuple[ArmorLine, ...]) -> SolutionDetails:
+@pytest.mark.parametrize(
+    ("name", "cell"),
+    [("Odd|Helm", "Odd\\|Helm"), ("Odd\\", "Odd\\\\"), ("Odd\\|Helm", "Odd\\\\\\|Helm")],
+)
+def test_a_bar_or_backslash_in_a_name_stays_in_its_cell(
+    make_armor, make_query, english_strings, teamhgg_short_names, name, cell
+):
+    piece = make_armor(name=name)
     details = SolutionDetails(
-        armors=armor_lines,
+        armors=(ArmorLine(armor=piece, note=None),),
         charm=None,
         decorations=(),
         chest_jewels=None,
@@ -237,23 +273,15 @@ def _no_jewels(armor_lines: tuple[ArmorLine, ...]) -> SolutionDetails:
         sort_value=None,
         extra_skills=(),
     )
-    return details
-
-
-def test_a_bar_in_a_name_doesnt_end_its_cell(
-    make_armor, make_query, english_strings, teamhgg_short_names
-):
-    piece = make_armor(name="Odd|Helm")
-    solution = Solution(armors=[piece, None, None, None, None], charm=None)
 
     text = set_markdown(
-        solution,
-        _no_jewels((ArmorLine(armor=piece, note=None),)),
+        Solution(armors=[piece, None, None, None, None], charm=None),
+        details,
         query=make_query(),
         strings=english_strings,
         short_names=teamhgg_short_names,
         piece_labels=["Head", "Body", "Arms", "Waist", "Legs"],
     )
 
-    assert "| Head | Odd\\|Helm |\n" in text
-    assert "| Head | Odd|Helm |" not in text
+    assert f"| Head | {cell} |\n" in text
+    assert f"| Head | {name} |" not in text
