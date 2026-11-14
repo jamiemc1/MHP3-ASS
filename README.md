@@ -50,8 +50,11 @@ results), and the results: a charm sidebar with
 counts (⏎ filters), the sort (`s` picks it from a list; `S` reverses the key, or the search
 order under None; ties go to the highest defence, then fewest jewels, then
 search order), a table of every set, titled with how many it shows and
-the sort, and the inspector beside it showing the
-selected set's pieces, jewels, spare slots, extra skills and stats. Find
+the sort, with short names (`Barroth S` for Barroth Tasset S, `+4 Att +3
+Sharpn (1)` for the charm; the pieces are cut with `…` where they don't
+fit, and the spare slots and charm scroll into view), and the inspector
+beside it showing the selected set's full pieces, jewels, spare slots,
+extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
 After a search the editor collapses to a one-line summary (the options
 show only where they differ from the defaults): `e` (or `1`) reopens it.

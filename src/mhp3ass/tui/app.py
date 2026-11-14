@@ -36,6 +36,7 @@ from mhp3ass.query import QueryError
 from mhp3ass.query_form import QueryForm
 from mhp3ass.regions import Region, next_region
 from mhp3ass.results.result_set import SearchResult
+from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow
 from mhp3ass.results.view import ResultsView
@@ -166,6 +167,8 @@ class SearchApp(App[bool]):
         self._startup = startup
         # Held by a search and by the inspector's placements: both set the abilities' relevance.
         self._game_lock = Lock()
+        # The table's short piece and charm names, in the game's current language.
+        self._short_names = ShortNames.from_game(data.game)
         self._last_search_gunner = startup.search.last_search_gunner
         # How the results pane shows them, kept to rebuild it in another language.
         self._sort_key = startup.search.sort_key
@@ -200,6 +203,7 @@ class SearchApp(App[bool]):
             reverse=self._reverse,
             is_searching=self._searching,
             game_lock=self._game_lock,
+            short_names=self._short_names,
         )
         yield Footer(compact=True)
 
@@ -216,7 +220,7 @@ class SearchApp(App[bool]):
             # The file doesn't keep which charms the search ran with.
             pane.show(
                 view,
-                rows=view_rows(view),
+                rows=view_rows(view, names=self._short_names),
                 query=results.query,
                 game=self._data.game,
                 charm_templates=None,
@@ -459,6 +463,7 @@ class SearchApp(App[bool]):
             return
         self._language = event.language
         self._strings = strings
+        self._short_names = ShortNames.from_game(self._data.game)
         self._files = replace(self._files, language_index=self._languages.index(event.language))
         await self._rebuild()
         self._save()
@@ -483,7 +488,7 @@ class SearchApp(App[bool]):
             view.relanguage()
             self.query_one(ResultsPane).show(
                 view,
-                rows=view_rows(view),
+                rows=view_rows(view, names=self._short_names),
                 query=query,
                 game=self._data.game,
                 charm_templates=charm_templates,
@@ -901,7 +906,7 @@ class SearchApp(App[bool]):
         if cancel.is_set():
             return
         view = ResultsView.from_search(result.results, sort_key=sort_key, reverse=reverse)
-        rows = view_rows(view)
+        rows = view_rows(view, names=self._short_names)
         self.call_from_thread(self._search_finished, number, result, view, rows)
 
     def _search_finished(
