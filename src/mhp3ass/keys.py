@@ -2,7 +2,7 @@
 
 Not a port: the TUI's own keys. The app-wide keys are few (search, quit,
 options, the region keys and help); the results' keys belong to the sets
-region, so they only fire, and only show in the footer, while it has focus.
+table, so they only fire, and only show in the footer, while it has focus.
 Everything else, the form's fields included, is reached by name from the
 command palette.
 """
@@ -34,7 +34,8 @@ def app_keys() -> list[Binding]:
 
 
 def results_keys() -> list[Binding]:
-    """The sets region's keys; their actions are the app's."""
+    """The sets table's keys (not the find box's, where letters type);
+    their actions are the app's."""
     keys = [
         Binding("s", "app.sort", "Sort"),
         Binding("S", "app.reverse_sort", "Reverse"),
@@ -55,12 +56,18 @@ class PaletteCommand:
     action: str
 
 
-def palette_commands() -> list[PaletteCommand]:
-    """Every action by name, in the order the palette lists them before
-    anything is typed. Textual adds its own (Theme, Quit, Keys, Screenshot)."""
+def palette_commands(has_results: bool, searching: bool) -> list[PaletteCommand]:
+    """Every action by name that does something now: finding needs results
+    (``has_results``), cancelling a running search (``searching``). Textual
+    adds its own (Theme, Quit, Keys, Screenshot), and the palette lists them
+    all by title."""
     commands = [
         PaletteCommand("Search", "Search with the query as edited", "search"),
-        PaletteCommand("Cancel search", "Stop the running search", "cancel_search"),
+        *(
+            [PaletteCommand("Cancel search", "Stop the running search", "cancel_search")]
+            if searching
+            else []
+        ),
         PaletteCommand("Edit query", "Open the query editor at the skills", "edit_query"),
         PaletteCommand("Add skill…", "Type a skill's name to add it", "edit_field('skill_search')"),
         PaletteCommand("Set hunter…", "Blademaster or gunner", "set_field('hunter_type')"),
@@ -73,12 +80,19 @@ def palette_commands() -> list[PaletteCommand]:
         ),
         PaletteCommand("Sort…", "Choose what the sets are sorted by", "sort"),
         PaletteCommand("Reverse sort", "Turn the sort the other way round", "reverse_sort"),
-        PaletteCommand("Find…", "Find sets by piece, jewel, charm or skill", "find"),
-        PaletteCommand("Find next", "The next set the find text matches", "find_next(1)"),
-        PaletteCommand("Find previous", "The previous set the find text matches", "find_next(-1)"),
+        *(_find_commands() if has_results else []),
         PaletteCommand("Go to the query", "Focus the query region (1)", "region(1)"),
         PaletteCommand("Go to the charms", "Focus the charm sidebar (2)", "region(2)"),
         PaletteCommand("Go to the sets", "Focus the sets table (3)", "region(3)"),
         PaletteCommand("Options", "Armour options, language, theme and processes", "options"),
+    ]
+    return commands
+
+
+def _find_commands() -> list[PaletteCommand]:
+    commands = [
+        PaletteCommand("Find…", "Find sets by piece, jewel, charm or skill", "find"),
+        PaletteCommand("Find next", "The next set the find text matches", "find_next(1)"),
+        PaletteCommand("Find previous", "The previous set the find text matches", "find_next(-1)"),
     ]
     return commands

@@ -26,7 +26,6 @@ from textual.worker import get_current_worker
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
-from mhp3ass.keys import results_keys
 from mhp3ass.model import Charm
 from mhp3ass.pane_titles import sets_title
 from mhp3ass.query import Query
@@ -82,13 +81,6 @@ class FindBox(Input):
 
     def action_close(self) -> None:
         self.post_message(self.Closed())
-
-
-class SetsRegion(Vertical):
-    """The sets region: the table and the find box under it, bordered
-    together. The results' keys are its own, so they show only here."""
-
-    BINDINGS: ClassVar[list[BindingType]] = [*results_keys()]
 
 
 @dataclass(frozen=True)
@@ -164,7 +156,8 @@ class ResultsPane(Horizontal):
             Region.CHARMS, self._strings.static(StringIndex.CHARMS)
         )
         yield charm_filter
-        sets = SetsRegion(id="sets", classes="pane")
+        # The table and the find box under it are one region, bordered together.
+        sets = Vertical(id="sets", classes="pane")
         sets.border_title = region_title(Region.SETS, self._title())
         with sets:
             table = ResultsTable(

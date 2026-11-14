@@ -60,7 +60,7 @@ titles: ¹ the query, ² the charm sidebar and ³ the sets. Tab and Shift+Tab
 move between them (inside the open editor, between its fields first), and
 `1`, `2` and `3` jump to one (in the skill box the digits type: Tab out
 first). The footer shows the keys that work where the focus is: the sort
-and find keys (`s`, `S`, `/`, `n`, `N`) are the sets region's. `q` quits,
+and find keys (`s`, `S`, `/`, `n`, `N`) are the sets table's. `q` quits,
 `?` shows the keys panel, and `^P` opens the command palette, which lists
 every action by name, the fields included ("Set hunter…", "Set HR…", "Add
 skill…"). `o` opens the options: the four armour options (space toggles),

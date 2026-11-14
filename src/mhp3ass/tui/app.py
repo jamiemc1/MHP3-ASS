@@ -646,7 +646,8 @@ class SearchApp(App[bool]):
     def action_set_field(self, widget_id: str) -> None:
         """Focus one of the editor's drop-downs and open it."""
         self.action_edit_field(widget_id)
-        self.query_one(f"#{widget_id}", Select).action_show_overlay()
+        # A collapsed editor has just been shown: open the drop-down once it is laid out.
+        self.call_after_refresh(self.query_one(f"#{widget_id}", Select).action_show_overlay)
 
     def action_toggle_keys(self) -> None:
         """Show Textual's keys panel for the focused widget, or hide it."""
@@ -661,7 +662,11 @@ class SearchApp(App[bool]):
         yield from super().get_system_commands(screen)
         if screen is not self.screen_stack[0]:
             return
-        for command in palette_commands():
+        commands = palette_commands(
+            has_results=self.query_one(ResultsPane).view is not None,
+            searching=self._cancel is not None,
+        )
+        for command in commands:
             yield SystemCommand(
                 command.title, command.help, partial(self.run_action, command.action)
             )
