@@ -16,7 +16,10 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 
 from mhp3ass.charms.naming import charm_name
+from mhp3ass.model import ArmorType
 from mhp3ass.query import Query
+from mhp3ass.results.details import extra_skills
+from mhp3ass.results.short_names import ShortNames
 from mhp3ass.solution.state import Solution
 
 
@@ -59,16 +62,25 @@ def find_next(text: str, needle: str, selection: TextSelection) -> TextSelection
     return found
 
 
-def row_text(solution: Solution, query: Query) -> str:
+def row_text(solution: Solution, query: Query, short_names: ShortNames | None = None) -> str:
     """What find matches in a set: its pieces, jewels, charm and extra skills,
     by name, one per line (so a match can't run from one name into the next).
     The extra skills are those the inspector lists: not the results' own
-    ``query``'s skills (``solution_details``)."""
+    ``query``'s skills (``solution_details``). With ``short_names``, the
+    pieces' and charm's short names (as the table shows them) are matched too."""
     names = [armor.name for armor in solution.armors if armor is not None]
     names.extend(decoration.name for decoration in solution.decorations)
     if solution.charm is not None:
         names.append(charm_name(solution.charm))
-    names.extend(skill.name for skill in solution.extra_skills if skill not in query.skills)
+    names.extend(skill.name for skill in extra_skills(solution, query_skills=query.skills))
+    if short_names is not None:
+        names.extend(
+            short_names.armor(armor.name, slot)
+            for armor, slot in zip(solution.armors, ArmorType, strict=True)
+            if armor is not None
+        )
+        if solution.charm is not None:
+            names.append(short_names.charm(solution.charm))
     text = "\n".join(names)
     return text
 

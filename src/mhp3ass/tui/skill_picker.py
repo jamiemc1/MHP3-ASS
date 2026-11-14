@@ -50,17 +50,18 @@ class SkillPicker(Vertical):
         height: auto;
     }
     SkillPicker #chips ChipButton {
-        margin: 1 1 0 0;
+        margin: 0 1 0 0;
     }
     SkillPicker #skill_search {
         width: 40;
+        margin: 0 1 0 2;
     }
     SkillPicker #skill_tag {
         width: 22;
     }
     SkillPicker #skill_options {
         height: auto;
-        max-height: 8;
+        max-height: 6;
         width: 64;
         margin-left: 2;
     }
@@ -68,6 +69,10 @@ class SkillPicker(Vertical):
 
     class SearchRequested(Message):
         """Enter in the empty search box: search with the chosen skills."""
+
+    class LeftUpwards(Message):
+        """Up in the search box at the top of the offered skills: the field
+        above should take the focus."""
 
     class RowsChanged(Message):
         """New rows for ``hunter_type``'s tab (the tab shown when they changed)."""
@@ -91,19 +96,22 @@ class SkillPicker(Vertical):
         self.hunter_type = hunter_type
         self._offered: list[Skill] = []
         self._browsed = False
+        # Esc hides the offered skills until the list is rebuilt, ▲▼ browses it or ⏎ asks for it.
+        self._dismissed = False
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="chips"):
             yield Label(self._strings.static(StringIndex.SKILLS))
         with Horizontal():
-            yield SkillSearch(placeholder="add skill", id="skill_search")
+            yield SkillSearch(placeholder="add skill", compact=True, id="skill_search")
             yield Select(
                 [(tag.name, index) for index, tag in enumerate(self._game.skill_tags)],
                 value=0,
                 allow_blank=False,
+                compact=True,
                 id="skill_tag",
             )
-        yield OptionList(id="skill_options")
+        yield OptionList(compact=True, id="skill_options")
 
     def on_mount(self) -> None:
         self._refresh()
@@ -114,6 +122,20 @@ class SkillPicker(Vertical):
         self.hunter_type = hunter_type
         self._refresh()
 
+    @property
+    def options_open(self) -> bool:
+        """The offered skills show under the search box."""
+        return self.query_one("#skill_options", OptionList).display
+
+    def dismiss_options(self) -> None:
+        """Hide the offered skills, as Esc does; focus in the list goes back
+        to the search box, so it doesn't stay on a hidden widget."""
+        options = self.query_one("#skill_options", OptionList)
+        if self.app.focused is options:
+            self.query_one("#skill_search", SkillSearch).focus()
+        self._dismissed = True
+        self._show_options()
+
     def on_input_changed(self, event: Input.Changed) -> None:
         event.stop()
         self._refresh_offered()
@@ -123,6 +145,11 @@ class SkillPicker(Vertical):
         # An empty box searches, unless ▲▼ has picked a skill from the list.
         if event.value.strip() == "" and not self._browsed:
             self.post_message(self.SearchRequested())
+            return
+        # Hidden with Esc: ⏎ shows the skills again rather than adding one unseen.
+        if self._dismissed:
+            self._dismissed = False
+            self._show_options()
             return
         options = self.query_one("#skill_options", OptionList)
         if not self._offered:
@@ -162,8 +189,20 @@ class SkillPicker(Vertical):
         if event.key not in ("up", "down") or not isinstance(self.app.focused, SkillSearch):
             return
         event.stop()
-        self._browsed = True
         options = self.query_one("#skill_options", OptionList)
+        if event.key == "up":
+            # Up from the first offered skill, or with none offered, goes to the row
+            # above; a list Esc hid comes back first, at the skill it was on.
+            if not self._offered or (options.display and options.highlighted in (None, 0)):
+                self.post_message(self.LeftUpwards())
+                return
+            if not options.display:
+                self._dismissed = False
+                self._show_options()
+                return
+        self._browsed = True
+        self._dismissed = False
+        self._show_options()
         if event.key == "up":
             options.action_cursor_up()
         else:
@@ -176,11 +215,16 @@ class SkillPicker(Vertical):
         self._show_options()
 
     def _show_options(self) -> None:
-        """The offered skills show while the search box or the list has focus."""
+        """The offered skills show while the search box or the list has
+        focus, unless Esc has hidden them."""
         options = self.query_one("#skill_options", OptionList)
         focused = self.app.focused
         in_use = isinstance(focused, SkillSearch) or focused is options
-        options.display = bool(self._offered) and in_use
+        options.display = bool(self._offered) and in_use and not self._dismissed
+        if options.display:
+            # The editor scrolls on a short screen: bring the whole list into view, with
+            # the search box above it, so the list's own scrolling keeps its cursor seen.
+            self.call_after_refresh(options.scroll_visible, animate=False)
 
     def _add(self, skill: Skill) -> None:
         if rows_full(self.rows) or skill not in self._offered:
@@ -203,8 +247,10 @@ class SkillPicker(Vertical):
         self._refresh_offered()
 
     def _refresh_offered(self) -> None:
-        # A rebuilt list starts at its top, so nothing has been picked from it yet.
+        # A rebuilt list starts at its top, so nothing has been picked from it yet,
+        # and shows again if Esc hid the old one.
         self._browsed = False
+        self._dismissed = False
         tag = self.query_one("#skill_tag", Select).value
         text = self.query_one("#skill_search", SkillSearch).value
         full = rows_full(self.rows)

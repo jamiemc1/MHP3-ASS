@@ -30,6 +30,7 @@ from mhp3ass.results.details import (
     armor_note,
     chest_jewels,
     decoration_details,
+    extra_skills,
     slots_spare,
     solution_details,
     sort_value,
@@ -1310,3 +1311,18 @@ def test_a_jewel_place_cant_matter_without_jewels(torso_inc_head, slotted_chest)
     solution = Solution(armors=[torso_inc_head, slotted_chest, None, None, None], charm=None)
 
     assert place_can_matter(solution) is False
+
+
+def test_extra_skills_are_those_beyond_the_query_in_the_sets_order(teamhgg_game):
+    skills = teamhgg_game.skill_map
+    attack, sharp, guard = skills["Attack Up [Med]"], skills["Sharp Sword"], skills["Guard +1"]
+    solution = Solution(armors=[None] * 5, charm=None, extra_skills=[guard, attack, sharp])
+
+    assert extra_skills(solution, query_skills=[attack]) == (guard, sharp)
+
+
+def test_a_set_with_only_the_query_skills_has_no_extra_skills(teamhgg_game):
+    attack = teamhgg_game.skill_map["Attack Up [Med]"]
+    solution = Solution(armors=[None] * 5, charm=None, extra_skills=[attack])
+
+    assert extra_skills(solution, query_skills=[attack]) == ()
