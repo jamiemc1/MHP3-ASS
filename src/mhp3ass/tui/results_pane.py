@@ -4,6 +4,10 @@ A new layout over ``ResultsView``: the sidebar is ``cmbCharms`` (All, None,
 then each charm), the sort drop-down is ``cmbSort`` with its items' text as
 ``UpdateLanguage`` sets it (``legacy/Form1.h:2068-2100``), and the table
 shows ``ResultsView.final`` one row per set.
+
+How it is laid out follows the screen's width class (``layout``): below
+wide, a charm drop-down at the top of the sets takes the sidebar's place,
+and on a narrow screen the inspector shows over the table on request.
 """
 
 from __future__ import annotations
@@ -18,7 +22,7 @@ from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
 from textual.message import Message
-from textual.widgets import Input, OptionList
+from textual.widgets import Input, Label, OptionList, Select
 from textual.widgets.option_list import Option
 from textual.worker import get_current_worker
 
@@ -95,7 +99,7 @@ class ResultsPane(Horizontal):
         height: 1fr;
     }
     ResultsPane #charm_filter {
-        width: 34;
+        width: 24;
         height: 1fr;
     }
     ResultsPane #results {
@@ -103,6 +107,19 @@ class ResultsPane(Horizontal):
     }
     ResultsPane #find_box {
         display: none;
+    }
+    ResultsPane #charms_bar {
+        height: 1;
+        display: none;
+    }
+    ResultsPane #charm_label {
+        padding: 0 1 0 0;
+    }
+    ResultsPane #charm_choice {
+        width: 42;
+    }
+    ResultsPane Inspector {
+        width: 42;
     }
     """
 
@@ -114,14 +131,19 @@ class ResultsPane(Horizontal):
         is_searching: Callable[[], bool],
         game_lock: Lock,
         short_names: ShortNames,
+        full_names: bool,
     ) -> None:
         """``is_searching`` says whether a search is using the game, when sets
         can't be filled again for their placements; ``game_lock`` is held
         while a search or a placement uses it; ``short_names`` shorten the
-        table's cells."""
+        table's cells, unless ``full_names`` (a huge screen) names them in
+        full. Find matches both either way."""
         super().__init__()
         self._strings = strings
         self._short_names = short_names
+        self._full_names = full_names
+        # No names to shorten to, so every piece and charm keeps its own.
+        self._names_in_full = ShortNames(armor_names={}, abbreviations={})
         self._is_searching = is_searching
         self._game_lock = game_lock
         # Counts highlights, so a placement worked out for an earlier one is dropped.
@@ -150,6 +172,18 @@ class ResultsPane(Horizontal):
         sets = Vertical(id="sets", classes="pane")
         sets.border_title = region_title(Region.SETS, self._title())
         with sets:
+            # Below wide, the charm sidebar's place (the screen's CSS shows one or the other).
+            with Horizontal(id="charms_bar"):
+                yield Label(
+                    region_title(Region.CHARMS, self._strings.static(StringIndex.CHARMS)),
+                    id="charm_label",
+                )
+                yield Select(
+                    [(Content(self._strings.static(StringIndex.ALL)), 0)],
+                    allow_blank=False,
+                    compact=True,
+                    id="charm_choice",
+                )
             table = ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
@@ -178,6 +212,39 @@ class ResultsPane(Horizontal):
     def sort_key(self) -> SortKey:
         return self._sort_key
 
+    @property
+    def table_names(self) -> ShortNames:
+        """The names the table's cells use: short, or in full."""
+        names = self._names_in_full if self._full_names else self._short_names
+        return names
+
+    def name_in_full(self, full: bool) -> None:
+        """Name the table's pieces and charm in full (``full``) or shortened,
+        keeping the cursor's set."""
+        if full == self._full_names:
+            return
+        self._full_names = full
+        if self.view is not None:
+            self.query_one("#results", ResultsTable).replace_rows(
+                view_rows(self.view, names=self.table_names)
+            )
+
+    @property
+    def inspecting(self) -> bool:
+        """The inspector shows over the table (a narrow screen's, on request)."""
+        return self.has_class("-inspecting")
+
+    def show_inspector(self, shown: bool) -> None:
+        """Show the inspector over the table, or the table again. The hidden
+        table can't keep the focus, so the inspector takes it meanwhile."""
+        self.set_class(shown, "-inspecting")
+        inspector = self.query_one(Inspector)
+        inspector.can_focus = shown
+        if shown:
+            inspector.focus()
+        else:
+            self.query_one("#results", ResultsTable).focus()
+
     def sort_names(self) -> list[tuple[SortKey, str]]:
         """Each sort key with its name in the game's language, in drop-down order."""
         names = [(key, self._strings.basic(sort_label(key))) for key in SortKey]
@@ -187,13 +254,16 @@ class ResultsPane(Horizontal):
         self,
         view: ResultsView,
         rows: Sequence[TableRow],
+        names: ShortNames,
         query: Query,
         game: GameData,
         charm_templates: tuple[Charm | None, ...] | None,
         note: str | None = None,
     ) -> None:
-        """Show a new search's view and the rows of its ``final`` (``view_rows``);
-        ``query`` is the results' own, for the inspector's notes and extra skills,
+        """Show a new search's view and the rows of its ``final``
+        (``view_rows``), named by ``names`` (``table_names`` when the rows
+        were built; built again if the screen has changed since); ``query``
+        is the results' own, for the inspector's notes and extra skills,
         ``game`` the one they were found in, for its jewel placements, and
         ``charm_templates`` the search's workers' charms (``None`` for loaded
         results), for a set that can't be built as listed (quirk 52).
@@ -215,7 +285,9 @@ class ResultsPane(Horizontal):
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
-            rows = view_rows(view, names=self._short_names)
+            rows = view_rows(view, names=self.table_names)
+        elif names != self.table_names:
+            rows = view_rows(view, names=self.table_names)
         self._set_rows(rows)
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
@@ -326,7 +398,23 @@ class ResultsPane(Horizontal):
         current = index < len(self._options) and event.option is self._options[index]
         if self.view is not None and current:
             self.view.select_filter(self._filters[index])
+            self.query_one("#charm_choice", Select).value = index
             self._fill_table()
+
+    def on_select_changed(self, event: Select.Changed) -> None:
+        """A charm chosen in the drop-down; setting it to match the sidebar changes nothing."""
+        if event.select.id != "charm_choice":
+            return
+        event.stop()
+        index = event.value
+        if self.view is None or not isinstance(index, int) or index >= len(self._filters):
+            return
+        chosen = self._filters[index]
+        if chosen == self.view.charm_filter:
+            return
+        self.view.select_filter(chosen)
+        self.query_one("#charm_filter", OptionList).highlighted = index
+        self._fill_table()
 
     @property
     def find_open(self) -> bool:
@@ -410,7 +498,7 @@ class ResultsPane(Horizontal):
             *names,
         ]
         self._options = [
-            Option(Content(f"{_fit(label, 21)} {count:>7,}"))
+            Option(Content(f"{_fit(label, 12)} {count:>7,}"))
             for label, count in zip(labels, counts, strict=True)
         ]
         options = self.query_one("#charm_filter", OptionList)
@@ -418,7 +506,17 @@ class ResultsPane(Horizontal):
         options.add_options(self._options)
         # The view's own filter: All after a search, the charm it kept after a language switch.
         chosen = view.charm_filter
-        options.highlighted = self._filters.index(chosen) if chosen in self._filters else 0
+        index = self._filters.index(chosen) if chosen in self._filters else 0
+        options.highlighted = index
+        # The drop-down opens over the table, so it has room for longer names.
+        choice = self.query_one("#charm_choice", Select)
+        choice.set_options(
+            (Content(f"{_fit(label, 30)} {count:>7,}"), number)
+            for number, (label, count) in enumerate(zip(labels, counts, strict=True))
+        )
+        choice.value = index
+        # Its value can be unchanged while its text isn't (new counts): show the new text.
+        choice.mutate_reactive(Select.value)
 
     def _title(self) -> str:
         shown = len(self.view.final) if self.view is not None else None
@@ -438,7 +536,7 @@ class ResultsPane(Horizontal):
 
     def _fill_table(self) -> None:
         if self.view is not None:
-            self._set_rows(view_rows(self.view, names=self._short_names))
+            self._set_rows(view_rows(self.view, names=self.table_names))
 
 
 def _fit(label: str, width: int) -> str:

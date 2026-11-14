@@ -30,6 +30,7 @@ from mhp3ass.data.text import read_lines
 from mhp3ass.escape import EscapeState, EscapeStep, escape_step
 from mhp3ass.keys import app_keys, palette_commands
 from mhp3ass.language_switch import switch_language
+from mhp3ass.layout import InspectorPlace, Layout, layout_for, width_breakpoints
 from mhp3ass.model import HunterType
 from mhp3ass.parallel import SearchPool, usable_cpus
 from mhp3ass.query import QueryError
@@ -139,8 +140,30 @@ class SearchApp(App[bool]):
         border: none;
         border-top: round $accent;
     }
+    /* The width classes (``layout``); the results pane's own CSS is scoped to it. */
+    Screen.-huge ResultsPane Inspector {
+        width: 56;
+    }
+    Screen.-medium ResultsPane #charm_filter, Screen.-narrow ResultsPane #charm_filter {
+        display: none;
+    }
+    Screen.-medium ResultsPane #charms_bar, Screen.-narrow ResultsPane #charms_bar {
+        display: block;
+    }
+    Screen.-narrow ResultsPane Inspector {
+        display: none;
+    }
+    Screen.-narrow ResultsPane.-inspecting Inspector {
+        display: block;
+        width: 1fr;
+    }
+    Screen.-narrow ResultsPane.-inspecting #sets {
+        display: none;
+    }
     """
     BINDINGS: ClassVar[list[BindingType]] = [*app_keys()]
+    # The screen's width class (``layout``), for the CSS's ``Screen.-narrow …``.
+    HORIZONTAL_BREAKPOINTS = width_breakpoints()
 
     def __init__(
         self,
@@ -204,6 +227,7 @@ class SearchApp(App[bool]):
             is_searching=self._searching,
             game_lock=self._game_lock,
             short_names=self._short_names,
+            full_names=self._layout().full_names,
         )
         yield Footer(compact=True)
 
@@ -220,7 +244,8 @@ class SearchApp(App[bool]):
             # The file doesn't keep which charms the search ran with.
             pane.show(
                 view,
-                rows=view_rows(view, names=self._short_names),
+                rows=view_rows(view, names=pane.table_names),
+                names=pane.table_names,
                 query=results.query,
                 game=self._data.game,
                 charm_templates=None,
@@ -241,6 +266,23 @@ class SearchApp(App[bool]):
 
     def on_resize(self, event: events.Resize) -> None:
         self.editor.fit_height(event.size.height)
+        try:
+            pane = self.query_one(ResultsPane)
+        except NoMatches:
+            # The screen is being composed again (a language switch).
+            return
+        layout = layout_for(event.size.width)
+        pane.name_in_full(layout.full_names)
+        # Wider, the inspector is back beside the table.
+        if layout.inspector is not InspectorPlace.OVER and pane.inspecting:
+            pane.show_inspector(False)
+        # Whether ``i`` shows in the footer depends on the width.
+        self.refresh_bindings()
+
+    def _layout(self) -> Layout:
+        """The main screen's layout at the terminal's size."""
+        layout = layout_for(self.size.width)
+        return layout
 
     def _save_on_close_signals(self) -> None:
         """Closing the terminal sends SIGHUP and a shutdown sends SIGTERM; Textual
@@ -486,9 +528,11 @@ class SearchApp(App[bool]):
         await self.recompose()
         if view is not None and query is not None:
             view.relanguage()
-            self.query_one(ResultsPane).show(
+            pane = self.query_one(ResultsPane)
+            pane.show(
                 view,
-                rows=view_rows(view, names=self._short_names),
+                rows=view_rows(view, names=pane.table_names),
+                names=pane.table_names,
                 query=query,
                 game=self._data.game,
                 charm_templates=charm_templates,
@@ -558,6 +602,7 @@ class SearchApp(App[bool]):
             cancel=self._cancel,
             sort_key=pane.sort_key,
             reverse=pane.reverse,
+            names=pane.table_names,
         )
 
     def action_cancel_search(self) -> None:
@@ -583,6 +628,7 @@ class SearchApp(App[bool]):
         state = EscapeState(
             popup_open=skill_picker.options_open,
             find_open=pane.find_open,
+            inspector_open=pane.inspecting,
             editor_open=self.editor.display,
             can_collapse=self._searched_form is not None,
             editor_focused=focused is not None and self.editor in focused.ancestors_with_self,
@@ -593,6 +639,8 @@ class SearchApp(App[bool]):
                 skill_picker.dismiss_options()
             case EscapeStep.CLEAR_FIND:
                 pane.clear_find()
+            case EscapeStep.CLOSE_INSPECTOR:
+                pane.show_inspector(False)
             case EscapeStep.COLLAPSE_EDITOR:
                 self._collapse_editor()
             case EscapeStep.LEAVE_EDITOR:
@@ -610,6 +658,9 @@ class SearchApp(App[bool]):
         """``1`` opens the editor at the skills (as ``e`` does), ``2`` and ``3``
         focus the charm sidebar and the sets."""
         region = Region(number)
+        pane = self.query_one(ResultsPane)
+        if pane.inspecting:
+            pane.show_inspector(False)
         if region is Region.QUERY:
             self.action_edit_query()
         else:
@@ -624,6 +675,11 @@ class SearchApp(App[bool]):
             return False
         # Text boxes and lists keep their own arrows, and an open drop-down its ▲▼.
         if action == "spatial" and not self._on_spatial_field():
+            return False
+        # Beside the table the inspector already shows.
+        if action == "inspect" and (
+            len(self.screen_stack) > 1 or self._layout().inspector is not InspectorPlace.OVER
+        ):
             return False
         return super().check_action(action, parameters)
 
@@ -682,9 +738,14 @@ class SearchApp(App[bool]):
         next or previous region (``next_region``)."""
         try:
             region = self._focused_region()
+            pane = self.query_one(ResultsPane)
         except NoMatches:
             # The screen is being composed again (a language switch).
             return
+        # The inspector over the table gives way, so the regions can be seen.
+        if pane.inspecting:
+            pane.show_inspector(False)
+            region = Region.SETS
         editor_open = self.editor.display
         if region is Region.QUERY and editor_open:
             fields = self._editor_fields()
@@ -707,6 +768,9 @@ class SearchApp(App[bool]):
             return Region.QUERY
         if self.query_one("#charm_filter", OptionList) in ancestors:
             return Region.CHARMS
+        # The charm drop-down, in the sets pane, stands in for the sidebar.
+        if self.query_one("#charm_choice", Select) in ancestors:
+            return Region.CHARMS
         if self.query_one("#sets") in ancestors:
             return Region.SETS
         return None
@@ -724,12 +788,18 @@ class SearchApp(App[bool]):
             fields[0 if step > 0 else -1].focus()
 
     def _focus_region(self, region: Region) -> None:
-        """Focus the charm sidebar, or the sets: the find box while it is
-        open, else the table."""
+        """Focus the charm sidebar (the charm drop-down where the sidebar
+        doesn't show), or the sets: the find box while it is open, else the
+        table."""
         if region is Region.QUERY:
             raise ValueError("the query is entered through its fields, not as a whole")
         if region is Region.CHARMS:
-            self.query_one("#charm_filter", OptionList).focus()
+            charms = (
+                self.query_one("#charm_filter", OptionList)
+                if self._layout().sidebar
+                else self.query_one("#charm_choice", Select)
+            )
+            charms.focus()
             return
         find_box = self.query_one("#find_box")
         if find_box.display:
@@ -846,6 +916,11 @@ class SearchApp(App[bool]):
     def action_find(self) -> None:
         self.query_one(ResultsPane).open_find()
 
+    def action_inspect(self) -> None:
+        """Show the inspector over the table, or the table again (a narrow screen's)."""
+        pane = self.query_one(ResultsPane)
+        pane.show_inspector(not pane.inspecting)
+
     def action_find_next(self, step: int) -> None:
         self.query_one(ResultsPane).find(step=step)
 
@@ -863,10 +938,17 @@ class SearchApp(App[bool]):
 
     @work(thread=True, group="search")
     def _run_search(
-        self, form: QueryForm, number: int, cancel: Event, sort_key: SortKey, reverse: bool
+        self,
+        form: QueryForm,
+        number: int,
+        cancel: Event,
+        sort_key: SortKey,
+        reverse: bool,
+        names: ShortNames,
     ) -> None:
-        """The search, then its view sorted as the pane shows results (reading
-        every solution back from the pool's records, so off the UI thread)."""
+        """The search, then its view sorted as the pane shows results and its
+        rows named by ``names`` (reading every solution back from the pool's
+        records, so off the UI thread)."""
 
         def report(done: int, total: int) -> None:
             # post_message doesn't wait for the UI, so the search doesn't either.
@@ -906,11 +988,16 @@ class SearchApp(App[bool]):
         if cancel.is_set():
             return
         view = ResultsView.from_search(result.results, sort_key=sort_key, reverse=reverse)
-        rows = view_rows(view, names=self._short_names)
-        self.call_from_thread(self._search_finished, number, result, view, rows)
+        rows = view_rows(view, names=names)
+        self.call_from_thread(self._search_finished, number, result, view, rows, names)
 
     def _search_finished(
-        self, number: int, result: SearchResult, view: ResultsView, rows: list[TableRow]
+        self,
+        number: int,
+        result: SearchResult,
+        view: ResultsView,
+        rows: list[TableRow],
+        names: ShortNames,
     ) -> None:
         if number != self._search_number or self._cancel is None:
             return
@@ -934,6 +1021,7 @@ class SearchApp(App[bool]):
         self.query_one(ResultsPane).show(
             view,
             rows=rows,
+            names=names,
             query=result.query,
             game=self._data.game,
             charm_templates=tuple(worker.template for worker in result.workers),

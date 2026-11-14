@@ -24,10 +24,10 @@ def test_the_form_fields_have_no_letter_of_their_own():
     assert every.isdisjoint({"h", "g", "r", "v", "w", "m", "k"})
 
 
-def test_the_results_keys_are_sort_reverse_and_find():
+def test_the_results_keys_are_sort_reverse_find_and_inspect():
     keys = [binding.key for binding in results_keys()]
 
-    assert keys == ["s", "S", "slash", "n", "N"]
+    assert keys == ["s", "S", "slash", "n", "N", "i", "enter"]
 
 
 def test_no_results_key_is_also_an_app_key():
