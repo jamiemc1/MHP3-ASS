@@ -42,8 +42,8 @@ uv run mhp3-ass
 
 Opens the search screen. It's being built: so far it shows
 the query editor (hunter, gender, HR, village, weapon slots and charm mode,
-starting from the saved `settings.cfg`, else the original's defaults; `h`, `g`, `r`, `v`, `w` and `m` jump to
-each), the skill picker (`k`: type to filter, ▲▼ and ⏎ to add, up to six;
+starting from the saved `settings.cfg`, else the original's defaults), the
+skill picker (type to filter, ▲▼ and ⏎ to add, up to six;
 backspace in the empty box or ⏎ on a chip removes one), Search (`^S`, the
 button, or ⏎ in the empty skill box; esc cancels and keeps the previous
 results), and the results: a charm sidebar with
@@ -59,8 +59,11 @@ esc closes it again. The screen has three regions, numbered in their
 titles: ¹ the query, ² the charm sidebar and ³ the sets. Tab and Shift+Tab
 move between them (inside the open editor, between its fields first), and
 `1`, `2` and `3` jump to one (in the skill box the digits type: Tab out
-first). The footer shows the keys (`q` quits, `^P` opens the command
-palette). `o` opens the options: the four armour options (space toggles),
+first). The footer shows the keys that work where the focus is: the sort
+and find keys (`s`, `S`, `/`, `n`, `N`) are the sets table's. `q` quits,
+`?` shows the keys panel, and `^P` opens the command palette, which lists
+every action by name, the fields included ("Set hunter…", "Set HR…", "Add
+skill…"). `o` opens the options: the four armour options (space toggles),
 the language (skill, armour and charm names and the labels switch at once,
 and `mycharms.txt` is rewritten in it, as the original does), the colour
 theme (`dracula` to start with; moving through the list shows each theme,
