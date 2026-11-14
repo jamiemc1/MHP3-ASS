@@ -40,19 +40,21 @@ uv run pytest -m results   # every settings.cfg save/load golden
 uv run mhp3-ass
 ```
 
-Opens the search screen. It's being built: so far it shows the header,
+Opens the search screen. It's being built: so far it shows
 the query editor (hunter, gender, HR, village, weapon slots and charm mode,
 starting from the saved `settings.cfg`, else the original's defaults; `h`, `g`, `r`, `v`, `w` and `m` jump to
 each), the skill picker (`k`: type to filter, ▲▼ and ⏎ to add, up to six;
 backspace in the empty box or ⏎ on a chip removes one), Search (`^S`, the
 button, or ⏎ in the empty skill box; esc cancels and keeps the previous
-results), the number of sets found, and the results: a charm sidebar with
-counts (⏎ filters), the sort (`s`; `S` reverses the key, or the search
+results), and the results: a charm sidebar with
+counts (⏎ filters), the sort (`s` picks it from a list; `S` reverses the key, or the search
 order under None; ties go to the highest defence, then fewest jewels, then
-search order), a table of every set, and the inspector beside it showing the
+search order), a table of every set, titled with how many it shows and
+the sort, and the inspector beside it showing the
 selected set's pieces, jewels, spare slots, extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
-After a search the editor collapses to a one-line summary: `e` reopens it,
+After a search the editor collapses to a one-line summary (the options
+show only where they differ from the defaults): `e` reopens it,
 esc closes it again and the keys (`q` quits, `^P` opens the command
 palette). `o` opens the options: the four armour options (space toggles),
 the language (skill, armour and charm names and the labels switch at once,
