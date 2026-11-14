@@ -18,7 +18,9 @@ from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
 from mhp3ass.query_form import QueryForm, charm_mode_label
+from mhp3ass.regions import Region
 from mhp3ass.tui.skill_picker import SkillPicker
+from mhp3ass.tui.titles import region_title
 
 
 class QueryEditor(Vertical):
@@ -50,7 +52,8 @@ class QueryEditor(Vertical):
     """
 
     def __init__(self, form: QueryForm, game: GameData, strings: DisplayStrings) -> None:
-        super().__init__(id="query")
+        super().__init__(id="query", classes="pane")
+        self.border_title = region_title(Region.QUERY, "Query")
         self.form = form
         self._game = game
         self._strings = strings

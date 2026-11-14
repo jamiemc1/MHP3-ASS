@@ -29,6 +29,7 @@ from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.model import Charm
 from mhp3ass.pane_titles import sets_title
 from mhp3ass.query import Query
+from mhp3ass.regions import Region
 from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
 from mhp3ass.results.sorting import SortKey
@@ -37,6 +38,7 @@ from mhp3ass.results.view import CharmFilter, ResultsView
 from mhp3ass.solution.state import Solution
 from mhp3ass.tui.inspector import Inspector
 from mhp3ass.tui.results_table import ResultsTable
+from mhp3ass.tui.titles import region_title
 
 # The empty table's line before any results, shown again when a first search is cancelled.
 _BEFORE_SEARCH = "Choose up to six skills, then Search."
@@ -96,10 +98,10 @@ class JewelJob:
 
 
 class ResultsPane(Horizontal):
-    """Shows one ``ResultsView``; the sidebar and the sort line change it."""
+    """Shows one ``ResultsView``; the sidebar and the sort picker change it."""
 
     class SortChanged(Message):
-        """The sort drop-down was changed from the keyboard or mouse."""
+        """A sort was chosen in the sort picker."""
 
     DEFAULT_CSS = """
     ResultsPane {
@@ -111,8 +113,6 @@ class ResultsPane(Horizontal):
     }
     ResultsPane #results {
         height: 1fr;
-        border: round $panel-lighten-2;
-        border-title-color: $text;
     }
     ResultsPane #find_box {
         display: none;
@@ -151,15 +151,20 @@ class ResultsPane(Horizontal):
         self._text_by_set: dict[int, str] = {}
 
     def compose(self) -> ComposeResult:
-        yield OptionList(id="charm_filter")
+        charm_filter = OptionList(id="charm_filter", classes="pane")
+        charm_filter.border_title = region_title(
+            Region.CHARMS, self._strings.static(StringIndex.CHARMS)
+        )
+        yield charm_filter
         with Vertical():
             table = ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
                 id="results",
+                classes="pane",
             )
             table.empty_text = _BEFORE_SEARCH
-            table.border_title = Content(self._title())
+            table.border_title = region_title(Region.SETS, self._title())
             yield table
             yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
@@ -418,7 +423,9 @@ class ResultsPane(Horizontal):
         return title
 
     def _update_title(self) -> None:
-        self.query_one("#results", ResultsTable).border_title = Content(self._title())
+        self.query_one("#results", ResultsTable).border_title = region_title(
+            Region.SETS, self._title()
+        )
 
     def _set_rows(self, rows: Sequence[TableRow]) -> None:
         self.query_one("#results", ResultsTable).set_rows(rows)

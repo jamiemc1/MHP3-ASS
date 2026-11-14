@@ -20,13 +20,12 @@ class Inspector(VerticalScroll):
     Inspector {
         width: 44;
         height: 1fr;
-        border-left: tall $panel;
         padding: 0 1;
     }
     """
 
     def __init__(self, strings: DisplayStrings, piece_labels: list[str]) -> None:
-        super().__init__()
+        super().__init__(classes="pane")
         self._strings = strings
         self._piece_labels = piece_labels
 
@@ -38,9 +37,9 @@ class Inspector(VerticalScroll):
         lines = inspector_lines(solution, details, self._strings, piece_labels=self._piece_labels)
         label_width = max((cell_len(line.label) for line in lines), default=0)
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)
-        self.border_title = f"Set {number:,}"
+        self.border_title = Content(f"Set {number:,}")
         self.query_one("#inspector_text", Static).update(Content(text))
 
     def clear(self) -> None:
-        self.border_title = ""
+        self.border_title = None
         self.query_one("#inspector_text", Static).update("")
