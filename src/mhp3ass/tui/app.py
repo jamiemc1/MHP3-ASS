@@ -555,21 +555,21 @@ class SearchApp(App[bool]):
         self._finish_search()
 
     def action_back_out(self) -> None:
-        """Esc: back out of one level, the one ``escape_step`` picks."""
+        """Esc on the main screen: back out of one level, the one
+        ``escape_step`` picks. A modal closes on its own Esc."""
+        if len(self.screen_stack) > 1:
+            return
         try:
-            # The main screen's, though a modal may be on top.
-            pane = self.screen_stack[0].query_one(ResultsPane)
+            pane = self.query_one(ResultsPane)
             skill_picker = self.editor.query_one(SkillPicker)
         except NoMatches:
             # The screen is being composed again (a language switch).
             return
-        help_panel = self.screen.query(HelpPanel)
-        modal_open = len(self.screen_stack) > 1
         focused = self.focused
+        # The keys panel, a popup too, has its own Esc binding (``check_action``).
         state = EscapeState(
-            popup_open=bool(help_panel) or (not modal_open and skill_picker.options_open),
-            find_open=not modal_open and pane.find_open,
-            modal_open=modal_open,
+            popup_open=skill_picker.options_open,
+            find_open=pane.find_open,
             editor_open=self.editor.display,
             can_collapse=self._searched_form is not None,
             editor_focused=focused is not None and self.editor in focused.ancestors_with_self,
@@ -577,14 +577,9 @@ class SearchApp(App[bool]):
         )
         match escape_step(state):
             case EscapeStep.CLOSE_POPUP:
-                if help_panel:
-                    self.action_hide_help_panel()
-                else:
-                    skill_picker.dismiss_options()
+                skill_picker.dismiss_options()
             case EscapeStep.CLEAR_FIND:
                 pane.clear_find()
-            case EscapeStep.CLOSE_MODAL:
-                self.screen.dismiss(None)
             case EscapeStep.COLLAPSE_EDITOR:
                 self._collapse_editor()
             case EscapeStep.LEAVE_EDITOR:
@@ -610,6 +605,9 @@ class SearchApp(App[bool]):
     def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
         # Regions are the main screen's: over a modal or the palette, Tab is theirs.
         if action == "cycle" and len(self.screen_stack) > 1:
+            return False
+        # Esc closes the keys panel ahead of anything else, a modal under it included.
+        if action == "hide_help_panel" and not self.screen.query(HelpPanel):
             return False
         return super().check_action(action, parameters)
 

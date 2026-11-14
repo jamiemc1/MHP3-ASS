@@ -22,6 +22,8 @@ def app_keys() -> list[Binding]:
         Binding("q", "quit", "Quit"),
         Binding("o", "options", "Options"),
         Binding("escape", "back_out", "Back", show=False),
+        # Only while the keys panel shows: ahead of a modal's own Esc.
+        Binding("escape", "hide_help_panel", "Hide keys", show=False, priority=True),
         Binding("1", "region(1)", "Query", show=False),
         Binding("2", "region(2)", "Charms", show=False),
         Binding("3", "region(3)", "Sets", show=False),
