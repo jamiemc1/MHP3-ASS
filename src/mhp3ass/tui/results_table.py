@@ -20,6 +20,7 @@ from textual.reactive import reactive
 from textual.scroll_view import ScrollView
 from textual.strip import Strip
 
+from mhp3ass.keys import results_keys
 from mhp3ass.results.table import TableRow
 
 
@@ -69,6 +70,7 @@ class ResultsTable(ScrollView, can_focus=True):
         Binding("pagedown", "page(1)", "Page down", show=False),
         Binding("home", "jump(0)", "First", show=False),
         Binding("end", "jump(-1)", "Last", show=False),
+        *results_keys(),
     ]
 
     cursor = reactive(0)
