@@ -21,7 +21,7 @@ from textual.scroll_view import ScrollView
 from textual.strip import Strip
 
 from mhp3ass.keys import results_keys
-from mhp3ass.results.table import TableRow
+from mhp3ass.results.table import TableRow, fit_widths, truncate
 
 
 def row_cells(number: int, row: TableRow) -> tuple[str, ...]:
@@ -83,13 +83,23 @@ class ResultsTable(ScrollView, can_focus=True):
             self.row = row
 
     def __init__(
-        self, headers: Sequence[str], right_aligned: frozenset[int], id: str | None = None
+        self,
+        headers: Sequence[str],
+        right_aligned: frozenset[int],
+        must_fit: frozenset[int],
+        id: str | None = None,
     ) -> None:
+        """The ``right_aligned`` columns are numbers and never cut; the
+        ``must_fit`` columns are cut, if need be, to fit the table's width,
+        and the others are reached by scrolling."""
         super().__init__(id=id)
         self._headers = tuple(headers)
         self._right_aligned = right_aligned
+        self._must_fit = must_fit
         self._rows: Sequence[TableRow] = ()
+        # Each column's widest cell, and the widths the table's width leaves them.
         self._widths = [cell_len(header) for header in self._headers]
+        self._fitted = list(self._widths)
         # Shown on the first line while there are no rows.
         self.empty_text = ""
         self._update_size()
@@ -123,13 +133,33 @@ class ResultsTable(ScrollView, can_focus=True):
         else:
             self.cursor = 0
 
+    def on_resize(self, event: events.Resize) -> None:
+        self._update_size()
+        self.refresh()
+
     def _update_size(self) -> None:
-        line_width = sum(self._widths) + 2 * len(self._widths)
+        """Fit the ``must_fit`` columns to the table's width (``fit_widths``),
+        then size the scroll area."""
+        # Each column has two spaces between it and the next, and one at either end.
+        gaps = 2 * len(self._widths)
+        available = self.size.width - 2 * len(self._must_fit)
+        self._fitted = (
+            fit_widths(
+                self._widths,
+                available=available,
+                must_fit=self._must_fit,
+                fixed=self._right_aligned,
+            )
+            if self.size.width > 0
+            else list(self._widths)
+        )
+        line_width = sum(self._fitted) + gaps
         self.virtual_size = Size(line_width, len(self._rows) + 1)
 
     def _line_text(self, cells: Sequence[str]) -> str:
         parts = []
-        for column, (cell, width) in enumerate(zip(cells, self._widths, strict=True)):
+        for column, (full, width) in enumerate(zip(cells, self._fitted, strict=True)):
+            cell = truncate(full, width)
             padding = " " * (width - cell_len(cell))
             parts.append(padding + cell if column in self._right_aligned else cell + padding)
         text = " " + "  ".join(parts) + " "
