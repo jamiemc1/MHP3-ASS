@@ -13,8 +13,9 @@ from mhp3ass.results.inspector import inspector_lines
 from mhp3ass.solution.state import Solution
 
 
-class Inspector(VerticalScroll):
-    """Shows one set as ``inspector_lines``, labels in a column."""
+class Inspector(VerticalScroll, can_focus=False):
+    """Shows one set as ``inspector_lines``, labels in a column. It follows
+    the table's cursor, so it isn't a Tab stop; the mouse wheel scrolls it."""
 
     DEFAULT_CSS = """
     Inspector {

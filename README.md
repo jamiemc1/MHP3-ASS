@@ -54,8 +54,12 @@ the sort, and the inspector beside it showing the
 selected set's pieces, jewels, spare slots, extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
 After a search the editor collapses to a one-line summary (the options
-show only where they differ from the defaults): `e` reopens it,
-esc closes it again and the keys (`q` quits, `^P` opens the command
+show only where they differ from the defaults): `e` (or `1`) reopens it,
+esc closes it again. The screen has three regions, numbered in their
+titles: ¹ the query, ² the charm sidebar and ³ the sets. Tab and Shift+Tab
+move between them (inside the open editor, between its fields first), and
+`1`, `2` and `3` jump to one (in the skill box the digits type: esc or Tab
+out first). The footer shows the keys (`q` quits, `^P` opens the command
 palette). `o` opens the options: the four armour options (space toggles),
 the language (skill, armour and charm names and the labels switch at once,
 and `mycharms.txt` is rewritten in it, as the original does), the colour
