@@ -5,7 +5,7 @@ widest breakpoint it reaches, as Textual's ``HORIZONTAL_BREAKPOINTS`` give
 it (the CSS is written ``Screen.-narrow …``):
 
 - ``-narrow`` (under 110 columns): the table only, with the charm drop-down
-  in its title line; Enter or ``i`` opens the inspector over the table;
+  at the top of the sets; Enter or ``i`` opens the inspector over the table;
 - ``-medium`` (110-149): the table with the charm drop-down, and the
   inspector beside it;
 - ``-wide`` (150-219): the charm sidebar, the table and the inspector;
