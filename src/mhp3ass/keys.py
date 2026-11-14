@@ -28,6 +28,7 @@ def app_keys() -> list[Binding]:
         Binding("2", "region(2)", "Charms", show=False),
         Binding("3", "region(3)", "Sets", show=False),
         Binding("e", "edit_query", "Edit query", show=False),
+        Binding("z", "maximise", "Maximise", show=False),
         # On the editor's drop-downs and buttons only, ahead of a closed drop-down's ▲▼.
         Binding("left", "spatial('left')", "Left field", show=False, priority=True),
         Binding("right", "spatial('right')", "Right field", show=False, priority=True),
@@ -43,7 +44,8 @@ def app_keys() -> list[Binding]:
 def results_keys() -> list[Binding]:
     """The sets table's keys (not the find box's, where letters type);
     their actions are the app's. ``i`` and Enter show the inspector over
-    the table where it has no room beside it."""
+    the table where it has no room beside it; ``w`` shows or hides the
+    wide columns (resistances and extra skills)."""
     keys = [
         Binding("s", "app.sort", "Sort"),
         Binding("S", "app.reverse_sort", "Reverse"),
@@ -53,6 +55,7 @@ def results_keys() -> list[Binding]:
         # Only where the inspector isn't beside the table (a narrow screen).
         Binding("i", "app.inspect", "Inspect"),
         Binding("enter", "app.inspect", "Inspect", show=False),
+        Binding("w", "app.wide_columns", "Wide columns", show=False),
     ]
     return keys
 
@@ -94,6 +97,12 @@ def palette_commands(
         ),
         PaletteCommand("Sort…", "Choose what the sets are sorted by", "sort"),
         PaletteCommand("Reverse sort", "Turn the sort the other way round", "reverse_sort"),
+        PaletteCommand(
+            "Wide columns", "Show or hide the resistances and extra skills (w)", "wide_columns"
+        ),
+        PaletteCommand(
+            "Maximise", "Fill the screen with the focused region, or restore it (z)", "maximise"
+        ),
         *(_find_commands() if has_results else []),
         *(
             [PaletteCommand("Inspect set", "Show the set's details over the table", "inspect")]

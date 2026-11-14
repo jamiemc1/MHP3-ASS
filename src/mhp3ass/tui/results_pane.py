@@ -185,12 +185,30 @@ class ResultsPane(Horizontal):
                     id="charm_choice",
                 )
             table = ResultsTable(
-                ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
-                right_aligned=frozenset({0, 6}),
+                [
+                    "#",
+                    "Head",
+                    "Body",
+                    "Arms",
+                    "Waist",
+                    "Legs",
+                    "Def",
+                    "Spare",
+                    "Charm",
+                    "Fire",
+                    "Water",
+                    "Thunder",
+                    "Ice",
+                    "Dragon",
+                    "Extra skills",
+                ],
+                right_aligned=frozenset({0, 6, 9, 10, 11, 12, 13}),
                 # The number, the five pieces and the defence; the spare slots and charm scroll.
                 must_fit=frozenset(range(7)),
                 # The number and the defence stay in view while the rest scroll.
                 pinned=frozenset({0, 6}),
+                # The resistances and extra skills, shown with ``w``.
+                wide=frozenset(range(9, 15)),
                 id="results",
             )
             table.empty_text = _BEFORE_SEARCH
