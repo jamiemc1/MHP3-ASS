@@ -423,6 +423,7 @@ class SearchApp(App[bool]):
         view = pane.view
         query = pane.results_query
         charm_templates = pane.charm_templates
+        note = pane.note
         cursor = self.query_one(ResultsTable).cursor
         collapsed = not self.editor.display
         self._sort_key = pane.sort_key
@@ -437,6 +438,7 @@ class SearchApp(App[bool]):
                 query=query,
                 game=self._data.game,
                 charm_templates=charm_templates,
+                note=note,
             )
             self.query_one(ResultsTable).cursor = cursor
         if collapsed:
@@ -491,6 +493,7 @@ class SearchApp(App[bool]):
         self._running_form = form
         self.query_one(SearchProgress).start()
         pane = self.query_one(ResultsPane)
+        pane.show_searching(True)
         self._worker = self._run_search(
             form,
             number=self._search_number,
@@ -663,24 +666,30 @@ class SearchApp(App[bool]):
         self.result = result
         self._searched_form = self._running_form
         self._last_search_gunner = result.query.hunter_type is HunterType.GUNNER
+        note = None
+        if result.exception is not None:
+            stopped = (
+                f"Worker {result.exception.worker + 1} of {result.worker_count} stopped with "
+                f"{result.exception.type}"
+            )
+            note = f"Incomplete: {stopped}"
+            self.notify(
+                f"{stopped}, as the original's would; its sets and later workers' are missing.",
+                severity="warning",
+                timeout=30,
+                markup=False,
+            )
         self.query_one(ResultsPane).show(
             view,
             rows=rows,
             query=result.query,
             game=self._data.game,
             charm_templates=tuple(worker.template for worker in result.workers),
+            note=note,
         )
         self._collapse_editor()
         # SaveConfig once the last worker returns (Form1.h:1830).
         self._save()
-        if result.exception is not None:
-            self.notify(
-                f"Worker {result.exception.worker + 1} of {result.worker_count} stopped with "
-                f"{result.exception.type}, as the original's would; its sets and later "
-                "workers' are missing.",
-                severity="warning",
-                timeout=30,
-            )
 
     def _search_failed(self, number: int, error: Exception) -> None:
         if number != self._search_number or self._cancel is None:
@@ -693,6 +702,7 @@ class SearchApp(App[bool]):
     def _finish_search(self) -> None:
         self._cancel = None
         self.query_one(SearchProgress).stop()
+        self.query_one(ResultsPane).show_searching(False)
         # Its thread may still be running; if so, its end redraws instead.
         if not self._searching():
             self.query_one(ResultsPane).redraw_inspector()
