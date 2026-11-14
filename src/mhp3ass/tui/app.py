@@ -14,6 +14,7 @@ from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
 from textual.containers import Horizontal
+from textual.css.query import NoMatches
 from textual.message import Message
 from textual.theme import Theme
 from textual.widget import Widget
@@ -208,7 +209,7 @@ class SearchApp(App[bool]):
     def compose(self) -> ComposeResult:
         with Horizontal(id="query_line"):
             yield Static(id="query_summary")
-            yield Label("e edit", id="query_keys")
+            yield Label("1 edit", id="query_keys")
         yield self.editor
         yield SearchProgress()
         yield ResultsPane(
@@ -586,21 +587,24 @@ class SearchApp(App[bool]):
         if region is Region.QUERY:
             self.action_edit_query()
         else:
-            self._focus_region(region, step=1)
+            self._focus_region(region)
+
+    def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
+        # Regions are the main screen's: over a modal or the palette, Tab is theirs.
+        if action == "cycle" and len(self.screen_stack) > 1:
+            return False
+        return super().check_action(action, parameters)
 
     def action_cycle(self, step: int) -> None:
         """Tab (``step`` 1) and Shift+Tab (-1): inside the open editor, the
         next or previous field, leaving it past either end; elsewhere, the
-        next or previous region (``next_region``). Over a modal, its own
-        widgets in turn, as Textual's Tab does."""
-        if len(self.screen_stack) > 1:
-            if step > 0:
-                self.screen.focus_next()
-            else:
-                self.screen.focus_previous()
+        next or previous region (``next_region``)."""
+        try:
+            region = self._focused_region()
+        except NoMatches:
+            # The screen is being composed again (a language switch).
             return
-        region = self._focused_region()
-        editor_open = bool(self.editor.display)
+        editor_open = self.editor.display
         if region is Region.QUERY and editor_open:
             fields = self._editor_fields()
             focused = self.focused
@@ -608,7 +612,11 @@ class SearchApp(App[bool]):
             if current is not None and 0 <= current + step < len(fields):
                 fields[current + step].focus()
                 return
-        self._focus_region(next_region(region, step=step, editor_open=editor_open), step=step)
+        target = next_region(region, step=step, editor_open=editor_open)
+        if target is Region.QUERY:
+            self._focus_editor_end(step)
+        else:
+            self._focus_region(target)
 
     def _focused_region(self) -> Region | None:
         focused = self.focused
@@ -628,15 +636,24 @@ class SearchApp(App[bool]):
         fields = [widget for widget in self.screen.focus_chain if self.editor in widget.ancestors]
         return fields
 
-    def _focus_region(self, region: Region, step: int) -> None:
-        """Focus ``region``: the editor's first field going forwards, its last
-        going back; the charm sidebar; the sets table."""
+    def _focus_editor_end(self, step: int) -> None:
+        """Entering the open editor: its first field going forwards (``step``
+        1), its last going back."""
+        fields = self._editor_fields()
+        if fields:
+            fields[0 if step > 0 else -1].focus()
+
+    def _focus_region(self, region: Region) -> None:
+        """Focus the charm sidebar, or the sets: the find box while it is
+        open, else the table."""
         if region is Region.QUERY:
-            fields = self._editor_fields()
-            if fields:
-                fields[0 if step > 0 else -1].focus()
-        elif region is Region.CHARMS:
+            raise ValueError("the query is entered through its fields, not as a whole")
+        if region is Region.CHARMS:
             self.query_one("#charm_filter", OptionList).focus()
+            return
+        find_box = self.query_one("#find_box")
+        if find_box.display:
+            find_box.focus()
         else:
             self.query_one(ResultsTable).focus()
 

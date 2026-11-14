@@ -58,8 +58,8 @@ show only where they differ from the defaults): `e` (or `1`) reopens it,
 esc closes it again. The screen has three regions, numbered in their
 titles: ¹ the query, ² the charm sidebar and ³ the sets. Tab and Shift+Tab
 move between them (inside the open editor, between its fields first), and
-`1`, `2` and `3` jump to one (in the skill box the digits type: esc or Tab
-out first). The footer shows the keys (`q` quits, `^P` opens the command
+`1`, `2` and `3` jump to one (in the skill box the digits type: Tab out
+first). The footer shows the keys (`q` quits, `^P` opens the command
 palette). `o` opens the options: the four armour options (space toggles),
 the language (skill, armour and charm names and the labels switch at once,
 and `mycharms.txt` is rewritten in it, as the original does), the colour
