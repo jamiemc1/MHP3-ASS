@@ -27,10 +27,10 @@ def test_the_form_fields_have_no_letter_of_their_own():
     ]
 
 
-def test_the_results_keys_are_sort_reverse_find_inspect_and_wide_columns():
+def test_the_results_keys_are_sort_reverse_find_copy_inspect_and_wide_columns():
     keys = [binding.key for binding in results_keys()]
 
-    assert keys == ["s", "S", "slash", "n", "N", "i", "enter", "w"]
+    assert keys == ["s", "S", "slash", "y", "n", "N", "i", "enter", "w"]
 
 
 def test_no_results_key_is_also_an_app_key():
@@ -101,13 +101,13 @@ def test_every_dropped_field_letter_has_a_palette_command():
     ("has_results", "searching", "expected"),
     [
         (False, False, set()),
-        (True, False, {"Find…", "Find next", "Find previous"}),
+        (True, False, {"Copy set", "Find…", "Find next", "Find previous"}),
         (False, True, {"Cancel search"}),
-        (True, True, {"Find…", "Find next", "Find previous", "Cancel search"}),
+        (True, True, {"Copy set", "Find…", "Find next", "Find previous", "Cancel search"}),
     ],
 )
-def test_find_needs_results_and_cancel_a_running_search(has_results, searching, expected):
-    state_dependent = {"Find…", "Find next", "Find previous", "Cancel search"}
+def test_copy_and_find_need_results_and_cancel_a_running_search(has_results, searching, expected):
+    state_dependent = {"Copy set", "Find…", "Find next", "Find previous", "Cancel search"}
 
     titles = {
         command.title

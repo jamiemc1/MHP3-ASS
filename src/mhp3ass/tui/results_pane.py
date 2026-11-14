@@ -34,12 +34,13 @@ from mhp3ass.query import Query
 from mhp3ass.regions import Region
 from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
+from mhp3ass.results.set_text import set_markdown
 from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow, table_row, truncate
 from mhp3ass.results.view import CharmFilter, ResultsView
 from mhp3ass.solution.state import Solution
-from mhp3ass.tui.inspector import Inspector
+from mhp3ass.tui.inspector import Inspector, ShownSet
 from mhp3ass.tui.results_table import ResultsTable
 from mhp3ass.tui.titles import region_title
 
@@ -161,6 +162,7 @@ class ResultsPane(Horizontal):
         self.note: str | None = None
         # Find texts by id(solution); the view keeps every solution alive.
         self._text_by_set: dict[int, str] = {}
+        self._piece_labels = ["Head", "Body", "Arms", "Waist", "Legs"]
 
     def compose(self) -> ComposeResult:
         charm_filter = OptionList(id="charm_filter", classes="pane")
@@ -214,7 +216,7 @@ class ResultsPane(Horizontal):
             table.empty_text = _BEFORE_SEARCH
             yield table
             yield Input(placeholder="find: piece, jewel, charm or skill", id="find_box")
-        yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
+        yield Inspector(self._strings, piece_labels=self._piece_labels)
 
     @property
     def results_query(self) -> Query | None:
@@ -246,6 +248,25 @@ class ResultsPane(Horizontal):
             self.query_one("#results", ResultsTable).replace_rows(
                 view_rows(self.view, names=self.table_names, query=self._query)
             )
+
+    @property
+    def shown_set(self) -> ShownSet | None:
+        """The set the inspector shows, with the details it shows."""
+        return self.query_one(Inspector).shown
+
+    def set_text(self, shown: ShownSet) -> str:
+        """``shown`` as Markdown (``set_markdown``), with the jewels the inspector shows."""
+        if self._query is None:
+            raise ValueError("a set shows without the results' query")
+        text = set_markdown(
+            shown.solution,
+            shown.details,
+            query=self._query,
+            strings=self._strings,
+            short_names=self._short_names,
+            piece_labels=self._piece_labels,
+        )
+        return text
 
     @property
     def inspecting(self) -> bool:
