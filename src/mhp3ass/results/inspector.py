@@ -151,14 +151,15 @@ def _counted_lines(label: str, counts: Sequence[DecorationCount]) -> list[Inspec
     return lines
 
 
-def inspector_lines(
+def piece_lines(
     solution: Solution,
     details: SolutionDetails,
     strings: DisplayStrings,
     piece_labels: Sequence[str],
 ) -> list[InspectorLine]:
-    """``solution``'s lines from its ``details``; ``piece_labels`` name the five
-    armour slots in order. An empty slot has no line."""
+    """Each piece under its slot's label, from ``piece_labels`` (the five
+    armour slots in order), its note on the line after it. An empty slot
+    has no line."""
     lines = []
     armor_lines = iter(details.armors)
     for label, armor in zip(piece_labels, solution.armors, strict=True):
@@ -169,6 +170,18 @@ def inspector_lines(
         note = note_text(line, strings)
         if note is not None:
             lines.append(InspectorLine(label="", text=note))
+    return lines
+
+
+def inspector_lines(
+    solution: Solution,
+    details: SolutionDetails,
+    strings: DisplayStrings,
+    piece_labels: Sequence[str],
+) -> list[InspectorLine]:
+    """``solution``'s lines from its ``details``; ``piece_labels`` name the five
+    armour slots in order. An empty slot has no line."""
+    lines = piece_lines(solution, details, strings, piece_labels=piece_labels)
     if details.charm is not None:
         lines.append(InspectorLine(label="Charm", text=charm_name(details.charm)))
     lines.extend(jewel_lines(details))

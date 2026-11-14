@@ -25,6 +25,7 @@ from mhp3ass.results.inspector import (
     inspector_lines,
     jewel_lines,
     note_text,
+    piece_lines,
     spare_text,
 )
 from mhp3ass.results.placement import ShortSkill, Unbuildable
@@ -160,6 +161,48 @@ def test_the_lines_list_pieces_charm_jewels_spare_extra_skills_and_stats(
         InspectorLine("Rarity", "30"),
         InspectorLine("Difficulty", "7"),
     ]
+
+
+def test_the_piece_lines_skip_the_empty_slot_and_note_after_the_piece(
+    teamhgg_game, english_strings, set_with_an_empty_arms_slot
+):
+    waist = teamhgg_game.armor_map["Barroth Tasset S"]
+
+    lines = piece_lines(
+        set_with_an_empty_arms_slot.solution,
+        set_with_an_empty_arms_slot.details,
+        english_strings,
+        piece_labels=["Head", "Body", "Arms", "Waist", "Legs"],
+    )
+
+    assert lines == [
+        InspectorLine("Head", "Jinouga Helm"),
+        InspectorLine("Body", "Agnaktor Mail"),
+        InspectorLine("Waist", "Barroth Tasset S"),
+        InspectorLine("", f"(or anything with {waist.num_slots} slots)"),
+        InspectorLine("Legs", "Baggi Greaves S"),
+    ]
+
+
+def test_a_set_without_armour_has_no_piece_lines(english_strings):
+    details = SolutionDetails(
+        armors=(),
+        charm=None,
+        decorations=(),
+        chest_jewels=None,
+        slots_spare=None,
+        sort_value=None,
+        extra_skills=(),
+    )
+
+    lines = piece_lines(
+        Solution(armors=[None] * 5, charm=None),
+        details,
+        english_strings,
+        piece_labels=["Head", "Body", "Arms", "Waist", "Legs"],
+    )
+
+    assert lines == []
 
 
 @pytest.fixture
