@@ -12,6 +12,7 @@ from textual.content import Content
 from textual.widgets import Static
 
 from mhp3ass.data.strings import DisplayStrings
+from mhp3ass.query import Query
 from mhp3ass.results.details import SolutionDetails
 from mhp3ass.results.inspector import inspector_lines
 from mhp3ass.solution.state import Solution
@@ -19,11 +20,15 @@ from mhp3ass.solution.state import Solution
 
 @dataclass(frozen=True)
 class ShownSet:
-    """The set the inspector shows: its ``number`` in the table, and its ``details``."""
+    """A set the inspector shows: its ``number`` in the table (counting from
+    1), the ``solution``, and its ``details`` for ``query``, the results' own.
+    Kept together so a copy of it doesn't pair a set with the next results'
+    query."""
 
     number: int
     solution: Solution
     details: SolutionDetails
+    query: Query
 
 
 class Inspector(VerticalScroll, can_focus=False):
@@ -54,13 +59,14 @@ class Inspector(VerticalScroll, can_focus=False):
     def compose(self):
         yield Static(id="inspector_text")
 
-    def show(self, number: int, solution: Solution, details: SolutionDetails) -> None:
-        """Set ``number`` (counting from 1 in the table) and its ``details``."""
-        self.shown = ShownSet(number=number, solution=solution, details=details)
-        lines = inspector_lines(solution, details, self._strings, piece_labels=self._piece_labels)
+    def show(self, shown: ShownSet) -> None:
+        self.shown = shown
+        lines = inspector_lines(
+            shown.solution, shown.details, self._strings, piece_labels=self._piece_labels
+        )
         label_width = max((cell_len(line.label) for line in lines), default=0)
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)
-        self.border_title = Content(f"Set {number:,}")
+        self.border_title = Content(f"Set {shown.number:,}")
         self.query_one("#inspector_text", Static).update(Content(text))
 
     def relayout(self) -> None:

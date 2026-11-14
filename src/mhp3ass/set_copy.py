@@ -19,6 +19,20 @@ def system_copy_command(platform: str) -> list[str] | None:
     return command
 
 
+def copied_notice(number: int, details: SolutionDetails) -> str:
+    """The notice once set ``number`` is copied; during a search, a set
+    whose placement waits for it says its jewels aren't placed yet."""
+    jewels = details.chest_jewels
+    if isinstance(jewels, PlacementPending) and jewels.while_searching:
+        notice = (
+            f"Copied set {number:,}, without its jewels' places:"
+            " copy it again after the search for them."
+        )
+        return notice
+    notice = f"Copied set {number:,}."
+    return notice
+
+
 def jewels_being_worked_out(details: SolutionDetails) -> bool:
     """Whether the inspector is still working out ``details``' placement
     in a thread, so its text would say so rather than give the jewels. A

@@ -23,6 +23,7 @@ from textual.containers import Horizontal
 from textual.css.query import NoMatches
 from textual.geometry import Size
 from textual.message import Message
+from textual.notifications import SeverityLevel
 from textual.screen import Screen
 from textual.theme import Theme
 from textual.widget import Widget
@@ -72,7 +73,7 @@ from mhp3ass.search import (
     dotnet_exception_type,
     run_search,
 )
-from mhp3ass.set_copy import jewels_being_worked_out, system_copy_command
+from mhp3ass.set_copy import copied_notice, jewels_being_worked_out, system_copy_command
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
@@ -1204,25 +1205,38 @@ class SearchApp(App[bool]):
             return
         text = pane.set_text(shown)
         self.copy_to_clipboard(text)
+        notice = copied_notice(shown.number, details=shown.details)
         command = system_copy_command(sys.platform)
-        if command is not None:
-            try:
-                # pbcopy reads its input in the locale's encoding, which may not be UTF-8.
-                subprocess.run(
-                    command,
-                    input=text.encode("utf-8"),
-                    env={**os.environ, "LC_CTYPE": "UTF-8"},
-                    check=True,
-                    timeout=5,
-                )
-            except (OSError, subprocess.SubprocessError) as error:
-                self.notify(
-                    f"Set {shown.number:,} sent to the terminal only: {command[0]} failed: {error}",
-                    severity="warning",
-                    markup=False,
-                )
-                return
-        self.notify(f"Copied set {shown.number:,}.", timeout=3)
+        if command is None:
+            self.notify(notice, timeout=3)
+            return
+        self._copy_with_command(command, text=text, notice=notice)
+
+    @work(thread=True, group="copy")
+    def _copy_with_command(self, command: list[str], text: str, notice: str) -> None:
+        """Run ``command`` (``pbcopy``) on ``text``, off the event loop, then
+        give ``notice``, or say the copy may have failed."""
+        try:
+            # pbcopy reads its input in the locale's encoding, which may not be UTF-8.
+            subprocess.run(
+                command,
+                input=text.encode("utf-8"),
+                env={**os.environ, "LC_CTYPE": "UTF-8"},
+                check=True,
+                timeout=5,
+            )
+        except (OSError, subprocess.SubprocessError) as error:
+            failure = f"The set may not have been copied: {command[0]} failed: {error}"
+            self._notify_from_thread(failure, severity="warning")
+            return
+        self._notify_from_thread(notice, severity="information")
+
+    def _notify_from_thread(self, message: str, severity: SeverityLevel) -> None:
+        try:
+            self.call_from_thread(self.notify, message, severity=severity, markup=False)
+        except RuntimeError:
+            # The app stopped running while the command ran.
+            return
 
     def on_worker_state_changed(self, event: Worker.StateChanged) -> None:
         if event.worker is not self._worker or not event.worker.is_finished:
