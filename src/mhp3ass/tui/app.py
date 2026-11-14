@@ -16,6 +16,7 @@ from textual import events, work
 from textual.actions import parse
 from textual.app import App, ComposeResult, SystemCommand
 from textual.binding import BindingType
+from textual.command import Command, CommandPalette
 from textual.containers import Horizontal
 from textual.css.query import NoMatches
 from textual.geometry import Size
@@ -70,10 +71,10 @@ from mhp3ass.search import (
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
-from mhp3ass.themes import starting_theme
+from mhp3ass.themes import ThemePreview, starting_theme
 from mhp3ass.tui.help_screen import HelpScreen
 from mhp3ass.tui.inspector import Inspector
-from mhp3ass.tui.options import ChoiceScreen, OptionsScreen, ThemeList
+from mhp3ass.tui.options import ChoiceScreen, OptionsScreen, ThemeList, ThemesFromCurrent
 from mhp3ass.tui.query_editor import QueryEditor
 from mhp3ass.tui.results_pane import ResultsPane, view_rows
 from mhp3ass.tui.results_table import ResultsTable
@@ -202,6 +203,13 @@ class SearchApp(App[bool]):
     Screen.-small #small_note {
         display: block;
     }
+    /* The command palette's list stays inside a short terminal and scrolls in itself. */
+    CommandPalette.-short > Vertical {
+        margin-top: 0;
+    }
+    CommandPalette.-short CommandList {
+        max-height: 60vh;
+    }
     """
     BINDINGS: ClassVar[list[BindingType]] = [*app_keys()]
     # Esc restores a maximised region in its turn (``escape_step``), not first.
@@ -256,8 +264,10 @@ class SearchApp(App[bool]):
         theme = starting_theme(files.folders.settings.theme, available=self.available_themes)
         self.theme = theme.name
         self._theme_unavailable = theme.unavailable
-        # While Options' theme list shows a theme under its cursor, that theme isn't kept.
+        # While a theme picker shows a theme under its cursor, that theme isn't kept.
         self._theme_previewing = False
+        # The palette's theme picker, while it is open.
+        self._palette_preview: ThemePreview | None = None
 
     def compose(self) -> ComposeResult:
         with Horizontal(id="query_line"):
@@ -444,6 +454,34 @@ class SearchApp(App[bool]):
     def on_theme_list_kept(self, event: ThemeList.Kept) -> None:
         event.stop()
         self._keep_theme(event.theme)
+
+    def search_themes(self) -> None:
+        """The palette's Theme command: Textual's theme picker, opening on
+        the theme in use and showing each theme as its cursor reaches it; Esc
+        goes back to the theme it opened on."""
+        self._palette_preview = ThemePreview(self.theme)
+        self.push_screen(
+            CommandPalette(providers=[ThemesFromCurrent], placeholder="Search for themes…")
+        )
+
+    def on_command_palette_option_highlighted(
+        self, event: CommandPalette.OptionHighlighted
+    ) -> None:
+        preview = self._palette_preview
+        option = event.highlighted_event.option
+        if preview is None or not isinstance(option, Command):
+            return
+        shown = preview.show(option.hit.text, available=self.available_themes)
+        if shown is not None:
+            self._theme_previewing = True
+            self.theme = shown
+
+    def on_command_palette_closed(self, event: CommandPalette.Closed) -> None:
+        preview = self._palette_preview
+        if preview is None:
+            return
+        self._palette_preview = None
+        self._keep_theme(preview.close(chosen=event.option_selected))
 
     def _theme_changed(self, theme: Theme) -> None:
         if not self._theme_previewing:

@@ -11,7 +11,8 @@ from __future__ import annotations
 
 import subprocess
 import sys
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
+from functools import partial
 from pathlib import Path
 from typing import ClassVar
 
@@ -22,6 +23,7 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.content import Content
 from textual.message import Message
 from textual.screen import ModalScreen
+from textual.theme import ThemeProvider
 from textual.widgets import (
     Button,
     Checkbox,
@@ -38,6 +40,7 @@ from textual.widgets.option_list import Option
 
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.query_form import QueryForm
+from mhp3ass.themes import themes_from
 
 
 class ThemeList(OptionList):
@@ -107,6 +110,22 @@ class ThemeList(OptionList):
         self._reverting = True
         self.highlighted = self._themes.index(self._original)
         self.post_message(self.Kept(self._original))
+
+
+class ThemesFromCurrent(ThemeProvider):
+    """The command palette's themes, starting at the theme in use
+    (``themes_from``): the palette's cursor starts on its first entry."""
+
+    @property
+    def commands(self) -> list[tuple[str, Callable[[], None]]]:
+        names = themes_from(self.app.theme, themes=self.app.available_themes)
+        commands: list[tuple[str, Callable[[], None]]] = [
+            (name, partial(self._use, name)) for name in names
+        ]
+        return commands
+
+    def _use(self, name: str) -> None:
+        self.app.theme = name
 
 
 class OptionsScreen(ModalScreen[None]):
