@@ -27,6 +27,7 @@ from textual.worker import Worker
 from mhp3ass.charms.my_charms import MyCharmsFileError
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import read_lines
+from mhp3ass.escape import EscapeState, EscapeStep, escape_step
 from mhp3ass.keys import app_keys, palette_commands
 from mhp3ass.language_switch import switch_language
 from mhp3ass.model import HunterType
@@ -547,14 +548,51 @@ class SearchApp(App[bool]):
         )
 
     def action_cancel_search(self) -> None:
-        """Stop the search and keep the view as it was before it started; with
-        no search running, close the reopened editor over the results."""
+        """Stop the search and keep the view as it was before it started."""
         if self._cancel is None:
-            if self._searched_form is not None and self.editor.display:
-                self._collapse_editor()
             return
         self._cancel.set()
         self._finish_search()
+
+    def action_back_out(self) -> None:
+        """Esc: back out of one level, the one ``escape_step`` picks."""
+        try:
+            # The main screen's, though a modal may be on top.
+            pane = self.screen_stack[0].query_one(ResultsPane)
+            skill_picker = self.editor.query_one(SkillPicker)
+        except NoMatches:
+            # The screen is being composed again (a language switch).
+            return
+        help_panel = self.screen.query(HelpPanel)
+        modal_open = len(self.screen_stack) > 1
+        focused = self.focused
+        state = EscapeState(
+            popup_open=bool(help_panel) or (not modal_open and skill_picker.options_open),
+            find_open=not modal_open and pane.find_open,
+            modal_open=modal_open,
+            editor_open=self.editor.display,
+            can_collapse=self._searched_form is not None,
+            editor_focused=focused is not None and self.editor in focused.ancestors_with_self,
+            searching=self._cancel is not None,
+        )
+        match escape_step(state):
+            case EscapeStep.CLOSE_POPUP:
+                if help_panel:
+                    self.action_hide_help_panel()
+                else:
+                    skill_picker.dismiss_options()
+            case EscapeStep.CLEAR_FIND:
+                pane.clear_find()
+            case EscapeStep.CLOSE_MODAL:
+                self.screen.dismiss(None)
+            case EscapeStep.COLLAPSE_EDITOR:
+                self._collapse_editor()
+            case EscapeStep.LEAVE_EDITOR:
+                self._focus_region(Region.SETS)
+            case EscapeStep.CANCEL_SEARCH:
+                self.action_cancel_search()
+            case EscapeStep.NOTHING:
+                pass
 
     def action_edit_query(self) -> None:
         """Reopen the editor over the results, unchanged."""

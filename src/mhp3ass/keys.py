@@ -21,7 +21,7 @@ def app_keys() -> list[Binding]:
         Binding("question_mark", "toggle_keys", "Keys"),
         Binding("q", "quit", "Quit"),
         Binding("o", "options", "Options"),
-        Binding("escape", "cancel_search", "Cancel", show=False),
+        Binding("escape", "back_out", "Back", show=False),
         Binding("1", "region(1)", "Query", show=False),
         Binding("2", "region(2)", "Charms", show=False),
         Binding("3", "region(3)", "Sets", show=False),
