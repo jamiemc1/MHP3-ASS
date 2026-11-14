@@ -155,6 +155,8 @@ class ResultsPane(Horizontal):
                 right_aligned=frozenset({0, 6}),
                 # The number, the five pieces and the defence; the spare slots and charm scroll.
                 must_fit=frozenset(range(7)),
+                # The number and the defence stay in view while the rest scroll.
+                pinned=frozenset({0, 6}),
                 id="results",
             )
             table.empty_text = _BEFORE_SEARCH
