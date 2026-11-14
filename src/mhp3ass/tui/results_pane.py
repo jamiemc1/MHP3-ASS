@@ -11,12 +11,10 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, replace
 from threading import Lock
-from typing import ClassVar
 
 from rich.cells import cell_len, set_cell_size
 from textual import work
 from textual.app import ComposeResult
-from textual.binding import Binding, BindingType
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
 from textual.message import Message
@@ -69,18 +67,6 @@ def sort_label(key: SortKey) -> StringIndex:
             return StringIndex.RARITY
         case SortKey.SLOTS_SPARE:
             return StringIndex.SORT_SLOTS_SPARE
-
-
-class FindBox(Input):
-    """The find text; Esc closes it."""
-
-    BINDINGS: ClassVar[list[BindingType]] = [Binding("escape", "close", "Close", show=False)]
-
-    class Closed(Message):
-        pass
-
-    def action_close(self) -> None:
-        self.post_message(self.Closed())
 
 
 @dataclass(frozen=True)
@@ -167,7 +153,7 @@ class ResultsPane(Horizontal):
             )
             table.empty_text = _BEFORE_SEARCH
             yield table
-            yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
+            yield Input(placeholder="find: piece, jewel, charm or skill", id="find_box")
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
 
     @property
@@ -334,10 +320,20 @@ class ResultsPane(Horizontal):
             self.view.select_filter(self._filters[index])
             self._fill_table()
 
+    @property
+    def find_open(self) -> bool:
+        return self.query_one("#find_box", Input).display
+
     def open_find(self) -> None:
-        box = self.query_one("#find_box", FindBox)
+        box = self.query_one("#find_box", Input)
         box.display = True
         box.focus()
+
+    def clear_find(self) -> None:
+        """Close the find box with its text cleared, as Esc does; the last
+        find text submitted stays for ``n`` and ``N``."""
+        self.query_one("#find_box", Input).value = ""
+        self._close_find()
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         if event.input.id != "find_box":
@@ -347,12 +343,8 @@ class ResultsPane(Horizontal):
         self._close_find()
         self.find(step=1, from_cursor=True)
 
-    def on_find_box_closed(self, event: FindBox.Closed) -> None:
-        event.stop()
-        self._close_find()
-
     def _close_find(self) -> None:
-        self.query_one("#find_box", FindBox).display = False
+        self.query_one("#find_box", Input).display = False
         self.query_one("#results", ResultsTable).focus()
 
     def find(self, step: int, from_cursor: bool = False) -> None:
