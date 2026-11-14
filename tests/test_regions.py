@@ -29,7 +29,7 @@ def test_each_hint_is_its_regions_number_as_a_superscript():
     ],
 )
 def test_with_the_editor_open_tab_goes_round_all_three(current, step, expected):
-    assert next_region(current, step=step, editor_open=True) is expected
+    assert next_region(current, step=step, editor_open=True, charms_shown=True) is expected
 
 
 @pytest.mark.parametrize(
@@ -42,7 +42,7 @@ def test_with_the_editor_open_tab_goes_round_all_three(current, step, expected):
     ],
 )
 def test_with_the_editor_collapsed_tab_skips_the_query(current, step, expected):
-    assert next_region(current, step=step, editor_open=False) is expected
+    assert next_region(current, step=step, editor_open=False, charms_shown=True) is expected
 
 
 @pytest.mark.parametrize(
@@ -57,4 +57,21 @@ def test_with_the_editor_collapsed_tab_skips_the_query(current, step, expected):
 def test_from_no_region_tab_goes_to_the_first_and_shift_tab_to_the_last(
     step, editor_open, expected
 ):
-    assert next_region(None, step=step, editor_open=editor_open) is expected
+    assert next_region(None, step=step, editor_open=editor_open, charms_shown=True) is expected
+
+
+@pytest.mark.parametrize(
+    ("current", "step", "expected"),
+    [
+        (Region.QUERY, 1, Region.SETS),
+        (Region.SETS, 1, Region.QUERY),
+        (Region.SETS, -1, Region.QUERY),
+        (Region.QUERY, -1, Region.SETS),
+    ],
+)
+def test_with_the_charms_hidden_tab_passes_them_over(current, step, expected):
+    assert next_region(current, step=step, editor_open=True, charms_shown=False) is expected
+
+
+def test_with_the_charms_hidden_and_the_editor_closed_tab_stays_on_the_sets():
+    assert next_region(Region.SETS, step=1, editor_open=False, charms_shown=False) is Region.SETS

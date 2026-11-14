@@ -17,6 +17,7 @@ from textual.app import App, ComposeResult, SystemCommand
 from textual.binding import BindingType
 from textual.containers import Horizontal
 from textual.css.query import NoMatches
+from textual.geometry import Size
 from textual.message import Message
 from textual.screen import Screen
 from textual.theme import Theme
@@ -31,7 +32,6 @@ from mhp3ass.escape import EscapeState, EscapeStep, escape_step
 from mhp3ass.keys import app_keys, palette_commands
 from mhp3ass.language_switch import switch_language
 from mhp3ass.layout import (
-    HeightClass,
     InspectorPlace,
     Layout,
     height_breakpoints,
@@ -305,17 +305,18 @@ class SearchApp(App[bool]):
         self._save_on_close_signals()
 
     def on_resize(self, event: events.Resize) -> None:
-        self._fit_layout()
+        # The event's size: the app's own can still be the old one here.
+        self._fit_layout(event.size)
 
     def _layout(self) -> Layout:
         """The main screen's layout at the terminal's size."""
         layout = layout_for(self.size.width, height=self.size.height)
         return layout
 
-    def _fit_layout(self) -> None:
-        """Lay the main screen out for its size and what is open: the
-        classes its CSS reads beyond the breakpoints' own, the editor's
-        height, the table's names and the footer."""
+    def _fit_layout(self, size: Size) -> None:
+        """Lay the main screen out for a terminal of ``size`` and what is
+        open: the classes its CSS reads beyond the breakpoints' own, the
+        editor's height, the table's names and the footer."""
         main = self.screen_stack[0]
         try:
             # The main screen's, though a modal may be the one showing.
@@ -326,9 +327,10 @@ class SearchApp(App[bool]):
         except NoMatches:
             # The screen is being composed again (a language switch).
             return
-        layout = self._layout()
-        over_results = (
-            layout.editor_over_results and self.editor.display and self._searched_form is not None
+        layout = layout_for(size.width, height=size.height)
+        has_results = self._searched_form is not None
+        over_results = layout.editor_covers_results(
+            editor_open=self.editor.display, has_results=has_results
         )
         main.set_class(layout.inspector is InspectorPlace.OVER, "-inspector-over")
         portrait = layout.inspector is InspectorPlace.BELOW
@@ -338,24 +340,32 @@ class SearchApp(App[bool]):
             self.call_after_refresh(pane.query_one(Inspector).relayout)
         main.set_class(over_results, "-editor-over")
         main.set_class(layout.small, "-small")
-        # The collapsed editor's summary, unless the screen is small.
-        main.query_one("#query_line", Horizontal).display = (
-            not self.editor.display and self._searched_form is not None and not layout.small
+        main.query_one("#query_line", Horizontal).display = layout.shows_query_line(
+            editor_open=self.editor.display, has_results=has_results
         )
-        self.editor.fit_height(self.size.height, over_results=over_results)
+        self.editor.fit_height(size.height, over_results=over_results)
         pane.name_in_full(layout.full_names)
         # The inspector has a place of its own again.
         if layout.inspector is not InspectorPlace.OVER and pane.inspecting:
             pane.show_inspector(False)
             self._focus_region(Region.SETS)
-        # The focus follows the charms from the sidebar to the drop-down, or
-        # back, once the screen's new class has shown it.
-        hidden = choice if layout.sidebar else sidebar
+        # The focus leaves what the layout hides: the charms move between the
+        # sidebar and the drop-down once the screen's new class has shown the
+        # other; with no charms shown, or the editor over the results, it goes
+        # to the sets or the editor.
         focused = main.focused
-        if focused is not None and hidden in focused.ancestors_with_self:
-            self.call_after_refresh(self._focus_region, Region.CHARMS)
-        # A short screen's footer keeps its room for the keys.
-        footer.show_command_palette = layout.height is not HeightClass.SHORT
+        within = focused.ancestors_with_self if focused is not None else []
+        hidden = (
+            [sidebar, choice]
+            if not layout.charms_shown
+            else [choice if layout.sidebar else sidebar]
+        )
+        if over_results and pane in within:
+            self._focus_editor_end(1)
+        elif any(widget in within for widget in hidden):
+            region = Region.CHARMS if layout.charms_shown else Region.SETS
+            self.call_after_refresh(self._focus_region, region)
+        footer.show_command_palette = layout.footer_palette
         # Whether ``i`` shows in the footer depends on the layout.
         self.refresh_bindings()
 
@@ -616,7 +626,7 @@ class SearchApp(App[bool]):
         if collapsed:
             self._collapse_editor()
         else:
-            self._fit_layout()
+            self._fit_layout(self.size)
 
     def on_options_screen_jobs_chosen(self, event: OptionsScreen.JobsChosen) -> None:
         """Start a pool of the new size at once, close the old one in the
@@ -753,7 +763,9 @@ class SearchApp(App[bool]):
             return False
         # Beside the table the inspector already shows.
         if action == "inspect" and (
-            len(self.screen_stack) > 1 or self._layout().inspector is not InspectorPlace.OVER
+            len(self.screen_stack) > 1
+            or self._layout().inspector is not InspectorPlace.OVER
+            or self.screen_stack[0].has_class("-editor-over")
         ):
             return False
         return super().check_action(action, parameters)
@@ -828,7 +840,12 @@ class SearchApp(App[bool]):
             if current is not None and 0 <= current + step < len(fields):
                 fields[current + step].focus()
                 return
-        target = next_region(region, step=step, editor_open=editor_open)
+        target = next_region(
+            region,
+            step=step,
+            editor_open=editor_open,
+            charms_shown=self._layout().charms_shown,
+        )
         if target is Region.QUERY:
             self._focus_editor_end(step)
         else:
@@ -868,13 +885,17 @@ class SearchApp(App[bool]):
         table."""
         if region is Region.QUERY:
             raise ValueError("the query is entered through its fields, not as a whole")
+        # The editor over the results gives them back.
+        if self.screen_stack[0].has_class("-editor-over"):
+            self._collapse_editor()
+        layout = self._layout()
         if region is Region.CHARMS:
             # A small screen shows neither the sidebar nor the drop-down.
-            if self._layout().small:
+            if not layout.charms_shown:
                 return
             charms = (
                 self.query_one("#charm_filter", OptionList)
-                if self._layout().sidebar
+                if layout.sidebar
                 else self.query_one("#charm_choice", Select)
             )
             charms.focus()
@@ -889,9 +910,9 @@ class SearchApp(App[bool]):
         """Focus one of the editor's fields, reopening the editor if it's collapsed."""
         self._close_inspector()
         self.editor.display = True
-        self.query_one("#query_line", Horizontal).display = False
-        self._fit_layout()
         self.set_focus(self.query_one(f"#{widget_id}"))
+        # With the focus in the editor, covering the results moves nothing.
+        self._fit_layout(self.size)
 
     def action_set_field(self, widget_id: str) -> None:
         """Focus one of the editor's drop-downs and open it."""
@@ -929,9 +950,8 @@ class SearchApp(App[bool]):
             return
         summary = self.query_one("#query_summary", Static)
         summary.update(region_title(Region.QUERY, self._searched_form.summary(self._strings)))
-        self.query_one("#query_line", Horizontal).display = True
         self.editor.display = False
-        self._fit_layout()
+        self._fit_layout(self.size)
         # The inspector over the table keeps the focus while it shows.
         if not self.query_one(ResultsPane).inspecting:
             self.set_focus(self.query_one(ResultsTable))
