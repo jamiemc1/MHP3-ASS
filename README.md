@@ -58,7 +58,9 @@ show only where they differ from the defaults): `e` reopens it,
 esc closes it again and the keys (`q` quits, `^P` opens the command
 palette). `o` opens the options: the four armour options (space toggles),
 the language (skill, armour and charm names and the labels switch at once,
-and `mycharms.txt` is rewritten in it, as the original does) and the number
+and `mycharms.txt` is rewritten in it, as the original does), the colour
+theme (`dracula` to start with; moving through the list shows each theme,
+⏎ or leaving the list keeps it, esc goes back) and the number
 of search processes; each change is saved straight away. Outside a terminal it prints the help instead; `mhp3-ass --help`
 lists the `search` and `import-save` commands below.
 
@@ -101,7 +103,8 @@ As in the original, a load keeps charm-free sets only under None, so the
 next save leaves them out (a notice says how many). A file that can't be
 loaded is renamed to `settings.cfg.unreadable` and the TUI starts from the
 defaults. `tui.toml` keeps what `settings.cfg` has no line for: whether the
-sort is reversed (`S`), the search's processes (`jobs`) and `data_dir`.
+sort is reversed (`S`), the search's processes (`jobs`), the colour `theme`
+(also set by the palette's theme command) and `data_dir`.
 
 `--lang <language folder>` names skills in another language (default
 `English (TeamHGG)`).
