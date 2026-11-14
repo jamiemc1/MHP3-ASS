@@ -20,13 +20,14 @@ from textual.binding import Binding, BindingType
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
 from textual.message import Message
-from textual.widgets import Input, Label, OptionList, Select
+from textual.widgets import Input, OptionList
 from textual.widgets.option_list import Option
 from textual.worker import get_current_worker
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.model import Charm
+from mhp3ass.pane_titles import sets_title
 from mhp3ass.query import Query
 from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
@@ -105,17 +106,10 @@ class ResultsPane(Horizontal):
         width: 34;
         height: 1fr;
     }
-    ResultsPane #sort_line {
-        height: auto;
-    }
-    ResultsPane #sort_line Label {
-        padding: 1 1 0 2;
-    }
-    ResultsPane #sort_key {
-        width: 30;
-    }
     ResultsPane #results {
         height: 1fr;
+        border: round $panel-lighten-2;
+        border-title-color: $text;
     }
     ResultsPane #find_box {
         display: none;
@@ -140,7 +134,6 @@ class ResultsPane(Horizontal):
         # Counts highlights, so a placement worked out for an earlier one is dropped.
         self._inspection = 0
         self.view: ResultsView | None = None
-        # The drop-down's value: a Changed event that leaves it as it was is no change.
         self._sort_key = sort_key
         # Kept here so the next search's view is shown the same way round.
         self.reverse = reverse
@@ -154,23 +147,16 @@ class ResultsPane(Horizontal):
         self._text_by_set: dict[int, str] = {}
 
     def compose(self) -> ComposeResult:
-        strings = self._strings
         yield OptionList(id="charm_filter")
         with Vertical():
-            with Horizontal(id="sort_line"):
-                yield Label(strings.static(StringIndex.SORT_RESULTS_BY))
-                yield Select(
-                    [(strings.basic(sort_label(key)), key) for key in SortKey],
-                    value=self._sort_key,
-                    allow_blank=False,
-                    id="sort_key",
-                )
-                yield Label("reversed" if self.reverse else "", id="reversed")
-            yield ResultsTable(
+            table = ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
                 id="results",
             )
+            table.empty_text = "Choose up to six skills, then Search."
+            table.border_title = Content(self._title())
+            yield table
             yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
 
@@ -186,10 +172,12 @@ class ResultsPane(Horizontal):
 
     @property
     def sort_key(self) -> SortKey:
-        value = self.query_one("#sort_key", Select).value
-        if not isinstance(value, SortKey):
-            raise TypeError(f"the sort drop-down holds {value!r}, not a SortKey")
-        return value
+        return self._sort_key
+
+    def sort_names(self) -> list[tuple[SortKey, str]]:
+        """Each sort key with its name in the game's language, in drop-down order."""
+        names = [(key, self._strings.basic(sort_label(key))) for key in SortKey]
+        return names
 
     def show(
         self,
@@ -296,16 +284,17 @@ class ResultsPane(Horizontal):
             return
         self.query_one(Inspector).show(job.number, job.solution, details)
 
-    def on_select_changed(self, event: Select.Changed) -> None:
-        if event.select.id != "sort_key":
+    def choose_sort(self, key: SortKey | None) -> None:
+        """Sort by ``key``, as choosing it in ``cmbSort`` does; ``None`` (the
+        picker closed) or the key already in use changes nothing."""
+        if key is None or key is self._sort_key:
             return
-        event.stop()
-        if self.sort_key is self._sort_key:
-            return
-        self._sort_key = self.sort_key
+        self._sort_key = key
         if self.view is not None:
-            self.view.select_sort(self.sort_key)
+            self.view.select_sort(key)
             self._fill_table()
+        else:
+            self._update_title()
         self.post_message(self.SortChanged())
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
@@ -365,10 +354,11 @@ class ResultsPane(Horizontal):
 
     def reverse_sort(self) -> None:
         self.reverse = not self.reverse
-        self.query_one("#reversed", Label).update("reversed" if self.reverse else "")
         if self.view is not None:
             self.view.select_reverse(self.reverse)
             self._fill_table()
+        else:
+            self._update_title()
 
     def _fill_filters(self) -> None:
         view = self.view
@@ -402,8 +392,20 @@ class ResultsPane(Horizontal):
         chosen = view.charm_filter
         options.highlighted = self._filters.index(chosen) if chosen in self._filters else 0
 
+    def _title(self) -> str:
+        shown = len(self.view.final) if self.view is not None else None
+        name = self._strings.basic(sort_label(self._sort_key))
+        title = sets_title(shown, self._sort_key, sort_name=name, reverse=self.reverse)
+        return title
+
+    def _update_title(self) -> None:
+        self.query_one("#results", ResultsTable).border_title = Content(self._title())
+
     def _set_rows(self, rows: Sequence[TableRow]) -> None:
-        self.query_one("#results", ResultsTable).set_rows(rows)
+        table = self.query_one("#results", ResultsTable)
+        table.empty_text = "No sets."
+        table.set_rows(rows)
+        self._update_title()
         # With no rows the table moves no cursor, so nothing else clears the inspector.
         if not rows:
             self.query_one(Inspector).clear()

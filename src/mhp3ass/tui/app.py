@@ -13,13 +13,14 @@ from typing import Any, ClassVar
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
+from textual.containers import Horizontal
 from textual.content import Content
 from textual.message import Message
-from textual.widgets import Button, Footer, Header, Static
+from textual.widgets import Button, Footer, Label, Static
 from textual.worker import Worker
 
 from mhp3ass.charms.my_charms import MyCharmsFileError
-from mhp3ass.data.strings import DisplayStrings
+from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import read_lines
 from mhp3ass.language_switch import switch_language
 from mhp3ass.model import HunterType
@@ -55,6 +56,7 @@ from mhp3ass.tui.results_pane import ResultsPane, view_rows
 from mhp3ass.tui.results_table import ResultsTable
 from mhp3ass.tui.search_progress import SearchProgress
 from mhp3ass.tui.skill_picker import SkillPicker
+from mhp3ass.tui.sort_picker import SortPicker
 
 
 @dataclass(frozen=True)
@@ -80,8 +82,9 @@ class Progressed(Message):
 
 
 class SearchApp(App[bool]):
-    """The main screen: a header naming the language, the query editor, the
-    search's progress, the results table and the footer of keys.
+    """The main screen: the query editor (or, once there are results, a
+    line summing up their query), the search's progress, the results and
+    the footer of keys.
 
     The app's result is whether to start again: after the saved-data folder
     changes or is cleared, it exits with ``True`` so that start-up reads the
@@ -93,19 +96,21 @@ class SearchApp(App[bool]):
 
     TITLE = "MHP3 Armor Set Search"
     CSS = """
-    #query_summary {
+    #query_line {
         display: none;
-        height: auto;
-        padding: 0 2;
+        height: 1;
+        padding: 0 1;
         background: $panel;
     }
-    #hint {
-        height: auto;
-        padding: 1 2;
-        color: $text-muted;
+    #query_summary {
+        width: 1fr;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
     }
-    #results {
-        height: 1fr;
+    #query_keys {
+        width: auto;
+        padding: 0 0 0 2;
+        color: $text-muted;
     }
     """
     BINDINGS: ClassVar[list[BindingType]] = [
@@ -119,7 +124,7 @@ class SearchApp(App[bool]):
         Binding("w", "edit_field('weapon_slots')", "Weapon slots", show=False),
         Binding("m", "edit_field('charm_mode')", "Charm mode", show=False),
         Binding("k", "edit_field('skill_search')", "Skills", show=False),
-        Binding("s", "focus('sort_key')", "Sort"),
+        Binding("s", "sort", "Sort"),
         Binding("S", "reverse_sort", "Reverse"),
         Binding("slash", "find", "Find"),
         Binding("e", "edit_query", "Edit query"),
@@ -143,7 +148,6 @@ class SearchApp(App[bool]):
         which searches in this process). Options can replace the pool, so
         whoever runs the app closes ``app.pool`` afterwards."""
         super().__init__()
-        self.sub_title = language
         self._languages = languages
         self._language = language
         self._data = data
@@ -155,10 +159,9 @@ class SearchApp(App[bool]):
         # Held by a search and by the inspector's placements: both set the abilities' relevance.
         self._game_lock = Lock()
         self._last_search_gunner = startup.search.last_search_gunner
-        # What the results pane and the hint show, kept to rebuild them in another language.
+        # How the results pane shows them, kept to rebuild it in another language.
         self._sort_key = startup.search.sort_key
         self._reverse = files.folders.settings.reverse
-        self._hint = "Choose up to six skills, then Search."
         # The editor owns the form; read it as ``self.editor.form``.
         self.editor = QueryEditor(startup.search.form, game=data.game, strings=strings)
         self.result: SearchResult | None = None
@@ -173,11 +176,11 @@ class SearchApp(App[bool]):
         self._exiting = False
 
     def compose(self) -> ComposeResult:
-        yield Header()
-        yield Static(id="query_summary")
+        with Horizontal(id="query_line"):
+            yield Static(id="query_summary")
+            yield Label("e edit", id="query_keys")
         yield self.editor
         yield SearchProgress()
-        yield Static(self._hint, id="hint")
         yield ResultsPane(
             self._strings,
             sort_key=self._sort_key,
@@ -185,11 +188,7 @@ class SearchApp(App[bool]):
             is_searching=self._searching,
             game_lock=self._game_lock,
         )
-        yield Footer()
-
-    def _set_hint(self, text: str) -> None:
-        self._hint = text
-        self.query_one("#hint", Static).update(text)
+        yield Footer(compact=True)
 
     def on_mount(self) -> None:
         """Show the loaded results, if any, then save, as every load ends
@@ -210,8 +209,6 @@ class SearchApp(App[bool]):
                 charm_templates=None,
             )
             self._collapse_editor()
-            count = len(view.all_solutions) + results.charm_free_only_under_none
-            self._set_hint(f"{count:,} sets from last time.")
         if self._startup.notice is not None:
             self.notify(self._startup.notice, timeout=15)
         self._save()
@@ -414,7 +411,6 @@ class SearchApp(App[bool]):
         self._language = event.language
         self._strings = strings
         self._files = replace(self._files, language_index=self._languages.index(event.language))
-        self.sub_title = event.language
         await self._rebuild()
         self._save()
         self.action_options()
@@ -520,7 +516,7 @@ class SearchApp(App[bool]):
     def action_edit_field(self, widget_id: str) -> None:
         """Focus one of the editor's fields, reopening the editor if it's collapsed."""
         self.editor.display = True
-        self.query_one("#query_summary", Static).display = False
+        self.query_one("#query_line", Horizontal).display = False
         self.set_focus(self.query_one(f"#{widget_id}"))
 
     def _collapse_editor(self) -> None:
@@ -529,8 +525,8 @@ class SearchApp(App[bool]):
         if self._searched_form is None:
             return
         summary = self.query_one("#query_summary", Static)
-        summary.update(Content(f"{self._searched_form.summary(self._strings)}   e edit"))
-        summary.display = True
+        summary.update(Content(self._searched_form.summary(self._strings)))
+        self.query_one("#query_line", Horizontal).display = True
         self.editor.display = False
         self.set_focus(self.query_one(ResultsTable))
 
@@ -563,6 +559,17 @@ class SearchApp(App[bool]):
         """Exit and have the CLI run the app again, reading the saved data afresh."""
         self._exiting = True
         self.exit(result=True)
+
+    def action_sort(self) -> None:
+        pane = self.query_one(ResultsPane)
+        self.push_screen(
+            SortPicker(
+                pane.sort_names(),
+                current=pane.sort_key,
+                title=self._strings.static(StringIndex.SORT_RESULTS_BY),
+            ),
+            pane.choose_sort,
+        )
 
     def action_reverse_sort(self) -> None:
         pane = self.query_one(ResultsPane)
@@ -666,15 +673,14 @@ class SearchApp(App[bool]):
         self._collapse_editor()
         # SaveConfig once the last worker returns (Form1.h:1830).
         self._save()
-        count = len(result.results.all_solutions)
-        summary = f"{count:,} sets."
         if result.exception is not None:
-            summary += (
-                f" Worker {result.exception.worker + 1} of {result.worker_count} stopped with "
+            self.notify(
+                f"Worker {result.exception.worker + 1} of {result.worker_count} stopped with "
                 f"{result.exception.type}, as the original's would; its sets and later "
-                "workers' are missing."
+                "workers' are missing.",
+                severity="warning",
+                timeout=30,
             )
-        self._set_hint(summary)
 
     def _search_failed(self, number: int, error: Exception) -> None:
         if number != self._search_number or self._cancel is None:

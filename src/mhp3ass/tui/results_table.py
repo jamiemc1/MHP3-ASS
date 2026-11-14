@@ -41,7 +41,11 @@ def row_cells(number: int, row: TableRow) -> tuple[str, ...]:
 class ResultsTable(ScrollView, can_focus=True):
     """A header line, then one line per row; ▲▼ PgUp PgDn Home End move the cursor."""
 
-    COMPONENT_CLASSES: ClassVar[set[str]] = {"results-table--header", "results-table--cursor"}
+    COMPONENT_CLASSES: ClassVar[set[str]] = {
+        "results-table--header",
+        "results-table--cursor",
+        "results-table--empty",
+    }
     DEFAULT_CSS = """
     ResultsTable {
         height: 1fr;
@@ -53,6 +57,9 @@ class ResultsTable(ScrollView, can_focus=True):
     ResultsTable > .results-table--cursor {
         background: $block-cursor-background;
         color: $block-cursor-foreground;
+    }
+    ResultsTable > .results-table--empty {
+        color: $text-muted;
     }
     """
     BINDINGS: ClassVar[list[BindingType]] = [
@@ -81,6 +88,8 @@ class ResultsTable(ScrollView, can_focus=True):
         self._right_aligned = right_aligned
         self._rows: Sequence[TableRow] = ()
         self._widths = [cell_len(header) for header in self._headers]
+        # Shown on the first line while there are no rows.
+        self.empty_text = ""
         self._update_size()
 
     @property
@@ -132,6 +141,10 @@ class ResultsTable(ScrollView, can_focus=True):
             style = self.get_component_rich_style("results-table--header")
         else:
             index = scroll_y + y - 1
+            if not self._rows and y == 1:
+                empty_style = self.get_component_rich_style("results-table--empty")
+                empty = set_cell_size(f" {self.empty_text}", width)
+                return Strip([Segment(empty, empty_style)])
             if index >= len(self._rows):
                 return Strip.blank(width, self.rich_style)
             text = self._line_text(row_cells(index + 1, self._rows[index]))
