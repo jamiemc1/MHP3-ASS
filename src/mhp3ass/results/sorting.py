@@ -121,6 +121,16 @@ def solution_comparison(key: SortKey) -> Callable[[Solution, Solution], int] | N
     return comparison
 
 
+def sorts_ascending(key: SortKey) -> bool | None:
+    """Whether ``key``'s comparison puts the lowest value first (only
+    Difficulty, ``compare_by_difficulty``); ``None`` for None, which keeps
+    the arrival order."""
+    if key is SortKey.NONE:
+        return None
+    ascending = key is SortKey.DIFFICULTY
+    return ascending
+
+
 def sort_results(solutions: list[Solution], key: SortKey) -> None:
     """``SortResults``: sort ``solutions`` in place by ``key``, stably; None leaves them alone.
 
