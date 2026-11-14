@@ -224,9 +224,9 @@ class ResultsPane(Horizontal):
         if full == self._full_names:
             return
         self._full_names = full
-        if self.view is not None:
+        if self.view is not None and self._query is not None:
             self.query_one("#results", ResultsTable).replace_rows(
-                view_rows(self.view, names=self.table_names)
+                view_rows(self.view, names=self.table_names, query=self._query)
             )
 
     @property
@@ -282,7 +282,7 @@ class ResultsPane(Horizontal):
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
-            rows = view_rows(view, names=self.table_names)
+            rows = view_rows(view, names=self.table_names, query=query)
         self._set_rows(rows)
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
@@ -530,8 +530,8 @@ class ResultsPane(Horizontal):
             self.query_one(Inspector).clear()
 
     def _fill_table(self) -> None:
-        if self.view is not None:
-            self._set_rows(view_rows(self.view, names=self.table_names))
+        if self.view is not None and self._query is not None:
+            self._set_rows(view_rows(self.view, names=self.table_names, query=self._query))
 
 
 def _fit(label: str, width: int) -> str:
@@ -540,7 +540,11 @@ def _fit(label: str, width: int) -> str:
     return fitted
 
 
-def view_rows(view: ResultsView, names: ShortNames) -> list[TableRow]:
-    """The table's rows for what ``view`` shows, shortened by ``names``."""
-    rows = [table_row(solution, view.sort_key, names=names) for solution in view.final]
+def view_rows(view: ResultsView, names: ShortNames, query: Query) -> list[TableRow]:
+    """The table's rows for what ``view`` shows, shortened by ``names``,
+    with the extra skills beyond ``query``'s (the results' own)."""
+    rows = [
+        table_row(solution, view.sort_key, names=names, query_skills=query.skills)
+        for solution in view.final
+    ]
     return rows
