@@ -29,6 +29,7 @@ class HelpScreen(ModalScreen[None]):
         max-width: 90%;
         height: auto;
         max-height: 90%;
+        overflow-x: auto;
         border: round $accent;
         padding: 0 1;
     }

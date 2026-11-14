@@ -79,3 +79,11 @@ def test_every_app_and_results_key_has_a_description_for_the_help():
     bindings = [*app_keys(), *results_keys()]
 
     assert [binding.key for binding in bindings if binding.description == ""] == []
+
+
+def test_each_description_starts_with_a_capital():
+    entries = [KeyEntry(key="^p", action="command_palette", description="palette", everywhere=True)]
+
+    sections = help_sections(entries, region="Sets")
+
+    assert sections[0].rows == (HelpRow(keys=("^p",), description="Palette"),)

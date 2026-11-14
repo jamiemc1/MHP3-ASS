@@ -13,6 +13,7 @@ from threading import Event, Lock
 from typing import Any, ClassVar
 
 from textual import events, work
+from textual.actions import parse
 from textual.app import App, ComposeResult, SystemCommand
 from textual.binding import BindingType
 from textual.containers import Horizontal
@@ -937,14 +938,18 @@ class SearchApp(App[bool]):
 
     def action_help(self) -> None:
         """``?``: the keys that work where the focus is (``help_sections``),
-        from the screen's active bindings, over the screen."""
+        from the screen's active bindings, over the screen. The app's and
+        the main screen's work everywhere, but for the arrows between the
+        editor's fields, which only work on them; a modal's are its own."""
         screen = self.screen
+        main = self.screen_stack[0]
         entries = [
             KeyEntry(
                 key=self.get_key_display(active.binding),
                 action=active.binding.action,
                 description=active.binding.description,
-                everywhere=active.node is self or isinstance(active.node, Screen),
+                everywhere=(active.node is self or active.node is main)
+                and parse(active.binding.action)[1] != "spatial",
             )
             for active in screen.active_bindings.values()
             if active.enabled
@@ -955,25 +960,32 @@ class SearchApp(App[bool]):
     def _help_region(self) -> str:
         """The name of the region the focus is in, for the help's title."""
         focused = self.focused
-        if focused is not None and isinstance(focused, Inspector):
+        if focused is not None and any(
+            isinstance(node, Inspector) for node in focused.ancestors_with_self
+        ):
             return "Inspector"
         region = self._focused_region()
         name = region.name.title() if region is not None else "Here"
         return name
 
     def get_system_commands(self, screen: Screen[Any]) -> Iterable[SystemCommand]:
-        """Textual's commands, but ``?``'s help in place of its keys panel and
-        ``z`` in place of its maximise; then the main screen's by name
-        (``palette_commands``); over a modal only Textual's and the help, as
-        the main screen's fields aren't there."""
-        replaced = {"Keys", "Maximize", "Minimize"}
+        """Textual's commands, but ``?``'s help in place of its keys panel
+        (not over the help itself) and, on the main screen, ``z`` in place
+        of its maximise; then the main screen's by name (``palette_commands``).
+        Over a modal only Textual's and the help, as the main screen's
+        fields aren't there."""
+        main = screen is self.screen_stack[0]
+        replaced = {"Keys", "Maximize", "Minimize"} if main else {"Keys"}
         yield from (
             command
             for command in super().get_system_commands(screen)
             if command.title not in replaced
         )
-        yield SystemCommand("Keys", "The keys that work where the focus is (?)", self.action_help)
-        if screen is not self.screen_stack[0]:
+        if not isinstance(screen, HelpScreen):
+            yield SystemCommand(
+                "Keys", "The keys that work where the focus is (?)", self.action_help
+            )
+        if not main:
             return
         commands = palette_commands(
             has_results=self.query_one(ResultsPane).view is not None,

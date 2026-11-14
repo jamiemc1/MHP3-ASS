@@ -3,8 +3,9 @@
 Not a port: the TUI's own help. It is built from the bindings active at
 the moment, so it can't drift from them: the focused region's own keys
 first, then the app's, each key once. A key with no description is left
-out, and keys that run the same action under the same name share a line
-(``i, ⏎  Inspect``).
+out, keys that run the same action under the same name share a line
+(``i, ⏎  Inspect``), and each description starts with a capital, as
+Textual's own (``palette``) don't.
 """
 
 from __future__ import annotations
@@ -49,7 +50,8 @@ def help_sections(entries: Sequence[KeyEntry], region: str) -> list[HelpSection]
         for entry in entries:
             if entry.everywhere != everywhere or entry.description == "":
                 continue
-            keys = rows.setdefault((entry.action, entry.description), [])
+            description = entry.description[:1].upper() + entry.description[1:]
+            keys = rows.setdefault((entry.action, description), [])
             if entry.key not in keys:
                 keys.append(entry.key)
         if rows:
