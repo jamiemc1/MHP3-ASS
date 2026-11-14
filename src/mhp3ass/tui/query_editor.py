@@ -118,12 +118,13 @@ class QueryEditor(Vertical):
         )
 
     def on_mount(self) -> None:
-        self.fit_height(self.app.size.height)
+        self.fit_height(self.app.size.height, over_results=False)
 
-    def fit_height(self, screen_height: int) -> None:
+    def fit_height(self, screen_height: int, over_results: bool) -> None:
         """Take at most about 40 % of a ``screen_height``-row screen, and
-        never less than 8 rows of it, so the results stay in view."""
-        self.styles.max_height = max(8, screen_height * 40 // 100)
+        never less than 8 rows of it, so the results stay in view; or, open
+        in the results' place (``over_results``), all the room it needs."""
+        self.styles.max_height = None if over_results else max(8, screen_height * 40 // 100)
 
     def on_select_changed(self, event: Select.Changed) -> None:
         # The form's selects are those whose id is the QueryForm field they set.

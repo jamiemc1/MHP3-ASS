@@ -1,8 +1,9 @@
-"""The main screen's layout at each terminal width.
+"""The main screen's layout at each terminal size.
 
-Not a port: the TUI's own layout. The screen takes one width class, by the
-widest breakpoint it reaches, as Textual's ``HORIZONTAL_BREAKPOINTS`` give
-it (the CSS is written ``Screen.-narrow …``):
+Not a port: the TUI's own layout. The screen takes one width class and one
+height class, each by the largest breakpoint it reaches, as Textual's
+``HORIZONTAL_BREAKPOINTS`` and ``VERTICAL_BREAKPOINTS`` give them (the CSS
+is written ``Screen.-narrow …``). The widths:
 
 - ``-narrow`` (under 110 columns): the table only, with the charm drop-down
   at the top of the sets; Enter or ``i`` opens the inspector over the table;
@@ -11,6 +12,17 @@ it (the CSS is written ``Screen.-narrow …``):
 - ``-wide`` (150-219): the charm sidebar, the table and the inspector;
 - ``-huge`` (220 and over): as wide, with a wider inspector and the
   table's pieces and charm named in full.
+
+The heights:
+
+- ``-short`` (under 30 rows): the query editor, opened over results,
+  takes the results' place until it is collapsed again;
+- ``-normal`` (30-45): the editor opens above the results;
+- ``-tall`` (46 and over): as normal, and a narrow screen is laid out as
+  a portrait, the inspector below the table following the cursor.
+
+At 60 columns or 16 rows and below, the screen is small: the table only, with a
+note in place of the footer.
 
 The thresholds are starting values, to be tuned by trying them.
 """
@@ -30,10 +42,19 @@ class WidthClass(StrEnum):
     HUGE = "-huge"
 
 
+class HeightClass(StrEnum):
+    """The screen's height class, as its CSS class names it."""
+
+    SHORT = "-short"
+    NORMAL = "-normal"
+    TALL = "-tall"
+
+
 class InspectorPlace(Enum):
-    """Where the inspector shows: beside the table, or over it on request."""
+    """Where the inspector shows: beside the table, below it, or over it on request."""
 
     BESIDE = "beside"
+    BELOW = "below"
     OVER = "over"
 
 
@@ -44,6 +65,16 @@ def width_breakpoints() -> list[tuple[int, str]]:
         (110, WidthClass.MEDIUM.value),
         (150, WidthClass.WIDE.value),
         (220, WidthClass.HUGE.value),
+    ]
+    return breakpoints
+
+
+def height_breakpoints() -> list[tuple[int, str]]:
+    """Each height class's least height, for ``VERTICAL_BREAKPOINTS``."""
+    breakpoints = [
+        (0, HeightClass.SHORT.value),
+        (30, HeightClass.NORMAL.value),
+        (46, HeightClass.TALL.value),
     ]
     return breakpoints
 
@@ -60,20 +91,33 @@ def breakpoint_class(size: int, breakpoints: list[tuple[int, str]]) -> str:
 
 @dataclass(frozen=True)
 class Layout:
-    """What the main screen shows at one size."""
+    """What the main screen shows at one size; ``small``: at most 60
+    columns or 16 rows."""
 
     width: WidthClass
+    height: HeightClass
+    small: bool
 
     @property
     def sidebar(self) -> bool:
-        """The charm sidebar shows; otherwise the charm drop-down does."""
-        shown = self.width in (WidthClass.WIDE, WidthClass.HUGE)
+        """The charm sidebar shows; otherwise the charm drop-down does,
+        unless the screen is small."""
+        shown = self.width in (WidthClass.WIDE, WidthClass.HUGE) and not self.small
         return shown
 
     @property
     def inspector(self) -> InspectorPlace:
-        place = InspectorPlace.OVER if self.width is WidthClass.NARROW else InspectorPlace.BESIDE
-        return place
+        if self.small or (self.width is WidthClass.NARROW and self.height is not HeightClass.TALL):
+            return InspectorPlace.OVER
+        if self.width is WidthClass.NARROW:
+            return InspectorPlace.BELOW
+        return InspectorPlace.BESIDE
+
+    @property
+    def editor_over_results(self) -> bool:
+        """The query editor, opened over results, takes their place."""
+        over = self.height is HeightClass.SHORT
+        return over
 
     @property
     def full_names(self) -> bool:
@@ -82,7 +126,11 @@ class Layout:
         return full
 
 
-def layout_for(width: int) -> Layout:
-    """The layout of a terminal ``width`` columns wide."""
-    layout = Layout(width=WidthClass(breakpoint_class(width, width_breakpoints())))
+def layout_for(width: int, height: int) -> Layout:
+    """The layout of a terminal ``width`` columns wide and ``height`` rows high."""
+    layout = Layout(
+        width=WidthClass(breakpoint_class(width, width_breakpoints())),
+        height=HeightClass(breakpoint_class(height, height_breakpoints())),
+        small=width <= 60 or height <= 16,
+    )
     return layout
