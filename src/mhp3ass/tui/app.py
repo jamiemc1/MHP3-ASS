@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import signal
+import subprocess
 import sys
 from collections.abc import Iterable
 from dataclasses import dataclass, replace
@@ -70,6 +72,7 @@ from mhp3ass.search import (
     dotnet_exception_type,
     run_search,
 )
+from mhp3ass.set_copy import jewels_being_worked_out, system_copy_command
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
@@ -1187,6 +1190,39 @@ class SearchApp(App[bool]):
 
     def action_find_next(self, step: int) -> None:
         self.query_one(ResultsPane).find(step=step)
+
+    def action_copy_set(self) -> None:
+        """``y``: copy the highlighted set as Markdown, with the jewels the
+        inspector shows; not while it is still working them out."""
+        pane = self.query_one(ResultsPane)
+        shown = pane.shown_set
+        if shown is None:
+            self.notify("No set to copy.", timeout=3)
+            return
+        if jewels_being_worked_out(shown.details):
+            self.notify("Still working out the set's jewels: copy it again in a moment.")
+            return
+        text = pane.set_text(shown)
+        self.copy_to_clipboard(text)
+        command = system_copy_command(sys.platform)
+        if command is not None:
+            try:
+                # pbcopy reads its input in the locale's encoding, which may not be UTF-8.
+                subprocess.run(
+                    command,
+                    input=text.encode("utf-8"),
+                    env={**os.environ, "LC_CTYPE": "UTF-8"},
+                    check=True,
+                    timeout=5,
+                )
+            except (OSError, subprocess.SubprocessError) as error:
+                self.notify(
+                    f"Set {shown.number:,} sent to the terminal only: {command[0]} failed: {error}",
+                    severity="warning",
+                    markup=False,
+                )
+                return
+        self.notify(f"Copied set {shown.number:,}.", timeout=3)
 
     def on_worker_state_changed(self, event: Worker.StateChanged) -> None:
         if event.worker is not self._worker or not event.worker.is_finished:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import ClassVar
 
 from rich.cells import cell_len, set_cell_size
@@ -16,13 +17,25 @@ from mhp3ass.results.inspector import inspector_lines
 from mhp3ass.solution.state import Solution
 
 
+@dataclass(frozen=True)
+class ShownSet:
+    """The set the inspector shows: its ``number`` in the table, and its ``details``."""
+
+    number: int
+    solution: Solution
+    details: SolutionDetails
+
+
 class Inspector(VerticalScroll, can_focus=False):
     """Shows one set as ``inspector_lines``, labels in a column. It follows
     the table's cursor, so it isn't a Tab stop; the mouse wheel scrolls it.
-    Shown over a narrow screen's table it takes the focus, ▲▼ scroll it and
-    ``i`` (or Esc) goes back to the table."""
+    Shown over a narrow screen's table it takes the focus, ▲▼ scroll it,
+    ``y`` copies the set, and ``i`` (or Esc) goes back to the table."""
 
-    BINDINGS: ClassVar[list[BindingType]] = [Binding("i", "app.inspect", "Back to sets")]
+    BINDINGS: ClassVar[list[BindingType]] = [
+        Binding("i", "app.inspect", "Back to sets"),
+        Binding("y", "app.copy_set", "Copy set"),
+    ]
 
     DEFAULT_CSS = """
     Inspector {
@@ -36,12 +49,14 @@ class Inspector(VerticalScroll, can_focus=False):
         super().__init__(classes="pane")
         self._strings = strings
         self._piece_labels = piece_labels
+        self.shown: ShownSet | None = None
 
     def compose(self):
         yield Static(id="inspector_text")
 
     def show(self, number: int, solution: Solution, details: SolutionDetails) -> None:
         """Set ``number`` (counting from 1 in the table) and its ``details``."""
+        self.shown = ShownSet(number=number, solution=solution, details=details)
         lines = inspector_lines(solution, details, self._strings, piece_labels=self._piece_labels)
         label_width = max((cell_len(line.label) for line in lines), default=0)
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)
@@ -53,5 +68,6 @@ class Inspector(VerticalScroll, can_focus=False):
         self.query_one("#inspector_text", Static).refresh(layout=True)
 
     def clear(self) -> None:
+        self.shown = None
         self.border_title = None
         self.query_one("#inspector_text", Static).update("")

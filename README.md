@@ -60,6 +60,12 @@ keeping the one in view), and the inspector
 beside it showing the selected set's full pieces, jewels, spare slots,
 extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
+`y` (in the table or the inspector) copies the highlighted set as
+Markdown: a heading of its pieces, the hunter, HR and village, a table of
+the pieces, the charm and the jewels as the inspector places them, then
+the spare slots and every skill it gives. It copies through the terminal,
+and on macOS through `pbcopy` as well, since Terminal.app ignores the
+terminal's way.
 The layout follows the terminal's width: from 150 columns, the sidebar,
 table and inspector side by side (from 220, with the table's names in
 full); from 110, a charm drop-down at the top of the sets replaces the
@@ -86,8 +92,8 @@ drop-down or the skill list, then clears and closes the
 find box, then closes a modal or the inspector over the table, restores a
 maximised region, or collapses the editor (before the first
 search, leaves it), then cancels a running search. It never quits. The
-footer shows the keys that work where the focus is: the sort
-and find keys (`s`, `S`, `/`, `n`, `N`) are the sets table's. `q` quits,
+footer shows the keys that work where the focus is: the sort,
+find and copy keys (`s`, `S`, `/`, `n`, `N`, `y`) are the sets table's. `q` quits,
 `?` lists every key that works where the focus is (built from the key bindings, so it stays up to date), and `^P` opens the command palette, which lists
 every action by name, the fields included ("Set hunter…", "Set HR…", "Add
 skill…"). `o` opens the options: the four armour options (space toggles),

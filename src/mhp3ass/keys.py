@@ -43,11 +43,13 @@ def results_keys() -> list[Binding]:
     """The sets table's keys (not the find box's, where letters type);
     their actions are the app's. ``i`` and Enter show the inspector over
     the table where it has no room beside it; ``w`` shows or hides the
-    wide columns (resistances and extra skills)."""
+    wide columns (resistances and extra skills); ``y`` copies the
+    highlighted set as Markdown."""
     keys = [
         Binding("s", "app.sort", "Sort"),
         Binding("S", "app.reverse_sort", "Reverse"),
         Binding("slash", "app.find", "Find"),
+        Binding("y", "app.copy_set", "Copy set"),
         Binding("n", "app.find_next(1)", "Next", show=False),
         Binding("N", "app.find_next(-1)", "Previous", show=False),
         # Only where the inspector isn't beside the table (a narrow screen).
@@ -71,7 +73,7 @@ class PaletteCommand:
 def palette_commands(
     has_results: bool, searching: bool, inspector_over: bool
 ) -> list[PaletteCommand]:
-    """Every action by name that does something now: finding needs results
+    """Every action by name that does something now: copying and finding need results
     (``has_results``), cancelling a running search (``searching``), and
     inspecting a set results and a screen where the inspector shows over
     the table (``inspector_over``). Textual adds its own (Theme, Quit, Keys,
@@ -101,7 +103,7 @@ def palette_commands(
         PaletteCommand(
             "Maximise", "Fill the screen with the focused region, or restore it (z)", "maximise"
         ),
-        *(_find_commands() if has_results else []),
+        *(_results_commands() if has_results else []),
         *(
             [PaletteCommand("Inspect set", "Show the set's details over the table", "inspect")]
             if has_results and inspector_over
@@ -115,8 +117,9 @@ def palette_commands(
     return commands
 
 
-def _find_commands() -> list[PaletteCommand]:
+def _results_commands() -> list[PaletteCommand]:
     commands = [
+        PaletteCommand("Copy set", "Copy the highlighted set as Markdown (y)", "copy_set"),
         PaletteCommand("Find…", "Find sets by piece, jewel, charm or skill", "find"),
         PaletteCommand("Find next", "The next set the find text matches", "find_next(1)"),
         PaletteCommand("Find previous", "The previous set the find text matches", "find_next(-1)"),
