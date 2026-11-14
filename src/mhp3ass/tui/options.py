@@ -12,7 +12,6 @@ from __future__ import annotations
 import subprocess
 import sys
 from collections.abc import Callable, Iterable
-from functools import partial
 from pathlib import Path
 from typing import ClassVar
 
@@ -113,19 +112,21 @@ class ThemeList(OptionList):
 
 
 class ThemesFromCurrent(ThemeProvider):
-    """The command palette's themes, starting at the theme in use
-    (``themes_from``): the palette's cursor starts on its first entry."""
+    """The command palette's themes, starting at the theme in use when the
+    palette opened (``themes_from``): the palette's cursor starts on its
+    first entry. Each opening makes a new provider."""
+
+    _opened_on: str | None = None
 
     @property
     def commands(self) -> list[tuple[str, Callable[[], None]]]:
-        names = themes_from(self.app.theme, themes=self.app.available_themes)
-        commands: list[tuple[str, Callable[[], None]]] = [
-            (name, partial(self._use, name)) for name in names
-        ]
+        # Fixed on first use: the theme in use changes as the cursor previews.
+        if self._opened_on is None:
+            self._opened_on = self.app.theme
+        by_name = dict(super().commands)
+        names = themes_from(self._opened_on, themes=by_name)
+        commands = [(name, by_name[name]) for name in names]
         return commands
-
-    def _use(self, name: str) -> None:
-        self.app.theme = name
 
 
 class OptionsScreen(ModalScreen[None]):
