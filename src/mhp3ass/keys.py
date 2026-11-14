@@ -42,13 +42,17 @@ def app_keys() -> list[Binding]:
 
 def results_keys() -> list[Binding]:
     """The sets table's keys (not the find box's, where letters type);
-    their actions are the app's."""
+    their actions are the app's. ``i`` and Enter show the inspector over
+    the table where it has no room beside it."""
     keys = [
         Binding("s", "app.sort", "Sort"),
         Binding("S", "app.reverse_sort", "Reverse"),
         Binding("slash", "app.find", "Find"),
         Binding("n", "app.find_next(1)", "Next", show=False),
         Binding("N", "app.find_next(-1)", "Previous", show=False),
+        # Only where the inspector isn't beside the table (a narrow screen).
+        Binding("i", "app.inspect", "Inspect"),
+        Binding("enter", "app.inspect", "Inspect", show=False),
     ]
     return keys
 

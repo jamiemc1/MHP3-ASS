@@ -129,15 +129,7 @@ class ResultsTable(ScrollView, can_focus=True):
 
     def set_rows(self, rows: Sequence[TableRow]) -> None:
         """Show ``rows``, with the cursor on the first and the columns scrolled to the start."""
-        self._rows = rows
-        widths = [cell_len(header) for header in self._headers]
-        widths[0] = max(widths[0], len(str(len(rows))))
-        for row in rows:
-            for column, cell in enumerate(row_cells(0, row)[1:], start=1):
-                width = cell_len(cell)
-                if width > widths[column]:
-                    widths[column] = width
-        self._widths = widths
+        self._take_rows(rows)
         self._update_size(first=0)
         self.scroll_to(0, 0, animate=False)
         self.refresh()
@@ -147,6 +139,27 @@ class ResultsTable(ScrollView, can_focus=True):
                 self.post_message(self.Highlighted(0))
         else:
             self.cursor = 0
+
+    def replace_rows(self, rows: Sequence[TableRow]) -> None:
+        """Show ``rows`` in place of the same number of rows, the same sets
+        named differently, keeping the cursor and the scroll."""
+        if len(rows) != len(self._rows):
+            raise ValueError(f"{len(rows)} rows can't replace {len(self._rows)}")
+        self._take_rows(rows)
+        self._update_size(first=self._window.first)
+        self.refresh()
+
+    def _take_rows(self, rows: Sequence[TableRow]) -> None:
+        """Keep ``rows`` and each column's widest cell."""
+        self._rows = rows
+        widths = [cell_len(header) for header in self._headers]
+        widths[0] = max(widths[0], len(str(len(rows))))
+        for row in rows:
+            for column, cell in enumerate(row_cells(0, row)[1:], start=1):
+                width = cell_len(cell)
+                if width > widths[column]:
+                    widths[column] = width
+        self._widths = widths
 
     def on_resize(self, event: events.Resize) -> None:
         self._update_size(first=self._window.first)
