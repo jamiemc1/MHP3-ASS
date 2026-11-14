@@ -4,16 +4,20 @@ from dataclasses import dataclass
 
 import pytest
 
+from mhp3ass.charms.naming import charm_name
 from mhp3ass.data.strings import StringIndex
 from mhp3ass.model import AbilityPair, Charm
 from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
     ChestJewels,
+    CorrectedJewels,
     DecorationCount,
+    Placement,
     PlacementPending,
     SlotsSpare,
     SolutionDetails,
+    UnbuildableJewels,
     UnknownPlacement,
 )
 from mhp3ass.results.inspector import (
@@ -23,6 +27,7 @@ from mhp3ass.results.inspector import (
     note_text,
     spare_text,
 )
+from mhp3ass.results.placement import ShortSkill, Unbuildable
 from mhp3ass.solution.state import Solution
 
 
@@ -169,7 +174,7 @@ def jewel_counts(teamhgg_game) -> list[DecorationCount]:
 
 def _jewel_details(
     counts: list[DecorationCount],
-    chest_jewels: ChestJewels | UnknownPlacement | PlacementPending | None,
+    chest_jewels: Placement,
 ) -> SolutionDetails:
     details = SolutionDetails(
         armors=(),
@@ -223,10 +228,90 @@ def test_a_pending_placement_keeps_one_list_and_says_it_waits(jewel_counts):
     assert [line.label for line in lines] == ["Jewels", "", ""]
 
 
+def test_a_placement_being_worked_out_says_so(jewel_counts):
+    pending = PlacementPending(while_searching=False)
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=pending))
+
+    assert lines[-1] == InspectorLine("", "(working out jewels…)")
+    assert [line.label for line in lines] == ["Jewels", "", ""]
+
+
 def test_a_set_without_a_split_has_no_note(jewel_counts):
     lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=None))
 
     assert [line.label for line in lines] == ["Jewels", ""]
+
+
+def test_a_corrected_set_shows_the_jewels_that_build_it(jewel_counts):
+    attack, razor = jewel_counts
+    corrected = CorrectedJewels(
+        charm=None,
+        charm_changed=False,
+        jewels=ChestJewels(multiplier=2, chest=(razor,), elsewhere=(attack,)),
+    )
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=corrected))
+
+    assert lines == [
+        InspectorLine("Jewels", "(the listed jewels don't fit; these build it)"),
+        InspectorLine("Chest x2", f"1x {razor.decoration.name}"),
+        InspectorLine("Elsewhere", f"2x {attack.decoration.name}"),
+    ]
+
+
+def test_a_set_needing_its_unreduced_charm_names_the_charm(jewel_counts, teamhgg_game):
+    attack, razor = jewel_counts
+    attack_ability = attack.decoration.abilities[0].ability
+    charm = Charm(num_slots=2, abilities=[AbilityPair(ability=attack_ability, amount=5)])
+    corrected = CorrectedJewels(
+        charm=charm,
+        charm_changed=True,
+        jewels=ChestJewels(multiplier=3, chest=(), elsewhere=(attack, razor)),
+    )
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=corrected))
+
+    assert lines[:3] == [
+        InspectorLine("Jewels", "(the listed charm and jewels don't fit; these build it)"),
+        InspectorLine("Builds with", charm_name(charm)),
+        InspectorLine("Chest x3", "none"),
+    ]
+
+
+def test_an_unbuildable_set_keeps_its_jewels_and_names_the_bad_skill(jewel_counts, teamhgg_game):
+    attack_down = next(skill for skill in teamhgg_game.skills if skill.points_required < 0)
+    unbuildable = UnbuildableJewels(reason=Unbuildable(bad_skills=(attack_down,), short=()))
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=unbuildable))
+
+    assert [line.label for line in lines] == ["Jewels", "", ""]
+    assert lines[-1] == InspectorLine(
+        "", f"(can't be built as listed: {attack_down.name} stays active)"
+    )
+
+
+def test_an_unbuildable_set_names_the_skill_short_of_its_points(jewel_counts, teamhgg_game):
+    skill = next(skill for skill in teamhgg_game.skills if skill.points_required == 10)
+    unbuildable = UnbuildableJewels(
+        reason=Unbuildable(bad_skills=(), short=(ShortSkill(skill=skill, most=7),))
+    )
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=unbuildable))
+
+    assert lines[-1] == InspectorLine(
+        "", f"(can't be built as listed: {skill.ability.name} reaches 7 of 10)"
+    )
+
+
+def test_an_unbuildable_set_whose_skills_only_reach_apart_says_so(jewel_counts):
+    unbuildable = UnbuildableJewels(reason=Unbuildable(bad_skills=(), short=()))
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=unbuildable))
+
+    assert lines[-1] == InspectorLine(
+        "", "(can't be built as listed: the skills can't all reach their points together)"
+    )
 
 
 @pytest.fixture

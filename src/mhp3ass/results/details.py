@@ -26,7 +26,10 @@ from mhp3ass.model import (
 )
 from mhp3ass.query import Query
 from mhp3ass.results.placement import (
+    JewelPlacement,
     PlacementUnknownError,
+    Unbuildable,
+    correction,
     jewel_placement,
     place_can_matter,
     refilled,
@@ -85,8 +88,34 @@ class UnknownPlacement:
 
 @dataclass(frozen=True)
 class PlacementPending:
-    """A loaded Torso Inc set whose placement waits for a search to stop
-    using the game, which filling it again needs."""
+    """A Torso Inc set whose placement needs filling it again in the game:
+    waiting for a search to stop using it (``while_searching``), or being
+    worked out."""
+
+    while_searching: bool = True
+
+
+@dataclass(frozen=True)
+class CorrectedJewels:
+    """A Torso Inc set whose shown jewels no placement fits (quirk 52), and
+    a version that builds (``correction``): ``charm``, the listed one unless
+    ``charm_changed``, with ``jewels``."""
+
+    charm: Charm | None
+    charm_changed: bool
+    jewels: ChestJewels
+
+
+@dataclass(frozen=True)
+class UnbuildableJewels:
+    """A Torso Inc set no jewel list builds (quirk 52), and why."""
+
+    reason: Unbuildable
+
+
+type Placement = (
+    ChestJewels | CorrectedJewels | UnbuildableJewels | UnknownPlacement | PlacementPending | None
+)
 
 
 @dataclass(frozen=True)
@@ -97,7 +126,7 @@ class SolutionDetails:
     armors: tuple[ArmorLine, ...]
     charm: Charm | None
     decorations: tuple[DecorationCount, ...]
-    chest_jewels: ChestJewels | UnknownPlacement | PlacementPending | None
+    chest_jewels: Placement
     slots_spare: SlotsSpare | None
     sort_value: SortValue | None
     extra_skills: tuple[Skill, ...]
@@ -190,18 +219,25 @@ def decoration_counts(decorations: Sequence[Decoration]) -> tuple[DecorationCoun
 
 
 def chest_jewels(
-    solution: Solution, query: Query, refill_game: GameData | None
-) -> ChestJewels | UnknownPlacement | PlacementPending | None:
+    solution: Solution,
+    query: Query,
+    refill_game: GameData | None,
+    charm_templates: Sequence[Charm | None] | None,
+) -> Placement:
     """``jewel_placement`` as counts, for the results' own ``query``: ``None``
-    where a jewel's place can't change its points, ``UnknownPlacement`` where
-    no placement fits the set's slots and points.
+    where a jewel's place can't change its points.
+
+    Where no placement fits the set's slots and points (quirk 52), the
+    ``correction`` that builds, ``UnbuildableJewels`` where none does, or
+    ``UnknownPlacement`` where that can't be told without the search's
+    ``charm_templates`` (``None`` for loaded results). Working it out fills
+    sets in ``refill_game``: ``PlacementPending`` when that is ``None``
+    because a search is using the game.
 
     A set loaded from ``settings.cfg`` is recognised by its multiplier of 0
     (the search sets it to 1 or more for every set it fills, and the file
     doesn't keep it). It is ``refilled`` in ``refill_game`` first, and is
-    ``UnknownPlacement`` when the refill isn't the loaded set, or
-    ``PlacementPending`` when ``refill_game`` is ``None`` because a search
-    is using the game."""
+    ``UnknownPlacement`` when the refill isn't the loaded set."""
     searched = solution
     if solution.torso_multiplier == 0:
         if not place_can_matter(solution):
@@ -215,9 +251,37 @@ def chest_jewels(
     try:
         placement = jewel_placement(searched, weapon_slots=query.weapon_slots_allowed)
     except PlacementUnknownError:
-        return UnknownPlacement()
+        corrected = _corrected(
+            searched, query=query, game=refill_game, charm_templates=charm_templates
+        )
+        return corrected
     if placement is None:
         return None
+    jewels = _counted(placement)
+    return jewels
+
+
+def _corrected(
+    searched: Solution,
+    query: Query,
+    game: GameData | None,
+    charm_templates: Sequence[Charm | None] | None,
+) -> CorrectedJewels | UnbuildableJewels | UnknownPlacement | PlacementPending:
+    if game is None:
+        return PlacementPending()
+    try:
+        found = correction(searched, query=query, game=game, charm_templates=charm_templates)
+    except PlacementUnknownError:
+        return UnknownPlacement()
+    if isinstance(found, Unbuildable):
+        return UnbuildableJewels(reason=found)
+    corrected = CorrectedJewels(
+        charm=found.charm, charm_changed=found.charm_changed, jewels=_counted(found.placement)
+    )
+    return corrected
+
+
+def _counted(placement: JewelPlacement) -> ChestJewels:
     jewels = ChestJewels(
         multiplier=placement.multiplier,
         chest=decoration_counts(placement.chest),
@@ -259,10 +323,14 @@ def sort_value(solution: Solution, sort_key: SortKey) -> SortValue | None:
 
 
 def solution_details(
-    solution: Solution, query: Query, sort_key: SortKey, refill_game: GameData | None
+    solution: Solution,
+    query: Query,
+    sort_key: SortKey,
+    refill_game: GameData | None,
+    charm_templates: Sequence[Charm | None] | None,
 ) -> SolutionDetails:
-    """One result's details, for the results' own ``query``; ``refill_game`` as
-    ``chest_jewels`` takes it."""
+    """One result's details, for the results' own ``query``; ``refill_game``
+    and ``charm_templates`` as ``chest_jewels`` takes them."""
     armors = tuple(
         ArmorLine(armor=armor, note=armor_note(armor, query))
         for armor in solution.armors
@@ -273,7 +341,9 @@ def solution_details(
         armors=armors,
         charm=solution.charm,
         decorations=decoration_counts(solution.decorations),
-        chest_jewels=chest_jewels(solution, query=query, refill_game=refill_game),
+        chest_jewels=chest_jewels(
+            solution, query=query, refill_game=refill_game, charm_templates=charm_templates
+        ),
         slots_spare=slots_spare(solution, sort_key),
         sort_value=sort_value(solution, sort_key),
         extra_skills=extra_skills,
