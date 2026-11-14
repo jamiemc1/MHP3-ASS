@@ -80,7 +80,7 @@ move between them (inside the open editor, between its fields first), and
 `1`, `2` and `3` jump to one (in the skill box the digits type: Esc or Tab
 out first). `z` fills the screen with the region the focus is in, and
 restores it. Esc backs out one level at a time: it closes an open
-drop-down, the skill list or the key help, then clears and closes the
+drop-down or the skill list, then clears and closes the
 find box, then closes a modal or the inspector over the table, restores a
 maximised region, or collapses the editor (before the first
 search, leaves it), then cancels a running search. It never quits. The
