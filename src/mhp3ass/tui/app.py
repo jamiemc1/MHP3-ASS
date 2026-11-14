@@ -5,25 +5,29 @@ from __future__ import annotations
 import asyncio
 import signal
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass, replace
+from functools import partial
 from pathlib import Path
 from threading import Event, Lock
 from typing import Any, ClassVar
 
 from textual import work
-from textual.app import App, ComposeResult
-from textual.binding import Binding, BindingType
+from textual.app import App, ComposeResult, SystemCommand
+from textual.binding import BindingType
 from textual.containers import Horizontal
 from textual.css.query import NoMatches
 from textual.message import Message
+from textual.screen import Screen
 from textual.theme import Theme
 from textual.widget import Widget
-from textual.widgets import Button, Footer, Label, OptionList, Static
+from textual.widgets import Button, Footer, HelpPanel, Label, OptionList, Select, Static
 from textual.worker import Worker
 
 from mhp3ass.charms.my_charms import MyCharmsFileError
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import read_lines
+from mhp3ass.keys import app_keys, palette_commands
 from mhp3ass.language_switch import switch_language
 from mhp3ass.model import HunterType
 from mhp3ass.parallel import SearchPool, usable_cpus
@@ -133,31 +137,7 @@ class SearchApp(App[bool]):
         border-top: round $accent;
     }
     """
-    BINDINGS: ClassVar[list[BindingType]] = [
-        ("q", "quit", "Quit"),
-        Binding("ctrl+s", "search", "Search"),
-        Binding("escape", "cancel_search", "Cancel", show=False),
-        Binding("h", "edit_field('hunter_type')", "Hunter", show=False),
-        Binding("g", "edit_field('gender')", "Gender", show=False),
-        Binding("r", "edit_field('hr')", "HR", show=False),
-        Binding("v", "edit_field('elder_star')", "Village", show=False),
-        Binding("w", "edit_field('weapon_slots')", "Weapon slots", show=False),
-        Binding("m", "edit_field('charm_mode')", "Charm mode", show=False),
-        Binding("k", "edit_field('skill_search')", "Skills", show=False),
-        Binding("s", "sort", "Sort"),
-        Binding("S", "reverse_sort", "Reverse"),
-        Binding("slash", "find", "Find"),
-        Binding("e", "edit_query", "Edit query"),
-        Binding("o", "options", "Options"),
-        Binding("n", "find_next(1)", "Next", show=False),
-        Binding("N", "find_next(-1)", "Previous", show=False),
-        Binding("1", "region(1)", "Query", show=False),
-        Binding("2", "region(2)", "Charms", show=False),
-        Binding("3", "region(3)", "Sets", show=False),
-        # Ahead of the screen's own Tab, which visits every widget.
-        Binding("tab", "cycle(1)", "Next region", show=False, priority=True),
-        Binding("shift+tab", "cycle(-1)", "Previous region", show=False, priority=True),
-    ]
+    BINDINGS: ClassVar[list[BindingType]] = [*app_keys()]
 
     def __init__(
         self,
@@ -662,6 +642,29 @@ class SearchApp(App[bool]):
         self.editor.display = True
         self.query_one("#query_line", Horizontal).display = False
         self.set_focus(self.query_one(f"#{widget_id}"))
+
+    def action_set_field(self, widget_id: str) -> None:
+        """Focus one of the editor's drop-downs and open it."""
+        self.action_edit_field(widget_id)
+        self.query_one(f"#{widget_id}", Select).action_show_overlay()
+
+    def action_toggle_keys(self) -> None:
+        """Show Textual's keys panel for the focused widget, or hide it."""
+        if self.screen.query(HelpPanel):
+            self.action_hide_help_panel()
+        else:
+            self.action_show_help_panel()
+
+    def get_system_commands(self, screen: Screen[Any]) -> Iterable[SystemCommand]:
+        """Textual's commands, then the main screen's by name (``palette_commands``);
+        over a modal only Textual's, as the main screen's fields aren't there."""
+        yield from super().get_system_commands(screen)
+        if screen is not self.screen_stack[0]:
+            return
+        for command in palette_commands():
+            yield SystemCommand(
+                command.title, command.help, partial(self.run_action, command.action)
+            )
 
     def _collapse_editor(self) -> None:
         """Show the summary of the form the results came from, not the form
