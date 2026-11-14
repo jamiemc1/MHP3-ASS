@@ -67,11 +67,14 @@ class PaletteCommand:
     action: str
 
 
-def palette_commands(has_results: bool, searching: bool) -> list[PaletteCommand]:
+def palette_commands(
+    has_results: bool, searching: bool, inspector_over: bool
+) -> list[PaletteCommand]:
     """Every action by name that does something now: finding needs results
-    (``has_results``), cancelling a running search (``searching``). Textual
-    adds its own (Theme, Quit, Keys, Screenshot), and the palette lists them
-    all by title."""
+    (``has_results``), cancelling a running search (``searching``), and
+    inspecting a set results and a screen where the inspector shows over
+    the table (``inspector_over``). Textual adds its own (Theme, Quit, Keys,
+    Screenshot), and the palette lists them all by title."""
     commands = [
         PaletteCommand("Search", "Search with the query as edited", "search"),
         *(
@@ -92,6 +95,11 @@ def palette_commands(has_results: bool, searching: bool) -> list[PaletteCommand]
         PaletteCommand("Sort…", "Choose what the sets are sorted by", "sort"),
         PaletteCommand("Reverse sort", "Turn the sort the other way round", "reverse_sort"),
         *(_find_commands() if has_results else []),
+        *(
+            [PaletteCommand("Inspect set", "Show the set's details over the table", "inspect")]
+            if has_results and inspector_over
+            else []
+        ),
         PaletteCommand("Go to the query", "Focus the query region (1)", "region(1)"),
         PaletteCommand("Go to the charms", "Focus the charm sidebar (2)", "region(2)"),
         PaletteCommand("Go to the sets", "Focus the sets table (3)", "region(3)"),

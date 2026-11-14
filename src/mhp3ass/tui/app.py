@@ -245,7 +245,6 @@ class SearchApp(App[bool]):
             pane.show(
                 view,
                 rows=view_rows(view, names=pane.table_names),
-                names=pane.table_names,
                 query=results.query,
                 game=self._data.game,
                 charm_templates=None,
@@ -266,8 +265,12 @@ class SearchApp(App[bool]):
 
     def on_resize(self, event: events.Resize) -> None:
         self.editor.fit_height(event.size.height)
+        main = self.screen_stack[0]
         try:
-            pane = self.query_one(ResultsPane)
+            # The main screen's, though a modal may be the one showing.
+            pane = main.query_one(ResultsPane)
+            sidebar = main.query_one("#charm_filter", OptionList)
+            choice = main.query_one("#charm_choice", Select)
         except NoMatches:
             # The screen is being composed again (a language switch).
             return
@@ -276,6 +279,13 @@ class SearchApp(App[bool]):
         # Wider, the inspector is back beside the table.
         if layout.inspector is not InspectorPlace.OVER and pane.inspecting:
             pane.show_inspector(False)
+            self._focus_region(Region.SETS)
+        # The focus follows the charms from the sidebar to the drop-down, or
+        # back, once the screen's new class has shown it.
+        hidden = choice if layout.sidebar else sidebar
+        focused = main.focused
+        if focused is not None and hidden in focused.ancestors_with_self:
+            self.call_after_refresh(self._focus_region, Region.CHARMS)
         # Whether ``i`` shows in the footer depends on the width.
         self.refresh_bindings()
 
@@ -532,7 +542,6 @@ class SearchApp(App[bool]):
             pane.show(
                 view,
                 rows=view_rows(view, names=pane.table_names),
-                names=pane.table_names,
                 query=query,
                 game=self._data.game,
                 charm_templates=charm_templates,
@@ -641,6 +650,7 @@ class SearchApp(App[bool]):
                 pane.clear_find()
             case EscapeStep.CLOSE_INSPECTOR:
                 pane.show_inspector(False)
+                self._focus_region(Region.SETS)
             case EscapeStep.COLLAPSE_EDITOR:
                 self._collapse_editor()
             case EscapeStep.LEAVE_EDITOR:
@@ -658,9 +668,7 @@ class SearchApp(App[bool]):
         """``1`` opens the editor at the skills (as ``e`` does), ``2`` and ``3``
         focus the charm sidebar and the sets."""
         region = Region(number)
-        pane = self.query_one(ResultsPane)
-        if pane.inspecting:
-            pane.show_inspector(False)
+        self._close_inspector()
         if region is Region.QUERY:
             self.action_edit_query()
         else:
@@ -809,6 +817,7 @@ class SearchApp(App[bool]):
 
     def action_edit_field(self, widget_id: str) -> None:
         """Focus one of the editor's fields, reopening the editor if it's collapsed."""
+        self._close_inspector()
         self.editor.display = True
         self.query_one("#query_line", Horizontal).display = False
         self.set_focus(self.query_one(f"#{widget_id}"))
@@ -835,6 +844,7 @@ class SearchApp(App[bool]):
         commands = palette_commands(
             has_results=self.query_one(ResultsPane).view is not None,
             searching=self._cancel is not None,
+            inspector_over=self._layout().inspector is InspectorPlace.OVER,
         )
         for command in commands:
             yield SystemCommand(
@@ -850,7 +860,9 @@ class SearchApp(App[bool]):
         summary.update(region_title(Region.QUERY, self._searched_form.summary(self._strings)))
         self.query_one("#query_line", Horizontal).display = True
         self.editor.display = False
-        self.set_focus(self.query_one(ResultsTable))
+        # The inspector over the table keeps the focus while it shows.
+        if not self.query_one(ResultsPane).inspecting:
+            self.set_focus(self.query_one(ResultsTable))
 
     async def action_quit(self) -> None:
         self._save_and_exit()
@@ -914,12 +926,22 @@ class SearchApp(App[bool]):
         return True
 
     def action_find(self) -> None:
+        self._close_inspector()
         self.query_one(ResultsPane).open_find()
+
+    def _close_inspector(self) -> None:
+        """Show the table again in place of the inspector over it, if it
+        shows, for the caller to focus what it opens."""
+        pane = self.query_one(ResultsPane)
+        if pane.inspecting:
+            pane.show_inspector(False)
 
     def action_inspect(self) -> None:
         """Show the inspector over the table, or the table again (a narrow screen's)."""
         pane = self.query_one(ResultsPane)
         pane.show_inspector(not pane.inspecting)
+        if not pane.inspecting:
+            self._focus_region(Region.SETS)
 
     def action_find_next(self, step: int) -> None:
         self.query_one(ResultsPane).find(step=step)
@@ -1018,10 +1040,13 @@ class SearchApp(App[bool]):
                 timeout=30,
                 markup=False,
             )
-        self.query_one(ResultsPane).show(
+        pane = self.query_one(ResultsPane)
+        # The screen's width class may have changed while the search ran.
+        if names != pane.table_names:
+            rows = view_rows(view, names=pane.table_names)
+        pane.show(
             view,
             rows=rows,
-            names=names,
             query=result.query,
             game=self._data.game,
             charm_templates=tuple(worker.template for worker in result.workers),
