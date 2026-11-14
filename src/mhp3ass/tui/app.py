@@ -14,7 +14,6 @@ from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
 from textual.containers import Horizontal
-from textual.content import Content
 from textual.message import Message
 from textual.widgets import Button, Footer, Label, Static
 from textual.worker import Worker
@@ -27,6 +26,7 @@ from mhp3ass.model import HunterType
 from mhp3ass.parallel import SearchPool, usable_cpus
 from mhp3ass.query import QueryError
 from mhp3ass.query_form import QueryForm
+from mhp3ass.regions import Region
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow
@@ -57,6 +57,7 @@ from mhp3ass.tui.results_table import ResultsTable
 from mhp3ass.tui.search_progress import SearchProgress
 from mhp3ass.tui.skill_picker import SkillPicker
 from mhp3ass.tui.sort_picker import SortPicker
+from mhp3ass.tui.titles import region_title
 
 
 @dataclass(frozen=True)
@@ -111,6 +112,22 @@ class SearchApp(App[bool]):
         width: auto;
         padding: 0 0 0 2;
         color: $text-muted;
+    }
+    .pane {
+        border: round $foreground 25%;
+        border-title-color: $foreground 60%;
+    }
+    .pane:focus, .pane:focus-within {
+        border: round $accent;
+        border-title-color: $foreground;
+    }
+    QueryEditor.pane {
+        border: none;
+        border-top: round $foreground 25%;
+    }
+    QueryEditor.pane:focus-within {
+        border: none;
+        border-top: round $accent;
     }
     """
     BINDINGS: ClassVar[list[BindingType]] = [
@@ -528,7 +545,7 @@ class SearchApp(App[bool]):
         if self._searched_form is None:
             return
         summary = self.query_one("#query_summary", Static)
-        summary.update(Content(self._searched_form.summary(self._strings)))
+        summary.update(region_title(Region.QUERY, self._searched_form.summary(self._strings)))
         self.query_one("#query_line", Horizontal).display = True
         self.editor.display = False
         self.set_focus(self.query_one(ResultsTable))
