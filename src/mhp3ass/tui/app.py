@@ -997,12 +997,18 @@ class SearchApp(App[bool]):
             if active.enabled
         ]
         region = self._help_region() if screen is self.screen_stack[0] else "Here"
-        subtitle = layout_label(self.size.width, height=self.size.height) if self._debug else None
         self.push_screen(
             HelpScreen(
-                help_sections(entries, region=region), title=f"Keys: {region}", subtitle=subtitle
+                help_sections(entries, region=region),
+                title=f"Keys: {region}",
+                subtitle=self._debug_label if self._debug else None,
             )
         )
+
+    def _debug_label(self, size: Size) -> str:
+        """``--debug``'s label on the help: the terminal's size and layout classes."""
+        label = layout_label(size.width, height=size.height)
+        return label
 
     def _help_region(self) -> str:
         """The name of the region the focus is in, for the help's title."""

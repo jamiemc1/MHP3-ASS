@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from typing import ClassVar
 
 from rich.cells import cell_len, set_cell_size
+from textual import events
 from textual.app import ComposeResult
 from textual.binding import Binding, BindingType
 from textual.containers import VerticalScroll
 from textual.content import Content
+from textual.geometry import Size
 from textual.screen import ModalScreen
 from textual.widgets import Static
 
@@ -18,7 +20,8 @@ from mhp3ass.key_help import HelpSection
 
 class HelpScreen(ModalScreen[None]):
     """``help_sections``' keys, a section to a heading; Esc, ``?`` or ``q``
-    closes it. A ``subtitle`` shows whole on the box's bottom border."""
+    closes it. ``subtitle``, given the screen's size, is shown on the box's
+    bottom border and follows each resize; whole, where the screen allows."""
 
     DEFAULT_CSS = """
     HelpScreen {
@@ -44,7 +47,10 @@ class HelpScreen(ModalScreen[None]):
     ]
 
     def __init__(
-        self, sections: Sequence[HelpSection], title: str, subtitle: str | None = None
+        self,
+        sections: Sequence[HelpSection],
+        title: str,
+        subtitle: Callable[[Size], str] | None = None,
     ) -> None:
         super().__init__()
         self._sections = sections
@@ -69,11 +75,22 @@ class HelpScreen(ModalScreen[None]):
             )
         with VerticalScroll() as scroll:
             scroll.border_title = Content(self._title)
-            if self._subtitle is not None:
-                scroll.border_subtitle = Content(self._subtitle)
-                # Room for the subtitle, the corners and a cell either side of it.
-                scroll.styles.min_width = cell_len(self._subtitle) + 4
             yield Static(Content("\n").join(lines))
+
+    def on_mount(self) -> None:
+        self._show_subtitle(self.app.size)
+
+    def on_resize(self, event: events.Resize) -> None:
+        self._show_subtitle(event.size)
+
+    def _show_subtitle(self, size: Size) -> None:
+        if self._subtitle is None:
+            return
+        subtitle = self._subtitle(size)
+        scroll = self.query_one(VerticalScroll)
+        scroll.border_subtitle = Content(subtitle)
+        # Room for the subtitle, the corners and a cell either side of it.
+        scroll.styles.min_width = cell_len(subtitle) + 4
 
     def action_close(self) -> None:
         self.dismiss(None)

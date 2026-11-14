@@ -194,7 +194,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--debug",
         action="store_true",
-        help="show the terminal's size and layout classes on the ? help's box",
+        help="in the app (no command): show the terminal's size and layout classes "
+        "on the ? help's box",
     )
     commands = parser.add_subparsers(dest="command")
     import_save = commands.add_parser(
@@ -320,7 +321,8 @@ def _run_tui(data_dir: Path, folders: TuiFolders, debug: bool) -> int:
     """The app, with the pool's processes booting while the data loads; run
     again, with ``tui.toml`` read afresh, while it asks to start again (after
     the saved-data folder changes or is cleared). The pool is kept across
-    runs. ``debug``: ``--debug``, for the app."""
+    runs. ``debug``: the help's box shows the terminal's size and layout
+    classes (``--debug``)."""
     jobs = folders.settings.jobs if folders.settings.jobs is not None else default_jobs()
     pool = SearchPool(jobs=jobs) if jobs > 1 else None
     try:
