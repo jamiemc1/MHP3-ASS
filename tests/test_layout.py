@@ -12,7 +12,6 @@ from mhp3ass.layout import (
     layout_for,
     width_breakpoints,
 )
-from mhp3ass.regions import Region
 
 
 def _layout(width_class, height_class=HeightClass.NORMAL, small=False):
@@ -207,18 +206,6 @@ def test_a_short_wide_screen_shows_the_charm_drop_down_not_the_sidebar():
 
     assert layout.charms_shown
     assert not layout.sidebar
-
-
-@pytest.mark.parametrize("region", list(Region))
-def test_every_region_is_shown_while_the_charms_are(region):
-    assert layout_for(88, height=14).region_shown(region)
-
-
-@pytest.mark.parametrize(
-    ("region", "shown"), [(Region.QUERY, True), (Region.CHARMS, False), (Region.SETS, True)]
-)
-def test_at_60_columns_only_the_charms_region_is_hidden(region, shown):
-    assert layout_for(60, height=16).region_shown(region) is shown
 
 
 @pytest.mark.parametrize(

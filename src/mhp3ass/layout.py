@@ -33,8 +33,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum, StrEnum
 
-from mhp3ass.regions import Region
-
 
 class WidthClass(StrEnum):
     """The screen's width class, as its CSS class names it."""
@@ -105,8 +103,8 @@ class Layout:
 
     @property
     def sidebar(self) -> bool:
-        """The charm sidebar shows; otherwise the charm drop-down does,
-        unless the screen is small."""
+        """The charm sidebar shows (from wide, on a screen that isn't small);
+        otherwise the charm drop-down does, while ``charms_shown``."""
         shown = self.width in (WidthClass.WIDE, WidthClass.HUGE) and not self.small
         return shown
 
@@ -117,13 +115,6 @@ class Layout:
         if self.width is WidthClass.NARROW:
             return InspectorPlace.BELOW
         return InspectorPlace.BESIDE
-
-    def region_shown(self, region: Region) -> bool:
-        """``region`` is on the screen for its key (``1``/``2``/``3``) to
-        focus. The query always is (``1`` opens a collapsed editor), and the
-        sets; the charms only while they show."""
-        shown = self.charms_shown or region is not Region.CHARMS
-        return shown
 
     @property
     def footer_palette(self) -> bool:

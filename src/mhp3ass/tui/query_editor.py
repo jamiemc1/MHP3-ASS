@@ -55,6 +55,7 @@ class QueryEditor(Vertical):
     /* The charm mode gives way, so the Search button beside it is never cut. */
     QueryEditor #charm_mode {
         width: 1fr;
+        min-width: 12;
         max-width: 30;
     }
     QueryEditor #search {

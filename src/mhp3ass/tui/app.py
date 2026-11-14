@@ -800,8 +800,12 @@ class SearchApp(App[bool]):
 
     def action_region(self, number: int) -> None:
         """``1`` opens the editor at the skills (as ``e`` does), ``2`` and ``3``
-        focus the charm sidebar and the sets."""
+        focus the charm sidebar and the sets. Where the charms can't show,
+        ``2`` changes nothing and says so."""
         region = Region(number)
+        if region is Region.CHARMS and not self._layout().charms_shown:
+            self.notify("The charms are hidden on a screen this narrow.", timeout=3)
+            return
         self._close_inspector()
         if region is Region.QUERY:
             self.action_edit_query()
@@ -947,15 +951,14 @@ class SearchApp(App[bool]):
         table."""
         if region is Region.QUERY:
             raise ValueError("the query is entered through its fields, not as a whole")
-        layout = self._layout()
-        # Checked before anything moves, so a region that can't show changes nothing.
-        if not layout.region_shown(region):
-            self.notify("The charms are hidden on a screen this narrow.", timeout=3)
-            return
         # The editor over the results gives them back.
         if self.screen_stack[0].has_class("-editor-over"):
             self._collapse_editor()
+        layout = self._layout()
         if region is Region.CHARMS:
+            # A screen too narrow for them shows neither the sidebar nor the drop-down.
+            if not layout.charms_shown:
+                return
             charms = (
                 self.query_one("#charm_filter", OptionList)
                 if layout.sidebar
