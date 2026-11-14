@@ -195,8 +195,6 @@ class SearchApp(App[bool]):
         theme = starting_theme(files.folders.settings.theme, available=self.available_themes)
         self.theme = theme.name
         self._theme_unavailable = theme.unavailable
-        # The theme last kept, so a change back to it saves nothing.
-        self._kept_theme = theme.name
         # While Options' theme list shows a theme under its cursor, that theme isn't kept.
         self._theme_previewing = False
 
@@ -323,12 +321,11 @@ class SearchApp(App[bool]):
             self._keep_theme(self.theme)
 
     def _keep_theme(self, name: str) -> None:
-        """Use theme ``name`` and save it in ``tui.toml``."""
+        """Use theme ``name`` and save it in ``tui.toml``, unless it already holds it."""
         self._theme_previewing = False
         self.theme = name
-        if name == self._kept_theme:
+        if self._files.folders.settings.theme == name:
             return
-        self._kept_theme = name
         self._save_tui_settings(replace(self._files.folders.settings, theme=name))
 
     def on_options_screen_folder_chosen(self, event: OptionsScreen.FolderChosen) -> None:
@@ -612,6 +609,9 @@ class SearchApp(App[bool]):
         failure = None
         saved = False
         try:
+            # Quitting from Options' theme list keeps the theme on show.
+            if self._theme_previewing:
+                self._keep_theme(self.theme)
             failure = self._write_settings()
             saved = failure is None
         finally:

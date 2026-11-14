@@ -68,15 +68,27 @@ class ThemeList(OptionList):
         self._current = current
         # The theme when the list got focus, which Esc goes back to.
         self._original = current
+        # Set while Esc moves the cursor back, which shows no preview.
+        self._reverting = False
+
+    @property
+    def _highlighted_theme(self) -> str:
+        if self.highlighted is None:
+            raise RuntimeError("the theme list has no highlighted theme")
+        theme = self._themes[self.highlighted]
+        return theme
 
     def on_mount(self) -> None:
         self.highlighted = self._themes.index(self._current)
 
     def on_focus(self) -> None:
-        self._original = self._themes[self.highlighted] if self.highlighted is not None else ""
+        self._original = self._highlighted_theme
 
     def on_option_list_option_highlighted(self, event: OptionList.OptionHighlighted) -> None:
         event.stop()
+        if self._reverting:
+            self._reverting = False
+            return
         # Highlighting the current theme on mount is no preview.
         if self.has_focus:
             self.post_message(self.Previewed(self._themes[event.option_index]))
@@ -86,14 +98,13 @@ class ThemeList(OptionList):
         self.post_message(self.Kept(self._themes[event.option_index]))
 
     def on_blur(self) -> None:
-        if self.highlighted is not None:
-            self.post_message(self.Kept(self._themes[self.highlighted]))
+        self.post_message(self.Kept(self._highlighted_theme))
 
     async def action_revert(self) -> None:
-        highlighted = self._themes[self.highlighted] if self.highlighted is not None else None
-        if highlighted == self._original:
+        if self._highlighted_theme == self._original:
             await self.run_action("screen.close")
             return
+        self._reverting = True
         self.highlighted = self._themes.index(self._original)
         self.post_message(self.Kept(self._original))
 
