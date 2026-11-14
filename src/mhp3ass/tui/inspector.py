@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from typing import ClassVar
+
 from rich.cells import cell_len, set_cell_size
+from textual.binding import Binding, BindingType
 from textual.containers import VerticalScroll
 from textual.content import Content
 from textual.widgets import Static
@@ -15,7 +18,11 @@ from mhp3ass.solution.state import Solution
 
 class Inspector(VerticalScroll, can_focus=False):
     """Shows one set as ``inspector_lines``, labels in a column. It follows
-    the table's cursor, so it isn't a Tab stop; the mouse wheel scrolls it."""
+    the table's cursor, so it isn't a Tab stop; the mouse wheel scrolls it.
+    Shown over a narrow screen's table it takes the focus, ▲▼ scroll it and
+    ``i`` (or Esc) goes back to the table."""
+
+    BINDINGS: ClassVar[list[BindingType]] = [Binding("i", "app.inspect", "Back to sets")]
 
     DEFAULT_CSS = """
     Inspector {
@@ -40,6 +47,10 @@ class Inspector(VerticalScroll, can_focus=False):
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)
         self.border_title = Content(f"Set {number:,}")
         self.query_one("#inspector_text", Static).update(Content(text))
+
+    def relayout(self) -> None:
+        """Lay the text out again, after the inspector moves to a new width."""
+        self.query_one("#inspector_text", Static).refresh(layout=True)
 
     def clear(self) -> None:
         self.border_title = None

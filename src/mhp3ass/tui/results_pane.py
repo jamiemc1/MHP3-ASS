@@ -4,6 +4,10 @@ A new layout over ``ResultsView``: the sidebar is ``cmbCharms`` (All, None,
 then each charm), the sort drop-down is ``cmbSort`` with its items' text as
 ``UpdateLanguage`` sets it (``legacy/Form1.h:2068-2100``), and the table
 shows ``ResultsView.final`` one row per set.
+
+How it is laid out follows the screen's width class (``layout``): below
+wide, a charm drop-down at the top of the sets takes the sidebar's place,
+and on a narrow screen the inspector shows over the table on request.
 """
 
 from __future__ import annotations
@@ -11,16 +15,14 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, replace
 from threading import Lock
-from typing import ClassVar
 
-from rich.cells import cell_len, set_cell_size
+from rich.cells import set_cell_size
 from textual import work
 from textual.app import ComposeResult
-from textual.binding import Binding, BindingType
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
 from textual.message import Message
-from textual.widgets import Input, OptionList
+from textual.widgets import Input, Label, OptionList, Select
 from textual.widgets.option_list import Option
 from textual.worker import get_current_worker
 
@@ -32,8 +34,9 @@ from mhp3ass.query import Query
 from mhp3ass.regions import Region
 from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
+from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
-from mhp3ass.results.table import TableRow, table_row
+from mhp3ass.results.table import TableRow, table_row, truncate
 from mhp3ass.results.view import CharmFilter, ResultsView
 from mhp3ass.solution.state import Solution
 from mhp3ass.tui.inspector import Inspector
@@ -71,18 +74,6 @@ def sort_label(key: SortKey) -> StringIndex:
             return StringIndex.SORT_SLOTS_SPARE
 
 
-class FindBox(Input):
-    """The find text; Esc closes it."""
-
-    BINDINGS: ClassVar[list[BindingType]] = [Binding("escape", "close", "Close", show=False)]
-
-    class Closed(Message):
-        pass
-
-    def action_close(self) -> None:
-        self.post_message(self.Closed())
-
-
 @dataclass(frozen=True)
 class JewelJob:
     """A placement to work out: highlight ``inspection``'s set ``number``,
@@ -108,7 +99,7 @@ class ResultsPane(Horizontal):
         height: 1fr;
     }
     ResultsPane #charm_filter {
-        width: 34;
+        width: 24;
         height: 1fr;
     }
     ResultsPane #results {
@@ -116,6 +107,19 @@ class ResultsPane(Horizontal):
     }
     ResultsPane #find_box {
         display: none;
+    }
+    ResultsPane #charms_bar {
+        height: 1;
+        display: none;
+    }
+    ResultsPane #charm_label {
+        padding: 0 1 0 0;
+    }
+    ResultsPane #charm_choice {
+        width: 42;
+    }
+    ResultsPane Inspector {
+        width: 42;
     }
     """
 
@@ -126,12 +130,20 @@ class ResultsPane(Horizontal):
         reverse: bool,
         is_searching: Callable[[], bool],
         game_lock: Lock,
+        short_names: ShortNames,
+        full_names: bool,
     ) -> None:
         """``is_searching`` says whether a search is using the game, when sets
         can't be filled again for their placements; ``game_lock`` is held
-        while a search or a placement uses it."""
+        while a search or a placement uses it; ``short_names`` shorten the
+        table's cells, unless ``full_names`` (a huge screen) names them in
+        full. Find matches both either way."""
         super().__init__()
         self._strings = strings
+        self._short_names = short_names
+        self._full_names = full_names
+        # No names to shorten to, so every piece and charm keeps its own.
+        self._names_in_full = ShortNames(armor_names={}, abbreviations={})
         self._is_searching = is_searching
         self._game_lock = game_lock
         # Counts highlights, so a placement worked out for an earlier one is dropped.
@@ -160,14 +172,30 @@ class ResultsPane(Horizontal):
         sets = Vertical(id="sets", classes="pane")
         sets.border_title = region_title(Region.SETS, self._title())
         with sets:
+            # Below wide, the charm sidebar's place (the screen's CSS shows one or the other).
+            with Horizontal(id="charms_bar"):
+                yield Label(
+                    region_title(Region.CHARMS, self._strings.static(StringIndex.CHARMS)),
+                    id="charm_label",
+                )
+                yield Select(
+                    [(Content(self._strings.static(StringIndex.ALL)), 0)],
+                    allow_blank=False,
+                    compact=True,
+                    id="charm_choice",
+                )
             table = ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
+                # The number, the five pieces and the defence; the spare slots and charm scroll.
+                must_fit=frozenset(range(7)),
+                # The number and the defence stay in view while the rest scroll.
+                pinned=frozenset({0, 6}),
                 id="results",
             )
             table.empty_text = _BEFORE_SEARCH
             yield table
-            yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
+            yield Input(placeholder="find: piece, jewel, charm or skill", id="find_box")
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
 
     @property
@@ -184,6 +212,38 @@ class ResultsPane(Horizontal):
     def sort_key(self) -> SortKey:
         return self._sort_key
 
+    @property
+    def table_names(self) -> ShortNames:
+        """The names the table's cells use: short, or in full."""
+        names = self._names_in_full if self._full_names else self._short_names
+        return names
+
+    def name_in_full(self, full: bool) -> None:
+        """Name the table's pieces and charm in full (``full``) or shortened,
+        keeping the cursor's set."""
+        if full == self._full_names:
+            return
+        self._full_names = full
+        if self.view is not None:
+            self.query_one("#results", ResultsTable).replace_rows(
+                view_rows(self.view, names=self.table_names)
+            )
+
+    @property
+    def inspecting(self) -> bool:
+        """The inspector shows over the table (a narrow screen's, on request)."""
+        return self.has_class("-inspecting")
+
+    def show_inspector(self, shown: bool) -> None:
+        """Show the inspector over the table, or the table again. The hidden
+        table can't keep the focus, so the inspector takes it meanwhile;
+        once it is hidden again, the caller puts the focus where it goes."""
+        self.set_class(shown, "-inspecting")
+        inspector = self.query_one(Inspector)
+        inspector.can_focus = shown
+        if shown:
+            inspector.focus()
+
     def sort_names(self) -> list[tuple[SortKey, str]]:
         """Each sort key with its name in the game's language, in drop-down order."""
         names = [(key, self._strings.basic(sort_label(key))) for key in SortKey]
@@ -198,8 +258,9 @@ class ResultsPane(Horizontal):
         charm_templates: tuple[Charm | None, ...] | None,
         note: str | None = None,
     ) -> None:
-        """Show a new search's view and the rows of its ``final`` (``view_rows``);
-        ``query`` is the results' own, for the inspector's notes and extra skills,
+        """Show a new search's view and the rows of its ``final``
+        (``view_rows``, named by ``table_names``); ``query`` is the results'
+        own, for the inspector's notes and extra skills,
         ``game`` the one they were found in, for its jewel placements, and
         ``charm_templates`` the search's workers' charms (``None`` for loaded
         results), for a set that can't be built as listed (quirk 52).
@@ -221,7 +282,7 @@ class ResultsPane(Horizontal):
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
-            rows = view_rows(view)
+            rows = view_rows(view, names=self.table_names)
         self._set_rows(rows)
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
@@ -332,12 +393,38 @@ class ResultsPane(Horizontal):
         current = index < len(self._options) and event.option is self._options[index]
         if self.view is not None and current:
             self.view.select_filter(self._filters[index])
+            self.query_one("#charm_choice", Select).value = index
             self._fill_table()
 
+    def on_select_changed(self, event: Select.Changed) -> None:
+        """A charm chosen in the drop-down; setting it to match the sidebar changes nothing."""
+        if event.select.id != "charm_choice":
+            return
+        event.stop()
+        index = event.value
+        if self.view is None or not isinstance(index, int) or index >= len(self._filters):
+            return
+        chosen = self._filters[index]
+        if chosen == self.view.charm_filter:
+            return
+        self.view.select_filter(chosen)
+        self.query_one("#charm_filter", OptionList).highlighted = index
+        self._fill_table()
+
+    @property
+    def find_open(self) -> bool:
+        return self.query_one("#find_box", Input).display
+
     def open_find(self) -> None:
-        box = self.query_one("#find_box", FindBox)
+        box = self.query_one("#find_box", Input)
         box.display = True
         box.focus()
+
+    def clear_find(self) -> None:
+        """Close the find box with its text cleared, as Esc does; the last
+        find text submitted stays for ``n`` and ``N``."""
+        self.query_one("#find_box", Input).value = ""
+        self._close_find()
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         if event.input.id != "find_box":
@@ -347,12 +434,8 @@ class ResultsPane(Horizontal):
         self._close_find()
         self.find(step=1, from_cursor=True)
 
-    def on_find_box_closed(self, event: FindBox.Closed) -> None:
-        event.stop()
-        self._close_find()
-
     def _close_find(self) -> None:
-        self.query_one("#find_box", FindBox).display = False
+        self.query_one("#find_box", Input).display = False
         self.query_one("#results", ResultsTable).focus()
 
     def find(self, step: int, from_cursor: bool = False) -> None:
@@ -369,7 +452,9 @@ class ResultsPane(Horizontal):
             # Each set's text is built once per search, whatever the sort or filter.
             key = id(solution)
             if key not in self._text_by_set:
-                self._text_by_set[key] = row_text(solution, query=query)
+                self._text_by_set[key] = row_text(
+                    solution, query=query, short_names=self._short_names
+                )
             texts.append(self._text_by_set[key])
         start = (table.cursor - step) % len(texts) if from_cursor else table.cursor
         row = find_row(texts, needle=self._needle, start=start, step=step)
@@ -408,7 +493,7 @@ class ResultsPane(Horizontal):
             *names,
         ]
         self._options = [
-            Option(Content(f"{_fit(label, 21)} {count:>7,}"))
+            Option(Content(f"{_fit(label, 12)} {count:>7,}"))
             for label, count in zip(labels, counts, strict=True)
         ]
         options = self.query_one("#charm_filter", OptionList)
@@ -416,7 +501,17 @@ class ResultsPane(Horizontal):
         options.add_options(self._options)
         # The view's own filter: All after a search, the charm it kept after a language switch.
         chosen = view.charm_filter
-        options.highlighted = self._filters.index(chosen) if chosen in self._filters else 0
+        index = self._filters.index(chosen) if chosen in self._filters else 0
+        options.highlighted = index
+        # The drop-down opens over the table, so it has room for longer names.
+        choice = self.query_one("#charm_choice", Select)
+        choice.set_options(
+            (Content(f"{_fit(label, 30)} {count:>7,}"), number)
+            for number, (label, count) in enumerate(zip(labels, counts, strict=True))
+        )
+        choice.value = index
+        # Its value can be unchanged while its text isn't (new counts): show the new text.
+        choice.mutate_reactive(Select.value)
 
     def _title(self) -> str:
         shown = len(self.view.final) if self.view is not None else None
@@ -436,19 +531,16 @@ class ResultsPane(Horizontal):
 
     def _fill_table(self) -> None:
         if self.view is not None:
-            self._set_rows(view_rows(self.view))
+            self._set_rows(view_rows(self.view, names=self.table_names))
 
 
 def _fit(label: str, width: int) -> str:
-    """``label`` padded or cut to ``width`` terminal cells (wide characters
-    count twice), ending in ``…`` when cut."""
-    if cell_len(label) <= width:
-        return set_cell_size(label, width)
-    fitted = set_cell_size(label, width - 1) + "…"
+    """``label`` padded or cut (``truncate``) to ``width`` terminal cells."""
+    fitted = set_cell_size(truncate(label, width), width)
     return fitted
 
 
-def view_rows(view: ResultsView) -> list[TableRow]:
-    """The table's rows for what ``view`` shows."""
-    rows = [table_row(solution, view.sort_key) for solution in view.final]
+def view_rows(view: ResultsView, names: ShortNames) -> list[TableRow]:
+    """The table's rows for what ``view`` shows, shortened by ``names``."""
+    rows = [table_row(solution, view.sort_key, names=names) for solution in view.final]
     return rows
