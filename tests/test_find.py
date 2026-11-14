@@ -154,3 +154,20 @@ def test_a_rows_text_leaves_out_extra_skills_the_query_asked_for(teamhgg_game, m
     text = row_text(solution, query=make_query(skills=[guard]))
 
     assert text == "Jinouga Helm"
+
+
+def test_with_short_names_a_rows_text_has_the_cells_the_table_shows(
+    teamhgg_game, teamhgg_short_names, make_query
+):
+    solution = Solution(
+        armors=[None, None, None, teamhgg_game.armor_map["Barroth Tasset S"], None],
+        charm=Charm(
+            num_slots=1,
+            abilities=[AbilityPair(ability=teamhgg_game.ability_map["Attack"], amount=4)],
+        ),
+    )
+
+    text = row_text(solution, query=make_query(), short_names=teamhgg_short_names)
+
+    assert text.split("\n") == ["Barroth Tasset S", "+4 Attack O--", "Barroth S", "+4 Att (1)"]
+    assert find_row([text], needle="barroth s", start=0) == 0
