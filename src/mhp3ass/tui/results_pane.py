@@ -38,6 +38,9 @@ from mhp3ass.solution.state import Solution
 from mhp3ass.tui.inspector import Inspector
 from mhp3ass.tui.results_table import ResultsTable
 
+# The empty table's line before any results, shown again when a first search is cancelled.
+_BEFORE_SEARCH = "Choose up to six skills, then Search."
+
 
 def sort_label(key: SortKey) -> StringIndex:
     """``cmbSort``'s item text (``Form1.h:2090-2100``)."""
@@ -143,6 +146,7 @@ class ResultsPane(Horizontal):
         self._game: GameData | None = None
         self._charm_templates: tuple[Charm | None, ...] | None = None
         self._needle = ""
+        self.note: str | None = None
         # Find texts by id(solution); the view keeps every solution alive.
         self._text_by_set: dict[int, str] = {}
 
@@ -154,7 +158,7 @@ class ResultsPane(Horizontal):
                 right_aligned=frozenset({0, 6}),
                 id="results",
             )
-            table.empty_text = "Choose up to six skills, then Search."
+            table.empty_text = _BEFORE_SEARCH
             table.border_title = Content(self._title())
             yield table
             yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
@@ -186,15 +190,22 @@ class ResultsPane(Horizontal):
         query: Query,
         game: GameData,
         charm_templates: tuple[Charm | None, ...] | None,
+        note: str | None = None,
     ) -> None:
         """Show a new search's view and the rows of its ``final`` (``view_rows``);
         ``query`` is the results' own, for the inspector's notes and extra skills,
         ``game`` the one they were found in, for its jewel placements, and
         ``charm_templates`` the search's workers' charms (``None`` for loaded
         results), for a set that can't be built as listed (quirk 52).
+        ``note``, shown in the table's bottom border until the next results,
+        says what is wrong with them (a worker that stopped).
         The view was built with the sort and reverse of the search's start; if
         they changed while it ran, it is sorted again here."""
         self.view = view
+        self.note = note
+        table = self.query_one("#results", ResultsTable)
+        table.empty_text = "No sets."
+        table.border_subtitle = Content(note) if note is not None else None
         self._query = query
         self._game = game
         self._charm_templates = charm_templates
@@ -283,6 +294,14 @@ class ResultsPane(Horizontal):
         if job.inspection != self._inspection or not self.is_attached:
             return
         self.query_one(Inspector).show(job.number, job.solution, details)
+
+    def show_searching(self, running: bool) -> None:
+        """Before the first results, the empty table says whether a search is running."""
+        if self.view is not None:
+            return
+        table = self.query_one("#results", ResultsTable)
+        table.empty_text = "Searching…" if running else _BEFORE_SEARCH
+        table.refresh()
 
     def choose_sort(self, key: SortKey | None) -> None:
         """Sort by ``key``, as choosing it in ``cmbSort`` does; ``None`` (the
@@ -402,9 +421,7 @@ class ResultsPane(Horizontal):
         self.query_one("#results", ResultsTable).border_title = Content(self._title())
 
     def _set_rows(self, rows: Sequence[TableRow]) -> None:
-        table = self.query_one("#results", ResultsTable)
-        table.empty_text = "No sets."
-        table.set_rows(rows)
+        self.query_one("#results", ResultsTable).set_rows(rows)
         self._update_title()
         # With no rows the table moves no cursor, so nothing else clears the inspector.
         if not rows:

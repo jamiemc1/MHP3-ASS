@@ -41,7 +41,7 @@ class SortPicker(ModalScreen[SortKey | None]):
 
     def compose(self) -> ComposeResult:
         options = OptionList(*(Option(Content(name)) for name in self._names))
-        options.border_title = self._title
+        options.border_title = Content(self._title)
         options.highlighted = self._keys.index(self._current)
         yield options
 
