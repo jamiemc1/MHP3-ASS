@@ -1,7 +1,8 @@
 """The main screen's regions: the query, the charm sidebar and the sets table.
 
-Not a port: the TUI's own layout. Each region has a number, shown as a
-superscript in its title (``¹ Query``, ``² Charms``, ``³ Sets``).
+Not a port: the TUI's own layout. Each region has a number, which
+``region_hint`` writes as a superscript (``¹``, ``²``, ``³``) for the
+region's title.
 """
 
 from __future__ import annotations
@@ -18,7 +19,7 @@ class Region(IntEnum):
 
 
 def region_hint(region: Region) -> str:
-    """``region``'s number as a superscript digit."""
-    superscripts = {Region.QUERY: "¹", Region.CHARMS: "²", Region.SETS: "³"}
-    hint = superscripts[region]
+    """``region``'s number as superscript digits."""
+    superscripts = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+    hint = str(int(region)).translate(superscripts)
     return hint
