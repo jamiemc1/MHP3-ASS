@@ -9,12 +9,14 @@ from __future__ import annotations
 from dataclasses import fields, replace
 from typing import Any
 
+from rich.cells import cell_len
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.widgets import Button, Label, Select
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
+from mhp3ass.editor_rows import select_width
 from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
 from mhp3ass.query_form import QueryForm, charm_mode_label
@@ -24,7 +26,13 @@ from mhp3ass.tui.titles import region_title
 
 
 class QueryEditor(Vertical):
-    """The form's drop-downs and skill picker. ``form`` follows every change."""
+    """The form's drop-downs and skill picker. ``form`` follows every change.
+
+    The fields sit on an even grid: each row's first cell (the hunter
+    drop-down, the weapon slots' label, the skills' label) takes the same
+    width, so the fields after them line up; a label is a cell from its
+    field, and a field two from the next label. Each drop-down is as wide
+    as its longest choice (``select_width``)."""
 
     # Its max-height is set by fit_height; past it the editor scrolls.
     DEFAULT_CSS = """
@@ -37,26 +45,15 @@ class QueryEditor(Vertical):
         height: auto;
     }
     QueryEditor Label {
-        padding: 0 1 0 2;
+        padding: 0 1 0 0;
     }
     QueryEditor Select {
-        margin-right: 1;
-    }
-    QueryEditor #hunter_type {
-        width: 16;
-        margin-left: 2;
-    }
-    QueryEditor #gender {
-        width: 12;
-    }
-    QueryEditor #hr, QueryEditor #elder_star, QueryEditor #weapon_slots {
-        width: 7;
+        margin-right: 2;
     }
     /* The charm mode gives way, so the Search button beside it is never cut. */
     QueryEditor #charm_mode {
         width: 1fr;
         min-width: 12;
-        max-width: 30;
     }
     QueryEditor #search {
         min-width: 10;
@@ -72,43 +69,61 @@ class QueryEditor(Vertical):
 
     def compose(self) -> ComposeResult:
         strings = self._strings
+        hunters = [
+            (strings.static(StringIndex.BLADEMASTER), HunterType.BLADEMASTER),
+            (strings.static(StringIndex.GUNNER), HunterType.GUNNER),
+        ]
+        genders = [
+            (strings.static(StringIndex.MALE), Gender.MALE),
+            (strings.static(StringIndex.FEMALE), Gender.FEMALE),
+        ]
+        charm_modes = [(strings.static(charm_mode_label(mode)), mode) for mode in CharmMode]
+        slots_label = strings.static(StringIndex.MAX_WEAPON_SLOTS)
+        # Each row's first cell, with the gap after it.
+        lead = max(
+            select_width(label for label, _ in hunters) + 2,
+            cell_len(slots_label) + 1,
+            cell_len(strings.static(StringIndex.SKILLS)) + 1,
+        )
         with Horizontal():
-            yield Select(
-                [
-                    (strings.static(StringIndex.BLADEMASTER), HunterType.BLADEMASTER),
-                    (strings.static(StringIndex.GUNNER), HunterType.GUNNER),
-                ],
+            hunter = Select(
+                hunters,
                 value=self.form.hunter_type,
                 allow_blank=False,
                 compact=True,
                 id="hunter_type",
             )
-            yield Select(
-                [
-                    (strings.static(StringIndex.MALE), Gender.MALE),
-                    (strings.static(StringIndex.FEMALE), Gender.FEMALE),
-                ],
+            hunter.styles.width = lead - 2
+            yield hunter
+            gender = Select(
+                genders,
                 value=self.form.gender,
                 allow_blank=False,
                 compact=True,
                 id="gender",
             )
+            gender.styles.width = select_width(label for label, _ in genders)
+            yield gender
             yield Label(strings.static(StringIndex.HR))
             yield _number_select(1, 6, value=self.form.hr, select_id="hr")
             yield Label(strings.static(StringIndex.VILLAGE_QUESTS))
             yield _number_select(1, 6, value=self.form.elder_star, select_id="elder_star")
         # Weapon slots start the second row, so the first fits in 80 columns.
         with Horizontal():
-            yield Label(strings.static(StringIndex.MAX_WEAPON_SLOTS))
+            slots = Label(slots_label)
+            slots.styles.width = lead
+            yield slots
             yield _number_select(0, 3, value=self.form.weapon_slots, select_id="weapon_slots")
             yield Label(strings.static(StringIndex.CHARMS))
-            yield Select(
-                [(strings.static(charm_mode_label(mode)), mode) for mode in CharmMode],
+            charm_mode = Select(
+                charm_modes,
                 value=self.form.charm_mode,
                 allow_blank=False,
                 compact=True,
                 id="charm_mode",
             )
+            charm_mode.styles.max_width = select_width(label for label, _ in charm_modes)
+            yield charm_mode
             # The app handles the press: searching needs its data and pool.
             yield Button(
                 strings.basic(StringIndex.SEARCH), variant="primary", compact=True, id="search"
@@ -118,6 +133,7 @@ class QueryEditor(Vertical):
             strings=strings,
             rows=self.form.current_rows(),
             hunter_type=self.form.hunter_type,
+            lead=lead,
         )
 
     def on_mount(self) -> None:
@@ -150,11 +166,13 @@ class QueryEditor(Vertical):
 
 
 def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Select[int]:
+    numbers = [str(number) for number in range(minimum, maximum + 1)]
     select = Select(
-        [(str(number), number) for number in range(minimum, maximum + 1)],
+        [(number, int(number)) for number in numbers],
         value=value,
         allow_blank=False,
         compact=True,
         id=select_id,
     )
+    select.styles.width = select_width(numbers)
     return select

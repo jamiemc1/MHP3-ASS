@@ -13,6 +13,7 @@ from textual.widgets.option_list import Option
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
+from mhp3ass.editor_rows import chip_width, chips_share_row, select_width
 from mhp3ass.model import HunterType, Skill
 from mhp3ass.skill_chips import add_chip, addable_skills, remove_chip, rows_full
 from mhp3ass.skill_picker import SkillRow, query_skills
@@ -40,7 +41,12 @@ class SkillSearch(Input):
 
 
 class SkillPicker(Vertical):
-    """Edits one tab's six skill rows; posts ``RowsChanged`` after each change."""
+    """Edits one tab's six skill rows; posts ``RowsChanged`` after each change.
+
+    The chosen skills' chips follow the skills' label, on the search box's
+    row where they fit before it (``chips_share_row``), else on a row of
+    their own above it. The label and the search box start at the editor's
+    ``lead`` column."""
 
     DEFAULT_CSS = """
     SkillPicker {
@@ -49,21 +55,17 @@ class SkillPicker(Vertical):
     SkillPicker Horizontal {
         height: auto;
     }
-    SkillPicker #chips ChipButton {
+    SkillPicker ChipButton {
+        min-width: 0;
         margin: 0 1 0 0;
     }
     SkillPicker #skill_search {
-        width: 40;
-        margin: 0 1 0 2;
-    }
-    SkillPicker #skill_tag {
-        width: 22;
+        margin: 0 1 0 0;
     }
     SkillPicker #skill_options {
         height: auto;
         max-height: 6;
         width: 64;
-        margin-left: 2;
     }
     """
 
@@ -88,33 +90,85 @@ class SkillPicker(Vertical):
         strings: DisplayStrings,
         rows: tuple[SkillRow, ...],
         hunter_type: HunterType,
+        lead: int,
+        search_width: int = 26,
     ) -> None:
+        """``lead``: the cells before the search box, the skills' label and its
+        gap; ``search_width``: the search box's, room for the longest skill name."""
         super().__init__()
         self._game = game
         self._strings = strings
         self.rows = rows
         self.hunter_type = hunter_type
+        self._lead = lead
+        self._search_width = search_width
+        self._tag_width = select_width(tag.name for tag in game.skill_tags)
+        # Whether the chips are on the search box's row, once there is a width to decide by.
+        self._chips_shared: bool | None = None
         self._offered: list[Skill] = []
         self._browsed = False
         # Esc hides the offered skills until the list is rebuilt, ▲▼ browses it or ⏎ asks for it.
         self._dismissed = False
 
     def compose(self) -> ComposeResult:
+        skills = self._strings.static(StringIndex.SKILLS)
         with Horizontal(id="chips"):
-            yield Label(self._strings.static(StringIndex.SKILLS))
-        with Horizontal():
-            yield SkillSearch(placeholder="add skill", compact=True, id="skill_search")
-            yield Select(
+            label = Label(skills)
+            label.styles.width = self._lead
+            yield label
+        with Horizontal(id="skill_row"):
+            # The skills' label when the chips are on this row, else the gap under it.
+            shared_label = Label(skills, id="skill_row_label")
+            shared_label.styles.width = self._lead
+            yield shared_label
+            search = SkillSearch(placeholder="add skill", compact=True, id="skill_search")
+            search.styles.width = self._search_width
+            yield search
+            tags = Select(
                 [(tag.name, index) for index, tag in enumerate(self._game.skill_tags)],
                 value=0,
                 allow_blank=False,
                 compact=True,
                 id="skill_tag",
             )
-        yield OptionList(compact=True, id="skill_options")
+            tags.styles.width = self._tag_width
+            yield tags
+        options = OptionList(compact=True, id="skill_options")
+        options.styles.margin = (0, 0, 0, self._lead)
+        yield options
 
     def on_mount(self) -> None:
         self._refresh()
+
+    def on_resize(self, event: events.Resize) -> None:
+        if self._shares_row(event.size.width) != self._chips_shared:
+            self._place_chips()
+
+    def _shares_row(self, room: int) -> bool:
+        """The chosen skills' chips fit on the search box's row, ``room`` cells wide."""
+        shared = chips_share_row(
+            label=self._lead,
+            chips=[chip_width(skill.name) for skill in query_skills(self.rows)],
+            fields=self._search_width + 1 + self._tag_width,
+            room=room,
+        )
+        return shared
+
+    def _place_chips(self) -> None:
+        """Show a chip for each chosen skill, on the search box's row if
+        they fit there, else on their own row above it."""
+        shared = self._shares_row(self.size.width)
+        self._chips_shared = shared
+        self.query(ChipButton).remove()
+        chips = [ChipButton(skill) for skill in query_skills(self.rows)]
+        if shared:
+            row = self.query_one("#skill_row", Horizontal)
+            row.mount_all(chips, before=self.query_one("#skill_search", SkillSearch))
+        else:
+            self.query_one("#chips", Horizontal).mount_all(chips)
+        self.query_one("#chips", Horizontal).display = not shared
+        label = self._strings.static(StringIndex.SKILLS) if shared else ""
+        self.query_one("#skill_row_label", Label).update(label)
 
     def show_rows(self, rows: tuple[SkillRow, ...], hunter_type: HunterType) -> None:
         """Show another tab's rows, without posting ``RowsChanged``."""
@@ -238,9 +292,7 @@ class SkillPicker(Vertical):
         self.post_message(self.RowsChanged(rows, hunter_type=self.hunter_type))
 
     def _refresh(self) -> None:
-        chips = self.query_one("#chips", Horizontal)
-        chips.remove_children(ChipButton)
-        chips.mount_all(ChipButton(skill) for skill in query_skills(self.rows))
+        self._place_chips()
         full = rows_full(self.rows)
         search = self.query_one("#skill_search", SkillSearch)
         search.placeholder = "six skills chosen" if full else "add skill"
