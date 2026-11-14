@@ -6,7 +6,7 @@ picked in Options or the command palette; ``dracula`` is the default.
 
 from __future__ import annotations
 
-from collections.abc import Collection
+from collections.abc import Collection, Iterable
 from dataclasses import dataclass
 
 
@@ -29,3 +29,39 @@ def starting_theme(
         return ThemeChoice(name=default, unavailable=saved)
     choice = ThemeChoice(name=saved, unavailable=None)
     return choice
+
+
+class ThemePreview:
+    """A theme picker that shows each theme its cursor reaches: the theme
+    it opened on (``original``), and the one on show (``shown``)."""
+
+    def __init__(self, original: str) -> None:
+        self.original = original
+        self.shown = original
+
+    def show(self, name: str | None, available: Collection[str]) -> str | None:
+        """Show ``name``, an entry under the cursor, when it is one of
+        ``available``; the theme now on show, or ``None`` for an entry that
+        isn't a theme."""
+        if name is None or name not in available:
+            return None
+        self.shown = name
+        return name
+
+    def close(self, chosen: bool) -> str:
+        """The theme to keep once the picker closes: the one on show if a
+        theme was ``chosen``, else the one it opened on."""
+        kept = self.shown if chosen else self.original
+        return kept
+
+
+def themes_from(current: str, themes: Iterable[str]) -> list[str]:
+    """``themes`` in order of name, starting at ``current`` and wrapping
+    round, so that a picker whose cursor starts on its first entry opens on
+    the theme in use. In name order alone when ``current`` isn't one of them."""
+    ordered = sorted(themes)
+    if current not in ordered:
+        return ordered
+    start = ordered.index(current)
+    rotated = ordered[start:] + ordered[:start]
+    return rotated
