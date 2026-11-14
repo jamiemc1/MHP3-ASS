@@ -24,12 +24,14 @@ from pathlib import Path
 @dataclass(frozen=True)
 class TuiSettings:
     """``tui.toml``: the saved-data folder (``None``: the TUI's own folder),
-    the search's processes (``None``: one per CPU, at most 8) and whether the
-    results are shown reversed."""
+    the search's processes (``None``: one per CPU, at most 8), whether the
+    results are shown reversed and the colour theme's name (``None``: the
+    default)."""
 
     data_dir: Path | None = None
     jobs: int | None = None
     reverse: bool = False
+    theme: str | None = None
 
     def __post_init__(self) -> None:
         if self.jobs is not None and self.jobs < 1:
@@ -61,20 +63,26 @@ def read_tui_settings(path: Path) -> TuiSettings:
             table = tomllib.load(file)
     except tomllib.TOMLDecodeError as error:
         raise ValueError(f"{path}: {error}") from error
-    unknown = set(table) - {"data_dir", "jobs", "reverse"}
+    unknown = set(table) - {"data_dir", "jobs", "reverse", "theme"}
     if unknown:
         raise ValueError(f"{path}: unknown settings {sorted(unknown)}")
     data_dir = table.get("data_dir")
     jobs = table.get("jobs")
     reverse = table.get("reverse", False)
+    theme = table.get("theme")
     if data_dir is not None and not isinstance(data_dir, str):
         raise ValueError(f"{path}: data_dir must be a string, not {data_dir!r}")
     if jobs is not None and (not isinstance(jobs, int) or isinstance(jobs, bool)):
         raise ValueError(f"{path}: jobs must be a whole number, not {jobs!r}")
     if not isinstance(reverse, bool):
         raise ValueError(f"{path}: reverse must be true or false, not {reverse!r}")
+    if theme is not None and not isinstance(theme, str):
+        raise ValueError(f"{path}: theme must be a string, not {theme!r}")
     settings = TuiSettings(
-        data_dir=Path(data_dir) if data_dir is not None else None, jobs=jobs, reverse=reverse
+        data_dir=Path(data_dir) if data_dir is not None else None,
+        jobs=jobs,
+        reverse=reverse,
+        theme=theme,
     )
     return settings
 
@@ -91,6 +99,8 @@ def tui_settings_text(settings: TuiSettings) -> str:
         lines.append(f"jobs = {settings.jobs}")
     if settings.reverse:
         lines.append("reverse = true")
+    if settings.theme is not None:
+        lines.append(f"theme = {json.dumps(settings.theme, ensure_ascii=False)}")
     text = "".join(f"{line}\n" for line in lines)
     return text
 
