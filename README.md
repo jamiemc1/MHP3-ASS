@@ -52,7 +52,9 @@ order under None; ties go to the highest defence, then fewest jewels, then
 search order), a table of every set, titled with how many it shows and
 the sort, with short names (`Barroth S` for Barroth Tasset S, `+4 Att +3
 Sharpn (1)` for the charm; the pieces are cut with `…` where they don't
-fit, and the spare slots and charm scroll into view), and the inspector
+fit, and the spare slots and charm scroll into view: `#` and Def stay at
+the left, ←/→ scroll a whole column and Shift+←/→ to the first or last,
+and `<` or `>` in the header shows there are more that way), and the inspector
 beside it showing the selected set's full pieces, jewels, spare slots,
 extra skills and stats. Find
 (`/`, then `n`/`N`) moves to the sets naming a piece, jewel, charm or skill.
