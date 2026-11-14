@@ -115,11 +115,10 @@ class SearchApp(App[bool]):
     }
     .pane {
         border: round $foreground 25%;
-        border-title-color: $foreground 60%;
+        border-title-color: $foreground;
     }
     .pane:focus, .pane:focus-within {
         border: round $accent;
-        border-title-color: $foreground;
     }
     QueryEditor.pane {
         border: none;

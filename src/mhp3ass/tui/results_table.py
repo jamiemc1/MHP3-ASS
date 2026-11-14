@@ -81,13 +81,9 @@ class ResultsTable(ScrollView, can_focus=True):
             self.row = row
 
     def __init__(
-        self,
-        headers: Sequence[str],
-        right_aligned: frozenset[int],
-        id: str | None = None,
-        classes: str | None = None,
+        self, headers: Sequence[str], right_aligned: frozenset[int], id: str | None = None
     ) -> None:
-        super().__init__(id=id, classes=classes)
+        super().__init__(id=id)
         self._headers = tuple(headers)
         self._right_aligned = right_aligned
         self._rows: Sequence[TableRow] = ()

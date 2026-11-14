@@ -156,15 +156,16 @@ class ResultsPane(Horizontal):
             Region.CHARMS, self._strings.static(StringIndex.CHARMS)
         )
         yield charm_filter
-        with Vertical():
+        # The table and the find box under it are one region, bordered together.
+        sets = Vertical(id="sets", classes="pane")
+        sets.border_title = region_title(Region.SETS, self._title())
+        with sets:
             table = ResultsTable(
                 ["#", "Head", "Body", "Arms", "Waist", "Legs", "Def", "Spare", "Charm"],
                 right_aligned=frozenset({0, 6}),
                 id="results",
-                classes="pane",
             )
             table.empty_text = _BEFORE_SEARCH
-            table.border_title = region_title(Region.SETS, self._title())
             yield table
             yield FindBox(placeholder="find: piece, jewel, charm or skill", id="find_box")
         yield Inspector(self._strings, piece_labels=["Head", "Body", "Arms", "Waist", "Legs"])
@@ -202,7 +203,7 @@ class ResultsPane(Horizontal):
         ``game`` the one they were found in, for its jewel placements, and
         ``charm_templates`` the search's workers' charms (``None`` for loaded
         results), for a set that can't be built as listed (quirk 52).
-        ``note``, shown in the table's bottom border until the next results,
+        ``note``, shown in the sets' bottom border until the next results,
         says what is wrong with them (a worker that stopped).
         The view was built with the sort and reverse of the search's start; if
         they changed while it ran, it is sorted again here."""
@@ -210,7 +211,8 @@ class ResultsPane(Horizontal):
         self.note = note
         table = self.query_one("#results", ResultsTable)
         table.empty_text = "No sets."
-        table.border_subtitle = Content(note) if note is not None else None
+        sets = self.query_one("#sets", Vertical)
+        sets.border_subtitle = Content(note) if note is not None else None
         self._query = query
         self._game = game
         self._charm_templates = charm_templates
@@ -423,9 +425,7 @@ class ResultsPane(Horizontal):
         return title
 
     def _update_title(self) -> None:
-        self.query_one("#results", ResultsTable).border_title = region_title(
-            Region.SETS, self._title()
-        )
+        self.query_one("#sets", Vertical).border_title = region_title(Region.SETS, self._title())
 
     def _set_rows(self, rows: Sequence[TableRow]) -> None:
         self.query_one("#results", ResultsTable).set_rows(rows)
