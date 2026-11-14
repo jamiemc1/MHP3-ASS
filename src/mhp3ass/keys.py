@@ -28,6 +28,11 @@ def app_keys() -> list[Binding]:
         Binding("2", "region(2)", "Charms", show=False),
         Binding("3", "region(3)", "Sets", show=False),
         Binding("e", "edit_query", "Edit query", show=False),
+        # On the editor's drop-downs and buttons only, ahead of a closed drop-down's ▲▼.
+        Binding("left", "spatial('left')", "Left field", show=False, priority=True),
+        Binding("right", "spatial('right')", "Right field", show=False, priority=True),
+        Binding("up", "spatial('up')", "Row above", show=False, priority=True),
+        Binding("down", "spatial('down')", "Row below", show=False, priority=True),
         # Ahead of the screen's own Tab, which visits every widget.
         Binding("tab", "cycle(1)", "Next region", show=False, priority=True),
         Binding("shift+tab", "cycle(-1)", "Previous region", show=False, priority=True),

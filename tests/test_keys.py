@@ -14,7 +14,8 @@ def test_the_app_keys_are_search_keys_quit_options_and_the_regions():
     every = {binding.key for binding in app_keys()}
 
     assert shown == {"ctrl+s", "question_mark", "q", "o"}
-    assert every == shown | {"escape", "1", "2", "3", "e", "tab", "shift+tab"}
+    regions = {"1", "2", "3", "e", "tab", "shift+tab"}
+    assert every == shown | regions | {"escape", "left", "right", "up", "down"}
 
 
 def test_the_form_fields_have_no_letter_of_their_own():
