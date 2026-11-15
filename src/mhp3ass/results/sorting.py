@@ -1,18 +1,17 @@
 """Sorting results by the "Sort Results By" drop-down.
 
-Ported from the comparison functions (``legacy/Form1.h:20-80``) and
-``Form1::SortResults`` (``legacy/Form1.h:2149-2172``).
+Ported from the comparison functions (``legacy/Form1.h:20-80``) and the key
+``Form1::SortResults`` picks them by (``legacy/Form1.h:2149-2172``).
 
 Each key's stat and direction are the original's. The order of solutions
-with equal values is presentation, not part of the port's contract, so the
-sort is stable: ties keep the order they arrive in. The original's
+with equal values is presentation, not part of the port's contract:
+``results.view.sorted_positions`` puts ties in a fixed order. The original's
 ``List<T>.Sort`` is an unstable introsort whose tie order depends on the
 previous sort and the list's capacity (quirk 27).
 """
 
 from __future__ import annotations
 
-import functools
 from collections.abc import Callable
 from enum import IntEnum
 
@@ -129,14 +128,3 @@ def sorts_ascending(key: SortKey) -> bool | None:
         return None
     ascending = key is SortKey.DIFFICULTY
     return ascending
-
-
-def sort_results(solutions: list[Solution], key: SortKey) -> None:
-    """``SortResults``: sort ``solutions`` in place by ``key``, stably; None leaves them alone.
-
-    ``sort_off`` is never set in the original, so it isn't modelled.
-    """
-    comparison = solution_comparison(key)
-    if comparison is None:
-        return
-    solutions.sort(key=functools.cmp_to_key(comparison))
