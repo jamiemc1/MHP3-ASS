@@ -752,7 +752,8 @@ class SearchApp(App[bool]):
         pool.close()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        if event.button.id in ("search", "search_last"):
+        # The editor's Search buttons: compact, beside the charm mode, and spread, last.
+        if event.button.has_class("search"):
             event.stop()
             self.action_search()
 
@@ -895,16 +896,28 @@ class SearchApp(App[bool]):
             return
         rows: dict[Widget, list[FieldBox]] = {}
         for key, widget in enumerate(fields):
-            row = next(
-                (ancestor for ancestor in widget.ancestors if isinstance(ancestor, Horizontal)),
-                widget,
-            )
+            row = self._editor_row(widget)
             rows.setdefault(row, []).append(
                 FieldBox(key, x=self._editor_x(widget), width=widget.virtual_region.width)
             )
         target = neighbour(list(rows.values()), current=current, direction=Direction(direction))
         if target is not None:
             fields[target].focus()
+
+    def _editor_row(self, widget: Widget) -> Widget:
+        """The row ``widget`` is on: the outermost of the containers around
+        it laid out side by side, as the CSS has them at the time (the
+        spread editor stacks some), or ``widget`` alone outside any."""
+        row = widget
+        for ancestor in widget.ancestors:
+            if ancestor is self.editor or not isinstance(ancestor, Widget):
+                break
+            layout = ancestor.styles.layout
+            if layout is not None and layout.name == "horizontal":
+                row = ancestor
+            elif row is not widget:
+                break
+        return row
 
     def _focused_field(self, fields: list[Widget]) -> int | None:
         """The index of the focused widget in ``fields``, or ``None``."""

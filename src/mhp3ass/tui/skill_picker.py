@@ -105,7 +105,7 @@ class SkillPicker(Vertical):
         rows: tuple[SkillRow, ...],
         hunter_type: HunterType,
         lead: int,
-        search_width: int = 26,
+        search_width: int,
     ) -> None:
         """``lead``: the cells before the search box, the skills' label and its
         gap; ``search_width``: the search box's, room for the longest skill name."""
@@ -211,6 +211,13 @@ class SkillPicker(Vertical):
         self.rows = rows
         self.hunter_type = hunter_type
         self._refresh()
+
+    @property
+    def offered_rows(self) -> int:
+        """The rows the offered skills take under the search box while they show."""
+        options = self.query_one("#skill_options", OptionList)
+        rows = options.outer_size.height if options.display else 0
+        return rows
 
     @property
     def options_open(self) -> bool:
