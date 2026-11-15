@@ -9,6 +9,8 @@ Each operation takes the list and the selected row and returns a
 ``CharmListEdit``. The original saves ``mycharms.txt`` (``SaveCustom``) after
 every operation that changes something; ``CharmListEdit.saved`` says when, so
 the caller passes the new list to ``save_my_charms``.
+
+Neither the TUI nor the CLI calls this module; only its tests do.
 """
 
 from __future__ import annotations

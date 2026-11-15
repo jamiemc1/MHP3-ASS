@@ -14,6 +14,8 @@ original does even when the dialog is then cancelled.
 
 Ticks are kept as the original's ``Result_t``: five armour lists in
 ``ArmorType`` order, then the decorations, one ``bool`` per listed item.
+
+Neither the TUI nor the CLI calls this module; only its tests do.
 """
 
 from __future__ import annotations
