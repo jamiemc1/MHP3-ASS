@@ -49,13 +49,13 @@ from mhp3ass.solution.state import Solution
 class LoadedResults:
     """Results read back from ``settings.cfg``: their view, the query they
     belong to (``FormulateQuery( false, last_search_gunner )``,
-    ``Form1.h:428``), the form as that search read it, and how many
-    charm-free sets the load kept only under None (quirk 45)."""
+    ``Form1.h:428``) and the form as that search read it. The view's
+    ``no_charm_solutions`` are the charm-free sets the load kept only under
+    None (quirk 45)."""
 
     view: ResultsView
     query: Query
     form: QueryForm
-    charm_free_only_under_none: int
 
 
 @dataclass(frozen=True)
@@ -186,12 +186,7 @@ def restore_search(
         spec = results_form.search_spec(game, language=language, my_charms=())
         query = formulate_query(game, spec.query)
         view = load_results(settings, game=game, results=ResultSet(), language_count=language_count)
-        results = LoadedResults(
-            view=view,
-            query=query,
-            form=results_form,
-            charm_free_only_under_none=len(view.no_charm_solutions),
-        )
+        results = LoadedResults(view=view, query=query, form=results_form)
     search = SavedSearch(
         form=form,
         sort_key=sort_key,
@@ -257,7 +252,7 @@ def startup(
         notice = set_aside(path, error)
         return Startup(search=SavedSearch.starting(), notice=notice)
     notice = None
-    hidden = search.results.charm_free_only_under_none if search.results is not None else 0
+    hidden = len(search.results.view.no_charm_solutions) if search.results is not None else 0
     if hidden > 0:
         notice = (
             f"{hidden:,} charm-free sets from last time show only under None, as in the original."
