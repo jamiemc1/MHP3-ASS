@@ -1,11 +1,12 @@
-"""Sorting results by the "Sort Results By" drop-down.
+"""The "Sort Results By" keys and the comparison each one sorts by.
 
-Ported from the comparison functions (``legacy/Form1.h:20-80``) and the key
-``Form1::SortResults`` picks them by (``legacy/Form1.h:2149-2172``).
+Ported from the comparison functions (``legacy/Form1.h:20-80``) and
+``Form1::SortResults``' choice of one per key (``legacy/Form1.h:2149-2172``).
+The results are sorted by ``results.view.sorted_positions``.
 
 Each key's stat and direction are the original's. The order of solutions
 with equal values is presentation, not part of the port's contract:
-``results.view.sorted_positions`` puts ties in a fixed order. The original's
+``sorted_positions`` puts ties in a fixed order. The original's
 ``List<T>.Sort`` is an unstable introsort whose tie order depends on the
 previous sort and the list's capacity (quirk 27).
 """
