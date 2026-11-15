@@ -1,11 +1,11 @@
-"""Display strings (StringTable::LoadLanguage, Common.cpp:290-311) and the Common.h macros."""
+"""Display strings (StringTable::LoadLanguage, Common.cpp:290-311) and BasicString (Common.h)."""
 
 from __future__ import annotations
 
 import pytest
 
 from mhp3ass.data.languages import language_folders
-from mhp3ass.data.strings import DisplayStrings, StringIndex, load_strings, strip_ampersands
+from mhp3ass.data.strings import DisplayStrings, StringIndex, load_strings
 from mhp3ass.data.text import read_lines
 
 
@@ -23,9 +23,9 @@ def short_strings():
 
 
 @pytest.fixture
-def strings_with_ampersand_at_exit():
+def strings_with_ampersands_at_exit():
     text = ["" for _ in StringIndex]
-    text[StringIndex.EXIT] = "E&xit"
+    text[StringIndex.EXIT] = "&Save && E&xit"
     return DisplayStrings(text=tuple(text))
 
 
@@ -84,18 +84,10 @@ def test_a_table_of_the_wrong_length_raises():
         DisplayStrings(text=("",) * 86)
 
 
-def test_strip_ampersands_removes_every_ampersand():
-    assert strip_ampersands("&Save && E&xit") == "Save  Exit"
-
-
-def test_macros_add_spaces_and_colons(strings_with_ampersand_at_exit):
+def test_static_keeps_ampersands_and_basic_drops_every_one(strings_with_ampersands_at_exit):
     index = StringIndex.EXIT
 
     assert [
-        strings_with_ampersand_at_exit.static(index),
-        strings_with_ampersand_at_exit.add(index),
-        strings_with_ampersand_at_exit.run(index),
-        strings_with_ampersand_at_exit.start(index),
-        strings_with_ampersand_at_exit.basic(index),
-        strings_with_ampersand_at_exit.colon(index),
-    ] == ["E&xit", " E&xit", " E&xit ", "E&xit ", "Exit", "E&xit: "]
+        strings_with_ampersands_at_exit.static(index),
+        strings_with_ampersands_at_exit.basic(index),
+    ] == ["&Save && E&xit", "Save  Exit"]

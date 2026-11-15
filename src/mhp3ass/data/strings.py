@@ -106,15 +106,9 @@ class StringIndex(IntEnum):
     RESULTS = 86
 
 
-def strip_ampersands(text: str) -> str:
-    """``StripAmpersands``: drops every ``&`` (the menu accelerator markers)."""
-    stripped = text.replace("&", "")
-    return stripped
-
-
 @dataclass(frozen=True)
 class DisplayStrings:
-    """``StringTable::text`` for one language, with the ``Common.h`` string macros."""
+    """``StringTable::text`` for one language, with the ``Common.h`` string macros the TUI uses."""
 
     text: tuple[str, ...]
 
@@ -126,30 +120,10 @@ class DisplayStrings:
         """``StaticString( X )``."""
         return self.text[index]
 
-    def add(self, index: StringIndex) -> str:
-        """``AddString( X )``: a leading space."""
-        added = " " + self.text[index]
-        return added
-
-    def run(self, index: StringIndex) -> str:
-        """``RunString( X )``: a space either side."""
-        run = " " + self.text[index] + " "
-        return run
-
-    def start(self, index: StringIndex) -> str:
-        """``StartString( X )``: a trailing space."""
-        started = self.text[index] + " "
-        return started
-
     def basic(self, index: StringIndex) -> str:
-        """``BasicString( X )``: without ``&``."""
-        basic = strip_ampersands(self.text[index])
+        """``BasicString( X )``: without any ``&`` (``StripAmpersands``, the menu accelerators)."""
+        basic = self.text[index].replace("&", "")
         return basic
-
-    def colon(self, index: StringIndex) -> str:
-        """``ColonString( X )``: followed by ``": "``."""
-        colon = self.text[index] + ": "
-        return colon
 
 
 def load_strings(language_dir: Path) -> DisplayStrings:
