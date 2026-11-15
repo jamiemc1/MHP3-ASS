@@ -1,13 +1,14 @@
-"""The comparison functions (Form1.h:20-80) and which way each key sorts."""
+"""Each key's stat and direction (the comparison functions, Form1.h:20-80), as the
+results view sorts by them; the view's tie order is in test_results_view."""
 
 from __future__ import annotations
 
-import functools
 import random
 
 import pytest
 
 from mhp3ass.results.sorting import SortKey, solution_comparison, sorts_ascending
+from mhp3ass.results.view import sorted_positions
 from mhp3ass.solution.state import Solution
 
 
@@ -16,10 +17,9 @@ def solution(**stats):
 
 
 def sorted_by(solutions, key):
-    comparison = solution_comparison(key)
-    if comparison is None:
-        raise ValueError(f"{key.name} has no comparison")
-    ordered = sorted(solutions, key=functools.cmp_to_key(comparison))
+    """``solutions`` in the order the results view shows them by ``key``."""
+    positions = sorted_positions(solutions, range(len(solutions)), key)
+    ordered = [solutions[position] for position in positions]
     return ordered
 
 
