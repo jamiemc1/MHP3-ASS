@@ -86,6 +86,10 @@ class SkillPicker(Vertical):
         """Up in the search box at the top of the offered skills: the field
         above should take the focus."""
 
+    class HeightChanged(Message):
+        """The picker takes more or fewer rows: the offered skills opened or
+        closed, or the chips moved between rows."""
+
     class RowsChanged(Message):
         """New rows for ``hunter_type``'s tab (the tab shown when they changed)."""
 
@@ -115,6 +119,8 @@ class SkillPicker(Vertical):
         self._tag_width = select_width(tag.name for tag in game.skill_tags)
         # Whether the chips are on the search box's row, once there is a width to decide by.
         self._chips_shared: bool | None = None
+        # Its height as last laid out, to post HeightChanged when it changes.
+        self._height = 0
         self._offered: list[Skill] = []
         self._browsed = False
         # Esc hides the offered skills until the list is rebuilt, ▲▼ browses it or ⏎ asks for it.
@@ -149,6 +155,9 @@ class SkillPicker(Vertical):
         self._refresh()
 
     def on_resize(self, event: events.Resize) -> None:
+        if event.size.height != self._height:
+            self._height = event.size.height
+            self.post_message(self.HeightChanged())
         widths = [chip_width(skill.name) for skill in query_skills(self.rows)]
         if self._shares_row(widths, room=event.size.width) != self._chips_shared:
             self._place_chips()
