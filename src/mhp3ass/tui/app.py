@@ -201,6 +201,13 @@ class SearchApp(App[bool]):
     Screen.-editor-over ResultsPane {
         display: none;
     }
+    /* Before the first search the editor has the screen: the sets keep their hint. */
+    Screen.-no-results ResultsPane {
+        height: 5;
+    }
+    Screen.-no-results ResultsPane Inspector {
+        display: none;
+    }
     /* A small screen keeps the one-line charm drop-down, unless it is too narrow for it. */
     Screen.-small ResultsPane #charm_filter {
         display: none;
@@ -331,6 +338,8 @@ class SearchApp(App[bool]):
                 charm_templates=None,
             )
             self._collapse_editor()
+        else:
+            self._fit_layout(self.size)
         if self._startup.notice is not None:
             self.notify(self._startup.notice, timeout=15)
         if self._theme_unavailable is not None:
@@ -379,12 +388,14 @@ class SearchApp(App[bool]):
             # Its text keeps the height it had at its old width until laid out again.
             self.call_after_refresh(pane.query_one(Inspector).relayout)
         main.set_class(over_results, "-editor-over")
+        main.set_class(not has_results, "-no-results")
         main.set_class(layout.small, "-small")
         main.set_class(not layout.charms_shown, "-no-charms")
         main.query_one("#query_line", Horizontal).display = layout.shows_query_line(
             editor_open=self.editor.display, has_results=has_results
         )
-        self.editor.fit_height(size.height, over_results=over_results)
+        spread = layout.editor_spreads(editor_open=self.editor.display, has_results=has_results)
+        self.editor.fit_height(size.height, spread=spread)
         pane.name_in_full(layout.full_names)
         # The inspector has a place of its own again.
         if layout.inspector is not InspectorPlace.OVER and pane.inspecting:
@@ -741,7 +752,7 @@ class SearchApp(App[bool]):
         pool.close()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        if event.button.id == "search":
+        if event.button.id in ("search", "search_last"):
             event.stop()
             self.action_search()
 
