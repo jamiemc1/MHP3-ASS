@@ -1,10 +1,12 @@
 """The six skill rows a search is built from, per hunter type.
 
 Ported from ``Form1``'s skill drop-downs (``legacy/Form1.h``): ``InitSkills``
-and ``ResetSkill`` (``:210-247``), the filter and skill handlers
-``cmbSkillFilter_SelectedIndexChanged`` and ``cmbSkill_SelectedIndexChanged``
-(``:1478-1556``), ``SearchIndexMap`` (``:548-556``) and the skill-row part of
-``LoadConfig`` (``:414-426``).
+and ``ResetSkill`` (``:210-247``), the rule by which the filter and skill
+handlers ``cmbSkillFilter_SelectedIndexChanged`` and
+``cmbSkill_SelectedIndexChanged`` (``:1478-1556``) rebuild each row's list,
+``SearchIndexMap`` (``:548-556``) and the skill-row part of ``LoadConfig``
+(``:414-426``). The TUI picks skills with ``skill_chips`` rather than the
+handlers themselves.
 
 Each row has a filter (an index into ``game.skill_tags``: 0 All, 1 Misc, then
 the tags) and at most one skill. A row offers the skills its filter allows,
@@ -99,42 +101,6 @@ def row_choices(game: GameData, rows: Sequence[SkillRow], row: int) -> list[Skil
     ]
     choices = skill_choices(game, filter_index=rows[row].filter_index, disallowed=chosen_elsewhere)
     return choices
-
-
-def select_filter(
-    game: GameData, rows: Sequence[SkillRow], row: int, filter_index: int
-) -> tuple[SkillRow, ...]:
-    """``cmbSkillFilter_SelectedIndexChanged``: change a row's filter.
-
-    The row keeps its skill only if the new filter offers it.
-    ``filter_index`` must be one of the filter drop-down's items, or -1:
-    setting anything else throws ``ArgumentOutOfRangeException`` in the
-    original, which this raises as ``ValueError``.
-    """
-    _check_row(rows, row)
-    _check_filter(game, filter_index)
-    cleared = _replaced(rows, row, SkillRow(filter_index=filter_index, skill=None))
-    kept = rows[row].skill
-    still_offered = kept is not None and kept in row_choices(game, cleared, row)
-    filtered = _replaced(
-        rows, row, SkillRow(filter_index=filter_index, skill=kept if still_offered else None)
-    )
-    return filtered
-
-
-def select_skill(
-    game: GameData, rows: Sequence[SkillRow], row: int, skill: Skill | None
-) -> tuple[SkillRow, ...]:
-    """``cmbSkill_SelectedIndexChanged``: choose one of the row's offered skills.
-
-    ``None``, the "(none)" item, clears the row. A skill the row doesn't offer
-    can't be chosen in the drop-down, so it raises ``ValueError``.
-    """
-    _check_row(rows, row)
-    if skill is not None and skill not in row_choices(game, rows, row):
-        raise ValueError(f"row {row} doesn't offer {skill.name}")
-    selected = _replaced(rows, row, SkillRow(filter_index=rows[row].filter_index, skill=skill))
-    return selected
 
 
 def restore_skill_rows(
