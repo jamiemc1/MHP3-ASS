@@ -103,9 +103,6 @@ class ResultsPane(Horizontal):
         width: 24;
         height: 1fr;
     }
-    ResultsPane #results {
-        height: 1fr;
-    }
     ResultsPane #find_box {
         display: none;
     }
