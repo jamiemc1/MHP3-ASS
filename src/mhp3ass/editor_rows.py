@@ -1,5 +1,6 @@
-"""How the query editor packs its fields: each drop-down's width, and
-whether the chosen skills share a row with the skill box.
+"""How the query editor packs its fields: each drop-down's width,
+whether the chosen skills share a row with the skill box, and the gaps
+between its groups when it has the screen to itself.
 
 Not a port: the TUI's own layout over ``Form1``'s controls. A compact
 drop-down shows its text, a space and its arrow, with a cell of padding on
@@ -9,6 +10,7 @@ the right; its list adds a border and padding either side of each option.
 from __future__ import annotations
 
 from collections.abc import Iterable
+from dataclasses import dataclass
 
 from rich.cells import cell_len
 
@@ -36,6 +38,32 @@ def chips_share_row(label: int, chips: Iterable[int], fields: int, room: int) ->
     (``fields`` cells), on a row ``room`` cells wide."""
     shared = label + chips_cells(chips) + fields <= room
     return shared
+
+
+@dataclass(frozen=True)
+class GroupSpacing:
+    """The blank rows of an editor spread over the height: ``above`` the
+    first group, and ``between`` each group and the next, in order."""
+
+    above: int
+    between: tuple[int, ...]
+
+
+def group_spacing(room: int, content: int, gaps: int, most: int = 2) -> GroupSpacing:
+    """Spread groups ``content`` rows high over ``room`` rows. The
+    ``gaps`` between them grow evenly with the rows to spare, each up to
+    ``most``, the first ones a row ahead when the rows don't share out
+    evenly; the block is centred in what the gaps leave. With no rows to
+    spare there are no gaps, and the editor scrolls."""
+    if gaps < 1:
+        raise ValueError(f"groups need at least one gap between them, not {gaps}")
+    spare = max(0, room - content)
+    each = min(most, spare // gaps)
+    ahead = spare - each * gaps if each < most else 0
+    between = tuple(each + 1 if index < ahead else each for index in range(gaps))
+    above = (spare - sum(between)) // 2
+    spacing = GroupSpacing(above=above, between=between)
+    return spacing
 
 
 def chip_label(name: str) -> str:
