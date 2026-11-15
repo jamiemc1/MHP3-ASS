@@ -46,7 +46,6 @@ class Inspector(VerticalScroll, can_focus=False):
 
     DEFAULT_CSS = """
     Inspector {
-        width: 45;
         height: 1fr;
         padding: 0 1;
     }
