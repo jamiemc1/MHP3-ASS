@@ -7,6 +7,7 @@ import pytest
 
 from mhp3ass.data import GameData
 from mhp3ass.settings_cfg import read_settings_cfg
+from mhp3ass.skill_chips import chip_rows
 from mhp3ass.skill_picker import (
     SkillRow,
     SkillRowsByHunter,
@@ -15,8 +16,6 @@ from mhp3ass.skill_picker import (
     restore_skill_rows,
     row_choices,
     saved_skill_index,
-    select_filter,
-    select_skill,
     skill_choices,
     starting_rows,
 )
@@ -24,13 +23,14 @@ from mhp3ass.skill_picker import (
 
 @pytest.fixture
 def choose_skills(teamhgg_game: GameData) -> Callable[..., tuple[SkillRow, ...]]:
-    """Builds rows from the start-up state, choosing skills by name row by row (``None`` skips)."""
+    """Six rows filtered by All, holding the named skills row by row (``None`` leaves it empty)."""
 
     def choose(*names: str | None) -> tuple[SkillRow, ...]:
-        rows = starting_rows()
-        for row, name in enumerate(names):
-            if name is not None:
-                rows = select_skill(teamhgg_game, rows, row, teamhgg_game.skill_map[name])
+        padded = [*names, *(None for _ in range(6 - len(names)))]
+        rows = tuple(
+            SkillRow(filter_index=0, skill=None if name is None else teamhgg_game.skill_map[name])
+            for name in padded
+        )
         return rows
 
     return choose
@@ -57,9 +57,7 @@ def attack_med_in_row_three(choose_skills) -> SkillRowsByHunter:
 def sharp_sword_in_another_game(other_teamhgg_game) -> SkillRowsByHunter:
     """Blademaster row 0 holds Sharp Sword from a separately loaded copy of the game."""
     rows = SkillRowsByHunter(
-        blademaster=select_skill(
-            other_teamhgg_game, starting_rows(), 0, other_teamhgg_game.skill_map["Sharp Sword"]
-        ),
+        blademaster=chip_rows([other_teamhgg_game.skill_map["Sharp Sword"]]),
         gunner=starting_rows(),
     )
     return rows
@@ -152,55 +150,6 @@ def test_a_row_still_offers_other_levels_of_its_own_ability(teamhgg_game, choose
 def test_a_row_outside_the_six_raises(teamhgg_game, choose_skills):
     with pytest.raises(ValueError, match="row -1"):
         row_choices(teamhgg_game, choose_skills(), -1)
-
-
-def test_choosing_a_skill_another_row_rules_out_raises(teamhgg_game, choose_skills):
-    rows = choose_skills("Attack Up [Med]")
-
-    with pytest.raises(ValueError, match="Attack Up \\[Lg\\]"):
-        select_skill(teamhgg_game, rows, 1, teamhgg_game.skill_map["Attack Up [Lg]"])
-
-
-def test_choosing_none_clears_the_row(teamhgg_game, choose_skills):
-    rows = choose_skills("Attack Up [Med]", "Sharp Sword")
-
-    cleared = select_skill(teamhgg_game, rows, 0, None)
-
-    assert names(query_skills(cleared)) == ["Sharp Sword"]
-
-
-def test_clearing_a_row_outside_the_six_raises(teamhgg_game, choose_skills):
-    with pytest.raises(ValueError, match="row 6"):
-        select_skill(teamhgg_game, choose_skills(), 6, None)
-
-
-def test_a_filter_that_offers_the_skill_keeps_it(teamhgg_game, choose_skills):
-    rows = choose_skills("Attack Up [Med]")
-
-    filtered = select_filter(teamhgg_game, rows, 0, filter_index=2)
-
-    assert filtered[0] == SkillRow(filter_index=2, skill=teamhgg_game.skill_map["Attack Up [Med]"])
-
-
-def test_a_filter_that_doesnt_offer_the_skill_clears_it(teamhgg_game, choose_skills):
-    rows = choose_skills("Attack Up [Med]")
-
-    filtered = select_filter(teamhgg_game, rows, 0, filter_index=1)
-
-    assert filtered[0] == SkillRow(filter_index=1, skill=None)
-
-
-def test_changing_a_filter_leaves_other_rows_alone(teamhgg_game, choose_skills):
-    rows = choose_skills("Attack Up [Med]", "Sharp Sword")
-
-    filtered = select_filter(teamhgg_game, rows, 0, filter_index=1)
-
-    assert filtered[1:] == rows[1:]
-
-
-def test_setting_a_filter_past_the_last_tag_raises(teamhgg_game, choose_skills):
-    with pytest.raises(ValueError, match="filter -2"):
-        select_filter(teamhgg_game, choose_skills(), 0, filter_index=-2)
 
 
 def test_the_query_takes_skills_in_row_order(choose_skills):
