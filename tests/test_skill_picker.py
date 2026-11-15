@@ -23,14 +23,25 @@ from mhp3ass.skill_picker import (
 
 @pytest.fixture
 def choose_skills(teamhgg_game: GameData) -> Callable[..., tuple[SkillRow, ...]]:
-    """Six rows filtered by All, holding the named skills row by row (``None`` leaves it empty)."""
+    """Six rows filtered by All, holding the named skills row by row (``None`` leaves it empty).
+
+    Raises when a name is one its row wouldn't offer, so the rows stay ones the picker allows.
+    """
 
     def choose(*names: str | None) -> tuple[SkillRow, ...]:
-        padded = [*names, *(None for _ in range(6 - len(names)))]
-        rows = tuple(
-            SkillRow(filter_index=0, skill=None if name is None else teamhgg_game.skill_map[name])
-            for name in padded
-        )
+        if len(names) > 6:
+            raise ValueError(f"{len(names)} names don't fit in six skill rows")
+        rows = starting_rows()
+        for row, name in enumerate(names):
+            if name is None:
+                continue
+            skill = teamhgg_game.skill_map[name]
+            if skill not in row_choices(teamhgg_game, rows, row):
+                raise ValueError(f"row {row} doesn't offer {name}")
+            rows = tuple(
+                SkillRow(filter_index=0, skill=skill) if index == row else old
+                for index, old in enumerate(rows)
+            )
         return rows
 
     return choose
@@ -119,6 +130,11 @@ def test_a_filter_past_the_last_tag_raises(teamhgg_game):
         skill_choices(teamhgg_game, filter_index=8, disallowed=[])
 
 
+def test_a_filter_before_no_filter_raises(teamhgg_game):
+    with pytest.raises(ValueError, match="filter -2"):
+        skill_choices(teamhgg_game, filter_index=-2, disallowed=[])
+
+
 def test_disallowed_abilities_are_left_out(teamhgg_game):
     attack = teamhgg_game.ability_map["Attack"]
 
@@ -147,9 +163,14 @@ def test_a_row_still_offers_other_levels_of_its_own_ability(teamhgg_game, choose
     ]
 
 
-def test_a_row_outside_the_six_raises(teamhgg_game, choose_skills):
+def test_a_row_before_the_first_raises(teamhgg_game, choose_skills):
     with pytest.raises(ValueError, match="row -1"):
         row_choices(teamhgg_game, choose_skills(), -1)
+
+
+def test_a_row_after_the_sixth_raises(teamhgg_game, choose_skills):
+    with pytest.raises(ValueError, match="row 6"):
+        row_choices(teamhgg_game, choose_skills(), 6)
 
 
 def test_the_query_takes_skills_in_row_order(choose_skills):
