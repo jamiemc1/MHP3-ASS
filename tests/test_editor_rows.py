@@ -1,6 +1,16 @@
 from __future__ import annotations
 
-from mhp3ass.editor_rows import chip_label, chip_width, chips_cells, chips_share_row, select_width
+import pytest
+
+from mhp3ass.editor_rows import (
+    GroupSpacing,
+    chip_label,
+    chip_width,
+    chips_cells,
+    chips_share_row,
+    group_spacing,
+    select_width,
+)
 
 
 def test_a_drop_down_is_its_longest_label_and_four_cells():
@@ -57,3 +67,50 @@ def test_the_chips_take_their_widths_and_a_cell_after_each():
 
 def test_no_chips_take_no_cells():
     assert chips_cells([]) == 0
+
+
+def test_groups_with_no_rows_to_spare_have_no_gaps():
+    spacing = group_spacing(room=10, content=10, gaps=3)
+
+    assert spacing == GroupSpacing(above=0, between=(0, 0, 0))
+
+
+def test_groups_taller_than_the_room_have_no_gaps():
+    spacing = group_spacing(room=7, content=12, gaps=3)
+
+    assert spacing == GroupSpacing(above=0, between=(0, 0, 0))
+
+
+def test_rows_that_dont_share_out_evenly_go_to_the_first_gaps():
+    spacing = group_spacing(room=15, content=10, gaps=3)
+
+    assert spacing == GroupSpacing(above=0, between=(2, 2, 1))
+
+
+def test_a_single_spare_row_opens_the_first_gap():
+    spacing = group_spacing(room=11, content=10, gaps=3)
+
+    assert spacing == GroupSpacing(above=0, between=(1, 0, 0))
+
+
+def test_the_gaps_stop_growing_at_their_most_and_the_block_is_centred():
+    spacing = group_spacing(room=30, content=10, gaps=3, most=2)
+
+    assert spacing == GroupSpacing(above=7, between=(2, 2, 2))
+
+
+def test_the_gaps_reach_their_most_exactly_with_nothing_left_to_centre():
+    spacing = group_spacing(room=16, content=10, gaps=3, most=2)
+
+    assert spacing == GroupSpacing(above=0, between=(2, 2, 2))
+
+
+def test_an_odd_row_left_over_goes_below_the_block():
+    spacing = group_spacing(room=17, content=10, gaps=3, most=2)
+
+    assert spacing.above == 0
+
+
+def test_groups_need_a_gap_between_them():
+    with pytest.raises(ValueError, match="at least one gap"):
+        group_spacing(room=10, content=5, gaps=0)
