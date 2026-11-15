@@ -51,7 +51,8 @@ def _cell(text: str) -> str:
 
 
 def _table(lines: Sequence[InspectorLine]) -> str:
-    rows = ["| | |", "|---|---|"]
+    # Markdown tables need a header row; empty cells would render as a blank row.
+    rows = ["| Slot | Item |", "|---|---|"]
     rows.extend(f"| {_cell(line.label)} | {_cell(line.text)} |" for line in lines)
     table = "\n".join(rows)
     return table
