@@ -139,10 +139,6 @@ class ResultsTable(ScrollView, can_focus=True):
     def row_count(self) -> int:
         return len(self._rows)
 
-    def row_at(self, index: int) -> tuple[str, ...]:
-        cells = row_cells(index + 1, self._rows[index])
-        return cells
-
     def set_rows(self, rows: Sequence[TableRow]) -> None:
         """Show ``rows``, with the cursor on the first and the columns scrolled to the start."""
         self._take_rows(rows)
