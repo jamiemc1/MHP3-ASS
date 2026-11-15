@@ -21,6 +21,10 @@ The heights:
 - ``-tall`` (46 and over): as normal, and a narrow screen is laid out as
   a portrait, the inspector below the table following the cursor.
 
+Before the first results, and wherever it takes the results' place, the
+editor spreads its fields over the height in groups; above the results it
+stays compact.
+
 At 60 columns or 16 rows and below, the screen is small: the table only, with a
 note in place of the footer, and the charm drop-down while it is over 60
 columns wide.
@@ -127,6 +131,16 @@ class Layout:
         (``has_results``): on a short screen."""
         covers = self.height is HeightClass.SHORT and editor_open and has_results
         return covers
+
+    def editor_spreads(self, editor_open: bool, has_results: bool) -> bool:
+        """The open editor (``editor_open``) has the screen to itself, so it
+        lays its fields out in groups spread over the height: before there
+        are results (``has_results``), or while it covers them. Above the
+        results it stays compact."""
+        spreads = editor_open and (
+            not has_results or self.editor_covers_results(editor_open, has_results=has_results)
+        )
+        return spreads
 
     def shows_query_line(self, editor_open: bool, has_results: bool) -> bool:
         """The collapsed editor's one-line summary shows: once there are
