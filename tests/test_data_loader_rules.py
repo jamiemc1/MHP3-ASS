@@ -146,7 +146,7 @@ def test_armor_name_in_two_slots_fails(minimal_data_files, write_files):
         load_game_data(write_files(minimal_data_files))
 
 
-def test_skill_types_skip_the_rows_load_skills_skips(minimal_data_files, write_files):
+def test_skill_types_skip_the_rows_the_skill_loader_skips(minimal_data_files, write_files):
     minimal_data_files["skills.txt"] = (
         "#name,jname,ability,jability,points,type,tag,order\n"
         "Attack Up,j,Attack,j,10,1,Offensive,0\n"
