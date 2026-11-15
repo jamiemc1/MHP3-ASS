@@ -284,7 +284,7 @@ def test_the_1b_capture_loads_the_guis_count(restore, capture_settings):
     results = restore(capture_settings("1b")).results
 
     assert results is not None
-    assert len(results.view.all_solutions) + results.charm_free_only_under_none == 34_153
+    assert len(results.view.all_solutions) + len(results.view.no_charm_solutions) == 34_153
 
 
 def test_results_belong_to_the_last_searchs_hunter_type(restore, capture_settings, capture_names):
