@@ -322,8 +322,10 @@ class OptionsScreen(ModalScreen[None]):
         event.stop()
         text = event.value.strip()
         if event.input.id == "export_folder":
-            # Empty goes back to the folder mhp3-ass starts in.
-            folder = Path(text).expanduser().resolve() if text != "" else None
+            # Empty goes back to the folder mhp3-ass started in; a relative folder is under it.
+            folder = (
+                (self._start_folder / Path(text).expanduser()).resolve() if text != "" else None
+            )
             self.post_message(self.ExportFolderChosen(folder))
         elif text != "":
             # Resolved here, as tui.toml would read a relative folder as under its own.

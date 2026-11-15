@@ -44,12 +44,13 @@ def export_file(export_dir: Path | None, launch_dir: Path) -> Path:
 
 def export_entry(text: str, file_tail: bytes) -> str:
     """What appending ``text`` (a set's Markdown) writes after a file
-    ending in ``file_tail`` (its last two bytes; empty for a new or empty
-    file): a title for a new file, a blank line after what is there, then
-    the rule and ``text``."""
+    ending in ``file_tail`` (its last four bytes; empty for a new or empty
+    file): a title for a new file, a blank line after what is there (its
+    lines may end in CRLF, as a Windows editor saves them), then the rule
+    and ``text``."""
     if file_tail == b"":
         lead = "# MHP3 Armor Set Search: sets\n\n"
-    elif file_tail.endswith(b"\n\n"):
+    elif file_tail.endswith((b"\n\n", b"\n\r\n")):
         lead = ""
     elif file_tail.endswith(b"\n"):
         lead = "\n"
@@ -60,20 +61,22 @@ def export_entry(text: str, file_tail: bytes) -> str:
 
 
 def _tail(path: Path) -> bytes:
-    """``path``'s last two bytes; empty when it doesn't exist."""
+    """``path``'s last four bytes; empty when it doesn't exist."""
     if not path.exists():
         return b""
     with path.open("rb") as file:
         size = file.seek(0, os.SEEK_END)
-        file.seek(max(size - 2, 0))
+        file.seek(max(size - 4, 0))
         tail = file.read()
     return tail
 
 
 def append_set(path: Path, text: str) -> None:
-    """Append ``text`` to ``path`` as ``export_entry`` lays it out, creating
-    the file if it is missing (but not its folder). A missing or unwritable
-    folder or file raises ``OSError`` before anything is written."""
+    """Append ``text`` to ``path`` as ``export_entry`` lays it out, in one
+    write, creating the file if it is missing (but not its folder). A
+    missing or unwritable folder or file raises ``OSError`` when it is
+    opened, before anything is written; a write that fails part-way (a full
+    disk) can leave part of the entry."""
     entry = export_entry(text, file_tail=_tail(path))
     with path.open("ab") as file:
         file.write(entry.encode("utf-8"))

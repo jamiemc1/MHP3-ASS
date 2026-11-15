@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import os
 import stat
+import sys
 from pathlib import Path
 
 import pytest
@@ -79,6 +81,8 @@ def test_a_tilde_in_the_export_folder_is_the_home_folder():
         (b"e\n", "\n---\n\n## Set\n"),
         (b"\n\n", "---\n\n## Set\n"),
         (b"xe", "\n\n---\n\n## Set\n"),
+        (b"e\r\n", "\n---\n\n## Set\n"),
+        (b"\r\n\r\n", "---\n\n## Set\n"),
     ],
 )
 def test_each_entry_starts_with_a_rule_a_blank_line_after_what_is_there(tail, entry):
@@ -126,6 +130,15 @@ def test_a_missing_folder_raises_and_is_not_made(tmp_path):
     assert not path.parent.exists()
 
 
+def test_a_file_saved_with_crlf_and_a_blank_line_gets_no_extra_one(tmp_path):
+    path = tmp_path / "mhp3-ass-sets.md"
+    path.write_bytes(b"my notes\r\n\r\n")
+
+    append_set(path, "## Set\n")
+
+    assert path.read_bytes() == b"my notes\r\n\r\n---\n\n## Set\n"
+
+
 @pytest.fixture
 def read_only_folder(tmp_path):
     folder = tmp_path / "locked"
@@ -135,6 +148,10 @@ def read_only_folder(tmp_path):
     folder.chmod(stat.S_IRWXU)
 
 
+@pytest.mark.skipif(
+    sys.platform == "win32" or os.geteuid() == 0,
+    reason="a folder's mode doesn't stop Windows or root from creating files in it",
+)
 def test_an_unwritable_folder_raises_and_gets_no_file(read_only_folder):
     path = read_only_folder / "mhp3-ass-sets.md"
 
