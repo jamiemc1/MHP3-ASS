@@ -162,6 +162,33 @@ def test_a_closed_editor_or_no_results_leaves_the_results_in_place(editor_open, 
     assert not layout.editor_covers_results(editor_open=editor_open, has_results=has_results)
 
 
+@pytest.mark.parametrize("height_class", list(HeightClass))
+def test_the_editor_spreads_before_there_are_results_at_every_height(height_class):
+    layout = _layout(WidthClass.WIDE, height_class=height_class)
+
+    assert layout.editor_spreads(editor_open=True, has_results=False)
+
+
+def test_the_editor_spreads_where_it_takes_the_results_place():
+    layout = _layout(WidthClass.NARROW, height_class=HeightClass.SHORT)
+
+    assert layout.editor_spreads(editor_open=True, has_results=True)
+
+
+@pytest.mark.parametrize("height_class", [HeightClass.NORMAL, HeightClass.TALL])
+def test_the_editor_above_the_results_stays_compact(height_class):
+    layout = _layout(WidthClass.WIDE, height_class=height_class)
+
+    assert not layout.editor_spreads(editor_open=True, has_results=True)
+
+
+@pytest.mark.parametrize("height_class", list(HeightClass))
+def test_a_collapsed_editor_does_not_spread(height_class):
+    layout = _layout(WidthClass.WIDE, height_class=height_class)
+
+    assert not layout.editor_spreads(editor_open=False, has_results=True)
+
+
 @pytest.mark.parametrize(
     ("editor_open", "has_results", "small", "shown"),
     [
