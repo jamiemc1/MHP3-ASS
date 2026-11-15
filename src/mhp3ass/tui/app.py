@@ -216,6 +216,12 @@ class SearchApp(App[bool]):
     Screen.-small #small_note {
         display: block;
     }
+    /* The command palette is a centred column sized for its longest entries, not the
+       full screen; narrower terminals give it their whole width. */
+    CommandPalette > Vertical {
+        width: 80;
+        max-width: 100%;
+    }
     /* The command palette's list stays inside a short terminal and scrolls in itself. */
     CommandPalette.-short > Vertical {
         margin-top: 0;
