@@ -23,7 +23,6 @@ from mhp3ass.results.details import (
     Placement,
     PlacementPending,
     SlotsSpare,
-    SortValue,
     UnbuildableJewels,
     UnknownPlacement,
     armor_details,
@@ -33,7 +32,6 @@ from mhp3ass.results.details import (
     extra_skills,
     slots_spare,
     solution_details,
-    sort_value,
 )
 from mhp3ass.results.difficulty import hard_materials
 from mhp3ass.results.placement import (
@@ -224,47 +222,6 @@ def test_slots_spare_shows_a_breakdown_only_when_the_total_isnt_one_group(
 
 
 @pytest.fixture
-def stat_solution() -> Solution:
-    """A solution with a different value in every sortable stat."""
-    solution = Solution(
-        armors=[],
-        charm=None,
-        dragon_res=1,
-        fire_res=2,
-        ice_res=3,
-        thunder_res=4,
-        water_res=5,
-        defence=6,
-        max_defence=7,
-        difficulty=8,
-        rarity=9,
-    )
-    return solution
-
-
-@pytest.mark.parametrize(
-    ("key", "value"),
-    [
-        (SortKey.NONE, None),
-        (SortKey.DRAGON_RES, 1),
-        (SortKey.FIRE_RES, 2),
-        (SortKey.ICE_RES, 3),
-        (SortKey.THUNDER_RES, 4),
-        (SortKey.WATER_RES, 5),
-        (SortKey.DEFENCE, 6),
-        (SortKey.MAX_DEFENCE, 7),
-        (SortKey.DIFFICULTY, 8),
-        (SortKey.RARITY, 9),
-        (SortKey.SLOTS_SPARE, None),
-    ],
-)
-def test_the_sort_value_is_the_sorted_stat(key, value, stat_solution):
-    shown = None if value is None else SortValue(key=key, value=value)
-
-    assert sort_value(stat_solution, key) == shown
-
-
-@pytest.fixture
 def decorated_solution(make_armor, attack, health) -> Solution:
     """Head and legs only, no charm, jewels A, B, A, and extra skills one of
     which the search asked for."""
@@ -307,11 +264,7 @@ def test_details_list_pieces_jewel_counts_and_the_unsearched_extra_skills(
         DecorationCount(decoration=jewel_b, count=1),
     )
     assert details.extra_skills == (decorated_solution.extra_skills[1],)
-    assert [details.charm, details.slots_spare, details.sort_value] == [
-        None,
-        None,
-        SortValue(key=SortKey.DEFENCE, value=0),
-    ]
+    assert [details.charm, details.slots_spare] == [None, None]
 
 
 @pytest.fixture

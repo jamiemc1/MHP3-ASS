@@ -270,7 +270,6 @@ def test_a_bar_or_backslash_in_a_name_stays_in_its_cell(
         decorations=(),
         chest_jewels=None,
         slots_spare=None,
-        sort_value=None,
         extra_skills=(),
     )
 
