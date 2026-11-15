@@ -68,21 +68,20 @@ _ARMOR_FILES = {
 def load_game_data(data_dir: Path) -> GameData:
     """``LoadedData::ImportTextFiles`` (LoadedData.cpp:26-42)."""
     game = GameData(armors={armor_type: [] for armor_type in ArmorType})
-    load_materials(game, data_dir / "components.txt")
-    load_skill_tags(game, data_dir / "tags.txt")
-    load_skills(game, data_dir / "skills.txt")
+    _load_materials(game, data_dir / "components.txt")
+    _load_skill_tags(game, data_dir / "tags.txt")
+    _load_skills(game, data_dir / "skills.txt")
     for armor_type, file_name in _ARMOR_FILES.items():
-        load_armors(game=game, path=data_dir / file_name, armor_type=armor_type)
-    load_decorations(game, data_dir / "decorations.txt")
+        _load_armors(game=game, path=data_dir / file_name, armor_type=armor_type)
+    _load_decorations(game, data_dir / "decorations.txt")
     return game
 
 
-def load_materials(game: GameData, path: Path) -> None:
+def _load_materials(game: GameData, path: Path) -> None:
     """``Material::LoadMaterials`` (Common.cpp:232-266).
 
     Blank lines are skipped; ``#`` lines are materials, not comments.
     """
-    game.materials.clear()
     for line in read_lines(path):
         if line == "":
             continue
@@ -96,14 +95,12 @@ def load_materials(game: GameData, path: Path) -> None:
                 material.event_only = False
                 material.difficulty = to_uint32(fields[1])
         game.materials.append(material)
-    game.material_map.clear()
     for material in game.materials:
         _add_unique(game.material_map, key=material.name, value=material)
 
 
-def load_skill_tags(game: GameData, path: Path) -> None:
+def _load_skill_tags(game: GameData, path: Path) -> None:
     """``SkillTag::Load`` (LoadedData.cpp:169-181): "All" and "Misc", then every non-blank line."""
-    game.skill_tags.clear()
     game.skill_tags.append(SkillTag("All"))
     game.skill_tags.append(SkillTag("Misc"))
     for line in read_lines(path):
@@ -119,14 +116,8 @@ def _find_tag(game: GameData, name: str) -> SkillTag | None:
     return None
 
 
-def load_skills(game: GameData, path: Path) -> None:
+def _load_skills(game: GameData, path: Path) -> None:
     """``Skill::Load`` (Skill.cpp:64-157). Stops at the first blank line."""
-    game.abilities.clear()
-    game.ability_map.clear()
-    game.skills.clear()
-    game.skill_map.clear()
-    game.ordered_skills.clear()
-
     for line in read_lines(path):
         if line == "":
             break
@@ -181,7 +172,7 @@ def read_skill_types(path: Path) -> list[int]:
 
     ``Skill::Load`` never reads this column (it uses fields 0, 2, 4, 6 and 7),
     and the GUI has no hunter-type skill filter. Lines are skipped as
-    ``load_skills`` skips them, so the list lines up with ``GameData.skills``.
+    ``_load_skills`` skips them, so the list lines up with ``GameData.skills``.
     """
     types = []
     for line in read_lines(path):
@@ -234,10 +225,9 @@ def _hunter_type(code: str) -> HunterType:
     return HunterType.BOTH_TYPES
 
 
-def load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
+def _load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
     """``Armor::Load`` (Armor.cpp:18-103). Stops at the first blank line; skips repeated names."""
     armors = game.armors[armor_type]
-    armors.clear()
     for line in read_lines(path):
         if line == "":
             break
@@ -289,11 +279,8 @@ def load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
         _add_unique(game.armor_map, key=armor.name, value=armor)
 
 
-def load_decorations(game: GameData, path: Path) -> None:
+def _load_decorations(game: GameData, path: Path) -> None:
     """``Decoration::Load`` (Decoration.cpp:8-80). Blank and ``#`` lines are skipped."""
-    game.decoration_map.clear()
-    game.decorations_by_ability.clear()
-    game.decorations.clear()
     for line in read_lines(path):
         if line == "" or line[0] == "#":
             continue
