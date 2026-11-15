@@ -22,4 +22,7 @@ harness/*.user
 tests/savefile/*
 !tests/savefile/README.md
 
+# The TUI's set exports (`Y`): written to the folder it starts in by default
+mhp3-ass-sets.md
+
 .DS_Store
