@@ -49,20 +49,39 @@ class GroupSpacing:
     between: tuple[int, ...]
 
 
-def group_spacing(room: int, content: int, gaps: int, most: int = 2) -> GroupSpacing:
+def group_spacing(
+    room: int, content: int, gaps: int, most: int = 2, opened: int = 0
+) -> GroupSpacing:
     """Spread groups ``content`` rows high over ``room`` rows. The
     ``gaps`` between them grow evenly with the rows to spare, each up to
     ``most``, the first ones a row ahead when the rows don't share out
     evenly; the block is centred in what the gaps leave. With no rows to
-    spare there are no gaps, and the editor scrolls."""
+    spare there are no gaps, and the editor scrolls.
+
+    A list ``opened`` rows high before the last gap (the offered skills)
+    doesn't count in ``content``, so opening it moves nothing above it while
+    it fits: it takes the rows below the block first, then the last gap,
+    and only then the rows above the block and the other gaps, last first."""
     if gaps < 1:
         raise ValueError(f"groups need at least one gap between them, not {gaps}")
     spare = max(0, room - content)
     each = min(most, spare // gaps)
     ahead = spare - each * gaps if each < most else 0
-    between = tuple(each + 1 if index < ahead else each for index in range(gaps))
+    between = [each + 1 if index < ahead else each for index in range(gaps)]
     above = (spare - sum(between)) // 2
-    spacing = GroupSpacing(above=above, between=between)
+    below = spare - above - sum(between)
+    needed = max(0, opened - below)
+    taken = min(needed, between[-1])
+    between[-1] -= taken
+    needed -= taken
+    taken = min(needed, above)
+    above -= taken
+    needed -= taken
+    for index in reversed(range(gaps - 1)):
+        taken = min(needed, between[index])
+        between[index] -= taken
+        needed -= taken
+    spacing = GroupSpacing(above=above, between=tuple(between))
     return spacing
 
 

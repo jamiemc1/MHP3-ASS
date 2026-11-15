@@ -108,9 +108,40 @@ def test_the_gaps_reach_their_most_exactly_with_nothing_left_to_centre():
 def test_an_odd_row_left_over_goes_below_the_block():
     spacing = group_spacing(room=17, content=10, gaps=3, most=2)
 
-    assert spacing.above == 0
+    assert spacing == GroupSpacing(above=0, between=(2, 2, 2))
 
 
 def test_groups_need_a_gap_between_them():
     with pytest.raises(ValueError, match="at least one gap"):
         group_spacing(room=10, content=5, gaps=0)
+
+
+def test_a_list_that_fits_below_the_block_moves_nothing():
+    spacing = group_spacing(room=30, content=10, gaps=3, opened=6)
+
+    assert spacing == GroupSpacing(above=7, between=(2, 2, 2))
+
+
+def test_a_list_past_the_rows_below_takes_the_last_gap_next():
+    # Spare 14: gaps 2, 2, 2, then 4 above and 4 below.
+    spacing = group_spacing(room=24, content=10, gaps=3, opened=5)
+
+    assert spacing == GroupSpacing(above=4, between=(2, 2, 1))
+
+
+def test_a_list_past_the_last_gap_takes_the_rows_above_the_block():
+    spacing = group_spacing(room=24, content=10, gaps=3, opened=8)
+
+    assert spacing == GroupSpacing(above=2, between=(2, 2, 0))
+
+
+def test_a_list_past_the_rows_above_closes_the_other_gaps_last_first():
+    spacing = group_spacing(room=24, content=10, gaps=3, opened=13)
+
+    assert spacing == GroupSpacing(above=0, between=(1, 0, 0))
+
+
+def test_a_list_taller_than_every_spare_row_leaves_no_gaps():
+    spacing = group_spacing(room=24, content=10, gaps=3, opened=20)
+
+    assert spacing == GroupSpacing(above=0, between=(0, 0, 0))
