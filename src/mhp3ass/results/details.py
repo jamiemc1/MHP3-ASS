@@ -5,6 +5,11 @@ the armour and decoration ``UpdateContextMenu`` (``legacy/Common.cpp:77-122``).
 Armour notes and extra skills come from the results' own query (the search's,
 or the one loaded with them from ``settings.cfg``), not the latest relevance
 pass (quirk 47).
+
+The context-menu details (``ability_lines``, ``armor_details``,
+``decoration_details``) have no TUI caller. They are kept for what the
+inspector doesn't show: each piece's points, slots, defence range,
+resistances and materials, and each jewel's points and both recipes.
 """
 
 from __future__ import annotations
@@ -75,12 +80,6 @@ class SlotsSpare:
 
 
 @dataclass(frozen=True)
-class SortValue:
-    key: SortKey
-    value: int
-
-
-@dataclass(frozen=True)
 class UnknownPlacement:
     """A Torso Inc set whose jewels no placement fits (``jewel_placement``),
     or a loaded one the search's fill doesn't reproduce (``refilled``)."""
@@ -128,7 +127,6 @@ class SolutionDetails:
     decorations: tuple[DecorationCount, ...]
     chest_jewels: Placement
     slots_spare: SlotsSpare | None
-    sort_value: SortValue | None
     extra_skills: tuple[Skill, ...]
 
 
@@ -312,25 +310,6 @@ def slots_spare(solution: Solution, sort_key: SortKey) -> SlotsSpare | None:
     return shown
 
 
-def sort_value(solution: Solution, sort_key: SortKey) -> SortValue | None:
-    """The sorted stat (Form1.h:1633-1645); none for None and slots spare."""
-    stats = {
-        SortKey.DRAGON_RES: solution.dragon_res,
-        SortKey.FIRE_RES: solution.fire_res,
-        SortKey.ICE_RES: solution.ice_res,
-        SortKey.THUNDER_RES: solution.thunder_res,
-        SortKey.WATER_RES: solution.water_res,
-        SortKey.DEFENCE: solution.defence,
-        SortKey.MAX_DEFENCE: solution.max_defence,
-        SortKey.DIFFICULTY: solution.difficulty,
-        SortKey.RARITY: solution.rarity,
-    }
-    if sort_key not in stats:
-        return None
-    value = SortValue(key=sort_key, value=stats[sort_key])
-    return value
-
-
 def solution_details(
     solution: Solution,
     query: Query,
@@ -354,7 +333,6 @@ def solution_details(
             solution, query=query, refill_game=refill_game, charm_templates=charm_templates
         ),
         slots_spare=slots_spare(solution, sort_key),
-        sort_value=sort_value(solution, sort_key),
         extra_skills=extras,
     )
     return details

@@ -24,7 +24,6 @@ def _details(chest_jewels: Placement) -> SolutionDetails:
         decorations=(),
         chest_jewels=chest_jewels,
         slots_spare=None,
-        sort_value=None,
         extra_skills=(),
     )
     return details

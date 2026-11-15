@@ -123,7 +123,6 @@ def set_with_an_empty_arms_slot(teamhgg_game) -> InspectedSet:
         ),
         chest_jewels=None,
         slots_spare=SlotsSpare(total=2, groups=(1, 1)),
-        sort_value=None,
         extra_skills=(teamhgg_game.skill_map["Guard +1"],),
     )
     inspected = InspectedSet(solution=solution, details=details)
@@ -205,7 +204,6 @@ def test_a_set_without_armour_has_no_piece_lines(english_strings):
         decorations=(),
         chest_jewels=None,
         slots_spare=None,
-        sort_value=None,
         extra_skills=(),
     )
 
@@ -239,7 +237,6 @@ def _jewel_details(
         decorations=tuple(counts),
         chest_jewels=chest_jewels,
         slots_spare=None,
-        sort_value=None,
         extra_skills=(),
     )
     return details
@@ -391,7 +388,6 @@ def test_the_hard_materials_follow_the_difficulty(english_strings, hard_piece):
         decorations=(),
         chest_jewels=None,
         slots_spare=None,
-        sort_value=None,
         extra_skills=(),
     )
     expected = [
