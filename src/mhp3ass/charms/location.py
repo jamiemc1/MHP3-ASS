@@ -13,6 +13,8 @@ entries by the abilities they hold, so a lookup only visits entries that can
 match. The counts don't depend on visiting order, and the example is set
 only when exactly one entry matched, so the result is the same as the
 original's full scan.
+
+Neither the TUI nor the CLI calls this module; only its tests do.
 """
 
 from __future__ import annotations
