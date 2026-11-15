@@ -281,7 +281,6 @@ class SearchApp(App[bool]):
         self._reverse = files.folders.settings.reverse
         # The editor owns the form; read it as ``self.editor.form``.
         self.editor = QueryEditor(startup.search.form, game=data.game, strings=strings)
-        self.result: SearchResult | None = None
         self._search_number = 0
         self._cancel: Event | None = None
         self._worker: Worker[None] | None = None
@@ -1388,7 +1387,6 @@ class SearchApp(App[bool]):
         if number != self._search_number or self._cancel is None:
             return
         self._finish_search()
-        self.result = result
         self._searched_form = self._running_form
         self._last_search_gunner = result.query.hunter_type is HunterType.GUNNER
         note = None
