@@ -182,3 +182,15 @@ def read_fuzz_goldens(fuzz_dir: Path, golden_dir: Path) -> list[FuzzGolden]:
         )
         goldens.append(golden)
     return goldens
+
+
+def line_has_charm(line: str) -> bool:
+    """Whether a ``settings.cfg`` solution line ends in charm fields: they follow
+    the armour, the four spare-slot counts, and the counted decorations and
+    extra skills."""
+    fields = [int(field) for field in line.split()]
+    position = 9
+    position += 1 + fields[position]
+    position += 1 + fields[position]
+    has_charm = position < len(fields)
+    return has_charm

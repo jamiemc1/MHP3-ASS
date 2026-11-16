@@ -6,6 +6,7 @@ import dataclasses
 
 import pytest
 
+from goldens import line_has_charm
 from mhp3ass.model import ArmorType
 from mhp3ass.results.result_set import ResultSet, skill_indices, solution_line
 from mhp3ass.results.sorting import SortKey
@@ -292,16 +293,10 @@ def load(teamhgg_game, language_count):
 
 @pytest.fixture
 def charmed_capture_lines(capture_settings):
-    """A capture's lines with a charm: fields left after the extra skills."""
+    """A capture's lines with a charm."""
 
     def charmed(capture):
-        lines = []
-        for line in capture_settings[capture].solution_lines:
-            fields = line.split()
-            decorations = int(fields[9])
-            skills = int(fields[10 + decorations])
-            if 11 + decorations + skills < len(fields):
-                lines.append(line)
+        lines = [line for line in capture_settings[capture].solution_lines if line_has_charm(line)]
         return lines
 
     return charmed
