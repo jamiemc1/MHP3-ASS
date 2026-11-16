@@ -28,12 +28,8 @@ def _stale_traces(goldens: list[TraceGolden]) -> list[str]:
     return stale
 
 
-def test_trace_goldens_are_current(trace_goldens: list[TraceGolden]):
-    assert _stale_traces(trace_goldens) == []
-
-
-def test_personal_trace_goldens_are_current(personal_trace_goldens: list[TraceGolden]):
-    assert _stale_traces(personal_trace_goldens) == []
+def test_trace_goldens_are_current(every_trace_goldens: list[TraceGolden]):
+    assert _stale_traces(every_trace_goldens) == []
 
 
 def test_every_trace_golden_has_a_spec(repo_root: Path):
@@ -92,15 +88,9 @@ def _misplaced_samples(goldens: list[TraceGolden], repo_root: Path) -> list[str]
 
 
 def test_trace_samples_are_combinations_the_search_runs(
-    trace_goldens: list[TraceGolden], repo_root: Path
+    every_trace_goldens: list[TraceGolden], repo_root: Path
 ):
-    assert _misplaced_samples(trace_goldens, repo_root) == []
-
-
-def test_personal_trace_samples_are_combinations_the_search_runs(
-    personal_trace_goldens: list[TraceGolden], repo_root: Path
-):
-    assert _misplaced_samples(personal_trace_goldens, repo_root) == []
+    assert _misplaced_samples(every_trace_goldens, repo_root) == []
 
 
 def _census_problems(goldens: list[TraceGolden], repo_root: Path) -> list[str]:
@@ -129,14 +119,10 @@ def _census_problems(goldens: list[TraceGolden], repo_root: Path) -> list[str]:
     return problems
 
 
-def test_trace_census_covers_every_combination(trace_goldens: list[TraceGolden], repo_root: Path):
-    assert _census_problems(trace_goldens, repo_root) == []
-
-
-def test_personal_trace_census_covers_every_combination(
-    personal_trace_goldens: list[TraceGolden], repo_root: Path
+def test_trace_census_covers_every_combination(
+    every_trace_goldens: list[TraceGolden], repo_root: Path
 ):
-    assert _census_problems(personal_trace_goldens, repo_root) == []
+    assert _census_problems(every_trace_goldens, repo_root) == []
 
 
 def _search_disagreements(goldens: list[TraceGolden], repo_root: Path) -> list[str]:
@@ -164,14 +150,10 @@ def _search_disagreements(goldens: list[TraceGolden], repo_root: Path) -> list[s
     return disagreements
 
 
-def test_trace_accepts_match_search_goldens(trace_goldens: list[TraceGolden], repo_root: Path):
-    assert _search_disagreements(trace_goldens, repo_root) == []
-
-
-def test_personal_trace_accepts_match_search_goldens(
-    personal_trace_goldens: list[TraceGolden], repo_root: Path
+def test_trace_accepts_match_search_goldens(
+    every_trace_goldens: list[TraceGolden], repo_root: Path
 ):
-    assert _search_disagreements(personal_trace_goldens, repo_root) == []
+    assert _search_disagreements(every_trace_goldens, repo_root) == []
 
 
 def test_every_corpus_query_is_traced(trace_goldens: list[TraceGolden], repo_root: Path):
@@ -260,12 +242,8 @@ def _misordered_samples(goldens: list[TraceGolden]) -> list[str]:
     return misordered
 
 
-def test_trace_stages_follow_matches_query(trace_goldens: list[TraceGolden]):
-    assert _misordered_samples(trace_goldens) == []
-
-
-def test_personal_trace_stages_follow_matches_query(personal_trace_goldens: list[TraceGolden]):
-    assert _misordered_samples(personal_trace_goldens) == []
+def test_trace_stages_follow_matches_query(every_trace_goldens: list[TraceGolden]):
+    assert _misordered_samples(every_trace_goldens) == []
 
 
 def _incomplete_snapshots(goldens: list[TraceGolden]) -> list[str]:
@@ -307,20 +285,14 @@ def _incomplete_snapshots(goldens: list[TraceGolden]) -> list[str]:
     return incomplete
 
 
-def test_trace_initial_and_final_stages_are_complete(trace_goldens: list[TraceGolden]):
-    assert _incomplete_snapshots(trace_goldens) == []
-
-
-def test_personal_trace_initial_and_final_stages_are_complete(
-    personal_trace_goldens: list[TraceGolden],
-):
-    assert _incomplete_snapshots(personal_trace_goldens) == []
+def test_trace_initial_and_final_stages_are_complete(every_trace_goldens: list[TraceGolden]):
+    assert _incomplete_snapshots(every_trace_goldens) == []
 
 
 def test_trace_point_scores_match_the_probe(
-    trace_goldens: list[TraceGolden], solution_probes_golden: Any
+    every_trace_goldens: list[TraceGolden], solution_probes_golden: Any
 ):
     """point_score's neighbours are read again after each trace's searches: they mustn't move."""
-    ranks = {golden.name: golden.header["point_score_rank"] for golden in trace_goldens}
+    ranks = {golden.name: golden.header["point_score_rank"] for golden in every_trace_goldens}
 
     assert ranks == {name: solution_probes_golden["point_score_rank"] for name in ranks}
