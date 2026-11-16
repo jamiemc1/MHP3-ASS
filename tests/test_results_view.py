@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 import pytest
 
-from goldens import SearchGolden
+from goldens import SearchGolden, line_has_charm
 from mhp3ass.model import Ability, AbilityPair, Charm
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import ResultSet, skill_indices
@@ -60,17 +60,6 @@ def one_skill_search(corpus_searches) -> CorpusSearch:
     return corpus_searches["g13"]
 
 
-def _has_charm(line: str) -> bool:
-    """Whether a solution line ends in charm fields: they follow the armour,
-    the four spare-slot counts, and the counted decorations and extra skills."""
-    fields = [int(field) for field in line.split()]
-    position = 9
-    position += 1 + fields[position]
-    position += 1 + fields[position]
-    has_charm = position < len(fields)
-    return has_charm
-
-
 def test_a_search_shows_all_its_solutions_in_arrival_order(my_charms_search):
     view = ResultsView.from_search(my_charms_search.results)
 
@@ -90,7 +79,7 @@ def _charm_free_positions(view: ResultsView) -> list[int]:
 
 def test_the_charm_free_solutions_are_the_search_lines_without_a_charm(my_charms_search):
     lines = my_charms_search.lines
-    expected = [line for line in my_charms_search.golden.solution_lines if not _has_charm(line)]
+    expected = [line for line in my_charms_search.golden.solution_lines if not line_has_charm(line)]
     view = ResultsView.from_search(my_charms_search.results)
     charm_free = _charm_free_positions(view)
 
