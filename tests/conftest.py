@@ -34,6 +34,7 @@ from mhp3ass.results.short_names import ShortNames
 from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
 from mhp3ass.search import SearchData, run_search
+from mhp3ass.settings_cfg import SettingsCfg, read_settings_cfg
 from mhp3ass.solution.state import Solution, new_calculation_data
 from search_comparison import search_golden_query
 
@@ -617,3 +618,22 @@ def gui_captures_dir(savefile_dir: Path) -> Path:
 def save_game_layer(save_system_layer: bytes) -> bytes:
     """The save with both layers decrypted."""
     return decrypt_game_layer(save_system_layer)
+
+
+@pytest.fixture(scope="session")
+def gui_capture_names(gui_captures_dir: Path) -> list[str]:
+    """The GUI captures holding a ``settings.cfg``, in name order."""
+    names = sorted(path.parent.name for path in gui_captures_dir.glob("*/settings.cfg"))
+    return names
+
+
+@pytest.fixture(scope="session")
+def capture_settings(
+    gui_captures_dir: Path, gui_capture_names: list[str]
+) -> dict[str, SettingsCfg]:
+    """Each GUI capture's ``settings.cfg`` by name, read once (``SettingsCfg`` is frozen)."""
+    settings = {
+        name: read_settings_cfg(gui_captures_dir / name / "settings.cfg")
+        for name in gui_capture_names
+    }
+    return settings

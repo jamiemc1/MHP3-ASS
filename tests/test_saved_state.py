@@ -230,21 +230,6 @@ def test_a_header_out_of_range_raises_without_lines(
         restore(dataclasses.replace(two_tab_settings, **{field: value}))
 
 
-@pytest.fixture
-def capture_settings(gui_captures_dir):
-    def read(capture):
-        settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
-        return settings
-
-    return read
-
-
-@pytest.fixture
-def capture_names(gui_captures_dir):
-    names = sorted(path.parent.name for path in gui_captures_dir.glob("*/settings.cfg"))
-    return names
-
-
 def _header(settings: SettingsCfg) -> SettingsCfg:
     header = dataclasses.replace(settings, skill_selections=(), solution_lines=())
     return header
@@ -260,11 +245,11 @@ def _saved_skills(settings: SettingsCfg) -> list[list[int]]:
 
 
 def test_every_capture_is_saved_back_with_its_header_and_skills(
-    capture_settings, capture_names, scratch_game
+    capture_settings, gui_capture_names, scratch_game
 ):
     changed = []
-    for name in capture_names:
-        settings = capture_settings(name)
+    for name in gui_capture_names:
+        settings = capture_settings[name]
         saved = settings_for(
             form_from_settings(settings, scratch_game),
             game=scratch_game,
@@ -276,24 +261,26 @@ def test_every_capture_is_saved_back_with_its_header_and_skills(
         if [_header(saved), _saved_skills(saved)] != [_header(settings), _saved_skills(settings)]:
             changed.append(name)
 
-    assert [len(capture_names), changed] == [21, []]
+    assert [len(gui_capture_names), changed] == [21, []]
 
 
 def test_the_1b_capture_loads_the_guis_count(restore, capture_settings):
     """1b: Blademaster Attack Up [Med] + Sharp Sword with the imported charms (GUI: 34,153)."""
-    results = restore(capture_settings("1b")).results
+    results = restore(capture_settings["1b"]).results
 
     assert results is not None
     assert len(results.view.all_solutions) + len(results.view.no_charm_solutions) == 34_153
 
 
-def test_results_belong_to_the_last_searchs_hunter_type(restore, capture_settings, capture_names):
+def test_results_belong_to_the_last_searchs_hunter_type(
+    restore, capture_settings, gui_capture_names
+):
     """A capture searched as Gunner, loaded with the Blademaster tab shown:
     its results' form and query are still Gunner's."""
     gunner_capture = next(
-        name for name in capture_names if capture_settings(name).last_search_gunner
+        name for name in gui_capture_names if capture_settings[name].last_search_gunner
     )
-    settings = dataclasses.replace(capture_settings(gunner_capture), hunter_tab=0)
+    settings = dataclasses.replace(capture_settings[gunner_capture], hunter_tab=0)
 
     search = restore(settings)
 
@@ -429,7 +416,7 @@ def test_settings_that_cant_be_restored_start_from_the_defaults(
 
 def test_charm_free_sets_shown_only_under_none_get_a_notice(start, capture_settings):
     """Capture 20: Gunner Load Up + Accuracy+1, slotted charms, piercings and event armour off."""
-    started = start(capture_settings("20"))
+    started = start(capture_settings["20"])
 
     assert started.notice == (
         "1,223 charm-free sets from last time show only under None, as in the original."
@@ -438,7 +425,7 @@ def test_charm_free_sets_shown_only_under_none_get_a_notice(start, capture_setti
 
 def test_a_load_with_only_charmed_sets_has_no_notice(start, capture_settings):
     """Capture 12: 480 sets, every one with a charm."""
-    started = start(capture_settings("12"))
+    started = start(capture_settings["12"])
 
     assert started.search.results is not None
     assert [len(started.search.results.view.all_solutions), started.notice] == [480, None]
