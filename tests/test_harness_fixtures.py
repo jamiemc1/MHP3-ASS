@@ -87,26 +87,18 @@ def _stale_goldens(goldens: list[SearchGolden]) -> list[str]:
     return stale
 
 
-def test_search_goldens_are_current(search_goldens: list[SearchGolden]):
-    assert _stale_goldens(search_goldens) == []
+def test_search_goldens_are_current(every_search_goldens: list[SearchGolden]):
+    assert _stale_goldens(every_search_goldens) == []
 
 
-def test_personal_search_goldens_are_current(personal_search_goldens: list[SearchGolden]):
-    assert _stale_goldens(personal_search_goldens) == []
+def test_search_counts_match_gui(every_search_goldens: list[SearchGolden]):
+    assert _count_mismatches(every_search_goldens) == {}
 
 
-def test_search_counts_match_gui(search_goldens: list[SearchGolden]):
-    assert _count_mismatches(search_goldens) == {}
-
-
-def test_personal_search_counts_match_gui(personal_search_goldens: list[SearchGolden]):
-    assert _count_mismatches(personal_search_goldens) == {}
-
-
-def test_search_manifests_are_consistent(search_goldens: list[SearchGolden]):
+def test_search_manifests_are_consistent(every_search_goldens: list[SearchGolden]):
     inconsistent = [
         golden.query["id"]
-        for golden in search_goldens
+        for golden in every_search_goldens
         if not (
             golden.manifest["solution_count"]
             == len(golden.solution_lines)
@@ -144,14 +136,8 @@ def _hash_mismatches(goldens: list[SearchGolden]) -> list[str]:
     return mismatches
 
 
-def test_search_manifest_hashes_match_solution_files(search_goldens: list[SearchGolden]):
-    assert _hash_mismatches(search_goldens) == []
-
-
-def test_personal_search_manifest_hashes_match_solution_files(
-    personal_search_goldens: list[SearchGolden],
-):
-    assert _hash_mismatches(personal_search_goldens) == []
+def test_search_manifest_hashes_match_solution_files(every_search_goldens: list[SearchGolden]):
+    assert _hash_mismatches(every_search_goldens) == []
 
 
 def _armor_hash(solution_line: str) -> int:
@@ -220,14 +206,10 @@ def _gui_mismatches(goldens: list[SearchGolden], captures_dir: Path) -> list[str
     return mismatched
 
 
-def test_searches_match_gui_captures(search_goldens: list[SearchGolden], gui_captures_dir: Path):
-    assert _gui_mismatches(search_goldens, gui_captures_dir) == []
-
-
-def test_personal_searches_match_gui_captures(
-    personal_search_goldens: list[SearchGolden], gui_captures_dir: Path
+def test_searches_match_gui_captures(
+    every_search_goldens: list[SearchGolden], gui_captures_dir: Path
 ):
-    assert _gui_mismatches(personal_search_goldens, gui_captures_dir) == []
+    assert _gui_mismatches(every_search_goldens, gui_captures_dir) == []
 
 
 def _missing_candidates(goldens: list[SearchGolden]) -> list[str]:
@@ -250,24 +232,14 @@ def _candidates_disagreeing_with_solutions(goldens: list[SearchGolden]) -> list[
     return differing
 
 
-def test_order_dependent_queries_have_candidates(search_goldens: list[SearchGolden]):
-    assert _missing_candidates(search_goldens) == []
+def test_order_dependent_queries_have_candidates(every_search_goldens: list[SearchGolden]):
+    assert _missing_candidates(every_search_goldens) == []
 
 
-def test_personal_order_dependent_queries_have_candidates(
-    personal_search_goldens: list[SearchGolden],
+def test_duplicate_removal_over_candidates_reproduces_solutions(
+    every_search_goldens: list[SearchGolden],
 ):
-    assert _missing_candidates(personal_search_goldens) == []
-
-
-def test_duplicate_removal_over_candidates_reproduces_solutions(search_goldens: list[SearchGolden]):
-    assert _candidates_disagreeing_with_solutions(search_goldens) == []
-
-
-def test_personal_duplicate_removal_over_candidates_reproduces_solutions(
-    personal_search_goldens: list[SearchGolden],
-):
-    assert _candidates_disagreeing_with_solutions(personal_search_goldens) == []
+    assert _candidates_disagreeing_with_solutions(every_search_goldens) == []
 
 
 def _stale_relevance_goldens(goldens: list[RelevanceGolden]) -> list[str]:
@@ -280,12 +252,8 @@ def _stale_relevance_goldens(goldens: list[RelevanceGolden]) -> list[str]:
     return stale
 
 
-def test_relevance_goldens_are_current(relevance_goldens: list[RelevanceGolden]):
-    assert _stale_relevance_goldens(relevance_goldens) == []
-
-
-def test_personal_relevance_goldens_are_current(personal_relevance_goldens: list[RelevanceGolden]):
-    assert _stale_relevance_goldens(personal_relevance_goldens) == []
+def test_relevance_goldens_are_current(every_relevance_goldens: list[RelevanceGolden]):
+    assert _stale_relevance_goldens(every_relevance_goldens) == []
 
 
 def test_every_relevance_golden_has_a_query(repo_root: Path):
@@ -351,14 +319,10 @@ def _inconsistent_relevance(goldens: list[RelevanceGolden], game_data: Any) -> l
     return inconsistent
 
 
-def test_relevance_goldens_are_consistent(relevance_goldens: list[RelevanceGolden], game_data: Any):
-    assert _inconsistent_relevance(relevance_goldens, game_data) == []
-
-
-def test_personal_relevance_goldens_are_consistent(
-    personal_relevance_goldens: list[RelevanceGolden], game_data: Any
+def test_relevance_goldens_are_consistent(
+    every_relevance_goldens: list[RelevanceGolden], game_data: Any
 ):
-    assert _inconsistent_relevance(personal_relevance_goldens, game_data) == []
+    assert _inconsistent_relevance(every_relevance_goldens, game_data) == []
 
 
 def test_best_decoration_throws_exactly_for_abilities_without_decorations(

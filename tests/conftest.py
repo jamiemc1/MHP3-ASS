@@ -572,6 +572,32 @@ def personal_trace_goldens(savefile_dir: Path) -> list[TraceGolden]:
     return read_trace_goldens(spec_dir=spec_dir, golden_dir=golden_dir)
 
 
+@pytest.fixture(params=["search_goldens", "personal_search_goldens"], ids=["public", "personal"])
+def every_search_goldens(request) -> list[SearchGolden]:
+    """``search_goldens``, then ``personal_search_goldens``: only the personal
+    case skips when tests/savefile has no corpus."""
+    goldens = request.getfixturevalue(request.param)
+    return goldens
+
+
+@pytest.fixture(
+    params=["relevance_goldens", "personal_relevance_goldens"], ids=["public", "personal"]
+)
+def every_relevance_goldens(request) -> list[RelevanceGolden]:
+    """``relevance_goldens``, then ``personal_relevance_goldens``: only the
+    personal case skips when tests/savefile has no corpus or goldens."""
+    goldens = request.getfixturevalue(request.param)
+    return goldens
+
+
+@pytest.fixture(params=["trace_goldens", "personal_trace_goldens"], ids=["public", "personal"])
+def every_trace_goldens(request) -> list[TraceGolden]:
+    """``trace_goldens``, then ``personal_trace_goldens``: only the personal
+    case skips when tests/savefile has no trace specs or goldens."""
+    goldens = request.getfixturevalue(request.param)
+    return goldens
+
+
 @pytest.fixture(scope="session")
 def save_bytes(savefile_dir: Path) -> bytes:
     """Your MHP3rd save file, as the import dialog reads it."""
