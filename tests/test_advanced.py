@@ -56,14 +56,8 @@ def remembered_on_both_pages():
     return remembered
 
 
-def test_default_ticks_rebuild_the_quick_search_lists(relevance_goldens, load_teamhgg_game):
-    assert _default_selection_mismatches(relevance_goldens, load_teamhgg_game) == []
-
-
-def test_personal_default_ticks_rebuild_the_quick_search_lists(
-    personal_relevance_goldens, load_teamhgg_game
-):
-    assert _default_selection_mismatches(personal_relevance_goldens, load_teamhgg_game) == []
+def test_default_ticks_rebuild_the_quick_search_lists(every_relevance_goldens, load_teamhgg_game):
+    assert _default_selection_mismatches(every_relevance_goldens, load_teamhgg_game) == []
 
 
 def test_the_dialog_lists_pieces_the_quick_search_leaves_out(attack_sharp_query):

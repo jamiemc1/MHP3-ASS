@@ -204,22 +204,13 @@ def test_charm_ability_is_the_first_charm_ability_only(attack, defense):
     assert checks == (True, False, False, False)
 
 
-def test_decorated_stage_matches_every_trace(trace_goldens, scratch_game):
+def test_decorated_stage_matches_every_trace(every_trace_goldens, scratch_game):
     stages = [
         Stage(name="initial", run=get_initial_data),
         Stage(name="decorated", run=fill_as_matches_query),
     ]
 
-    assert stage_mismatches(trace_goldens, scratch_game, stages) == []
-
-
-def test_personal_decorated_stage_matches_every_trace(personal_trace_goldens, scratch_game):
-    stages = [
-        Stage(name="initial", run=get_initial_data),
-        Stage(name="decorated", run=fill_as_matches_query),
-    ]
-
-    assert stage_mismatches(personal_trace_goldens, scratch_game, stages) == []
+    assert stage_mismatches(every_trace_goldens, scratch_game, stages) == []
 
 
 @pytest.fixture

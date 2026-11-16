@@ -36,19 +36,11 @@ def _mismatched_charms(
 
 
 def test_charms_match_golden(
-    relevance_goldens: list[RelevanceGolden],
+    every_relevance_goldens: list[RelevanceGolden],
     scratch_game: GameData,
     scratch_charm_tables: CharmTables,
 ):
-    assert _mismatched_charms(relevance_goldens, scratch_game, scratch_charm_tables) == []
-
-
-def test_personal_charms_match_golden(
-    personal_relevance_goldens: list[RelevanceGolden],
-    scratch_game: GameData,
-    scratch_charm_tables: CharmTables,
-):
-    assert _mismatched_charms(personal_relevance_goldens, scratch_game, scratch_charm_tables) == []
+    assert _mismatched_charms(every_relevance_goldens, scratch_game, scratch_charm_tables) == []
 
 
 def test_two_skill_charms_are_the_tables_own_objects(
