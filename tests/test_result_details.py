@@ -51,7 +51,6 @@ from mhp3ass.results.sorting import SortKey
 from mhp3ass.saved_state import LoadedResults, restore_search
 from mhp3ass.savefile.import_charms import select_best
 from mhp3ass.search import SearchData, run_search
-from mhp3ass.settings_cfg import read_settings_cfg
 from mhp3ass.solution import matches_query
 from mhp3ass.solution.state import Solution
 from solution_builders import make_jewel
@@ -918,25 +917,25 @@ class LoadedCapture:
     results: LoadedResults
 
 
-def _load_capture(path, legacy_data_dir, language, shipped_languages) -> LoadedCapture:
+def _load_capture(settings, legacy_data_dir, language, shipped_languages) -> LoadedCapture:
     data = SearchData.load(legacy_data_dir, language=language)
     search = restore_search(
-        read_settings_cfg(path),
+        settings,
         game=data.game,
         language=language,
         language_count=len(shipped_languages),
     )
     if search.results is None:
-        raise ValueError(f"{path} holds no results")
+        raise ValueError("the capture holds no results")
     capture = LoadedCapture(data=data, results=search.results)
     return capture
 
 
 @pytest.fixture(scope="module")
-def loaded_capture_13(gui_captures_dir, legacy_data_dir, shipped_languages, one_skill_search):
+def loaded_capture_13(capture_settings, legacy_data_dir, shipped_languages, one_skill_search):
     """GUI capture 13: g13's query searched in the original, saved to settings.cfg."""
     capture = _load_capture(
-        gui_captures_dir / "13" / "settings.cfg",
+        capture_settings["13"],
         legacy_data_dir=legacy_data_dir,
         language=one_skill_search.spec.query.language,
         shipped_languages=shipped_languages,

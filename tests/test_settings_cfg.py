@@ -141,12 +141,6 @@ def test_rejects_a_blank_solution_line(settings_cfg_with_blank_solution_line):
         read_settings_cfg(settings_cfg_with_blank_solution_line)
 
 
-@pytest.fixture(scope="module")
-def gui_settings_paths(gui_captures_dir):
-    paths = sorted(gui_captures_dir.glob("*/settings.cfg"))
-    return paths
-
-
 @pytest.fixture
 def difficulty_jewel(teamhgg_game):
     jewel = next(decoration for decoration in teamhgg_game.decorations if decoration.difficulty > 0)
@@ -165,30 +159,30 @@ def charmed_line():
     return "0 0 0 0 0 0 0 0 0 0 1 12 2 2 4 7 -2 3 "
 
 
-def test_every_gui_capture_is_written_back_byte_for_byte(gui_settings_paths):
+def test_every_gui_capture_is_written_back_byte_for_byte(gui_captures_dir, capture_settings):
     rewritten = [
-        path.parent.name
-        for path in gui_settings_paths
-        if settings_cfg_text(read_settings_cfg(path)) != path.read_bytes()
+        name
+        for name, settings in capture_settings.items()
+        if settings_cfg_text(settings) != (gui_captures_dir / name / "settings.cfg").read_bytes()
     ]
 
-    assert [len(gui_settings_paths), rewritten] == [21, []]
+    assert [len(capture_settings), rewritten] == [21, []]
 
 
-def test_gui_captures_are_in_english_teamhgg(gui_settings_paths, shipped_languages):
+def test_gui_captures_are_in_english_teamhgg(capture_settings, shipped_languages):
     languages = {
-        shipped_languages[read_settings_cfg(path).language_index] for path in gui_settings_paths
+        shipped_languages[settings.language_index] for settings in capture_settings.values()
     }
 
     assert languages == {"English (TeamHGG)"}
 
 
-def test_every_gui_capture_line_loads_and_saves_unchanged(gui_settings_paths, teamhgg_game):
+def test_every_gui_capture_line_loads_and_saves_unchanged(capture_settings, teamhgg_game):
     skill_index = skill_indices(teamhgg_game)
     changed = [
         line
-        for path in gui_settings_paths
-        for line in read_settings_cfg(path).solution_lines
+        for settings in capture_settings.values()
+        for line in settings.solution_lines
         if solution_line(parse_solution_line(line, teamhgg_game), skill_index) != line
     ]
 
@@ -297,21 +291,12 @@ def load(teamhgg_game, language_count):
 
 
 @pytest.fixture
-def capture_settings(gui_captures_dir):
-    def read(capture):
-        settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
-        return settings
-
-    return read
-
-
-@pytest.fixture
 def charmed_capture_lines(capture_settings):
     """A capture's lines with a charm: fields left after the extra skills."""
 
     def charmed(capture):
         lines = []
-        for line in capture_settings(capture).solution_lines:
+        for line in capture_settings[capture].solution_lines:
             fields = line.split()
             decorations = int(fields[9])
             skills = int(fields[10 + decorations])
@@ -346,7 +331,7 @@ def unselected_sort_settings(loadable_settings):
 @pytest.fixture
 def results_loaded_from_capture_12(load, capture_settings):
     results = ResultSet()
-    load(capture_settings("12"), results)
+    load(capture_settings["12"], results)
     return results
 
 
@@ -363,7 +348,7 @@ def results_loaded_from_loadable_settings(load, loadable_settings):
 def test_a_load_keeps_charm_free_lines_out_of_all_solutions(
     load, capture_settings, capture, charmed, charm_free
 ):
-    view = load(capture_settings(capture))
+    view = load(capture_settings[capture])
 
     assert [len(view.all_solutions), len(view.no_charm_solutions), len(view.final)] == [
         charmed,
@@ -376,7 +361,7 @@ def test_a_load_keeps_charm_free_lines_out_of_all_solutions(
 def test_the_save_after_a_load_keeps_only_the_charmed_lines(
     load, capture_settings, charmed_capture_lines, teamhgg_game, capture
 ):
-    settings = capture_settings(capture)
+    settings = capture_settings[capture]
 
     saved = with_solutions(settings, load(settings).all_solutions, teamhgg_game)
 
@@ -386,9 +371,9 @@ def test_the_save_after_a_load_keeps_only_the_charmed_lines(
 def test_loading_the_same_results_again_drops_every_charmed_solution(
     load, capture_settings, results_loaded_from_capture_12
 ):
-    reloaded = load(capture_settings("12"), results_loaded_from_capture_12)
+    reloaded = load(capture_settings["12"], results_loaded_from_capture_12)
 
-    assert [len(capture_settings("12").solution_lines), len(reloaded.all_solutions)] == [480, 0]
+    assert [len(capture_settings["12"].solution_lines), len(reloaded.all_solutions)] == [480, 0]
 
 
 def test_a_load_shows_all_sorted_by_the_saved_sort(load, difficulty_sorted_settings):

@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import hashlib
 from collections.abc import Iterable, Sequence
-from pathlib import Path
 from typing import Any
 
 import pytest
@@ -26,7 +25,7 @@ from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import ResultSet, SearchResult, lines_of, skill_indices
 from mhp3ass.results.view import ResultsView
 from mhp3ass.search import SearchData
-from mhp3ass.settings_cfg import SettingsCfg, load_results, read_settings_cfg
+from mhp3ass.settings_cfg import SettingsCfg, load_results
 from mhp3ass.skill_picker import SkillSelection
 from mhp3ass.solution.state import Solution
 
@@ -203,7 +202,7 @@ def _query_differences(
 
 def _capture_differences(
     goldens: list[ResultsGolden],
-    gui_captures_dir: Path,
+    capture_settings: dict[str, SettingsCfg],
     languages: list[str],
     search_data: dict[str, SearchData],
     language_count: int,
@@ -211,7 +210,7 @@ def _capture_differences(
     found = {}
     for golden in goldens:
         capture = golden.name.removeprefix("capture-")
-        settings = read_settings_cfg(gui_captures_dir / capture / "settings.cfg")
+        settings = capture_settings[capture]
         game = search_data[languages[settings.language_index]].game
         ours = [_load_step("load", settings, game, ResultSet(), language_count)]
         difference = _step_differences(ours, golden.steps)
@@ -313,7 +312,7 @@ def test_personal_results_save_and_load_as_the_harness_does(
 )
 def test_gui_captures_load_as_the_harness_does(
     capture_results_goldens,
-    gui_captures_dir,
+    capture_settings,
     shipped_languages,
     search_data_by_language,
     language_count,
@@ -323,7 +322,7 @@ def test_gui_captures_load_as_the_harness_does(
     goldens = selection(capture_results_goldens)
 
     found = _capture_differences(
-        goldens, gui_captures_dir, shipped_languages, search_data_by_language, language_count
+        goldens, capture_settings, shipped_languages, search_data_by_language, language_count
     )
 
     assert [len(goldens), found] == [count, {}]
