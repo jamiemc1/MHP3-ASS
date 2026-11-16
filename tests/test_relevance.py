@@ -35,15 +35,9 @@ def _mismatched_relevance(
 
 
 def test_relevant_data_matches_golden(
-    relevance_goldens: list[RelevanceGolden], load_teamhgg_game: Callable[[], GameData]
+    every_relevance_goldens: list[RelevanceGolden], load_teamhgg_game: Callable[[], GameData]
 ):
-    assert _mismatched_relevance(relevance_goldens, load_teamhgg_game) == []
-
-
-def test_personal_relevant_data_matches_golden(
-    personal_relevance_goldens: list[RelevanceGolden], load_teamhgg_game: Callable[[], GameData]
-):
-    assert _mismatched_relevance(personal_relevance_goldens, load_teamhgg_game) == []
+    assert _mismatched_relevance(every_relevance_goldens, load_teamhgg_game) == []
 
 
 def test_a_beaten_decoration_leaves_the_list_but_stays_inferior(attack: Ability):
