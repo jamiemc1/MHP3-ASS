@@ -2,17 +2,11 @@
 
 from __future__ import annotations
 
-import subprocess
-import sys
-
 from mhp3ass.charms.tables import SKILL_TABLES, SLOT_THRESHOLDS
 
 
-def test_committed_tables_match_the_legacy_source(repo_root):
-    script = repo_root / "scripts" / "extract_charm_tables.py"
-    result = subprocess.run(
-        [sys.executable, str(script), "--check"], capture_output=True, text=True, check=False
-    )
+def test_committed_tables_match_the_legacy_source(run_script_check):
+    result = run_script_check("extract_charm_tables.py")
 
     assert [result.returncode, result.stderr] == [0, ""]
 
