@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import subprocess
-import sys
-
 from mhp3ass.savefile.tables import (
     AES_KEY_0X12,
     AES_KEY_0X64,
@@ -15,11 +12,8 @@ from mhp3ass.savefile.tables import (
 )
 
 
-def test_committed_tables_match_the_legacy_source(repo_root):
-    script = repo_root / "scripts" / "extract_save_tables.py"
-    result = subprocess.run(
-        [sys.executable, str(script), "--check"], capture_output=True, text=True, check=False
-    )
+def test_committed_tables_match_the_legacy_source(run_script_check):
+    result = run_script_check("extract_save_tables.py")
 
     assert [result.returncode, result.stderr] == [0, ""]
 

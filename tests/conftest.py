@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import subprocess
+import sys
 from collections.abc import Callable, Generator
 from functools import lru_cache
 from pathlib import Path
@@ -663,3 +665,19 @@ def capture_settings(
         for name in gui_capture_names
     }
     return settings
+
+
+@pytest.fixture(scope="session")
+def run_script_check(repo_root: Path) -> Callable[[str], subprocess.CompletedProcess[str]]:
+    """Runs ``scripts/<name> --check`` with this interpreter, capturing its output."""
+
+    def run(name: str) -> subprocess.CompletedProcess[str]:
+        result = subprocess.run(
+            [sys.executable, str(repo_root / "scripts" / name), "--check"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        return result
+
+    return run

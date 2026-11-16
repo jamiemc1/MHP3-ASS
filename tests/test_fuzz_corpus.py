@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -93,13 +91,10 @@ def fuzz_facts(
 
 
 @pytest.mark.fuzz
-def test_corpus_matches_its_seed(repo_root):
+def test_corpus_matches_its_seed(run_script_check):
     """Regenerates all 500 queries (about 6 s); the default run still checks every
     manifest's query hash (``test_fuzz_goldens.py``)."""
-    script = repo_root / "scripts" / "generate_fuzz_corpus.py"
-    result = subprocess.run(
-        [sys.executable, str(script), "--check"], capture_output=True, text=True, check=False
-    )
+    result = run_script_check("generate_fuzz_corpus.py")
 
     assert [result.returncode, result.stderr] == [0, ""]
 
