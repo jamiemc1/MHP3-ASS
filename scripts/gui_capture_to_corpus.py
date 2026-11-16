@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import Any
 
 from mhp3ass.data.languages import language_folders
+from mhp3ass.query import CharmMode
 from mhp3ass.settings_cfg import read_settings_cfg
 
 
@@ -42,11 +43,10 @@ def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
     language = language_folders(languages_dir)[settings.language_index]
     # The tab the last search ran on, not the one showing when the file was saved.
     gunner = settings.last_search_gunner
-    # The Charms drop-down, in its item order (Form1.h:1293-1373).
-    charm_modes = ["none", "my_charms", "slotted", "one_skill", "two_skill"]
-    if not 0 <= settings.charm_select_index < len(charm_modes):
+    # CharmMode's values are the Charms drop-down's item order (Form1.h:1293-1373).
+    if not 0 <= settings.charm_select_index < len(CharmMode):
         raise ValueError(f"no Charms drop-down item {settings.charm_select_index}")
-    charm_mode = charm_modes[settings.charm_select_index]
+    charm_mode = CharmMode(settings.charm_select_index)
 
     selected = [
         selection.gunner_skill if gunner else selection.blademaster_skill
@@ -66,10 +66,14 @@ def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
     has_auto_guard = any(
         game_data["skills"][index]["ability"] in auto_guard_abilities for index in skills
     )
-    depends_on_my_charms = charm_mode == "my_charms" or (charm_mode != "none" and has_auto_guard)
+    depends_on_my_charms = charm_mode is CharmMode.MY_CHARMS or (
+        charm_mode is not CharmMode.NONE and has_auto_guard
+    )
     # One- and two-skill modes run many workers whose duplicates collide across threads (quirk 5);
     # Auto-Guard replaces them with a single worker.
-    order_dependent = charm_mode in ("one_skill", "two_skill") and not has_auto_guard
+    order_dependent = (
+        charm_mode in (CharmMode.ONE_SKILL, CharmMode.TWO_SKILL) and not has_auto_guard
+    )
 
     my_charms: list[str] = []
     if depends_on_my_charms:
@@ -87,7 +91,7 @@ def parse_capture(capture_dir: Path, repo_root: Path) -> CapturedSearch:
         "include_piercings": settings.allow_piercings,
         "allow_event": settings.allow_event,
         "allow_low_rank": settings.allow_low_rank,
-        "charm_mode": charm_mode,
+        "charm_mode": charm_mode.name.lower(),
         "skills": skills,
         "skill_names": [names["skills"][index] for index in skills],
         "my_charms": my_charms,
