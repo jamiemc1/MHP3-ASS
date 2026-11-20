@@ -49,7 +49,7 @@ def test_spare_slots_read_as_the_original_writes_them(english_strings, spare, te
 
 
 def test_a_piece_with_one_slot_and_no_skills_says_one_slot(teamhgg_game, english_strings):
-    one_slot = next(armor for armor in teamhgg_game.armor_map.values() if armor.num_slots == 1)
+    one_slot = next(armor for armor in teamhgg_game.armors[ArmorType.HEAD] if armor.num_slots == 1)
 
     note = note_text(
         ArmorLine(slot=ArmorType.HEAD, armor=one_slot, note=ArmorNote.ANY_WITH_SLOTS),
@@ -60,7 +60,7 @@ def test_a_piece_with_one_slot_and_no_skills_says_one_slot(teamhgg_game, english
 
 
 def test_a_piece_with_two_slots_and_no_skills_says_slots(teamhgg_game, english_strings):
-    two_slots = next(armor for armor in teamhgg_game.armor_map.values() if armor.num_slots == 2)
+    two_slots = next(armor for armor in teamhgg_game.armors[ArmorType.HEAD] if armor.num_slots == 2)
 
     note = note_text(
         ArmorLine(slot=ArmorType.HEAD, armor=two_slots, note=ArmorNote.ANY_WITH_SLOTS),
@@ -71,7 +71,7 @@ def test_a_piece_with_two_slots_and_no_skills_says_slots(teamhgg_game, english_s
 
 
 def test_a_torso_up_piece_says_torso_inc(teamhgg_game, english_strings):
-    piece = next(iter(teamhgg_game.armor_map.values()))
+    piece = teamhgg_game.armors[ArmorType.HEAD][0]
 
     note = note_text(
         ArmorLine(slot=ArmorType.HEAD, armor=piece, note=ArmorNote.ANY_TORSO_INC), english_strings
@@ -81,7 +81,7 @@ def test_a_torso_up_piece_says_torso_inc(teamhgg_game, english_strings):
 
 
 def test_a_piece_with_skills_has_no_note(teamhgg_game, english_strings):
-    piece = next(iter(teamhgg_game.armor_map.values()))
+    piece = teamhgg_game.armors[ArmorType.HEAD][0]
 
     assert (
         note_text(ArmorLine(slot=ArmorType.HEAD, armor=piece, note=None), english_strings) is None
@@ -148,7 +148,7 @@ def test_the_lines_list_pieces_charm_jewels_spare_extra_skills_and_stats(
     waist = teamhgg_game.armor_map["Barroth Tasset S"]
     attack_jewel, razor_jewel = teamhgg_game.decorations[0], teamhgg_game.decorations[1]
 
-    lines = inspector_lines(solution, details, english_strings)
+    lines = inspector_lines(solution, details=details, strings=english_strings)
 
     assert lines == [
         InspectorLine("Head", "Jinouga Helm"),
@@ -383,11 +383,10 @@ def test_an_unbuildable_set_whose_skills_only_reach_apart_says_so(jewel_counts):
 
 @pytest.fixture
 def hard_piece(teamhgg_game):
-    """The first piece whose recipe has a material with a difficulty."""
+    """The first head piece whose recipe has a material with a difficulty."""
     piece = next(
         armor
-        for armors in teamhgg_game.armors.values()
-        for armor in armors
+        for armor in teamhgg_game.armors[ArmorType.HEAD]
         if any(component.material.difficulty > 0 for component in armor.components)
     )
     return piece
@@ -409,7 +408,7 @@ def test_the_hard_materials_follow_the_difficulty(english_strings, hard_piece):
         if component.material.difficulty > 0
     ]
 
-    lines = inspector_lines(solution, details, english_strings)
+    lines = inspector_lines(solution, details=details, strings=english_strings)
 
     difficulty_line = lines.index(InspectorLine("Difficulty", "3"))
     assert lines[difficulty_line + 1 :] == expected
