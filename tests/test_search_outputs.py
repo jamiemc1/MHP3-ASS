@@ -131,3 +131,33 @@ def test_manifest_nesting_is_laid_out_as_the_harness_lays_it_out():
 def test_a_backspace_or_form_feed_in_a_manifest_string_raises(character, where):
     with pytest.raises(ValueError, match="backspace or form feed"):
         manifest_text(where(character))
+
+
+@pytest.mark.parametrize(
+    "manifest",
+    [{"id": 1.5}, {"lines": ("x\b",)}, {"map": {1: "one"}}, {"set": {"a"}}],
+    ids=["float", "tuple", "int-key", "set"],
+)
+def test_a_value_the_harness_has_no_form_for_raises(manifest):
+    with pytest.raises(TypeError, match="no JSON form"):
+        manifest_text(manifest)
+
+
+def test_a_manifest_that_cannot_be_written_leaves_the_files_as_they_were(tmp_path):
+    prefix = tmp_path / "query"
+    files = {
+        suffix: Path(f"{prefix}.{suffix}")
+        for suffix in ("solutions.txt.gz", "candidates.txt.gz", "manifest.json")
+    }
+    for path in files.values():
+        path.write_bytes(b"before")
+
+    with pytest.raises(ValueError, match="backspace or form feed"):
+        write_search_outputs(
+            prefix,
+            manifest={"solutions_file": True, "message": "a\bb"},
+            lines=["new"],
+            candidates=[],
+        )
+
+    assert [path.read_bytes() for path in files.values()] == [b"before"] * 3

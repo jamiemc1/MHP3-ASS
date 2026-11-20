@@ -444,31 +444,44 @@ def search_manifest(
     return manifest
 
 
-def _refuse_backspace_and_form_feed(value: Any) -> None:
-    """Raise on a ``\\b`` or ``\\f`` in any string of ``value``, keys included.
+def _check_json_writer_value(value: Any) -> None:
+    """Raise unless ``json.dumps`` writes ``value`` as ``JsonWriter`` would.
 
-    ``JsonWriter::Escape`` (``harness/src/Json.h``) writes them as ``\\u0008``
-    and ``\\u000c``; ``json.dumps`` names them ``\\b`` and ``\\f``. They are the
-    only characters on which the two differ, and no manifest string holds one.
+    ``JsonWriter`` (``harness/src/Json.h``) writes None, bools, ints, strings,
+    lists and string-keyed objects; anything else raises ``TypeError``, as
+    ``json.dumps`` would otherwise write floats, tuples or int keys quietly.
+    A string holding ``\\b`` or ``\\f`` raises ``ValueError``: ``JsonWriter::Escape``
+    writes them as ``\\u0008`` and ``\\u000c`` and ``json.dumps`` names them, the
+    only characters on which the two differ. No manifest string holds one.
     """
+    if value is None or isinstance(value, (bool, int)):
+        return
     if isinstance(value, str):
         if "\b" in value or "\f" in value:
             raise ValueError(f"manifest string {value!r} holds a backspace or form feed")
     elif isinstance(value, dict):
         for key, item in value.items():
-            _refuse_backspace_and_form_feed(key)
-            _refuse_backspace_and_form_feed(item)
+            if not isinstance(key, str):
+                raise TypeError(f"no JSON form for the key {key!r}")
+            _check_json_writer_value(key)
+            _check_json_writer_value(item)
     elif isinstance(value, list):
         for item in value:
-            _refuse_backspace_and_form_feed(item)
+            _check_json_writer_value(item)
+    else:
+        raise TypeError(f"no JSON form for {value!r}")
 
 
 def manifest_text(manifest: dict[str, Any]) -> str:
     """A manifest as the harness's ``JsonWriter`` writes it, ending in a newline:
     two-space indent, ``"key": value``, empty containers as ``{}`` and ``[]``,
     and anything outside printable ASCII as a lower-case ``\\u`` escape of its
-    UTF-16 code units, which is ``json.dumps``' layout with ``indent=2``."""
-    _refuse_backspace_and_form_feed(manifest)
+    UTF-16 code units, which is ``json.dumps``' layout with ``indent=2``.
+
+    Raises ``ValueError`` on a string holding a backspace or form feed, and
+    ``TypeError`` on a value ``JsonWriter`` has no form for
+    (``_check_json_writer_value``)."""
+    _check_json_writer_value(manifest)
     text = json.dumps(manifest, indent=2) + "\n"
     return text
 
@@ -497,7 +510,9 @@ def write_search_outputs(
     """The harness's ``search`` outputs for ``prefix``: ``.solutions.txt.gz``
     (removed instead when the manifest says no solutions file), when given
     ``.candidates.txt.gz``, then ``.manifest.json``. The manifest goes last,
-    so a new manifest means the files it describes were written."""
+    so a new manifest means the files it describes were written; its text is
+    built first, so a manifest that can't be written leaves every file as it was."""
+    text = manifest_text(manifest)
     solutions_path = Path(f"{prefix}.solutions.txt.gz")
     if manifest["solutions_file"]:
         solutions_path.write_bytes(gzip_lines(lines))
@@ -509,4 +524,4 @@ def write_search_outputs(
             for candidate in candidates
         ]
         Path(f"{prefix}.candidates.txt.gz").write_bytes(gzip_lines(rows))
-    Path(f"{prefix}.manifest.json").write_bytes(manifest_text(manifest).encode("utf-8"))
+    Path(f"{prefix}.manifest.json").write_bytes(text.encode("utf-8"))
