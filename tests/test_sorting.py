@@ -97,6 +97,13 @@ def test_none_has_no_stat_key():
     assert stat_key(SortKey.NONE) is None
 
 
+def test_every_other_key_has_a_stat_key():
+    """A key missing from ``stat_key`` raises rather than showing the arrival order."""
+    keyed = [key for key in SortKey if key is not SortKey.NONE and stat_key(key) is not None]
+
+    assert keyed == [key for key in SortKey if key is not SortKey.NONE]
+
+
 @pytest.mark.parametrize(
     ("key", "field"),
     [
