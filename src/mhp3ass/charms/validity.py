@@ -133,6 +133,15 @@ class CharmValidity:
         )
         return not legal
 
+    def is_possible(self, charm: Charm) -> bool:
+        """``CharmExists( ch ) || !CharmIsIllegal( ch )``: the game can produce the charm.
+
+        ``is_illegal`` runs only when ``exists`` is False, as the original's
+        ``||``, so its ``IndexError`` for four or more slots is raised only then.
+        """
+        possible = self.exists(charm) or not self.is_illegal(charm)
+        return possible
+
 
 def build_charm_validity(tables: CharmTables, ability_count: int) -> CharmValidity:
     """Index ``table_hashes`` per slot count, across every table and charm type."""
