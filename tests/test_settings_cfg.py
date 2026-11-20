@@ -420,7 +420,14 @@ def test_header_values_at_their_limits_load(load, loadable_settings, language_co
 
 @pytest.mark.parametrize(
     ("sort_index", "key"),
-    [(-1, SortKey.NONE), (0, SortKey.NONE), (8, SortKey.DIFFICULTY), (10, SortKey.SLOTS_SPARE)],
+    [
+        (-2, SortKey.NONE),
+        (-1, SortKey.NONE),
+        (0, SortKey.NONE),
+        (8, SortKey.DIFFICULTY),
+        (10, SortKey.SLOTS_SPARE),
+    ],
+    ids=["below_minus_one_unchecked", "minus_one", "none", "difficulty", "last"],
 )
 def test_the_sort_key_is_the_saved_sort_with_minus_one_as_none(loadable_settings, sort_index, key):
     settings = dataclasses.replace(loadable_settings, sort_index=sort_index)
