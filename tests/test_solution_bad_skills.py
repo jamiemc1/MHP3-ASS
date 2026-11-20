@@ -8,7 +8,7 @@ import pytest
 
 from mhp3ass.data import GameData
 from mhp3ass.decorations import NoDecorationsError
-from mhp3ass.model import Ability, Skill
+from mhp3ass.model import Skill
 from mhp3ass.solution.bad_skills import (
     OneSlotGems,
     best_available_decoration,
@@ -317,12 +317,14 @@ def test_check_bad_skills_fixes_only_with_free_slots_counted(make_fixable, defen
     assert data.solution.decorations == []
 
 
-def test_reorder_gems_counts_replacements_after_the_swap(make_data, skilled, attack, defense):
+def test_reorder_gems_counts_replacements_after_the_swap(
+    make_data, make_ability, skilled, attack, defense
+):
     """Solution.cpp:179 reads decorations[ other ] after Replace put the bigger gem
     there, so the other gem's own amount (here 6, more than the bigger gem's 5)
     never sets how many 1-slot gems are swapped: five of six are."""
-    sharpness = Ability(name="Sharpness", static_index=2)
-    artisan = Ability(name="Artisan", static_index=3)
+    sharpness = make_ability("Sharpness", 2)
+    artisan = make_ability("Artisan", 3)
     attack.relevant = True
     one_slot = make_jewel("Attack[1]", attack, 1, second=defense, second_amount=-1)
     bigger = make_jewel("Attack[3]", attack, 5, slots=3, second=defense, second_amount=-1)

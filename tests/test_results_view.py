@@ -268,13 +268,13 @@ def test_the_sort_carries_over_to_a_new_search(alternating_fire_rising_defence):
 
 
 @pytest.fixture
-def evasion() -> Ability:
-    return Ability(name="evasion", static_index=2)
+def evasion(make_ability) -> Ability:
+    return make_ability("evasion", 2)
 
 
 @pytest.fixture
-def guard() -> Ability:
-    return Ability(name="Guard", static_index=3)
+def guard(make_ability) -> Ability:
+    return make_ability("Guard", 3)
 
 
 @pytest.fixture

@@ -5,7 +5,6 @@ from __future__ import annotations
 import pytest
 
 from mhp3ass.decorations import best_decoration_in_map
-from mhp3ass.model import Ability
 from mhp3ass.solution.state import Solution, build_rel_decoration_map, new_calculation_data
 from solution_builders import make_jewel
 
@@ -85,9 +84,11 @@ def test_map_lookup_with_zero_slots_reads_only_size_zero(make_query, attack_jewe
     assert best is None
 
 
-def test_map_lookup_for_an_ability_without_decorations_is_none(make_query, attack_jewels):
+def test_map_lookup_for_an_ability_without_decorations_is_none(
+    make_query, make_ability, attack_jewels
+):
     rel_decoration_map = build_rel_decoration_map(make_query(rel_decorations=attack_jewels))
 
-    best = best_decoration_in_map(Ability(name="Auto-Guard", static_index=2), 3, rel_decoration_map)
+    best = best_decoration_in_map(make_ability("Auto-Guard", 2), 3, rel_decoration_map)
 
     assert best is None

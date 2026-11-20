@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import pytest
 
-from mhp3ass.model import Ability, AbilityPair, Charm, Skill
+from mhp3ass.model import AbilityPair, Charm, Skill
 from mhp3ass.solution.initial import add_decoration, detrimental, get_initial_data
 from mhp3ass.solution.state import Solution, new_calculation_data
 from solution_builders import make_jewel
@@ -26,8 +26,8 @@ def attack_skill(attack):
 
 
 @pytest.fixture
-def sharpness():
-    return Ability(name="Sharpness", static_index=2)
+def sharpness(make_ability):
+    return make_ability("Sharpness", 2)
 
 
 def _initial(armors, query, charm=None):
@@ -52,15 +52,15 @@ def test_body_skills_take_the_multiplier_the_other_pieces_set(
 
 
 def test_abilities_insert_query_skills_then_head_arms_waist_legs_body_charm(
-    make_armor, make_query, attack, defense, sharpness, attack_skill
+    make_armor, make_query, make_ability, attack, defense, sharpness, attack_skill
 ):
-    expertise = Ability(name="Expert", static_index=3)
-    guard = Ability(name="Guard", static_index=4)
+    expertise = make_ability("Expert", 3)
+    guard = make_ability("Guard", 4)
     pieces = [
         make_armor(f"piece {i}", abilities=[(ability, 1)])
         for i, ability in enumerate([defense, sharpness, expertise, guard, attack])
     ]
-    charm_ability = Ability(name="Charm skill", static_index=5)
+    charm_ability = make_ability("Charm skill", 5)
     charm = Charm(abilities=[AbilityPair(ability=charm_ability, amount=2)])
     query = make_query(skills=[attack_skill])
 

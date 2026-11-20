@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from mhp3ass.model import Ability, Skill
+from mhp3ass.model import Skill
 from mhp3ass.skills import get_skill
 
 
@@ -24,8 +24,8 @@ def test_get_skill_matches_golden_for_every_ability_and_points(models_golden, te
     assert mismatched == []
 
 
-def test_get_skill_walks_thresholds_by_sign():
-    ability = Ability(name="Attack", static_index=0)
+def test_get_skill_walks_thresholds_by_sign(make_ability):
+    ability = make_ability("Attack", 0)
     for points in (15, -10, 10, 20, -20):
         ability.skills[points] = Skill(
             name=f"Attack {points}", points_required=points, ability=ability
