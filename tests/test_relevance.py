@@ -7,9 +7,10 @@ from collections.abc import Callable
 from golden_shapes import relevance_shape
 from goldens import RelevanceGolden
 from mhp3ass.data import GameData
-from mhp3ass.model import Ability, AbilityPair, Armor, Decoration
+from mhp3ass.model import Ability, Armor, Decoration
 from mhp3ass.query import QuerySpec
 from mhp3ass.relevance import _add_armor, _add_decoration, formulate_query
+from solution_builders import make_jewel
 
 
 def _mismatched_relevance(
@@ -43,10 +44,8 @@ def test_relevant_data_matches_golden(
 def test_a_beaten_decoration_leaves_the_list_but_stays_inferior(attack: Ability):
     """No shipped decoration beats another of its ability outright, so the goldens
     never remove one (LoadedData.cpp:48-51); the rule is pinned here."""
-    worse = Decoration(name="worse", index=0, rarity=1, slots_required=1, hr=1, elder_star=1)
-    worse.abilities = [AbilityPair(ability=attack, amount=1)]
-    better = Decoration(name="better", index=1, rarity=1, slots_required=1, hr=1, elder_star=1)
-    better.abilities = [AbilityPair(ability=attack, amount=3)]
+    worse = make_jewel("worse", attack, 1)
+    better = make_jewel("better", attack, 3, index=1)
     listed: list[Decoration] = []
     inferior: list[Decoration] = []
 
