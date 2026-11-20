@@ -61,7 +61,7 @@ class Inspector(VerticalScroll, can_focus=False):
 
     def show(self, shown: ShownSet) -> None:
         self.shown = shown
-        lines = inspector_lines(shown.solution, shown.details, self._strings)
+        lines = inspector_lines(shown.solution, details=shown.details, strings=self._strings)
         label_width = max((cell_len(line.label) for line in lines), default=0)
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)
         self.border_title = Content(f"Set {shown.number:,}")
