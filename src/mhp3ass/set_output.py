@@ -25,8 +25,8 @@ from mhp3ass.results.details import PlacementPending, SolutionDetails
 
 def jewels_wait(details: SolutionDetails, action: Literal["copy", "export"]) -> str | None:
     """Why a set with ``details`` can't be copied or exported (``action``)
-    yet, or ``None`` when it can. Neither waits while the inspector is
-    working out its jewels in a thread. During a search, a copy goes ahead
+    yet, or ``None`` when it can. Both wait while the inspector is working
+    out its jewels in a thread. During a search, a copy goes ahead
     without the jewels' places (``copied_notice`` says so), but an export
     waits, since a file keeps what it is given."""
     jewels = details.chest_jewels
