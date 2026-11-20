@@ -5,6 +5,7 @@ progress counted in combinations."""
 from __future__ import annotations
 
 import multiprocessing
+import shutil
 from concurrent.futures import Future
 from dataclasses import dataclass, replace
 from functools import lru_cache
@@ -14,6 +15,7 @@ from math import prod
 import pytest
 
 from mhp3ass.charms.my_charms import load_query_my_charms
+from mhp3ass.data import apply_language, load_game_data
 from mhp3ass.parallel import (
     ChildStateError,
     PoolSearch,
@@ -27,8 +29,9 @@ from mhp3ass.parallel import (
     plan_tasks,
     task_outcomes,
 )
+from mhp3ass.relevance import formulate_query
 from mhp3ass.results.result_set import skill_indices, solution_line
-from mhp3ass.search import StepReporter, armor_choices, run_search, worker_charms
+from mhp3ass.search import StepReporter, armor_choices, language_dir, run_search, worker_charms
 from mhp3ass.solution.record import SolutionRecord, from_record
 from mhp3ass.solution.state import LegacyNullReferenceError
 
@@ -314,6 +317,45 @@ def test_a_rebuilt_query_must_match_the_parents_armour_choices(
         RebuiltSearch.rebuild(one_head_fewer)
     with pytest.raises(ChildStateError, match="armour choices"):
         RebuiltSearch.rebuild(heads_reordered)
+
+
+@pytest.fixture
+def one_skill_pool_search(one_skill_spec, legacy_data_dir):
+    """The parent's ``PoolSearch`` for the one-skill query, formulated on its own game."""
+    game = load_game_data(legacy_data_dir)
+    apply_language(game, language_dir(legacy_data_dir, one_skill_spec.query.language))
+    query = formulate_query(game, one_skill_spec.query)
+    search = PoolSearch.for_query(legacy_data_dir, spec=one_skill_spec.query, query=query)
+    return search
+
+
+@pytest.fixture
+def data_with_a_short_head_line(tmp_path, legacy_data_dir):
+    """A copy of the game data whose first head armour stops after its resistances,
+    so loading it indexes past the line's fields."""
+    data_dir = tmp_path / "Data"
+    shutil.copytree(legacy_data_dir, data_dir)
+    head = data_dir / "head.txt"
+    lines = head.read_text(encoding="utf-8-sig").splitlines(keepends=True)
+    first_armor = next(
+        number for number, line in enumerate(lines) if line.strip() and not line.startswith("#")
+    )
+    ending = lines[first_armor][len(lines[first_armor].rstrip("\r\n")) :]
+    lines[first_armor] = ",".join(lines[first_armor].split(",")[:15]) + ending
+    head.write_text("".join(lines), encoding="utf-8-sig")
+    return data_dir
+
+
+def test_an_error_rebuilding_the_query_is_the_childs(
+    one_skill_pool_search, data_with_a_short_head_line
+):
+    """A worker can raise ``IndexError`` too, so the child's own must not pass for one."""
+    child_search = replace(one_skill_pool_search, data_dir=data_with_a_short_head_line)
+
+    with pytest.raises(ChildStateError, match="rebuilding query") as raised:
+        RebuiltSearch.rebuild(child_search)
+
+    assert type(raised.value.__cause__) is IndexError
 
 
 def _finished(outcome: list[SolutionRecord] | Exception) -> Future[list[SolutionRecord]]:
