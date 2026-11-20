@@ -262,7 +262,7 @@ def illegal_charm(rng: Rng, catalogue: Catalogue) -> Charm:
         num_slots=template.num_slots,
         abilities=[AbilityPair(ability=first.ability, amount=rng.randint(14, 15))],
     )
-    if catalogue.validity.exists(charm) or not catalogue.validity.is_illegal(charm):
+    if catalogue.validity.is_possible(charm):
         raise ValueError(f"{charm} was meant to be illegal")
     return charm
 
@@ -340,10 +340,7 @@ def draw_candidate(
         skills = armour_seeded_skills(rng, catalogue, settings=settings, count=skill_count)
     with_illegal = rng.chance(illegal_chance)
     my_charms = draw_my_charms(rng, catalogue, skills=skills, with_illegal=with_illegal)
-    illegal_charms = sum(
-        not catalogue.validity.exists(charm) and catalogue.validity.is_illegal(charm)
-        for charm in my_charms
-    )
+    illegal_charms = sum(not catalogue.validity.is_possible(charm) for charm in my_charms)
     candidate = Candidate(
         number=number,
         language=language,
@@ -391,11 +388,7 @@ def query_json(candidate: Candidate, game: GameData, query_id: str, description:
 
 def legal_charms(candidate: Candidate, catalogue: Catalogue) -> list[Charm]:
     """The charms ``LoadCustom`` keeps: known hashes, or not ``CharmIsIllegal``."""
-    legal = [
-        charm
-        for charm in candidate.my_charms
-        if catalogue.validity.exists(charm) or not catalogue.validity.is_illegal(charm)
-    ]
+    legal = [charm for charm in candidate.my_charms if catalogue.validity.is_possible(charm)]
     return legal
 
 

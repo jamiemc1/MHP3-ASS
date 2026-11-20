@@ -96,8 +96,7 @@ def create_charm(entry: CharmEntry, validity: CharmValidity) -> Charm | None:
     if entry.num_slots == 0 and not pairs:
         return None
     charm = Charm(num_slots=entry.num_slots, abilities=pairs)
-    possible = validity.exists(charm) or not validity.is_illegal(charm)
-    created = charm if possible else None
+    created = charm if validity.is_possible(charm) else None
     return created
 
 

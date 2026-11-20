@@ -81,6 +81,40 @@ def test_four_slots_raise_like_the_original(validity):
         validity.is_illegal(Charm(num_slots=4))
 
 
+def test_possible_charms_follow_each_golden_outcome(models_golden, teamhgg_game, validity):
+    # A known hash is possible even when CharmIsIllegal says otherwise: (True, True).
+    possible_by_outcome: dict[tuple[bool, bool], set[bool]] = {}
+    for case in models_golden["charm_validity"]:
+        charm = _golden_charm(case, teamhgg_game)
+        outcome = (case["exists"], case["illegal"])
+        possible_by_outcome.setdefault(outcome, set()).add(validity.is_possible(charm))
+
+    assert possible_by_outcome == {
+        (True, False): {True},
+        (True, True): {True},
+        (False, False): {True},
+        (False, True): {False},
+    }
+
+
+def test_slot_only_charms_are_possible_where_a_charm_has_their_slots(
+    tables_with_one_attack_charm, teamhgg_game
+):
+    validity = build_charm_validity(
+        tables_with_one_attack_charm, ability_count=len(teamhgg_game.abilities)
+    )
+
+    assert [validity.is_possible(Charm(num_slots=0)), validity.is_possible(Charm(num_slots=1))] == [
+        True,
+        False,
+    ]
+
+
+def test_possible_raises_for_an_unknown_charm_with_four_slots(validity):
+    with pytest.raises(IndexError):
+        validity.is_possible(Charm(num_slots=4))
+
+
 def test_decode_reverses_hash_fields(teamhgg_game):
     attack, expert = teamhgg_game.abilities[0], teamhgg_game.abilities[1]
     charm = Charm(

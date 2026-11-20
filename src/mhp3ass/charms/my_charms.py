@@ -155,9 +155,8 @@ def load_my_charm_lines(
             loaded.lines.append(LoadedLine(line=line, outcome=skipped.outcome))
             continue
         try:
-            # CharmIsIllegal only runs when the hash isn't known, as the original's ||.
-            valid = validity.exists(charm) or not validity.is_illegal(charm)
-        except IndexError as error:
+            valid = validity.is_possible(charm)
+        except IndexError as error:  # an unknown charm with four or more slots
             raise MyCharmsFileError(line, error) from error
         if valid:
             charm.custom = True

@@ -109,7 +109,7 @@ def load_character(
         if raw[0] != 1 or raw[1] != 0x65:
             continue
         charm = decode_charm_record(raw, game)
-        if not validity.exists(charm) and validity.is_illegal(charm):
+        if not validity.is_possible(charm):
             charm.hacked = True
             character.cheats = True
         character.charms.append(ImportedCharm(charm=charm, raw=raw))
