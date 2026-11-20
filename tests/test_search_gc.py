@@ -6,7 +6,7 @@ import gc
 
 import pytest
 
-from goldens import formulate_query_json
+from goldens import formulate_query_json, golden_by_id
 from mhp3ass.search import paused_gc, run_search, run_worker
 from mhp3ass.solution.state import LegacyNullReferenceError
 from solution_trace import template_charm
@@ -37,7 +37,7 @@ def trace_worker(trace_goldens, scratch_game):
     """A traced query and one of its workers' charm templates, by query id and worker number."""
 
     def make(query_id, worker):
-        golden = next(golden for golden in trace_goldens if golden.query["id"] == query_id)
+        golden = golden_by_id(trace_goldens, query_id)
         query = formulate_query_json(scratch_game, golden.query)
         template = template_charm(golden.header["workers"][worker]["template"], scratch_game)
         return query, template

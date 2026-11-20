@@ -85,6 +85,12 @@ def template_charm(template: dict[str, Any] | None, game: GameData) -> Charm | N
     return charm
 
 
+def worker_templates(golden: TraceGolden, game: GameData) -> list[Charm | None]:
+    """Each worker's charm template, in worker order, from a trace golden's header."""
+    templates = [template_charm(worker["template"], game) for worker in golden.header["workers"]]
+    return templates
+
+
 def _full_states(stages: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Each stage's complete state: the trace's deltas applied in order."""
     not_state = RESULT_FIELDS | {"stage"}
@@ -115,9 +121,7 @@ def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCas
     for golden in goldens:
         query = formulate_query_json(game, golden.query)
         slots = armor_choices(query)
-        templates = [
-            template_charm(worker["template"], game) for worker in golden.header["workers"]
-        ]
+        templates = worker_templates(golden, game)
         for sample in golden.samples:
             armors = [
                 slot[position] for slot, position in zip(slots, sample["combination"], strict=True)
