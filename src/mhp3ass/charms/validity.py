@@ -145,22 +145,12 @@ def build_charm_validity(tables: CharmTables, ability_count: int) -> CharmValidi
             for per_type in per_table
             for hashed in per_type[slot_count]
         }
-        index.has_charms = bool(distinct)
-        points_by_pair = index.points_by_pair
-        best_first_by_ability = index.best_first
-        best_second_by_ability = index.best_second
         for hashed in distinct:
             ability1, ability2, points1, points2, _ = decode_charm_hash(hashed)
-            pair_points = points_by_pair.get((ability1, ability2))
-            if pair_points is None:
-                pair_points = points_by_pair[(ability1, ability2)] = set()
-            pair_points.add((points1, points2))
-            best_first = best_first_by_ability.get(ability1)
-            if best_first is None or points1 > best_first:
-                best_first_by_ability[ability1] = points1
-            best_second = best_second_by_ability.get(ability2)
-            if best_second is None or points2 > best_second:
-                best_second_by_ability[ability2] = points2
+            index.points_by_pair.setdefault((ability1, ability2), set()).add((points1, points2))
+            index.best_first[ability1] = max(index.best_first.get(ability1, points1), points1)
+            index.best_second[ability2] = max(index.best_second.get(ability2, points2), points2)
+        index.has_charms = bool(index.points_by_pair)
         slots.append(index)
     validity = CharmValidity(
         charm_hashes=tables.charm_hashes, ability_count=ability_count, slots=slots
