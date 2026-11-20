@@ -1220,44 +1220,28 @@ def slotless_chest(teamhgg_game) -> Armor:
     return chest
 
 
-def test_a_jewel_place_can_matter_with_torso_inc_a_slotted_chest_and_jewels(
-    teamhgg_game, torso_inc_head, slotted_chest
+@pytest.mark.parametrize(
+    ("head", "chest", "jewel_count", "can_matter"),
+    [
+        pytest.param(
+            "torso_inc_head", "slotted_chest", 1, True, id="torso-inc-slotted-chest-jewel"
+        ),
+        pytest.param(None, "slotted_chest", 1, False, id="no-torso-inc"),
+        pytest.param("torso_inc_head", "slotless_chest", 1, False, id="slotless-chest"),
+        pytest.param("torso_inc_head", "slotted_chest", 0, False, id="no-jewels"),
+    ],
+)
+def test_a_jewel_place_matters_only_with_torso_inc_a_slotted_chest_and_jewels(
+    request, teamhgg_game, head, chest, jewel_count, can_matter
 ):
+    head_piece = request.getfixturevalue(head) if head is not None else None
     solution = Solution(
-        armors=[torso_inc_head, slotted_chest, None, None, None],
+        armors=[head_piece, request.getfixturevalue(chest), None, None, None],
         charm=None,
-        decorations=[teamhgg_game.decorations[0]],
+        decorations=teamhgg_game.decorations[:jewel_count],
     )
 
-    assert place_can_matter(solution) is True
-
-
-def test_a_jewel_place_cant_matter_without_torso_inc(teamhgg_game, slotted_chest):
-    solution = Solution(
-        armors=[None, slotted_chest, None, None, None],
-        charm=None,
-        decorations=[teamhgg_game.decorations[0]],
-    )
-
-    assert place_can_matter(solution) is False
-
-
-def test_a_jewel_place_cant_matter_with_a_slotless_chest(
-    teamhgg_game, torso_inc_head, slotless_chest
-):
-    solution = Solution(
-        armors=[torso_inc_head, slotless_chest, None, None, None],
-        charm=None,
-        decorations=[teamhgg_game.decorations[0]],
-    )
-
-    assert place_can_matter(solution) is False
-
-
-def test_a_jewel_place_cant_matter_without_jewels(torso_inc_head, slotted_chest):
-    solution = Solution(armors=[torso_inc_head, slotted_chest, None, None, None], charm=None)
-
-    assert place_can_matter(solution) is False
+    assert place_can_matter(solution) is can_matter
 
 
 def test_extra_skills_are_those_beyond_the_query_in_the_sets_order(teamhgg_game):
