@@ -1,9 +1,9 @@
 """The "Sort Results By" keys and the stat each one sorts by.
 
 Ported from the comparison functions (``legacy/Form1.h:20-80``) and
-``Form1::SortResults``' choice of one per key (``legacy/Form1.h:2149-2172``),
-as key functions rather than comparisons. The results are sorted by
-``results.view.sorted_positions``.
+``Form1::SortResults``' choice of one per key (``legacy/Form1.h:2149-2172``):
+``stat_key`` gives each key's stat, negated for the keys that put the highest
+first. The results are sorted by ``results.view.sorted_positions``.
 
 Each key's stat and direction are the original's. The order of solutions
 with equal values is presentation, not part of the port's contract:
@@ -58,8 +58,10 @@ def stat_key(key: SortKey) -> Callable[[Solution], int] | None:
         SortKey.RARITY: lambda solution: as_signed(solution.rarity),
         SortKey.SLOTS_SPARE: lambda solution: as_signed(solution.total_slots_spare),
     }
-    stat = stats.get(key)
-    if stat is None or sorts_ascending(key):
+    if key == SortKey.NONE:
+        return None
+    stat = stats[key]
+    if sorts_ascending(key):
         return stat
 
     def highest_first(solution: Solution) -> int:
@@ -73,7 +75,7 @@ def sorts_ascending(key: SortKey) -> bool | None:
     """Whether ``key``'s comparison puts the lowest value first (only
     Difficulty, the one ``Compare`` rather than ``ReverseCompare``); ``None``
     for None, which keeps the arrival order."""
-    if key is SortKey.NONE:
+    if key == SortKey.NONE:
         return None
-    ascending = key is SortKey.DIFFICULTY
+    ascending = key == SortKey.DIFFICULTY
     return ascending
