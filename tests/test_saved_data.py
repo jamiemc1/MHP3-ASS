@@ -103,6 +103,14 @@ def test_settings_the_tui_cant_use_raise(tmp_path, text, message):
         read_tui_settings(path)
 
 
+def test_several_bad_settings_report_the_same_one_whatever_the_file_order(tmp_path):
+    path = tmp_path / "tui.toml"
+    path.write_text("theme = 3\njobs = 'eight'\ndata_dir = 3\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="data_dir must be a string"):
+        read_tui_settings(path)
+
+
 def test_mhp3ass_home_comes_first(tmp_path):
     settings = TuiSettings(data_dir=tmp_path / "chosen")
 
