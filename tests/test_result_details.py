@@ -8,6 +8,7 @@ from dataclasses import dataclass
 
 import pytest
 
+from goldens import golden_by_id
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, Armor, ArmorType, Charm, Material, MaterialComponent, Skill
@@ -63,12 +64,6 @@ class CorpusSearch:
     result: SearchResult
 
 
-def _corpus_search(query_id, search_goldens, search_data_by_language, search_pool):
-    golden = next(golden for golden in search_goldens if golden.manifest["id"] == query_id)
-    search = _searched(golden.query, search_data_by_language, search_pool)
-    return search
-
-
 def _searched(query_json, search_data_by_language, search_pool) -> CorpusSearch:
     spec = SearchSpec.from_json(query_json)
     data = search_data_by_language[spec.query.language]
@@ -77,14 +72,15 @@ def _searched(query_json, search_data_by_language, search_pool) -> CorpusSearch:
 
 
 @pytest.fixture(scope="module")
-def one_skill_search(search_goldens, search_data_by_language, search_pool) -> CorpusSearch:
+def one_skill_search(search_goldens, search_data_by_language, pooled_searches) -> CorpusSearch:
     """g13: HR 3, Attack Up + Health, one-skill charms; 4,444 solutions with
-    both armour notes and every slots-spare form."""
-    search = _corpus_search(
-        "g13",
-        search_goldens=search_goldens,
-        search_data_by_language=search_data_by_language,
-        search_pool=search_pool,
+    both armour notes and every slots-spare form. The session's pooled search,
+    which other modules read too: nothing here changes its solutions."""
+    spec = SearchSpec.from_json(golden_by_id(search_goldens, "g13").query)
+    search = CorpusSearch(
+        spec=spec,
+        data=search_data_by_language[spec.query.language],
+        result=pooled_searches["g13"],
     )
     return search
 
@@ -92,8 +88,7 @@ def one_skill_search(search_goldens, search_data_by_language, search_pool) -> Co
 @pytest.fixture
 def other_query_spec(search_goldens) -> SearchSpec:
     """1a's query: HR 6, Attack Up [Med] + Sharp Sword, so different relevant abilities."""
-    golden = next(golden for golden in search_goldens if golden.manifest["id"] == "1a")
-    spec = SearchSpec.from_json(golden.query)
+    spec = SearchSpec.from_json(golden_by_id(search_goldens, "1a").query)
     return spec
 
 
