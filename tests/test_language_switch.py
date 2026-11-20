@@ -7,6 +7,7 @@ import shutil
 import pytest
 
 from mhp3ass.charms.my_charms import MyCharmsFileError, load_my_charms, my_charms_text
+from mhp3ass.data import apply_language, load_game_data
 from mhp3ass.data.strings import load_strings
 from mhp3ass.language_switch import switch_language
 from mhp3ass.model import ArmorType
@@ -47,6 +48,37 @@ def test_the_game_and_strings_are_in_the_new_language(switch, switch_data, legac
 
     assert "Attack" not in switch_data.game.ability_map
     assert strings == load_strings(legacy_data_dir / "Languages" / "Deutsch (Vuze)")
+
+
+@pytest.fixture
+def german_game(legacy_data_dir):
+    game = load_game_data(legacy_data_dir)
+    apply_language(game, legacy_data_dir / "Languages" / "Deutsch (Vuze)")
+    return game
+
+
+def test_switching_language_keeps_the_charm_tables(switch, switch_data, german_game):
+    """The tables are generated once at start-up (Form1.h:311) and a switch renames
+    their abilities in place rather than generating them again."""
+    two_skill = switch_data.tables.two_skill
+    first, second, charms = next(
+        (first, second, charms)
+        for first, by_second in two_skill.items()
+        for second, charms in by_second.items()
+        if charms
+    )
+    english_name = first.name
+
+    switch("Deutsch (Vuze)")
+    german_name = german_game.abilities[first.static_index].name
+
+    assert switch_data.tables.two_skill is two_skill
+    assert two_skill[first][second] is charms
+    assert {id(ability) for ability in two_skill} == {
+        id(ability) for ability in switch_data.game.abilities
+    }
+    assert {id(pair.ability) for pair in charms[0].abilities} == {id(first), id(second)}
+    assert [first.name, german_name == english_name] == [german_name, False]
 
 
 def test_my_charms_are_rewritten_in_the_new_language(
