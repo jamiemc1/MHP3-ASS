@@ -12,9 +12,12 @@ def make_jewel(
     slots: int = 1,
     second: Ability | None = None,
     second_amount: int = 0,
+    index: int = 0,
 ) -> Decoration:
     """A decoration of ``slots`` slots, HR 1 / village 1, with one or two skills."""
-    decoration = Decoration(name=name, index=0, rarity=1, slots_required=slots, hr=1, elder_star=1)
+    decoration = Decoration(
+        name=name, index=index, rarity=1, slots_required=slots, hr=1, elder_star=1
+    )
     decoration.abilities = [AbilityPair(ability=first, amount=amount)]
     if second is not None:
         decoration.abilities.append(AbilityPair(ability=second, amount=second_amount))

@@ -5,9 +5,10 @@ from __future__ import annotations
 
 import pytest
 
-from mhp3ass.model import Ability, AbilityPair, Charm, Decoration, Skill
+from mhp3ass.model import Ability, AbilityPair, Charm, Skill
 from mhp3ass.solution.initial import add_decoration, detrimental, get_initial_data
 from mhp3ass.solution.state import Solution, new_calculation_data
+from solution_builders import make_jewel
 from solution_trace import Stage, stage_mismatches
 
 
@@ -119,22 +120,14 @@ def test_two_skills_with_one_ability_raise_as_dictionary_add(make_query, attack,
         _initial([None] * 5, make_query(skills=[attack_skill, larger]))
 
 
-def _jewel(first, amount, second=None, second_amount=0, slots=1):
-    decoration = Decoration(
-        name="Jewel", index=0, rarity=1, slots_required=slots, hr=1, elder_star=1
-    )
-    decoration.abilities = [AbilityPair(ability=first, amount=amount)]
-    if second is not None:
-        decoration.abilities.append(AbilityPair(ability=second, amount=second_amount))
-    return decoration
-
-
 def test_add_decoration_spends_slots_unsigned(attack):
     solution = Solution(armors=[None] * 5, charm=None)
     solution.abilities = {attack: 0}
     deck = []
 
-    above = add_decoration(solution, _jewel(attack, 2, slots=3), multiplier=2, decoration_list=deck)
+    above = add_decoration(
+        solution, make_jewel("Jewel", attack, 2, slots=3), multiplier=2, decoration_list=deck
+    )
 
     assert above
     assert solution.abilities == {attack: 4}
@@ -146,7 +139,9 @@ def test_add_decoration_reports_the_first_ability_at_minus_ten(attack):
     solution = Solution(armors=[None] * 5, charm=None)
     solution.abilities = {attack: -11}
 
-    above = add_decoration(solution, _jewel(attack, 1), multiplier=1, decoration_list=[])
+    above = add_decoration(
+        solution, make_jewel("Jewel", attack, 1), multiplier=1, decoration_list=[]
+    )
 
     assert not above
     assert solution.abilities[attack] == -10
@@ -157,7 +152,7 @@ def test_detrimental_only_for_a_relevant_second_skill_falling_short(make_query, 
     solution.abilities = {attack: 0, defense: 3}
     data = new_calculation_data(solution, make_query())
     data.need = {attack: 10, defense: 3}
-    jewel = _jewel(attack, 1, second=defense, second_amount=-1)
+    jewel = make_jewel("Jewel", attack, 1, second=defense, second_amount=-1)
 
     defense.relevant = False
     irrelevant = detrimental(jewel, data)

@@ -5,24 +5,19 @@ from __future__ import annotations
 import pytest
 
 from mhp3ass.decorations import best_decoration_in_map
-from mhp3ass.model import Ability, AbilityPair, Decoration
+from mhp3ass.model import Ability
 from mhp3ass.solution.state import Solution, build_rel_decoration_map, new_calculation_data
-
-
-def _decoration(name, slots, ability, amount=1):
-    decoration = Decoration(name=name, index=0, rarity=1, slots_required=slots, hr=1, elder_star=1)
-    decoration.abilities = [AbilityPair(ability=ability, amount=amount)]
-    return decoration
+from solution_builders import make_jewel
 
 
 @pytest.fixture
 def attack_jewels(attack):
     """Attack jewels in relevance order: two 1-slot, then a 3-slot, then a 2-slot."""
     jewels = [
-        _decoration("Attack[1] first", 1, attack),
-        _decoration("Attack[3]", 3, attack, amount=5),
-        _decoration("Attack[1] second", 1, attack),
-        _decoration("Attack[2]", 2, attack, amount=3),
+        make_jewel("Attack[1] first", attack, 1),
+        make_jewel("Attack[3]", attack, 5, slots=3),
+        make_jewel("Attack[1] second", attack, 1),
+        make_jewel("Attack[2]", attack, 3, slots=2),
     ]
     return jewels
 
@@ -74,8 +69,7 @@ def test_map_lookup_takes_the_first_in_relevance_order_within_a_size(
 
 def test_map_lookup_matches_only_the_first_ability(make_query, attack, defense):
     # Defense is this decoration's second skill, which the lookup never reads.
-    decoration = _decoration("Attack, Defense", 1, attack)
-    decoration.abilities.append(AbilityPair(ability=defense, amount=-1))
+    decoration = make_jewel("Attack, Defense", attack, 1, second=defense, second_amount=-1)
     rel_decoration_map = build_rel_decoration_map(make_query(rel_decorations=[decoration]))
 
     best = best_decoration_in_map(defense, 3, rel_decoration_map)

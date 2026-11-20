@@ -16,8 +16,9 @@ from mhp3ass.decorations import (
     decoration_matches_query,
     decoration_skill_at,
 )
-from mhp3ass.model import Ability, AbilityPair, Decoration, Skill
+from mhp3ass.model import Ability, Skill
 from mhp3ass.query import Query
+from solution_builders import make_jewel
 
 
 def test_is_better_than_matches_golden_for_every_pair(models_golden, teamhgg_game):
@@ -43,25 +44,17 @@ def sharpness():
     return Ability(name="Sharpness", static_index=1)
 
 
-def _decoration(name, slots, pairs):
-    decoration = Decoration(name=name, index=0, rarity=1, slots_required=slots, hr=1, elder_star=1)
-    decoration.abilities = [
-        AbilityPair(ability=ability, amount=amount) for ability, amount in pairs
-    ]
-    return decoration
-
-
 def test_second_skill_comparison_is_unsigned(attack, sharpness):
     # Same first skill per slot; second skills +1 against -1. Signed, +1 < -1 is false;
     # as C++ unsigned, 1 < 0xFFFFFFFF is true.
-    positive = _decoration("positive", slots=1, pairs=[(attack, 2), (sharpness, 1)])
-    negative = _decoration("negative", slots=1, pairs=[(attack, 2), (sharpness, -1)])
+    positive = make_jewel("positive", attack, 2, second=sharpness, second_amount=1)
+    negative = make_jewel("negative", attack, 2, second=sharpness, second_amount=-1)
 
     assert decoration_is_better_than(positive, negative)
 
 
 def test_skill_at_is_zero_for_other_abilities(attack, sharpness):
-    decoration = _decoration("one skill", slots=1, pairs=[(attack, 2)])
+    decoration = make_jewel("one skill", attack, 2)
 
     assert [
         decoration_skill_at(decoration, attack),
@@ -114,8 +107,8 @@ def test_best_decoration_raises_for_an_ability_without_decorations(
 def test_best_decoration_keeps_the_first_of_equals(
     attack: Ability, make_query: Callable[..., Query]
 ):
-    first = _decoration("first", slots=1, pairs=[(attack, 1)])
-    second = _decoration("second", slots=1, pairs=[(attack, 1)])
+    first = make_jewel("first", attack, 1)
+    second = make_jewel("second", attack, 1)
     game = GameData(decorations_by_ability={attack: [first, second]})
 
     best = best_decoration_for_query(game, attack, max_slots=3, query=make_query())
@@ -124,7 +117,7 @@ def test_best_decoration_keeps_the_first_of_equals(
 
 
 def test_best_decoration_skips_negative_points(attack: Ability, make_query: Callable[..., Query]):
-    negative = _decoration("negative", slots=1, pairs=[(attack, -1)])
+    negative = make_jewel("negative", attack, -1)
     game = GameData(decorations_by_ability={attack: [negative]})
 
     assert best_decoration_for_query(game, attack, max_slots=3, query=make_query()) is None
@@ -148,7 +141,7 @@ def test_decoration_matches_when_available(
     query_fields: dict,
     matches: bool,
 ):
-    decoration = _decoration("jewel", slots=1, pairs=[(attack, 1)])
+    decoration = make_jewel("jewel", attack, 1)
     for key, value in decoration_fields.items():
         setattr(decoration, key, value)
     query = make_query(
@@ -161,7 +154,7 @@ def test_decoration_matches_when_available(
 def test_decoration_matches_only_on_its_first_ability(
     attack: Ability, sharpness: Ability, make_query: Callable[..., Query]
 ):
-    decoration = _decoration("jewel", slots=1, pairs=[(sharpness, 1), (attack, 1)])
+    decoration = make_jewel("jewel", sharpness, 1, second=attack, second_amount=1)
     query = make_query(skills=[Skill(name="Attack Up", points_required=10, ability=attack)])
 
     assert not decoration_matches_query(decoration, query)
