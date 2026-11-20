@@ -138,11 +138,6 @@ def test_personal_solutions_survive_the_round_trip(
 
 
 @pytest.fixture
-def index(teamhgg_game):
-    return RecordIndex.for_game(teamhgg_game)
-
-
-@pytest.fixture
 def hand_built_solution(teamhgg_game):
     """A solution with an empty head slot, a hacked custom charm without pairs, a
     decoration in each list, a bad skill and abilities in a non-sorted order."""
@@ -165,8 +160,10 @@ def hand_built_solution(teamhgg_game):
     return solution
 
 
-def test_hand_built_solution_survives_the_round_trip(hand_built_solution, index, teamhgg_game):
-    record = to_record(hand_built_solution, index)
+def test_hand_built_solution_survives_the_round_trip(
+    hand_built_solution, record_index, teamhgg_game
+):
+    record = to_record(hand_built_solution, record_index)
     rebuilt = from_record(record, teamhgg_game)
     assert _differences(hand_built_solution, rebuilt) == []
     assert record.armors[0] == -1
@@ -174,14 +171,14 @@ def test_hand_built_solution_survives_the_round_trip(hand_built_solution, index,
     assert rebuilt.charm.abilities == []
 
 
-def test_charmless_solution_without_slots_keeps_none(index, teamhgg_game):
+def test_charmless_solution_without_slots_keeps_none(record_index, teamhgg_game):
     solution = Solution(armors=[None] * 5, charm=None)
-    rebuilt = from_record(to_record(solution, index), teamhgg_game)
+    rebuilt = from_record(to_record(solution, record_index), teamhgg_game)
     assert rebuilt.charm is None
     assert rebuilt.slots_spare is None
 
 
-def test_charm_pairs_keep_their_order(index, teamhgg_game):
+def test_charm_pairs_keep_their_order(record_index, teamhgg_game):
     game = teamhgg_game
     charm = Charm(
         num_slots=1,
@@ -191,15 +188,15 @@ def test_charm_pairs_keep_their_order(index, teamhgg_game):
         ],
     )
     solution = Solution(armors=[None] * 5, charm=charm)
-    record = to_record(solution, index)
+    record = to_record(solution, record_index)
     assert record.charm is not None
     assert record.charm.abilities == ((20, 5), (4, -3))
 
 
 @pytest.fixture
-def empty_record(index):
+def empty_record(record_index):
     """The record of a solution with every slot empty and no charm."""
-    record = to_record(Solution(armors=[None] * 5, charm=None), index)
+    record = to_record(Solution(armors=[None] * 5, charm=None), record_index)
     return record
 
 
@@ -268,14 +265,16 @@ def _mixed_solution(own, other, foreign_field):
     "foreign_field",
     ["armour", "decoration", "extra_skill", "ability", "charm_ability"],
 )
-def test_record_from_another_game_raises(foreign_field, index, teamhgg_game, other_teamhgg_game):
+def test_record_from_another_game_raises(
+    foreign_field, record_index, teamhgg_game, other_teamhgg_game
+):
     solution = _mixed_solution(teamhgg_game, other_teamhgg_game, foreign_field)
     with pytest.raises(ValueError):
-        to_record(solution, index)
+        to_record(solution, record_index)
 
 
-def test_solution_of_the_index_game_does_not_raise(index, teamhgg_game, other_teamhgg_game):
+def test_solution_of_the_index_game_does_not_raise(record_index, teamhgg_game, other_teamhgg_game):
     solution = _mixed_solution(teamhgg_game, other_teamhgg_game, foreign_field=None)
-    record = to_record(solution, index)
+    record = to_record(solution, record_index)
     assert record.armors == (1, -1, -1, -1, -1)
     assert record.extra_skills == (0,)

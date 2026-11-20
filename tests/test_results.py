@@ -291,10 +291,10 @@ def test_records_keep_the_solutions_the_search_keeps(record_replays, query_id):
 
 
 @pytest.fixture
-def empty_record(teamhgg_game) -> SolutionRecord:
+def empty_record_with_slots_counted(record_index) -> SolutionRecord:
     """A record of a charm-free solution with every slot empty and slots counted."""
     solution = Solution(armors=[None] * 5, charm=None, slots_spare=[0, 0, 0, 0])
-    record = to_record(solution, RecordIndex.for_game(teamhgg_game))
+    record = to_record(solution, record_index)
     return record
 
 
@@ -304,9 +304,11 @@ def attack_record() -> CharmRecord:
     return CharmRecord(num_slots=1, abilities=((1, 4),), custom=False, hacked=False)
 
 
-def test_a_record_is_rebuilt_once_and_then_read_as_that_solution(empty_record, teamhgg_game):
+def test_a_record_is_rebuilt_once_and_then_read_as_that_solution(
+    empty_record_with_slots_counted, teamhgg_game
+):
     solutions = SolutionList.of_records(
-        [replace(empty_record, armors=(2, 2, 2, 2, 2))], teamhgg_game
+        [replace(empty_record_with_slots_counted, armors=(2, 2, 2, 2, 2))], teamhgg_game
     )
 
     first_read = solutions[0]
@@ -316,11 +318,11 @@ def test_a_record_is_rebuilt_once_and_then_read_as_that_solution(empty_record, t
 
 
 def test_kept_records_are_the_same_solutions_in_every_list(
-    empty_record, attack_record, teamhgg_game
+    empty_record_with_slots_counted, attack_record, teamhgg_game
 ):
     """Found, added and all_solutions share one rebuilt Solution per record, as
     the search's lists share one Solution object."""
-    first = replace(empty_record, armors=(3, 3, 3, 3, 3), charm=attack_record)
+    first = replace(empty_record_with_slots_counted, armors=(3, 3, 3, 3, 3), charm=attack_record)
     repeat = replace(first, total_slots_spare=1)
     found = SolutionList.of_records([first, repeat], teamhgg_game)
     results = ResultSet()
@@ -333,9 +335,11 @@ def test_kept_records_are_the_same_solutions_in_every_list(
     assert found[1] not in results.all_solutions
 
 
-def test_charm_names_come_from_the_records(empty_record, attack_record, teamhgg_game):
-    charmed = replace(empty_record, charm=attack_record)
-    found = SolutionList.of_records([charmed, empty_record], teamhgg_game)
+def test_charm_names_come_from_the_records(
+    empty_record_with_slots_counted, attack_record, teamhgg_game
+):
+    charmed = replace(empty_record_with_slots_counted, charm=attack_record)
+    found = SolutionList.of_records([charmed, empty_record_with_slots_counted], teamhgg_game)
 
     names = found.charm_names()
 
@@ -343,10 +347,12 @@ def test_charm_names_come_from_the_records(empty_record, attack_record, teamhgg_
 
 
 @pytest.fixture
-def charmed_and_charm_free_records(empty_record, attack_record) -> list[SolutionRecord]:
+def charmed_and_charm_free_records(
+    empty_record_with_slots_counted, attack_record
+) -> list[SolutionRecord]:
     """A charmed record with every piece, then a charm-free one with every slot empty."""
-    charmed = replace(empty_record, armors=(2, 2, 2, 2, 2), charm=attack_record)
-    return [charmed, empty_record]
+    charmed = replace(empty_record_with_slots_counted, armors=(2, 2, 2, 2, 2), charm=attack_record)
+    return [charmed, empty_record_with_slots_counted]
 
 
 def test_charm_names_read_records_as_the_solutions_they_rebuild(
@@ -383,10 +389,14 @@ def test_lines_read_records_as_the_solutions_they_rebuild(
     assert from_solutions[0].split()[-4:] == ["1", "1", "4", "1"]
 
 
-def test_a_charmed_record_with_an_empty_slot_throws(empty_record, attack_record, teamhgg_game):
+def test_a_charmed_record_with_an_empty_slot_throws(
+    empty_record_with_slots_counted, attack_record, teamhgg_game
+):
     """Quirk T on records: the charm's key is added before the hash throws."""
-    kept = replace(empty_record, armors=(1, 1, 1, 1, 1), charm=attack_record)
-    empty_slot = replace(empty_record, armors=(1, -1, 1, 1, 1), charm=attack_record)
+    kept = replace(empty_record_with_slots_counted, armors=(1, 1, 1, 1, 1), charm=attack_record)
+    empty_slot = replace(
+        empty_record_with_slots_counted, armors=(1, -1, 1, 1, 1), charm=attack_record
+    )
     results = ResultSet()
 
     name = charm_name(charm_from_record(attack_record, teamhgg_game))
@@ -400,14 +410,18 @@ def test_a_charmed_record_with_an_empty_slot_throws(empty_record, attack_record,
     ]
 
 
-def test_charm_free_records_are_never_de_duplicated(empty_record, teamhgg_game):
+def test_charm_free_records_are_never_de_duplicated(empty_record_with_slots_counted, teamhgg_game):
     results = ResultSet()
 
-    added = results.add_records(SolutionList.of_records([empty_record, empty_record], teamhgg_game))
+    added = results.add_records(
+        SolutionList.of_records(
+            [empty_record_with_slots_counted, empty_record_with_slots_counted], teamhgg_game
+        )
+    )
 
     assert [len(added), len(results.all_solutions), results.existing_armor] == [2, 2, {}]
 
 
-def test_a_record_line_needs_the_slots_counted(empty_record):
+def test_a_record_line_needs_the_slots_counted(empty_record_with_slots_counted):
     with pytest.raises(ValueError, match="slots"):
-        record_line(replace(empty_record, slots_spare=None))
+        record_line(replace(empty_record_with_slots_counted, slots_spare=None))
