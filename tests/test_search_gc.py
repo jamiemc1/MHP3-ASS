@@ -6,8 +6,7 @@ import gc
 
 import pytest
 
-from mhp3ass.query import QuerySpec
-from mhp3ass.relevance import formulate_query
+from goldens import formulate_query_json
 from mhp3ass.search import paused_gc, run_search, run_worker
 from mhp3ass.solution.state import LegacyNullReferenceError
 from solution_trace import template_charm
@@ -39,7 +38,7 @@ def trace_worker(trace_goldens, scratch_game):
 
     def make(query_id, worker):
         golden = next(golden for golden in trace_goldens if golden.query["id"] == query_id)
-        query = formulate_query(scratch_game, QuerySpec.from_json(golden.query))
+        query = formulate_query_json(scratch_game, golden.query)
         template = template_charm(golden.header["workers"][worker]["template"], scratch_game)
         return query, template
 

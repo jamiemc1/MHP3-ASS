@@ -5,11 +5,10 @@ from __future__ import annotations
 from collections.abc import Callable
 
 from golden_shapes import relevance_shape
-from goldens import RelevanceGolden
+from goldens import RelevanceGolden, formulate_query_json
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, Armor, Decoration
-from mhp3ass.query import QuerySpec
-from mhp3ass.relevance import _add_armor, _add_decoration, formulate_query
+from mhp3ass.relevance import _add_armor, _add_decoration
 from solution_builders import make_jewel
 
 
@@ -27,7 +26,7 @@ def _mismatched_relevance(
     mismatched = []
     for golden in goldens:
         game = load_game()
-        query = formulate_query(game, QuerySpec.from_json(golden.query))
+        query = formulate_query_json(game, golden.query)
         ours = relevance_shape(game, query)
         expected = {section: golden.relevance[section] for section in sections}
         if ours != expected:
