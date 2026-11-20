@@ -18,15 +18,14 @@ order rather than by the Windows culture's rules (quirk 42).
 
 from __future__ import annotations
 
-import functools
 from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, overload
+from typing import overload
 
 from mhp3ass.data.text import as_signed
 from mhp3ass.results.result_set import ResultSet, charm_names
-from mhp3ass.results.sorting import SortKey, solution_comparison
+from mhp3ass.results.sorting import SortKey, stat_key
 from mhp3ass.solution.state import Solution
 
 
@@ -80,8 +79,8 @@ def sorted_positions(
     ``reverse`` flips the key's direction and leaves the ties' order alone.
     None shows the arrival order (reversed with ``reverse``). Each solution is
     read from ``source`` once."""
-    comparison = solution_comparison(key)
-    if comparison is None:
+    stat = stat_key(key)
+    if stat is None:
         shown = list(reversed(positions)) if reverse else list(positions)
         return shown
     solutions = [source[position] for position in positions]
@@ -91,10 +90,8 @@ def sorted_positions(
         order = (-as_signed(solution.defence), len(solution.decorations), rank)
         return order
 
-    solution_order = functools.cmp_to_key(comparison)
-
-    def key_order(rank: int) -> Any:
-        order = solution_order(solutions[rank])
+    def key_order(rank: int) -> int:
+        order = stat(solutions[rank])
         return order
 
     # Two stable sorts: ties first, then the key, so equal keys keep the tie order.

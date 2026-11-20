@@ -1,5 +1,6 @@
-"""Each key's stat and direction (the comparison functions, Form1.h:20-80), as the
-results view sorts by them; the view's tie order is in test_results_view."""
+"""Each key's stat and direction (the comparison functions, Form1.h:20-80, as
+``stat_key``), as the results view sorts by them; the view's tie order is in
+test_results_view."""
 
 from __future__ import annotations
 
@@ -7,7 +8,7 @@ import random
 
 import pytest
 
-from mhp3ass.results.sorting import SortKey, solution_comparison, sorts_ascending
+from mhp3ass.results.sorting import SortKey, sorts_ascending, stat_key
 from mhp3ass.results.view import sorted_positions
 from mhp3ass.solution.state import Solution
 
@@ -92,8 +93,54 @@ def test_none_sorts_neither_way():
     assert sorts_ascending(SortKey.NONE) is None
 
 
-def test_none_has_no_comparison():
-    assert solution_comparison(SortKey.NONE) is None
+def test_none_has_no_stat_key():
+    assert stat_key(SortKey.NONE) is None
+
+
+@pytest.mark.parametrize(
+    ("key", "field"),
+    [
+        (SortKey.DRAGON_RES, "dragon_res"),
+        (SortKey.FIRE_RES, "fire_res"),
+        (SortKey.ICE_RES, "ice_res"),
+        (SortKey.THUNDER_RES, "thunder_res"),
+        (SortKey.WATER_RES, "water_res"),
+        (SortKey.DEFENCE, "defence"),
+        (SortKey.MAX_DEFENCE, "max_defence"),
+        (SortKey.RARITY, "rarity"),
+        (SortKey.SLOTS_SPARE, "total_slots_spare"),
+    ],
+)
+def test_stat_key_negates_the_highest_first_stats(key, field):
+    order = stat_key(key)
+
+    assert order is not None
+    assert order(solution(**{field: 7})) == -7
+
+
+def test_stat_key_keeps_difficulty_as_it_is():
+    order = stat_key(SortKey.DIFFICULTY)
+
+    assert order is not None
+    assert order(solution(difficulty=7)) == 7
+
+
+@pytest.mark.parametrize(
+    ("key", "field", "expected"),
+    [
+        (SortKey.DEFENCE, "defence", 2**31),
+        (SortKey.MAX_DEFENCE, "max_defence", 2**31),
+        (SortKey.RARITY, "rarity", 2**31),
+        (SortKey.SLOTS_SPARE, "total_slots_spare", 2**31),
+        (SortKey.DIFFICULTY, "difficulty", -(2**31)),
+    ],
+)
+def test_stat_key_reads_unsigned_stats_as_int(key, field, expected):
+    """2**31 as an ``int`` is -2**31: negated, 2**31."""
+    order = stat_key(key)
+
+    assert order is not None
+    assert order(solution(**{field: 2**31})) == expected
 
 
 def test_unsigned_stats_compare_as_int():
