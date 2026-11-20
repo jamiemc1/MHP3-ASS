@@ -64,11 +64,9 @@ def set_markdown(
     query: Query,
     strings: DisplayStrings,
     short_names: ShortNames,
-    piece_labels: Sequence[str],
 ) -> str:
     """``solution`` as Markdown, from its ``details`` for the results' own
-    ``query``; ``piece_labels`` name the five armour slots in order. Ends
-    with a newline.
+    ``query``. Ends with a newline.
 
     The jewels are as ``details`` gives them, so a caller wanting the
     worked-out placement passes details from ``solution_details`` with a
@@ -85,7 +83,7 @@ def set_markdown(
             label=piece.label,
             text=piece.name if piece.note is None else f"{piece.name} {piece.note}",
         )
-        for piece in piece_lines(solution, details, strings, piece_labels=piece_labels)
+        for piece in piece_lines(details, strings)
     ]
     charm = InspectorLine(label="Charm", text=charm_text(details.charm))
     table = _table([*pieces, charm, *jewel_lines(details)])

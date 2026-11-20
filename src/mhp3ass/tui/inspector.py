@@ -51,10 +51,9 @@ class Inspector(VerticalScroll, can_focus=False):
     }
     """
 
-    def __init__(self, strings: DisplayStrings, piece_labels: list[str]) -> None:
+    def __init__(self, strings: DisplayStrings) -> None:
         super().__init__(classes="pane")
         self._strings = strings
-        self._piece_labels = piece_labels
         self.shown: ShownSet | None = None
 
     def compose(self):
@@ -62,9 +61,7 @@ class Inspector(VerticalScroll, can_focus=False):
 
     def show(self, shown: ShownSet) -> None:
         self.shown = shown
-        lines = inspector_lines(
-            shown.solution, shown.details, self._strings, piece_labels=self._piece_labels
-        )
+        lines = inspector_lines(shown.solution, shown.details, self._strings)
         label_width = max((cell_len(line.label) for line in lines), default=0)
         text = "\n".join(f"{set_cell_size(line.label, label_width)}  {line.text}" for line in lines)
         self.border_title = Content(f"Set {shown.number:,}")
