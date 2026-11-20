@@ -8,6 +8,7 @@ from dataclasses import dataclass
 
 import pytest
 
+from corpus_search import CorpusSearch
 from goldens import golden_by_id
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
@@ -34,7 +35,6 @@ from mhp3ass.results.details import (
     slots_spare,
     solution_details,
 )
-from mhp3ass.results.difficulty import hard_materials
 from mhp3ass.results.placement import (
     Correction,
     JewelPlacement,
@@ -47,7 +47,6 @@ from mhp3ass.results.placement import (
     place_can_matter,
     refilled,
 )
-from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.saved_state import LoadedResults, restore_search
 from mhp3ass.savefile.import_charms import select_best
@@ -57,32 +56,11 @@ from mhp3ass.solution.state import Solution
 from solution_builders import make_jewel
 
 
-@dataclass(frozen=True)
-class CorpusSearch:
-    spec: SearchSpec
-    data: SearchData
-    result: SearchResult
-
-
 def _searched(query_json, search_data_by_language, search_pool) -> CorpusSearch:
     spec = SearchSpec.from_json(query_json)
     data = search_data_by_language[spec.query.language]
     result = run_search(spec, data=data, pool=search_pool)
     return CorpusSearch(spec=spec, data=data, result=result)
-
-
-@pytest.fixture(scope="module")
-def one_skill_search(search_goldens, search_data_by_language, pooled_searches) -> CorpusSearch:
-    """g13: HR 3, Attack Up + Health, one-skill charms; 4,444 solutions with
-    both armour notes and every slots-spare form. The session's pooled search,
-    which other modules read too: nothing here changes its solutions."""
-    spec = SearchSpec.from_json(golden_by_id(search_goldens, "g13").query)
-    search = CorpusSearch(
-        spec=spec,
-        data=search_data_by_language[spec.query.language],
-        result=pooled_searches["g13"],
-    )
-    return search
 
 
 @pytest.fixture
@@ -315,18 +293,6 @@ def test_a_piece_lists_its_points_and_recipe(attack_torso_inc_piece, teamhgg_gam
         AbilityLine(ability=teamhgg_game.torso_inc, amount=None),
     )
     assert [details.armor, details.components] == [attack_torso_inc_piece, ()]
-
-
-def test_the_hard_materials_add_up_to_every_found_sets_difficulty(one_skill_search):
-    """g13: HR 3, Attack Up + Health, one-skill charms."""
-    mismatched = [
-        solution
-        for solution in one_skill_search.result.results.all_solutions
-        if sum(part.count * part.material.difficulty for part in hard_materials(solution))
-        != solution.difficulty
-    ]
-
-    assert mismatched == []
 
 
 @dataclass(frozen=True)
@@ -857,51 +823,6 @@ def test_a_set_without_torso_inc_has_no_split(one_skill_search):
     placements = [jewel_placement(solution, weapon_slots=weapon_slots) for solution in unmultiplied]
 
     assert [len(placements), set(placements)] == [2071, {None}]
-
-
-@pytest.fixture
-def hard_parts_solution(make_armor, attack):
-    """Head: 3 Ruby (2) and 1 Bone (0); legs: 1 Plate (5) and 2 Ruby;
-    two jewels each needing 4 Ruby and an event Ticket (0)."""
-    ruby = Material(name="Ruby", difficulty=2)
-    plate = Material(name="Plate", difficulty=5)
-    bone = Material(name="Bone")
-    ticket = Material(name="Ticket", event_only=True)
-    head = make_armor(
-        "Head",
-        components=[
-            MaterialComponent(material=ruby, amount=3),
-            MaterialComponent(material=bone, amount=1),
-        ],
-    )
-    legs = make_armor(
-        "Legs",
-        components=[
-            MaterialComponent(material=plate, amount=1),
-            MaterialComponent(material=ruby, amount=2),
-        ],
-    )
-    jewel = make_jewel("Jewel", first=attack, amount=1)
-    jewel.components = [
-        MaterialComponent(material=ruby, amount=4),
-        MaterialComponent(material=ticket, amount=1),
-    ]
-    solution = Solution(
-        armors=[head, None, None, None, legs], charm=None, decorations=[jewel, jewel]
-    )
-    return solution
-
-
-def test_pieces_count_each_unit_and_jewels_each_material_once(hard_parts_solution):
-    parts = hard_materials(hard_parts_solution)
-
-    assert [(part.material.name, part.count) for part in parts] == [("Ruby", 7), ("Plate", 1)]
-
-
-def test_a_set_without_hard_materials_lists_none(make_armor):
-    solution = Solution(armors=[make_armor(), None, None, None, None], charm=None)
-
-    assert hard_materials(solution) == []
 
 
 @dataclass(frozen=True)

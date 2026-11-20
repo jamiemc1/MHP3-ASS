@@ -9,6 +9,7 @@ from typing import Any
 
 import pytest
 
+from corpus_search import CorpusSearch
 from data_rows import armor_row, decoration_row
 from goldens import (
     FuzzGolden,
@@ -16,6 +17,7 @@ from goldens import (
     SearchGolden,
     TraceGolden,
     formulate_query_json,
+    golden_by_id,
     read_fuzz_goldens,
     read_golden,
     read_relevance_goldens,
@@ -525,6 +527,24 @@ def empty_armor_spec(corpus_spec: Callable[[str], SearchSpec]) -> SearchSpec:
 def one_skill_spec(corpus_spec: Callable[[str], SearchSpec]) -> SearchSpec:
     """g13: four one-skill workers."""
     return corpus_spec("corpus/g13-hr3-attack-health-one-skill.json")
+
+
+@pytest.fixture(scope="module")
+def one_skill_search(
+    search_goldens: list[SearchGolden],
+    search_data_by_language: dict[str, SearchData],
+    pooled_searches: dict[str, SearchResult],
+) -> CorpusSearch:
+    """g13: HR 3, Attack Up + Health, one-skill charms; 4,444 solutions with
+    both armour notes and every slots-spare form. The session's pooled search,
+    which other modules read too: nothing here changes its solutions."""
+    spec = SearchSpec.from_json(golden_by_id(search_goldens, "g13").query)
+    search = CorpusSearch(
+        spec=spec,
+        data=search_data_by_language[spec.query.language],
+        result=pooled_searches["g13"],
+    )
+    return search
 
 
 @pytest.fixture(scope="session")
