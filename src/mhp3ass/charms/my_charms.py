@@ -151,7 +151,7 @@ def load_my_charm_lines(
         except _LineSkipped as skipped:
             # The harness's LoadMyCharms raises where LoadCustom shows the message box.
             if stop_at_message:
-                raise MyCharmsFileError(line, ValueError(skipped.message)) from None
+                raise MyCharmsFileError(line, ValueError(skipped.message)) from skipped
             loaded.lines.append(LoadedLine(line=line, outcome=skipped.outcome))
             continue
         try:

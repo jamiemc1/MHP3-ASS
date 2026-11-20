@@ -102,6 +102,23 @@ def test_lines_skip_comments_and_report_each_outcome(teamhgg_game, validity):
     ]
 
 
+def test_the_field_count_is_checked_before_the_slots(teamhgg_game, validity):
+    # CharmDatabase.cpp:120-127: the comma count's message box comes before ToUInt32.
+    loaded = load_my_charm_lines(["x,Attack,3"], game=teamhgg_game, validity=validity)
+
+    assert [(line.line, line.outcome) for line in loaded.lines] == [
+        ("x,Attack,3", LineOutcome.WRONG_FIELD_COUNT)
+    ]
+
+
+def test_the_slots_are_read_before_the_skills(teamhgg_game, validity):
+    # CharmDatabase.cpp:127-137: ToUInt32 throws before FindAbility is reached.
+    with pytest.raises(MyCharmsFileError) as error:
+        load_my_charm_lines(["x,Nothing,3,,"], game=teamhgg_game, validity=validity)
+
+    assert [error.value.line, type(error.value.cause)] == ["x,Nothing,3,,", ValueError]
+
+
 def test_loaded_charms_are_marked_custom(my_charms_dir, teamhgg_game, validity):
     loaded = load_my_charms(my_charms_dir / "01-valid.txt", teamhgg_game, validity)
 
