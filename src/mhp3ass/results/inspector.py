@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.data.text import as_signed
-from mhp3ass.model import Charm
+from mhp3ass.model import ArmorType, Charm
 from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
@@ -160,21 +160,18 @@ class PieceLine:
     note: str | None
 
 
-def piece_lines(
-    solution: Solution,
-    details: SolutionDetails,
-    strings: DisplayStrings,
-    piece_labels: Sequence[str],
-) -> list[PieceLine]:
-    """Each piece, labelled from ``piece_labels`` (the five armour slots in
-    order). An empty slot has no line."""
-    lines = []
-    armor_lines = iter(details.armors)
-    for label, armor in zip(piece_labels, solution.armors, strict=True):
-        if armor is None:
-            continue
-        note = note_text(next(armor_lines), strings)
-        lines.append(PieceLine(label=label, name=armor.name, note=note))
+def slot_label(slot: ArmorType) -> str:
+    """``slot``'s label, in English in every language: ``Head`` to ``Legs``."""
+    label = slot.name.title()
+    return label
+
+
+def piece_lines(details: SolutionDetails, strings: DisplayStrings) -> list[PieceLine]:
+    """Each piece, labelled with its slot. An empty slot has no line."""
+    lines = [
+        PieceLine(label=slot_label(line.slot), name=line.armor.name, note=note_text(line, strings))
+        for line in details.armors
+    ]
     return lines
 
 
@@ -185,16 +182,12 @@ def charm_text(charm: Charm | None) -> str:
 
 
 def inspector_lines(
-    solution: Solution,
-    details: SolutionDetails,
-    strings: DisplayStrings,
-    piece_labels: Sequence[str],
+    solution: Solution, details: SolutionDetails, strings: DisplayStrings
 ) -> list[InspectorLine]:
-    """``solution``'s lines from its ``details``; ``piece_labels`` name the five
-    armour slots in order. An empty slot has no line, and a piece's note
-    goes on the line after it."""
+    """``solution``'s lines from its ``details``. An empty slot has no line,
+    and a piece's note goes on the line after it."""
     lines = []
-    for piece in piece_lines(solution, details, strings, piece_labels=piece_labels):
+    for piece in piece_lines(details, strings):
         lines.append(InspectorLine(label=piece.label, text=piece.name))
         if piece.note is not None:
             lines.append(InspectorLine(label="", text=piece.note))

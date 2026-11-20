@@ -24,6 +24,7 @@ from mhp3ass.model import (
     Ability,
     AbilityPair,
     Armor,
+    ArmorType,
     Charm,
     Decoration,
     MaterialComponent,
@@ -52,6 +53,9 @@ class ArmorNote(Enum):
 
 @dataclass(frozen=True)
 class ArmorLine:
+    """A piece, the ``slot`` it fills and its ``note``."""
+
+    slot: ArmorType
     armor: Armor
     note: ArmorNote | None
 
@@ -320,8 +324,8 @@ def solution_details(
     """One result's details, for the results' own ``query``; ``refill_game``
     and ``charm_templates`` as ``chest_jewels`` takes them."""
     armors = tuple(
-        ArmorLine(armor=armor, note=armor_note(armor, query))
-        for armor in solution.armors
+        ArmorLine(slot=slot, armor=armor, note=armor_note(armor, query))
+        for slot, armor in zip(ArmorType, solution.armors, strict=True)
         if armor is not None
     )
     extras = extra_skills(solution, query_skills=query.skills)

@@ -74,7 +74,6 @@ def _markdown(found: DetailedSet, search: SetSearch, strings, short_names) -> st
         query=search.result.query,
         strings=strings,
         short_names=short_names,
-        piece_labels=["Head", "Body", "Arms", "Waist", "Legs"],
     )
     return text
 
@@ -265,7 +264,7 @@ def test_a_bar_or_backslash_in_a_name_stays_in_its_cell(
 ):
     piece = make_armor(name=name)
     details = SolutionDetails(
-        armors=(ArmorLine(armor=piece, note=None),),
+        armors=(ArmorLine(slot=ArmorType.HEAD, armor=piece, note=None),),
         charm=None,
         decorations=(),
         chest_jewels=None,
@@ -279,7 +278,6 @@ def test_a_bar_or_backslash_in_a_name_stays_in_its_cell(
         query=make_query(),
         strings=english_strings,
         short_names=teamhgg_short_names,
-        piece_labels=["Head", "Body", "Arms", "Waist", "Legs"],
     )
 
     assert f"| Head | {cell} |\n" in text

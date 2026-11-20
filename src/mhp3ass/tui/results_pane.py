@@ -28,12 +28,13 @@ from textual.worker import get_current_worker
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
-from mhp3ass.model import Charm
+from mhp3ass.model import ArmorType, Charm
 from mhp3ass.pane_titles import sets_title
 from mhp3ass.query import Query
 from mhp3ass.regions import Region
 from mhp3ass.results.details import PlacementPending, SolutionDetails, solution_details
 from mhp3ass.results.find import find_row, row_text
+from mhp3ass.results.inspector import slot_label
 from mhp3ass.results.set_text import set_markdown
 from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
@@ -159,7 +160,6 @@ class ResultsPane(Horizontal):
         self.note: str | None = None
         # Find texts by id(solution); the view keeps every solution alive.
         self._text_by_set: dict[int, str] = {}
-        self._piece_labels = ["Head", "Body", "Arms", "Waist", "Legs"]
 
     def compose(self) -> ComposeResult:
         charm_filter = OptionList(id="charm_filter", classes="pane")
@@ -186,11 +186,7 @@ class ResultsPane(Horizontal):
             table = ResultsTable(
                 [
                     "#",
-                    "Head",
-                    "Body",
-                    "Arms",
-                    "Waist",
-                    "Legs",
+                    *(slot_label(slot) for slot in ArmorType),
                     "Def",
                     "Spare",
                     "Charm",
@@ -213,7 +209,7 @@ class ResultsPane(Horizontal):
             table.empty_text = _BEFORE_SEARCH
             yield table
             yield Input(placeholder="find: piece, jewel, charm or skill", id="find_box")
-        yield Inspector(self._strings, piece_labels=self._piece_labels)
+        yield Inspector(self._strings)
 
     @property
     def results_query(self) -> Query | None:
@@ -259,7 +255,6 @@ class ResultsPane(Horizontal):
             query=shown.query,
             strings=self._strings,
             short_names=self._short_names,
-            piece_labels=self._piece_labels,
         )
         return text
 

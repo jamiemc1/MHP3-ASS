@@ -7,7 +7,7 @@ import pytest
 
 from corpus_search import CorpusSearch
 from goldens import golden_by_id
-from mhp3ass.model import Ability, Armor, Material, MaterialComponent, Skill
+from mhp3ass.model import Ability, Armor, ArmorType, Material, MaterialComponent, Skill
 from mhp3ass.query import SearchSpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.details import (
@@ -193,8 +193,8 @@ def test_details_list_pieces_jewel_counts_and_the_unsearched_extra_skills(
     head, legs = decorated_solution.armors[0], decorated_solution.armors[4]
     jewel_a, jewel_b = decorated_solution.decorations[:2]
     assert details.armors == (
-        ArmorLine(armor=head, note=None),
-        ArmorLine(armor=legs, note=ArmorNote.ANY_WITH_SLOTS),
+        ArmorLine(slot=ArmorType.HEAD, armor=head, note=None),
+        ArmorLine(slot=ArmorType.LEGS, armor=legs, note=ArmorNote.ANY_WITH_SLOTS),
     )
     assert details.decorations == (
         DecorationCount(decoration=jewel_a, count=2),
