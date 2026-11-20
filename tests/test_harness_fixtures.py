@@ -16,7 +16,7 @@ from typing import Any
 
 from goldens import Candidate, RelevanceGolden, SearchGolden
 from mhp3ass.results.result_set import lines_sha256
-from mhp3ass.settings_cfg import read_settings_cfg
+from mhp3ass.settings_cfg import SettingsCfg
 
 
 def test_save_import_matches_gui_output(save_golden: Any, gui_imported_mycharms: list[str]):
@@ -185,16 +185,18 @@ def _survivor_choice_differs_only(candidates: list[Candidate], gui_lines: tuple[
     return matches
 
 
-def _gui_mismatches(goldens: list[SearchGolden], captures_dir: Path) -> list[str]:
+def _gui_mismatches(
+    goldens: list[SearchGolden], capture_settings: dict[str, SettingsCfg]
+) -> list[str]:
     mismatched = []
     for golden in goldens:
         capture = golden.query.get("gui_capture")
         if capture is None:
             continue
-        if not (captures_dir / capture).is_dir():
+        if capture not in capture_settings:
             mismatched.append(f"{golden.query['id']} (no capture {capture})")
             continue
-        gui_lines = read_settings_cfg(captures_dir / capture / "settings.cfg").solution_lines
+        gui_lines = capture_settings[capture].solution_lines
         if golden.query.get("gui_order_dependent"):
             if golden.candidates is None or not _survivor_choice_differs_only(
                 golden.candidates, gui_lines
@@ -207,9 +209,9 @@ def _gui_mismatches(goldens: list[SearchGolden], captures_dir: Path) -> list[str
 
 
 def test_searches_match_gui_captures(
-    every_search_goldens: list[SearchGolden], gui_captures_dir: Path
+    every_search_goldens: list[SearchGolden], capture_settings: dict[str, SettingsCfg]
 ):
-    assert _gui_mismatches(every_search_goldens, gui_captures_dir) == []
+    assert _gui_mismatches(every_search_goldens, capture_settings) == []
 
 
 def _missing_candidates(goldens: list[SearchGolden]) -> list[str]:
