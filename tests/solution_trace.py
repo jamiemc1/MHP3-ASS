@@ -17,6 +17,7 @@ from goldens import TraceGolden, formulate_query_json
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
 from mhp3ass.query import Query
+from mhp3ass.results.result_set import skill_indices
 from mhp3ass.search import armor_choices, dotnet_exception_type
 from mhp3ass.solution import finish, has_enough_points, match
 from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
@@ -177,6 +178,23 @@ def snapshot(solution: Solution, data: CalculationData, skill_index: dict[Skill,
     return state
 
 
+def _differing_fields(ours: dict[str, Any], expected: dict[str, Any]) -> list[str]:
+    """The fields whose values differ, sorted. Every field on both sides: a
+    field the trace never wrote counts as a difference, not as unchecked."""
+    differing = sorted(
+        key for key in ours.keys() | expected.keys() if ours.get(key) != expected.get(key)
+    )
+    return differing
+
+
+def _case_data(case: TraceCase) -> CalculationData:
+    """A fresh calculation for a case: its armour and a copy of its worker's template."""
+    charm = case.template.copy() if case.template is not None else None
+    solution = Solution(armors=list(case.armors), charm=charm)
+    data = new_calculation_data(solution, case.query)
+    return data
+
+
 def _difference(
     case: TraceCase,
     name: str,
@@ -186,11 +204,7 @@ def _difference(
 ) -> str | None:
     """How the port's state and results after stage ``name`` differ from the trace's."""
     ours = snapshot(data.solution, data, skill_index)
-    expected = case.states[name]
-    # Every field on both sides: a field the trace never wrote counts as a
-    # difference, not as unchecked.
-    fields = expected.keys() | ours.keys()
-    differing = sorted(key for key in fields if ours.get(key) != expected.get(key))
+    differing = _differing_fields(ours, case.states[name])
     expected_results = case.results.get(name, {})
     if (results or {}) != expected_results:
         differing.append(f"results {results} != {expected_results}")
@@ -223,10 +237,7 @@ def _threw_difference(
     if raised != case.exception:
         differing.append(f"raised {raised}, not {case.exception}")
     ours = snapshot(data.solution, data, skill_index)
-    expected = case.states["threw"]
-    differing += sorted(
-        key for key in expected.keys() | ours.keys() if ours.get(key) != expected.get(key)
-    )
+    differing += _differing_fields(ours, case.states["threw"])
     difference = f"{case.label} {stage.name} (threw): {differing}" if differing else None
     return difference
 
@@ -246,12 +257,10 @@ def stage_mismatches(
     original threw inside a stage, the trace has a ``threw`` stage instead:
     the port must raise there too, with the same exception type and state.
     """
-    skill_index = {skill: index for index, skill in enumerate(game.skills)}
+    skill_index = skill_indices(game)
     mismatches = []
     for case in trace_cases(goldens, game):
-        charm = case.template.copy() if case.template is not None else None
-        solution = Solution(armors=list(case.armors), charm=charm)
-        data = new_calculation_data(solution, case.query)
+        data = _case_data(case)
         results_so_far: dict[str, dict[str, Any]] = {}
         for stage in stages:
             traced = stage.name in case.states
@@ -386,12 +395,10 @@ def matches_query_mismatches(goldens: list[TraceGolden], game: GameData) -> list
     (accepted, which check rejected it, or the exception type) and its state,
     ``need`` included, with the trace's last stage (``final``, the stage it
     was rejected at, or ``threw``)."""
-    skill_index = {skill: index for index, skill in enumerate(game.skills)}
+    skill_index = skill_indices(game)
     mismatches = []
     for case in trace_cases(goldens, game):
-        charm = case.template.copy() if case.template is not None else None
-        solution = Solution(armors=list(case.armors), charm=charm)
-        data = new_calculation_data(solution, case.query)
+        data = _case_data(case)
         raised = None
         try:
             outcome = match(data, game).value
@@ -403,13 +410,8 @@ def matches_query_mismatches(goldens: list[TraceGolden], game: GameData) -> list
             mismatches.append(f"{case.label}: {outcome} {raised}, not {expected} {case.exception}")
             continue
         last_stage = list(case.states)[-1]
-        ours = snapshot(solution, data, skill_index)
-        expected_state = case.states[last_stage]
-        differing = sorted(
-            key
-            for key in ours.keys() | expected_state.keys()
-            if ours.get(key) != expected_state.get(key)
-        )
+        ours = snapshot(data.solution, data, skill_index)
+        differing = _differing_fields(ours, case.states[last_stage])
         if differing:
             mismatches.append(f"{case.label} after {last_stage}: {differing}")
     return mismatches
