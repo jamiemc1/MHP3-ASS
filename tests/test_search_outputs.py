@@ -98,3 +98,36 @@ def test_manifest_strings_are_escaped_as_the_harness_escapes_them():
         '  "none": null\n'
         "}\n"
     )
+
+
+def test_manifest_nesting_is_laid_out_as_the_harness_lays_it_out():
+    text = manifest_text({"workers": [{"worker": 0, "charm": None, "ok": True}], "map": {}})
+
+    assert text == (
+        "{\n"
+        '  "workers": [\n'
+        "    {\n"
+        '      "worker": 0,\n'
+        '      "charm": null,\n'
+        '      "ok": true\n'
+        "    }\n"
+        "  ],\n"
+        '  "map": {}\n'
+        "}\n"
+    )
+
+
+@pytest.mark.parametrize("character", ["\b", "\f"], ids=["backspace", "form-feed"])
+@pytest.mark.parametrize(
+    "where",
+    [
+        lambda c: {"name": f"a{c}b"},
+        lambda c: {f"key{c}": 1},
+        lambda c: {"workers": [{"charm": c}]},
+        lambda c: {"lines": [["x", c]]},
+    ],
+    ids=["value", "key", "nested-dict", "nested-list"],
+)
+def test_a_backspace_or_form_feed_in_a_manifest_string_raises(character, where):
+    with pytest.raises(ValueError, match="backspace or form feed"):
+        manifest_text(where(character))
