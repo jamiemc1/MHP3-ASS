@@ -444,62 +444,32 @@ def search_manifest(
     return manifest
 
 
-def _json_string(text: str) -> str:
-    """``JsonWriter::Escape`` (``harness/src/Json.h``): quotes, backslashes and
-    \\n \\r \\t escaped by name, anything else outside printable ASCII as a
-    lower-case ``\\u`` escape of its UTF-16 code unit."""
-    escaped = ['"']
-    named = {'"': '\\"', "\\": "\\\\", "\n": "\\n", "\r": "\\r", "\t": "\\t"}
-    for character in text:
-        code = ord(character)
-        if character in named:
-            escaped.append(named[character])
-        elif 0x20 <= code <= 0x7E:
-            escaped.append(character)
-        elif code > 0xFFFF:
-            surrogates = character.encode("utf-16-be")
-            high = int.from_bytes(surrogates[:2], "big")
-            low = int.from_bytes(surrogates[2:], "big")
-            escaped.append(f"\\u{high:04x}\\u{low:04x}")
-        else:
-            escaped.append(f"\\u{code:04x}")
-    escaped.append('"')
-    text_literal = "".join(escaped)
-    return text_literal
+def _refuse_backspace_and_form_feed(value: Any) -> None:
+    """Raise on a ``\\b`` or ``\\f`` in any string of ``value``, keys included.
 
-
-def _json_value(value: Any, depth: int) -> str:
-    """One value in ``JsonWriter``'s layout: two-space indent, ``"key": value``,
-    empty containers as ``{}`` and ``[]``."""
-    if value is None:
-        return "null"
-    if isinstance(value, bool):
-        return "true" if value else "false"
-    if isinstance(value, int):
-        return str(value)
+    ``JsonWriter::Escape`` (``harness/src/Json.h``) writes them as ``\\u0008``
+    and ``\\u000c``; ``json.dumps`` names them ``\\b`` and ``\\f``. They are the
+    only characters on which the two differ, and no manifest string holds one.
+    """
     if isinstance(value, str):
-        return _json_string(value)
-    inner = "\n" + "  " * (depth + 1)
-    if isinstance(value, dict):
-        if not value:
-            return "{}"
-        members = [
-            f"{_json_string(key)}: {_json_value(item, depth + 1)}" for key, item in value.items()
-        ]
-        text = "{" + inner + ("," + inner).join(members) + "\n" + "  " * depth + "}"
-        return text
-    if isinstance(value, list):
-        if not value:
-            return "[]"
-        elements = [_json_value(item, depth + 1) for item in value]
-        text = "[" + inner + ("," + inner).join(elements) + "\n" + "  " * depth + "]"
-        return text
-    raise TypeError(f"no JSON form for {value!r}")
+        if "\b" in value or "\f" in value:
+            raise ValueError(f"manifest string {value!r} holds a backspace or form feed")
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            _refuse_backspace_and_form_feed(key)
+            _refuse_backspace_and_form_feed(item)
+    elif isinstance(value, list):
+        for item in value:
+            _refuse_backspace_and_form_feed(item)
 
 
 def manifest_text(manifest: dict[str, Any]) -> str:
-    """A manifest as the harness's ``JsonWriter`` writes it, ending in a newline."""
-    text = _json_value(manifest, depth=0) + "\n"
+    """A manifest as the harness's ``JsonWriter`` writes it, ending in a newline:
+    two-space indent, ``"key": value``, empty containers as ``{}`` and ``[]``,
+    and anything outside printable ASCII as a lower-case ``\\u`` escape of its
+    UTF-16 code units, which is ``json.dumps``' layout with ``indent=2``."""
+    _refuse_backspace_and_form_feed(manifest)
+    text = json.dumps(manifest, indent=2) + "\n"
     return text
 
 
