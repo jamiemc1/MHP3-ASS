@@ -115,6 +115,21 @@ def test_possible_raises_for_an_unknown_charm_with_four_slots(validity):
         validity.is_possible(Charm(num_slots=4))
 
 
+def test_possible_skips_the_illegal_check_for_a_known_hash(teamhgg_game):
+    # A four-slot charm would raise in is_illegal; a known hash must not get that far.
+    ability_count = len(teamhgg_game.abilities)
+    four_slots = Charm(num_slots=4)
+    tables = CharmTables(
+        max_points=[[{} for _ in range(4)] for _ in range(3)],
+        two_skill={},
+        charm_hashes=[charm_hash(four_slots, ability_count)],
+        table_hashes=[[[[] for _ in range(4)] for _ in range(3)] for _ in range(12)],
+    )
+    validity = build_charm_validity(tables, ability_count=ability_count)
+
+    assert validity.is_possible(four_slots) is True
+
+
 def test_decode_reverses_hash_fields(teamhgg_game):
     attack, expert = teamhgg_game.abilities[0], teamhgg_game.abilities[1]
     charm = Charm(
