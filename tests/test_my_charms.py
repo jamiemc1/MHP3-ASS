@@ -129,10 +129,14 @@ def test_save_writes_utf8_without_bom_and_crlf(tmp_path, teamhgg_game):
 def test_query_charm_lines_raise_where_the_gui_shows_a_message(teamhgg_game, validity, line, cause):
     lines = ["1,Attack,3,,", line]
 
-    with pytest.raises(MyCharmsFileError, match=cause) as error:
+    with pytest.raises(MyCharmsFileError) as error:
         load_query_my_charms(lines, game=teamhgg_game, validity=validity)
 
-    assert error.value.line == line
+    assert [error.value.line, type(error.value.cause), str(error.value.cause)] == [
+        line,
+        ValueError,
+        cause,
+    ]
 
 
 def test_query_charm_lines_skip_and_count_rejected_charms(teamhgg_game, validity):

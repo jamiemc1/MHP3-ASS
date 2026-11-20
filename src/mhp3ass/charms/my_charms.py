@@ -56,8 +56,8 @@ class MyCharmsFileError(Exception):
         self.cause = cause
 
 
-class _SkillColumnsFailed(Exception):
-    """A skill column the original answers with a message box, then skips the line."""
+class _LineSkipped(Exception):
+    """A line the original answers with a message box, then skips."""
 
     def __init__(self, outcome: LineOutcome, message: str):
         super().__init__(message)
@@ -66,24 +66,46 @@ class _SkillColumnsFailed(Exception):
 
 
 def _read_points(fields: list[str], game: GameData) -> list[AbilityPair]:
-    """The skill columns (CharmDatabase.cpp:129-156); raises ``_SkillColumnsFailed``."""
+    """The skill columns (CharmDatabase.cpp:129-156); raises ``_LineSkipped``."""
     pairs = []
     for name_field, points_field in ((1, 2), (3, 4)):
         if fields[name_field] == "":
             continue
         ability = game.ability_map.get(fields[name_field])
         if ability is None:
-            raise _SkillColumnsFailed(
+            raise _LineSkipped(
                 LineOutcome.NO_SUCH_SKILL, message=f'"{fields[name_field]}": No such skill'
             )
         try:
             amount = to_int32(fields[points_field])
         except ValueError, OverflowError:
-            raise _SkillColumnsFailed(
+            raise _LineSkipped(
                 LineOutcome.BAD_POINTS, message="Could not read skill points"
             ) from None
         pairs.append(AbilityPair(ability=ability, amount=amount))
     return pairs
+
+
+def _read_charm(line: str, game: GameData) -> Charm:
+    """One line's charm (CharmDatabase.cpp:118-156), checked in the original's order:
+    the split, the field count, the slots, then the skill columns.
+
+    Raises ``_LineSkipped`` where the original shows a message box and skips
+    the line, and ``MyCharmsFileError`` where it throws.
+    """
+    try:
+        fields = split_fields(line)
+    except ValueError as error:
+        raise MyCharmsFileError(line, error) from error
+    if len(fields) != 5:
+        raise _LineSkipped(LineOutcome.WRONG_FIELD_COUNT, message="Incorrect number of commas")
+    try:
+        num_slots = to_uint32(fields[0])
+    except (ValueError, OverflowError) as error:
+        raise MyCharmsFileError(line, error) from error
+    pairs = _read_points(fields, game)
+    charm = Charm(num_slots=num_slots, abilities=pairs)
+    return charm
 
 
 def load_my_charms(path: Path, game: GameData, validity: CharmValidity) -> LoadedMyCharms:
@@ -110,16 +132,6 @@ def my_charms_illegal(loaded: LoadedMyCharms) -> int:
     return count
 
 
-def _message_box(
-    loaded: LoadedMyCharms, line: str, outcome: LineOutcome, message: str, stop_at_message: bool
-) -> None:
-    """A line ``LoadCustom`` answers with a message box and skips; with
-    ``stop_at_message`` it raises instead, as the harness's ``LoadMyCharms``."""
-    if stop_at_message:
-        raise MyCharmsFileError(line, ValueError(message))
-    loaded.lines.append(LoadedLine(line=line, outcome=outcome))
-
-
 def load_my_charm_lines(
     lines: Sequence[str], game: GameData, validity: CharmValidity, stop_at_message: bool = False
 ) -> LoadedMyCharms:
@@ -135,34 +147,13 @@ def load_my_charm_lines(
         if line == "" or line[0] == "#":
             continue
         try:
-            fields = split_fields(line)
-        except ValueError as error:
-            raise MyCharmsFileError(line, error) from error
-        if len(fields) != 5:
-            _message_box(
-                loaded,
-                line=line,
-                outcome=LineOutcome.WRONG_FIELD_COUNT,
-                message="Incorrect number of commas",
-                stop_at_message=stop_at_message,
-            )
+            charm = _read_charm(line, game)
+        except _LineSkipped as skipped:
+            # The harness's LoadMyCharms raises where LoadCustom shows the message box.
+            if stop_at_message:
+                raise MyCharmsFileError(line, ValueError(skipped.message)) from None
+            loaded.lines.append(LoadedLine(line=line, outcome=skipped.outcome))
             continue
-        try:
-            num_slots = to_uint32(fields[0])
-        except (ValueError, OverflowError) as error:
-            raise MyCharmsFileError(line, error) from error
-        try:
-            pairs = _read_points(fields, game)
-        except _SkillColumnsFailed as failure:
-            _message_box(
-                loaded,
-                line=line,
-                outcome=failure.outcome,
-                message=failure.message,
-                stop_at_message=stop_at_message,
-            )
-            continue
-        charm = Charm(num_slots=num_slots, abilities=pairs)
         try:
             # CharmIsIllegal only runs when the hash isn't known, as the original's ||.
             valid = validity.exists(charm) or not validity.is_illegal(charm)
