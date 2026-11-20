@@ -232,22 +232,25 @@ def test_a_charm_keeps_its_pairs_in_line_order(charmed_line, teamhgg_game):
     assert solution.extra_skills == [teamhgg_game.skills[12]]
 
 
-def test_an_empty_slot_cannot_be_loaded(teamhgg_game):
-    with pytest.raises(SettingsCfgError, match=r"'-1 2 3 4 5 0 0 0 0 0 0 '"):
-        parse_solution_line("-1 2 3 4 5 0 0 0 0 0 0 ", teamhgg_game)
+@pytest.mark.parametrize(
+    ("line_template", "message"),
+    [
+        pytest.param("-1 2 3 4 5 0 0 0 0 0 0 ", r"'-1 2 3 4 5 0 0 0 0 0 0 '", id="empty-slot"),
+        pytest.param(
+            "{head_count} 0 0 0 0 0 0 0 0 0 0 ", "HEAD armour", id="armour-index-past-the-table"
+        ),
+        pytest.param(
+            "0 0 0 0 0 0 0 0 0 2 1 ",
+            "list index out of range",
+            id="two-decorations-announced-one-given",
+        ),
+    ],
+)
+def test_a_malformed_line_cannot_be_loaded(teamhgg_game, line_template, message):
+    line = line_template.format(head_count=len(teamhgg_game.armors[ArmorType.HEAD]))
 
-
-def test_an_armour_index_past_the_table_cannot_be_loaded(teamhgg_game):
-    head_count = len(teamhgg_game.armors[ArmorType.HEAD])
-
-    with pytest.raises(SettingsCfgError, match="HEAD armour"):
-        parse_solution_line(f"{head_count} 0 0 0 0 0 0 0 0 0 0 ", teamhgg_game)
-
-
-def test_a_line_that_ends_early_cannot_be_loaded(teamhgg_game):
-    """Two decorations announced, one given."""
-    with pytest.raises(SettingsCfgError, match="list index out of range"):
-        parse_solution_line("0 0 0 0 0 0 0 0 0 2 1 ", teamhgg_game)
+    with pytest.raises(SettingsCfgError, match=message):
+        parse_solution_line(line, teamhgg_game)
 
 
 def test_writing_needs_six_skill_rows(version_1_settings_cfg):
