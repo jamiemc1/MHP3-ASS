@@ -14,7 +14,14 @@ from mhp3ass.results.details import (
     SolutionDetails,
     UnknownPlacement,
 )
-from mhp3ass.set_export import append_set, export_entry, export_file, export_wait
+from mhp3ass.set_output import (
+    append_set,
+    copied_notice,
+    export_entry,
+    export_file,
+    jewels_wait,
+    system_copy_command,
+)
 
 
 def _details(chest_jewels: Placement) -> SolutionDetails:
@@ -29,24 +36,54 @@ def _details(chest_jewels: Placement) -> SolutionDetails:
     return details
 
 
+@pytest.mark.parametrize("action", ["copy", "export"])
 @pytest.mark.parametrize(
     "chest_jewels",
     [None, ChestJewels(multiplier=2, chest=(), elsewhere=()), UnknownPlacement()],
 )
-def test_a_set_whose_jewels_are_placed_or_cant_be_exports_now(chest_jewels):
-    assert export_wait(_details(chest_jewels)) is None
+def test_a_set_whose_jewels_are_placed_or_cant_be_goes_now(chest_jewels, action):
+    assert jewels_wait(_details(chest_jewels), action=action) is None
 
 
-def test_a_set_waiting_for_the_search_waits_for_it():
-    wait = export_wait(_details(PlacementPending(while_searching=True)))
+@pytest.mark.parametrize("action", ["copy", "export"])
+def test_a_set_being_worked_out_waits_a_moment(action):
+    wait = jewels_wait(_details(PlacementPending(while_searching=False)), action=action)
+
+    assert wait == f"Still working out the set's jewels: {action} it again in a moment."
+
+
+def test_a_set_waiting_for_the_search_exports_after_it():
+    wait = jewels_wait(_details(PlacementPending(while_searching=True)), action="export")
 
     assert wait == "The set's jewels are placed once the search finishes: export it then."
 
 
-def test_a_set_being_worked_out_waits_a_moment():
-    wait = export_wait(_details(PlacementPending(while_searching=False)))
+def test_a_set_waiting_for_the_search_copies_now():
+    wait = jewels_wait(_details(PlacementPending(while_searching=True)), action="copy")
 
-    assert wait == "Still working out the set's jewels: export it again in a moment."
+    assert wait is None
+
+
+@pytest.mark.parametrize(
+    ("platform", "command"),
+    [("darwin", ["pbcopy"]), ("linux", None), ("win32", None)],
+)
+def test_only_macos_copies_through_a_command_as_well(platform, command):
+    assert system_copy_command(platform) == command
+
+
+def test_the_notice_names_the_copied_set():
+    notice = copied_notice(1234, details=_details(None))
+
+    assert notice == "Copied set 1,234."
+
+
+def test_a_set_copied_during_a_search_says_its_jewels_arent_placed():
+    notice = copied_notice(7, details=_details(PlacementPending(while_searching=True)))
+
+    assert notice == (
+        "Copied set 7, without its jewels' places: copy it again after the search for them."
+    )
 
 
 def test_sets_go_to_the_folder_the_tui_was_started_from():
