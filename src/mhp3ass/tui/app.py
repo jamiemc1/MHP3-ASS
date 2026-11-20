@@ -73,8 +73,13 @@ from mhp3ass.search import (
     dotnet_exception_type,
     run_search,
 )
-from mhp3ass.set_copy import copied_notice, jewels_being_worked_out, system_copy_command
-from mhp3ass.set_export import append_set, export_file, export_wait
+from mhp3ass.set_output import (
+    append_set,
+    copied_notice,
+    export_file,
+    jewels_wait,
+    system_copy_command,
+)
 from mhp3ass.settings_cfg import SettingsCfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
@@ -1251,7 +1256,7 @@ class SearchApp(App[bool]):
         if shown is None:
             self.notify("No set to export.", timeout=3)
             return
-        wait = export_wait(shown.details)
+        wait = jewels_wait(shown.details, action="export")
         if wait is not None:
             self.notify(wait)
             return
@@ -1271,8 +1276,9 @@ class SearchApp(App[bool]):
         if shown is None:
             self.notify("No set to copy.", timeout=3)
             return
-        if jewels_being_worked_out(shown.details):
-            self.notify("Still working out the set's jewels: copy it again in a moment.")
+        wait = jewels_wait(shown.details, action="copy")
+        if wait is not None:
+            self.notify(wait)
             return
         text = pane.set_text(shown)
         self.copy_to_clipboard(text)
