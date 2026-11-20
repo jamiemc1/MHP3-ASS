@@ -17,7 +17,7 @@ import shutil
 import tempfile
 import tomllib
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from pathlib import Path
 
 
@@ -65,51 +65,59 @@ def read_tui_settings(path: Path) -> TuiSettings:
             table = tomllib.load(file)
     except tomllib.TOMLDecodeError as error:
         raise ValueError(f"{path}: {error}") from error
-    unknown = set(table) - {"data_dir", "jobs", "reverse", "theme", "export_dir"}
+    unknown = set(table) - {field.name for field in fields(TuiSettings)}
     if unknown:
         raise ValueError(f"{path}: unknown settings {sorted(unknown)}")
-    data_dir = table.get("data_dir")
-    jobs = table.get("jobs")
-    reverse = table.get("reverse", False)
-    theme = table.get("theme")
-    export_dir = table.get("export_dir")
-    if data_dir is not None and not isinstance(data_dir, str):
-        raise ValueError(f"{path}: data_dir must be a string, not {data_dir!r}")
-    if export_dir is not None and not isinstance(export_dir, str):
-        raise ValueError(f"{path}: export_dir must be a string, not {export_dir!r}")
-    if jobs is not None and (not isinstance(jobs, int) or isinstance(jobs, bool)):
-        raise ValueError(f"{path}: jobs must be a whole number, not {jobs!r}")
-    if not isinstance(reverse, bool):
-        raise ValueError(f"{path}: reverse must be true or false, not {reverse!r}")
-    if theme is not None and not isinstance(theme, str):
-        raise ValueError(f"{path}: theme must be a string, not {theme!r}")
-    settings = TuiSettings(
-        data_dir=Path(data_dir) if data_dir is not None else None,
-        jobs=jobs,
-        reverse=reverse,
-        theme=theme,
-        export_dir=Path(export_dir) if export_dir is not None else None,
-    )
+    # A fixed order, not the file's, so a file with several bad values
+    # always reports the same one first.
+    expected = [
+        ("data_dir", _is_text, "a string"),
+        ("export_dir", _is_text, "a string"),
+        ("jobs", _is_whole_number, "a whole number"),
+        ("reverse", _is_true_or_false, "true or false"),
+        ("theme", _is_text, "a string"),
+    ]
+    for key, is_valid, kind in expected:
+        if key in table and not is_valid(table[key]):
+            raise ValueError(f"{path}: {key} must be {kind}, not {table[key]!r}")
+    values = dict(table)
+    for key in ("data_dir", "export_dir"):
+        if key in values:
+            values[key] = Path(values[key])
+    settings = TuiSettings(**values)
     return settings
+
+
+def _is_text(value: object) -> bool:
+    return isinstance(value, str)
+
+
+def _is_whole_number(value: object) -> bool:
+    whole_number = isinstance(value, int) and not isinstance(value, bool)
+    return whole_number
+
+
+def _is_true_or_false(value: object) -> bool:
+    return isinstance(value, bool)
 
 
 def tui_settings_text(settings: TuiSettings) -> str:
     """``settings`` as ``tui.toml``; defaults are left out."""
     lines = []
-    if settings.data_dir is not None:
-        # JSON's escapes for quotes, backslashes and control characters are
-        # TOML's; other characters stay literal, since TOML rejects JSON's
-        # surrogate-pair escapes for characters above U+FFFF. The same goes
-        # for export_dir below.
-        lines.append(f"data_dir = {json.dumps(str(settings.data_dir), ensure_ascii=False)}")
-    if settings.jobs is not None:
-        lines.append(f"jobs = {settings.jobs}")
-    if settings.reverse:
-        lines.append("reverse = true")
-    if settings.theme is not None:
-        lines.append(f"theme = {json.dumps(settings.theme, ensure_ascii=False)}")
-    if settings.export_dir is not None:
-        lines.append(f"export_dir = {json.dumps(str(settings.export_dir), ensure_ascii=False)}")
+    for field in fields(settings):
+        value = getattr(settings, field.name)
+        if value == field.default:
+            continue
+        if isinstance(value, bool):
+            written = "true"
+        elif isinstance(value, int):
+            written = str(value)
+        else:
+            # JSON's escapes for quotes, backslashes and control characters
+            # are TOML's; other characters stay literal, since TOML rejects
+            # JSON's surrogate-pair escapes for characters above U+FFFF.
+            written = json.dumps(str(value), ensure_ascii=False)
+        lines.append(f"{field.name} = {written}")
     text = "".join(f"{line}\n" for line in lines)
     return text
 
