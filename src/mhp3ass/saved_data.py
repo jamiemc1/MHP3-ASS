@@ -65,9 +65,6 @@ def read_tui_settings(path: Path) -> TuiSettings:
             table = tomllib.load(file)
     except tomllib.TOMLDecodeError as error:
         raise ValueError(f"{path}: {error}") from error
-    unknown = set(table) - {field.name for field in fields(TuiSettings)}
-    if unknown:
-        raise ValueError(f"{path}: unknown settings {sorted(unknown)}")
     # A fixed order, not the file's, so a file with several bad values
     # always reports the same one first.
     expected = [
@@ -77,6 +74,9 @@ def read_tui_settings(path: Path) -> TuiSettings:
         ("reverse", _is_true_or_false, "true or false"),
         ("theme", _is_text, "a string"),
     ]
+    unknown = set(table) - {key for key, _, _ in expected}
+    if unknown:
+        raise ValueError(f"{path}: unknown settings {sorted(unknown)}")
     for key, is_valid, kind in expected:
         if key in table and not is_valid(table[key]):
             raise ValueError(f"{path}: {key} must be {kind}, not {table[key]!r}")
@@ -109,14 +109,16 @@ def tui_settings_text(settings: TuiSettings) -> str:
         if value == field.default:
             continue
         if isinstance(value, bool):
-            written = "true"
+            written = "true" if value else "false"
         elif isinstance(value, int):
             written = str(value)
-        else:
+        elif isinstance(value, (str, Path)):
             # JSON's escapes for quotes, backslashes and control characters
             # are TOML's; other characters stay literal, since TOML rejects
             # JSON's surrogate-pair escapes for characters above U+FFFF.
             written = json.dumps(str(value), ensure_ascii=False)
+        else:
+            raise TypeError(f"no tui.toml form for {field.name} = {value!r}")
         lines.append(f"{field.name} = {written}")
     text = "".join(f"{line}\n" for line in lines)
     return text
