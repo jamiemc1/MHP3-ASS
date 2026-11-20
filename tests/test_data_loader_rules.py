@@ -146,6 +146,58 @@ def test_armor_name_in_two_slots_fails(minimal_data_files, write_files):
         load_game_data(write_files(minimal_data_files))
 
 
+@pytest.mark.parametrize(
+    ("file_name", "row", "message"),
+    [
+        pytest.param(
+            "head.txt",
+            armor_row("Cap").replace(",Attack,2,", ",Speed,2,"),
+            "No such ability found: 'Speed'",
+            id="armour ability",
+        ),
+        pytest.param(
+            "head.txt",
+            armor_row("Cap", materials="Ruby,1,,,,,,"),
+            "No such material found: 'Ruby'",
+            id="armour material",
+        ),
+        pytest.param(
+            "decorations.txt",
+            decoration_row("Attack Jewel").replace(",Attack,1,", ",Speed,1,"),
+            "No such ability found: 'Speed'",
+            id="decoration first ability",
+        ),
+        pytest.param(
+            "decorations.txt",
+            decoration_row("Attack Jewel").replace(",Defense,-1,", ",Speed,-1,"),
+            "No such ability found: 'Speed'",
+            id="decoration second ability",
+        ),
+        pytest.param(
+            "decorations.txt",
+            decoration_row("Attack Jewel", materials="Ruby,1,,,,,,"),
+            "No such material found: 'Ruby'",
+            id="decoration material",
+        ),
+        pytest.param(
+            "decorations.txt",
+            decoration_row("Attack Jewel", materials="Ore,1,,,,,,,Ruby,1,,,,,,"),
+            "No such material found: 'Ruby'",
+            id="decoration alternative material",
+        ),
+    ],
+)
+def test_an_unknown_name_in_a_row_names_what_is_missing(
+    minimal_data_files, write_files, file_name, row, message
+):
+    minimal_data_files[file_name] = row + "\n"
+
+    with pytest.raises(ValueError) as raised:
+        load_game_data(write_files(minimal_data_files))
+
+    assert str(raised.value) == message
+
+
 def test_skill_types_skip_the_rows_the_skill_loader_skips(minimal_data_files, write_files):
     minimal_data_files["skills.txt"] = (
         "#name,jname,ability,jability,points,type,tag,order\n"

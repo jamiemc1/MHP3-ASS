@@ -245,7 +245,9 @@ def _load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
         )
         for i in range(1, 5):
             if fields[i * 2 + 23] != "":
-                material = _lookup(game.material_map, name=fields[i * 2 + 23], kind="material")
+                material = _lookup(
+                    mapping=game.material_map, name=fields[i * 2 + 23], kind="material"
+                )
                 component = MaterialComponent(
                     material=material, amount=as_unsigned(to_int32(fields[i * 2 + 24]))
                 )
@@ -258,7 +260,7 @@ def _load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
             index = 15 + i * 2
             if fields[index] != "":
                 amount = to_int32(fields[index + 1]) if fields[index + 1] != "" else 0
-                ability = _lookup(game.ability_map, name=fields[index], kind="ability")
+                ability = _lookup(mapping=game.ability_map, name=fields[index], kind="ability")
                 pair = AbilityPair(ability=ability, amount=amount)
                 armor.abilities.append(pair)
                 if pair.ability is game.torso_inc:
@@ -286,12 +288,14 @@ def _load_decorations(game: GameData, path: Path) -> None:
         for i in range(2):
             if fields[6 + i * 2] == "":
                 continue
-            ability = _lookup(game.ability_map, name=fields[6 + i * 2], kind="ability")
+            ability = _lookup(mapping=game.ability_map, name=fields[6 + i * 2], kind="ability")
             pair = AbilityPair(ability=ability, amount=to_int32(fields[7 + i * 2]))
             decoration.abilities.append(pair)
         for i in range(4):
             if fields[10 + i * 2] != "":
-                material = _lookup(game.material_map, name=fields[10 + i * 2], kind="material")
+                material = _lookup(
+                    mapping=game.material_map, name=fields[10 + i * 2], kind="material"
+                )
                 component = MaterialComponent(
                     material=material, amount=to_uint32(fields[11 + i * 2])
                 )
@@ -300,7 +304,9 @@ def _load_decorations(game: GameData, path: Path) -> None:
                 # Unlike armour, the original adds the material's difficulty once, not per unit.
                 decoration.difficulty = as_unsigned(decoration.difficulty + material.difficulty)
             if fields[18 + i * 2] != "":
-                material = _lookup(game.material_map, name=fields[18 + i * 2], kind="material")
+                material = _lookup(
+                    mapping=game.material_map, name=fields[18 + i * 2], kind="material"
+                )
                 component = MaterialComponent(
                     material=material, amount=to_uint32(fields[19 + i * 2])
                 )
