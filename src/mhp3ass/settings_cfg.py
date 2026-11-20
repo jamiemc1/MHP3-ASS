@@ -48,6 +48,13 @@ class SettingsCfg:
     skill_selections: tuple[SkillSelection, ...]
     solution_lines: tuple[str, ...]
 
+    @property
+    def sort_key(self) -> SortKey:
+        """The saved sort, with -1 (nothing selected) as ``SortKey.NONE``.
+        Assumes ``check_header`` passed."""
+        key = SortKey(max(self.sort_index, 0))
+        return key
+
 
 def read_settings_cfg(path: Path) -> SettingsCfg:
     """Read ``settings.cfg`` field by field, in ``LoadConfig``'s order.
@@ -222,16 +229,15 @@ def check_header(settings: SettingsCfg, language_count: int) -> None:
             raise SettingsCfgError(f"{name} {value} is outside {minimum}-{maximum}")
 
 
-def load_results(
-    settings: SettingsCfg, game: GameData, results: ResultSet, language_count: int
-) -> ResultsView:
-    """``LoadConfig``'s results (Form1.h:428-438), after ``check_header``.
+def load_results(settings: SettingsCfg, game: GameData, results: ResultSet) -> ResultsView:
+    """``LoadConfig``'s results (Form1.h:428-438). The caller runs
+    ``check_header`` first, as ``LoadConfig`` applies the header before it
+    clears the results, so a file it rejects leaves them as they were.
 
     ``results`` keeps its ``existing_armor``, so a charmed solution a search
     or an earlier load already kept is dropped (quirk 46). Charm-free lines go
     only to the charm-free list, not ``all_solutions`` (quirk 45).
     """
-    check_header(settings, language_count)
     results.clear_solutions()
     no_charm_solutions: list[Solution] = []
     for line in settings.solution_lines:
@@ -240,11 +246,10 @@ def load_results(
             no_charm_solutions.append(solution)
         else:
             results.add_solution(charm_name(solution.charm), solution)
-    sort_key = SortKey(max(settings.sort_index, 0))
     view = ResultsView.of_lists(
         all_solutions=results.all_solutions,
         no_charm_solutions=no_charm_solutions,
-        sort_key=sort_key,
+        sort_key=settings.sort_key,
     )
     return view
 

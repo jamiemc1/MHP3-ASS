@@ -279,7 +279,7 @@ def test_writes_the_solution_lines_it_is_given(settings_with_one_line):
 
 
 @pytest.fixture
-def load(teamhgg_game, language_count):
+def load(teamhgg_game):
     """``load_results`` in English (TeamHGG), into ``results`` or a new ``ResultSet``."""
 
     def load_into(settings, results=None):
@@ -287,7 +287,6 @@ def load(teamhgg_game, language_count):
             settings=settings,
             game=teamhgg_game,
             results=ResultSet() if results is None else results,
-            language_count=language_count,
         )
         return view
 
@@ -330,13 +329,6 @@ def unselected_sort_settings(loadable_settings):
 def results_loaded_from_capture_12(load, capture_settings):
     results = ResultSet()
     load(capture_settings["12"], results)
-    return results
-
-
-@pytest.fixture
-def results_loaded_from_loadable_settings(load, loadable_settings):
-    results = ResultSet()
-    load(loadable_settings, results)
     return results
 
 
@@ -418,18 +410,26 @@ def test_a_header_value_load_config_cannot_apply_is_rejected(
         {"elder_star": 6, "weapon_slots": 3},
     ],
 )
-def test_header_values_at_their_limits_load(load, loadable_settings, changes):
+def test_header_values_at_their_limits_load(load, loadable_settings, language_count, changes):
     settings = dataclasses.replace(loadable_settings, **changes)
+
+    check_header(settings, language_count=language_count)
 
     assert len(load(settings).all_solutions) == 1
 
 
-def test_a_rejected_header_leaves_the_results_alone(
-    load, loadable_settings, results_loaded_from_loadable_settings
-):
-    kept = results_loaded_from_loadable_settings.all_solutions
+@pytest.mark.parametrize(
+    ("sort_index", "key"),
+    [(-1, SortKey.NONE), (0, SortKey.NONE), (8, SortKey.DIFFICULTY), (10, SortKey.SLOTS_SPARE)],
+)
+def test_the_sort_key_is_the_saved_sort_with_minus_one_as_none(loadable_settings, sort_index, key):
+    settings = dataclasses.replace(loadable_settings, sort_index=sort_index)
 
-    with pytest.raises(SettingsCfgError):
-        load(dataclasses.replace(loadable_settings, hr=7), results_loaded_from_loadable_settings)
+    assert settings.sort_key is key
 
-    assert [results_loaded_from_loadable_settings.all_solutions is kept, len(kept)] == [True, 1]
+
+def test_a_sort_index_past_the_last_sort_has_no_sort_key(loadable_settings):
+    settings = dataclasses.replace(loadable_settings, sort_index=len(SortKey))
+
+    with pytest.raises(ValueError, match=f"{len(SortKey)} is not a valid SortKey"):
+        _ = settings.sort_key

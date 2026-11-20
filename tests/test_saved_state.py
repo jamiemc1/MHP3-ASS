@@ -230,6 +230,21 @@ def test_a_header_out_of_range_raises_without_lines(
         restore(dataclasses.replace(two_tab_settings, **{field: value}))
 
 
+@pytest.fixture
+def settings_with_a_malformed_line(two_tab_settings):
+    return dataclasses.replace(two_tab_settings, solution_lines=("x",))
+
+
+def test_a_malformed_line_raises_when_the_header_applies(restore, settings_with_a_malformed_line):
+    with pytest.raises(SettingsCfgError, match="can't load the solution line 'x'"):
+        restore(settings_with_a_malformed_line)
+
+
+def test_the_header_is_checked_before_any_line_is_read(restore, settings_with_a_malformed_line):
+    with pytest.raises(SettingsCfgError, match="HR 7"):
+        restore(dataclasses.replace(settings_with_a_malformed_line, hr=7))
+
+
 def _header(settings: SettingsCfg) -> SettingsCfg:
     header = dataclasses.replace(settings, skill_selections=(), solution_lines=())
     return header

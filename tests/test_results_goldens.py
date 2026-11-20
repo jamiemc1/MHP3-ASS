@@ -25,7 +25,7 @@ from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import ResultSet, SearchResult, lines_of, skill_indices
 from mhp3ass.results.view import ResultsView
 from mhp3ass.search import SearchData
-from mhp3ass.settings_cfg import SettingsCfg, load_results
+from mhp3ass.settings_cfg import SettingsCfg, check_header, load_results
 from mhp3ass.skill_picker import SkillSelection
 from mhp3ass.solution.state import Solution
 
@@ -122,9 +122,8 @@ def _settings_holding(lines: Sequence[str]) -> SettingsCfg:
 def _load_step(
     step: str, settings: SettingsCfg, game: GameData, results: ResultSet, language_count: int
 ) -> dict[str, Any]:
-    view = load_results(
-        settings=settings, game=game, results=results, language_count=language_count
-    )
+    check_header(settings, language_count=language_count)
+    view = load_results(settings=settings, game=game, results=results)
     lines = settings.solution_lines
     observed = {
         "step": step,

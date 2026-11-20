@@ -174,7 +174,6 @@ def restore_search(
     the original's load does before reading the lines."""
     check_header(settings, language_count=language_count)
     form = form_from_settings(settings, game)
-    sort_key = SortKey(max(settings.sort_index, 0))
     results = None
     if settings.solution_lines:
         results_form = dataclasses.replace(
@@ -185,11 +184,11 @@ def restore_search(
         )
         spec = results_form.search_spec(game, language=language, my_charms=())
         query = formulate_query(game, spec.query)
-        view = load_results(settings, game=game, results=ResultSet(), language_count=language_count)
+        view = load_results(settings, game=game, results=ResultSet())
         results = LoadedResults(view=view, query=query, form=results_form)
     search = SavedSearch(
         form=form,
-        sort_key=sort_key,
+        sort_key=settings.sort_key,
         last_search_gunner=settings.last_search_gunner,
         results=results,
     )
