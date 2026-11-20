@@ -1017,8 +1017,8 @@ class SearchApp(App[bool]):
         # The editor over the results gives them back.
         if self.screen_stack[0].has_class("-editor-over"):
             self._collapse_editor()
-        layout = self._layout()
         if region is Region.CHARMS:
+            layout = self._layout()
             # A screen too narrow for them shows neither the sidebar nor the drop-down.
             if not layout.charms_shown:
                 return
