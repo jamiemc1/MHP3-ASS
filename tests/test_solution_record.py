@@ -20,7 +20,7 @@ from mhp3ass.model import AbilityPair, ArmorType, Charm
 from mhp3ass.search import run_worker
 from mhp3ass.solution.record import CharmRecord, RecordIndex, from_record, to_record
 from mhp3ass.solution.state import Solution
-from solution_trace import template_charm
+from solution_trace import worker_templates
 
 
 @dataclass
@@ -96,13 +96,12 @@ def _round_trip_failures(search_goldens, trace_goldens, game, max_evaluations):
     for golden in search_goldens:
         query_id = golden.query["id"]
         query = formulate_query_json(game, golden.query)
-        workers = traces[query_id].header["workers"]
+        templates = worker_templates(traces[query_id], game)
         combinations = prod(max(len(slot), 1) for slot in query.rel_armor)
-        if combinations * len(workers) > max_evaluations:
+        if combinations * len(templates) > max_evaluations:
             continue
         charm_modes.add(golden.query["charm_mode"])
-        for number, worker in enumerate(workers):
-            template = template_charm(worker["template"], game)
+        for number, template in enumerate(templates):
             solutions = run_worker(query, template, game)
             records = pickle.loads(
                 pickle.dumps([to_record(solution, index) for solution in solutions])

@@ -6,11 +6,11 @@ from itertools import product
 
 import pytest
 
-from goldens import formulate_query_json
+from goldens import formulate_query_json, golden_by_id
 from mhp3ass.parallel import Task, default_jobs, plan_tasks, usable_cpus
 from mhp3ass.results.result_set import solution_line
 from mhp3ass.search import armor_choices, run_worker
-from solution_trace import template_charm
+from solution_trace import worker_templates
 
 
 def _coverage_errors(tasks: list[Task], worker_count: int, head_count: int) -> list[str]:
@@ -72,12 +72,9 @@ def test_no_workers_means_no_tasks():
 @pytest.fixture
 def g13_query_and_templates(search_goldens, trace_goldens, scratch_game):
     """g13's query (one-skill mode, four workers) and its workers' charm templates."""
-    golden = next(golden for golden in search_goldens if golden.query["id"] == "g13")
-    trace = next(golden for golden in trace_goldens if golden.query["id"] == "g13")
+    golden = golden_by_id(search_goldens, "g13")
     query = formulate_query_json(scratch_game, golden.query)
-    templates = [
-        template_charm(worker["template"], scratch_game) for worker in trace.header["workers"]
-    ]
+    templates = worker_templates(golden_by_id(trace_goldens, "g13"), scratch_game)
     return query, templates
 
 

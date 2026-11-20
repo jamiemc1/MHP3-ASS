@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import gzip
 import json
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Protocol
 
 from mhp3ass.data import GameData
 from mhp3ass.query import Query, QuerySpec
@@ -17,6 +18,19 @@ def formulate_query_json(game: GameData, query_json: dict[str, Any]) -> Query:
     """``formulate_query`` on a query file's JSON, as goldens and corpus files hold it."""
     query = formulate_query(game, QuerySpec.from_json(query_json))
     return query
+
+
+class _QueryGolden(Protocol):
+    @property
+    def query(self) -> dict[str, Any]: ...
+
+
+def golden_by_id[G: _QueryGolden](goldens: Sequence[G], query_id: str) -> G:
+    """The golden whose query has id ``query_id``; raises ``LookupError`` if none has."""
+    for golden in goldens:
+        if golden.query["id"] == query_id:
+            return golden
+    raise LookupError(f"no golden for query {query_id}")
 
 
 def read_golden(path: Path) -> Any:
