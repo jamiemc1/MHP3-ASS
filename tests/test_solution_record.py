@@ -15,9 +15,8 @@ from typing import Any
 
 import pytest
 
+from goldens import formulate_query_json
 from mhp3ass.model import AbilityPair, ArmorType, Charm
-from mhp3ass.query import QuerySpec
-from mhp3ass.relevance import formulate_query
 from mhp3ass.search import run_worker
 from mhp3ass.solution.record import CharmRecord, RecordIndex, from_record, to_record
 from mhp3ass.solution.state import Solution
@@ -96,7 +95,7 @@ def _round_trip_failures(search_goldens, trace_goldens, game, max_evaluations):
     charm_modes = set()
     for golden in search_goldens:
         query_id = golden.query["id"]
-        query = formulate_query(game, QuerySpec.from_json(golden.query))
+        query = formulate_query_json(game, golden.query)
         workers = traces[query_id].header["workers"]
         combinations = prod(max(len(slot), 1) for slot in query.rel_armor)
         if combinations * len(workers) > max_evaluations:

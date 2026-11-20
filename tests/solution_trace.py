@@ -13,11 +13,10 @@ from collections.abc import Callable, Iterator, Sequence
 from dataclasses import dataclass
 from typing import Any
 
-from goldens import TraceGolden
+from goldens import TraceGolden, formulate_query_json
 from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
-from mhp3ass.query import Query, QuerySpec
-from mhp3ass.relevance import formulate_query
+from mhp3ass.query import Query
 from mhp3ass.search import armor_choices, dotnet_exception_type
 from mhp3ass.solution import finish, has_enough_points, match
 from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
@@ -114,7 +113,7 @@ def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCas
     golden's are produced: replay each case as it comes.
     """
     for golden in goldens:
-        query = formulate_query(game, QuerySpec.from_json(golden.query))
+        query = formulate_query_json(game, golden.query)
         slots = armor_choices(query)
         templates = [
             template_charm(worker["template"], game) for worker in golden.header["workers"]

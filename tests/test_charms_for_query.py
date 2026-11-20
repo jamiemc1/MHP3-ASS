@@ -5,19 +5,18 @@ from __future__ import annotations
 from typing import Any
 
 from golden_shapes import charm_shape
-from goldens import RelevanceGolden
+from goldens import RelevanceGolden, formulate_query_json
 from mhp3ass.charms.for_query import get_charms
 from mhp3ass.charms.generation import CharmTables
 from mhp3ass.data import GameData
 from mhp3ass.query import QuerySpec, build_query
-from mhp3ass.relevance import formulate_query
 
 
 def _charms_section(
     golden: RelevanceGolden, game: GameData, tables: CharmTables, use_two_skill_charms: bool
 ) -> dict[str, Any]:
     # The harness calls GetCharms after FormulateQuery, so relevance state is set too.
-    query = formulate_query(game, QuerySpec.from_json(golden.query))
+    query = formulate_query_json(game, golden.query)
     charms = get_charms(query, tables=tables, use_two_skill_charms=use_two_skill_charms)
     section = {"exception": None, "charms": [charm_shape(charm) for charm in charms]}
     return section

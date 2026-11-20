@@ -6,9 +6,8 @@ from itertools import product
 
 import pytest
 
+from goldens import formulate_query_json
 from mhp3ass.parallel import Task, default_jobs, plan_tasks, usable_cpus
-from mhp3ass.query import QuerySpec
-from mhp3ass.relevance import formulate_query
 from mhp3ass.results.result_set import solution_line
 from mhp3ass.search import armor_choices, run_worker
 from solution_trace import template_charm
@@ -75,7 +74,7 @@ def g13_query_and_templates(search_goldens, trace_goldens, scratch_game):
     """g13's query (one-skill mode, four workers) and its workers' charm templates."""
     golden = next(golden for golden in search_goldens if golden.query["id"] == "g13")
     trace = next(golden for golden in trace_goldens if golden.query["id"] == "g13")
-    query = formulate_query(scratch_game, QuerySpec.from_json(golden.query))
+    query = formulate_query_json(scratch_game, golden.query)
     templates = [
         template_charm(worker["template"], scratch_game) for worker in trace.header["workers"]
     ]
