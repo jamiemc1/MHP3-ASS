@@ -113,12 +113,14 @@ def test_progress_rises_to_every_combination_of_every_worker(compare_with_serial
     assert comparison.reports[-1] == (comparison.combinations, comparison.combinations)
 
 
-def test_progress_arrives_from_inside_running_tasks(corpus_spec, legacy_data_dir, search_data_for):
+def test_progress_arrives_from_inside_running_tasks(
+    corpus_spec, legacy_data_dir, search_data_for, serial_search
+):
     """With one process and no throttling, some report must fall between task
     boundaries: only a pool process's own messages can put it there."""
     spec = corpus_spec("corpus/g16-attack-sharp-no-charms.json")
     data = search_data_for(spec)
-    serial = run_search(spec, data=data)
+    serial = serial_search("g16-attack-sharp-no-charms.json")
     search = PoolSearch.for_query(legacy_data_dir, spec=spec.query, query=serial.query)
     tasks = plan_tasks(worker_count=1, head_count=search.head_count, jobs=1)
     boundaries = set(
@@ -301,9 +303,9 @@ def test_progress_tally_keeps_the_highest_report_and_counts_finished_tasks_in_fu
 
 
 def test_a_rebuilt_query_must_match_the_parents_armour_choices(
-    one_skill_spec, legacy_data_dir, search_data_for
+    one_skill_spec, legacy_data_dir, serial_search
 ):
-    serial = run_search(one_skill_spec, data=search_data_for(one_skill_spec))
+    serial = serial_search("g13-hr3-attack-health-one-skill.json")
     search = PoolSearch.for_query(legacy_data_dir, spec=one_skill_spec.query, query=serial.query)
     heads, *other_slots = search.armor_indices
     one_head_fewer = replace(search, armor_indices=(heads[:-1], *other_slots))
