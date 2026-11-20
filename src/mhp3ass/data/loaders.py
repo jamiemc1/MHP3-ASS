@@ -110,20 +110,26 @@ def _load_skill_tags(game: GameData, path: Path) -> None:
 
 def _find_tag(game: GameData, name: str) -> SkillTag | None:
     """``SkillTag::FindTag``: the first tag with this name."""
-    for tag in game.skill_tags:
-        if tag.name == name:
-            return tag
-    return None
+    tag = next((tag for tag in game.skill_tags if tag.name == name), None)
+    return tag
+
+
+def _skill_rows(path: Path) -> Iterator[list[str]]:
+    """The fields of each ``skills.txt`` line ``Skill::Load`` reads.
+
+    Stops at the first blank line and skips ``#`` lines (Skill.cpp:64-157).
+    """
+    for line in read_lines(path):
+        if line == "":
+            return
+        if line[0] == "#":
+            continue
+        yield split_fields(line)
 
 
 def _load_skills(game: GameData, path: Path) -> None:
-    """``Skill::Load`` (Skill.cpp:64-157). Stops at the first blank line."""
-    for line in read_lines(path):
-        if line == "":
-            break
-        if line[0] == "#":
-            continue
-        fields = split_fields(line)
+    """``Skill::Load`` (Skill.cpp:64-157)."""
+    for fields in _skill_rows(path):
         if fields[2] == "":
             # The torso-up row names an ability with no skill of its own.
             torso_inc = Ability(name=fields[0], static_index=len(game.abilities))
@@ -174,16 +180,7 @@ def read_skill_types(path: Path) -> list[int]:
     and the GUI has no hunter-type skill filter. Lines are skipped as
     ``_load_skills`` skips them, so the list lines up with ``GameData.skills``.
     """
-    types = []
-    for line in read_lines(path):
-        if line == "":
-            break
-        if line[0] == "#":
-            continue
-        fields = split_fields(line)
-        if fields[2] == "":
-            continue
-        types.append(to_int32(fields[5]))
+    types = [to_int32(fields[5]) for fields in _skill_rows(path) if fields[2] != ""]
     return types
 
 
@@ -195,34 +192,24 @@ def other_hunter_types_skill(skill_type: int, hunter_type: HunterType) -> bool:
     return mismatched
 
 
-def _find_ability(game: GameData, name: str) -> Ability:
-    ability = game.ability_map.get(name)
-    if ability is None:
-        raise ValueError(f"No such ability found: {name!r}")
-    return ability
-
-
-def _find_material(game: GameData, name: str) -> Material:
-    material = game.material_map.get(name)
-    if material is None:
-        raise ValueError(f"No such material found: {name!r}")
-    return material
+def _lookup[T](mapping: dict[str, T], name: str, kind: str) -> T:
+    """The record ``name`` refers to, or a ``ValueError`` naming the ``kind``."""
+    record = mapping.get(name)
+    if record is None:
+        raise ValueError(f"No such {kind} found: {name!r}")
+    return record
 
 
 def _gender(code: str) -> Gender:
-    if code == "1":
-        return Gender.MALE
-    if code == "2":
-        return Gender.FEMALE
-    return Gender.BOTH_GENDERS
+    gender = {"1": Gender.MALE, "2": Gender.FEMALE}.get(code, Gender.BOTH_GENDERS)
+    return gender
 
 
 def _hunter_type(code: str) -> HunterType:
-    if code == "1":
-        return HunterType.BLADEMASTER
-    if code == "2":
-        return HunterType.GUNNER
-    return HunterType.BOTH_TYPES
+    hunter_type = {"1": HunterType.BLADEMASTER, "2": HunterType.GUNNER}.get(
+        code, HunterType.BOTH_TYPES
+    )
+    return hunter_type
 
 
 def _load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
@@ -258,7 +245,7 @@ def _load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
         )
         for i in range(1, 5):
             if fields[i * 2 + 23] != "":
-                material = _find_material(game, fields[i * 2 + 23])
+                material = _lookup(game.material_map, name=fields[i * 2 + 23], kind="material")
                 component = MaterialComponent(
                     material=material, amount=as_unsigned(to_int32(fields[i * 2 + 24]))
                 )
@@ -271,7 +258,8 @@ def _load_armors(game: GameData, path: Path, armor_type: ArmorType) -> None:
             index = 15 + i * 2
             if fields[index] != "":
                 amount = to_int32(fields[index + 1]) if fields[index + 1] != "" else 0
-                pair = AbilityPair(ability=_find_ability(game, fields[index]), amount=amount)
+                ability = _lookup(game.ability_map, name=fields[index], kind="ability")
+                pair = AbilityPair(ability=ability, amount=amount)
                 armor.abilities.append(pair)
                 if pair.ability is game.torso_inc:
                     armor.torso_inc = True
@@ -298,13 +286,12 @@ def _load_decorations(game: GameData, path: Path) -> None:
         for i in range(2):
             if fields[6 + i * 2] == "":
                 continue
-            pair = AbilityPair(
-                ability=_find_ability(game, fields[6 + i * 2]), amount=to_int32(fields[7 + i * 2])
-            )
+            ability = _lookup(game.ability_map, name=fields[6 + i * 2], kind="ability")
+            pair = AbilityPair(ability=ability, amount=to_int32(fields[7 + i * 2]))
             decoration.abilities.append(pair)
         for i in range(4):
             if fields[10 + i * 2] != "":
-                material = _find_material(game, fields[10 + i * 2])
+                material = _lookup(game.material_map, name=fields[10 + i * 2], kind="material")
                 component = MaterialComponent(
                     material=material, amount=to_uint32(fields[11 + i * 2])
                 )
@@ -313,7 +300,7 @@ def _load_decorations(game: GameData, path: Path) -> None:
                 # Unlike armour, the original adds the material's difficulty once, not per unit.
                 decoration.difficulty = as_unsigned(decoration.difficulty + material.difficulty)
             if fields[18 + i * 2] != "":
-                material = _find_material(game, fields[18 + i * 2])
+                material = _lookup(game.material_map, name=fields[18 + i * 2], kind="material")
                 component = MaterialComponent(
                     material=material, amount=to_uint32(fields[19 + i * 2])
                 )
