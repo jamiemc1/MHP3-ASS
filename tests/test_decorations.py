@@ -40,8 +40,8 @@ def test_is_better_than_matches_golden_for_every_pair(models_golden, teamhgg_gam
 
 
 @pytest.fixture
-def sharpness():
-    return Ability(name="Sharpness", static_index=1)
+def sharpness(make_ability):
+    return make_ability("Sharpness", 1)
 
 
 def test_second_skill_comparison_is_unsigned(attack, sharpness):

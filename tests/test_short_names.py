@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from mhp3ass.model import Ability, AbilityPair, ArmorType, Charm, HunterType
+from mhp3ass.model import AbilityPair, ArmorType, Charm, HunterType
 from mhp3ass.results.short_names import (
     ShortNames,
     ability_abbreviations,
@@ -95,9 +95,9 @@ def test_each_ability_gets_its_shortest_unique_prefix_of_three_or_more():
     }
 
 
-def test_a_charm_reads_as_signed_amounts_short_abilities_and_its_slots():
-    attack = Ability(name="Attack", static_index=0)
-    sharpness = Ability(name="Sharpness", static_index=1)
+def test_a_charm_reads_as_signed_amounts_short_abilities_and_its_slots(make_ability):
+    attack = make_ability("Attack", 0)
+    sharpness = make_ability("Sharpness", 1)
     charm = Charm(
         num_slots=1,
         abilities=[
@@ -111,8 +111,10 @@ def test_a_charm_reads_as_signed_amounts_short_abilities_and_its_slots():
     assert name == "+4 Att -2 Shp (1)"
 
 
-def test_a_slotless_charm_has_no_brackets_and_an_ability_with_no_short_name_stays_whole():
-    guard = Ability(name="Guard", static_index=0)
+def test_a_slotless_charm_has_no_brackets_and_an_ability_with_no_short_name_stays_whole(
+    make_ability,
+):
+    guard = make_ability("Guard", 0)
     charm = Charm(num_slots=0, abilities=[AbilityPair(ability=guard, amount=3)])
 
     assert short_charm_name(charm, {}) == "+3 Guard"
