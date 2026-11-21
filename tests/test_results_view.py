@@ -56,7 +56,7 @@ def my_charms_search(corpus_searches) -> CorpusSearch:
 
 
 @pytest.fixture
-def one_skill_search(corpus_searches) -> CorpusSearch:
+def one_skill_charms_search(corpus_searches) -> CorpusSearch:
     return corpus_searches["g13"]
 
 
@@ -93,20 +93,20 @@ def test_the_charm_free_solutions_are_the_search_lines_without_a_charm(my_charms
     assert len(expected) == 7241
 
 
-def test_each_charm_lists_its_solutions_in_arrival_order(one_skill_search):
+def test_each_charm_lists_its_solutions_in_arrival_order(one_skill_charms_search):
     """g13's charms are reduced as they match: some lose every skill ("O--"
     is still a charm), and some are removed, which leaves those solutions
     charm-free (the harness names them "")."""
-    lines = one_skill_search.lines
+    lines = one_skill_charms_search.lines
     name_by_line = {
         candidate.solution_line: candidate.charm_name
-        for candidate in one_skill_search.golden.candidates or []
+        for candidate in one_skill_charms_search.golden.candidates or []
     }
     expected: dict[str, list[str]] = {}
-    for line in one_skill_search.golden.solution_lines:
+    for line in one_skill_charms_search.golden.solution_lines:
         expected.setdefault(name_by_line[line], []).append(line)
     charm_free = expected.pop("")
-    view = ResultsView.from_search(one_skill_search.results)
+    view = ResultsView.from_search(one_skill_charms_search.results)
 
     by_charm = {
         name: [lines[position] for position in positions]
@@ -119,8 +119,8 @@ def test_each_charm_lists_its_solutions_in_arrival_order(one_skill_search):
     assert len(charm_free) > 0
 
 
-def test_the_filter_offers_each_charm_once_ignoring_case(one_skill_search):
-    view = ResultsView.from_search(one_skill_search.results)
+def test_the_filter_offers_each_charm_once_ignoring_case(one_skill_charms_search):
+    view = ResultsView.from_search(one_skill_charms_search.results)
 
     names = view.charm_filter_names()
 
@@ -128,8 +128,8 @@ def test_the_filter_offers_each_charm_once_ignoring_case(one_skill_search):
     assert len(names) > 1
 
 
-def test_a_charm_filter_shows_that_charms_solutions(one_skill_search):
-    view = ResultsView.from_search(one_skill_search.results)
+def test_a_charm_filter_shows_that_charms_solutions(one_skill_charms_search):
+    view = ResultsView.from_search(one_skill_charms_search.results)
     name = view.charm_filter_names()[0]
 
     view.select_filter(CharmFilter.charm(name))
