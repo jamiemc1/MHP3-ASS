@@ -245,10 +245,13 @@ SEARCH_ERRORS = (LegacyNullReferenceError, LookupError)
 lookups (``KeyError``, ``IndexError`` and the port's subclasses of them).
 ``dotnet_exception_type`` says which the original also throws. The serial
 search records or propagates them; anything else is a failure of the pool
-and fails the search."""
+and fails the search. ``SearchError`` names the same types for annotations:
+change both together."""
+
+type SearchError = LegacyNullReferenceError | LookupError
 
 
-def is_search_error(error: BaseException) -> TypeIs[LegacyNullReferenceError | LookupError]:
+def is_search_error(error: BaseException) -> TypeIs[SearchError]:
     """Whether ``error`` is one of ``SEARCH_ERRORS``."""
     search_error = isinstance(error, SEARCH_ERRORS)
     return search_error
