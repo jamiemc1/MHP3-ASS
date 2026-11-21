@@ -112,7 +112,7 @@ def get_relevant_data(game: GameData, query: Query) -> None:
     """
     for skill in query.skills:
         query.rel_abilities.append(skill.ability)
-    query.relevant_abilities = frozenset(query.rel_abilities)
+    query.relevant_abilities = frozenset(skill.ability for skill in query.skills)
     _get_relevant_decorations(game, query)
     for armor_type in ArmorType:
         _get_relevant_armors(

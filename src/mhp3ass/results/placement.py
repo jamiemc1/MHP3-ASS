@@ -190,7 +190,7 @@ def correction(
     ``Unbuildable`` (step 2's reason) when none builds. Raises
     ``PlacementUnknownError`` when steps 1 and 2 don't build and
     ``charm_templates`` is ``None`` (not known, as for loaded results).
-    Fills read the abilities' ``relevant`` flags: call it only while no
+    Fills read ``query.relevant_abilities``; as for ``refilled``, call it only while no
     search is using ``game``.
     """
     multiplier = solution.torso_multiplier
