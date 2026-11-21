@@ -16,13 +16,13 @@ from mhp3ass.results.details import (
     ArmorNote,
     DecorationCount,
     SlotsSpare,
+    always_shown_slots_spare,
     armor_details,
     armor_note,
     decoration_details,
     extra_skills,
     slots_spare,
     solution_details,
-    spare_slots,
 )
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.solution.state import Solution
@@ -165,16 +165,18 @@ def test_slots_spare_shows_a_breakdown_only_when_the_total_isnt_one_group(
         (0, [0, 0, 0, 0], SlotsSpare(total=0, groups=None)),
         (0, None, SlotsSpare(total=0, groups=None)),
         (1, [0, 1, 0, 0], SlotsSpare(total=1, groups=None)),
+        (2, [0, 0, 1, 0], SlotsSpare(total=2, groups=None)),
         (3, [0, 0, 0, 1], SlotsSpare(total=3, groups=None)),
         (2, None, SlotsSpare(total=2, groups=None)),
+        (2, [0, 2, 0, 0], SlotsSpare(total=2, groups=(1, 1))),
         (3, [0, 1, 1, 0], SlotsSpare(total=3, groups=(1, 2))),
         (5, [0, 0, 1, 1], SlotsSpare(total=5, groups=(2, 3))),
     ],
 )
-def test_spare_slots_show_even_with_none_spare(total, groups, shown):
+def test_the_always_shown_spare_line_shows_even_with_none_spare(total, groups, shown):
     solution = Solution(armors=[], charm=None, total_slots_spare=total, slots_spare=groups)
 
-    assert spare_slots(solution) == shown
+    assert always_shown_slots_spare(solution) == shown
 
 
 @pytest.fixture

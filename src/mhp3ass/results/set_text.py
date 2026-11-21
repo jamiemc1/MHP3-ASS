@@ -19,7 +19,7 @@ from mhp3ass.data.strings import DisplayStrings
 from mhp3ass.model import ArmorType
 from mhp3ass.query import Query
 from mhp3ass.query_form import hunter_summary
-from mhp3ass.results.details import SolutionDetails, spare_slots
+from mhp3ass.results.details import SolutionDetails, always_shown_slots_spare
 from mhp3ass.results.inspector import (
     InspectorLine,
     charm_text,
@@ -86,7 +86,7 @@ def set_markdown(
     ]
     charm = InspectorLine(label="Charm", text=charm_text(details.charm))
     table = _table([*pieces, charm, *jewel_lines(details)])
-    spare = spare_slots(solution)
+    spare = always_shown_slots_spare(solution)
     skills = ", ".join(skill.name for skill in [*query.skills, *details.extra_skills])
     summary = f"- Spare: {spare_text(spare, strings)}\n- Skills: {skills}"
     blocks = [set_heading(solution, short_names), preamble, table, summary]

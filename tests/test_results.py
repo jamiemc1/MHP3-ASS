@@ -15,7 +15,6 @@ from mhp3ass.results.result_set import (
     ResultSet,
     SolutionList,
     charm_names,
-    hash_armor,
     hash_armor_indices,
     lines_of,
     lines_sha256,
@@ -121,12 +120,12 @@ def pieces(make_armor):
     return [make_armor(f"Piece {index}", index=index) for index in range(9)]
 
 
-def test_hash_overlaps_between_slots(pieces):
+def test_hash_overlaps_between_slots():
     """Quirk 4: index 8 in the head and index 1 in the body hash alike."""
-    head_8 = [pieces[8], pieces[0], pieces[0], pieces[0], pieces[0]]
-    body_1 = [pieces[0], pieces[1], pieces[0], pieces[0], pieces[0]]
+    head_8 = [8, 0, 0, 0, 0]
+    body_1 = [0, 1, 0, 0, 0]
 
-    assert [hash_armor(head_8), hash_armor(body_1)] == [8, 8]
+    assert [hash_armor_indices(head_8), hash_armor_indices(body_1)] == [8, 8]
 
 
 def test_a_colliding_armour_set_with_the_same_charm_is_dropped(pieces, charm):
@@ -234,7 +233,7 @@ def test_a_throw_part_way_keeps_what_was_added_before_it(pieces, charm):
 
     assert [results.all_solutions, results.existing_armor] == [
         [kept],
-        {"+4 Attack O--": {hash_armor(kept.armors)}},
+        {"+4 Attack O--": {hash_armor_indices([1] * 5)}},
     ]
 
 
