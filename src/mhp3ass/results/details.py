@@ -303,9 +303,17 @@ def extra_skills(solution: Solution, query_skills: Sequence[Skill]) -> tuple[Ski
 
 def slots_spare(solution: Solution, sort_key: SortKey) -> SlotsSpare | None:
     """Form1.h:1608-1632: shown when any slot is spare or when sorting by slots spare."""
-    total = solution.total_slots_spare
-    if total == 0 and sort_key is not SortKey.SLOTS_SPARE:
+    if solution.total_slots_spare == 0 and sort_key is not SortKey.SLOTS_SPARE:
         return None
+    shown = always_shown_slots_spare(solution)
+    return shown
+
+
+def always_shown_slots_spare(solution: Solution) -> SlotsSpare:
+    """``slots_spare`` as it shows when sorting by slots spare, which shows it
+    even with no slot spare: only the total when the spare slots are one
+    group (or their sizes weren't counted), else each group's size."""
+    total = solution.total_slots_spare
     spare = solution.slots_spare
     if total <= 1 or spare is None or (total <= 3 and spare[total] == 1):
         return SlotsSpare(total=total, groups=None)

@@ -9,6 +9,7 @@ from mhp3ass.results.details import SlotsSpare
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.table import TableRow, fit_widths, spare_text, table_row, truncate
 from mhp3ass.solution.state import Solution
+from mhp3ass.tui.results_table import row_cells
 
 
 @pytest.mark.parametrize(
@@ -80,6 +81,32 @@ def test_a_row_has_the_short_pieces_defence_spare_slots_short_charm_and_resistan
         ice="-9",
         dragon="-3",
         extra="",
+    )
+
+
+def test_a_rows_cells_follow_its_number_in_column_order(first_1a_set, teamhgg_short_names):
+    row = table_row(
+        first_1a_set, sort_key=SortKey.DEFENCE, names=teamhgg_short_names, query_skills=()
+    )
+
+    cells = row_cells(3, row)
+
+    assert cells == (
+        "3",
+        "Jinouga Helm",
+        "Agnaktor",
+        "Jinouga",
+        "Barroth S",
+        "Baggi S",
+        "412",
+        "2x1",
+        "+4 Att +3 Sharpn (1)",
+        "2",
+        "-13",
+        "7",
+        "-9",
+        "-3",
+        "",
     )
 
 

@@ -30,22 +30,21 @@ from mhp3ass.solution.record import CharmRecord, SolutionRecord, charm_from_reco
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
-def hash_armor(armors: Sequence[Armor | None]) -> int:
-    """``HashArmor`` (Form1.h:1691-1699): each slot's armour index shifted by
-    three bits per slot, summed.
+def _armor_indices(armors: Sequence[Armor | None]) -> list[int]:
+    """Each slot's armour index, -1 for an empty slot."""
+    indices = [-1 if armor is None else armor.index for armor in armors]
+    return indices
+
+
+def hash_armor_indices(indices: Sequence[int]) -> int:
+    """``HashArmor`` (Form1.h:1691-1699) of the armour with these indices, -1
+    for an empty slot: each slot's index shifted by three bits per slot, summed.
 
     The shifts overlap (indices go up to 225), so different armour sets can
     share a hash (quirk 4). The original shifts a 32-bit ``unsigned``, which
     would only overflow for an index of 2**20 or more. It dereferences every
     slot, so an empty one throws.
     """
-    indices = [-1 if armor is None else armor.index for armor in armors]
-    total = hash_armor_indices(indices)
-    return total
-
-
-def hash_armor_indices(indices: Sequence[int]) -> int:
-    """``hash_armor`` of the armour with these indices, -1 for an empty slot."""
     total = 0
     for slot, index in enumerate(indices):
         if index == -1:
@@ -71,7 +70,18 @@ class _RecordEntry:
         return self.solution
 
 
-class SolutionList(Sequence[Solution]):
+class SolutionSequence(Sequence[Solution]):
+    """A sequence of solutions equal to any sequence (not a string) of the
+    same solutions in the same order."""
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Sequence) or isinstance(other, str):
+            return NotImplemented
+        same = list(self) == list(other)
+        return same
+
+
+class SolutionList(SolutionSequence):
     """Solutions in order, each held as a ``Solution`` or as a ``SolutionRecord``.
 
     A record is rebuilt against its game (``from_record``) the first time it
@@ -113,14 +123,10 @@ class SolutionList(Sequence[Solution]):
         return solution
 
     def __iter__(self) -> Iterator[Solution]:
+        # Not Sequence's own, which ends at the first IndexError, even one raised
+        # while rebuilding a record.
         for position in range(len(self)):
             yield self[position]
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Sequence) or isinstance(other, str):
-            return NotImplemented
-        same = list(self) == list(other)
-        return same
 
     def __repr__(self) -> str:
         return f"SolutionList({list(self)!r})"
@@ -178,16 +184,18 @@ class ResultSet:
     all_solutions: SolutionList = field(default_factory=SolutionList)
     existing_armor: dict[str, set[int]] = field(default_factory=dict)
 
-    def _solution_exists(self, name: str, solution: Solution) -> bool:
-        """``SolutionExists`` (Form1.h:1701-1721): records the hash if it is new."""
+    def _is_new(self, name: str, armor_indices: Sequence[int]) -> bool:
+        """Whether the armour with these indices (-1 for an empty slot) is new
+        under ``name``, the opposite of ``SolutionExists`` (Form1.h:1701-1721);
+        records the hash if it is."""
         # The original adds the charm's entry before hashing, so it stays even
         # when HashArmor throws.
         hashes = self.existing_armor.setdefault(name, set())
-        armor_hash = hash_armor(solution.armors)
+        armor_hash = hash_armor_indices(armor_indices)
         if armor_hash in hashes:
-            return True
+            return False
         hashes.add(armor_hash)
-        return False
+        return True
 
     def clear_solutions(self) -> None:
         """``LoadConfig``'s ``all_solutions.Clear()`` (Form1.h:431): a new empty
@@ -197,7 +205,7 @@ class ResultSet:
     def add_solution(self, name: str, solution: Solution) -> bool:
         """``AddSolution( String^, Solution^ )`` (Form1.h:1723-1730): keep
         ``solution`` under the charm name ``name`` unless the key is taken."""
-        if self._solution_exists(name, solution):
+        if not self._is_new(name, _armor_indices(solution.armors)):
             return False
         self.all_solutions.append(solution)
         return True
@@ -207,7 +215,7 @@ class ResultSet:
 
         The key is the charm's name after ``MatchesQuery`` reduced it, so
         different templates can meet on one name. A charm ``MatchesQuery``
-        removed makes the solution charm-free. If ``hash_armor`` throws, the
+        removed makes the solution charm-free. If ``hash_armor_indices`` throws, the
         solutions added before it stay in ``all_solutions``.
         """
         added = []
@@ -233,12 +241,8 @@ class ResultSet:
             record = entry.record
             if record.charm is not None:
                 name = _record_charm_name(record.charm, entry.game, names)
-                # The key's entry goes in before hashing, as in _solution_exists.
-                hashes = self.existing_armor.setdefault(name, set())
-                armor_hash = hash_armor_indices(record.armors)
-                if armor_hash in hashes:
+                if not self._is_new(name, record.armors):
                     continue
-                hashes.add(armor_hash)
             self.all_solutions._entries.append(entry)
             added._entries.append(entry)
         return added

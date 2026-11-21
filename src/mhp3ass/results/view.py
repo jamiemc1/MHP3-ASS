@@ -24,12 +24,12 @@ from enum import Enum
 from typing import overload
 
 from mhp3ass.data.text import as_signed
-from mhp3ass.results.result_set import ResultSet, charm_names
+from mhp3ass.results.result_set import ResultSet, SolutionSequence, charm_names
 from mhp3ass.results.sorting import SortKey, stat_key
 from mhp3ass.solution.state import Solution
 
 
-class SolutionSelection(Sequence[Solution]):
+class SolutionSelection(SolutionSequence):
     """Some of ``source``'s solutions, by position, in the given order.
 
     Solutions are read from ``source`` only when asked for, so a
@@ -59,12 +59,6 @@ class SolutionSelection(Sequence[Solution]):
     def __iter__(self) -> Iterator[Solution]:
         for position in self.positions:
             yield self.source[position]
-
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Sequence) or isinstance(other, str):
-            return NotImplemented
-        same = list(self) == list(other)
-        return same
 
     def __repr__(self) -> str:
         return f"SolutionSelection({self.positions!r})"

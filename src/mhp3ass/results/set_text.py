@@ -19,7 +19,7 @@ from mhp3ass.data.strings import DisplayStrings
 from mhp3ass.model import ArmorType
 from mhp3ass.query import Query
 from mhp3ass.query_form import hunter_summary
-from mhp3ass.results.details import SolutionDetails, slots_spare
+from mhp3ass.results.details import SolutionDetails, always_shown_slots_spare
 from mhp3ass.results.inspector import (
     InspectorLine,
     charm_text,
@@ -28,7 +28,6 @@ from mhp3ass.results.inspector import (
     spare_text,
 )
 from mhp3ass.results.short_names import ShortNames
-from mhp3ass.results.sorting import SortKey
 from mhp3ass.solution.state import Solution
 
 
@@ -87,10 +86,7 @@ def set_markdown(
     ]
     charm = InspectorLine(label="Charm", text=charm_text(details.charm))
     table = _table([*pieces, charm, *jewel_lines(details)])
-    # Sorted by slots spare, the inspector's spare line shows even with none.
-    spare = slots_spare(solution, sort_key=SortKey.SLOTS_SPARE)
-    if spare is None:
-        raise ValueError("slots_spare gave no spare slots line when sorting by them")
+    spare = always_shown_slots_spare(solution)
     skills = ", ".join(skill.name for skill in [*query.skills, *details.extra_skills])
     summary = f"- Spare: {spare_text(spare, strings)}\n- Skills: {skills}"
     blocks = [set_heading(solution, short_names), preamble, table, summary]
