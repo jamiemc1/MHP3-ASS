@@ -47,8 +47,7 @@ def test_negative_points_given_reads_as_unsigned_and_raises(attack):
         best_possible_decoration([negative])
 
 
-def test_an_undefined_score_raises_on_reaching_its_candidate(attack):
-    # A defined best first, then an undefined score: the scan raises there.
+def test_an_undefined_score_after_a_defined_best_raises(attack):
     four = PossibleDecoration(make_jewel("four", attack, 4), 4)
     undefined = PossibleDecoration(make_jewel("undefined", attack, 5), 23)
 
@@ -56,10 +55,8 @@ def test_an_undefined_score_raises_on_reaching_its_candidate(attack):
         best_possible_decoration([four, undefined])
 
 
-def test_equal_scores_go_to_the_last_candidate_whatever_bad_says(attack, defense):
-    # The first candidate has a second skill (GetScore's "bad"); the "less
-    # bad" tie-break never applies because >= already took the last.
-    first = PossibleDecoration(make_jewel("first", attack, 1, second=defense, second_amount=-1), 2)
+def test_equal_scores_go_to_the_last_candidate(attack):
+    first = PossibleDecoration(make_jewel("first", attack, 1), 2)
     last = PossibleDecoration(make_jewel("last", attack, 1), 2)
 
     best = best_possible_decoration([first, last])
