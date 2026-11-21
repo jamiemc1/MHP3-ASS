@@ -37,7 +37,7 @@ def armor_available(armor: Armor, query: Query) -> bool:
 
 def has_query_skills(armor: Armor, rel_abilities: list[Ability]) -> bool:
     """Whether the piece has positive points in any of ``rel_abilities``: the
-    loop that clears ``no_skills`` in ``Armor::MatchesQuery`` (Armor.cpp:127-139)."""
+    loop that clears ``no_skills`` in ``Armor::MatchesQuery`` (Armor.cpp:129-142)."""
     has_skills = any(pair.amount > 0 and pair.ability in rel_abilities for pair in armor.abilities)
     return has_skills
 
@@ -51,7 +51,7 @@ def armor_matches_query(armor: Armor, query: Query, max_slots: int) -> bool:
     if it has at least ``max_slots`` slots.
 
     The original's ending, ``num_slots == max_slots ? !danger && !bad_skills
-    : num_slots > max_slots && !danger`` (Armor.cpp:142-143), comes down to
+    : num_slots > max_slots && !danger`` (Armor.cpp:143-144), comes down to
     that. ``danger`` is always null, because the danger-skill list it is
     looked up in is never filled (``LoadedData.cpp:141-158`` is commented
     out; quirk 32). Quirk 6: ``bad_skills`` is only ever set to ``false``
