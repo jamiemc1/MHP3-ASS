@@ -112,15 +112,42 @@ def add_decorations23(
 
     Collects every relevant ``size``-slot decoration that would help without
     overshooting its ability's need by more than 1, adds the best one, and
-    repeats while slot groups remain. Returns the slot groups left.
+    repeats while slot groups remain. Returns the slot groups left. The
+    original repeats by calling itself again; its entry checks can't change
+    between passes, so a loop does the same.
     """
     rel_decorations = data.rel_decoration_map[size]
-    if num_slots == 0 or len(rel_decorations) == 0:
+    if len(rel_decorations) == 0:
         return num_slots
+    while num_slots > 0:
+        possible_decorations = _possible_decorations(
+            data,
+            rel_decorations=rel_decorations,
+            multiplier=multiplier,
+            allow_bad=allow_bad,
+            allow_detrimental=allow_detrimental,
+        )
+        if len(possible_decorations) == 0:
+            return num_slots
+        best = best_possible_decoration(possible_decorations)
+        add_decoration(data.solution, best.decoration, multiplier, decoration_list)
+        num_slots = as_unsigned(num_slots - 1)
+    return num_slots
+
+
+def _possible_decorations(
+    data: CalculationData,
+    rel_decorations: list[Decoration],
+    multiplier: int,
+    allow_bad: bool,
+    allow_detrimental: bool,
+) -> list[PossibleDecoration]:
+    """One pass of ``AddDecorations23``'s loop (Solution.cpp:360-394): every
+    decoration that helps without taking its ability more than 1 past the need."""
     solution = data.solution
     possible_decorations: list[PossibleDecoration] = []
     for decoration in rel_decorations:
-        if not (allow_detrimental or not detrimental(decoration, data)):
+        if not allow_detrimental and detrimental(decoration, data):
             continue
         first = decoration.abilities[0]
         if not _second_skill_allowed(decoration, data, multiplier, allow_bad):
@@ -140,22 +167,7 @@ def add_decorations23(
             possible_decorations.append(
                 PossibleDecoration(decoration=decoration, points_given=points_given)
             )
-    if len(possible_decorations) == 0:
-        return num_slots
-    best = best_possible_decoration(possible_decorations)
-    add_decoration(solution, best.decoration, multiplier, decoration_list)
-    num_slots = as_unsigned(num_slots - 1)
-    if num_slots > 0:
-        num_slots = add_decorations23(
-            data,
-            size,
-            num_slots,
-            multiplier,
-            decoration_list,
-            allow_bad=allow_bad,
-            allow_detrimental=allow_detrimental,
-        )
-    return num_slots
+    return possible_decorations
 
 
 def add_decorations1(
@@ -175,36 +187,49 @@ def add_decorations1(
     ``loop = true`` is always reset at the end of the pass. ``Detrimental``
     applies whatever the flags. Without ``allow_overkill``, a decoration may
     not take its ability more than its own amount minus 1 past the need.
-    Returns the slots left.
+    Returns the slots left. The original's ``--i`` after adding one tries the
+    same decoration again, which is the inner loop here.
     """
     rel_decorations = data.rel_decoration_map[1]
     if num_slots == 0 or len(rel_decorations) == 0:
         return num_slots
-    solution = data.solution
-    i = 0
-    while i < len(rel_decorations):
-        decoration = rel_decorations[i]
-        added = False
-        if not detrimental(decoration, data) and _second_skill_allowed(
-            decoration, data, multiplier, allow_bad
+    for decoration in rel_decorations:
+        while _one_slot_decoration_helps(
+            decoration,
+            data,
+            multiplier=multiplier,
+            allow_bad=allow_bad,
+            allow_overkill=allow_overkill,
         ):
-            first = decoration.abilities[0]
-            current_amount = solution.abilities[first.ability]
-            decoration_amount = first.amount * multiplier
-            needed_amount = data.need[first.ability]
-            if allow_overkill:
-                within_need = current_amount < needed_amount
-            else:
-                within_need = current_amount + decoration_amount <= needed_amount + first.amount - 1
-            if decoration_amount > 0 and current_amount < needed_amount and within_need:
-                add_decoration(solution, decoration, multiplier, decoration_list)
-                num_slots = as_unsigned(num_slots - 1)
-                if num_slots == 0:
-                    return num_slots
-                added = True
-        if not added:
-            i += 1
+            add_decoration(data.solution, decoration, multiplier, decoration_list)
+            num_slots = as_unsigned(num_slots - 1)
+            if num_slots == 0:
+                return num_slots
     return num_slots
+
+
+def _one_slot_decoration_helps(
+    decoration: Decoration,
+    data: CalculationData,
+    multiplier: int,
+    allow_bad: bool,
+    allow_overkill: bool,
+) -> bool:
+    """``AddDecorations1``'s test for adding ``decoration`` (Solution.cpp:281-293)."""
+    if detrimental(decoration, data) or not _second_skill_allowed(
+        decoration, data, multiplier, allow_bad
+    ):
+        return False
+    first = decoration.abilities[0]
+    current_amount = data.solution.abilities[first.ability]
+    decoration_amount = first.amount * multiplier
+    needed_amount = data.need[first.ability]
+    if allow_overkill:
+        within_need = current_amount < needed_amount
+    else:
+        within_need = current_amount + decoration_amount <= needed_amount + first.amount - 1
+    helps = decoration_amount > 0 and current_amount < needed_amount and within_need
+    return helps
 
 
 def calculate_decorations(
@@ -237,10 +262,10 @@ def calculate_decorations(
 
     body_slots[3] = add_decorations23(
         data,
-        3,
-        body_slots[3],
-        multiplier,
-        solution.body_decorations,
+        size=3,
+        num_slots=body_slots[3],
+        multiplier=multiplier,
+        decoration_list=solution.body_decorations,
         allow_bad=allow_bad,
         allow_detrimental=allow_detrimental,
     )
@@ -249,24 +274,26 @@ def calculate_decorations(
     body_slots[3] = 0
     temp_slots[3] = add_decorations23(
         data,
-        3,
-        temp_slots[3],
-        1,
-        solution.non_body_decorations,
+        size=3,
+        num_slots=temp_slots[3],
+        multiplier=1,
+        decoration_list=solution.non_body_decorations,
         allow_bad=allow_bad,
         allow_detrimental=allow_detrimental,
     )
-    slots_spare[3] = as_unsigned(slots_spare[3] - (slots_spare[3] - temp_slots[3]))
+    # ``slots_spare[ 3 ] -= slots_spare[ 3 ] - temp_slots[ 3 ]`` (:424), which is
+    # temp_slots[3] modulo 2**32.
+    slots_spare[3] = temp_slots[3]
     temp_slots[1] = as_unsigned(temp_slots[1] + temp_slots[3])
     temp_slots[2] = as_unsigned(temp_slots[2] + temp_slots[3])
     temp_slots[3] = 0
 
     body_slots[2] = add_decorations23(
         data,
-        2,
-        body_slots[2],
-        multiplier,
-        solution.body_decorations,
+        size=2,
+        num_slots=body_slots[2],
+        multiplier=multiplier,
+        decoration_list=solution.body_decorations,
         allow_bad=allow_bad,
         allow_detrimental=allow_detrimental,
     )
@@ -275,10 +302,10 @@ def calculate_decorations(
     before = temp_slots[2]
     temp_slots[2] = add_decorations23(
         data,
-        2,
-        temp_slots[2],
-        1,
-        solution.non_body_decorations,
+        size=2,
+        num_slots=temp_slots[2],
+        multiplier=1,
+        decoration_list=solution.non_body_decorations,
         allow_bad=allow_bad,
         allow_detrimental=allow_detrimental,
     )
@@ -296,18 +323,18 @@ def calculate_decorations(
 
     body_slots[1] = add_decorations1(
         data,
-        body_slots[1],
-        multiplier,
-        solution.body_decorations,
+        num_slots=body_slots[1],
+        multiplier=multiplier,
+        decoration_list=solution.body_decorations,
         allow_bad=allow_bad,
         allow_overkill=False,
     )
     before = temp_slots[1]
     temp_slots[1] = add_decorations1(
         data,
-        temp_slots[1],
-        1,
-        solution.non_body_decorations,
+        num_slots=temp_slots[1],
+        multiplier=1,
+        decoration_list=solution.non_body_decorations,
         allow_bad=allow_bad,
         allow_overkill=True,
     )
@@ -339,9 +366,9 @@ def calculate_decorations(
     if body_slots[1]:
         body_slots[1] = add_decorations1(
             data,
-            body_slots[1],
-            multiplier,
-            solution.body_decorations,
+            num_slots=body_slots[1],
+            multiplier=multiplier,
+            decoration_list=solution.body_decorations,
             allow_bad=allow_bad,
             allow_overkill=True,
         )
