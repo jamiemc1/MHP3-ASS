@@ -30,6 +30,7 @@ from mhp3ass.charms.generation import CharmTables, generate_charm_tables
 from mhp3ass.charms.my_charms import load_query_my_charms, my_charms_illegal
 from mhp3ass.charms.validity import CharmValidity, build_charm_validity
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.data.languages import language_dir
 from mhp3ass.decorations import NoDecorationsError
 from mhp3ass.model import Armor, Charm
 from mhp3ass.query import CharmMode, Query, QuerySpec, SearchSpec
@@ -46,15 +47,6 @@ from mhp3ass.solution.charm_reduction import LegacyListIndexError
 from mhp3ass.solution.fill import UndefinedScoreError
 from mhp3ass.solution.record import SolutionRecord
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
-
-
-def language_dir(data_dir: Path, language: str) -> Path:
-    """The folder of ``language``'s translation files; raises ``FileNotFoundError``
-    if the game data has no such language."""
-    folder = data_dir / "Languages" / language
-    if not folder.is_dir():
-        raise FileNotFoundError(f"no language folder {folder}")
-    return folder
 
 
 @dataclass(frozen=True)

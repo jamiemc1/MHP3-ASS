@@ -9,6 +9,15 @@ from __future__ import annotations
 from pathlib import Path
 
 
+def language_dir(data_dir: Path, language: str) -> Path:
+    """The folder of ``language``'s translation files; raises ``FileNotFoundError``
+    if the game data has no such language."""
+    folder = data_dir / "Languages" / language
+    if not folder.is_dir():
+        raise FileNotFoundError(f"no language folder {folder}")
+    return folder
+
+
 def language_folders(languages_dir: Path) -> list[str]:
     """Language folders in the order the GUI lists them (NTFS name order).
 
