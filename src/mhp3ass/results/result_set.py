@@ -396,31 +396,44 @@ def candidate_lines(result: SearchResult, game: GameData) -> list[CandidateLine]
     return candidates
 
 
+def added_lines(result: SearchResult, game: GameData) -> list[list[str]]:
+    """Each finished worker's kept solutions' lines, in worker order. The
+    kept solutions are the workers' added ones in worker order, so joined
+    they are ``solution_lines``."""
+    skill_index = skill_indices(game)
+    lines = [lines_of(worker.added, skill_index) for worker in result.workers]
+    return lines
+
+
 def search_manifest(
-    spec_json: dict[str, Any], result: SearchResult, game: GameData, max_solution_lines: int = -1
+    spec_json: dict[str, Any],
+    result: SearchResult,
+    worker_lines: Sequence[Sequence[str]],
+    max_solution_lines: int = -1,
 ) -> dict[str, Any]:
     """The harness's ``<prefix>.manifest.json`` for ``result`` (``SearchDump::Run``),
-    fields in its order.
+    fields in its order. ``worker_lines`` are ``result``'s ``added_lines``;
+    raises ``ValueError`` if there aren't one per finished worker.
 
     ``query_json`` is a compact re-serialisation of ``spec_json``, not the
     harness's byte for byte, so compare it parsed. ``max_solution_lines``
-    below 0 means no limit; above it ``solutions_file`` is false. The kept
-    solutions are the workers' added ones in worker order, so their lines
-    are those of ``solution_lines``.
+    below 0 means no limit; above it ``solutions_file`` is false.
     """
-    skill_index = skill_indices(game)
+    if len(worker_lines) != len(result.workers):
+        raise ValueError(
+            f"{len(worker_lines)} workers' lines for {len(result.workers)} finished workers"
+        )
     workers = []
     lines: list[str] = []
-    for number, worker in enumerate(result.workers):
-        added_lines = lines_of(worker.added, skill_index)
-        lines += added_lines
+    for number, (worker, kept) in enumerate(zip(result.workers, worker_lines, strict=True)):
+        lines += kept
         workers.append(
             {
                 "worker": number,
                 "charm": None if worker.template is None else charm_name(worker.template),
                 "found": len(worker.found),
                 "added": len(worker.added),
-                "added_sha256": lines_sha256(added_lines),
+                "added_sha256": lines_sha256(kept),
             }
         )
     manifest: dict[str, Any] = {
