@@ -1,7 +1,9 @@
-"""The language list and the default language.
+"""The language list, the default language, and a language's folder.
 
 Ported from ``Form1::LoadLanguages`` (``legacy/Form1.h:331-340``) and the
 no-``settings.cfg`` branch of ``Form1::LoadConfig`` (``legacy/Form1.h:441-454``).
+``language_dir`` is the port's own: the folders are ``Data/Languages``' as
+``LoadLanguages`` lists them, and the port checks one exists before loading it.
 """
 
 from __future__ import annotations
