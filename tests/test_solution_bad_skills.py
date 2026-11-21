@@ -63,7 +63,7 @@ def make_fixable(make_data, skilled, attack, defense):
         solution.total_slots_spare = (
             sum(size * count for size, count in enumerate(slots_spare)) + torso_slots_spare
         )
-        data.relevant = {skilled["Attack"].up: 0}
+        data.relevant = {skilled["Attack"].up}
         solution.bad_skills = [skilled["Defense"].down]
         return data
 
@@ -204,7 +204,7 @@ def test_fix_bad_skills_accepts_a_new_bad_skill_its_fix_creates(
     game = GameData()
     game.decorations_by_ability = {defense: [fix]}
     data = make_fixable([], defense_points=-12, slots_spare=[0, 1, 0, 0])
-    data.relevant = {}
+    data.relevant = set()
 
     fine = check_bad_skills(data, game)
 
@@ -338,7 +338,7 @@ def leave_defense_down(attack_sharp_data, scratch_game):
             abilities["Artisan"]: artisan_points,
         }
         solution.bad_skills = [scratch_game.skill_map["Def Down (S)"]]
-        attack_sharp_data.relevant = {skill: 0 for skill in attack_sharp_data.query.skills}
+        attack_sharp_data.relevant = set(attack_sharp_data.query.skills)
         return attack_sharp_data
 
     return set_up

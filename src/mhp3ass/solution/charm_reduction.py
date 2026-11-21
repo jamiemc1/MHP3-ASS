@@ -19,7 +19,12 @@ from mhp3ass.data.text import as_unsigned
 from mhp3ass.decorations import best_decoration_in_map
 from mhp3ass.model import Ability, Charm, Decoration
 from mhp3ass.solution.fill import calculate_decorations
-from mhp3ass.solution.state import CalculationData, LegacyNullReferenceError, Solution
+from mhp3ass.solution.state import (
+    CalculationData,
+    LegacyNullReferenceError,
+    Solution,
+    allocated_slots,
+)
 
 
 class LegacyListIndexError(IndexError):
@@ -127,9 +132,7 @@ def reduce_slots(data: CalculationData) -> None:
     if solution.total_slots_spare == 0:
         return
     charm = _charm(solution)
-    slots_spare = solution.slots_spare
-    if slots_spare is None:
-        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data")
+    slots_spare = allocated_slots(solution)
     i = charm.num_slots
     while i <= 3 and not slots_spare[i]:
         i += 1

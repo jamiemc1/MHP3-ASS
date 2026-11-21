@@ -24,7 +24,12 @@ from mhp3ass.decorations import best_decoration_for_query, best_decoration_in_ma
 from mhp3ass.model import Ability, Decoration, Skill
 from mhp3ass.solution.extra_skills import calculate_extra_skills
 from mhp3ass.solution.initial import add_decoration, detrimental
-from mhp3ass.solution.state import CalculationData, LegacyNullReferenceError, Solution
+from mhp3ass.solution.state import (
+    CalculationData,
+    LegacyNullReferenceError,
+    Solution,
+    allocated_slots,
+)
 
 
 def best_available_decoration(
@@ -77,9 +82,7 @@ def fix_bad_skill(data: CalculationData, game: GameData, skill: Skill) -> bool:
             return True
 
     # The original first reads slots_spare here (Solution.cpp:68).
-    slots_spare = solution.slots_spare
-    if slots_spare is None:
-        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data")
+    slots_spare = allocated_slots(solution)
     max_slots = 3
     while max_slots > 0 and not slots_spare[max_slots]:
         max_slots -= 1

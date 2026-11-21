@@ -113,6 +113,18 @@ def test_empty_body_leaves_no_torso_slots(make_query):
     )
 
 
+def test_query_skills_seed_need_relevant_and_abilities_in_order(
+    make_query, attack, sharpness, attack_skill
+):
+    sharp_skill = Skill(name="Sharpness +1", points_required=10, ability=sharpness)
+
+    data = _initial([None] * 5, make_query(skills=[sharp_skill, attack_skill]))
+
+    assert list(data.need.items()) == [(sharpness, 10), (attack, 10)]
+    assert data.relevant == {sharp_skill, attack_skill}
+    assert list(data.solution.abilities.items()) == [(sharpness, 0), (attack, 0)]
+
+
 def test_two_skills_with_one_ability_raise_as_dictionary_add(make_query, attack, attack_skill):
     larger = Skill(name="Attack Up [Med]", points_required=15, ability=attack)
 

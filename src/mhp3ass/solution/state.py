@@ -58,13 +58,25 @@ class Solution:
     slots_spare: list[int] | None = None
 
 
+def allocated_slots(solution: Solution) -> list[int]:
+    """``solution.slots_spare``, which ``GetInitialData`` allocates (Solution.cpp:247).
+
+    A stage that reads it before then dereferences a null array in the
+    original, so this raises ``LegacyNullReferenceError``.
+    """
+    slots_spare = solution.slots_spare
+    if slots_spare is None:
+        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data")
+    return slots_spare
+
+
 @dataclass(slots=True, eq=False)
 class CalculationData:
     """``CalculationData``: per-combination scratch state.
 
     ``need`` maps each query ability (and each charm ability, at 0) to the
-    points it needs; ``relevant`` holds the query's skills (the original's
-    ``Map_t< Skill^, int >`` is only ever tested for keys).
+    points it needs; ``relevant`` holds the query's skills (a set: the
+    original's ``Map_t< Skill^, int >`` is only ever tested for keys).
     ``rel_decoration_map[size]`` lists the query's relevant decorations of
     that slot size, in relevance order.
     """
@@ -72,7 +84,7 @@ class CalculationData:
     query: Query
     solution: Solution
     need: dict[Ability, int] = field(default_factory=dict)
-    relevant: dict[Skill, int] = field(default_factory=dict)
+    relevant: set[Skill] = field(default_factory=set)
     rel_decoration_map: list[list[Decoration]] = field(default_factory=list)
 
 
