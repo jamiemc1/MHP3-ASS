@@ -305,11 +305,11 @@ def slots_spare(solution: Solution, sort_key: SortKey) -> SlotsSpare | None:
     """Form1.h:1608-1632: shown when any slot is spare or when sorting by slots spare."""
     if solution.total_slots_spare == 0 and sort_key is not SortKey.SLOTS_SPARE:
         return None
-    shown = spare_slots(solution)
+    shown = always_shown_slots_spare(solution)
     return shown
 
 
-def spare_slots(solution: Solution) -> SlotsSpare:
+def always_shown_slots_spare(solution: Solution) -> SlotsSpare:
     """``slots_spare`` as it shows when sorting by slots spare, which shows it
     even with no slot spare: only the total when the spare slots are one
     group (or their sizes weren't counted), else each group's size."""
