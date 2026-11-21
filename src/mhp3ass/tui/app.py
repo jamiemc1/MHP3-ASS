@@ -678,11 +678,7 @@ class SearchApp(App[bool]):
             # Waits for a placement already being worked out, which reads the game's records.
             with self._game_lock:
                 strings = switch_language(
-                    self._data.game,
-                    validity=self._data.validity,
-                    data_dir=self._data.data_dir,
-                    language=event.language,
-                    my_charms_path=self._files.my_charms,
+                    self._data, language=event.language, my_charms_path=self._files.my_charms
                 )
         except (OSError, ValueError, MyCharmsFileError) as error:
             # No such language folder or a broken file in it, an unreadable or

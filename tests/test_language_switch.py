@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import shutil
+from dataclasses import replace
 
 import pytest
 
@@ -29,15 +30,9 @@ def my_charms_copy(tmp_path, legacy_data_dir):
 
 
 @pytest.fixture
-def switch(switch_data, legacy_data_dir, my_charms_copy):
+def switch(switch_data, my_charms_copy):
     def switch_to(language):
-        strings = switch_language(
-            switch_data.game,
-            validity=switch_data.validity,
-            data_dir=legacy_data_dir,
-            language=language,
-            my_charms_path=my_charms_copy,
-        )
+        strings = switch_language(switch_data, language=language, my_charms_path=my_charms_copy)
         return strings
 
     return switch_to
@@ -154,9 +149,7 @@ def test_a_broken_language_changes_nothing(
 
     with pytest.raises(ValueError, match="Unexpected end of file"):
         switch_language(
-            switch_data.game,
-            validity=switch_data.validity,
-            data_dir=data_with_a_short_skills_file,
+            replace(switch_data, data_dir=data_with_a_short_skills_file),
             language="Deutsch (Vuze)",
             my_charms_path=my_charms_copy,
         )
