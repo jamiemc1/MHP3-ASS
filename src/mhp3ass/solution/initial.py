@@ -9,14 +9,7 @@ from __future__ import annotations
 
 from mhp3ass.data.text import as_unsigned
 from mhp3ass.model import Ability, AbilityPair, Armor, Decoration
-from mhp3ass.solution.state import CalculationData, LegacyNullReferenceError, Solution
-
-
-def _add_new[K](mapping: dict[K, int], key: K, value: int) -> None:
-    """.NET ``Dictionary::Add``: a key already present throws ``ArgumentException``."""
-    if key in mapping:
-        raise KeyError(f"{key!r} is already present")
-    mapping[key] = value
+from mhp3ass.solution.state import CalculationData, Solution
 
 
 def detrimental(decoration: Decoration, data: CalculationData) -> bool:
@@ -62,18 +55,18 @@ def add_decoration(
     return above
 
 
-def add_initial_armor(armor: Armor | None, solution: Solution, multiplier: int) -> None:
+def _add_initial_armor(
+    armor: Armor | None, solution: Solution, multiplier: int, slots_spare: list[int]
+) -> None:
     """``AddInitialArmor`` (Solution.cpp:208-226).
 
-    Adds one piece's stats, skills (times ``multiplier``) and slots. The body
-    (``armors[1]``) adds no slot group to ``slots_spare``: its slots are
-    counted in ``torso_slots_spare`` instead.
+    Adds one piece's stats, skills (times ``multiplier``) and slots.
+    ``slots_spare`` is the solution's, which ``get_initial_data`` has just
+    allocated. The body (``armors[1]``) adds no slot group to it: its slots
+    are counted in ``torso_slots_spare`` instead.
     """
     if armor is None:
         return
-    slots_spare = solution.slots_spare
-    if slots_spare is None:
-        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data first")
     adds_group = armor is not solution.armors[1] and armor.num_slots != 0
     slots_spare[armor.num_slots] = as_unsigned(slots_spare[armor.num_slots] + adds_group)
     solution.defence = as_unsigned(solution.defence + armor.defence)
@@ -98,13 +91,21 @@ def get_initial_data(data: CalculationData) -> None:
     torso slots, the armour (head, arms, waist, legs, then the body times the
     torso multiplier those four set) and the charm. The insertion order this
     gives ``abilities`` is the order extra skills come out in.
+
+    ``data`` is fresh from ``new_calculation_data``, so the three start
+    empty. The original fills them with ``Dictionary::Add``, which throws on
+    a repeated key; ``build_query`` already refuses two skills with one
+    ability, so only a hand-built query can repeat one, and that still raises
+    ``KeyError`` here, before anything is written.
     """
     solution = data.solution
     query = data.query
-    for skill in query.skills:
-        _add_new(data.need, skill.ability, skill.points_required)
-        _add_new(data.relevant, skill, 0)
-        _add_new(solution.abilities, skill.ability, 0)
+    need = {skill.ability: skill.points_required for skill in query.skills}
+    if len(need) != len(query.skills):
+        raise KeyError("two of the query's skills share an ability (Dictionary::Add throws)")
+    data.need = need
+    data.relevant = set(query.skills)
+    solution.abilities = dict.fromkeys(data.need, 0)
     if solution.charm is not None:
         for pair in solution.charm.abilities:
             if pair.ability not in data.need:
@@ -127,11 +128,16 @@ def get_initial_data(data: CalculationData) -> None:
     solution.thunder_res = solution.dragon_res = 0
     solution.rarity = solution.difficulty = 0
 
-    add_initial_armor(solution.armors[0], solution, multiplier=1)
-    add_initial_armor(solution.armors[2], solution, multiplier=1)
-    add_initial_armor(solution.armors[3], solution, multiplier=1)
-    add_initial_armor(solution.armors[4], solution, multiplier=1)
-    add_initial_armor(solution.armors[1], solution, multiplier=solution.torso_multiplier)
+    _add_initial_armor(solution.armors[0], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(solution.armors[2], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(solution.armors[3], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(solution.armors[4], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(
+        solution.armors[1],
+        solution,
+        multiplier=solution.torso_multiplier,
+        slots_spare=slots_spare,
+    )
     if solution.charm is not None:
         charm = solution.charm
         charm_group = charm.num_slots != 0
