@@ -11,6 +11,7 @@ import pytest
 
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import (
+    added_lines,
     candidate_lines,
     gzip_lines,
     manifest_text,
@@ -28,7 +29,12 @@ def _write(query_name: str, repo_root: Path, search_data, out_dir: Path, **manif
     spec = SearchSpec.from_json(spec_json)
     data = search_data[spec.query.language]
     result = run_search(spec, data=data)
-    manifest = search_manifest(spec_json, result=result, game=data.game, **manifest_options)
+    manifest = search_manifest(
+        spec_json,
+        result=result,
+        worker_lines=added_lines(result, game=data.game),
+        **manifest_options,
+    )
     prefix = out_dir / query_name
     write_search_outputs(
         prefix,
@@ -64,6 +70,27 @@ def test_written_files_hold_what_the_harness_wrote(
     ]
     if golden_candidates.is_file():
         assert _lines(Path(f"{prefix}.candidates.txt.gz")) == _lines(golden_candidates)
+
+
+def test_added_lines_are_each_workers_kept_lines_joining_to_the_kept_list(one_skill_search):
+    result = one_skill_search.result
+    game = one_skill_search.data.game
+
+    worker_lines = added_lines(result, game=game)
+
+    assert [
+        [len(kept) for kept in worker_lines],
+        [line for kept in worker_lines for line in kept],
+    ] == [[len(worker.added) for worker in result.workers], solution_lines(result, game=game)]
+    assert sum(1 for kept in worker_lines if kept) > 1
+
+
+def test_a_manifest_needs_the_lines_of_every_finished_worker(one_skill_search):
+    result = one_skill_search.result
+    worker_lines = added_lines(result, game=one_skill_search.data.game)
+
+    with pytest.raises(ValueError, match="for 4 finished workers"):
+        search_manifest({"id": "g13"}, result=result, worker_lines=worker_lines[:-1])
 
 
 def test_too_many_lines_removes_the_solutions_file(repo_root, search_data_by_language, tmp_path):
