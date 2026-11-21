@@ -20,13 +20,13 @@ from mhp3ass.saved_state import (
     restore_search,
     settings_for,
     startup,
-    write_settings_cfg,
 )
 from mhp3ass.settings_cfg import (
     SettingsCfg,
     SettingsCfgError,
     read_settings_cfg,
-    settings_cfg_text,
+    settings_cfg_bytes,
+    write_settings_cfg,
 )
 from mhp3ass.skill_chips import chip_rows
 from mhp3ass.skill_picker import SkillRowsByHunter, SkillSelection
@@ -119,7 +119,7 @@ def test_every_row_is_written_with_the_all_filter(two_tab_settings, skill_index)
 
 def test_the_form_comes_back_from_the_file(two_tab_settings, two_tab_form, scratch_game, tmp_path):
     path = tmp_path / "settings.cfg"
-    path.write_bytes(settings_cfg_text(two_tab_settings))
+    path.write_bytes(settings_cfg_bytes(two_tab_settings))
 
     assert form_from_settings(read_settings_cfg(path), scratch_game) == two_tab_form
 
@@ -327,7 +327,7 @@ def unknown_version_file(settings_path):
 @pytest.fixture
 def file_with_language_7(settings_path, two_tab_settings):
     settings_path.write_bytes(
-        settings_cfg_text(dataclasses.replace(two_tab_settings, language_index=7))
+        settings_cfg_bytes(dataclasses.replace(two_tab_settings, language_index=7))
     )
     return settings_path
 
@@ -414,7 +414,7 @@ def test_no_settings_start_from_the_defaults(start):
 @pytest.fixture
 def file_with_no_charm_mode(settings_path, two_tab_settings):
     settings = dataclasses.replace(two_tab_settings, charm_select_index=-1)
-    settings_path.write_bytes(settings_cfg_text(settings))
+    settings_path.write_bytes(settings_cfg_bytes(settings))
     return settings
 
 
@@ -458,4 +458,4 @@ def test_writing_replaces_the_file_and_leaves_no_temporary_file(
     write_settings_cfg(old_settings_file, two_tab_settings)
 
     assert [path.name for path in old_settings_file.parent.iterdir()] == ["settings.cfg"]
-    assert old_settings_file.read_bytes() == settings_cfg_text(two_tab_settings)
+    assert old_settings_file.read_bytes() == settings_cfg_bytes(two_tab_settings)
