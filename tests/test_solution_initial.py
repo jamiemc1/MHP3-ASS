@@ -170,9 +170,9 @@ def test_detrimental_only_for_a_relevant_second_skill_falling_short(make_query, 
     data.need = {attack: 10, defense: 3}
     jewel = make_jewel("Jewel", attack, 1, second=defense, second_amount=-1)
 
-    defense.relevant = False
+    data.query.relevant_abilities = frozenset()
     irrelevant = detrimental(jewel, data)
-    defense.relevant = True
+    data.query.relevant_abilities = frozenset({defense})
     short = detrimental(jewel, data)
     data.solution.abilities[defense] = 4
     enough = detrimental(jewel, data)

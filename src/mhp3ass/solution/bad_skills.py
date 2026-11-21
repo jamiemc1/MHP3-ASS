@@ -37,12 +37,12 @@ def best_available_decoration(
 ) -> Decoration | None:
     """``GetBestAvailableDecoration`` (Solution.cpp:48-53).
 
-    A relevant ability looks in the relevant decorations by size (largest
-    first); any other ability uses the query overload, which prefers fewer
-    slots and raises ``NoDecorationsError`` for an ability with no
-    decorations (quirk 8).
+    A relevant ability (one of the query's ``relevant_abilities``) looks in
+    the relevant decorations by size (largest first); any other ability uses
+    the query overload, which prefers fewer slots and raises
+    ``NoDecorationsError`` for an ability with no decorations (quirk 8).
     """
-    if ability.relevant:
+    if ability in data.query.relevant_abilities:
         decoration = best_decoration_in_map(ability, slots_spare, data.rel_decoration_map)
     else:
         decoration = best_decoration_for_query(game, ability, slots_spare, data.query)

@@ -211,6 +211,8 @@ class Query:
     rel_armor: list[list[Armor]] = field(default_factory=lambda: [[] for _ in ArmorType])
     inf_armor: list[list[Armor]] = field(default_factory=lambda: [[] for _ in ArmorType])
     rel_abilities: list[Ability] = field(default_factory=list)
+    # The abilities whose ``Ability::relevant`` flag GetRelevantData sets.
+    relevant_abilities: frozenset[Ability] = frozenset()
     rel_decorations: list[Decoration] = field(default_factory=list)
     inf_decorations: list[Decoration] = field(default_factory=list)
 
