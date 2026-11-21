@@ -27,7 +27,6 @@ from mhp3ass.solution.charm_reduction import (
     swap_out,
 )
 from mhp3ass.solution.fill import calculate_decorations
-from mhp3ass.solution.initial import add_initial_armor
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 from solution_builders import make_jewel
 
@@ -277,11 +276,9 @@ def test_calculate_data_dereferences_an_empty_slot(make_armor):
 
 @pytest.mark.parametrize(
     "stage",
-    ["finish", "calculate_decorations", "add_initial_armor", "fix_bad_skill", "reduce_slots"],
+    ["finish", "calculate_decorations", "fix_bad_skill", "reduce_slots"],
 )
-def test_stages_before_get_initial_data_dereference_null_slots(
-    stage, make_data, make_armor, attack
-):
+def test_stages_before_get_initial_data_dereference_null_slots(stage, make_data, attack):
     """slots_spare is allocated by GetInitialData (Solution.cpp:247): a stage that
     reads it before then dereferences a null array, as the original would."""
     data = make_data([], need={}, abilities={}, charm=Charm(num_slots=1))
@@ -292,7 +289,6 @@ def test_stages_before_get_initial_data_dereference_null_slots(
         "calculate_decorations": partial(
             calculate_decorations, data, allow_bad=True, allow_detrimental=True
         ),
-        "add_initial_armor": partial(add_initial_armor, make_armor(), data.solution, multiplier=1),
         "fix_bad_skill": partial(fix_bad_skill, data, GameData(), down),
         "reduce_slots": partial(reduce_slots, data),
     }

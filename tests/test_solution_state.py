@@ -5,7 +5,13 @@ from __future__ import annotations
 import pytest
 
 from mhp3ass.decorations import best_decoration_in_map
-from mhp3ass.solution.state import Solution, build_rel_decoration_map, new_calculation_data
+from mhp3ass.solution.state import (
+    LegacyNullReferenceError,
+    Solution,
+    allocated_slots,
+    build_rel_decoration_map,
+    new_calculation_data,
+)
 from solution_builders import make_jewel
 
 
@@ -36,7 +42,7 @@ def test_new_calculation_data_starts_empty(make_query, attack_jewels):
 
     data = new_calculation_data(solution, query)
 
-    assert (data.query, data.solution, data.need, data.relevant) == (query, solution, {}, {})
+    assert (data.query, data.solution, data.need, data.relevant) == (query, solution, {}, set())
     assert [len(size) for size in data.rel_decoration_map] == [0, 2, 1, 1]
 
 
@@ -44,6 +50,22 @@ def test_new_solution_has_no_slots_spare_until_initial_data():
     solution = Solution(armors=[None] * 5, charm=None)
 
     assert solution.slots_spare is None
+
+
+def test_allocated_slots_raises_before_initial_data():
+    solution = Solution(armors=[None] * 5, charm=None)
+
+    with pytest.raises(LegacyNullReferenceError):
+        allocated_slots(solution)
+
+
+def test_allocated_slots_is_the_solution_s_own_list():
+    slots_spare = [0, 1, 0, 2]
+    solution = Solution(armors=[None] * 5, charm=None, slots_spare=slots_spare)
+
+    allocated = allocated_slots(solution)
+
+    assert allocated is slots_spare
 
 
 def test_map_lookup_prefers_the_largest_size_that_fits(make_query, attack_jewels, attack):
