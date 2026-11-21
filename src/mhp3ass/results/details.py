@@ -197,7 +197,7 @@ def decoration_details(decoration: Decoration, game: GameData) -> DecorationDeta
 
 
 def armor_note(armor: Armor, query: Query) -> ArmorNote | None:
-    """``no_skills`` as ``Armor::MatchesQuery`` sets it for ``query`` (Armor.cpp:115-139).
+    """``no_skills`` as ``Armor::MatchesQuery`` sets it for ``query`` (Armor.cpp:116-142).
 
     Torso-up pieces return before ``no_skills`` is written, so they only ever
     get the Torso Inc note. Worked out for any piece, including one the
