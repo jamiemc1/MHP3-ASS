@@ -22,6 +22,7 @@ from mhp3ass.results.details import (
     extra_skills,
     slots_spare,
     solution_details,
+    spare_slots,
 )
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.solution.state import Solution
@@ -111,8 +112,8 @@ def test_every_shown_spare_group_breakdown_adds_up_to_its_total(one_skill_search
 
 
 @pytest.fixture
-def health() -> Ability:
-    return Ability(name="Health", static_index=2)
+def health(make_ability) -> Ability:
+    return make_ability("Health", 2)
 
 
 @pytest.mark.parametrize(
@@ -156,6 +157,24 @@ def test_slots_spare_shows_a_breakdown_only_when_the_total_isnt_one_group(
     solution = Solution(armors=[], charm=None, total_slots_spare=total, slots_spare=groups)
 
     assert slots_spare(solution, sort_key) == shown
+
+
+@pytest.mark.parametrize(
+    ("total", "groups", "shown"),
+    [
+        (0, [0, 0, 0, 0], SlotsSpare(total=0, groups=None)),
+        (0, None, SlotsSpare(total=0, groups=None)),
+        (1, [0, 1, 0, 0], SlotsSpare(total=1, groups=None)),
+        (3, [0, 0, 0, 1], SlotsSpare(total=3, groups=None)),
+        (2, None, SlotsSpare(total=2, groups=None)),
+        (3, [0, 1, 1, 0], SlotsSpare(total=3, groups=(1, 2))),
+        (5, [0, 0, 1, 1], SlotsSpare(total=5, groups=(2, 3))),
+    ],
+)
+def test_spare_slots_show_even_with_none_spare(total, groups, shown):
+    solution = Solution(armors=[], charm=None, total_slots_spare=total, slots_spare=groups)
+
+    assert spare_slots(solution) == shown
 
 
 @pytest.fixture
