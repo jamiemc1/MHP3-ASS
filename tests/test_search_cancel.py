@@ -13,7 +13,7 @@ import pytest
 from mhp3ass import parallel
 from mhp3ass.parallel import PoolSearch, Task, plan_tasks
 from mhp3ass.results.result_set import solution_lines
-from mhp3ass.search import SearchCancelled, run_search
+from mhp3ass.search import SearchCancelled, WorkerProgress, run_search
 
 
 @dataclass(frozen=True)
@@ -110,6 +110,31 @@ def test_a_search_cancelled_part_way_raises_before_checking_every_combination(
 
     assert reports != []
     assert all(done < total for done, total in reports)
+
+
+def test_a_search_cancelled_between_workers_merges_no_more(
+    corpus_spec, search_data_for, pool_or_serial
+):
+    """1a: six workers. Cancelled once the first is merged: serially the next
+    worker stops at its first step, and in the pool the next merge doesn't start."""
+    spec = corpus_spec("corpus/1a-attack-sharp-default-charms.json")
+    cancel = Event()
+    merged: list[int] = []
+
+    def cancel_after_the_first(progress: WorkerProgress) -> None:
+        merged.append(progress.number)
+        cancel.set()
+
+    with pytest.raises(SearchCancelled):
+        run_search(
+            spec,
+            data=search_data_for(spec),
+            pool=pool_or_serial,
+            on_worker_done=cancel_after_the_first,
+            cancel=cancel,
+        )
+
+    assert merged == [0]
 
 
 def test_an_unset_cancel_changes_nothing_in_the_serial_search(
