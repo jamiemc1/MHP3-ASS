@@ -109,7 +109,8 @@ def game_data_shape(game: GameData) -> dict[str, Any]:
                     "no_skills": armor.no_skills,
                     "is_piercing": armor.is_piercing,
                     "is_event": armor.is_event,
-                    "danger": ability_ref(armor.danger),
+                    # The port has no danger skills (armor_matches_query): always null.
+                    "danger": None,
                     "abilities": _ability_pairs(armor.abilities),
                     "components": _components(armor.components),
                 }
@@ -181,7 +182,8 @@ def charm_shape(charm: Charm) -> dict[str, Any]:
 
 def _armor_entries(armors: list[Armor]) -> list[dict[str, Any]]:
     entries = [
-        {"index": armor.index, "no_skills": armor.no_skills, "danger": ability_ref(armor.danger)}
+        # No danger skills, as above.
+        {"index": armor.index, "no_skills": armor.no_skills, "danger": None}
         for armor in armors
     ]
     return entries

@@ -6,8 +6,8 @@ Ported from ``LoadedData::GetRelevantData``, ``GetRelevantArmors``,
 (``legacy/Form1.h:1215``).
 
 Like the original, this writes per-query state onto the shared game
-records: every ability's ``relevant`` flag, and ``no_skills`` and ``danger``
-on each matched armour piece. Run one query per freshly loaded game when
+records: every ability's ``relevant`` flag, and ``no_skills`` on each
+matched armour piece. Run one query per freshly loaded game when
 comparing with the harness, which runs each query in a new process.
 """
 
@@ -57,22 +57,19 @@ def _add_armor(
 
     As for decorations, but ``inferior`` keeps every piece with skills that
     was listed or beaten, while a skill-less piece is on it only while
-    listed. A piece with a danger skill only displaces or is displaced by a
-    piece with the same one.
+    listed. The original's danger-skill guards on both branches always pass:
+    no piece has a danger skill (see ``armor_matches_query``).
     """
     index = 0
     while index < len(armors):
         listed = armors[index]
         if armor_is_better_than(armor, listed, rel_abilities):
-            same_danger = armor.danger is None or armor.danger is listed.danger
-            if same_danger and not armor_is_better_than(listed, armor, rel_abilities):
+            if not armor_is_better_than(listed, armor, rel_abilities):
                 if listed.no_skills:
                     _remove_first(inferior, listed)
                 del armors[index]
                 continue
-        elif (listed.danger is None or listed.danger is armor.danger) and armor_is_better_than(
-            listed, armor, rel_abilities
-        ):
+        elif armor_is_better_than(listed, armor, rel_abilities):
             if not armor.no_skills:
                 inferior.append(armor)
             return
@@ -82,11 +79,7 @@ def _add_armor(
 
 
 def _get_relevant_armors(
-    query: Query,
-    relevant: list[Armor],
-    armors: list[Armor],
-    inferior: list[Armor],
-    danger_skills: list[Ability],
+    query: Query, relevant: list[Armor], armors: list[Armor], inferior: list[Armor]
 ) -> None:
     """``GetRelevantArmors`` (LoadedData.cpp:84-95).
 
@@ -95,7 +88,7 @@ def _get_relevant_armors(
     """
     max_slots = 0
     for armor in armors:
-        if armor_matches_query(armor, query, danger_skills=danger_skills, max_slots=max_slots):
+        if armor_matches_query(armor, query, max_slots=max_slots):
             max_slots = max(max_slots, armor.num_slots)
             _add_armor(relevant, armor, rel_abilities=query.rel_abilities, inferior=inferior)
 
@@ -115,12 +108,12 @@ def get_relevant_data(game: GameData, query: Query) -> None:
     """``LoadedData::GetRelevantData`` (LoadedData.cpp:121-167).
 
     Fills the query's relevant abilities, decorations and armour and sets
-    the abilities' ``relevant`` flags. The danger-skill list stays empty: the
-    code that filled it is commented out in the original (:141-158).
+    the abilities' ``relevant`` flags. The original's danger-skill list is
+    left out: the code that filled it is commented out (:141-158), so it is
+    always empty.
     """
     for ability in game.abilities:
         ability.relevant = False
-    danger_skills: list[Ability] = []
     for skill in query.skills:
         query.rel_abilities.append(skill.ability)
         skill.ability.relevant = True
@@ -131,7 +124,6 @@ def get_relevant_data(game: GameData, query: Query) -> None:
             relevant=query.rel_armor[armor_type.value],
             armors=game.armors[armor_type],
             inferior=query.inf_armor[armor_type.value],
-            danger_skills=danger_skills,
         )
 
 

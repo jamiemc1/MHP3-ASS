@@ -19,6 +19,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from enum import Enum
 
+from mhp3ass.armor import has_query_skills
 from mhp3ass.data import GameData
 from mhp3ass.model import (
     Ability,
@@ -204,10 +205,7 @@ def armor_note(armor: Armor, query: Query) -> ArmorNote | None:
     """
     if armor.torso_inc:
         return ArmorNote.ANY_TORSO_INC
-    has_skills = any(
-        pair.amount > 0 and pair.ability in query.rel_abilities for pair in armor.abilities
-    )
-    note = None if has_skills else ArmorNote.ANY_WITH_SLOTS
+    note = None if has_query_skills(armor, query.rel_abilities) else ArmorNote.ANY_WITH_SLOTS
     return note
 
 
