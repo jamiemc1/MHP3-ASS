@@ -23,6 +23,7 @@ from mhp3ass.results.result_set import (
     skill_indices,
     solution_line,
 )
+from mhp3ass.results.view import SolutionSelection
 from mhp3ass.solution.record import (
     CharmRecord,
     RecordIndex,
@@ -136,6 +137,25 @@ def test_a_colliding_armour_set_with_the_same_charm_is_dropped(pieces, charm):
     added = results.add_solutions([first, collision])
 
     assert [added, results.all_solutions] == [[first], [first]]
+
+
+def test_lists_and_selections_equal_any_sequence_of_the_same_solutions(pieces):
+    first = Solution(armors=[pieces[1]] * 5, charm=None)
+    second = Solution(armors=[pieces[2]] * 5, charm=None)
+    solutions = SolutionList()
+    solutions.append(first)
+    solutions.append(second)
+    selection = SolutionSelection(solutions, [1, 0])
+
+    assert [
+        solutions == [first, second],
+        solutions == (first, second),
+        selection == [second, first],
+        selection == solutions,
+        solutions == [second, first],
+        solutions == "ab",
+        selection == 2,
+    ] == [True, True, True, False, False, False, False]
 
 
 def test_the_same_armour_with_another_charm_is_kept(pieces, charm, defense):
