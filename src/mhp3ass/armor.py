@@ -39,10 +39,11 @@ def has_query_skills(armor: Armor, rel_abilities: list[Ability]) -> bool:
 def armor_matches_query(armor: Armor, query: Query, max_slots: int) -> bool:
     """``Armor::MatchesQuery`` (Armor.cpp:105-145).
 
-    Sets ``armor.no_skills`` as the original does, except on torso-up pieces,
-    which return before it is written. ``max_slots`` is the most slots among
-    pieces already matched in this slot. A piece without query skills is kept
-    if it has at least ``max_slots`` slots.
+    Adds the piece to ``query.no_skills_armors`` where the original sets its
+    ``no_skills``, or removes it where the original clears it; torso-up
+    pieces return before either. ``max_slots`` is the most slots among
+    pieces already matched in this slot. A piece without query skills is
+    kept if it has at least ``max_slots`` slots.
 
     The original's ending, ``num_slots == max_slots ? !danger && !bad_skills
     : num_slots > max_slots && !danger`` (Armor.cpp:143-144), comes down to
@@ -56,23 +57,28 @@ def armor_matches_query(armor: Armor, query: Query, max_slots: int) -> bool:
         return False
     if armor.torso_inc:
         return True
-    armor.no_skills = not has_query_skills(armor, query.rel_abilities)
-    if not armor.no_skills:
+    if has_query_skills(armor, query.rel_abilities):
+        query.no_skills_armors.discard(armor)
         return True
+    query.no_skills_armors.add(armor)
     matches = armor.num_slots >= max_slots
     return matches
 
 
-def armor_is_better_than(armor: Armor, other: Armor, rel_abilities: list[Ability]) -> bool:
+def armor_is_better_than(
+    armor: Armor, other: Armor, rel_abilities: list[Ability], no_skills: set[Armor]
+) -> bool:
     """``Armor::IsBetterThan`` (Armor.cpp:147-167).
 
-    Not a strict order: two pieces can each be better than the other (more
-    points in different relevant abilities, or one torso-up piece against
-    another piece), and full ties are better neither way.
+    ``no_skills`` holds the pieces the original's ``no_skills`` flag is set
+    on (the query's ``no_skills_armors``). Not a strict order: two pieces can
+    each be better than the other (more points in different relevant
+    abilities, or one torso-up piece against another piece), and full ties
+    are better neither way.
     """
     if armor.num_slots > other.num_slots:
         return True
-    if armor.no_skills and other.no_skills:
+    if armor in no_skills and other in no_skills:
         if armor.defence == other.defence:
             return armor.rarity > other.rarity
         return armor.defence > other.defence

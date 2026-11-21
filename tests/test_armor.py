@@ -97,10 +97,11 @@ def test_relevant_points_match_at_any_slot_count(
     make_armor: Callable[..., Armor], make_query: Callable[..., Query], attack: Ability
 ):
     piece = make_armor(abilities=[(attack, 2)], num_slots=0)
-    piece.no_skills = True
+    query = make_query(rel_abilities=[attack])
+    query.no_skills_armors.add(piece)
 
-    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=3)
-    assert piece.no_skills is False
+    assert armor_matches_query(piece, query, max_slots=3)
+    assert piece not in query.no_skills_armors
 
 
 @pytest.mark.parametrize(("num_slots", "matches"), [(1, False), (2, True), (3, True)])
@@ -113,9 +114,10 @@ def test_skill_less_piece_needs_the_most_slots_so_far(
     matches: bool,
 ):
     piece = make_armor(abilities=[(defense, 4)], num_slots=num_slots)
+    query = make_query(rel_abilities=[attack])
 
-    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=2) is matches
-    assert piece.no_skills is True
+    assert armor_matches_query(piece, query, max_slots=2) is matches
+    assert piece in query.no_skills_armors
 
 
 @pytest.mark.parametrize(("num_slots", "matches"), [(1, False), (2, True), (3, True)])
@@ -128,29 +130,31 @@ def test_negative_relevant_points_count_as_skill_less(
 ):
     """Quirk 6: bad_skills is never set, so the equal-slots piece is kept (Armor.cpp:140-143)."""
     piece = make_armor(abilities=[(attack, -3)], num_slots=num_slots)
+    query = make_query(rel_abilities=[attack])
 
-    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=2) is matches
-    assert piece.no_skills is True
+    assert armor_matches_query(piece, query, max_slots=2) is matches
+    assert piece in query.no_skills_armors
 
 
 def test_torso_up_piece_matches_without_writing_no_skills(
     make_armor: Callable[..., Armor], make_query: Callable[..., Query], attack: Ability
 ):
     piece = make_armor(torso_inc=True, num_slots=0)
-    piece.no_skills = True
+    query = make_query(rel_abilities=[attack])
+    query.no_skills_armors.add(piece)
 
-    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=3)
-    assert piece.no_skills is True
+    assert armor_matches_query(piece, query, max_slots=3)
+    assert query.no_skills_armors == {piece}
 
 
 def test_more_slots_and_more_points_are_each_better(
     make_armor: Callable[..., Armor], attack: Ability
 ):
-    slotted = make_armor(num_slots=2, no_skills=True)
+    slotted = make_armor(num_slots=2)
     skilled = make_armor(abilities=[(attack, 5)], num_slots=1)
 
-    assert armor_is_better_than(slotted, skilled, rel_abilities=[attack])
-    assert armor_is_better_than(skilled, slotted, rel_abilities=[attack])
+    assert armor_is_better_than(slotted, skilled, rel_abilities=[attack], no_skills={slotted})
+    assert armor_is_better_than(skilled, slotted, rel_abilities=[attack], no_skills={slotted})
 
 
 def test_fewer_slots_and_no_more_points_is_not_better(
@@ -159,7 +163,7 @@ def test_fewer_slots_and_no_more_points_is_not_better(
     slotted = make_armor(abilities=[(attack, 5)], num_slots=2)
     skilled = make_armor(abilities=[(attack, 5)], num_slots=1)
 
-    assert not armor_is_better_than(skilled, slotted, rel_abilities=[attack])
+    assert not armor_is_better_than(skilled, slotted, rel_abilities=[attack], no_skills=set())
 
 
 @pytest.mark.parametrize(
@@ -173,11 +177,12 @@ def test_fewer_slots_and_no_more_points_is_not_better(
 def test_skill_less_pieces_compare_defence_then_rarity(
     make_armor: Callable[..., Armor], ours: dict, theirs: dict, better: bool, worse: bool
 ):
-    piece = make_armor(no_skills=True, **ours)
-    other = make_armor(no_skills=True, **theirs)
+    piece = make_armor(**ours)
+    other = make_armor(**theirs)
+    no_skills = {piece, other}
 
-    assert armor_is_better_than(piece, other, rel_abilities=[]) is better
-    assert armor_is_better_than(other, piece, rel_abilities=[]) is worse
+    assert armor_is_better_than(piece, other, rel_abilities=[], no_skills=no_skills) is better
+    assert armor_is_better_than(other, piece, rel_abilities=[], no_skills=no_skills) is worse
 
 
 @pytest.mark.parametrize(
@@ -194,8 +199,8 @@ def test_torso_up_pieces_compare_rarity_then_defence(
     piece = make_armor(torso_inc=True, **ours)
     other = make_armor(torso_inc=True, **theirs)
 
-    assert armor_is_better_than(piece, other, rel_abilities=[]) is better
-    assert armor_is_better_than(other, piece, rel_abilities=[]) is worse
+    assert armor_is_better_than(piece, other, rel_abilities=[], no_skills=set()) is better
+    assert armor_is_better_than(other, piece, rel_abilities=[], no_skills=set()) is worse
 
 
 def test_torso_up_and_skilled_piece_are_each_better(
@@ -204,8 +209,8 @@ def test_torso_up_and_skilled_piece_are_each_better(
     torso_up = make_armor(torso_inc=True)
     skilled = make_armor(abilities=[(attack, 5)])
 
-    assert armor_is_better_than(torso_up, skilled, rel_abilities=[attack])
-    assert armor_is_better_than(skilled, torso_up, rel_abilities=[attack])
+    assert armor_is_better_than(torso_up, skilled, rel_abilities=[attack], no_skills=set())
+    assert armor_is_better_than(skilled, torso_up, rel_abilities=[attack], no_skills=set())
 
 
 def test_more_points_in_any_relevant_ability_is_better(
@@ -215,7 +220,15 @@ def test_more_points_in_any_relevant_ability_is_better(
     defense_piece = make_armor(abilities=[(attack, 1), (defense, 3)])
     copy = make_armor(abilities=[(attack, 3), (defense, 1)])
 
-    assert armor_is_better_than(attack_piece, defense_piece, rel_abilities=[attack, defense])
-    assert armor_is_better_than(defense_piece, attack_piece, rel_abilities=[attack, defense])
-    assert not armor_is_better_than(attack_piece, copy, rel_abilities=[attack, defense])
-    assert not armor_is_better_than(defense_piece, attack_piece, rel_abilities=[attack])
+    assert armor_is_better_than(
+        attack_piece, defense_piece, rel_abilities=[attack, defense], no_skills=set()
+    )
+    assert armor_is_better_than(
+        defense_piece, attack_piece, rel_abilities=[attack, defense], no_skills=set()
+    )
+    assert not armor_is_better_than(
+        attack_piece, copy, rel_abilities=[attack, defense], no_skills=set()
+    )
+    assert not armor_is_better_than(
+        defense_piece, attack_piece, rel_abilities=[attack], no_skills=set()
+    )

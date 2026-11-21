@@ -113,8 +113,6 @@ class Armor:
     is_piercing: bool
     is_event: bool = False
     torso_inc: bool = False
-    # Set by MatchesQuery during a search, not by loading.
-    no_skills: bool = False
     difficulty: int = 0
     abilities: list[AbilityPair] = field(default_factory=list)
     components: list[MaterialComponent] = field(default_factory=list)

@@ -8,7 +8,7 @@ import pytest
 from corpus_search import CorpusSearch
 from goldens import golden_by_id
 from mhp3ass.model import Ability, Armor, ArmorType, Material, MaterialComponent, Skill
-from mhp3ass.query import SearchSpec
+from mhp3ass.query import Query, SearchSpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.details import (
     AbilityLine,
@@ -53,12 +53,13 @@ def _notes(search: CorpusSearch) -> list[list[ArmorNote | None]]:
     return notes
 
 
-def _flag_notes(search: CorpusSearch) -> list[list[ArmorNote | None]]:
-    """The notes the original reads from the shared armour flags."""
+def _flag_notes(search: CorpusSearch, last_query: Query) -> list[list[ArmorNote | None]]:
+    """The notes the original reads from its shared armour flags, which the last
+    formulated query set: ``last_query``'s ``no_skills_armors``."""
     notes = [
         [
             ArmorNote.ANY_WITH_SLOTS
-            if armor.no_skills
+            if armor in last_query.no_skills_armors
             else ArmorNote.ANY_TORSO_INC
             if armor.torso_inc
             else None
@@ -71,11 +72,11 @@ def _flag_notes(search: CorpusSearch) -> list[list[ArmorNote | None]]:
 
 
 def test_notes_match_the_flags_the_search_relevance_pass_sets(one_skill_search):
-    formulate_query(one_skill_search.data.game, one_skill_search.spec.query)
+    search_query = formulate_query(one_skill_search.data.game, one_skill_search.spec.query)
 
     notes = _notes(one_skill_search)
 
-    assert notes == _flag_notes(one_skill_search)
+    assert notes == _flag_notes(one_skill_search, last_query=search_query)
     assert {note for solution in notes for note in solution} == {
         None,
         ArmorNote.ANY_WITH_SLOTS,
@@ -90,10 +91,10 @@ def test_notes_follow_the_search_query_after_another_relevance_pass(
     formulate_query(one_skill_search.data.game, one_skill_search.spec.query)
     before = _notes(one_skill_search)
 
-    formulate_query(one_skill_search.data.game, other_query_spec.query)
+    other_query = formulate_query(one_skill_search.data.game, other_query_spec.query)
 
     assert _notes(one_skill_search) == before
-    assert _flag_notes(one_skill_search) != before
+    assert _flag_notes(one_skill_search, last_query=other_query) != before
 
 
 def test_every_shown_spare_group_breakdown_adds_up_to_its_total(one_skill_search):
