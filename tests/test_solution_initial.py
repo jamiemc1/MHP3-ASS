@@ -127,9 +127,13 @@ def test_query_skills_seed_need_relevant_and_abilities_in_order(
 
 def test_two_skills_with_one_ability_raise_as_dictionary_add(make_query, attack, attack_skill):
     larger = Skill(name="Attack Up [Med]", points_required=15, ability=attack)
+    data = new_calculation_data(
+        Solution(armors=[None] * 5, charm=None), make_query(skills=[attack_skill, larger])
+    )
 
     with pytest.raises(KeyError):
-        _initial([None] * 5, make_query(skills=[attack_skill, larger]))
+        get_initial_data(data)
+    assert (data.need, data.relevant, data.solution.abilities) == ({}, set(), {})
 
 
 def test_add_decoration_spends_slots_unsigned(attack):
