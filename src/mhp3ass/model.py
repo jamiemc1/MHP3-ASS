@@ -1,8 +1,10 @@
 """Game records, mirroring the legacy reference types.
 
 Ported from ``legacy/Skill.h``, ``legacy/Armor.h`` (including ``Charm``),
-``legacy/Decoration.h`` and ``legacy/Common.h``. The original's records are .NET reference types:
-dictionaries key them by identity and loaders mutate them in place (a
+``legacy/Decoration.h`` and ``legacy/Common.h``, and ``points_in`` from both
+``GetSkillAt`` methods (``legacy/Armor.cpp``, ``legacy/Decoration.cpp``). The
+original's records are .NET reference types: dictionaries key them by
+identity and loaders mutate them in place (a
 language load renames them). These dataclasses keep that: ``eq=False`` gives
 identity equality and hashing, and fields are mutable.
 """
@@ -69,6 +71,14 @@ class Skill:
 class AbilityPair:
     ability: Ability
     amount: int
+
+
+def points_in(pairs: list[AbilityPair], ability: Ability) -> int:
+    """``Armor::GetSkillAt`` and ``Decoration::GetSkillAt``, which have the same body
+    (Armor.cpp:169-175, Decoration.cpp:82-88): the first pair's points in
+    ``ability``, or 0."""
+    points = next((pair.amount for pair in pairs if pair.ability is ability), 0)
+    return points
 
 
 @dataclass(eq=False)
