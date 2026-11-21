@@ -397,93 +397,178 @@ def run_search(
         query, charm_mode=spec.charm_mode, my_charms=loaded.charms, tables=data.tables
     )
     results = ResultSet()
-    workers = []
-    exception = None
-
-    def report_worker(number: int, worker: WorkerResult, start: float) -> None:
-        if on_worker_done is not None:
-            progress = WorkerProgress(
-                number=number,
-                worker_count=len(templates),
-                worker=worker,
-                seconds=time.perf_counter() - start,
-            )
-            on_worker_done(progress)
-
     # Every solution found stays alive until the search ends, so collections
     # would walk them all again and again; nothing here builds a cycle.
     with paused_gc():
         if pool is not None:
-            pooled = pool.run(
-                data_dir=data.data_dir,
-                spec=spec.query,
+            merged = _pooled_workers(
+                pool,
+                spec=spec,
+                data=data,
                 query=query,
                 templates=templates,
-                game=data.game,
+                results=results,
+                record_exceptions=record_exceptions,
+                on_worker_done=on_worker_done,
                 on_progress=on_progress,
                 cancel=cancel,
             )
-            for number, records in enumerate(pooled.workers):
-                raise_if_cancelled(cancel)
-                start = time.perf_counter()
-                found = SolutionList.of_records(records, data.game)
-                added = results.add_records(found)
-                worker = WorkerResult(template=templates[number], found=found, added=added)
-                workers.append(worker)
-                report_worker(number, worker, start)
-            if pooled.error is not None:
-                failed = pooled.error.worker
-                error = pooled.error.error
-                if not is_search_error(error):
-                    raise error
-                exception = _recorded_exception(
-                    error,
-                    worker=failed,
-                    template=templates[failed],
-                    record_exceptions=record_exceptions,
-                )
         else:
-            reporter = None
-            total = 0
-            if on_progress is not None:
-                total = len(templates) * prod(len(choices) for choices in armor_choices(query))
-                reporter = StepReporter(send=lambda done: on_progress(done, total))
-
-            def step(combinations: int) -> None:
-                raise_if_cancelled(cancel)
-                if reporter is not None:
-                    reporter.add(combinations)
-
-            needs_steps = reporter is not None or cancel is not None
-            for number, template in enumerate(templates):
-                raise_if_cancelled(cancel)
-                start = time.perf_counter()
-                try:
-                    found = run_worker(
-                        query,
-                        template,
-                        data.game,
-                        on_step=step if needs_steps else None,
-                    )
-                except SEARCH_ERRORS as error:
-                    exception = _recorded_exception(
-                        error, worker=number, template=template, record_exceptions=record_exceptions
-                    )
-                    break
-                added = results.add_solutions(found)
-                worker = WorkerResult(template=template, found=found, added=added)
-                workers.append(worker)
-                report_worker(number, worker, start)
-            if reporter is not None:
-                reporter.send_now()
+            merged = _serial_workers(
+                data,
+                query=query,
+                templates=templates,
+                results=results,
+                record_exceptions=record_exceptions,
+                on_worker_done=on_worker_done,
+                on_progress=on_progress,
+                cancel=cancel,
+            )
     search_result = SearchResult(
         query=query,
         my_charms_loaded=len(loaded.charms),
         my_charms_illegal=my_charms_illegal(loaded),
         worker_count=len(templates),
-        workers=workers,
+        workers=merged.workers,
         results=results,
         exceptions_recorded=record_exceptions,
-        exception=exception,
+        exception=merged.exception,
     )
     return search_result
+
+
+@dataclass(frozen=True)
+class _MergedWorkers:
+    """The workers whose solutions were merged, in order, and the recorded
+    throw that stopped the search, if any."""
+
+    workers: list[WorkerResult]
+    exception: SearchException | None
+
+
+def _report_worker(
+    on_worker_done: Callable[[WorkerProgress], None] | None,
+    number: int,
+    worker_count: int,
+    worker: WorkerResult,
+    start: float,
+) -> None:
+    """``on_worker_done`` for a worker merged since ``start``, if given."""
+    if on_worker_done is not None:
+        progress = WorkerProgress(
+            number=number,
+            worker_count=worker_count,
+            worker=worker,
+            seconds=time.perf_counter() - start,
+        )
+        on_worker_done(progress)
+
+
+def _pooled_workers(
+    pool: WorkerPool,
+    spec: SearchSpec,
+    data: SearchData,
+    query: Query,
+    templates: list[Charm | None],
+    results: ResultSet,
+    record_exceptions: bool,
+    on_worker_done: Callable[[WorkerProgress], None] | None,
+    on_progress: Callable[[int, int], None] | None,
+    cancel: Event | None,
+) -> _MergedWorkers:
+    """``run_search``'s workers in ``pool``, their records merged into ``results``
+    worker by worker, up to the first that raised."""
+    pooled = pool.run(
+        data_dir=data.data_dir,
+        spec=spec.query,
+        query=query,
+        templates=templates,
+        game=data.game,
+        on_progress=on_progress,
+        cancel=cancel,
+    )
+    workers = []
+    for number, records in enumerate(pooled.workers):
+        raise_if_cancelled(cancel)
+        start = time.perf_counter()
+        found = SolutionList.of_records(records, data.game)
+        added = results.add_records(found)
+        worker = WorkerResult(template=templates[number], found=found, added=added)
+        workers.append(worker)
+        _report_worker(
+            on_worker_done,
+            number=number,
+            worker_count=len(templates),
+            worker=worker,
+            start=start,
+        )
+    exception = None
+    if pooled.error is not None:
+        failed = pooled.error.worker
+        error = pooled.error.error
+        if not is_search_error(error):
+            raise error
+        exception = _recorded_exception(
+            error,
+            worker=failed,
+            template=templates[failed],
+            record_exceptions=record_exceptions,
+        )
+    merged = _MergedWorkers(workers=workers, exception=exception)
+    return merged
+
+
+def _serial_workers(
+    data: SearchData,
+    query: Query,
+    templates: list[Charm | None],
+    results: ResultSet,
+    record_exceptions: bool,
+    on_worker_done: Callable[[WorkerProgress], None] | None,
+    on_progress: Callable[[int, int], None] | None,
+    cancel: Event | None,
+) -> _MergedWorkers:
+    """``run_search``'s workers in turn in this process, each merged into
+    ``results`` as it finishes, stopping at the first that raises."""
+    reporter = None
+    if on_progress is not None:
+        total = len(templates) * prod(len(choices) for choices in armor_choices(query))
+        reporter = StepReporter(send=lambda done: on_progress(done, total))
+
+    def step(combinations: int) -> None:
+        raise_if_cancelled(cancel)
+        if reporter is not None:
+            reporter.add(combinations)
+
+    needs_steps = reporter is not None or cancel is not None
+    workers = []
+    exception = None
+    for number, template in enumerate(templates):
+        raise_if_cancelled(cancel)
+        start = time.perf_counter()
+        try:
+            found = run_worker(
+                query,
+                template,
+                data.game,
+                on_step=step if needs_steps else None,
+            )
+        except SEARCH_ERRORS as error:
+            exception = _recorded_exception(
+                error, worker=number, template=template, record_exceptions=record_exceptions
+            )
+            break
+        added = results.add_solutions(found)
+        worker = WorkerResult(template=template, found=found, added=added)
+        workers.append(worker)
+        _report_worker(
+            on_worker_done,
+            number=number,
+            worker_count=len(templates),
+            worker=worker,
+            start=start,
+        )
+    if reporter is not None:
+        reporter.send_now()
+    merged = _MergedWorkers(workers=workers, exception=exception)
+    return merged
