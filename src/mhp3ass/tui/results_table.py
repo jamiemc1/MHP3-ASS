@@ -33,23 +33,9 @@ from mhp3ass.results.table import TableRow, fit_widths, truncate
 
 
 def row_cells(number: int, row: TableRow) -> tuple[str, ...]:
-    cells = (
-        str(number),
-        row.head,
-        row.body,
-        row.arms,
-        row.waist,
-        row.legs,
-        row.defence,
-        row.spare,
-        row.charm,
-        row.fire,
-        row.water,
-        row.thunder,
-        row.ice,
-        row.dragon,
-        row.extra,
-    )
+    """The set's number, then ``row``'s cells in its fields' (the columns') order."""
+    # Not astuple, which deep-copies every cell: filling the table calls this for every row.
+    cells = (str(number), *vars(row).values())
     return cells
 
 
