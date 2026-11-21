@@ -18,7 +18,7 @@ from mhp3ass.data import GameData
 from mhp3ass.model import AbilityPair, Armor, Charm, Skill
 from mhp3ass.query import Query
 from mhp3ass.results.result_set import skill_indices
-from mhp3ass.search import armor_choices, dotnet_exception_type
+from mhp3ass.search import SEARCH_ERRORS, armor_choices, dotnet_exception_type
 from mhp3ass.solution import finish, has_enough_points, match
 from mhp3ass.solution.bad_skills import fix_bad_skills, reorder_gems
 from mhp3ass.solution.charm_reduction import (
@@ -32,7 +32,6 @@ from mhp3ass.solution.fill import calculate_decorations
 from mhp3ass.solution.initial import get_initial_data
 from mhp3ass.solution.state import (
     CalculationData,
-    LegacyNullReferenceError,
     Solution,
     new_calculation_data,
 )
@@ -228,7 +227,7 @@ def _threw_difference(
     type and leave the state the trace's ``threw`` stage recorded."""
     try:
         stage.run(data)
-    except (LegacyNullReferenceError, LookupError) as error:
+    except SEARCH_ERRORS as error:
         raised = _dotnet_exception(error)
     else:
         difference = f"{case.label} {stage.name}: port didn't raise {case.exception}"
@@ -402,7 +401,7 @@ def matches_query_mismatches(goldens: list[TraceGolden], game: GameData) -> list
         raised = None
         try:
             outcome = match(data, game).value
-        except (LegacyNullReferenceError, LookupError) as error:
+        except SEARCH_ERRORS as error:
             raised = _dotnet_exception(error)
             outcome = "exception"
         expected = _outcome(case)

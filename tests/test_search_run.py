@@ -17,7 +17,7 @@ from mhp3ass.results.result_set import (
     search_manifest,
     solution_lines,
 )
-from mhp3ass.search import armor_choices, dotnet_exception_type, run_search
+from mhp3ass.search import armor_choices, dotnet_exception_type, is_search_error, run_search
 from mhp3ass.solution.charm_reduction import LegacyListIndexError
 from mhp3ass.solution.fill import UndefinedScoreError
 from mhp3ass.solution.state import LegacyNullReferenceError
@@ -75,6 +75,22 @@ def test_empty_slots_are_padded_on_a_copy(empty_armor_spec, search_data_for):
 )
 def test_port_errors_map_to_the_dotnet_exceptions_they_stand_for(error, expected):
     assert dotnet_exception_type(error) == expected
+
+
+@pytest.mark.parametrize(
+    ("error", "expected"),
+    [
+        (LegacyNullReferenceError("null"), True),
+        (LegacyListIndexError("index"), True),
+        (NoDecorationsError("none"), True),
+        (KeyError("key"), True),
+        (UndefinedScoreError("score"), True),
+        (ValueError("value"), False),
+        (RuntimeError("pool"), False),
+    ],
+)
+def test_search_errors_are_null_dereferences_and_lookups(error, expected):
+    assert is_search_error(error) is expected
 
 
 def test_each_finished_worker_is_reported_in_order(one_skill_spec, search_data_for, pool_or_serial):
