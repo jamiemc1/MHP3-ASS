@@ -23,14 +23,12 @@ from mhp3ass.relevance import formulate_query
 from mhp3ass.results.result_set import ResultSet
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.view import ResultsView
-from mhp3ass.saved_data import write_atomically
 from mhp3ass.settings_cfg import (
     SettingsCfg,
     SettingsCfgError,
     check_header,
     load_results,
     read_settings_cfg,
-    settings_cfg_text,
     with_solutions,
 )
 from mhp3ass.skill_chips import chip_rows
@@ -274,8 +272,3 @@ def set_aside(path: Path, error: Exception) -> str:
         return notice
     notice = f"{opening} The file is kept as {kept.name}."
     return notice
-
-
-def write_settings_cfg(path: Path, settings: SettingsCfg) -> None:
-    """Write ``settings`` to ``path`` atomically (``write_atomically``)."""
-    write_atomically(path, settings_cfg_text(settings))
