@@ -166,10 +166,7 @@ def restore_search(
     ``game`` in ``language``: the form, the sort, then the results under the
     query of the last search's hunter type. Raises ``SettingsCfgError`` on
     the first value it can't restore (``check_header``, ``form_from_settings``,
-    then each result line).
-
-    Formulating the query sets the game's abilities' ``relevant`` flags, as
-    the original's load does before reading the lines."""
+    then each result line)."""
     check_header(settings, language_count=language_count)
     form = form_from_settings(settings, game)
     results = None

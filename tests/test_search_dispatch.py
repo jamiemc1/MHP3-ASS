@@ -202,8 +202,9 @@ def test_my_charms_drop_a_trade_off_with_the_same_relevant_skills(formulate, tea
     assert workers == [None, first]
 
 
-def test_my_charms_compare_with_the_last_formulated_query(formulate, teamhgg_search_data):
-    """The comparisons read the game's relevance flags, not the query's skills."""
+def test_my_charms_compare_on_the_query_s_own_relevant_abilities(formulate, teamhgg_search_data):
+    """The comparisons read ``query.relevant_abilities``, so another query
+    formulated since doesn't change which charms are searched."""
     query = formulate()
     attack, sharpness = (skill.ability for skill in query.skills)
     first = _charm(0, (attack, 5), (sharpness, 1))
@@ -217,4 +218,4 @@ def test_my_charms_compare_with_the_last_formulated_query(formulate, teamhgg_sea
         tables=teamhgg_search_data.tables,
     )
 
-    assert workers == [None, more_sharpness]
+    assert workers == [None, first]

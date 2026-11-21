@@ -114,9 +114,9 @@ def _stage_results(stages: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 def trace_cases(goldens: list[TraceGolden], game: GameData) -> Iterator[TraceCase]:
     """Every sample of every golden, as a case to replay.
 
-    Building a query rewrites ``game``'s relevance flags, which the stage
-    functions read, so a golden's cases are only valid until the next
-    golden's are produced: replay each case as it comes.
+    Building a query rewrites ``game``'s armour ``no_skills`` flags (which
+    only relevance reads), so the goldens' queries are built one at a time,
+    as their cases are replayed.
     """
     for golden in goldens:
         query = formulate_query_json(game, golden.query)

@@ -414,7 +414,7 @@ def worker_count(candidate: Candidate, query: Query, catalogue: Catalogue) -> in
     if mode == "my_charms":
         optimal: list[Charm] = []
         for charm in legal:
-            add_charm_to_optimal_list(optimal, charm)
+            add_charm_to_optimal_list(optimal, charm, relevant=query.relevant_abilities)
         workers = 1 + len(optimal)
         return workers
     charms = get_charms(query, catalogue.tables, use_two_skill_charms=mode == "two_skill")

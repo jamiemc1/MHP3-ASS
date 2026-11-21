@@ -186,7 +186,7 @@ def other_teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
 @pytest.fixture(scope="session")
 def scratch_game(search_data_by_language: dict[str, SearchData]) -> GameData:
     """A game in English (TeamHGG) that tests may run queries on, which rewrite its
-    relevance state (ability flags, armour no_skills). It is the
+    relevance state (armour no_skills). It is the
     English (TeamHGG) search game."""
     return search_data_by_language["English (TeamHGG)"].game
 

@@ -80,8 +80,8 @@ def worker_charms(
     (``None`` is a charm-free worker).
 
     ``query`` must come from ``formulate_query`` on the game ``my_charms`` and
-    ``tables`` belong to, with no other query formulated since: the my-charms
-    comparisons read the abilities' ``relevant`` flags it sets.
+    ``tables`` belong to: the my-charms comparisons read its
+    ``relevant_abilities``.
 
     - No skills: no workers (the GUI does nothing, :1255)
     - Slotted, one- and two-skill modes with an Auto-Guard skill: only the
@@ -119,7 +119,7 @@ def worker_charms(
         case CharmMode.MY_CHARMS:
             to_search: list[Charm] = []
             for charm in my_charms:
-                add_charm_to_optimal_list(to_search, charm)
+                add_charm_to_optimal_list(to_search, charm, relevant=query.relevant_abilities)
             workers = [None, *to_search]
         case CharmMode.SLOTTED:
             workers = [Charm(num_slots=3)]
