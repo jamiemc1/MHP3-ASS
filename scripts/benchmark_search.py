@@ -51,6 +51,7 @@ from pathlib import Path
 from mhp3ass.charms.generation import generate_charm_tables
 from mhp3ass.charms.validity import build_charm_validity
 from mhp3ass.data import apply_language, load_game_data
+from mhp3ass.data.languages import language_dir
 from mhp3ass.parallel import SearchPool
 from mhp3ass.query import SearchSpec
 from mhp3ass.relevance import formulate_query
@@ -160,7 +161,7 @@ def cold_search_seconds(query_path: Path, data_dir: Path, jobs: int) -> float:
 def startup_report(data_dir: Path, query_path: Path, runs: int, jobs: int) -> list[str]:
     """Markdown rows for each start-up step and the cold search of ``query_path``."""
     spec = SearchSpec.from_file(query_path)
-    language_dir = data_dir / "Languages" / spec.query.language
+    translations = language_dir(data_dir, spec.query.language)
 
     def load_seconds() -> float:
         seconds = elapsed(lambda: load_game_data(data_dir))
@@ -173,7 +174,7 @@ def startup_report(data_dir: Path, query_path: Path, runs: int, jobs: int) -> li
 
     def language_seconds() -> float:
         game = load_game_data(data_dir)
-        seconds = elapsed(lambda: apply_language(game, language_dir))
+        seconds = elapsed(lambda: apply_language(game, translations))
         return seconds
 
     def validity_seconds() -> float:
@@ -184,7 +185,7 @@ def startup_report(data_dir: Path, query_path: Path, runs: int, jobs: int) -> li
 
     def relevance_seconds() -> float:
         game = load_game_data(data_dir)
-        apply_language(game, language_dir)
+        apply_language(game, translations)
         seconds = elapsed(lambda: formulate_query(game, spec.query))
         return seconds
 

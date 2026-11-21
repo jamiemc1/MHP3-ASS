@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from mhp3ass.data.languages import default_language, language_folders
+from mhp3ass.data.languages import default_language, language_dir, language_folders
 
 
 @pytest.fixture
@@ -35,6 +35,29 @@ def test_folders_sort_case_insensitively_and_files_are_ignored(languages_dir_wit
         "English (TeamHGG)",
         "English (TMO)",
     ]
+
+
+def test_a_language_folder_is_under_the_data_folders_languages(legacy_data_dir):
+    folder = language_dir(legacy_data_dir, "Japanese")
+
+    assert [folder, (folder / "skills.txt").is_file()] == [
+        legacy_data_dir / "Languages" / "Japanese",
+        True,
+    ]
+
+
+@pytest.fixture
+def data_dir_with_a_language_file(tmp_path):
+    """A Languages folder holding a file, not a folder, named like a language."""
+    (tmp_path / "Languages").mkdir()
+    (tmp_path / "Languages" / "Klingon").write_text("not a folder", encoding="utf-8")
+    return tmp_path
+
+
+@pytest.mark.parametrize("language", ["No Such Language", "Klingon"], ids=["missing", "a-file"])
+def test_a_language_without_a_folder_raises(data_dir_with_a_language_file, language):
+    with pytest.raises(FileNotFoundError, match=f"no language folder .*{language}"):
+        language_dir(data_dir_with_a_language_file, language)
 
 
 def test_default_is_the_first_teamhgg_folder():

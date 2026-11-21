@@ -11,23 +11,17 @@ from __future__ import annotations
 from pathlib import Path
 
 from mhp3ass.charms.my_charms import load_my_charms, my_charms_text
-from mhp3ass.charms.validity import CharmValidity
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.data.languages import language_dir
 from mhp3ass.data.strings import DisplayStrings, load_strings
 from mhp3ass.model import AbilityPair, Charm
 from mhp3ass.saved_data import write_atomically
-from mhp3ass.search import language_dir
+from mhp3ass.search import SearchData
 
 
-def switch_language(
-    game: GameData,
-    validity: CharmValidity,
-    data_dir: Path,
-    language: str,
-    my_charms_path: Path,
-) -> DisplayStrings:
-    """Rename ``game``'s records into ``language`` (a folder of
-    ``data_dir``'s ``Languages``), rewrite ``my_charms_path`` in it, and
+def switch_language(data: SearchData, language: str, my_charms_path: Path) -> DisplayStrings:
+    """Rename ``data``'s game's records into ``language`` (a folder of its
+    data folder's ``Languages``), rewrite ``my_charms_path`` in it, and
     return its display strings.
 
     The original saves the my-charms list it holds, which a line that failed
@@ -39,15 +33,15 @@ def switch_language(
     short or broken language file raises here), and the new ``mycharms.txt``
     is written from that copy's names. An error (``FileNotFoundError`` for
     no such language, ``OSError``, ``ValueError``, ``MyCharmsFileError``)
-    leaves ``game`` and the files as they were."""
-    folder = language_dir(data_dir, language)
+    leaves the game and the files as they were."""
+    folder = language_dir(data.data_dir, language)
     strings = load_strings(folder)
-    renamed = load_game_data(data_dir)
+    renamed = load_game_data(data.data_dir)
     apply_language(renamed, folder)
-    loaded = load_my_charms(my_charms_path, game=game, validity=validity)
+    loaded = load_my_charms(my_charms_path, game=data.game, validity=data.validity)
     charms = [_charm_in(renamed, charm) for charm in loaded.charms]
     write_atomically(my_charms_path, my_charms_text(charms).encode("utf-8"))
-    apply_language(game, folder)
+    apply_language(data.game, folder)
     return strings
 
 
