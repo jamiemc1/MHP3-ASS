@@ -35,42 +35,37 @@ def armor_available(armor: Armor, query: Query) -> bool:
     return not excluded
 
 
-def armor_matches_query(
-    armor: Armor, query: Query, danger_skills: list[Ability], max_slots: int
-) -> bool:
+def has_query_skills(armor: Armor, rel_abilities: list[Ability]) -> bool:
+    """Whether the piece has positive points in any of ``rel_abilities``: the
+    loop that clears ``no_skills`` in ``Armor::MatchesQuery`` (Armor.cpp:127-139)."""
+    has_skills = any(pair.amount > 0 and pair.ability in rel_abilities for pair in armor.abilities)
+    return has_skills
+
+
+def armor_matches_query(armor: Armor, query: Query, max_slots: int) -> bool:
     """``Armor::MatchesQuery`` (Armor.cpp:105-145).
 
-    Sets ``armor.danger`` and ``armor.no_skills`` as the original does, except
-    on torso-up pieces, which return before either is written. ``max_slots``
-    is the most slots among pieces already matched in this slot.
+    Sets ``armor.no_skills`` as the original does, except on torso-up pieces,
+    which return before it is written. ``max_slots`` is the most slots among
+    pieces already matched in this slot. A piece without query skills is kept
+    if it has at least ``max_slots`` slots.
 
-    Quirk 6: ``bad_skills`` is only ever set to ``False`` (Armor.cpp:140), so
-    a piece whose relevant points are all negative counts as skill-less.
+    The original's ending, ``num_slots == max_slots ? !danger && !bad_skills
+    : num_slots > max_slots && !danger`` (Armor.cpp:142-143), comes down to
+    that. ``danger`` is always null, because the danger-skill list it is
+    looked up in is never filled (``LoadedData.cpp:141-158`` is commented
+    out; quirk 32). Quirk 6: ``bad_skills`` is only ever set to ``false``
+    (Armor.cpp:140), so a piece whose relevant points are all negative counts
+    as skill-less.
     """
     if not armor_available(armor, query):
         return False
     if armor.torso_inc:
         return True
-    armor.danger = next(
-        (
-            pair.ability
-            for pair in armor.abilities
-            if pair.amount < 0 and pair.ability in danger_skills
-        ),
-        None,
-    )
-    armor.no_skills = True
-    bad_skills = False
-    for pair in armor.abilities:
-        if pair.ability in query.rel_abilities:
-            if pair.amount > 0:
-                armor.no_skills = False
-                return True
-            bad_skills = False
-    if armor.num_slots == max_slots:
-        matches = armor.danger is None and not bad_skills
-        return matches
-    matches = armor.num_slots > max_slots and armor.danger is None
+    armor.no_skills = not has_query_skills(armor, query.rel_abilities)
+    if not armor.no_skills:
+        return True
+    matches = armor.num_slots >= max_slots
     return matches
 
 
