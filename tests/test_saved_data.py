@@ -9,8 +9,10 @@ from mhp3ass.saved_data import (
     TuiSettings,
     config_dir,
     my_charms_file,
+    my_charms_in,
     read_tui_settings,
     saved_data_dir,
+    settings_cfg_in,
     tui_settings_text,
     write_atomically,
     write_tui_settings,
@@ -230,6 +232,27 @@ def test_mhp3ass_home_overrides_the_folders_saved_data(tmp_path):
     folders = TuiFolders.find(env, "linux", home=tmp_path)
 
     assert folders.saved == tmp_path / "home"
+
+
+def test_the_saved_files_are_in_the_saved_data_folder(tmp_path):
+    env = {"XDG_CONFIG_HOME": str(tmp_path / "xdg"), "MHP3ASS_HOME": str(tmp_path / "home")}
+
+    folders = TuiFolders.find(env, "linux", home=tmp_path)
+
+    assert [folders.settings_cfg, folders.my_charms] == [
+        tmp_path / "home" / "settings.cfg",
+        tmp_path / "home" / "mycharms.txt",
+    ]
+
+
+def test_a_folders_saved_files_are_named_whether_or_not_they_exist(tmp_path):
+    missing = tmp_path / "not made"
+
+    assert [settings_cfg_in(missing), my_charms_in(missing), missing.exists()] == [
+        missing / "settings.cfg",
+        missing / "mycharms.txt",
+        False,
+    ]
 
 
 @pytest.fixture

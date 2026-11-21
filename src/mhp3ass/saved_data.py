@@ -187,6 +187,16 @@ class TuiFolders:
         return saved_data_dir(self.env, self.settings, own_dir=self.own)
 
     @property
+    def settings_cfg(self) -> Path:
+        """The saved-data folder's ``settings.cfg``."""
+        return settings_cfg_in(self.saved)
+
+    @property
+    def my_charms(self) -> Path:
+        """The saved-data folder's ``mycharms.txt``."""
+        return my_charms_in(self.saved)
+
+    @property
     def saved_set_by_env(self) -> bool:
         """``MHP3ASS_HOME`` chooses the saved-data folder, whatever ``tui.toml`` says."""
         set_by_env = _home_override(self.env) is not None
@@ -201,10 +211,22 @@ def _home_override(env: Mapping[str, str]) -> str | None:
     return override
 
 
+def settings_cfg_in(folder: Path) -> Path:
+    """``folder``'s ``settings.cfg``, whether or not it exists."""
+    path = folder / "settings.cfg"
+    return path
+
+
+def my_charms_in(folder: Path) -> Path:
+    """``folder``'s ``mycharms.txt``, whether or not it exists."""
+    path = folder / "mycharms.txt"
+    return path
+
+
 def my_charms_file(folder: Path, shipped: Path) -> Path:
     """``folder``'s ``mycharms.txt``, copied from the original's shipped list
     (``shipped``) the first time, as a fresh install of the original has it."""
-    path = folder / "mycharms.txt"
+    path = my_charms_in(folder)
     if not path.exists():
         folder.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(shipped, path)
