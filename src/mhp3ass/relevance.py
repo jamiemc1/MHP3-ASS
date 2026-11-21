@@ -64,12 +64,14 @@ def _add_armor(
     ``armor_matches_query``). The loop walks a copy, as for decorations.
     """
     for listed in list(armors):
-        if armor_is_better_than(armor, listed, rel_abilities, no_skills=no_skills):
-            if not armor_is_better_than(listed, armor, rel_abilities, no_skills=no_skills):
+        if armor_is_better_than(armor, listed, rel_abilities=rel_abilities, no_skills=no_skills):
+            if not armor_is_better_than(
+                listed, armor, rel_abilities=rel_abilities, no_skills=no_skills
+            ):
                 if listed in no_skills:
                     _remove_first(inferior, listed)
                 armors.remove(listed)
-        elif armor_is_better_than(listed, armor, rel_abilities, no_skills=no_skills):
+        elif armor_is_better_than(listed, armor, rel_abilities=rel_abilities, no_skills=no_skills):
             if armor not in no_skills:
                 inferior.append(armor)
             return
