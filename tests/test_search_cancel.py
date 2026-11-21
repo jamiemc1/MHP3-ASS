@@ -116,7 +116,7 @@ def test_a_search_cancelled_between_workers_merges_no_more(
     corpus_spec, search_data_for, pool_or_serial
 ):
     """1a: six workers. Cancelled once the first is merged: serially the next
-    worker stops at its first step, and in the pool the next merge doesn't start."""
+    worker doesn't start, and in the pool the next merge doesn't."""
     spec = corpus_spec("corpus/1a-attack-sharp-default-charms.json")
     cancel = Event()
     merged: list[int] = []
