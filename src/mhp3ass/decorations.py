@@ -1,8 +1,8 @@
 """Comparing decorations and choosing them for a query.
 
-Ported from ``Decoration::GetSkillAt``, ``NotWorse``,
+Ported from ``NotWorse``,
 ``Decoration::IsBetterThan``, ``Decoration::GetBestDecoration( …, Query^ )``
-and ``Decoration::MatchesQuery`` (``legacy/Decoration.cpp:82-137``), and
+and ``Decoration::MatchesQuery`` (``legacy/Decoration.cpp:90-137``), and
 ``Decoration::GetBestDecoration( …, rel_deco_map )`` (``Decoration.cpp:146-157``).
 """
 
@@ -16,12 +16,6 @@ from mhp3ass.query import Query, rank_locked
 
 class NoDecorationsError(LookupError):
     """Quirk 8: the original's ``KeyNotFoundException`` for an ability with no decorations."""
-
-
-def decoration_skill_at(decoration: Decoration, ability: Ability) -> int:
-    """``Decoration::GetSkillAt``: the decoration's points in ``ability``, or 0."""
-    points = next((pair.amount for pair in decoration.abilities if pair.ability is ability), 0)
-    return points
 
 
 def _not_worse(decoration: Decoration, other: Decoration) -> bool:
