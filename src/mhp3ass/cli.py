@@ -28,6 +28,7 @@ from mhp3ass.results.result_set import (
 from mhp3ass.saved_data import (
     TuiFolders,
     my_charms_file,
+    my_charms_in,
 )
 from mhp3ass.saved_state import read_startup_settings, startup
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
@@ -275,7 +276,7 @@ def main(argv: list[str] | None = None) -> int:
         return _info(_default_data_dir(), folders=folders)
     if args.command == "import-save":
         if args.out is None:
-            args.out = folders.saved / "mycharms.txt"
+            args.out = folders.my_charms
         return _import_save(args)
     if args.command == "search":
         if args.out is None and (args.candidates or args.max_solution_lines >= 0):
@@ -340,7 +341,7 @@ def _run_tui(data_dir: Path, folders: TuiFolders, debug: bool) -> int:
             pool.start()
         while True:
             try:
-                my_charms_path = my_charms_file(folders.saved, shipped=data_dir / "mycharms.txt")
+                my_charms_path = my_charms_file(folders.saved, shipped=my_charms_in(data_dir))
             except OSError as error:
                 # No shipped charm list to copy, or the saved-data folder can't be written.
                 print(f"mhp3-ass: {error}", file=sys.stderr)
@@ -389,7 +390,7 @@ def _run_app(
     language = default_language(languages)
     if language is None:
         raise FileNotFoundError(f"no language folders in {languages_dir}")
-    settings_path = folders.saved / "settings.cfg"
+    settings_path = folders.settings_cfg
     read = read_startup_settings(settings_path, language_count=len(languages))
     if read.settings is not None:
         language = languages[read.settings.language_index]
