@@ -1,5 +1,5 @@
 """Synthetic checks for individual branches of Armor.cpp:105-175, including
-ones the shipped data never reaches (danger skills)."""
+ones the shipped data never reaches (zero points)."""
 
 from __future__ import annotations
 
@@ -7,9 +7,39 @@ from collections.abc import Callable
 
 import pytest
 
-from mhp3ass.armor import armor_is_better_than, armor_matches_query, armor_skill_at
+from mhp3ass.armor import (
+    armor_is_better_than,
+    armor_matches_query,
+    armor_skill_at,
+    has_query_skills,
+)
 from mhp3ass.model import Ability, Armor, Gender, HunterType
 from mhp3ass.query import Query
+
+
+@pytest.mark.parametrize(
+    ("points", "has_skills"),
+    [
+        ([("attack", 2)], True),
+        ([("defense", -1), ("attack", 1)], True),
+        ([("attack", -3)], False),
+        ([("attack", 0)], False),
+        ([("defense", 4)], False),
+        ([], False),
+    ],
+)
+def test_query_skills_are_positive_points_in_a_relevant_ability(
+    make_armor: Callable[..., Armor],
+    attack: Ability,
+    defense: Ability,
+    points: list[tuple[str, int]],
+    has_skills: bool,
+):
+    """No shipped piece has a 0-point ability, so only this test pins ``> 0``."""
+    abilities = {"attack": attack, "defense": defense}
+    piece = make_armor(abilities=[(abilities[name], amount) for name, amount in points])
+
+    assert has_query_skills(piece, rel_abilities=[attack]) is has_skills
 
 
 def test_skill_at_reads_points_or_zero(
@@ -42,7 +72,7 @@ def test_requirements_exclude_a_piece_with_skills(
     piece = make_armor(abilities=[(attack, 2)], **piece_fields)
     query = make_query(rel_abilities=[attack], **query_fields)
 
-    assert not armor_matches_query(piece, query, danger_skills=[], max_slots=0)
+    assert not armor_matches_query(piece, query, max_slots=0)
 
 
 @pytest.mark.parametrize(("hr", "elder_star"), [(6, 1), (1, 6)])
@@ -56,7 +86,7 @@ def test_either_rank_unlocks_a_piece(
     piece = make_armor(abilities=[(attack, 2)], hr=6, elder_star=6)
     query = make_query(rel_abilities=[attack], hr=hr, elder_star=elder_star)
 
-    assert armor_matches_query(piece, query, danger_skills=[], max_slots=0)
+    assert armor_matches_query(piece, query, max_slots=0)
 
 
 def test_relevant_points_match_at_any_slot_count(
@@ -65,9 +95,7 @@ def test_relevant_points_match_at_any_slot_count(
     piece = make_armor(abilities=[(attack, 2)], num_slots=0)
     piece.no_skills = True
 
-    assert armor_matches_query(
-        piece, make_query(rel_abilities=[attack]), danger_skills=[], max_slots=3
-    )
+    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=3)
     assert piece.no_skills is False
 
 
@@ -82,12 +110,7 @@ def test_skill_less_piece_needs_the_most_slots_so_far(
 ):
     piece = make_armor(abilities=[(defense, 4)], num_slots=num_slots)
 
-    assert (
-        armor_matches_query(
-            piece, make_query(rel_abilities=[attack]), danger_skills=[], max_slots=2
-        )
-        is matches
-    )
+    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=2) is matches
     assert piece.no_skills is True
 
 
@@ -102,62 +125,18 @@ def test_negative_relevant_points_count_as_skill_less(
     """Quirk 6: bad_skills is never set, so the equal-slots piece is kept (Armor.cpp:140-143)."""
     piece = make_armor(abilities=[(attack, -3)], num_slots=num_slots)
 
-    assert (
-        armor_matches_query(
-            piece, make_query(rel_abilities=[attack]), danger_skills=[], max_slots=2
-        )
-        is matches
-    )
+    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=2) is matches
     assert piece.no_skills is True
 
 
-@pytest.mark.parametrize("num_slots", [2, 3])
-def test_danger_skill_excludes_a_skill_less_piece(
-    make_armor: Callable[..., Armor],
-    make_query: Callable[..., Query],
-    attack: Ability,
-    defense: Ability,
-    num_slots: int,
-):
-    """The original's danger list is always empty (LoadedData.cpp:141-158), so this path is
-    unreachable from a search; the rule is pinned here."""
-    piece = make_armor(abilities=[(defense, -2)], num_slots=num_slots)
-
-    assert not armor_matches_query(
-        piece, make_query(rel_abilities=[attack]), danger_skills=[defense], max_slots=2
-    )
-    assert piece.danger is defense
-
-
-def test_danger_is_cleared_when_no_danger_skill_applies(
-    make_armor: Callable[..., Armor],
-    make_query: Callable[..., Query],
-    attack: Ability,
-    defense: Ability,
-):
-    piece = make_armor(abilities=[(defense, 2)], num_slots=2)
-    piece.danger = defense
-
-    assert armor_matches_query(
-        piece, make_query(rel_abilities=[attack]), danger_skills=[defense], max_slots=2
-    )
-    assert piece.danger is None
-
-
-def test_torso_up_piece_matches_without_writing_its_flags(
-    make_armor: Callable[..., Armor],
-    make_query: Callable[..., Query],
-    attack: Ability,
-    defense: Ability,
+def test_torso_up_piece_matches_without_writing_no_skills(
+    make_armor: Callable[..., Armor], make_query: Callable[..., Query], attack: Ability
 ):
     piece = make_armor(torso_inc=True, num_slots=0)
-    piece.danger = defense
+    piece.no_skills = True
 
-    assert armor_matches_query(
-        piece, make_query(rel_abilities=[attack]), danger_skills=[], max_slots=3
-    )
-    assert piece.danger is defense
-    assert piece.no_skills is False
+    assert armor_matches_query(piece, make_query(rel_abilities=[attack]), max_slots=3)
+    assert piece.no_skills is True
 
 
 def test_more_slots_and_more_points_are_each_better(
