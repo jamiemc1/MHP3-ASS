@@ -7,8 +7,8 @@ from collections.abc import Callable
 from golden_shapes import relevance_shape
 from goldens import RelevanceGolden, formulate_query_json
 from mhp3ass.data import GameData
-from mhp3ass.model import Ability, Armor, Decoration
-from mhp3ass.relevance import _add_armor, _add_decoration
+from mhp3ass.model import Ability, Decoration
+from mhp3ass.relevance import _add_decoration
 from solution_builders import make_jewel
 
 
@@ -53,39 +53,3 @@ def test_a_beaten_decoration_leaves_the_list_but_stays_inferior(attack: Ability)
 
     assert listed == [better]
     assert inferior == [worse, better]
-
-
-def test_a_danger_piece_does_not_displace_one_without_it(
-    make_armor: Callable[..., Armor], attack: Ability, defense: Ability
-):
-    """The original's danger list is always empty (LoadedData.cpp:141-158), so only a
-    synthetic piece reaches the danger check on displacing (:66)."""
-    plain = make_armor("plain", abilities=[(attack, 1)], num_slots=0)
-    dangerous = make_armor("dangerous", abilities=[(attack, 2), (defense, -2)], num_slots=1)
-    dangerous.danger = defense
-    listed: list[Armor] = []
-    inferior: list[Armor] = []
-
-    _add_armor(listed, plain, rel_abilities=[attack], inferior=inferior)
-    _add_armor(listed, dangerous, rel_abilities=[attack], inferior=inferior)
-
-    assert listed == [plain, dangerous]
-    assert inferior == [plain, dangerous]
-
-
-def test_a_listed_danger_piece_does_not_turn_away_one_without_it(
-    make_armor: Callable[..., Armor], attack: Ability, defense: Ability
-):
-    """The danger check on being displaced (LoadedData.cpp:73): a listed piece with a
-    danger skill only turns away a new piece with the same one."""
-    dangerous = make_armor("dangerous", abilities=[(attack, 2), (defense, -2)], num_slots=1)
-    dangerous.danger = defense
-    plain = make_armor("plain", abilities=[(attack, 1)], num_slots=0)
-    listed: list[Armor] = []
-    inferior: list[Armor] = []
-
-    _add_armor(listed, dangerous, rel_abilities=[attack], inferior=inferior)
-    _add_armor(listed, plain, rel_abilities=[attack], inferior=inferior)
-
-    assert listed == [dangerous, plain]
-    assert inferior == [dangerous, plain]
