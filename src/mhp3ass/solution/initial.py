@@ -55,7 +55,7 @@ def add_decoration(
     return above
 
 
-def add_initial_armor(
+def _add_initial_armor(
     armor: Armor | None, solution: Solution, multiplier: int, slots_spare: list[int]
 ) -> None:
     """``AddInitialArmor`` (Solution.cpp:208-226).
@@ -96,13 +96,14 @@ def get_initial_data(data: CalculationData) -> None:
     empty. The original fills them with ``Dictionary::Add``, which throws on
     a repeated key; ``build_query`` already refuses two skills with one
     ability, so only a hand-built query can repeat one, and that still raises
-    ``KeyError`` here.
+    ``KeyError`` here, before anything is written.
     """
     solution = data.solution
     query = data.query
-    data.need = {skill.ability: skill.points_required for skill in query.skills}
-    if len(data.need) != len(query.skills):
+    need = {skill.ability: skill.points_required for skill in query.skills}
+    if len(need) != len(query.skills):
         raise KeyError("two of the query's skills share an ability (Dictionary::Add throws)")
+    data.need = need
     data.relevant = set(query.skills)
     solution.abilities = dict.fromkeys(data.need, 0)
     if solution.charm is not None:
@@ -127,11 +128,11 @@ def get_initial_data(data: CalculationData) -> None:
     solution.thunder_res = solution.dragon_res = 0
     solution.rarity = solution.difficulty = 0
 
-    add_initial_armor(solution.armors[0], solution, multiplier=1, slots_spare=slots_spare)
-    add_initial_armor(solution.armors[2], solution, multiplier=1, slots_spare=slots_spare)
-    add_initial_armor(solution.armors[3], solution, multiplier=1, slots_spare=slots_spare)
-    add_initial_armor(solution.armors[4], solution, multiplier=1, slots_spare=slots_spare)
-    add_initial_armor(
+    _add_initial_armor(solution.armors[0], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(solution.armors[2], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(solution.armors[3], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(solution.armors[4], solution, multiplier=1, slots_spare=slots_spare)
+    _add_initial_armor(
         solution.armors[1],
         solution,
         multiplier=solution.torso_multiplier,
