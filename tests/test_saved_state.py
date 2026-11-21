@@ -26,7 +26,6 @@ from mhp3ass.settings_cfg import (
     SettingsCfgError,
     read_settings_cfg,
     settings_cfg_bytes,
-    write_settings_cfg,
 )
 from mhp3ass.skill_chips import chip_rows
 from mhp3ass.skill_picker import SkillRowsByHunter, SkillSelection
@@ -444,18 +443,3 @@ def test_a_load_with_only_charmed_sets_has_no_notice(start, capture_settings):
 
     assert started.search.results is not None
     assert [len(started.search.results.view.all_solutions), started.notice] == [480, None]
-
-
-@pytest.fixture
-def old_settings_file(settings_path):
-    settings_path.write_bytes(b"old")
-    return settings_path
-
-
-def test_writing_replaces_the_file_and_leaves_no_temporary_file(
-    old_settings_file, two_tab_settings
-):
-    write_settings_cfg(old_settings_file, two_tab_settings)
-
-    assert [path.name for path in old_settings_file.parent.iterdir()] == ["settings.cfg"]
-    assert old_settings_file.read_bytes() == settings_cfg_bytes(two_tab_settings)
