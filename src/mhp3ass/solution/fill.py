@@ -63,8 +63,9 @@ def best_possible_decoration(decorations: list[PossibleDecoration]) -> PossibleD
     the solution already has in the decoration's last ability, but the only
     clause reading it (an equal score with a higher value) is implied by the
     first, so it never decides anything and isn't worked out here (quirk 17).
-    The scores are taken in the original's order, so an undefined one raises
-    on the same candidate. ``points_given`` is ``unsigned`` in the original.
+    Every candidate is scored, so an undefined score anywhere raises.
+    ``GetScore`` takes the points as ``const unsigned actual_good``, hence
+    ``as_unsigned``.
     """
     best = decorations[0]
     best_score = point_score(as_unsigned(best.points_given))
