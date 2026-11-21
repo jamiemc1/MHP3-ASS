@@ -163,13 +163,13 @@ def test_add_decorations1_without_overkill_keeps_within_amount_minus_one(make_da
 def test_add_decorations1_makes_one_pass(make_data, attack, defense):
     # The Attack jewel is skipped while its Defense -1 would leave Defense short
     # of its need; the Defense jewel later fixes that, but the pass is over.
-    defense.relevant = True
     attack_jewel = make_jewel("Attack[1]", attack, 1, second=defense, second_amount=-1)
     defense_jewel = make_jewel("Defense[1]", defense, 2)
     data = make_data(
         [attack_jewel, defense_jewel],
         need={attack: 2, defense: 2},
         abilities={attack: 0, defense: 1},
+        relevant_abilities=frozenset({defense}),
     )
 
     remaining = add_decorations1(data, 3, 1, [], allow_bad=True, allow_overkill=True)
@@ -179,9 +179,13 @@ def test_add_decorations1_makes_one_pass(make_data, attack, defense):
 
 
 def test_add_decorations1_applies_detrimental_whatever_the_flags(make_data, attack, defense):
-    defense.relevant = True
     jewel = make_jewel("Attack[1]", attack, 1, second=defense, second_amount=-1)
-    data = make_data([jewel], need={attack: 2, defense: 1}, abilities={attack: 0, defense: 1})
+    data = make_data(
+        [jewel],
+        need={attack: 2, defense: 1},
+        abilities={attack: 0, defense: 1},
+        relevant_abilities=frozenset({defense}),
+    )
 
     remaining = add_decorations1(data, 1, 1, [], allow_bad=True, allow_overkill=True)
 
@@ -355,12 +359,16 @@ def test_add_decorations23_skips_detrimental_jewels_only_when_not_allowed(
     make_data, attack, defense
 ):
     # Defense -1 would leave relevant Defense (3 of 3 needed) short.
-    defense.relevant = True
     jewel = make_jewel("Attack[2]", attack, 3, slots=2, second=defense, second_amount=-1)
 
     taken = []
     for allow_detrimental in (False, True):
-        data = make_data([jewel], need={attack: 10, defense: 3}, abilities={attack: 0, defense: 3})
+        data = make_data(
+            [jewel],
+            need={attack: 10, defense: 3},
+            abilities={attack: 0, defense: 3},
+            relevant_abilities=frozenset({defense}),
+        )
         add_decorations23(data, 2, 1, 1, [], allow_bad=True, allow_detrimental=allow_detrimental)
         taken.append(len(data.solution.decorations))
 

@@ -143,11 +143,10 @@ def refilled(solution: Solution, query: Query, game: GameData) -> Solution | Non
     reduced one the file holds, so it is filled as a custom charm, which
     ``ReduceCharm`` leaves alone; reducing it again would change the set.
 
-    The fill reads the abilities' ``relevant`` flags, which the last
-    relevance pass, a charm import or a cancelled search may have left set
-    for something else, so they are first set to ``query``'s again, as its
-    own relevance pass set them (``GetRelevantData``, ``LoadedData.cpp:121-130``).
-    Call it only while no search is using ``game``.
+    The fill reads ``query.relevant_abilities``, which its own relevance pass
+    set (``GetRelevantData``, ``LoadedData.cpp:121-132``), so a later
+    relevance pass or a charm import doesn't change it. Call it only while no
+    search is using ``game``.
 
     ``None`` when the refill isn't the loaded set: it is rejected, or it
     gives other jewels (where the search had filled the set with the charm
@@ -238,11 +237,7 @@ def _filled(
     armors: Sequence[Armor | None], charm: Charm | None, custom: bool, query: Query, game: GameData
 ) -> Solution | None:
     """``armors`` and a copy of ``charm`` through ``MatchesQuery`` for
-    ``query``, the charm marked ``custom`` if asked; ``None`` if rejected.
-    The abilities' ``relevant`` flags are first set to ``query``'s."""
-    relevant = set(query.rel_abilities)
-    for ability in game.abilities:
-        ability.relevant = ability in relevant
+    ``query``, the charm marked ``custom`` if asked; ``None`` if rejected."""
     copied = charm.copy() if charm is not None else None
     if copied is not None and custom:
         copied.custom = True

@@ -53,7 +53,6 @@ class Ability:
     name: str
     static_index: int
     tags: list[SkillTag] = field(default_factory=list)
-    relevant: bool = False
     auto_guard: bool = False
     order: int = 0
     # Points threshold -> skill, in .NET Dictionary insertion order; GetSkill walks it.
