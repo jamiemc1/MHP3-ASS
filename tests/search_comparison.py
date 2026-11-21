@@ -15,6 +15,7 @@ from mhp3ass.data import GameData
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import (
     SearchResult,
+    added_lines,
     candidate_lines,
     search_manifest,
     solution_lines,
@@ -148,7 +149,10 @@ def compare_result(
     still pins every worker's count and hash and both set hashes.
     """
     our_manifest = search_manifest(
-        query, result=result, game=game, max_solution_lines=max_solution_lines
+        query,
+        result=result,
+        worker_lines=added_lines(result, game=game),
+        max_solution_lines=max_solution_lines,
     )
     lines_difference = None
     if golden_lines is not None:

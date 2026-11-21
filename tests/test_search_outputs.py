@@ -5,12 +5,16 @@ from __future__ import annotations
 
 import gzip
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
 
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import (
+    SearchResult,
+    WorkerResult,
+    added_lines,
     candidate_lines,
     gzip_lines,
     manifest_text,
@@ -28,7 +32,12 @@ def _write(query_name: str, repo_root: Path, search_data, out_dir: Path, **manif
     spec = SearchSpec.from_json(spec_json)
     data = search_data[spec.query.language]
     result = run_search(spec, data=data)
-    manifest = search_manifest(spec_json, result=result, game=data.game, **manifest_options)
+    manifest = search_manifest(
+        spec_json,
+        result=result,
+        worker_lines=added_lines(result, game=data.game),
+        **manifest_options,
+    )
     prefix = out_dir / query_name
     write_search_outputs(
         prefix,
@@ -64,6 +73,57 @@ def test_written_files_hold_what_the_harness_wrote(
     ]
     if golden_candidates.is_file():
         assert _lines(Path(f"{prefix}.candidates.txt.gz")) == _lines(golden_candidates)
+
+
+def test_added_lines_are_each_workers_kept_lines_joining_to_the_kept_list(one_skill_search):
+    result = one_skill_search.result
+    game = one_skill_search.data.game
+
+    worker_lines = added_lines(result, game=game)
+
+    assert [
+        [len(kept) for kept in worker_lines],
+        [line for kept in worker_lines for line in kept],
+    ] == [[len(worker.added) for worker in result.workers], solution_lines(result, game=game)]
+    assert sum(1 for kept in worker_lines if kept) > 1
+
+
+@pytest.fixture
+def one_skill_result_with_a_worker_keeping_nothing(one_skill_search) -> SearchResult:
+    """g13's result with a fifth, charm-free worker that found and kept nothing."""
+    result = one_skill_search.result
+    idle = WorkerResult(template=None, found=[], added=[])
+    with_idle = replace(result, workers=[*result.workers, idle])
+    return with_idle
+
+
+def test_a_worker_that_kept_nothing_has_no_lines_in_its_place(
+    one_skill_result_with_a_worker_keeping_nothing, one_skill_search
+):
+    worker_lines = added_lines(
+        one_skill_result_with_a_worker_keeping_nothing, game=one_skill_search.data.game
+    )
+
+    assert [len(worker_lines), worker_lines[-1]] == [5, []]
+
+
+def test_a_result_with_no_finished_workers_has_no_lines(one_skill_search):
+    result = replace(one_skill_search.result, workers=[])
+
+    assert added_lines(result, game=one_skill_search.data.game) == []
+
+
+@pytest.mark.parametrize(
+    "lines_for",
+    [lambda lines: lines[:-1], lambda lines: [lines[1], lines[0], *lines[2:]]],
+    ids=["a-worker-missing", "workers-swapped"],
+)
+def test_a_manifest_needs_each_finished_workers_own_lines(one_skill_search, lines_for):
+    result = one_skill_search.result
+    worker_lines = added_lines(result, game=one_skill_search.data.game)
+
+    with pytest.raises(ValueError, match="for the finished workers' added"):
+        search_manifest({"id": "g13"}, result=result, worker_lines=lines_for(worker_lines))
 
 
 def test_too_many_lines_removes_the_solutions_file(repo_root, search_data_by_language, tmp_path):
