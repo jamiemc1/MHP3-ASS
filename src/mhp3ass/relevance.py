@@ -34,18 +34,16 @@ def _add_decoration(
 
     The new decoration removes listed ones it beats that don't also beat it,
     and is dropped if a listed one beats it. Once listed it stays on
-    ``inferior`` even if later removed.
+    ``inferior`` even if later removed. The loop walks a copy, so each listed
+    decoration is compared once whatever is removed before it (the original's
+    ``Remove( list[ i-- ] )``), and an early return keeps earlier removals.
     """
-    index = 0
-    while index < len(decorations):
-        listed = decorations[index]
+    for listed in list(decorations):
         if decoration_is_better_than(decoration, listed):
             if not decoration_is_better_than(listed, decoration):
-                del decorations[index]
-                continue
+                decorations.remove(listed)
         elif decoration_is_better_than(listed, decoration):
             return
-        index += 1
     decorations.append(decoration)
     inferior.append(decoration)
 
@@ -58,22 +56,19 @@ def _add_armor(
     As for decorations, but ``inferior`` keeps every piece with skills that
     was listed or beaten, while a skill-less piece is on it only while
     listed. The original's danger-skill guards on both branches always pass:
-    no piece has a danger skill (see ``armor_matches_query``).
+    no piece has a danger skill (see ``armor_matches_query``). The loop walks
+    a copy, as for decorations.
     """
-    index = 0
-    while index < len(armors):
-        listed = armors[index]
+    for listed in list(armors):
         if armor_is_better_than(armor, listed, rel_abilities):
             if not armor_is_better_than(listed, armor, rel_abilities):
                 if listed.no_skills:
                     _remove_first(inferior, listed)
-                del armors[index]
-                continue
+                armors.remove(listed)
         elif armor_is_better_than(listed, armor, rel_abilities):
             if not armor.no_skills:
                 inferior.append(armor)
             return
-        index += 1
     armors.append(armor)
     inferior.append(armor)
 
