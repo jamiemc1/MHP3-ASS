@@ -6,9 +6,10 @@ Ported from ``LoadedData::GetRelevantData``, ``GetRelevantArmors``,
 (``legacy/Form1.h:1215``).
 
 Like the original, this writes per-query state onto the shared game
-records: every ability's ``relevant`` flag, and ``no_skills`` on each
-matched armour piece. Run one query per freshly loaded game when
-comparing with the harness, which runs each query in a new process.
+records: ``no_skills`` on each matched armour piece. (The original's
+``relevant`` flags are the query's ``relevant_abilities`` here.) Run one
+query per freshly loaded game when comparing with the harness, which runs
+each query in a new process.
 """
 
 from __future__ import annotations
@@ -102,16 +103,16 @@ def _get_relevant_decorations(game: GameData, query: Query) -> None:
 def get_relevant_data(game: GameData, query: Query) -> None:
     """``LoadedData::GetRelevantData`` (LoadedData.cpp:121-167).
 
-    Fills the query's relevant abilities, decorations and armour and sets
-    the abilities' ``relevant`` flags. The original's danger-skill list is
-    left out: the code that filled it is commented out (:141-158), so it is
-    always empty.
+    Fills the query's relevant abilities, decorations and armour. The
+    original clears every ability's ``relevant`` flag and sets the query
+    skills' (:125-132); the port keeps that set on the query
+    (``relevant_abilities``) instead of on the shared records. The
+    original's danger-skill list is left out: the code that filled it is
+    commented out (:141-158), so it is always empty.
     """
-    for ability in game.abilities:
-        ability.relevant = False
     for skill in query.skills:
         query.rel_abilities.append(skill.ability)
-        skill.ability.relevant = True
+    query.relevant_abilities = frozenset(query.rel_abilities)
     _get_relevant_decorations(game, query)
     for armor_type in ArmorType:
         _get_relevant_armors(

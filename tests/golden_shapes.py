@@ -205,7 +205,11 @@ def relevance_shape(game: GameData, query: Query) -> dict[str, Any]:
     }
     shaped = {
         "rel_abilities": [ability.static_index for ability in query.rel_abilities],
-        "relevant_flags": [ability.static_index for ability in game.abilities if ability.relevant],
+        "relevant_flags": [
+            ability.static_index
+            for ability in game.abilities
+            if ability in query.relevant_abilities
+        ],
         "armor": armor,
         "decorations": {
             "relevant": _decoration_indices(query.rel_decorations),

@@ -123,15 +123,15 @@ def load_character(
 def select_best(charms: list[Charm], game: GameData) -> list[bool]:
     """``SelectDefault`` (ImportCharms.h:337-367): which charms the dialog ticks.
 
-    Marks every ability relevant first and leaves them so, as the original
-    does (the next search resets them). Each charm that isn't hacked is
-    ticked, then compared with every earlier ticked one: it unticks one it
-    is strictly better than, and is unticked by one strictly better than it
-    or value-equal to it (``operator==``, quirks 1 and 2). An unticked charm
+    The original marks every ability relevant first (and leaves them so,
+    until the next search resets them); the comparisons here take every
+    ability as relevant. Each charm that isn't hacked is ticked, then
+    compared with every earlier ticked one: it unticks one it is strictly
+    better than, and is unticked by one strictly better than it or
+    value-equal to it (``operator==``, quirks 1 and 2). An unticked charm
     keeps comparing, so the result depends on order.
     """
-    for ability in game.abilities:
-        ability.relevant = True
+    every_ability = frozenset(game.abilities)
     ticked = [False] * len(charms)
     for index, charm in enumerate(charms):
         if charm.hacked:
@@ -140,11 +140,11 @@ def select_best(charms: list[Charm], game: GameData) -> list[bool]:
         for earlier in range(index):
             if not ticked[earlier]:
                 continue
-            if strictly_better_than(charm, charms[earlier]):
+            if strictly_better_than(charm, charms[earlier], relevant=every_ability):
                 ticked[earlier] = False
-            elif strictly_better_than(charms[earlier], charm) or charms_equal(
-                charm, charms[earlier]
-            ):
+            elif strictly_better_than(
+                charms[earlier], charm, relevant=every_ability
+            ) or charms_equal(charm, charms[earlier]):
                 ticked[index] = False
     return ticked
 

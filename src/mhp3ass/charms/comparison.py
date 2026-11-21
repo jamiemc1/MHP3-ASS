@@ -3,16 +3,18 @@
 Ported from ``Charm::StrictlyBetterThan`` and ``Charm::BasicallyTheSameAs``
 (``legacy/Armor.cpp:241-319``) and ``Form1::AddCharmToOptimalList``
 (``legacy/Form1.h:1237-1249``). All three read each ability's ``relevant``
-flag, which a search sets for the abilities its query asks for.
+flag in the original; here they take the set of relevant abilities: a
+query's ``relevant_abilities`` for a search, or every ability for a save
+import (``select_best``).
 """
 
 from __future__ import annotations
 
 from mhp3ass.charms.naming import equal_abilities
-from mhp3ass.model import Charm
+from mhp3ass.model import Ability, Charm
 
 
-def strictly_better_than(charm: Charm, other: Charm) -> bool:
+def strictly_better_than(charm: Charm, other: Charm, relevant: frozenset[Ability]) -> bool:
     """``Charm::StrictlyBetterThan`` (Armor.cpp:241-288).
 
     At least as many slots and at least the other's points in every relevant
@@ -23,7 +25,7 @@ def strictly_better_than(charm: Charm, other: Charm) -> bool:
         return False
     better = False
     for theirs in other.abilities:
-        if not theirs.ability.relevant:
+        if theirs.ability not in relevant:
             continue
         ours = next((pair for pair in charm.abilities if pair.ability is theirs.ability), None)
         if ours is None:
@@ -39,7 +41,7 @@ def strictly_better_than(charm: Charm, other: Charm) -> bool:
     # So far equal: a relevant ability only this charm has makes it better.
     other_abilities = [pair.ability for pair in other.abilities]
     for ours in charm.abilities:
-        if ours.ability.relevant and not any(
+        if ours.ability in relevant and not any(
             ours.ability is ability for ability in other_abilities
         ):
             return True
@@ -47,7 +49,7 @@ def strictly_better_than(charm: Charm, other: Charm) -> bool:
     return more_slots
 
 
-def basically_the_same_as(charm: Charm, other: Charm) -> bool:
+def basically_the_same_as(charm: Charm, other: Charm, relevant: frozenset[Ability]) -> bool:
     """``Charm::BasicallyTheSameAs`` (Armor.cpp:307-319).
 
     Same slots and the same relevant abilities in order. Amounts are ignored
@@ -55,13 +57,15 @@ def basically_the_same_as(charm: Charm, other: Charm) -> bool:
     """
     if charm.num_slots != other.num_slots:
         return False
-    ours = [pair for pair in charm.abilities if pair.ability.relevant]
-    theirs = [pair for pair in other.abilities if pair.ability.relevant]
+    ours = [pair for pair in charm.abilities if pair.ability in relevant]
+    theirs = [pair for pair in other.abilities if pair.ability in relevant]
     same = len(ours) == len(theirs) and equal_abilities(ours, theirs)
     return same
 
 
-def add_charm_to_optimal_list(charms: list[Charm], new_charm: Charm) -> None:
+def add_charm_to_optimal_list(
+    charms: list[Charm], new_charm: Charm, relevant: frozenset[Ability]
+) -> None:
     """``Form1::AddCharmToOptimalList`` (Form1.h:1237-1249), in place.
 
     Drops listed charms the new one strictly beats; skips the new one if a
@@ -73,8 +77,10 @@ def add_charm_to_optimal_list(charms: list[Charm], new_charm: Charm) -> None:
     is listed twice: adding one again stops at ``basically_the_same_as``.
     """
     for current in list(charms):
-        if strictly_better_than(new_charm, current):
+        if strictly_better_than(new_charm, current, relevant=relevant):
             charms.remove(current)
-        elif strictly_better_than(current, new_charm) or basically_the_same_as(current, new_charm):
+        elif strictly_better_than(current, new_charm, relevant=relevant) or basically_the_same_as(
+            current, new_charm, relevant=relevant
+        ):
             return
     charms.append(new_charm)

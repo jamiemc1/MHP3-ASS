@@ -191,7 +191,7 @@ def test_select_best_matches_golden_for_every_character(
     fresh_game: GameData,
     validity: CharmValidity,
 ):
-    """On a fresh game: Select Best marks every ability relevant."""
+    """On a fresh game: Select Best compares on every ability."""
     ours = [
         []
         if character is None
@@ -281,13 +281,6 @@ def test_a_later_strictly_better_charm_unticks_an_earlier_one(
     charms = [_charm(fresh_game, 0, (0, 4)), _charm(fresh_game, 1, (0, 4))]
 
     assert select_best(charms, fresh_game) == [False, True]
-
-
-def test_select_best_marks_every_ability_relevant(fresh_game: GameData):
-
-    select_best([], fresh_game)
-
-    assert all(ability.relevant for ability in fresh_game.abilities)
 
 
 def test_import_skips_hacked_and_unticked_charms_and_marks_the_rest_custom(

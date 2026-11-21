@@ -791,14 +791,12 @@ def refilling_loaded_set(loaded_capture_13) -> RefillingSet:
 def test_a_loaded_set_refills_the_same_after_a_charm_import(
     loaded_capture_13, refilling_loaded_set
 ):
-    """A charm import's select_best leaves every ability relevant, under which
-    the search's fill fails on this set (a relevant ability it has no need
-    for); the refill sets the loaded query's relevance again."""
+    """In the original a charm import leaves every ability relevant, under
+    which this set's fill would fail (a relevant ability it has no need for).
+    The port's select_best compares on every ability without marking any, so
+    the loaded query's own relevance still applies."""
     game = loaded_capture_13.data.game
-    query = loaded_capture_13.results.query
     select_best([], game=game)
-    with pytest.raises(KeyError):
-        _plain_fill(refilling_loaded_set.solution, query=query, game=game)
 
     after = refilled(
         refilling_loaded_set.solution, query=loaded_capture_13.results.query, game=game

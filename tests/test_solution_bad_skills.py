@@ -95,9 +95,14 @@ def test_calculate_extra_skills_splits_unasked_skills_into_bad_and_extra(
 
 
 def test_fix_bad_skill_fills_the_torso_first_with_its_multiplier(make_fixable, defense, skilled):
-    defense.relevant = True
     jewel = make_jewel("Defense[1]", defense, 2)
-    data = make_fixable([jewel], defense_points=-12, slots_spare=[0, 1, 0, 0], torso_slots_spare=1)
+    data = make_fixable(
+        [jewel],
+        defense_points=-12,
+        slots_spare=[0, 1, 0, 0],
+        torso_slots_spare=1,
+        relevant_abilities=frozenset({defense}),
+    )
     data.solution.torso_multiplier = 2
 
     fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
@@ -110,8 +115,13 @@ def test_fix_bad_skill_fills_the_torso_first_with_its_multiplier(make_fixable, d
 
 def test_fix_bad_skill_gives_up_when_the_torso_has_no_decoration(make_fixable, defense, skilled):
     """Solution.cpp:60-61: torso slots free, but no decoration of the ability fits."""
-    defense.relevant = True
-    data = make_fixable([], defense_points=-12, slots_spare=[0, 1, 0, 0], torso_slots_spare=1)
+    data = make_fixable(
+        [],
+        defense_points=-12,
+        slots_spare=[0, 1, 0, 0],
+        torso_slots_spare=1,
+        relevant_abilities=frozenset({defense}),
+    )
 
     fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
@@ -121,9 +131,13 @@ def test_fix_bad_skill_gives_up_when_the_torso_has_no_decoration(make_fixable, d
 
 def test_fix_bad_skill_splits_a_bigger_group_when_its_size_has_none(make_fixable, defense, skilled):
     # A 1-slot jewel with no 1-slot group takes a 2-slot one, leaving a 1 (Solution.cpp:85-89).
-    defense.relevant = True
     jewel = make_jewel("Defense[1]", defense, 3)
-    data = make_fixable([jewel], defense_points=-12, slots_spare=[0, 0, 1, 0])
+    data = make_fixable(
+        [jewel],
+        defense_points=-12,
+        slots_spare=[0, 0, 1, 0],
+        relevant_abilities=frozenset({defense}),
+    )
 
     fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
@@ -134,9 +148,13 @@ def test_fix_bad_skill_splits_a_bigger_group_when_its_size_has_none(make_fixable
 def test_fix_bad_skill_dereferences_a_failed_repick(make_fixable, defense, skilled):
     """Solution.cpp:96-97 re-picks for a smaller group without a null check; :78
     then dereferences it. Only a 2-slot Defense jewel exists, and 1-slot groups remain."""
-    defense.relevant = True
     jewel = make_jewel("Defense[2]", defense, 1, slots=2)
-    data = make_fixable([jewel], defense_points=-20, slots_spare=[0, 1, 1, 0])
+    data = make_fixable(
+        [jewel],
+        defense_points=-20,
+        slots_spare=[0, 1, 1, 0],
+        relevant_abilities=frozenset({defense}),
+    )
 
     with pytest.raises(LegacyNullReferenceError):
         fix_bad_skill(data, GameData(), skilled["Defense"].down)
@@ -146,11 +164,14 @@ def test_fix_bad_skill_does_not_recheck_detrimental_after_a_repick(
     make_fixable, attack, defense, skilled
 ):
     """Quirk candidate I: the first pick is checked (:73), the re-pick (:97) isn't."""
-    defense.relevant = True
-    attack.relevant = True
     big = make_jewel("Defense[2]", defense, 1, slots=2)
     small = make_jewel("Defense[1]", defense, 1, second=attack, second_amount=-5)
-    data = make_fixable([small, big], defense_points=-11, slots_spare=[0, 1, 1, 0])
+    data = make_fixable(
+        [small, big],
+        defense_points=-11,
+        slots_spare=[0, 1, 1, 0],
+        relevant_abilities=frozenset({defense, attack}),
+    )
     data.solution.abilities[attack] = 10
 
     fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
@@ -162,10 +183,13 @@ def test_fix_bad_skill_does_not_recheck_detrimental_after_a_repick(
 
 
 def test_fix_bad_skill_rejects_a_detrimental_first_pick(make_fixable, attack, defense, skilled):
-    defense.relevant = True
-    attack.relevant = True
     small = make_jewel("Defense[1]", defense, 1, second=attack, second_amount=-5)
-    data = make_fixable([small], defense_points=-11, slots_spare=[0, 1, 0, 0])
+    data = make_fixable(
+        [small],
+        defense_points=-11,
+        slots_spare=[0, 1, 0, 0],
+        relevant_abilities=frozenset({defense, attack}),
+    )
 
     fixed = fix_bad_skill(data, GameData(), skilled["Defense"].down)
 
@@ -225,9 +249,13 @@ def test_check_bad_skills_without_free_slots_goes_straight_to_reordering(make_fi
 def test_check_bad_skills_fixes_only_with_free_slots_counted(make_fixable, defense):
     """Solution.cpp:114 tries FixBadSkills only when total_slots_spare > 0: with the
     counter at 0, a free group in slots_spare isn't used."""
-    defense.relevant = True
     jewel = make_jewel("Defense[1]", defense, 5)
-    data = make_fixable([jewel], defense_points=-12, slots_spare=[0, 1, 0, 0])
+    data = make_fixable(
+        [jewel],
+        defense_points=-12,
+        slots_spare=[0, 1, 0, 0],
+        relevant_abilities=frozenset({defense}),
+    )
     data.solution.total_slots_spare = 0
 
     fine = check_bad_skills(data, GameData())
@@ -375,7 +403,6 @@ def test_reorder_gems_counts_replacements_after_the_swap(
     never sets how many 1-slot gems are swapped: five of six are."""
     sharpness = make_ability("Sharpness", 2)
     artisan = make_ability("Artisan", 3)
-    attack.relevant = True
     one_slot = make_jewel("Attack[1]", attack, 1, second=defense, second_amount=-1)
     bigger = make_jewel("Attack[3]", attack, 5, slots=3, second=defense, second_amount=-1)
     other = make_jewel("Sharp[3]", sharpness, 6, slots=3, second=artisan, second_amount=-2)
@@ -386,6 +413,7 @@ def test_reorder_gems_counts_replacements_after_the_swap(
         [one_slot, bigger],
         need={attack: 10},
         abilities={attack: 6, sharpness: 6, defense: -12, artisan: -2},
+        relevant_abilities=frozenset({attack}),
     )
     data.solution.decorations = [one_slot] * 6 + [other]
     data.solution.bad_skills = [skilled["Defense"].down]

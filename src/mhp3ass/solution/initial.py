@@ -14,12 +14,16 @@ from mhp3ass.solution.state import CalculationData, Solution
 
 def detrimental(decoration: Decoration, data: CalculationData) -> bool:
     """``Detrimental`` (Solution.cpp:18-26): whether the decoration's second skill,
-    when its ability is relevant, would leave that ability short of what it needs.
+    when its ability is relevant (one of the query's ``relevant_abilities``),
+    would leave that ability short of what it needs.
 
     Plain indexing raises ``KeyError`` where the original's ``Dictionary``
     indexer throws: a relevant ability is always in ``need`` and ``abilities``.
     """
-    if len(decoration.abilities) < 2 or not decoration.abilities[1].ability.relevant:
+    if (
+        len(decoration.abilities) < 2
+        or decoration.abilities[1].ability not in data.query.relevant_abilities
+    ):
         return False
     second = decoration.abilities[1]
     need = data.need[second.ability]
