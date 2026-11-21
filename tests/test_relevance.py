@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
-from golden_shapes import relevance_shape
+from golden_shapes import game_data_shape, relevance_shape
 from goldens import RelevanceGolden, formulate_query_json
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, Decoration
@@ -38,6 +38,19 @@ def test_relevant_data_matches_golden(
     every_relevance_goldens: list[RelevanceGolden], load_teamhgg_game: Callable[[], GameData]
 ):
     assert _mismatched_relevance(every_relevance_goldens, load_teamhgg_game) == []
+
+
+def test_a_relevance_pass_leaves_the_game_records_as_loaded(
+    relevance_goldens: list[RelevanceGolden], load_teamhgg_game: Callable[[], GameData]
+):
+    """The original's per-query flags (``relevant``, ``no_skills``) live on the query."""
+    game = load_teamhgg_game()
+    loaded = game_data_shape(game)
+
+    for golden in relevance_goldens:
+        formulate_query_json(game, golden.query)
+
+    assert game_data_shape(game) == loaded
 
 
 def test_a_beaten_decoration_leaves_the_list_but_stays_inferior(attack: Ability):

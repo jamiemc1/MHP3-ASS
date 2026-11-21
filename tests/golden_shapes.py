@@ -106,7 +106,8 @@ def game_data_shape(game: GameData) -> dict[str, Any]:
                     "gender": _gender_name(armor.gender),
                     "hunter_type": _hunter_type_name(armor.hunter_type),
                     "torso_inc": armor.torso_inc,
-                    # Loading never sets it (MatchesQuery does, per query).
+                    # A fixed value, not a check: no record carries it (the query does).
+                    # test_relevance pins that a relevance pass leaves the records as loaded.
                     "no_skills": False,
                     "is_piercing": armor.is_piercing,
                     "is_event": armor.is_event,
