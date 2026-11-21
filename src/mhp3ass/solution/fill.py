@@ -130,7 +130,12 @@ def add_decorations23(
         if len(possible_decorations) == 0:
             return num_slots
         best = best_possible_decoration(possible_decorations)
-        add_decoration(data.solution, best.decoration, multiplier, decoration_list)
+        add_decoration(
+            data.solution,
+            best.decoration,
+            multiplier=multiplier,
+            decoration_list=decoration_list,
+        )
         num_slots = as_unsigned(num_slots - 1)
     return num_slots
 
@@ -150,7 +155,7 @@ def _possible_decorations(
         if not allow_detrimental and detrimental(decoration, data):
             continue
         first = decoration.abilities[0]
-        if not _second_skill_allowed(decoration, data, multiplier, allow_bad):
+        if not _second_skill_allowed(decoration, data, multiplier=multiplier, allow_bad=allow_bad):
             continue
         current_amount = solution.abilities[first.ability]
         decoration_amount = first.amount * multiplier
@@ -201,7 +206,12 @@ def add_decorations1(
             allow_bad=allow_bad,
             allow_overkill=allow_overkill,
         ):
-            add_decoration(data.solution, decoration, multiplier, decoration_list)
+            add_decoration(
+                data.solution,
+                decoration,
+                multiplier=multiplier,
+                decoration_list=decoration_list,
+            )
             num_slots = as_unsigned(num_slots - 1)
             if num_slots == 0:
                 return num_slots
@@ -217,7 +227,7 @@ def _one_slot_decoration_helps(
 ) -> bool:
     """``AddDecorations1``'s test for adding ``decoration`` (Solution.cpp:281-293)."""
     if detrimental(decoration, data) or not _second_skill_allowed(
-        decoration, data, multiplier, allow_bad
+        decoration, data, multiplier=multiplier, allow_bad=allow_bad
     ):
         return False
     first = decoration.abilities[0]
