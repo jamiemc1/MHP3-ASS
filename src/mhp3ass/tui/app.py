@@ -66,7 +66,7 @@ from mhp3ass.saved_folder import (
     folder_choices,
     with_folder,
 )
-from mhp3ass.saved_state import Startup, settings_for, write_settings_cfg
+from mhp3ass.saved_state import Startup, settings_for
 from mhp3ass.search import (
     SearchCancelled,
     SearchData,
@@ -80,7 +80,7 @@ from mhp3ass.set_output import (
     jewels_wait,
     system_copy_command,
 )
-from mhp3ass.settings_cfg import SettingsCfg
+from mhp3ass.settings_cfg import SettingsCfg, write_settings_cfg
 from mhp3ass.solution.state import LegacyNullReferenceError
 from mhp3ass.spatial import Direction, FieldBox, neighbour
 from mhp3ass.themes import ThemePreview, starting_theme

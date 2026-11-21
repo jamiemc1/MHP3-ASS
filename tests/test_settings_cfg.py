@@ -17,7 +17,7 @@ from mhp3ass.settings_cfg import (
     load_results,
     parse_solution_line,
     read_settings_cfg,
-    settings_cfg_text,
+    settings_cfg_bytes,
     with_solutions,
 )
 from mhp3ass.skill_picker import SkillSelection
@@ -164,7 +164,7 @@ def test_every_gui_capture_is_written_back_byte_for_byte(gui_captures_dir, captu
     rewritten = [
         name
         for name, settings in capture_settings.items()
-        if settings_cfg_text(settings) != (gui_captures_dir / name / "settings.cfg").read_bytes()
+        if settings_cfg_bytes(settings) != (gui_captures_dir / name / "settings.cfg").read_bytes()
     ]
 
     assert [len(capture_settings), rewritten] == [21, []]
@@ -255,11 +255,11 @@ def test_a_malformed_line_cannot_be_loaded(teamhgg_game, line_template, message)
 
 def test_writing_needs_six_skill_rows(version_1_settings_cfg):
     with pytest.raises(ValueError, match="six skill rows"):
-        settings_cfg_text(read_settings_cfg(version_1_settings_cfg))
+        settings_cfg_bytes(read_settings_cfg(version_1_settings_cfg))
 
 
 def test_writes_version_2_with_crlf_and_no_byte_order_mark(version_2_settings_cfg):
-    assert settings_cfg_text(read_settings_cfg(version_2_settings_cfg)) == (
+    assert settings_cfg_bytes(read_settings_cfg(version_2_settings_cfg)) == (
         version_2_settings_cfg.read_bytes()
     )
 
@@ -273,7 +273,7 @@ def settings_with_one_line(version_2_settings_cfg):
 
 
 def test_writes_the_solution_lines_it_is_given(settings_with_one_line):
-    assert settings_cfg_text(settings_with_one_line).endswith(
+    assert settings_cfg_bytes(settings_with_one_line).endswith(
         b"\r\n1\r\n-1\r\n0 0 0 0 0 0 0 0 0 0 0 \r\n"
     )
 
