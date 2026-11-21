@@ -17,7 +17,7 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, overload
@@ -30,19 +30,6 @@ from mhp3ass.solution.record import CharmRecord, SolutionRecord, charm_from_reco
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
 
 
-def hash_armor(armors: Sequence[Armor | None]) -> int:
-    """``HashArmor`` (Form1.h:1691-1699): each slot's armour index shifted by
-    three bits per slot, summed.
-
-    The shifts overlap (indices go up to 225), so different armour sets can
-    share a hash (quirk 4). The original shifts a 32-bit ``unsigned``, which
-    would only overflow for an index of 2**20 or more. It dereferences every
-    slot, so an empty one throws.
-    """
-    total = hash_armor_indices(_armor_indices(armors))
-    return total
-
-
 def _armor_indices(armors: Sequence[Armor | None]) -> list[int]:
     """Each slot's armour index, -1 for an empty slot."""
     indices = [-1 if armor is None else armor.index for armor in armors]
@@ -50,7 +37,14 @@ def _armor_indices(armors: Sequence[Armor | None]) -> list[int]:
 
 
 def hash_armor_indices(indices: Sequence[int]) -> int:
-    """``hash_armor`` of the armour with these indices, -1 for an empty slot."""
+    """``HashArmor`` (Form1.h:1691-1699) of the armour with these indices, -1
+    for an empty slot: each slot's index shifted by three bits per slot, summed.
+
+    The shifts overlap (indices go up to 225), so different armour sets can
+    share a hash (quirk 4). The original shifts a 32-bit ``unsigned``, which
+    would only overflow for an index of 2**20 or more. It dereferences every
+    slot, so an empty one throws.
+    """
     total = 0
     for slot, index in enumerate(indices):
         if index == -1:
@@ -127,6 +121,12 @@ class SolutionList(SolutionSequence):
         entry = self._entries[index]
         solution = entry if isinstance(entry, Solution) else entry.read()
         return solution
+
+    def __iter__(self) -> Iterator[Solution]:
+        # Not Sequence's own, which ends at the first IndexError, even one raised
+        # while rebuilding a record.
+        for position in range(len(self)):
+            yield self[position]
 
     def __repr__(self) -> str:
         return f"SolutionList({list(self)!r})"
@@ -215,7 +215,7 @@ class ResultSet:
 
         The key is the charm's name after ``MatchesQuery`` reduced it, so
         different templates can meet on one name. A charm ``MatchesQuery``
-        removed makes the solution charm-free. If ``hash_armor`` throws, the
+        removed makes the solution charm-free. If ``hash_armor_indices`` throws, the
         solutions added before it stay in ``all_solutions``.
         """
         added = []

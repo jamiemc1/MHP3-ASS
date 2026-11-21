@@ -30,7 +30,10 @@ from mhp3ass.solution.state import Solution
 
 @dataclass(frozen=True)
 class TableRow:
-    """One set's cells, in column order after its number."""
+    """One set's cells, in column order after its number.
+
+    The TUI reads the cells off the instance's ``__dict__`` (``row_cells``),
+    so it holds the fields and nothing else: no slots, no other attributes."""
 
     head: str
     body: str
