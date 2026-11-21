@@ -2,7 +2,8 @@
 
 Ported from ``Detrimental``, ``AddAbilities``, ``AddDecoration``,
 ``AddInitialArmor`` and ``GetInitialData`` (``legacy/Solution.cpp:18-46``,
-``:208-269``).
+``:208-269``), and the stat sums ``CalculateData`` shares with
+``AddInitialArmor`` (``:747-755``).
 """
 
 from __future__ import annotations
@@ -61,7 +62,7 @@ def add_decoration(
 
 def add_armor_stats(solution: Solution, armor: Armor) -> None:
     """The stat sums ``AddInitialArmor`` and ``CalculateData`` both make for one piece
-    (Solution.cpp:213-222, :746-754): defence, maximum defence, the five
+    (Solution.cpp:213-221, :747-755): defence, maximum defence, the five
     resistances, rarity and difficulty. The four ``unsigned`` ones wrap."""
     solution.defence = as_unsigned(solution.defence + armor.defence)
     solution.max_defence = as_unsigned(solution.max_defence + armor.max_defence)
