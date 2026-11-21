@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from mhp3ass.data.text import as_unsigned
 from mhp3ass.model import Ability, Charm, Decoration
 from mhp3ass.solution.initial import add_decoration, detrimental
-from mhp3ass.solution.state import CalculationData, LegacyNullReferenceError
+from mhp3ass.solution.state import CalculationData, allocated_slots
 
 
 class UndefinedScoreError(IndexError):
@@ -248,9 +248,7 @@ def calculate_decorations(
     slots remain.
     """
     solution = data.solution
-    slots_spare = solution.slots_spare
-    if slots_spare is None:
-        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data first")
+    slots_spare = allocated_slots(solution)
     multiplier = solution.torso_multiplier
     body_slots = [0, 0, 0, 0]
     temp_slots = [0, slots_spare[1], slots_spare[2], slots_spare[3]]

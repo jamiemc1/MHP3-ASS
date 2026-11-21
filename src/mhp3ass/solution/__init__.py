@@ -26,6 +26,7 @@ from mhp3ass.solution.state import (
     CalculationData,
     LegacyNullReferenceError,
     Solution,
+    allocated_slots,
     new_calculation_data,
 )
 
@@ -43,9 +44,7 @@ def finish(data: CalculationData) -> None:
     """MatchesQuery's last steps (Solution.cpp:717-722): the leftover body slots
     become one more spare group, and the decorations' difficulty is added."""
     solution = data.solution
-    slots_spare = solution.slots_spare
-    if slots_spare is None:
-        raise LegacyNullReferenceError("slots_spare is allocated by get_initial_data")
+    slots_spare = allocated_slots(solution)
     # An index past the 4-element array raises IndexError, as .NET's array does.
     slots_spare[solution.torso_slots_spare] = as_unsigned(
         slots_spare[solution.torso_slots_spare] + 1
