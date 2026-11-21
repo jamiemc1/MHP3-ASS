@@ -12,7 +12,7 @@ import shutil
 from enum import Enum
 from pathlib import Path
 
-from mhp3ass.saved_data import TuiFolders, TuiSettings
+from mhp3ass.saved_data import TuiFolders, TuiSettings, my_charms_in, settings_cfg_in
 
 
 class FolderChoice(Enum):
@@ -31,7 +31,7 @@ class ClearChoice(Enum):
 
 def saved_files_in(folder: Path) -> list[Path]:
     """``settings.cfg`` and ``mycharms.txt`` in ``folder``, those that exist."""
-    files = [folder / name for name in ("settings.cfg", "mycharms.txt") if (folder / name).exists()]
+    files = [path for path in (settings_cfg_in(folder), my_charms_in(folder)) if path.exists()]
     return files
 
 
@@ -84,12 +84,12 @@ def clear_targets(folder: Path, choice: ClearChoice) -> list[Path]:
     """The files in ``folder`` that clearing ``choice`` would delete."""
     match choice:
         case ClearChoice.SEARCH:
-            names = {"settings.cfg"}
+            wanted = {settings_cfg_in(folder)}
         case ClearChoice.MY_CHARMS:
-            names = {"mycharms.txt"}
+            wanted = {my_charms_in(folder)}
         case ClearChoice.EVERYTHING:
-            names = {"settings.cfg", "mycharms.txt"}
-    targets = [path for path in saved_files_in(folder) if path.name in names]
+            wanted = {settings_cfg_in(folder), my_charms_in(folder)}
+    targets = [path for path in saved_files_in(folder) if path in wanted]
     return targets
 
 
