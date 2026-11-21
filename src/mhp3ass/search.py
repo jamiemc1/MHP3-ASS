@@ -403,7 +403,7 @@ def run_search(
         if pool is not None:
             merged = _pooled_workers(
                 pool,
-                spec=spec,
+                query_spec=spec.query,
                 data=data,
                 query=query,
                 templates=templates,
@@ -466,7 +466,7 @@ def _report_worker(
 
 def _pooled_workers(
     pool: WorkerPool,
-    spec: SearchSpec,
+    query_spec: QuerySpec,
     data: SearchData,
     query: Query,
     templates: list[Charm | None],
@@ -480,7 +480,7 @@ def _pooled_workers(
     worker by worker, up to the first that raised."""
     pooled = pool.run(
         data_dir=data.data_dir,
-        spec=spec.query,
+        spec=query_spec,
         query=query,
         templates=templates,
         game=data.game,
