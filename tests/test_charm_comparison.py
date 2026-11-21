@@ -18,12 +18,6 @@ from mhp3ass.data import GameData
 from mhp3ass.model import Ability, AbilityPair, Charm
 
 
-@pytest.fixture(scope="module")
-def flag_game(teamhgg_game):
-    """The game the golden's ability indices refer to. Read-only."""
-    return teamhgg_game
-
-
 def _relevant(game: GameData, indices: list[int]) -> frozenset[Ability]:
     """The abilities at ``indices``: a relevant set from the golden."""
     relevant = frozenset(game.abilities[index] for index in indices)
@@ -36,12 +30,12 @@ def comparisons(models_golden):
 
 
 @pytest.fixture(scope="module")
-def sample_charms(comparisons, flag_game):
+def sample_charms(comparisons, teamhgg_game):
     charms = [
         Charm(
             num_slots=entry["num_slots"],
             abilities=[
-                AbilityPair(ability=flag_game.abilities[pair["ability"]], amount=pair["amount"])
+                AbilityPair(ability=teamhgg_game.abilities[pair["ability"]], amount=pair["amount"])
                 for pair in entry["abilities"]
             ],
         )
@@ -75,10 +69,10 @@ def test_value_equality_matches_golden(comparisons, sample_charms):
     assert _matrix(sample_charms, charms_equal) == comparisons["equal"]
 
 
-def test_comparisons_match_golden_for_each_relevant_set(comparisons, sample_charms, flag_game):
+def test_comparisons_match_golden_for_each_relevant_set(comparisons, sample_charms, teamhgg_game):
     mismatched: list[Any] = []
     for relevant_set in comparisons["relevant_sets"]:
-        relevant = _relevant(flag_game, relevant_set["relevant"])
+        relevant = _relevant(teamhgg_game, relevant_set["relevant"])
         ours = {
             "strictly_better_than": _matrix(
                 sample_charms, partial(strictly_better_than, relevant=relevant)
@@ -100,10 +94,10 @@ def test_comparisons_match_golden_for_each_relevant_set(comparisons, sample_char
     assert [len(comparisons["relevant_sets"]), mismatched] == [5, []]
 
 
-def test_optimal_list_keeps_the_first_of_two_basically_same_charms(flag_game):
+def test_optimal_list_keeps_the_first_of_two_basically_same_charms(teamhgg_game):
     # Only Attack is relevant, so the charms differ only in an ability the search ignores.
-    relevant = _relevant(flag_game, [0])
-    attack, expert = flag_game.abilities[0], flag_game.abilities[1]
+    relevant = _relevant(teamhgg_game, [0])
+    attack, expert = teamhgg_game.abilities[0], teamhgg_game.abilities[1]
     first = Charm(
         num_slots=1,
         abilities=[AbilityPair(ability=attack, amount=3), AbilityPair(ability=expert, amount=1)],
