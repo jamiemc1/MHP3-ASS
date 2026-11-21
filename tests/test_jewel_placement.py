@@ -249,7 +249,6 @@ def _builds_with(solution: Solution, found: Correction, sets: TorsoIncSets) -> b
         charm=found.charm,
         placement=found.placement,
         query=sets.query,
-        weapon_slots=sets.weapon_slots,
     )
     return built
 
@@ -315,7 +314,6 @@ def test_a_set_only_its_unreduced_charm_builds_gets_that_charm(torso_inc_sets, c
             charm=solution.charm,
             query=torso_inc_sets.query,
             game=torso_inc_sets.game,
-            weapon_slots=torso_inc_sets.weapon_slots,
         )
         for solution in charm_corrected
     ]
@@ -396,7 +394,6 @@ def test_a_set_only_other_jewels_build_gets_them_from_the_picker(status_set):
         charm=solution.charm,
         placement=found.placement,
         query=query,
-        weapon_slots=query.weapon_slots_allowed,
     )
 
 
@@ -416,7 +413,6 @@ def test_the_fill_time_lists_with_a_bad_skill_dont_build(status_set):
         charm=solution.charm,
         placement=before_the_repair,
         query=query,
-        weapon_slots=query.weapon_slots_allowed,
     )
 
     assert built is False
@@ -457,7 +453,6 @@ def test_one_jewel_past_the_chest_slots_doesnt_build(torso_inc_sets):
             charm=solution.charm,
             placement=placement,
             query=torso_inc_sets.query,
-            weapon_slots=torso_inc_sets.weapon_slots,
         )
         for placement in (stored, overfull)
     ]
@@ -474,7 +469,6 @@ def test_no_jewels_leave_the_query_skills_short(status_set):
         charm=solution.charm,
         placement=JewelPlacement(multiplier=3, chest=(), elsewhere=()),
         query=query,
-        weapon_slots=query.weapon_slots_allowed,
     )
 
     assert built is False

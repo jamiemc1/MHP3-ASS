@@ -195,7 +195,6 @@ def correction(
     Fills read the abilities' ``relevant`` flags: call it only while no
     search is using ``game``.
     """
-    weapon_slots = query.weapon_slots_allowed
     multiplier = solution.torso_multiplier
     refill = _filled(solution.armors, charm=solution.charm, custom=True, query=query, game=game)
     if refill is not None:
@@ -208,9 +207,7 @@ def correction(
         )
         if placed is not None:
             return Correction(charm=solution.charm, placement=placed, charm_changed=False)
-    picked = pick_jewels(
-        solution.armors, charm=solution.charm, query=query, game=game, weapon_slots=weapon_slots
-    )
+    picked = pick_jewels(solution.armors, charm=solution.charm, query=query, game=game)
     if isinstance(picked, JewelPlacement):
         return Correction(charm=solution.charm, placement=picked, charm_changed=False)
     if charm_templates is None:
@@ -296,9 +293,8 @@ def _buildable_split(
 ) -> JewelPlacement | None:
     """The first of ``_splits`` of ``jewels`` that ``builds`` ``filled``'s
     armour with ``charm``."""
-    weapon_slots = query.weapon_slots_allowed
     for placement in _splits(filled, jewels=jewels, multiplier=multiplier):
-        if builds(filled.armors, charm, placement, query=query, weapon_slots=weapon_slots):
+        if builds(filled.armors, charm, placement, query=query):
             return placement
     return None
 
@@ -325,7 +321,6 @@ def pick_jewels(
     charm: Charm | None,
     query: Query,
     game: GameData,
-    weapon_slots: int,
 ) -> JewelPlacement | Unbuildable:
     """A jewel list that builds ``armors`` with ``charm`` for ``query``, from
     every decoration the query can use (its rank, and event ones only when
@@ -359,7 +354,7 @@ def pick_jewels(
     groups = [_Group(size=chest_slots, weight=multiplier, chest=True)]
     groups += [
         _Group(size=size, weight=1, chest=False)
-        for size in _slot_groups(armors, charm, weapon_slots)
+        for size in _slot_groups(armors, charm, weapon_slots=query.weapon_slots_allowed)
     ]
     # The largest groups first leaves the small ones last, where the caps and
     # floors are tight and merge or drop the most states.
@@ -588,14 +583,13 @@ def builds(
     charm: Charm | None,
     placement: JewelPlacement,
     query: Query,
-    weapon_slots: int,
 ) -> bool:
     """Whether ``placement``'s jewels build ``armors`` with ``charm`` for
     ``query``, by ``pick_jewels``' rules: they fit, every query skill reaches
     its points, and no bad skill shows unless the query allows them."""
     chest_armor = armors[1]
     chest_slots = chest_armor.num_slots if chest_armor is not None else 0
-    other_groups = _slot_groups(armors, charm, weapon_slots=weapon_slots)
+    other_groups = _slot_groups(armors, charm, weapon_slots=query.weapon_slots_allowed)
     if not _fits_slots(placement, chest_slots=chest_slots, other_groups=other_groups):
         return False
     totals = _placed_points(armors, charm, placement)
