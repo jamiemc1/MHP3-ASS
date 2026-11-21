@@ -59,6 +59,21 @@ def add_decoration(
     return above
 
 
+def add_armor_stats(solution: Solution, armor: Armor) -> None:
+    """The stat sums ``AddInitialArmor`` and ``CalculateData`` both make for one piece
+    (Solution.cpp:213-222, :746-754): defence, maximum defence, the five
+    resistances, rarity and difficulty. The four ``unsigned`` ones wrap."""
+    solution.defence = as_unsigned(solution.defence + armor.defence)
+    solution.max_defence = as_unsigned(solution.max_defence + armor.max_defence)
+    solution.ice_res += armor.ice_res
+    solution.fire_res += armor.fire_res
+    solution.water_res += armor.water_res
+    solution.dragon_res += armor.dragon_res
+    solution.thunder_res += armor.thunder_res
+    solution.rarity = as_unsigned(solution.rarity + armor.rarity)
+    solution.difficulty = as_unsigned(solution.difficulty + armor.difficulty)
+
+
 def _add_initial_armor(
     armor: Armor | None, solution: Solution, multiplier: int, slots_spare: list[int]
 ) -> None:
@@ -73,15 +88,7 @@ def _add_initial_armor(
         return
     adds_group = armor is not solution.armors[1] and armor.num_slots != 0
     slots_spare[armor.num_slots] = as_unsigned(slots_spare[armor.num_slots] + adds_group)
-    solution.defence = as_unsigned(solution.defence + armor.defence)
-    solution.max_defence = as_unsigned(solution.max_defence + armor.max_defence)
-    solution.ice_res += armor.ice_res
-    solution.fire_res += armor.fire_res
-    solution.water_res += armor.water_res
-    solution.dragon_res += armor.dragon_res
-    solution.thunder_res += armor.thunder_res
-    solution.rarity = as_unsigned(solution.rarity + armor.rarity)
-    solution.difficulty = as_unsigned(solution.difficulty + armor.difficulty)
+    add_armor_stats(solution, armor)
     add_abilities(solution.abilities, armor.abilities, multiplier)
     solution.torso_multiplier = as_unsigned(solution.torso_multiplier + armor.torso_inc)
     solution.total_slots_spare = as_unsigned(solution.total_slots_spare + armor.num_slots)

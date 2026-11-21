@@ -21,7 +21,7 @@ from mhp3ass.solution.charm_reduction import (
 )
 from mhp3ass.solution.extra_skills import calculate_extra_skills
 from mhp3ass.solution.fill import calculate_decorations
-from mhp3ass.solution.initial import get_initial_data
+from mhp3ass.solution.initial import add_armor_stats, get_initial_data
 from mhp3ass.solution.state import (
     CalculationData,
     LegacyNullReferenceError,
@@ -112,12 +112,4 @@ def calculate_data(solution: Solution) -> None:
     for armor in solution.armors:
         if armor is None:
             raise LegacyNullReferenceError("CalculateData dereferences an empty armour slot")
-        solution.fire_res += armor.fire_res
-        solution.ice_res += armor.ice_res
-        solution.thunder_res += armor.thunder_res
-        solution.water_res += armor.water_res
-        solution.dragon_res += armor.dragon_res
-        solution.defence = as_unsigned(solution.defence + armor.defence)
-        solution.rarity = as_unsigned(solution.rarity + armor.rarity)
-        solution.difficulty = as_unsigned(solution.difficulty + armor.difficulty)
-        solution.max_defence = as_unsigned(solution.max_defence + armor.max_defence)
+        add_armor_stats(solution, armor)
