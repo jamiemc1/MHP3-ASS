@@ -49,9 +49,8 @@ def fuzz_facts(
 ) -> list[FuzzFacts]:
     """Builds every query as the GUI would and loads its my-charms lines as ``LoadCustom`` does.
 
-    The search games are query-mutable: formulating a query rewrites all their
-    relevance state. ``validity`` only reads abilities' static indices, so it
-    serves every language.
+    ``validity`` only reads abilities' static indices, so it serves every
+    language.
     """
     skill_types = read_skill_types(legacy_data_dir / "skills.txt")
     charms_dir = tmp_path_factory.mktemp("fuzz-my-charms")

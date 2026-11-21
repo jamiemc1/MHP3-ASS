@@ -213,6 +213,9 @@ class Query:
     rel_abilities: list[Ability] = field(default_factory=list)
     # The abilities whose ``Ability::relevant`` flag GetRelevantData sets.
     relevant_abilities: frozenset[Ability] = frozenset()
+    # The pieces MatchesQuery found without query skills: the original's
+    # ``Armor::no_skills``, which it sets on the shared records.
+    no_skills_armors: set[Armor] = field(default_factory=set)
     rel_decorations: list[Decoration] = field(default_factory=list)
     inf_decorations: list[Decoration] = field(default_factory=list)
 

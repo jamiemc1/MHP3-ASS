@@ -5,11 +5,10 @@ Ported from ``LoadedData::GetRelevantData``, ``GetRelevantArmors``,
 (``legacy/LoadedData.cpp:44-167``), and the end of ``Form1::FormulateQuery``
 (``legacy/Form1.h:1215``).
 
-Like the original, this writes per-query state onto the shared game
-records: ``no_skills`` on each matched armour piece. (The original's
-``relevant`` flags are the query's ``relevant_abilities`` here.) Run one
-query per freshly loaded game when comparing with the harness, which runs
-each query in a new process.
+The original writes per-query state onto the shared game records: every
+ability's ``relevant`` flag and each matched armour piece's ``no_skills``.
+The port keeps both on the query (``relevant_abilities``,
+``no_skills_armors``), so it leaves the game's records as loaded.
 """
 
 from __future__ import annotations
@@ -50,24 +49,28 @@ def _add_decoration(
 
 
 def _add_armor(
-    armors: list[Armor], armor: Armor, rel_abilities: list[Ability], inferior: list[Armor]
+    armors: list[Armor],
+    armor: Armor,
+    rel_abilities: list[Ability],
+    no_skills: set[Armor],
+    inferior: list[Armor],
 ) -> None:
     """``AddToList`` for armour (LoadedData.cpp:60-82).
 
     As for decorations, but ``inferior`` keeps every piece with skills that
-    was listed or beaten, while a skill-less piece is on it only while
-    listed. The original's danger-skill guards on both branches always pass:
-    no piece has a danger skill (see ``armor_matches_query``). The loop walks
-    a copy, as for decorations.
+    was listed or beaten, while a skill-less piece (one in ``no_skills``) is
+    on it only while listed. The original's danger-skill guards on both
+    branches always pass: no piece has a danger skill (see
+    ``armor_matches_query``). The loop walks a copy, as for decorations.
     """
     for listed in list(armors):
-        if armor_is_better_than(armor, listed, rel_abilities):
-            if not armor_is_better_than(listed, armor, rel_abilities):
-                if listed.no_skills:
+        if armor_is_better_than(armor, listed, rel_abilities, no_skills=no_skills):
+            if not armor_is_better_than(listed, armor, rel_abilities, no_skills=no_skills):
+                if listed in no_skills:
                     _remove_first(inferior, listed)
                 armors.remove(listed)
-        elif armor_is_better_than(listed, armor, rel_abilities):
-            if not armor.no_skills:
+        elif armor_is_better_than(listed, armor, rel_abilities, no_skills=no_skills):
+            if armor not in no_skills:
                 inferior.append(armor)
             return
     armors.append(armor)
@@ -86,7 +89,13 @@ def _get_relevant_armors(
     for armor in armors:
         if armor_matches_query(armor, query, max_slots=max_slots):
             max_slots = max(max_slots, armor.num_slots)
-            _add_armor(relevant, armor, rel_abilities=query.rel_abilities, inferior=inferior)
+            _add_armor(
+                relevant,
+                armor,
+                rel_abilities=query.rel_abilities,
+                no_skills=query.no_skills_armors,
+                inferior=inferior,
+            )
 
 
 def _get_relevant_decorations(game: GameData, query: Query) -> None:

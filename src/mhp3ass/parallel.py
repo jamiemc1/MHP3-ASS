@@ -8,8 +8,8 @@ pieces outermost, so a worker's solutions are the concatenation of its tasks'
 solutions in ``head_start`` order.
 
 ``SearchPool`` runs the tasks in spawned processes. Each process rebuilds the
-game and the query from the query's spec (a fresh game per query, as
-``relevance.py`` asks) and sends its solutions back as ``SolutionRecord``s.
+game and the query from the query's spec (a fresh game per search) and sends
+its solutions back as ``SolutionRecord``s.
 The merge puts them in task order, whatever order the tasks finish in, and
 replays the serial search's rule for a worker that raises: that worker and
 every later one are left out, even if they already ran. Progress is counted

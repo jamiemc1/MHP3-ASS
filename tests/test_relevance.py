@@ -18,8 +18,8 @@ def _mismatched_relevance(
     """Queries whose port output differs from the golden.
 
     Each query runs on a freshly loaded game, as the harness runs each in a new
-    process. get_relevant_data rewrites the state it reads, so one shared game
-    gives the same result today; the fresh load keeps that an outcome of the
+    process. get_relevant_data writes only the query, so one shared game would
+    give the same result; the fresh load keeps that an outcome of the
     comparison rather than an assumption of it (about 20 ms per query).
     """
     sections = ("rel_abilities", "relevant_flags", "armor", "decorations")

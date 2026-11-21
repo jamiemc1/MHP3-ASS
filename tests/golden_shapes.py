@@ -106,7 +106,8 @@ def game_data_shape(game: GameData) -> dict[str, Any]:
                     "gender": _gender_name(armor.gender),
                     "hunter_type": _hunter_type_name(armor.hunter_type),
                     "torso_inc": armor.torso_inc,
-                    "no_skills": armor.no_skills,
+                    # Loading never sets it (MatchesQuery does, per query).
+                    "no_skills": False,
                     "is_piercing": armor.is_piercing,
                     "is_event": armor.is_event,
                     # The port has no danger skills (armor_matches_query): always null.
@@ -180,10 +181,10 @@ def charm_shape(charm: Charm) -> dict[str, Any]:
     return shaped
 
 
-def _armor_entries(armors: list[Armor]) -> list[dict[str, Any]]:
+def _armor_entries(armors: list[Armor], no_skills: set[Armor]) -> list[dict[str, Any]]:
     entries = [
         # No danger skills, as above.
-        {"index": armor.index, "no_skills": armor.no_skills, "danger": None}
+        {"index": armor.index, "no_skills": armor in no_skills, "danger": None}
         for armor in armors
     ]
     return entries
@@ -198,8 +199,12 @@ def relevance_shape(game: GameData, query: Query) -> dict[str, Any]:
     """``RelevanceDump::Run``'s GetRelevantData sections (RelevanceDump.cpp)."""
     armor = {
         armor_type.name.lower(): {
-            "relevant": _armor_entries(query.rel_armor[armor_type.value]),
-            "inferior": _armor_entries(query.inf_armor[armor_type.value]),
+            "relevant": _armor_entries(
+                query.rel_armor[armor_type.value], no_skills=query.no_skills_armors
+            ),
+            "inferior": _armor_entries(
+                query.inf_armor[armor_type.value], no_skills=query.no_skills_armors
+            ),
         }
         for armor_type in ArmorType
     }

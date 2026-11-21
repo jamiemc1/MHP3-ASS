@@ -185,8 +185,7 @@ def other_teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
 
 @pytest.fixture(scope="session")
 def scratch_game(search_data_by_language: dict[str, SearchData]) -> GameData:
-    """A game in English (TeamHGG) that tests may run queries on, which rewrite its
-    relevance state (armour no_skills). It is the
+    """A game in English (TeamHGG) that tests may run queries on. It is the
     English (TeamHGG) search game."""
     return search_data_by_language["English (TeamHGG)"].game
 
@@ -366,8 +365,7 @@ def attack_sharp_query_json() -> dict[str, Any]:
 
 @pytest.fixture
 def attack_sharp_query(scratch_game: GameData, attack_sharp_query_json: dict[str, Any]) -> Query:
-    """``attack_sharp_query_json`` formulated on the scratch game. Function-scoped:
-    formulating rewrites the game's relevance state."""
+    """``attack_sharp_query_json`` formulated on the scratch game, fresh per test."""
     return formulate_query_json(scratch_game, attack_sharp_query_json)
 
 
@@ -424,9 +422,7 @@ def games_by_language(
 def search_data_by_language(
     legacy_data_dir: Path, shipped_languages: list[str]
 ) -> dict[str, SearchData]:
-    """Search data in each shipped language, for running queries on: each query
-    rewrites its game's relevance state, so these are not shared with
-    ``games_by_language``."""
+    """Search data in each shipped language, for running queries on."""
     search_data = {
         language: SearchData.load(legacy_data_dir, language=language)
         for language in shipped_languages
