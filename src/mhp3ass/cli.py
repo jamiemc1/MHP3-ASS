@@ -21,6 +21,7 @@ from mhp3ass.data.strings import load_strings
 from mhp3ass.parallel import SearchPool, default_jobs
 from mhp3ass.query import QueryError, SearchSpec
 from mhp3ass.results.result_set import (
+    added_lines,
     candidate_lines,
     search_manifest,
     solution_lines,
@@ -159,8 +160,8 @@ def _search(args: argparse.Namespace) -> int:
         return 3
     if not args.record_exceptions:
         result = replace(result, exceptions_recorded=False)
-    lines = solution_lines(result, game=data.game)
     if args.out is None:
+        lines = solution_lines(result, game=data.game)
         try:
             for line in lines:
                 print(line)
@@ -172,8 +173,13 @@ def _search(args: argparse.Namespace) -> int:
             os.dup2(devnull, sys.stdout.fileno())
             return 0
     else:
+        worker_lines = added_lines(result, game=data.game)
+        lines = [line for kept in worker_lines for line in kept]
         manifest = search_manifest(
-            spec_json, result=result, game=data.game, max_solution_lines=args.max_solution_lines
+            spec_json,
+            result=result,
+            worker_lines=worker_lines,
+            max_solution_lines=args.max_solution_lines,
         )
         candidates = candidate_lines(result, game=data.game) if args.candidates else None
         write_search_outputs(args.out, manifest=manifest, lines=lines, candidates=candidates)
