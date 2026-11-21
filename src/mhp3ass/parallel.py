@@ -35,6 +35,7 @@ from threading import Event
 from types import TracebackType
 
 from mhp3ass.data import GameData, apply_language, load_game_data
+from mhp3ass.data.languages import language_dir
 from mhp3ass.model import Charm
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
@@ -45,7 +46,6 @@ from mhp3ass.search import (
     WorkerError,
     armor_choices,
     is_search_error,
-    language_dir,
     paused_gc,
     raise_if_cancelled,
     run_worker,

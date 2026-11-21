@@ -11,13 +11,11 @@ from dataclasses import replace
 from pathlib import Path
 
 from mhp3ass import __version__
-from mhp3ass.charms.generation import generate_charm_tables
 from mhp3ass.charms.my_charms import MyCharmsFileError, save_my_charms
 from mhp3ass.charms.naming import charm_name
-from mhp3ass.charms.validity import build_charm_validity
-from mhp3ass.data import apply_language, load_game_data
-from mhp3ass.data.languages import default_language, language_folders
+from mhp3ass.data.languages import default_language, language_dir, language_folders
 from mhp3ass.data.strings import load_strings
+from mhp3ass.model import Charm
 from mhp3ass.parallel import SearchPool, default_jobs
 from mhp3ass.query import QueryError, SearchSpec
 from mhp3ass.results.result_set import (
@@ -63,12 +61,10 @@ def _positive_number(text: str) -> int:
 def _import_save(args: argparse.Namespace) -> int:
     """The import dialog with its defaults: the first character with charms, Select
     Best's ticks, then Import (which replaces the list)."""
-    game = load_game_data(args.data_dir)
-    tables = generate_charm_tables(game)
-    apply_language(game, args.data_dir / "Languages" / args.lang)
-    validity = build_charm_validity(tables, ability_count=len(game.abilities))
+    data = SearchData.load(args.data_dir, language=args.lang)
+    game = data.game
     try:
-        save_import = read_save(args.save.read_bytes(), game, validity)
+        save_import = read_save(args.save.read_bytes(), game, data.validity)
     except SaveFileError as error:
         print(f"{args.save}: {error}", file=sys.stderr)
         return 1
@@ -88,9 +84,13 @@ def _import_save(args: argparse.Namespace) -> int:
     return 0
 
 
-def _print_progress(progress: WorkerProgress) -> None:
-    template = progress.worker.template
+def _template_name(template: Charm | None) -> str:
     name = "no charm" if template is None else charm_name(template)
+    return name
+
+
+def _print_progress(progress: WorkerProgress) -> None:
+    name = _template_name(progress.worker.template)
     print(
         f"worker {progress.number + 1}/{progress.worker_count} {name}: "
         f"{len(progress.worker.found):,} found, {len(progress.worker.added):,} added, "
@@ -151,7 +151,7 @@ def _search(args: argparse.Namespace) -> int:
             return 3
     exception = result.exception
     if exception is not None and not args.record_exceptions:
-        name = "no charm" if exception.template is None else charm_name(exception.template)
+        name = _template_name(exception.template)
         print(
             f"{args.query}: worker {exception.worker + 1}/{result.worker_count} ({name}): "
             f"{exception.type}",
@@ -267,12 +267,10 @@ def main(argv: list[str] | None = None) -> int:
     commands.add_parser("info", help="print the version, the folders in use and the terminal size")
     args = parser.parse_args(argv)
     if args.command in ("info", "import-save") or args.command is None:
-        try:
-            folders = _tui_folders()
-        except (OSError, ValueError, KeyError) as error:
-            # tui.toml unreadable or invalid, or no APPDATA on Windows.
-            print(f"mhp3-ass: {error}", file=sys.stderr)
+        found = _tui_folders()
+        if found is None:
             return 1
+        folders = found
     if args.command == "info":
         return _info(_default_data_dir(), folders=folders)
     if args.command == "import-save":
@@ -294,8 +292,14 @@ def main(argv: list[str] | None = None) -> int:
     return exit_code
 
 
-def _tui_folders() -> TuiFolders:
-    folders = TuiFolders.find(os.environ, platform=sys.platform, home=Path.home())
+def _tui_folders() -> TuiFolders | None:
+    """The app's folders, or ``None`` after saying why they can't be found."""
+    try:
+        folders = TuiFolders.find(os.environ, platform=sys.platform, home=Path.home())
+    except (OSError, ValueError, KeyError) as error:
+        # tui.toml unreadable or invalid, or no APPDATA on Windows.
+        print(f"mhp3-ass: {error}", file=sys.stderr)
+        return None
     return folders
 
 
@@ -354,12 +358,11 @@ def _run_tui(data_dir: Path, folders: TuiFolders, debug: bool) -> int:
             jobs = app.jobs
             if app.return_value is not True:
                 break
-            try:
-                folders = _tui_folders()
-            except (OSError, ValueError, KeyError) as error:
-                # tui.toml became unreadable or invalid since start-up.
-                print(f"mhp3-ass: {error}", file=sys.stderr)
+            # tui.toml is read afresh: it can have become unreadable since start-up.
+            found = _tui_folders()
+            if found is None:
                 return 1
+            folders = found
     finally:
         if pool is not None:
             pool.close()
@@ -403,7 +406,7 @@ def _run_app(
         languages=languages,
         language=language,
         data=data,
-        strings=load_strings(languages_dir / language),
+        strings=load_strings(language_dir(data_dir, language)),
         pool=pool,
         jobs=jobs,
         files=AppFiles(
