@@ -53,3 +53,32 @@ def test_a_beaten_decoration_leaves_the_list_but_stays_inferior(attack: Ability)
 
     assert listed == [better]
     assert inferior == [worse, better]
+
+
+def test_a_better_decoration_removes_every_listed_one_it_beats(attack: Ability):
+    """Two equal decorations stay listed side by side; one that beats both removes
+    each in turn, including the one after the first removal."""
+    first = make_jewel("first", attack, 1)
+    second = make_jewel("second", attack, 1, index=1)
+    better = make_jewel("better", attack, 3, index=2)
+    listed: list[Decoration] = []
+    inferior: list[Decoration] = []
+
+    for decoration in (first, second, better):
+        _add_decoration(listed, decoration, inferior=inferior)
+
+    assert listed == [better]
+    assert inferior == [first, second, better]
+
+
+def test_a_decoration_a_listed_one_beats_is_not_added(attack: Ability):
+    better = make_jewel("better", attack, 3)
+    worse = make_jewel("worse", attack, 1, index=1)
+    listed: list[Decoration] = []
+    inferior: list[Decoration] = []
+
+    _add_decoration(listed, better, inferior=inferior)
+    _add_decoration(listed, worse, inferior=inferior)
+
+    assert listed == [better]
+    assert inferior == [better]

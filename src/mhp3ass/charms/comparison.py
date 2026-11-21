@@ -66,15 +66,15 @@ def add_charm_to_optimal_list(charms: list[Charm], new_charm: Charm) -> None:
 
     Drops listed charms the new one strictly beats; skips the new one if a
     listed charm beats it or is basically the same, so the first of two
-    "same" charms stays, whatever its points.
+    "same" charms stays, whatever its points. The loop walks a copy, so each
+    listed charm is compared once whatever is removed before it, and an early
+    return keeps earlier removals. The original removes by position
+    (``RemoveAt( i-- )``); removing by identity is the same because no charm
+    is listed twice: adding one again stops at ``basically_the_same_as``.
     """
-    index = 0
-    while index < len(charms):
-        current = charms[index]
+    for current in list(charms):
         if strictly_better_than(new_charm, current):
-            del charms[index]
-            continue
-        if strictly_better_than(current, new_charm) or basically_the_same_as(current, new_charm):
+            charms.remove(current)
+        elif strictly_better_than(current, new_charm) or basically_the_same_as(current, new_charm):
             return
-        index += 1
     charms.append(new_charm)
