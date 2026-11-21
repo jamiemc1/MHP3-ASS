@@ -14,7 +14,6 @@ from mhp3ass.solution.fill import (
     add_decorations23,
     best_possible_decoration,
     calculate_decorations,
-    get_score,
     is_charm_ability,
     point_score,
 )
@@ -41,31 +40,47 @@ def test_point_score_beyond_the_probed_range_raises():
         point_score(23)
 
 
-def test_negative_points_given_reads_as_unsigned_and_raises(make_data, attack):
-    data = make_data([], need={}, abilities={})
+def test_negative_points_given_reads_as_unsigned_and_raises(attack):
+    negative = PossibleDecoration(make_jewel("Attack", attack, 1), -1)
 
     with pytest.raises(UndefinedScoreError):
-        get_score(make_jewel("Attack", attack, 1), data, -1)
+        best_possible_decoration([negative])
 
 
-def test_equal_scores_go_to_the_last_candidate_whatever_bad_says(make_data, attack, defense):
-    # The first candidate's second skill (Defense) has the higher total; the
-    # "less bad" tie-break never applies because >= already took the last.
-    data = make_data([], need={}, abilities={attack: 0, defense: 5})
+def test_an_undefined_score_raises_on_reaching_its_candidate(attack):
+    # A defined best first, then an undefined score: the scan raises there.
+    four = PossibleDecoration(make_jewel("four", attack, 4), 4)
+    undefined = PossibleDecoration(make_jewel("undefined", attack, 5), 23)
+
+    with pytest.raises(UndefinedScoreError):
+        best_possible_decoration([four, undefined])
+
+
+def test_equal_scores_go_to_the_last_candidate_whatever_bad_says(attack, defense):
+    # The first candidate has a second skill (GetScore's "bad"); the "less
+    # bad" tie-break never applies because >= already took the last.
     first = PossibleDecoration(make_jewel("first", attack, 1, second=defense, second_amount=-1), 2)
     last = PossibleDecoration(make_jewel("last", attack, 1), 2)
 
-    best = best_possible_decoration([first, last], data)
+    best = best_possible_decoration([first, last])
 
     assert best is last
 
 
-def test_an_out_of_bounds_score_outranks_every_in_bounds_one(make_data, attack):
-    data = make_data([], need={}, abilities={})
+def test_a_higher_score_beats_a_later_lower_one(attack):
+    three = PossibleDecoration(make_jewel("three", attack, 3), 3)
+    two = PossibleDecoration(make_jewel("two", attack, 2), 2)
+
+    best = best_possible_decoration([three, two])
+
+    assert best is three
+
+
+def test_an_out_of_bounds_score_outranks_every_in_bounds_one(attack):
     six = PossibleDecoration(make_jewel("six", attack, 3), 6)
     four = PossibleDecoration(make_jewel("four", attack, 4), 4)
 
-    best = best_possible_decoration([six, four], data)
+    best = best_possible_decoration([six, four])
 
     assert best is six
 

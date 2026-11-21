@@ -54,43 +54,26 @@ class PossibleDecoration:
     points_given: int
 
 
-@dataclass(frozen=True, slots=True)
-class Score:
-    """``GetScore``'s ``pair( good, bad )``."""
+def best_possible_decoration(decorations: list[PossibleDecoration]) -> PossibleDecoration:
+    """``GetBestDecoration( List_t< PossibleDecoration^ >% )`` and ``GetScore``
+    (Solution.cpp:324-345).
 
-    good: int
-    bad: int
-
-
-def get_score(decoration: Decoration, data: CalculationData, actual_good: int) -> Score:
-    """``GetScore`` (Solution.cpp:324-329): ``point_score[ actual_good ]``, and the
-    points the solution already has in the decoration's last ability (0 for a
-    one-ability decoration). ``actual_good`` is ``unsigned`` in the original."""
-    bad = 0
-    if len(decoration.abilities) != 1:
-        bad = data.solution.abilities.get(decoration.abilities[-1].ability, 0)
-    score = Score(good=point_score(as_unsigned(actual_good)), bad=bad)
-    return score
-
-
-def best_possible_decoration(
-    decorations: list[PossibleDecoration], data: CalculationData
-) -> PossibleDecoration:
-    """``GetBestDecoration( List_t< PossibleDecoration^ >% )`` (Solution.cpp:331-345).
-
-    The highest score, and among equal scores the last: the comparison is
-    ``>=``. Its second clause (an equal score with a higher ``bad``) is
-    implied by the first, so ``bad`` never decides anything.
+    The highest ``point_score`` of the points given, and among equal scores
+    the last: the comparison is ``>=``. ``GetScore`` also returns the points
+    the solution already has in the decoration's last ability, but the only
+    clause reading it (an equal score with a higher value) is implied by the
+    first, so it never decides anything and isn't worked out here (quirk 17).
+    The scores are taken in the original's order, so an undefined one raises
+    on the same candidate. ``points_given`` is ``unsigned`` in the original.
     """
-    best = 0
-    score = get_score(decorations[best].decoration, data, decorations[best].points_given)
-    for i in range(1, len(decorations)):
-        current = get_score(decorations[i].decoration, data, decorations[i].points_given)
-        if current.good >= score.good or (current.good == score.good and current.bad > score.bad):
-            score = current
-            best = i
-    chosen = decorations[best]
-    return chosen
+    best = decorations[0]
+    best_score = point_score(as_unsigned(best.points_given))
+    for candidate in decorations[1:]:
+        candidate_score = point_score(as_unsigned(candidate.points_given))
+        if candidate_score >= best_score:
+            best = candidate
+            best_score = candidate_score
+    return best
 
 
 def is_charm_ability(charm: Charm | None, ability: Ability) -> bool:
@@ -158,7 +141,7 @@ def add_decorations23(
             )
     if len(possible_decorations) == 0:
         return num_slots
-    best = best_possible_decoration(possible_decorations, data)
+    best = best_possible_decoration(possible_decorations)
     add_decoration(solution, best.decoration, multiplier, decoration_list)
     num_slots = as_unsigned(num_slots - 1)
     if num_slots > 0:
