@@ -17,8 +17,9 @@ from mhp3ass.settings_cfg import (
     load_results,
     parse_solution_line,
     read_settings_cfg,
-    settings_cfg_text,
+    settings_cfg_bytes,
     with_solutions,
+    write_settings_cfg,
 )
 from mhp3ass.skill_picker import SkillSelection
 
@@ -50,7 +51,7 @@ def solution_lines():
 
 
 @pytest.fixture
-def write_settings_cfg(tmp_path, option_lines):
+def save_config_file(tmp_path, option_lines):
     """Write a settings.cfg as SaveConfig does (CRLF), with ``skill_rows`` drop-down rows."""
 
     def write(version: str, skill_rows: int, solutions: tuple[str, ...]):
@@ -66,23 +67,23 @@ def write_settings_cfg(tmp_path, option_lines):
 
 
 @pytest.fixture
-def version_2_settings_cfg(write_settings_cfg, solution_lines):
-    return write_settings_cfg(version="2", skill_rows=6, solutions=solution_lines)
+def version_2_settings_cfg(save_config_file, solution_lines):
+    return save_config_file(version="2", skill_rows=6, solutions=solution_lines)
 
 
 @pytest.fixture
-def version_1_settings_cfg(write_settings_cfg, solution_lines):
-    return write_settings_cfg(version="1", skill_rows=5, solutions=solution_lines)
+def version_1_settings_cfg(save_config_file, solution_lines):
+    return save_config_file(version="1", skill_rows=5, solutions=solution_lines)
 
 
 @pytest.fixture
-def version_2_settings_cfg_missing_a_skill_row(write_settings_cfg):
-    return write_settings_cfg(version="2", skill_rows=5, solutions=())
+def version_2_settings_cfg_missing_a_skill_row(save_config_file):
+    return save_config_file(version="2", skill_rows=5, solutions=())
 
 
 @pytest.fixture
-def settings_cfg_with_blank_solution_line(write_settings_cfg, solution_lines):
-    return write_settings_cfg(version="2", skill_rows=6, solutions=(solution_lines[0], ""))
+def settings_cfg_with_blank_solution_line(save_config_file, solution_lines):
+    return save_config_file(version="2", skill_rows=6, solutions=(solution_lines[0], ""))
 
 
 def test_reads_options_in_save_order(version_2_settings_cfg):
@@ -164,7 +165,7 @@ def test_every_gui_capture_is_written_back_byte_for_byte(gui_captures_dir, captu
     rewritten = [
         name
         for name, settings in capture_settings.items()
-        if settings_cfg_text(settings) != (gui_captures_dir / name / "settings.cfg").read_bytes()
+        if settings_cfg_bytes(settings) != (gui_captures_dir / name / "settings.cfg").read_bytes()
     ]
 
     assert [len(capture_settings), rewritten] == [21, []]
@@ -255,11 +256,11 @@ def test_a_malformed_line_cannot_be_loaded(teamhgg_game, line_template, message)
 
 def test_writing_needs_six_skill_rows(version_1_settings_cfg):
     with pytest.raises(ValueError, match="six skill rows"):
-        settings_cfg_text(read_settings_cfg(version_1_settings_cfg))
+        settings_cfg_bytes(read_settings_cfg(version_1_settings_cfg))
 
 
 def test_writes_version_2_with_crlf_and_no_byte_order_mark(version_2_settings_cfg):
-    assert settings_cfg_text(read_settings_cfg(version_2_settings_cfg)) == (
+    assert settings_cfg_bytes(read_settings_cfg(version_2_settings_cfg)) == (
         version_2_settings_cfg.read_bytes()
     )
 
@@ -273,9 +274,28 @@ def settings_with_one_line(version_2_settings_cfg):
 
 
 def test_writes_the_solution_lines_it_is_given(settings_with_one_line):
-    assert settings_cfg_text(settings_with_one_line).endswith(
+    assert settings_cfg_bytes(settings_with_one_line).endswith(
         b"\r\n1\r\n-1\r\n0 0 0 0 0 0 0 0 0 0 0 \r\n"
     )
+
+
+@pytest.fixture
+def old_settings_file(tmp_path):
+    """An existing settings.cfg alone in its own folder."""
+    folder = tmp_path / "saved"
+    folder.mkdir()
+    path = folder / "settings.cfg"
+    path.write_bytes(b"old")
+    return path
+
+
+def test_writing_replaces_the_file_and_leaves_no_temporary_file(
+    old_settings_file, settings_with_one_line
+):
+    write_settings_cfg(old_settings_file, settings_with_one_line)
+
+    assert [path.name for path in old_settings_file.parent.iterdir()] == ["settings.cfg"]
+    assert old_settings_file.read_bytes() == settings_cfg_bytes(settings_with_one_line)
 
 
 @pytest.fixture

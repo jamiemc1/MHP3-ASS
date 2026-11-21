@@ -20,6 +20,7 @@ from mhp3ass.query import CharmMode
 from mhp3ass.results.result_set import ResultSet, lines_of, skill_indices
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.view import ResultsView
+from mhp3ass.saved_data import write_atomically
 from mhp3ass.skill_picker import SkillSelection
 from mhp3ass.solution import calculate_data
 from mhp3ass.solution.state import Solution
@@ -110,7 +111,7 @@ def read_settings_cfg(path: Path) -> SettingsCfg:
     return settings
 
 
-def settings_cfg_text(settings: SettingsCfg) -> bytes:
+def settings_cfg_bytes(settings: SettingsCfg) -> bytes:
     """``SaveConfig``'s file for ``settings``: version 2, six skill rows, UTF-8
     without a byte order mark, CRLF after every line. Settings read from a
     version 1 file need their sixth row from the skill drop-downs first."""
@@ -143,6 +144,11 @@ def settings_cfg_text(settings: SettingsCfg) -> bytes:
     text = "".join(f"{line}\r\n" for line in lines)
     data = text.encode("utf-8")
     return data
+
+
+def write_settings_cfg(path: Path, settings: SettingsCfg) -> None:
+    """Write ``settings`` to ``path`` atomically (``write_atomically``)."""
+    write_atomically(path, settings_cfg_bytes(settings))
 
 
 def parse_solution_line(line: str, game: GameData) -> Solution:
