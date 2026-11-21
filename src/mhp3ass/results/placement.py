@@ -26,8 +26,7 @@ from dataclasses import dataclass
 from itertools import combinations, combinations_with_replacement
 
 from mhp3ass.data import GameData
-from mhp3ass.decorations import decoration_skill_at
-from mhp3ass.model import Ability, AbilityPair, Armor, Charm, Decoration, Skill
+from mhp3ass.model import Ability, AbilityPair, Armor, Charm, Decoration, Skill, points_in
 from mhp3ass.query import Query, rank_locked
 from mhp3ass.skills import get_skill
 from mhp3ass.solution import matches_query
@@ -675,7 +674,7 @@ def _unbeaten(decorations: list[Decoration], watched: set[Ability]) -> list[Deco
     profiles = [
         (
             decoration.slots_required,
-            tuple(decoration_skill_at(decoration, ability) for ability in order),
+            tuple(points_in(decoration.abilities, ability) for ability in order),
         )
         for decoration in decorations
     ]

@@ -32,8 +32,13 @@ from mhp3ass.saved_data import (
 )
 from mhp3ass.saved_state import read_startup_settings, startup
 from mhp3ass.savefile.import_charms import SaveFileError, default_import, read_save
-from mhp3ass.search import SearchData, WorkerProgress, dotnet_exception_type, run_search
-from mhp3ass.solution.state import LegacyNullReferenceError
+from mhp3ass.search import (
+    SEARCH_ERRORS,
+    SearchData,
+    WorkerProgress,
+    dotnet_exception_type,
+    run_search,
+)
 
 # Lazy, so `search` and `import-save` don't load Textual.
 lazy from mhp3ass.tui.app import AppFiles, SearchApp
@@ -143,7 +148,7 @@ def _search(args: argparse.Namespace) -> int:
             # The skill checks and the my-charms lines, which need the game.
             print(f"{args.query}: {error}", file=sys.stderr)
             return 1
-        except (LegacyNullReferenceError, LookupError) as error:
+        except SEARCH_ERRORS as error:
             exception_type = dotnet_exception_type(error)
             if exception_type is None:
                 raise

@@ -14,9 +14,8 @@ from mhp3ass.decorations import (
     best_decoration_for_query,
     decoration_is_better_than,
     decoration_matches_query,
-    decoration_skill_at,
 )
-from mhp3ass.model import Ability, Skill
+from mhp3ass.model import Ability, Skill, points_in
 from mhp3ass.query import Query
 from solution_builders import make_jewel
 
@@ -53,12 +52,12 @@ def test_second_skill_comparison_is_unsigned(attack, sharpness):
     assert decoration_is_better_than(positive, negative)
 
 
-def test_skill_at_is_zero_for_other_abilities(attack, sharpness):
+def test_points_in_a_decoration_are_zero_for_other_abilities(attack, sharpness):
     decoration = make_jewel("one skill", attack, 2)
 
     assert [
-        decoration_skill_at(decoration, attack),
-        decoration_skill_at(decoration, sharpness),
+        points_in(decoration.abilities, attack),
+        points_in(decoration.abilities, sharpness),
     ] == [2, 0]
 
 

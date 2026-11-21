@@ -7,13 +7,8 @@ from collections.abc import Callable
 
 import pytest
 
-from mhp3ass.armor import (
-    armor_is_better_than,
-    armor_matches_query,
-    armor_skill_at,
-    has_query_skills,
-)
-from mhp3ass.model import Ability, Armor, Gender, HunterType
+from mhp3ass.armor import armor_is_better_than, armor_matches_query, has_query_skills
+from mhp3ass.model import Ability, Armor, Gender, HunterType, points_in
 from mhp3ass.query import Query
 
 
@@ -42,13 +37,22 @@ def test_query_skills_are_positive_points_in_a_relevant_ability(
     assert has_query_skills(piece, rel_abilities=[attack]) is has_skills
 
 
-def test_skill_at_reads_points_or_zero(
+def test_points_in_reads_a_piece_s_points_or_zero(
     make_armor: Callable[..., Armor], attack: Ability, defense: Ability
 ):
     piece = make_armor(abilities=[(attack, 3)])
 
-    assert armor_skill_at(piece, attack) == 3
-    assert armor_skill_at(piece, defense) == 0
+    assert points_in(piece.abilities, attack) == 3
+    assert points_in(piece.abilities, defense) == 0
+
+
+def test_points_in_takes_the_first_pair_for_an_ability(
+    make_armor: Callable[..., Armor], attack: Ability
+):
+    """GetSkillAt returns from the first matching pair (Armor.cpp:171-173)."""
+    piece = make_armor(abilities=[(attack, 3), (attack, 5)])
+
+    assert points_in(piece.abilities, attack) == 3
 
 
 @pytest.mark.parametrize(

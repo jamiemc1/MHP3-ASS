@@ -97,21 +97,21 @@ def worker_charms(
     """
     if not query.skills:
         return []
-    if charm_mode > CharmMode.MY_CHARMS:
-        for ability in query.rel_abilities:
-            if ability.auto_guard:
-                auto_guard_charm = next(
-                    (
-                        charm
-                        for charm in my_charms
-                        if len(charm.abilities) == 1 and charm.abilities[0].ability is ability
-                    ),
-                    None,
-                )
-                auto_guard_workers: list[Charm | None] = (
-                    [] if auto_guard_charm is None else [auto_guard_charm]
-                )
-                return auto_guard_workers
+    auto_guard = next((ability for ability in query.rel_abilities if ability.auto_guard), None)
+    generated_modes = (CharmMode.SLOTTED, CharmMode.ONE_SKILL, CharmMode.TWO_SKILL)
+    if charm_mode in generated_modes and auto_guard is not None:
+        auto_guard_charm = next(
+            (
+                charm
+                for charm in my_charms
+                if len(charm.abilities) == 1 and charm.abilities[0].ability is auto_guard
+            ),
+            None,
+        )
+        auto_guard_workers: list[Charm | None] = (
+            [] if auto_guard_charm is None else [auto_guard_charm]
+        )
+        return auto_guard_workers
     workers: list[Charm | None]
     match charm_mode:
         case CharmMode.NONE:
@@ -240,11 +240,20 @@ def raise_if_cancelled(cancel: Event | None) -> None:
         raise SearchCancelled("the search was cancelled")
 
 
-def is_search_error(error: BaseException) -> TypeIs[LegacyNullReferenceError | LookupError]:
-    """Whether ``error`` is one ``run_worker`` itself can raise, which the
-    serial search records or propagates; anything else is a failure of the
-    pool and fails the search."""
-    search_error = isinstance(error, (LegacyNullReferenceError, LookupError))
+SEARCH_ERRORS = (LegacyNullReferenceError, LookupError)
+"""The errors ``run_worker`` itself can raise: a null dereference, and the
+lookups (``KeyError``, ``IndexError`` and the port's subclasses of them).
+``dotnet_exception_type`` says which the original also throws. The serial
+search records or propagates them; anything else is a failure of the pool
+and fails the search. ``SearchError`` names the same types for annotations:
+change both together."""
+
+type SearchError = LegacyNullReferenceError | LookupError
+
+
+def is_search_error(error: BaseException) -> TypeIs[SearchError]:
+    """Whether ``error`` is one of ``SEARCH_ERRORS``."""
+    search_error = isinstance(error, SEARCH_ERRORS)
     return search_error
 
 
@@ -456,7 +465,7 @@ def run_search(
                         data.game,
                         on_step=step if needs_steps else None,
                     )
-                except (LegacyNullReferenceError, LookupError) as error:
+                except SEARCH_ERRORS as error:
                     exception = _recorded_exception(
                         error, worker=number, template=template, record_exceptions=record_exceptions
                     )

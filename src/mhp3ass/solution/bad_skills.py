@@ -176,9 +176,10 @@ def count_1_socket_gems(solution: Solution, ability: Ability) -> OneSlotGems | N
     return gems
 
 
-def get_replacable(solution: Solution, ability: Ability, slots: int) -> int:
-    """``Solution::GetReplacable`` (Solution.cpp:149-155): the first decoration of
-    ``slots`` slots with a second skill other than ``ability``, or -1."""
+def get_replacable(solution: Solution, ability: Ability, slots: int) -> int | None:
+    """``Solution::GetReplacable`` (Solution.cpp:149-155): the index of the first
+    decoration of ``slots`` slots with a second skill other than ``ability``,
+    or None where the original returns -1."""
     for index, decoration in enumerate(solution.decorations):
         if (
             decoration.slots_required == slots
@@ -186,7 +187,7 @@ def get_replacable(solution: Solution, ability: Ability, slots: int) -> int:
             and decoration.abilities[1].ability is not ability
         ):
             return index
-    return -1
+    return None
 
 
 def replace(solution: Solution, index: int, decoration: Decoration) -> None:
@@ -232,7 +233,7 @@ def reorder_gems(data: CalculationData, game: GameData) -> bool:
             return False
 
         other = get_replacable(solution, skill.ability, bigger_slotted.slots_required)
-        if other == -1:
+        if other is None:
             return False
         other_decoration = solution.decorations[other]
         if not (
@@ -246,8 +247,10 @@ def reorder_gems(data: CalculationData, game: GameData) -> bool:
         replaced_amount = solution.decorations[other].abilities[0].amount
         num_to_replace = replaced_amount if replaced_amount > num_required else num_required
         num_replaced = 0
-        for index in range(len(solution.decorations)):
-            if solution.decorations[index] is one_slot:
+        # replace() only overwrites the entry at index, so enumerate sees each
+        # later entry as it is when reached, as the original's index loop does.
+        for index, decoration in enumerate(solution.decorations):
+            if decoration is one_slot:
                 # num_replaced++ < num_to_replace: compares, then counts.
                 replacing = num_replaced < num_to_replace
                 num_replaced += 1

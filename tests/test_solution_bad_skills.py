@@ -271,7 +271,7 @@ def test_get_replacable_skips_gems_of_the_bad_skill(attack, defense):
 
     found = (get_replacable(solution, defense, 3), get_replacable(solution, defense, 2))
 
-    assert found == (1, -1)
+    assert found == (1, None)
 
 
 def test_replace_indexes_abilities_plainly(attack, defense):

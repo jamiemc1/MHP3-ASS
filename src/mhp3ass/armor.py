@@ -1,19 +1,13 @@
 """Matching and comparing armour pieces for a query.
 
 Ported from ``Armor::MatchesQuery``, ``Armor::IsBetterThan`` and
-``Armor::GetSkillAt`` (``legacy/Armor.cpp:105-175``).
+``Armor::GetSkillAt`` (``legacy/Armor.cpp:105-175``; ``GetSkillAt`` is ``model.points_in``).
 """
 
 from __future__ import annotations
 
-from mhp3ass.model import Ability, Armor, Gender, HunterType
+from mhp3ass.model import Ability, Armor, Gender, HunterType, points_in
 from mhp3ass.query import Query, rank_locked
-
-
-def armor_skill_at(armor: Armor, ability: Ability) -> int:
-    """``Armor::GetSkillAt``: the piece's points in ``ability``, or 0."""
-    points = next((pair.amount for pair in armor.abilities if pair.ability is ability), 0)
-    return points
 
 
 def armor_available(armor: Armor, query: Query) -> bool:
@@ -89,6 +83,7 @@ def armor_is_better_than(armor: Armor, other: Armor, rel_abilities: list[Ability
     if armor.torso_inc or other.torso_inc:
         return True
     better = any(
-        armor_skill_at(armor, ability) > armor_skill_at(other, ability) for ability in rel_abilities
+        points_in(armor.abilities, ability) > points_in(other.abilities, ability)
+        for ability in rel_abilities
     )
     return better
