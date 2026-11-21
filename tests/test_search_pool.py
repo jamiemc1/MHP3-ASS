@@ -16,6 +16,7 @@ import pytest
 
 from mhp3ass.charms.my_charms import load_query_my_charms
 from mhp3ass.data import apply_language, load_game_data
+from mhp3ass.data.languages import language_dir
 from mhp3ass.parallel import (
     ChildStateError,
     PoolSearch,
@@ -31,7 +32,7 @@ from mhp3ass.parallel import (
 )
 from mhp3ass.relevance import formulate_query
 from mhp3ass.results.result_set import skill_indices, solution_line
-from mhp3ass.search import StepReporter, armor_choices, language_dir, run_search, worker_charms
+from mhp3ass.search import StepReporter, armor_choices, run_search, worker_charms
 from mhp3ass.solution.record import SolutionRecord, from_record
 from mhp3ass.solution.state import LegacyNullReferenceError
 
