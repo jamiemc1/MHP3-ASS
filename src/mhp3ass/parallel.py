@@ -40,6 +40,7 @@ from mhp3ass.model import Charm
 from mhp3ass.query import Query, QuerySpec
 from mhp3ass.relevance import formulate_query
 from mhp3ass.search import (
+    SEARCH_ERRORS,
     PoolResult,
     SearchCancelled,
     StepReporter,
@@ -58,7 +59,6 @@ from mhp3ass.solution.record import (
     charm_record,
     to_record,
 )
-from mhp3ass.solution.state import LegacyNullReferenceError
 
 
 @dataclass(frozen=True, slots=True)
@@ -178,7 +178,7 @@ class RebuiltSearch:
             game = load_game_data(search.data_dir)
             apply_language(game, language_dir(search.data_dir, search.query.language))
             query = formulate_query(game, search.query)
-        except (LegacyNullReferenceError, LookupError) as error:
+        except SEARCH_ERRORS as error:
             raise ChildStateError(f"rebuilding query {search.query.id} raised {error!r}") from error
         armor_indices = armor_choice_indices(query)
         if armor_indices != search.armor_indices:
