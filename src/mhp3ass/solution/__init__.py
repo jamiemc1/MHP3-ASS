@@ -94,8 +94,8 @@ def matches_query(solution: Solution, query: Query, game: GameData) -> bool:
     skill. The filling pass allows bad skills and detrimental gems whatever
     the query says; the query's ``allow_bad`` only decides whether bad skills
     must then be repaired. A rejected solution keeps the state it reached.
-    Reads ``game`` for the decorations the bad-skill repairs may use, and the
-    abilities' ``relevant`` flags that building the query set.
+    Reads ``game`` for the decorations the bad-skill repairs may use, and
+    ``query.relevant_abilities``, which building the query set.
     """
     data = new_calculation_data(solution, query)
     accepted = match(data, game) is Outcome.ACCEPTED

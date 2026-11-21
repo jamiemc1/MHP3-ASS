@@ -36,7 +36,6 @@ from mhp3ass.results.placement import (
 )
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.saved_state import LoadedResults, restore_search
-from mhp3ass.savefile.import_charms import select_best
 from mhp3ass.search import SearchData, run_search
 from mhp3ass.solution import matches_query
 from mhp3ass.solution.state import Solution
@@ -792,29 +791,6 @@ def refilling_loaded_set(loaded_capture_13) -> RefillingSet:
         if refill is not None:
             return RefillingSet(solution=solution, refill=refill)
     raise LookupError("capture 13 has no loaded set that refills")
-
-
-def test_a_loaded_set_refills_the_same_after_a_charm_import(
-    loaded_capture_13, refilling_loaded_set
-):
-    """In the original a charm import leaves every ability relevant, under
-    which this set's fill would fail (a relevant ability it has no need for).
-    The port's select_best compares on every ability without marking any, so
-    the loaded query's own relevance still applies."""
-    game = loaded_capture_13.data.game
-    select_best([], game=game)
-
-    after = refilled(
-        refilling_loaded_set.solution, query=loaded_capture_13.results.query, game=game
-    )
-
-    before = refilling_loaded_set.refill
-    assert after is not None
-    assert [after.torso_multiplier, after.body_decorations, after.non_body_decorations] == [
-        before.torso_multiplier,
-        before.body_decorations,
-        before.non_body_decorations,
-    ]
 
 
 def test_a_loaded_set_waits_while_a_search_runs(loaded_capture_13, refilling_loaded_set):
