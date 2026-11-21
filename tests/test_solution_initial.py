@@ -6,7 +6,7 @@ from __future__ import annotations
 import pytest
 
 from mhp3ass.model import AbilityPair, Charm, Skill
-from mhp3ass.solution.initial import add_decoration, detrimental, get_initial_data
+from mhp3ass.solution.initial import add_armor_stats, add_decoration, detrimental, get_initial_data
 from mhp3ass.solution.state import Solution, new_calculation_data
 from solution_builders import make_jewel
 from solution_trace import Stage, stage_mismatches
@@ -178,3 +178,50 @@ def test_detrimental_only_for_a_relevant_second_skill_falling_short(make_query, 
     enough = detrimental(jewel, data)
 
     assert (irrelevant, short, enough) == (False, True, False)
+
+
+def test_add_armor_stats_adds_each_stat(make_armor):
+    solution = Solution(armors=[None] * 5, charm=None)
+    piece = make_armor(
+        defence=10,
+        max_defence=20,
+        fire_res=1,
+        water_res=2,
+        ice_res=3,
+        thunder_res=4,
+        dragon_res=5,
+        rarity=6,
+        difficulty=7,
+    )
+
+    add_armor_stats(solution, piece)
+    add_armor_stats(solution, piece)
+
+    stats = [
+        solution.defence,
+        solution.max_defence,
+        solution.fire_res,
+        solution.water_res,
+        solution.ice_res,
+        solution.thunder_res,
+        solution.dragon_res,
+        solution.rarity,
+        solution.difficulty,
+    ]
+    assert stats == [20, 40, 2, 4, 6, 8, 10, 12, 14]
+
+
+def test_add_armor_stats_wraps_the_unsigned_stats_but_not_resistances(make_armor):
+    solution = Solution(armors=[None] * 5, charm=None)
+    piece = make_armor(defence=-1, max_defence=-2, rarity=-3, difficulty=-4, fire_res=-5)
+
+    add_armor_stats(solution, piece)
+
+    stats = [
+        solution.defence,
+        solution.max_defence,
+        solution.rarity,
+        solution.difficulty,
+        solution.fire_res,
+    ]
+    assert stats == [2**32 - 1, 2**32 - 2, 2**32 - 3, 2**32 - 4, -5]
