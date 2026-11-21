@@ -413,19 +413,23 @@ def search_manifest(
 ) -> dict[str, Any]:
     """The harness's ``<prefix>.manifest.json`` for ``result`` (``SearchDump::Run``),
     fields in its order. ``worker_lines`` are ``result``'s ``added_lines``;
-    raises ``ValueError`` if there aren't one per finished worker.
+    raises ``ValueError`` unless they hold one list per finished worker with
+    a line per solution it added.
 
     ``query_json`` is a compact re-serialisation of ``spec_json``, not the
     harness's byte for byte, so compare it parsed. ``max_solution_lines``
     below 0 means no limit; above it ``solutions_file`` is false.
     """
-    if len(worker_lines) != len(result.workers):
+    line_counts = [len(kept) for kept in worker_lines]
+    added_counts = [len(worker.added) for worker in result.workers]
+    if line_counts != added_counts:
         raise ValueError(
-            f"{len(worker_lines)} workers' lines for {len(result.workers)} finished workers"
+            f"workers' line counts {line_counts} for the finished workers' added {added_counts}"
         )
     workers = []
     lines: list[str] = []
-    for number, (worker, kept) in enumerate(zip(result.workers, worker_lines, strict=True)):
+    for number, worker in enumerate(result.workers):
+        kept = worker_lines[number]
         lines += kept
         workers.append(
             {
