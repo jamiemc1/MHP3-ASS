@@ -33,8 +33,10 @@ from mhp3ass.results.placement import (
     place_can_matter,
     refilled,
 )
+from mhp3ass.results.result_set import skill_indices, solution_line
 from mhp3ass.saved_state import LoadedResults, restore_search
 from mhp3ass.search import SearchData, run_search
+from mhp3ass.settings_cfg import parse_solution_line
 from mhp3ass.solution import matches_query
 from mhp3ass.solution.state import Place, Solution
 
@@ -555,6 +557,29 @@ def test_a_set_no_jewels_build_says_which_bad_skill_stays(protection_search):
     )
 
     assert reasons == Counter({("Demonic Protection",): 10})
+
+
+def test_a_loaded_set_no_listed_jewels_build_has_no_placement(protection_search):
+    """f318's 10 sets no jewel list builds, saved to settings.cfg lines and
+    loaded again: each refills to the loaded jewels, but the file doesn't
+    keep the charm before reduction, so step 3 can't tell whether one builds."""
+    query = protection_search.result.query
+    game = protection_search.data.game
+    skill_index = skill_indices(game)
+    loaded = []
+    for solution in protection_search.result.results.all_solutions:
+        if solution.torso_multiplier <= 1:
+            continue
+        searched = chest_jewels(solution, query=query, refill_game=game)
+        if isinstance(searched, UnbuildableJewels):
+            loaded.append(parse_solution_line(solution_line(solution, skill_index), game))
+
+    refilling = [
+        solution for solution in loaded if refilled(solution, query=query, game=game) is not None
+    ]
+    placements = {chest_jewels(solution, query=query, refill_game=game) for solution in loaded}
+
+    assert [len(loaded), len(refilling), placements] == [10, 10, {UnknownPlacement()}]
 
 
 def test_a_loaded_set_needing_the_charm_before_reduction_has_no_correction(
