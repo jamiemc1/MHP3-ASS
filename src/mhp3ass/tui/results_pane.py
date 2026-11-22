@@ -63,10 +63,11 @@ class ShownResults:
 
 @dataclass(frozen=True)
 class BuiltRows:
-    """The table's rows for a view, built before ``show`` (off the UI
+    """The table's rows for ``view``, built before ``show`` (off the UI
     thread), and the names they were built with."""
 
-    rows: list[TableRow]
+    view: ResultsView
+    rows: Sequence[TableRow]
     names: ShortNames
 
 
@@ -209,12 +210,6 @@ class ResultsPane(Horizontal):
         return self._shown
 
     @property
-    def view(self) -> ResultsView | None:
-        """The shown results' view, as the sidebar and the sort have left it."""
-        view = self._shown.view if self._shown is not None else None
-        return view
-
-    @property
     def sort_key(self) -> SortKey:
         return self._sort_key
 
@@ -274,10 +269,11 @@ class ResultsPane(Horizontal):
 
     def show(self, shown: ShownResults, built: BuiltRows | None = None) -> None:
         """Show new results, with the note in the sets' bottom border until
-        the next ones. Their view is sorted again if it wasn't built with the
-        pane's sort and reverse (they changed while a search ran). The table's
-        rows are ``built``'s when they still fit (the view kept its order and
-        the names are the table's); otherwise they are built here."""
+        the next ones. Their view is sorted again whenever its sort or
+        reverse differs from the pane's (loaded results, or a search during
+        which they changed). The table's rows are ``built``'s when they still
+        fit (built for this view, which kept its order, with the table's
+        names); otherwise they are built here."""
         self._shown = shown
         table = self.query_one("#results", ResultsTable)
         table.empty_text = "No sets."
@@ -290,7 +286,7 @@ class ResultsPane(Horizontal):
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
             built = None
-        if built is not None and built.names == self.table_names:
+        if built is not None and built.view is view and built.names == self.table_names:
             rows = built.rows
         else:
             rows = view_rows(view, names=self.table_names, query=shown.query)
@@ -374,7 +370,7 @@ class ResultsPane(Horizontal):
 
     def show_searching(self, running: bool) -> None:
         """Before the first results, the empty table says whether a search is running."""
-        if self.view is not None:
+        if self._shown is not None:
             return
         table = self.query_one("#results", ResultsTable)
         table.empty_text = "Searching…" if running else _BEFORE_SEARCH
@@ -386,8 +382,8 @@ class ResultsPane(Horizontal):
         if key is None or key is self._sort_key:
             return
         self._sort_key = key
-        if self.view is not None:
-            self.view.select_sort(key)
+        if self._shown is not None:
+            self._shown.view.select_sort(key)
             self._fill_table()
         else:
             self._update_title()
@@ -400,8 +396,8 @@ class ResultsPane(Horizontal):
         # A selection posted before the list was refilled names an old option.
         index = event.option_index
         current = index < len(self._options) and event.option is self._options[index]
-        if self.view is not None and current:
-            self.view.select_filter(self._filters[index])
+        if self._shown is not None and current:
+            self._shown.view.select_filter(self._filters[index])
             self.query_one("#charm_choice", Select).value = index
             self._fill_table()
 
@@ -411,12 +407,13 @@ class ResultsPane(Horizontal):
             return
         event.stop()
         index = event.value
-        if self.view is None or not isinstance(index, int) or index >= len(self._filters):
+        if self._shown is None or not isinstance(index, int) or index >= len(self._filters):
             return
+        view = self._shown.view
         chosen = self._filters[index]
-        if chosen == self.view.charm_filter:
+        if chosen == view.charm_filter:
             return
-        self.view.select_filter(chosen)
+        view.select_filter(chosen)
         self.query_one("#charm_filter", OptionList).highlighted = index
         self._fill_table()
 
@@ -473,16 +470,16 @@ class ResultsPane(Horizontal):
 
     def reverse_sort(self) -> None:
         self.reverse = not self.reverse
-        if self.view is not None:
-            self.view.select_reverse(self.reverse)
+        if self._shown is not None:
+            self._shown.view.select_reverse(self.reverse)
             self._fill_table()
         else:
             self._update_title()
 
     def _fill_filters(self) -> None:
-        view = self.view
-        if view is None:
+        if self._shown is None:
             return
+        view = self._shown.view
         entries = view.charm_filter_entries(
             all_label=self._strings.static(StringIndex.ALL),
             none_label=self._strings.basic(StringIndex.NONE),
@@ -509,7 +506,7 @@ class ResultsPane(Horizontal):
         choice.mutate_reactive(Select.value)
 
     def _title(self) -> str:
-        shown = len(self.view.final) if self.view is not None else None
+        shown = len(self._shown.view.final) if self._shown is not None else None
         name = self._strings.basic(sort_label(self._sort_key))
         title = sets_title(shown, self._sort_key, sort_name=name, reverse=self.reverse)
         return title

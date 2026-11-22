@@ -430,14 +430,14 @@ class SearchApp(App[bool]):
         """What ``SaveConfig`` writes: the form as edited, the sort and the
         shown results' ``all_solutions``."""
         pane = self.query_one(ResultsPane)
-        view = pane.view
+        shown = pane.shown
         settings = settings_for(
             self.editor.form,
             game=self._data.game,
             language_index=self._files.language_index,
             last_search_gunner=self._last_search_gunner,
             sort_key=pane.sort_key,
-            solutions=view.all_solutions if view is not None else [],
+            solutions=shown.view.all_solutions if shown is not None else [],
         )
         return settings
 
@@ -1334,7 +1334,9 @@ class SearchApp(App[bool]):
         if cancel.is_set():
             return
         view = ResultsView.from_search(result.results, sort_key=sort_key, reverse=reverse)
-        built = BuiltRows(rows=view_rows(view, names=names, query=result.query), names=names)
+        built = BuiltRows(
+            view=view, rows=view_rows(view, names=names, query=result.query), names=names
+        )
         self.call_from_thread(self._search_finished, number, result, view, built)
 
     def _search_finished(
