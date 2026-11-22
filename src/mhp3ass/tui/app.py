@@ -82,7 +82,7 @@ from mhp3ass.set_output import (
 )
 from mhp3ass.settings_cfg import SettingsCfg, write_settings_cfg
 from mhp3ass.solution.state import LegacyNullReferenceError
-from mhp3ass.spatial import Direction, FieldBox, neighbour
+from mhp3ass.spatial import Direction
 from mhp3ass.themes import ThemePreview, starting_theme
 from mhp3ass.tui.help_screen import HelpScreen
 from mhp3ass.tui.inspector import Inspector
@@ -720,10 +720,6 @@ class SearchApp(App[bool]):
         event.stop()
         self.action_search()
 
-    def on_skill_picker_left_upwards(self, event: SkillPicker.LeftUpwards) -> None:
-        event.stop()
-        self.action_spatial(Direction.UP.value)
-
     def action_search(self) -> None:
         if self._cancel is not None:
             return
@@ -845,55 +841,10 @@ class SearchApp(App[bool]):
         return on_field
 
     def action_spatial(self, direction: str) -> None:
-        """An arrow on an editor field: the field beside it, or on the row
-        above or below (``spatial.neighbour``). Each of the editor's
-        horizontal containers is a row; a field outside one is a row of its own.
-        An arrow with no field that way does nothing (⏎ or space opens a drop-down)."""
-        fields = self._editor_fields()
-        current = self._focused_field(fields)
-        if current is None:
-            return
-        rows: dict[Widget, list[FieldBox]] = {}
-        for key, widget in enumerate(fields):
-            row = self._editor_row(widget)
-            rows.setdefault(row, []).append(
-                FieldBox(key, x=self._editor_x(widget), width=widget.virtual_region.width)
-            )
-        target = neighbour(list(rows.values()), current=current, direction=Direction(direction))
-        if target is not None:
-            fields[target].focus()
-
-    def _editor_row(self, widget: Widget) -> Widget:
-        """The row ``widget`` is on: the outermost of the containers around
-        it laid out side by side, as the CSS has them at the time (the
-        spread editor stacks some), or ``widget`` alone outside any."""
-        row = widget
-        for ancestor in widget.ancestors:
-            if ancestor is self.editor or not isinstance(ancestor, Widget):
-                break
-            layout = ancestor.styles.layout
-            if layout is not None and layout.name == "horizontal":
-                row = ancestor
-            elif row is not widget:
-                break
-        return row
-
-    def _focused_field(self, fields: list[Widget]) -> int | None:
-        """The index of the focused widget in ``fields``, or ``None``."""
-        focused = self.focused
-        index = next((index for index, field in enumerate(fields) if field is focused), None)
-        return index
-
-    def _editor_x(self, widget: Widget) -> int:
-        """``widget``'s column in the editor's own frame, whatever the
-        containers between them (each ``virtual_region`` is its container's)."""
-        x = widget.virtual_region.x
-        for ancestor in widget.ancestors:
-            if ancestor is self.editor:
-                break
-            if isinstance(ancestor, Widget):
-                x += ancestor.virtual_region.x
-        return x
+        """An arrow on an editor field moves to the field that way
+        (``QueryEditor.move_focus``); with none, it does nothing (⏎ or space
+        opens a drop-down)."""
+        self.editor.move_focus(Direction(direction))
 
     def action_cycle(self, step: int) -> None:
         """Tab (``step`` 1) and Shift+Tab (-1): inside the open editor, the
@@ -910,12 +861,8 @@ class SearchApp(App[bool]):
             pane.show_inspector(False)
             region = Region.SETS
         editor_open = self.editor.display
-        if region is Region.QUERY and editor_open:
-            fields = self._editor_fields()
-            current = self._focused_field(fields)
-            if current is not None and 0 <= current + step < len(fields):
-                fields[current + step].focus()
-                return
+        if region is Region.QUERY and editor_open and self.editor.step_focus(step):
+            return
         target = next_region(
             region,
             step=step,
@@ -943,18 +890,12 @@ class SearchApp(App[bool]):
             return Region.SETS
         return None
 
-    def _editor_fields(self) -> list[Widget]:
-        """The open editor's widgets that take focus, in Tab order."""
-        fields = [widget for widget in self.screen.focus_chain if self.editor in widget.ancestors]
-        return fields
-
     def _focus_editor_end(self, step: int) -> None:
         """Entering the open editor: its first field going forwards (``step``
         1), its last going back."""
-        fields = self._editor_fields()
-        if fields:
+        if self.editor.focus_fields():
             self._restore_unless_within(self.editor)
-            fields[0 if step > 0 else -1].focus()
+            self.editor.focus_end(step)
 
     def _restore_unless_within(self, widget: Widget) -> None:
         """Restore a maximised region, unless ``widget`` is in it: the

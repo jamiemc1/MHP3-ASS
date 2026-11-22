@@ -13,6 +13,7 @@ from rich.cells import cell_len
 from textual import events
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
+from textual.widget import Widget
 from textual.widgets import Button, Label, Select, Static
 
 from mhp3ass.data import GameData
@@ -22,6 +23,7 @@ from mhp3ass.model import Gender, HunterType
 from mhp3ass.query import CharmMode
 from mhp3ass.query_form import QueryForm, charm_mode_label
 from mhp3ass.regions import Region
+from mhp3ass.spatial import Direction, FieldBox, neighbour
 from mhp3ass.tui.skill_picker import SkillPicker
 from mhp3ass.tui.titles import region_title
 
@@ -252,6 +254,86 @@ class QueryEditor(Vertical):
     def on_skill_picker_rows_changed(self, event: SkillPicker.RowsChanged) -> None:
         event.stop()
         self.form = self.form.with_rows(event.hunter_type, rows=event.rows)
+
+    def on_skill_picker_left_upwards(self, event: SkillPicker.LeftUpwards) -> None:
+        event.stop()
+        self.move_focus(Direction.UP)
+
+    def focus_fields(self) -> list[Widget]:
+        """The editor's widgets that take focus, in Tab order; none while a
+        modal is over the editor's screen, so nothing under it moves."""
+        focus_chain = self.app.screen.focus_chain
+        focusable = [widget for widget in focus_chain if self in widget.ancestors]
+        return focusable
+
+    def move_focus(self, direction: Direction) -> None:
+        """Focus the field beside the focused one, or on the row above or
+        below (``spatial.neighbour``). Each of the editor's horizontal
+        containers is a row; a field outside one is a row of its own. With
+        no field that way, or the focus on none, nothing moves."""
+        focusable = self.focus_fields()
+        current = self._focused_field(focusable)
+        if current is None:
+            return
+        rows: dict[Widget, list[FieldBox]] = {}
+        for key, widget in enumerate(focusable):
+            row = self._row_of(widget)
+            rows.setdefault(row, []).append(
+                FieldBox(key, x=self._x_of(widget), width=widget.virtual_region.width)
+            )
+        target = neighbour(list(rows.values()), current=current, direction=direction)
+        if target is not None:
+            focusable[target].focus()
+
+    def step_focus(self, step: int) -> bool:
+        """Focus the next (``step`` 1) or previous (-1) field after the
+        focused one. ``False``, moving nothing, when the focus is on no field
+        or the step would leave the editor past either end."""
+        focusable = self.focus_fields()
+        current = self._focused_field(focusable)
+        if current is None or not 0 <= current + step < len(focusable):
+            return False
+        focusable[current + step].focus()
+        return True
+
+    def focus_end(self, step: int) -> None:
+        """Entering the editor: focus its first field going forwards
+        (``step`` 1), its last going back."""
+        focusable = self.focus_fields()
+        if focusable:
+            focusable[0 if step > 0 else -1].focus()
+
+    def _focused_field(self, focusable: list[Widget]) -> int | None:
+        """The index of the focused widget in ``focusable``, or ``None``."""
+        focused = self.app.focused
+        index = next((index for index, field in enumerate(focusable) if field is focused), None)
+        return index
+
+    def _row_of(self, widget: Widget) -> Widget:
+        """The row ``widget`` is on: the outermost of the containers around
+        it laid out side by side, as the CSS has them at the time (the
+        spread editor stacks some), or ``widget`` alone outside any."""
+        row = widget
+        for ancestor in widget.ancestors:
+            if ancestor is self or not isinstance(ancestor, Widget):
+                break
+            layout = ancestor.styles.layout
+            if layout is not None and layout.name == "horizontal":
+                row = ancestor
+            elif row is not widget:
+                break
+        return row
+
+    def _x_of(self, widget: Widget) -> int:
+        """``widget``'s column in the editor's own frame, whatever the
+        containers between them (each ``virtual_region`` is its container's)."""
+        x = widget.virtual_region.x
+        for ancestor in widget.ancestors:
+            if ancestor is self:
+                break
+            if isinstance(ancestor, Widget):
+                x += ancestor.virtual_region.x
+        return x
 
 
 def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Select[int]:
