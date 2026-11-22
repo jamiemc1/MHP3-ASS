@@ -6,11 +6,10 @@ import pytest
 
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data.strings import StringIndex
-from mhp3ass.model import AbilityPair, ArmorType, Charm
+from mhp3ass.model import AbilityPair, ArmorType, Charm, Decoration
 from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
-    ChestJewels,
     CorrectedJewels,
     DecorationCount,
     Placement,
@@ -31,7 +30,7 @@ from mhp3ass.results.inspector import (
     slot_label,
     spare_text,
 )
-from mhp3ass.results.placement import ShortSkill, Unbuildable
+from mhp3ass.results.placement import JewelPlacement, ShortSkill, Unbuildable
 from mhp3ass.solution.state import Solution
 
 
@@ -240,6 +239,12 @@ def jewel_counts(teamhgg_game) -> list[DecorationCount]:
     return counts
 
 
+def _each(*counts: DecorationCount) -> tuple[Decoration, ...]:
+    """Each counted jewel as many times as it is counted, in order."""
+    jewels = tuple(count.decoration for count in counts for _ in range(count.count))
+    return jewels
+
+
 def _jewel_details(
     counts: list[DecorationCount],
     chest_jewels: Placement,
@@ -257,7 +262,7 @@ def _jewel_details(
 
 def test_torso_inc_jewels_are_listed_by_place(jewel_counts):
     attack, razor = jewel_counts
-    split = ChestJewels(multiplier=3, chest=(attack,), elsewhere=(razor,))
+    split = JewelPlacement(multiplier=3, chest=_each(attack), elsewhere=_each(razor))
 
     lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split))
 
@@ -267,8 +272,21 @@ def test_torso_inc_jewels_are_listed_by_place(jewel_counts):
     ]
 
 
+def test_a_jewel_placed_twice_apart_is_counted_once_in_first_placed_order(jewel_counts):
+    attack, razor = jewel_counts
+    interleaved = (attack.decoration, razor.decoration, attack.decoration)
+    split = JewelPlacement(multiplier=2, chest=interleaved, elsewhere=())
+
+    lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split))
+
+    assert lines[:2] == [
+        InspectorLine("Chest x2", f"2x {attack.decoration.name}"),
+        InspectorLine("", f"1x {razor.decoration.name}"),
+    ]
+
+
 def test_an_empty_chest_says_none(jewel_counts):
-    split = ChestJewels(multiplier=2, chest=(), elsewhere=tuple(jewel_counts))
+    split = JewelPlacement(multiplier=2, chest=(), elsewhere=_each(*jewel_counts))
 
     lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=split))
 
@@ -315,7 +333,7 @@ def test_a_corrected_set_shows_the_jewels_that_build_it(jewel_counts):
     corrected = CorrectedJewels(
         charm=None,
         charm_changed=False,
-        jewels=ChestJewels(multiplier=2, chest=(razor,), elsewhere=(attack,)),
+        jewels=JewelPlacement(multiplier=2, chest=_each(razor), elsewhere=_each(attack)),
     )
 
     lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=corrected))
@@ -334,7 +352,7 @@ def test_a_set_needing_its_unreduced_charm_names_the_charm(jewel_counts, teamhgg
     corrected = CorrectedJewels(
         charm=charm,
         charm_changed=True,
-        jewels=ChestJewels(multiplier=3, chest=(), elsewhere=(attack, razor)),
+        jewels=JewelPlacement(multiplier=3, chest=(), elsewhere=_each(attack, razor)),
     )
 
     lines = jewel_lines(_jewel_details(jewel_counts, chest_jewels=corrected))

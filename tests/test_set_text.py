@@ -12,12 +12,11 @@ from mhp3ass.data import GameData
 from mhp3ass.model import ArmorType
 from mhp3ass.results.details import (
     ArmorLine,
-    ChestJewels,
     CorrectedJewels,
     SolutionDetails,
     solution_details,
 )
-from mhp3ass.results.placement import place_can_matter
+from mhp3ass.results.placement import JewelPlacement, place_can_matter
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.set_text import set_heading, set_markdown
 from mhp3ass.results.sorting import SortKey
@@ -51,16 +50,11 @@ def _first(
     shown: Callable[[SolutionDetails], bool],
 ) -> DetailedSet:
     """The first of the search's ``chosen`` sets whose worked-out details are ``shown``."""
-    templates = tuple(worker.template for worker in search.result.workers)
     for solution in search.result.results.all_solutions:
         if not chosen(solution):
             continue
         details = solution_details(
-            solution,
-            query=search.result.query,
-            sort_key=SortKey.NONE,
-            refill_game=search.game,
-            charm_templates=templates,
+            solution, query=search.result.query, sort_key=SortKey.NONE, refill_game=search.game
         )
         if shown(details):
             return DetailedSet(solution=solution, details=details)
@@ -115,7 +109,7 @@ def test_a_torso_inc_set_lists_its_chest_jewels_apart(
     found = _first(
         one_skill_sets,
         chosen=lambda solution: solution.charm is not None,
-        shown=lambda details: isinstance(details.chest_jewels, ChestJewels),
+        shown=lambda details: isinstance(details.chest_jewels, JewelPlacement),
     )
 
     text = _markdown(found, one_skill_sets, english_strings, teamhgg_short_names)

@@ -1,25 +1,22 @@
 from __future__ import annotations
 
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import pytest
 
 from corpus_search import CorpusSearch
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
-from mhp3ass.model import Ability, Armor, ArmorType, Charm
+from mhp3ass.model import Ability, Armor, ArmorType
 from mhp3ass.query import Query, SearchSpec
 from mhp3ass.results.details import (
-    ChestJewels,
     CorrectedJewels,
-    DecorationCount,
     Placement,
     PlacementPending,
     UnbuildableJewels,
     UnknownPlacement,
     chest_jewels,
-    solution_details,
 )
 from mhp3ass.results.placement import (
     Correction,
@@ -34,11 +31,12 @@ from mhp3ass.results.placement import (
     place_can_matter,
     refilled,
 )
-from mhp3ass.results.sorting import SortKey
+from mhp3ass.results.result_set import skill_indices, solution_line
 from mhp3ass.saved_state import LoadedResults, restore_search
 from mhp3ass.search import SearchData, run_search
+from mhp3ass.settings_cfg import parse_solution_line
 from mhp3ass.solution import matches_query
-from mhp3ass.solution.state import Solution
+from mhp3ass.solution.state import Place, Solution
 
 
 @pytest.mark.parametrize(
@@ -71,14 +69,13 @@ def _searched(query_json, search_data_by_language, search_pool) -> CorpusSearch:
 class TorsoIncSets:
     """g13's Torso Inc sets whose chest has slots and that hold jewels, by
     whether their stored chest/elsewhere lists still hold the shown jewels;
-    the search's query, its weapon slots, its game and its workers' charms."""
+    the search's query, its weapon slots and its game."""
 
     agreeing: list[Solution]
     disagreeing: list[Solution]
     query: Query
     game: GameData
     weapon_slots: int
-    templates: tuple[Charm | None, ...]
 
 
 def _lists_agree(solution: Solution) -> bool:
@@ -104,7 +101,6 @@ def torso_inc_sets(one_skill_search) -> TorsoIncSets:
         query=query,
         weapon_slots=query.weapon_slots_allowed,
         game=one_skill_search.data.game,
-        templates=tuple(worker.template for worker in one_skill_search.result.workers),
     )
     return sets
 
@@ -193,6 +189,55 @@ def test_jewels_no_placement_fits_raise(torso_inc_sets):
     assert len(_unknown(torso_inc_sets)) == 33
 
 
+def _by_places(solution: Solution) -> JewelPlacement | None:
+    """The split ``places`` gives, or ``None`` with a jewel merged across places."""
+    if Place.UNPLACEABLE in solution.places:
+        return None
+    pairs = list(zip(solution.decorations, solution.places, strict=True))
+    split = JewelPlacement(
+        multiplier=solution.torso_multiplier,
+        chest=tuple(jewel for jewel, place in pairs if place is Place.CHEST),
+        elsewhere=tuple(jewel for jewel, place in pairs if place is Place.ELSEWHERE),
+    )
+    return split
+
+
+def test_every_searched_jewel_has_a_place(one_skill_search):
+    solutions = one_skill_search.result.results.all_solutions
+
+    out_of_step = [
+        solution for solution in solutions if len(solution.places) != len(solution.decorations)
+    ]
+
+    assert [len(solutions) > 0, out_of_step] == [True, []]
+
+
+def test_the_search_places_follow_jewels_the_stored_lists_lost(torso_inc_sets):
+    """Of the 25 g13 sets placed although their stored lists are stale, the
+    search's ``places`` give the placement of 16; the other 9 hold a jewel
+    ``SwapOut`` merged from the chest and elsewhere, and are placed from the
+    shown jewels."""
+    placed = []
+    for solution in torso_inc_sets.disagreeing:
+        try:
+            placement = jewel_placement(solution, weapon_slots=torso_inc_sets.weapon_slots)
+        except PlacementUnknownError:
+            continue
+        placed.append((solution, placement))
+
+    kinds = Counter(_placed_how(solution, placement) for solution, placement in placed)
+
+    assert kinds == Counter({"by places": 16, "merged": 9})
+
+
+def _placed_how(solution: Solution, placement: JewelPlacement | None) -> str:
+    by_places = _by_places(solution)
+    if by_places is None:
+        return "merged"
+    how = "by places" if placement == by_places else "from the shown jewels"
+    return how
+
+
 def test_a_torso_inc_set_with_nothing_for_the_chest_has_no_split(one_skill_search):
     """g13's Torso Inc sets whose chest has no slots or that hold no jewels:
     every jewel is elsewhere, which gives the stored points."""
@@ -229,7 +274,7 @@ def test_a_torso_inc_set_with_nothing_for_the_chest_has_no_split(one_skill_searc
 
 
 def _correction(solution: Solution, sets: TorsoIncSets) -> Correction | Unbuildable:
-    found = correction(solution, query=sets.query, game=sets.game, charm_templates=sets.templates)
+    found = correction(solution, query=sets.query, game=sets.game, loaded=False)
     return found
 
 
@@ -304,8 +349,9 @@ def charm_corrected(torso_inc_sets) -> list[Solution]:
 
 
 def test_a_set_only_its_unreduced_charm_builds_gets_that_charm(torso_inc_sets, charm_corrected):
-    """The charm is one of the search's workers' and carries more than the
-    listed one; no jewel list builds the listed charm (step 2 fails)."""
+    """The charm is the set's own ``unreduced_charm``, which carries more than
+    the listed one, with the fill-time jewels; no jewel list builds the
+    listed charm (step 2 fails)."""
     corrections = [_correction(solution, torso_inc_sets) for solution in charm_corrected]
     picks = [
         pick_jewels(
@@ -321,8 +367,10 @@ def test_a_set_only_its_unreduced_charm_builds_gets_that_charm(torso_inc_sets, c
         solution
         for solution, fix, pick in zip(charm_corrected, corrections, picks, strict=True)
         if not isinstance(fix, Correction)
-        or not any(fix.charm is template for template in torso_inc_sets.templates)
+        or fix.charm is not solution.unreduced_charm
         or fix.charm == solution.charm
+        or Counter(fix.placement.chest + fix.placement.elsewhere)
+        != Counter(solution.body_decorations + solution.non_body_decorations)
         or not isinstance(pick, Unbuildable)
     ]
     assert [len(charm_corrected), wrong] == [5, []]
@@ -364,7 +412,7 @@ def test_a_set_only_other_jewels_build_gets_them_from_the_picker(status_set):
         solution,
         query=query,
         game=game,
-        charm_templates=tuple(worker.template for worker in status_set.search.result.workers),
+        loaded=False,
     )
 
     refill = _plain_fill(solution, query=query, game=game)
@@ -485,7 +533,6 @@ def test_a_set_no_jewels_build_says_which_bad_skill_stays(protection_search):
     """Every usable decoration is tried, with the listed charm and the one
     before reduction: Demonic Protection stays active in each of the 10."""
     query = protection_search.result.query
-    templates = tuple(worker.template for worker in protection_search.result.workers)
     placements = []
     for solution in protection_search.result.results.all_solutions:
         if solution.torso_multiplier <= 1:
@@ -498,7 +545,6 @@ def test_a_set_no_jewels_build_says_which_bad_skill_stays(protection_search):
                     solution,
                     query=query,
                     refill_game=protection_search.data.game,
-                    charm_templates=templates,
                 )
             )
 
@@ -511,18 +557,45 @@ def test_a_set_no_jewels_build_says_which_bad_skill_stays(protection_search):
     assert reasons == Counter({("Demonic Protection",): 10})
 
 
-def test_without_the_search_charms_a_set_needing_one_has_no_placement(
+def test_a_loaded_set_no_listed_jewels_build_has_no_placement(protection_search):
+    """f318's 10 sets no jewel list builds, saved to settings.cfg lines and
+    loaded again: each refills to the loaded jewels, but the file doesn't
+    keep the charm before reduction, so step 3 can't tell whether one builds."""
+    query = protection_search.result.query
+    game = protection_search.data.game
+    skill_index = skill_indices(game)
+    loaded = []
+    for solution in protection_search.result.results.all_solutions:
+        if solution.torso_multiplier <= 1:
+            continue
+        searched = chest_jewels(solution, query=query, refill_game=game)
+        if isinstance(searched, UnbuildableJewels):
+            loaded.append(parse_solution_line(solution_line(solution, skill_index), game))
+
+    refilling = [
+        solution for solution in loaded if refilled(solution, query=query, game=game) is not None
+    ]
+    placements = {chest_jewels(solution, query=query, refill_game=game) for solution in loaded}
+
+    assert [len(loaded), len(refilling), placements] == [10, 10, {UnknownPlacement()}]
+
+
+def test_a_generated_charm_without_its_unreduced_copy_raises(torso_inc_sets, charm_corrected):
+    without_copy = replace(charm_corrected[0], unreduced_charm=None)
+
+    with pytest.raises(ValueError, match="unreduced_charm"):
+        correction(without_copy, query=torso_inc_sets.query, game=torso_inc_sets.game, loaded=False)
+
+
+def test_a_loaded_set_needing_the_charm_before_reduction_has_no_correction(
     torso_inc_sets, charm_corrected
 ):
-    details = solution_details(
-        charm_corrected[0],
-        query=torso_inc_sets.query,
-        sort_key=SortKey.NONE,
-        refill_game=torso_inc_sets.game,
-        charm_templates=None,
-    )
-
-    assert details.chest_jewels == UnknownPlacement()
+    """settings.cfg doesn't keep the charm before reduction, so for a loaded
+    set step 3 can't be tried."""
+    with pytest.raises(PlacementUnknownError):
+        correction(
+            charm_corrected[0], query=torso_inc_sets.query, game=torso_inc_sets.game, loaded=True
+        )
 
 
 def test_a_set_whose_listed_jewels_fit_gets_no_correction(torso_inc_sets):
@@ -541,13 +614,12 @@ def test_a_set_whose_listed_jewels_fit_gets_no_correction(torso_inc_sets):
                 solution,
                 query=torso_inc_sets.query,
                 refill_game=torso_inc_sets.game,
-                charm_templates=torso_inc_sets.templates,
             )
         ).__name__
         for solution in placeable
     )
 
-    assert kinds == Counter({"ChestJewels": 1267})
+    assert kinds == Counter({"JewelPlacement": 1267})
 
 
 def test_a_torso_inc_set_lists_its_chest_jewels_apart(torso_inc_sets):
@@ -564,15 +636,10 @@ def test_a_torso_inc_set_lists_its_chest_jewels_apart(torso_inc_sets):
         solution,
         query=torso_inc_sets.query,
         refill_game=torso_inc_sets.game,
-        charm_templates=torso_inc_sets.templates,
     )
 
     assert health_jewel.name == "Health Jewel[1]"
-    assert jewels == ChestJewels(
-        multiplier=2,
-        chest=(DecorationCount(decoration=health_jewel, count=1),),
-        elsewhere=(DecorationCount(decoration=health_jewel, count=1),),
-    )
+    assert jewels == JewelPlacement(multiplier=2, chest=(health_jewel,), elsewhere=(health_jewel,))
 
 
 def test_a_set_without_torso_inc_has_no_split(one_skill_search):
@@ -671,17 +738,17 @@ def _named(split: Placement) -> NamedSplit | NamedCorrection | Placement:
             jewels=_named_split(split.jewels),
         )
         return named_correction
-    if not isinstance(split, ChestJewels):
+    if not isinstance(split, JewelPlacement):
         return split
     named = _named_split(split)
     return named
 
 
-def _named_split(split: ChestJewels) -> NamedSplit:
+def _named_split(split: JewelPlacement) -> NamedSplit:
     named = NamedSplit(
         multiplier=split.multiplier,
-        chest=tuple(sorted((count.decoration.name, count.count) for count in split.chest)),
-        elsewhere=tuple(sorted((count.decoration.name, count.count) for count in split.elsewhere)),
+        chest=tuple(sorted(Counter(jewel.name for jewel in split.chest).items())),
+        elsewhere=tuple(sorted(Counter(jewel.name for jewel in split.elsewhere).items())),
     )
     return named
 
@@ -702,13 +769,14 @@ def test_loaded_torso_inc_sets_get_the_split_they_get_after_the_search(
     kept another copy than the port's ordered search does (quirk 5)."""
     fresh: dict[SetKey, set[NamedSplit | NamedCorrection | Placement]] = {}
     for solution in one_skill_search.result.results.all_solutions:
-        # Without the charms, as for loaded results, so both sides know the same.
         split = chest_jewels(
             solution,
             query=one_skill_search.result.query,
             refill_game=one_skill_search.data.game,
-            charm_templates=None,
         )
+        # A loaded set doesn't keep the charm before reduction, so can't get that correction.
+        if isinstance(split, CorrectedJewels) and split.charm_changed:
+            split = UnknownPlacement()
         fresh.setdefault(_set_key(solution), set()).add(_named(split))
     results = loaded_capture_13.results
     game = loaded_capture_13.data.game
@@ -726,9 +794,7 @@ def test_loaded_torso_inc_sets_get_the_split_they_get_after_the_search(
     different = [
         solution
         for solution in in_both
-        if _named(
-            chest_jewels(solution, query=results.query, refill_game=game, charm_templates=None)
-        )
+        if _named(chest_jewels(solution, query=results.query, refill_game=game))
         not in fresh[_set_key(solution)]
     ]
     assert [len(loaded), len(refilling), len(in_both), different] == [1300, 1154, 1149, []]
@@ -746,7 +812,7 @@ def test_a_loaded_set_the_refill_cant_reproduce_has_no_placement(loaded_capture_
     ]
 
     splits = {
-        _named(chest_jewels(solution, query=results.query, refill_game=game, charm_templates=None))
+        _named(chest_jewels(solution, query=results.query, refill_game=game))
         for solution in unreproduced
     }
 
@@ -792,7 +858,6 @@ def test_a_loaded_set_waits_while_a_search_runs(loaded_capture_13, refilling_loa
         refilling_loaded_set.solution,
         query=loaded_capture_13.results.query,
         refill_game=None,
-        charm_templates=None,
     )
 
     assert split == PlacementPending()
