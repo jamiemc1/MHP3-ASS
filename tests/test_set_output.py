@@ -8,12 +8,12 @@ from pathlib import Path
 import pytest
 
 from mhp3ass.results.details import (
-    ChestJewels,
     Placement,
     PlacementPending,
     SolutionDetails,
     UnknownPlacement,
 )
+from mhp3ass.results.placement import JewelPlacement
 from mhp3ass.set_output import (
     append_set,
     copied_notice,
@@ -39,7 +39,7 @@ def _details(chest_jewels: Placement) -> SolutionDetails:
 @pytest.mark.parametrize("action", ["copy", "export"])
 @pytest.mark.parametrize(
     "chest_jewels",
-    [None, ChestJewels(multiplier=2, chest=(), elsewhere=()), UnknownPlacement()],
+    [None, JewelPlacement(multiplier=2, chest=(), elsewhere=()), UnknownPlacement()],
 )
 def test_a_set_whose_jewels_are_placed_or_cant_be_goes_now(chest_jewels, action):
     assert jewels_wait(_details(chest_jewels), action=action) is None

@@ -11,9 +11,7 @@ from mhp3ass.data import GameData
 from mhp3ass.model import Ability, Armor, ArmorType
 from mhp3ass.query import Query, SearchSpec
 from mhp3ass.results.details import (
-    ChestJewels,
     CorrectedJewels,
-    DecorationCount,
     Placement,
     PlacementPending,
     UnbuildableJewels,
@@ -621,7 +619,7 @@ def test_a_set_whose_listed_jewels_fit_gets_no_correction(torso_inc_sets):
         for solution in placeable
     )
 
-    assert kinds == Counter({"ChestJewels": 1267})
+    assert kinds == Counter({"JewelPlacement": 1267})
 
 
 def test_a_torso_inc_set_lists_its_chest_jewels_apart(torso_inc_sets):
@@ -641,11 +639,7 @@ def test_a_torso_inc_set_lists_its_chest_jewels_apart(torso_inc_sets):
     )
 
     assert health_jewel.name == "Health Jewel[1]"
-    assert jewels == ChestJewels(
-        multiplier=2,
-        chest=(DecorationCount(decoration=health_jewel, count=1),),
-        elsewhere=(DecorationCount(decoration=health_jewel, count=1),),
-    )
+    assert jewels == JewelPlacement(multiplier=2, chest=(health_jewel,), elsewhere=(health_jewel,))
 
 
 def test_a_set_without_torso_inc_has_no_split(one_skill_search):
@@ -744,17 +738,17 @@ def _named(split: Placement) -> NamedSplit | NamedCorrection | Placement:
             jewels=_named_split(split.jewels),
         )
         return named_correction
-    if not isinstance(split, ChestJewels):
+    if not isinstance(split, JewelPlacement):
         return split
     named = _named_split(split)
     return named
 
 
-def _named_split(split: ChestJewels) -> NamedSplit:
+def _named_split(split: JewelPlacement) -> NamedSplit:
     named = NamedSplit(
         multiplier=split.multiplier,
-        chest=tuple(sorted((count.decoration.name, count.count) for count in split.chest)),
-        elsewhere=tuple(sorted((count.decoration.name, count.count) for count in split.elsewhere)),
+        chest=tuple(sorted(Counter(jewel.name for jewel in split.chest).items())),
+        elsewhere=tuple(sorted(Counter(jewel.name for jewel in split.elsewhere).items())),
     )
     return named
 

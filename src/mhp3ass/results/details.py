@@ -68,15 +68,6 @@ class DecorationCount:
 
 
 @dataclass(frozen=True)
-class ChestJewels:
-    """The chest's jewels, whose points count ``multiplier`` times, and the rest."""
-
-    multiplier: int
-    chest: tuple[DecorationCount, ...]
-    elsewhere: tuple[DecorationCount, ...]
-
-
-@dataclass(frozen=True)
 class SlotsSpare:
     """``groups``: each spare group's size, smallest first; ``None`` when only the total shows."""
 
@@ -107,7 +98,7 @@ class CorrectedJewels:
 
     charm: Charm | None
     charm_changed: bool
-    jewels: ChestJewels
+    jewels: JewelPlacement
 
 
 @dataclass(frozen=True)
@@ -118,7 +109,12 @@ class UnbuildableJewels:
 
 
 type Placement = (
-    ChestJewels | CorrectedJewels | UnbuildableJewels | UnknownPlacement | PlacementPending | None
+    JewelPlacement
+    | CorrectedJewels
+    | UnbuildableJewels
+    | UnknownPlacement
+    | PlacementPending
+    | None
 )
 
 
@@ -219,7 +215,7 @@ def decoration_counts(decorations: Sequence[Decoration]) -> tuple[DecorationCoun
 
 
 def chest_jewels(solution: Solution, query: Query, refill_game: GameData | None) -> Placement:
-    """``jewel_placement`` as counts, for the results' own ``query``: ``None``
+    """``jewel_placement``, for the results' own ``query``: ``None``
     where a jewel's place can't change its points.
 
     Where no placement fits the set's slots and points (quirk 52), the
@@ -250,10 +246,7 @@ def chest_jewels(solution: Solution, query: Query, refill_game: GameData | None)
     except PlacementUnknownError:
         corrected = _corrected(searched, query=query, game=refill_game, loaded=loaded)
         return corrected
-    if placement is None:
-        return None
-    jewels = _counted(placement)
-    return jewels
+    return placement
 
 
 def _corrected(
@@ -271,18 +264,9 @@ def _corrected(
     if isinstance(found, Unbuildable):
         return UnbuildableJewels(reason=found)
     corrected = CorrectedJewels(
-        charm=found.charm, charm_changed=found.charm_changed, jewels=_counted(found.placement)
+        charm=found.charm, charm_changed=found.charm_changed, jewels=found.placement
     )
     return corrected
-
-
-def _counted(placement: JewelPlacement) -> ChestJewels:
-    jewels = ChestJewels(
-        multiplier=placement.multiplier,
-        chest=decoration_counts(placement.chest),
-        elsewhere=decoration_counts(placement.elsewhere),
-    )
-    return jewels
 
 
 def extra_skills(solution: Solution, query_skills: Sequence[Skill]) -> tuple[Skill, ...]:

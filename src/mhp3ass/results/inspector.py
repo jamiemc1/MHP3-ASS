@@ -21,7 +21,6 @@ from mhp3ass.model import ArmorType, Charm
 from mhp3ass.results.details import (
     ArmorLine,
     ArmorNote,
-    ChestJewels,
     CorrectedJewels,
     DecorationCount,
     PlacementPending,
@@ -29,8 +28,10 @@ from mhp3ass.results.details import (
     SolutionDetails,
     UnbuildableJewels,
     UnknownPlacement,
+    decoration_counts,
 )
 from mhp3ass.results.difficulty import hard_materials
+from mhp3ass.results.placement import JewelPlacement
 from mhp3ass.solution.state import Solution
 
 
@@ -88,7 +89,7 @@ def jewel_lines(details: SolutionDetails) -> list[InspectorLine]:
     listed jewels and says why."""
     jewels = details.chest_jewels
     match jewels:
-        case ChestJewels():
+        case JewelPlacement():
             return _split_lines(jewels)
         case CorrectedJewels(charm_changed=False):
             note = "(the listed jewels don't fit; these build it)"
@@ -131,12 +132,12 @@ def _why(jewels: UnbuildableJewels) -> str:
     return short
 
 
-def _split_lines(jewels: ChestJewels) -> list[InspectorLine]:
+def _split_lines(jewels: JewelPlacement) -> list[InspectorLine]:
     chest_label = f"Chest x{jewels.multiplier}"
-    chest_lines = _counted_lines(chest_label, jewels.chest)
+    chest_lines = _counted_lines(chest_label, decoration_counts(jewels.chest))
     if not chest_lines:
         chest_lines = [InspectorLine(label=chest_label, text="none")]
-    lines = chest_lines + _counted_lines("Elsewhere", jewels.elsewhere)
+    lines = chest_lines + _counted_lines("Elsewhere", decoration_counts(jewels.elsewhere))
     return lines
 
 
