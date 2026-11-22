@@ -151,17 +151,17 @@ def compare_result(
     our_manifest = search_manifest(
         query,
         result=result,
-        worker_lines=added_lines(result, game=game),
+        worker_lines=added_lines(result),
         max_solution_lines=max_solution_lines,
     )
     lines_difference = None
     if golden_lines is not None:
-        lines_difference = _lines_difference(solution_lines(result, game=game), golden_lines)
+        lines_difference = _lines_difference(solution_lines(result), golden_lines)
     candidates_difference = None
     if golden_candidates is not None:
         ours = [
             (candidate.worker, candidate.charm_name, candidate.solution_line)
-            for candidate in candidate_lines(result, game=game)
+            for candidate in candidate_lines(result)
         ]
         expected = [
             (candidate.worker, candidate.charm_name, candidate.solution_line)

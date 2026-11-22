@@ -31,7 +31,7 @@ from mhp3ass.parallel import (
     task_outcomes,
 )
 from mhp3ass.relevance import formulate_query
-from mhp3ass.results.result_set import skill_indices, solution_line
+from mhp3ass.results.result_set import solution_line
 from mhp3ass.search import StepReporter, armor_choices, run_search, worker_charms
 from mhp3ass.solution.record import SolutionRecord, from_record
 from mhp3ass.solution.state import LegacyNullReferenceError
@@ -68,14 +68,12 @@ def compare_with_serial(corpus_spec, legacy_data_dir, search_data_for, search_po
             game=data.game,
             on_progress=lambda done, total: reports.append((done, total)),
         )
-        skill_index = skill_indices(data.game)
         comparison = PoolComparison(
             serial=[
-                [solution_line(solution, skill_index) for solution in worker.found]
-                for worker in serial.workers
+                [solution_line(solution) for solution in worker.found] for worker in serial.workers
             ],
             pooled=[
-                [solution_line(from_record(record, data.game), skill_index) for record in worker]
+                [solution_line(from_record(record, data.game)) for record in worker]
                 for worker in pooled.workers
             ],
             pooled_error=None if pooled.error is None else repr(pooled.error),
@@ -171,7 +169,6 @@ def test_a_throwing_worker_ends_the_merge_as_in_the_serial_search(
         my_charms=loaded.charms,
         tables=data.tables,
     )
-    skill_index = skill_indices(data.game)
     reports: list[tuple[int, int]] = []
 
     pooled = search_pool.run(
@@ -192,12 +189,9 @@ def test_a_throwing_worker_ends_the_merge_as_in_the_serial_search(
         LegacyNullReferenceError,
     ]
     assert [
-        [solution_line(from_record(record, data.game), skill_index) for record in worker]
+        [solution_line(from_record(record, data.game)) for record in worker]
         for worker in pooled.workers
-    ] == [
-        [solution_line(solution, skill_index) for solution in worker.found]
-        for worker in serial.workers
-    ]
+    ] == [[solution_line(solution) for solution in worker.found] for worker in serial.workers]
 
 
 @pytest.fixture

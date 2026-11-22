@@ -22,7 +22,7 @@ import pytest
 from goldens import ResultsGolden, read_results_goldens
 from mhp3ass.data import GameData
 from mhp3ass.query import SearchSpec
-from mhp3ass.results.result_set import ResultSet, SearchResult, lines_of, skill_indices
+from mhp3ass.results.result_set import ResultSet, SearchResult, lines_of
 from mhp3ass.results.view import ResultsView
 from mhp3ass.search import SearchData
 from mhp3ass.settings_cfg import SettingsCfg, check_header, load_results
@@ -73,9 +73,8 @@ def _placements(lines: Sequence[str], view: ResultsView, game: GameData) -> str:
     """Where each loaded line went, read back from the lists: ``a`` all
     solutions, ``n`` the charm-free list, ``d`` dropped as a duplicate. A ``?``
     marks list entries no line accounts for."""
-    skill_index = skill_indices(game)
-    kept = lines_of(view.all_solutions, skill_index)
-    charm_free = lines_of(view.no_charm_solutions, skill_index)
+    kept = lines_of(view.all_solutions)
+    charm_free = lines_of(view.no_charm_solutions)
     kept_at = 0
     charm_free_at = 0
     placements = []
@@ -134,7 +133,7 @@ def _load_step(
         "charm_map": _charm_map(view),
         "all_stats_sha256": _stats_sha256(view.all_solutions),
         "no_charm_stats_sha256": _stats_sha256(view.no_charm_solutions),
-        "resaved_sha256": _crlf_sha256(lines_of(view.all_solutions, skill_indices(game))),
+        "resaved_sha256": _crlf_sha256(lines_of(view.all_solutions)),
     }
     return observed
 
@@ -144,7 +143,7 @@ def _query_steps(search: SearchResult, game: GameData, language_count: int) -> l
     if search.worker_count == 0:
         return []
     view = ResultsView.from_search(search.results)
-    saved_lines = lines_of(view.all_solutions, skill_indices(game))
+    saved_lines = lines_of(view.all_solutions)
     saved = {
         "step": "save",
         "all_count": len(view.all_solutions),

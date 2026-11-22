@@ -320,7 +320,7 @@ def test_stages_before_get_initial_data_dereference_null_slots(stage, make_data,
     reads it before then dereferences a null array, as the original would."""
     data = make_data([], need={}, abilities={}, charm=Charm(num_slots=1))
     data.solution.total_slots_spare = 1
-    down = Skill(name="Attack Down", points_required=-10, ability=attack)
+    down = Skill(name="Attack Down", points_required=-10, ability=attack, static_index=0)
     calls = {
         "finish": partial(finish, data),
         "calculate_decorations": partial(

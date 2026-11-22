@@ -28,7 +28,7 @@ def test_get_skill_walks_thresholds_by_sign(make_ability):
     ability = make_ability("Attack", 0)
     for points in (15, -10, 10, 20, -20):
         ability.skills[points] = Skill(
-            name=f"Attack {points}", points_required=points, ability=ability
+            name=f"Attack {points}", points_required=points, ability=ability, static_index=0
         )
 
     names = [get_skill(ability, amount) for amount in (0, 9, 14, 25, -9, -19, -25)]

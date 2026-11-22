@@ -190,8 +190,8 @@ def decorated_solution(make_armor, attack, health) -> Solution:
         charm=None,
         decorations=[jewel_a, jewel_b, jewel_a],
         extra_skills=[
-            Skill(name="Attack Up [S]", points_required=10, ability=attack),
-            Skill(name="Health +20", points_required=10, ability=health),
+            Skill(name="Attack Up [S]", points_required=10, ability=attack, static_index=0),
+            Skill(name="Health +20", points_required=10, ability=health, static_index=0),
         ],
     )
     return solution

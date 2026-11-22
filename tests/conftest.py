@@ -39,7 +39,6 @@ from mhp3ass.savefile.game_layer import decrypt_game_layer
 from mhp3ass.savefile.system_layer import decrypt_system_layer
 from mhp3ass.search import SearchData, run_search
 from mhp3ass.settings_cfg import SettingsCfg, read_settings_cfg
-from mhp3ass.solution.record import RecordIndex
 from mhp3ass.solution.state import Solution, new_calculation_data
 from search_comparison import search_golden_query
 
@@ -163,12 +162,6 @@ def teamhgg_game(load_teamhgg_game: Callable[[], GameData]) -> GameData:
 def teamhgg_short_names(teamhgg_game: GameData) -> ShortNames:
     """The results table's short names for ``teamhgg_game``."""
     return ShortNames.from_game(teamhgg_game)
-
-
-@pytest.fixture(scope="session")
-def record_index(teamhgg_game: GameData) -> RecordIndex:
-    """The record index of ``teamhgg_game``, for turning solutions into records."""
-    return RecordIndex.for_game(teamhgg_game)
 
 
 @pytest.fixture

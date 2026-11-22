@@ -31,7 +31,7 @@ from mhp3ass.results.placement import (
     place_can_matter,
     refilled,
 )
-from mhp3ass.results.result_set import skill_indices, solution_line
+from mhp3ass.results.result_set import solution_line
 from mhp3ass.saved_state import LoadedResults, restore_search
 from mhp3ass.search import SearchData, run_search
 from mhp3ass.settings_cfg import parse_solution_line
@@ -563,14 +563,13 @@ def test_a_loaded_set_no_listed_jewels_build_has_no_placement(protection_search)
     keep the charm before reduction, so step 3 can't tell whether one builds."""
     query = protection_search.result.query
     game = protection_search.data.game
-    skill_index = skill_indices(game)
     loaded = []
     for solution in protection_search.result.results.all_solutions:
         if solution.torso_multiplier <= 1:
             continue
         searched = chest_jewels(solution, query=query, refill_game=game)
         if isinstance(searched, UnbuildableJewels):
-            loaded.append(parse_solution_line(solution_line(solution, skill_index), game))
+            loaded.append(parse_solution_line(solution_line(solution), game))
 
     refilling = [
         solution for solution in loaded if refilled(solution, query=query, game=game) is not None

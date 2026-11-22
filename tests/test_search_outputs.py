@@ -35,15 +35,15 @@ def _write(query_name: str, repo_root: Path, search_data, out_dir: Path, **manif
     manifest = search_manifest(
         spec_json,
         result=result,
-        worker_lines=added_lines(result, game=data.game),
+        worker_lines=added_lines(result),
         **manifest_options,
     )
     prefix = out_dir / query_name
     write_search_outputs(
         prefix,
         manifest=manifest,
-        lines=solution_lines(result, game=data.game),
-        candidates=candidate_lines(result, game=data.game),
+        lines=solution_lines(result),
+        candidates=candidate_lines(result),
     )
     return prefix
 
@@ -77,14 +77,13 @@ def test_written_files_hold_what_the_harness_wrote(
 
 def test_added_lines_are_each_workers_kept_lines_joining_to_the_kept_list(one_skill_search):
     result = one_skill_search.result
-    game = one_skill_search.data.game
 
-    worker_lines = added_lines(result, game=game)
+    worker_lines = added_lines(result)
 
     assert [
         [len(kept) for kept in worker_lines],
         [line for kept in worker_lines for line in kept],
-    ] == [[len(worker.added) for worker in result.workers], solution_lines(result, game=game)]
+    ] == [[len(worker.added) for worker in result.workers], solution_lines(result)]
     assert sum(1 for kept in worker_lines if kept) > 1
 
 
@@ -98,11 +97,9 @@ def one_skill_result_with_a_worker_keeping_nothing(one_skill_search) -> SearchRe
 
 
 def test_a_worker_that_kept_nothing_has_no_lines_in_its_place(
-    one_skill_result_with_a_worker_keeping_nothing, one_skill_search
+    one_skill_result_with_a_worker_keeping_nothing,
 ):
-    worker_lines = added_lines(
-        one_skill_result_with_a_worker_keeping_nothing, game=one_skill_search.data.game
-    )
+    worker_lines = added_lines(one_skill_result_with_a_worker_keeping_nothing)
 
     assert [len(worker_lines), worker_lines[-1]] == [5, []]
 
@@ -110,7 +107,7 @@ def test_a_worker_that_kept_nothing_has_no_lines_in_its_place(
 def test_a_result_with_no_finished_workers_has_no_lines(one_skill_search):
     result = replace(one_skill_search.result, workers=[])
 
-    assert added_lines(result, game=one_skill_search.data.game) == []
+    assert added_lines(result) == []
 
 
 @pytest.mark.parametrize(
@@ -120,7 +117,7 @@ def test_a_result_with_no_finished_workers_has_no_lines(one_skill_search):
 )
 def test_a_manifest_needs_each_finished_workers_own_lines(one_skill_search, lines_for):
     result = one_skill_search.result
-    worker_lines = added_lines(result, game=one_skill_search.data.game)
+    worker_lines = added_lines(result)
 
     with pytest.raises(ValueError, match="for the finished workers' added"):
         search_manifest({"id": "g13"}, result=result, worker_lines=lines_for(worker_lines))

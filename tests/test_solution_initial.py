@@ -22,7 +22,7 @@ def test_initial_stage_matches_every_trace(every_trace_goldens, scratch_game):
 
 @pytest.fixture
 def attack_skill(attack):
-    return Skill(name="Attack Up [Sm]", points_required=10, ability=attack)
+    return Skill(name="Attack Up [Sm]", points_required=10, ability=attack, static_index=0)
 
 
 @pytest.fixture
@@ -116,7 +116,7 @@ def test_empty_body_leaves_no_torso_slots(make_query):
 def test_query_skills_seed_need_relevant_and_abilities_in_order(
     make_query, attack, sharpness, attack_skill
 ):
-    sharp_skill = Skill(name="Sharpness +1", points_required=10, ability=sharpness)
+    sharp_skill = Skill(name="Sharpness +1", points_required=10, ability=sharpness, static_index=0)
 
     data = _initial([None] * 5, make_query(skills=[sharp_skill, attack_skill]))
 
@@ -126,7 +126,7 @@ def test_query_skills_seed_need_relevant_and_abilities_in_order(
 
 
 def test_two_skills_with_one_ability_raise_as_dictionary_add(make_query, attack, attack_skill):
-    larger = Skill(name="Attack Up [Med]", points_required=15, ability=attack)
+    larger = Skill(name="Attack Up [Med]", points_required=15, ability=attack, static_index=0)
     data = new_calculation_data(
         Solution(armors=[None] * 5, charm=None), make_query(skills=[attack_skill, larger])
     )

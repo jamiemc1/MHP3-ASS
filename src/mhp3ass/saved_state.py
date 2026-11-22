@@ -118,7 +118,7 @@ def settings_for(
         skill_selections=selections,
         solution_lines=(),
     )
-    settings = with_solutions(header, solutions, game)
+    settings = with_solutions(header, solutions)
     return settings
 
 

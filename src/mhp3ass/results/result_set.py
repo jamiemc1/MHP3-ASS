@@ -24,7 +24,7 @@ from typing import Any, overload
 
 from mhp3ass.charms.naming import charm_name
 from mhp3ass.data import GameData
-from mhp3ass.model import Armor, Charm, Skill
+from mhp3ass.model import Armor, Charm
 from mhp3ass.query import Query
 from mhp3ass.solution.record import CharmRecord, SolutionRecord, charm_from_record, from_record
 from mhp3ass.solution.state import LegacyNullReferenceError, Solution
@@ -131,12 +131,10 @@ class SolutionList(SolutionSequence):
     def __repr__(self) -> str:
         return f"SolutionList({list(self)!r})"
 
-    def lines(self, skill_index: dict[Skill, int]) -> list[str]:
+    def lines(self) -> list[str]:
         """Each solution's line, in order; records' lines come from their indices."""
         lines = [
-            record_line(entry.record)
-            if isinstance(entry, _RecordEntry)
-            else solution_line(entry, skill_index)
+            record_line(entry.record) if isinstance(entry, _RecordEntry) else solution_line(entry)
             for entry in self._entries
         ]
         return lines
@@ -248,14 +246,14 @@ class ResultSet:
         return added
 
 
-def solution_line(solution: Solution, skill_index: dict[Skill, int]) -> str:
+def solution_line(solution: Solution) -> str:
     """One solution line as ``SearchDump``'s ``SolutionLine`` writes it (the
     ``settings.cfg`` format, Form1.h:495-538, without the newline).
 
     Every field ends in a space: the armour indices (-1 for an empty slot),
     total and per-size spare slots, the decorations, the extra skills, then
-    the charm's slots and pairs when it has one. ``skill_index`` maps each
-    skill to its position in the game's skill list.
+    the charm's slots and pairs when it has one. Records are numbered by
+    their place in the game's tables (``index``, ``static_index``).
     """
     fields = [str(armor.index if armor is not None else -1) for armor in solution.armors]
     slots_spare = solution.slots_spare
@@ -266,7 +264,7 @@ def solution_line(solution: Solution, skill_index: dict[Skill, int]) -> str:
     fields.append(str(len(solution.decorations)))
     fields += [str(decoration.index) for decoration in solution.decorations]
     fields.append(str(len(solution.extra_skills)))
-    fields += [str(skill_index[skill]) for skill in solution.extra_skills]
+    fields += [str(skill.static_index) for skill in solution.extra_skills]
     charm = solution.charm
     if charm is not None:
         fields += [str(charm.num_slots), str(len(charm.abilities))]
@@ -294,11 +292,11 @@ def record_line(record: SolutionRecord) -> str:
     return line
 
 
-def lines_of(solutions: Sequence[Solution], skill_index: dict[Skill, int]) -> list[str]:
+def lines_of(solutions: Sequence[Solution]) -> list[str]:
     """Each solution's line, in order; a ``SolutionList``'s records aren't rebuilt."""
     if isinstance(solutions, SolutionList):
-        return solutions.lines(skill_index)
-    lines = [solution_line(solution, skill_index) for solution in solutions]
+        return solutions.lines()
+    lines = [solution_line(solution) for solution in solutions]
     return lines
 
 
@@ -361,15 +359,9 @@ class SearchResult:
     exception: SearchException | None
 
 
-def skill_indices(game: GameData) -> dict[Skill, int]:
-    """Each skill's position in the game's skill list, as solution lines number them."""
-    indices = {skill: index for index, skill in enumerate(game.skills)}
-    return indices
-
-
-def solution_lines(result: SearchResult, game: GameData) -> list[str]:
+def solution_lines(result: SearchResult) -> list[str]:
     """The kept solutions' lines, in the order they were kept."""
-    lines = result.results.all_solutions.lines(skill_indices(game))
+    lines = result.results.all_solutions.lines()
     return lines
 
 
@@ -383,25 +375,21 @@ class CandidateLine:
     solution_line: str
 
 
-def candidate_lines(result: SearchResult, game: GameData) -> list[CandidateLine]:
+def candidate_lines(result: SearchResult) -> list[CandidateLine]:
     """Every solution each finished worker found, in worker and loop order."""
-    skill_index = skill_indices(game)
     candidates = [
         CandidateLine(worker=number, charm_name=name, solution_line=line)
         for number, worker in enumerate(result.workers)
-        for name, line in zip(
-            charm_names(worker.found), lines_of(worker.found, skill_index), strict=True
-        )
+        for name, line in zip(charm_names(worker.found), lines_of(worker.found), strict=True)
     ]
     return candidates
 
 
-def added_lines(result: SearchResult, game: GameData) -> list[list[str]]:
+def added_lines(result: SearchResult) -> list[list[str]]:
     """Each finished worker's kept solutions' lines, in worker order. The
     kept solutions are the workers' added ones in worker order, so joined
     they are ``solution_lines``."""
-    skill_index = skill_indices(game)
-    lines = [lines_of(worker.added, skill_index) for worker in result.workers]
+    lines = [lines_of(worker.added) for worker in result.workers]
     return lines
 
 

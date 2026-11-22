@@ -43,8 +43,10 @@ def skilled(attack, defense):
     """Attack and Defense with an up skill at +10 and a down skill at -10, by name."""
     skills = {}
     for ability in (attack, defense):
-        up = Skill(name=f"{ability.name} Up", points_required=10, ability=ability)
-        down = Skill(name=f"{ability.name} Down", points_required=-10, ability=ability)
+        up = Skill(name=f"{ability.name} Up", points_required=10, ability=ability, static_index=0)
+        down = Skill(
+            name=f"{ability.name} Down", points_required=-10, ability=ability, static_index=0
+        )
         ability.skills = {10: up, -10: down}
         skills[ability.name] = UpAndDown(up=up, down=down)
     return skills

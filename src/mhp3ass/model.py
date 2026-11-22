@@ -61,9 +61,14 @@ class Ability:
 
 @dataclass(eq=False)
 class Skill:
+    """A skill: ``ability`` at ``points_required``. ``static_index`` is its
+    place in the game's skill list (``Skill::static_skills``), the number
+    ``settings.cfg`` and the pool's records give it."""
+
     name: str
     points_required: int
     ability: Ability
+    static_index: int
 
 
 @dataclass(eq=False)

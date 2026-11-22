@@ -13,6 +13,7 @@ import pytest
 
 from golden_shapes import game_data_shape, names_shape
 from mhp3ass.data import GameData, load_game_data
+from mhp3ass.model import Skill
 
 
 @pytest.fixture(scope="module")
@@ -85,3 +86,32 @@ def test_every_language_matches_original(
             mismatched[language] = differing_tables
 
     assert [sorted(games_by_language), mismatched] == [sorted(language_names), {}]
+
+
+def test_every_skill_knows_its_place_in_the_skill_list(teamhgg_game):
+    misplaced = [
+        skill.name
+        for position, skill in enumerate(teamhgg_game.skills)
+        if skill.static_index != position or teamhgg_game.skill_index(skill) != position
+    ]
+
+    assert [len(teamhgg_game.skills) > 0, misplaced] == [True, []]
+
+
+def test_another_games_skill_has_no_index_here(teamhgg_game, other_teamhgg_game):
+    with pytest.raises(ValueError, match="isn't one of this game's skills"):
+        teamhgg_game.skill_index(other_teamhgg_game.skills[0])
+
+
+@pytest.mark.parametrize("static_index", [-1, 100_000], ids=["negative", "past-the-end"])
+def test_a_skill_index_outside_the_list_raises(teamhgg_game, static_index):
+    skill = teamhgg_game.skills[0]
+    stray = Skill(
+        name=skill.name,
+        points_required=skill.points_required,
+        ability=skill.ability,
+        static_index=static_index,
+    )
+
+    with pytest.raises(ValueError, match="isn't one of this game's skills"):
+        teamhgg_game.skill_index(stray)

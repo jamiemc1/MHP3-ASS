@@ -18,7 +18,7 @@ import pytest
 from goldens import formulate_query_json
 from mhp3ass.model import AbilityPair, ArmorType, Charm
 from mhp3ass.search import run_worker
-from mhp3ass.solution.record import CharmRecord, RecordIndex, from_record, to_record
+from mhp3ass.solution.record import CharmRecord, from_record, to_record
 from mhp3ass.solution.state import Place, Solution
 from solution_trace import worker_templates
 
@@ -93,7 +93,6 @@ def _round_trip_failures(search_goldens, trace_goldens, game, max_evaluations):
     """Solutions whose round trip changed a field, the solutions checked and their
     charm modes, over the queries of at most ``max_evaluations`` combinations
     across all workers."""
-    index = RecordIndex.for_game(game)
     traces = {golden.query["id"]: golden for golden in trace_goldens}
     failures = []
     checked = 0
@@ -109,7 +108,7 @@ def _round_trip_failures(search_goldens, trace_goldens, game, max_evaluations):
         for number, template in enumerate(templates):
             solutions = run_worker(query, template, game)
             records = pickle.loads(
-                pickle.dumps([to_record(solution, index) for solution in solutions])
+                pickle.dumps([to_record(solution, game) for solution in solutions])
             )
             for solution, record in zip(solutions, records, strict=True):
                 differences = _differences(solution, from_record(record, game))
@@ -168,10 +167,8 @@ def hand_built_solution(teamhgg_game):
     return solution
 
 
-def test_hand_built_solution_survives_the_round_trip(
-    hand_built_solution, record_index, teamhgg_game
-):
-    record = to_record(hand_built_solution, record_index)
+def test_hand_built_solution_survives_the_round_trip(hand_built_solution, teamhgg_game):
+    record = to_record(hand_built_solution, teamhgg_game)
     rebuilt = from_record(record, teamhgg_game)
     assert _differences(hand_built_solution, rebuilt) == []
     assert record.armors[0] == -1
@@ -182,14 +179,14 @@ def test_hand_built_solution_survives_the_round_trip(
     assert rebuilt.unreduced_charm is not hand_built_solution.unreduced_charm
 
 
-def test_charmless_solution_without_slots_keeps_none(record_index, teamhgg_game):
+def test_charmless_solution_without_slots_keeps_none(teamhgg_game):
     solution = Solution(armors=[None] * 5, charm=None)
-    rebuilt = from_record(to_record(solution, record_index), teamhgg_game)
+    rebuilt = from_record(to_record(solution, teamhgg_game), teamhgg_game)
     assert rebuilt.charm is None
     assert rebuilt.slots_spare is None
 
 
-def test_charm_pairs_keep_their_order(record_index, teamhgg_game):
+def test_charm_pairs_keep_their_order(teamhgg_game):
     game = teamhgg_game
     charm = Charm(
         num_slots=1,
@@ -199,15 +196,15 @@ def test_charm_pairs_keep_their_order(record_index, teamhgg_game):
         ],
     )
     solution = Solution(armors=[None] * 5, charm=charm)
-    record = to_record(solution, record_index)
+    record = to_record(solution, teamhgg_game)
     assert record.charm is not None
     assert record.charm.abilities == ((20, 5), (4, -3))
 
 
 @pytest.fixture
-def empty_record(record_index):
+def empty_record(teamhgg_game):
     """The record of a solution with every slot empty and no charm."""
-    record = to_record(Solution(armors=[None] * 5, charm=None), record_index)
+    record = to_record(Solution(armors=[None] * 5, charm=None), teamhgg_game)
     return record
 
 
@@ -292,16 +289,14 @@ def _mixed_solution(own, other, foreign_field):
     "foreign_field",
     ["armour", "decoration", "extra_skill", "ability", "charm_ability"],
 )
-def test_record_from_another_game_raises(
-    foreign_field, record_index, teamhgg_game, other_teamhgg_game
-):
+def test_record_from_another_game_raises(foreign_field, teamhgg_game, other_teamhgg_game):
     solution = _mixed_solution(teamhgg_game, other_teamhgg_game, foreign_field)
     with pytest.raises(ValueError):
-        to_record(solution, record_index)
+        to_record(solution, teamhgg_game)
 
 
-def test_solution_of_the_index_game_does_not_raise(record_index, teamhgg_game, other_teamhgg_game):
+def test_solution_of_the_index_game_does_not_raise(teamhgg_game, other_teamhgg_game):
     solution = _mixed_solution(teamhgg_game, other_teamhgg_game, foreign_field=None)
-    record = to_record(solution, record_index)
+    record = to_record(solution, teamhgg_game)
     assert record.armors == (1, -1, -1, -1, -1)
     assert record.extra_skills == (0,)

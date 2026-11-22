@@ -54,6 +54,14 @@ class GameData:
     # Keyed by each decoration's first ability, in .NET Dictionary insertion order.
     decorations_by_ability: dict[Ability, list[Decoration]] = field(default_factory=dict)
 
+    def skill_index(self, skill: Skill) -> int:
+        """``skill``'s ``static_index``, checked to be this game's skill there;
+        raises ``ValueError`` for a skill of another game."""
+        index = skill.static_index
+        if not 0 <= index < len(self.skills) or self.skills[index] is not skill:
+            raise ValueError(f"{skill.name} isn't one of this game's skills")
+        return index
+
 
 # The armour file for each slot, in the order the original loads and translates them.
 _ARMOR_FILES = {
@@ -154,7 +162,12 @@ def _load_skills(game: GameData, path: Path) -> None:
             if fields[7] == "":
                 raise ValueError(f"Ability {ability.name} is missing order number")
             ability.order = to_uint32(fields[7])
-        skill = Skill(name=fields[0], points_required=points_required, ability=ability)
+        skill = Skill(
+            name=fields[0],
+            points_required=points_required,
+            ability=ability,
+            static_index=len(game.skills),
+        )
         ability.skills[points_required] = skill
         game.skills.append(skill)
         game.skill_map[skill.name] = skill

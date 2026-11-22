@@ -57,22 +57,6 @@ class SolutionRecord:
     unreduced_charm: CharmRecord | None
 
 
-@dataclass(frozen=True, eq=False)
-class RecordIndex:
-    """A game and the position of each of its skills, which ``Skill`` doesn't carry."""
-
-    game: GameData
-    skill_positions: dict[Skill, int]
-
-    @classmethod
-    def for_game(cls, game: GameData) -> RecordIndex:
-        index = cls(
-            game=game,
-            skill_positions={skill: position for position, skill in enumerate(game.skills)},
-        )
-        return index
-
-
 def _armor_index(armor: Armor | None, armor_type: ArmorType, game: GameData) -> int:
     if armor is None:
         return -1
@@ -99,14 +83,9 @@ def _ability_index(ability: Ability, game: GameData) -> int:
     return index
 
 
-def _skill_indices(skills: list[Skill], index: RecordIndex) -> tuple[int, ...]:
-    positions = []
-    for skill in skills:
-        position = index.skill_positions.get(skill)
-        if position is None:
-            raise ValueError(f"{skill.name} is not a skill of this game")
-        positions.append(position)
-    return tuple(positions)
+def _skill_indices(skills: list[Skill], game: GameData) -> tuple[int, ...]:
+    indices = tuple(game.skill_index(skill) for skill in skills)
+    return indices
 
 
 def charm_record(charm: Charm | None, game: GameData) -> CharmRecord | None:
@@ -125,10 +104,9 @@ def charm_record(charm: Charm | None, game: GameData) -> CharmRecord | None:
     return record
 
 
-def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
-    """``solution`` by index into ``index.game``; raises ``ValueError`` on a record
+def to_record(solution: Solution, game: GameData) -> SolutionRecord:
+    """``solution`` by index into ``game``; raises ``ValueError`` on a record
     that isn't that game's, or on a number of armour slots other than five."""
-    game = index.game
     record = SolutionRecord(
         armors=tuple(
             _armor_index(armor, armor_type, game)
@@ -138,8 +116,8 @@ def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
         decorations=_decoration_indices(solution.decorations, game),
         body_decorations=_decoration_indices(solution.body_decorations, game),
         non_body_decorations=_decoration_indices(solution.non_body_decorations, game),
-        extra_skills=_skill_indices(solution.extra_skills, index),
-        bad_skills=_skill_indices(solution.bad_skills, index),
+        extra_skills=_skill_indices(solution.extra_skills, game),
+        bad_skills=_skill_indices(solution.bad_skills, game),
         abilities=tuple(
             (_ability_index(ability, game), points)
             for ability, points in solution.abilities.items()

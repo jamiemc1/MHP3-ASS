@@ -10,8 +10,7 @@ import pytest
 
 from goldens import SearchGolden, line_has_charm
 from mhp3ass.model import Ability, AbilityPair, Charm
-from mhp3ass.query import SearchSpec
-from mhp3ass.results.result_set import ResultSet, skill_indices
+from mhp3ass.results.result_set import ResultSet
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.view import CharmFilter, FilterKind, ResultsView, SolutionSelection
 from mhp3ass.solution.state import Solution
@@ -28,9 +27,7 @@ class CorpusSearch:
 
 
 @pytest.fixture(scope="module")
-def corpus_searches(
-    search_goldens, search_data_by_language, pooled_searches
-) -> dict[str, CorpusSearch]:
+def corpus_searches(search_goldens, pooled_searches) -> dict[str, CorpusSearch]:
     """1a (my charms, with a charm-free worker) and g13 (one-skill charms,
     whose harness candidates name every solution's charm), from the session's
     searches; views only read them."""
@@ -39,12 +36,10 @@ def corpus_searches(
         query_id = golden.manifest["id"]
         if query_id not in ("1a", "g13"):
             continue
-        spec = SearchSpec.from_json(golden.query)
-        data = search_data_by_language[spec.query.language]
         result = pooled_searches[query_id]
         searches[query_id] = CorpusSearch(
             results=result.results,
-            lines=result.results.all_solutions.lines(skill_indices(data.game)),
+            lines=result.results.all_solutions.lines(),
             golden=golden,
         )
     return searches
