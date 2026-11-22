@@ -22,6 +22,7 @@ from mhp3ass.solution.fill import calculate_decorations
 from mhp3ass.solution.state import (
     CalculationData,
     LegacyNullReferenceError,
+    Place,
     Solution,
     allocated_slots,
 )
@@ -99,9 +100,13 @@ def swap_out(solution: Solution, decoration: Decoration) -> None:
     as they were. Running out of gems indexes past the list, as the original
     does with its ``Assert`` compiled out. Plain indexing raises ``KeyError``
     where the original's ``Dictionary`` would throw.
+
+    The removed gems' ``places`` entries go with them; the decoration takes
+    their place when they all shared one, and is ``UNPLACEABLE`` otherwise.
     """
     count = 0
     i = 0
+    removed_places: set[Place] = set()
     while count < decoration.slots_required:
         if i >= len(solution.decorations):
             raise LegacyListIndexError(f"SwapOut ran past {len(solution.decorations)} decorations")
@@ -113,12 +118,15 @@ def swap_out(solution: Solution, decoration: Decoration) -> None:
             for pair in current.abilities:
                 solution.abilities[pair.ability] -= pair.amount
             del solution.decorations[i]
+            removed_places.add(solution.places.pop(i))
             count += 1
         else:
             i += 1
     for pair in decoration.abilities:
         solution.abilities[pair.ability] += pair.amount
     solution.decorations.append(decoration)
+    merged_place = removed_places.pop() if len(removed_places) == 1 else Place.UNPLACEABLE
+    solution.places.append(merged_place)
 
 
 def reduce_slots(data: CalculationData) -> None:
