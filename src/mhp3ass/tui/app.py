@@ -62,11 +62,12 @@ from mhp3ass.saved_folder import (
     FolderChoice,
     change_folder,
     clear,
-    clear_targets,
+    clear_answers,
+    folder_choice_label,
     folder_choices,
     with_folder,
 )
-from mhp3ass.saved_state import Startup, settings_for
+from mhp3ass.saved_state import Startup, settings_for, starting_settings
 from mhp3ass.search import (
     SearchCancelled,
     SearchData,
@@ -546,16 +547,11 @@ class SearchApp(App[bool]):
         if not choices:
             self.notify(f"{event.folder} is the folder in use, or isn't a folder.", markup=False)
             return
-        labels = {
-            FolderChoice.MOVE: f"Move settings.cfg and mycharms.txt from {current} there",
-            FolderChoice.FRESH: "Start fresh there (the files here stay where they are)",
-            FolderChoice.USE: "Use the files already there",
-        }
         self.push_screen(
             ChoiceScreen(
                 title="Saved data",
                 text=f"Keep saved data in {event.folder}?",
-                answers=[(labels[choice], choice) for choice in choices],
+                answers=[(folder_choice_label(choice, current), choice) for choice in choices],
             ),
             lambda choice: self._change_folder(event.folder, choice),
         )
@@ -597,26 +593,16 @@ class SearchApp(App[bool]):
     def on_options_screen_clear_requested(self, event: OptionsScreen.ClearRequested) -> None:
         event.stop()
         folder = self._files.folders.saved
-        answers = []
-        for label, choice in (
-            ("The saved search and results", ClearChoice.SEARCH),
-            ("My charms (back to the shipped list)", ClearChoice.MY_CHARMS),
-            ("Everything", ClearChoice.EVERYTHING),
-        ):
-            targets = clear_targets(folder, choice)
-            if not targets:
-                continue
-            names = ", ".join(path.name for path in targets)
-            if choice is ClearChoice.SEARCH:
-                # The language lives in settings.cfg too; it stays, so my charms still load.
-                answers.append((f"{label}: resets {names}, keeping the language", choice))
-            else:
-                answers.append((f"{label}: deletes {names}", choice))
+        answers = clear_answers(folder)
         if not answers:
             self.notify(f"{folder} has nothing to clear.", markup=False)
             return
         self.push_screen(
-            ChoiceScreen(title="Clear", text=f"Clear in {folder}:", answers=answers),
+            ChoiceScreen(
+                title="Clear",
+                text=f"Clear in {folder}:",
+                answers=[(answer.label, answer.choice) for answer in answers],
+            ),
             self._clear,
         )
 
@@ -632,13 +618,8 @@ class SearchApp(App[bool]):
             return
         try:
             if choice is ClearChoice.SEARCH:
-                starting = settings_for(
-                    QueryForm.starting(),
-                    game=self._data.game,
-                    language_index=self._files.language_index,
-                    last_search_gunner=False,
-                    sort_key=SortKey.NONE,
-                    solutions=[],
+                starting = starting_settings(
+                    self._data.game, language_index=self._files.language_index
                 )
                 write_settings_cfg(self._files.settings_cfg, starting)
             else:

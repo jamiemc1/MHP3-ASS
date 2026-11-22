@@ -8,7 +8,8 @@ import random
 
 import pytest
 
-from mhp3ass.results.sorting import SortKey, sorts_ascending, stat_key
+from mhp3ass.data.strings import StringIndex
+from mhp3ass.results.sorting import SortKey, sort_label, sorts_ascending, stat_key
 from mhp3ass.results.view import sorted_positions
 from mhp3ass.solution.state import Solution
 
@@ -102,6 +103,25 @@ def test_every_other_key_has_a_stat_key():
     keyed = [key for key in SortKey if key is not SortKey.NONE and stat_key(key) is not None]
 
     assert keyed == [key for key in SortKey if key is not SortKey.NONE]
+
+
+def test_each_key_is_named_by_its_cmbsort_item():
+    """``Form1.h:2090-2100``: Defence is the Base Defence string, Spare Slots its own sort one."""
+    labels = {key: sort_label(key) for key in SortKey}
+
+    assert labels == {
+        SortKey.NONE: StringIndex.NONE,
+        SortKey.DRAGON_RES: StringIndex.DRAGON_RES,
+        SortKey.FIRE_RES: StringIndex.FIRE_RES,
+        SortKey.ICE_RES: StringIndex.ICE_RES,
+        SortKey.THUNDER_RES: StringIndex.THUNDER_RES,
+        SortKey.WATER_RES: StringIndex.WATER_RES,
+        SortKey.DEFENCE: StringIndex.BASE_DEFENCE,
+        SortKey.MAX_DEFENCE: StringIndex.MAX_DEFENCE,
+        SortKey.DIFFICULTY: StringIndex.DIFFICULTY,
+        SortKey.RARITY: StringIndex.RARITY,
+        SortKey.SLOTS_SPARE: StringIndex.SORT_SLOTS_SPARE,
+    }
 
 
 @pytest.mark.parametrize(

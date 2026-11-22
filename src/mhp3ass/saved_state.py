@@ -122,6 +122,21 @@ def settings_for(
     return settings
 
 
+def starting_settings(game: GameData, language_index: int) -> SettingsCfg:
+    """``settings_for`` the state with no ``settings.cfg``
+    (``SavedSearch.starting``), in language ``language_index``, with no results."""
+    search = SavedSearch.starting()
+    settings = settings_for(
+        search.form,
+        game=game,
+        language_index=language_index,
+        last_search_gunner=search.last_search_gunner,
+        sort_key=search.sort_key,
+        solutions=[],
+    )
+    return settings
+
+
 def form_from_settings(settings: SettingsCfg, game: GameData) -> QueryForm:
     """The form ``LoadConfig`` restores (``Form1.h:399-427``) from start-up's
     empty rows, each tab's rows closed up into chips. Raises
