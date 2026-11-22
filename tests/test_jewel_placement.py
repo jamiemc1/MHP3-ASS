@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import pytest
 
@@ -580,6 +580,13 @@ def test_a_loaded_set_no_listed_jewels_build_has_no_placement(protection_search)
     placements = {chest_jewels(solution, query=query, refill_game=game) for solution in loaded}
 
     assert [len(loaded), len(refilling), placements] == [10, 10, {UnknownPlacement()}]
+
+
+def test_a_generated_charm_without_its_unreduced_copy_raises(torso_inc_sets, charm_corrected):
+    without_copy = replace(charm_corrected[0], unreduced_charm=None)
+
+    with pytest.raises(ValueError, match="unreduced_charm"):
+        correction(without_copy, query=torso_inc_sets.query, game=torso_inc_sets.game, loaded=False)
 
 
 def test_a_loaded_set_needing_the_charm_before_reduction_has_no_correction(
