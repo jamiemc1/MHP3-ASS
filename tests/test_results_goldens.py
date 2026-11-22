@@ -69,7 +69,7 @@ def _charm_map(view: ResultsView) -> list[dict[str, Any]]:
     return charm_map
 
 
-def _placements(lines: Sequence[str], view: ResultsView, game: GameData) -> str:
+def _placements(lines: Sequence[str], view: ResultsView) -> str:
     """Where each loaded line went, read back from the lists: ``a`` all
     solutions, ``n`` the charm-free list, ``d`` dropped as a duplicate. A ``?``
     marks list entries no line accounts for."""
@@ -127,7 +127,7 @@ def _load_step(
     observed = {
         "step": step,
         "line_count": len(lines),
-        "placements": _placements(lines, view, game),
+        "placements": _placements(lines, view),
         "all_count": len(view.all_solutions),
         "no_charm_count": len(view.no_charm_solutions),
         "charm_map": _charm_map(view),

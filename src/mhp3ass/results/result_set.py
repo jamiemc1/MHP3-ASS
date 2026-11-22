@@ -252,8 +252,9 @@ def solution_line(solution: Solution) -> str:
 
     Every field ends in a space: the armour indices (-1 for an empty slot),
     total and per-size spare slots, the decorations, the extra skills, then
-    the charm's slots and pairs when it has one. Records are numbered by
-    their place in the game's tables (``index``, ``static_index``).
+    the charm's slots and pairs when it has one. Armour, decorations, skills
+    and abilities are numbered by their place in the game's tables
+    (``index``, ``static_index``).
     """
     fields = [str(armor.index if armor is not None else -1) for armor in solution.armors]
     slots_spare = solution.slots_spare

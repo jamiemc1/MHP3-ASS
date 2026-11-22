@@ -59,7 +59,7 @@ class GameData:
         raises ``ValueError`` for a skill of another game."""
         index = skill.static_index
         if not 0 <= index < len(self.skills) or self.skills[index] is not skill:
-            raise ValueError(f"{skill.name} isn't one of this game's skills")
+            raise ValueError(f"{skill.name} isn't one of this game's skills (skill {index})")
         return index
 
 

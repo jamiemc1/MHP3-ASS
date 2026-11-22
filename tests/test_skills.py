@@ -8,12 +8,11 @@ from mhp3ass.skills import get_skill
 
 def test_get_skill_matches_golden_for_every_ability_and_points(models_golden, teamhgg_game):
     dump = models_golden["get_skill"]
-    skill_index = {id(skill): index for index, skill in enumerate(teamhgg_game.skills)}
     points_range = range(dump["min_points"], dump["max_points"] + 1)
     ours = []
     for ability in teamhgg_game.abilities:
         skills = [get_skill(ability, points) for points in points_range]
-        ours.append([skill_index[id(skill)] if skill is not None else -1 for skill in skills])
+        ours.append([skill.static_index if skill is not None else -1 for skill in skills])
 
     mismatched = [
         teamhgg_game.abilities[index].name

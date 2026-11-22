@@ -11,7 +11,6 @@ from dataclasses import dataclass
 from typing import Any
 
 from goldens import Candidate
-from mhp3ass.data import GameData
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import (
     SearchResult,
@@ -125,7 +124,6 @@ def compare_search(
         golden_lines=golden_lines,
         golden_candidates=golden_candidates,
         result=result,
-        game=search_data[SearchSpec.from_json(query).query.language].game,
         max_solution_lines=max_solution_lines,
     )
     return comparison
@@ -138,7 +136,6 @@ def compare_result(
     golden_lines: list[str] | None,
     golden_candidates: list[Candidate] | None,
     result: SearchResult,
-    game: GameData,
     max_solution_lines: int,
 ) -> SearchComparison:
     """Compare ``query``'s search with the harness's manifest, and with its
