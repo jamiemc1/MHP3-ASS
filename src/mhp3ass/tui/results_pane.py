@@ -28,7 +28,7 @@ from textual.worker import get_current_worker
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
-from mhp3ass.model import ArmorType, Charm
+from mhp3ass.model import ArmorType
 from mhp3ass.pane_titles import sets_title
 from mhp3ass.query import Query
 from mhp3ass.regions import Region
@@ -87,7 +87,6 @@ class JewelJob:
     query: Query
     sort_key: SortKey
     game: GameData
-    charm_templates: tuple[Charm | None, ...] | None
 
 
 class ResultsPane(Horizontal):
@@ -155,7 +154,6 @@ class ResultsPane(Horizontal):
         self._options: list[Option] = []
         self._query: Query | None = None
         self._game: GameData | None = None
-        self._charm_templates: tuple[Charm | None, ...] | None = None
         self._needle = ""
         self.note: str | None = None
         # Find texts by id(solution); the view keeps every solution alive.
@@ -215,11 +213,6 @@ class ResultsPane(Horizontal):
     def results_query(self) -> Query | None:
         """The shown results' own query, as ``show`` was given it."""
         return self._query
-
-    @property
-    def charm_templates(self) -> tuple[Charm | None, ...] | None:
-        """The shown results' charm templates, as ``show`` was given them."""
-        return self._charm_templates
 
     @property
     def sort_key(self) -> SortKey:
@@ -284,15 +277,12 @@ class ResultsPane(Horizontal):
         rows: Sequence[TableRow],
         query: Query,
         game: GameData,
-        charm_templates: tuple[Charm | None, ...] | None,
         note: str | None = None,
     ) -> None:
         """Show a new search's view and the rows of its ``final``
         (``view_rows``, named by ``table_names``); ``query`` is the results'
-        own, for the inspector's notes and extra skills,
-        ``game`` the one they were found in, for its jewel placements, and
-        ``charm_templates`` the search's workers' charms (``None`` for loaded
-        results), for a set that can't be built as listed (quirk 52).
+        own, for the inspector's notes and extra skills, and
+        ``game`` the one they were found in, for its jewel placements.
         ``note``, shown in the sets' bottom border until the next results,
         says what is wrong with them (a worker that stopped).
         The view was built with the sort and reverse of the search's start; if
@@ -305,7 +295,6 @@ class ResultsPane(Horizontal):
         sets.border_subtitle = Content(note) if note is not None else None
         self._query = query
         self._game = game
-        self._charm_templates = charm_templates
         self._text_by_set = {}
         self._fill_filters()
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
@@ -342,11 +331,7 @@ class ResultsPane(Horizontal):
             return
         solution = view.final[row]
         details = solution_details(
-            solution,
-            query=self._query,
-            sort_key=view.sort_key,
-            refill_game=None,
-            charm_templates=self._charm_templates,
+            solution, query=self._query, sort_key=view.sort_key, refill_game=None
         )
         shown = ShownSet(number=row + 1, solution=solution, details=details, query=self._query)
         if not isinstance(details.chest_jewels, PlacementPending) or self._is_searching():
@@ -362,7 +347,6 @@ class ResultsPane(Horizontal):
                 query=self._query,
                 sort_key=view.sort_key,
                 game=self._game,
-                charm_templates=self._charm_templates,
             )
         )
 
@@ -379,7 +363,6 @@ class ResultsPane(Horizontal):
                 query=job.query,
                 sort_key=job.sort_key,
                 refill_game=job.game,
-                charm_templates=job.charm_templates,
             )
         try:
             self.app.call_from_thread(self._jewels_worked_out, job, details)

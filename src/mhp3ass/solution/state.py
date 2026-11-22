@@ -8,9 +8,20 @@ Ported from ``Solution`` (``legacy/Solution.h:39-71``), ``CalculationData``
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from enum import IntEnum
 
 from mhp3ass.model import Ability, Armor, Charm, Decoration, Skill
 from mhp3ass.query import Query
+
+
+class Place(IntEnum):
+    """Where one of ``Solution.decorations`` sits: in the chest, whose points
+    count the torso multiplier times, elsewhere, or neither, where
+    ``SwapOut`` merged gems from both into one decoration."""
+
+    CHEST = 0
+    ELSEWHERE = 1
+    UNPLACEABLE = 2
 
 
 class LegacyNullReferenceError(RuntimeError):
@@ -33,6 +44,13 @@ class Solution:
     ``difficulty`` and ``slots_spare``'s entries) hold C++ ``unsigned``
     values, so every store to them goes through ``as_unsigned``.
     ``slots_spare`` stays ``None`` until ``GetInitialData`` allocates it.
+
+    Two fields are the port's own, which no golden, trace or file reads:
+    ``places``, one ``Place`` per ``decorations`` entry, kept in step by
+    ``add_decoration``, ``Replace`` and ``SwapOut`` (which leave the body and
+    non-body lists stale, quirk 22); and ``unreduced_charm``, a copy of the
+    charm just before ``ReduceSlots``, ``None`` where it isn't reduced (no
+    charm, or a custom one).
     """
 
     armors: list[Armor | None]
@@ -56,6 +74,8 @@ class Solution:
     rarity: int = 0
     difficulty: int = 0
     slots_spare: list[int] | None = None
+    places: list[Place] = field(default_factory=list)
+    unreduced_charm: Charm | None = None
 
 
 def allocated_slots(solution: Solution) -> list[int]:

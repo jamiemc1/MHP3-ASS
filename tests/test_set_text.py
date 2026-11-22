@@ -51,16 +51,11 @@ def _first(
     shown: Callable[[SolutionDetails], bool],
 ) -> DetailedSet:
     """The first of the search's ``chosen`` sets whose worked-out details are ``shown``."""
-    templates = tuple(worker.template for worker in search.result.workers)
     for solution in search.result.results.all_solutions:
         if not chosen(solution):
             continue
         details = solution_details(
-            solution,
-            query=search.result.query,
-            sort_key=SortKey.NONE,
-            refill_game=search.game,
-            charm_templates=templates,
+            solution, query=search.result.query, sort_key=SortKey.NONE, refill_game=search.game
         )
         if shown(details):
             return DetailedSet(solution=solution, details=details)
