@@ -19,7 +19,7 @@ from goldens import formulate_query_json
 from mhp3ass.model import AbilityPair, ArmorType, Charm
 from mhp3ass.search import run_worker
 from mhp3ass.solution.record import CharmRecord, RecordIndex, from_record, to_record
-from mhp3ass.solution.state import Solution
+from mhp3ass.solution.state import Place, Solution
 from solution_trace import worker_templates
 
 
@@ -62,8 +62,10 @@ def _differences(original: Solution, rebuilt: Solution) -> list[str]:
         name = field.name
         before = getattr(original, name)
         after = getattr(rebuilt, name)
-        if name == "charm":
-            differences += _charm_differences(before, after)
+        if name in ("charm", "unreduced_charm"):
+            differences += [
+                f"{name}: {difference}" for difference in _charm_differences(before, after)
+            ]
         elif name == "abilities":
             if not _same_objects(list(before), list(after)) or list(before.values()) != list(
                 after.values()
@@ -78,6 +80,9 @@ def _differences(original: Solution, rebuilt: Solution) -> list[str]:
             "bad_skills",
         ):
             if not _same_objects(before, after):
+                differences.append(name)
+        elif name == "places":
+            if before != after or not all(isinstance(place, Place) for place in after):
                 differences.append(name)
         elif before != after or type(before) is not type(after):
             differences.append(name)
@@ -138,12 +143,17 @@ def test_personal_solutions_survive_the_round_trip(
 @pytest.fixture
 def hand_built_solution(teamhgg_game):
     """A solution with an empty head slot, a hacked custom charm without pairs, a
-    decoration in each list, a bad skill and abilities in a non-sorted order."""
+    charm before reduction, a decoration in each list and one merged from both,
+    a bad skill and abilities in a non-sorted order."""
     game = teamhgg_game
     solution = Solution(
         armors=[None] + [game.armors[armor_type][1] for armor_type in list(ArmorType)[1:]],
         charm=Charm(num_slots=2, abilities=[], custom=True, hacked=True),
-        decorations=[game.decorations[3], game.decorations[0]],
+        unreduced_charm=Charm(
+            num_slots=3, abilities=[AbilityPair(ability=game.abilities[20], amount=4)]
+        ),
+        decorations=[game.decorations[3], game.decorations[0], game.decorations[7]],
+        places=[Place.CHEST, Place.ELSEWHERE, Place.UNPLACEABLE],
         body_decorations=[game.decorations[3]],
         non_body_decorations=[game.decorations[0]],
         extra_skills=[game.skills[5]],
@@ -167,6 +177,9 @@ def test_hand_built_solution_survives_the_round_trip(
     assert record.armors[0] == -1
     assert rebuilt.charm is not None
     assert rebuilt.charm.abilities == []
+    assert rebuilt.places == [Place.CHEST, Place.ELSEWHERE, Place.UNPLACEABLE]
+    assert rebuilt.unreduced_charm is not None
+    assert rebuilt.unreduced_charm is not hand_built_solution.unreduced_charm
 
 
 def test_charmless_solution_without_slots_keeps_none(record_index, teamhgg_game):
@@ -212,6 +225,13 @@ def empty_record(record_index):
         {"abilities": ((-1, 3),)},
         {"abilities": ((3, 5), (3, -2))},
         {"charm": CharmRecord(num_slots=1, abilities=((-1, 2),), custom=False, hacked=False)},
+        {
+            "unreduced_charm": CharmRecord(
+                num_slots=1, abilities=((100_000, 2),), custom=False, hacked=False
+            )
+        },
+        {"decorations": (0,), "places": (3,)},
+        {"decorations": (0,), "places": ()},
     ],
     ids=[
         "armour-below-empty",
@@ -225,6 +245,9 @@ def empty_record(record_index):
         "ability-negative",
         "ability-twice",
         "charm-ability-negative",
+        "unreduced-charm-ability-past-end",
+        "place-unknown",
+        "places-not-one-per-decoration",
     ],
 )
 def test_bad_record_raises(changes, empty_record, teamhgg_game):
@@ -233,7 +256,13 @@ def test_bad_record_raises(changes, empty_record, teamhgg_game):
 
 
 def test_record_with_every_index_in_range_rebuilds(empty_record, teamhgg_game):
-    record = replace(empty_record, decorations=(0,), extra_skills=(0,), abilities=((3, 5),))
+    record = replace(
+        empty_record,
+        decorations=(0,),
+        places=(Place.ELSEWHERE,),
+        extra_skills=(0,),
+        abilities=((3, 5),),
+    )
     rebuilt = from_record(record, teamhgg_game)
     assert rebuilt.decorations == [teamhgg_game.decorations[0]]
     assert rebuilt.extra_skills == [teamhgg_game.skills[0]]
