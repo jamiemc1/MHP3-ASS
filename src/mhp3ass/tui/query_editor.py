@@ -13,6 +13,7 @@ from rich.cells import cell_len
 from textual import events
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
+from textual.geometry import Offset
 from textual.widget import Widget
 from textual.widgets import Button, Label, Select, Static
 
@@ -268,18 +269,18 @@ class QueryEditor(Vertical):
 
     def move_focus(self, direction: Direction) -> None:
         """Focus the field beside the focused one, or on the row above or
-        below (``spatial.neighbour``). Each of the editor's horizontal
-        containers is a row; a field outside one is a row of its own. With
-        no field that way, or the focus on none, nothing moves."""
+        below (``spatial.neighbour``). The fields on one line of the editor
+        are a row, in the order the focus visits them. With no field that
+        way, or the focus on none, nothing moves."""
         focusable = self.focus_fields()
         current = self._focused_field(focusable)
         if current is None:
             return
-        rows: dict[Widget, list[FieldBox]] = {}
+        rows: dict[int, list[FieldBox]] = {}
         for key, widget in enumerate(focusable):
-            row = self._row_of(widget)
-            rows.setdefault(row, []).append(
-                FieldBox(key, x=self._x_of(widget), width=widget.virtual_region.width)
+            origin = self._origin_of(widget)
+            rows.setdefault(origin.y, []).append(
+                FieldBox(key, x=origin.x, width=widget.virtual_region.width)
             )
         target = neighbour(list(rows.values()), current=current, direction=direction)
         if target is not None:
@@ -309,31 +310,17 @@ class QueryEditor(Vertical):
         index = next((index for index, field in enumerate(focusable) if field is focused), None)
         return index
 
-    def _row_of(self, widget: Widget) -> Widget:
-        """The row ``widget`` is on: the outermost of the containers around
-        it laid out side by side, as the CSS has them at the time (the
-        spread editor stacks some), or ``widget`` alone outside any."""
-        row = widget
-        for ancestor in widget.ancestors:
-            if ancestor is self or not isinstance(ancestor, Widget):
-                break
-            layout = ancestor.styles.layout
-            if layout is not None and layout.name == "horizontal":
-                row = ancestor
-            elif row is not widget:
-                break
-        return row
-
-    def _x_of(self, widget: Widget) -> int:
-        """``widget``'s column in the editor's own frame, whatever the
-        containers between them (each ``virtual_region`` is its container's)."""
-        x = widget.virtual_region.x
+    def _origin_of(self, widget: Widget) -> Offset:
+        """``widget``'s top-left cell in the editor's own frame, whatever the
+        containers between them (each ``virtual_region`` is its container's),
+        so it doesn't move as the editor scrolls."""
+        origin = widget.virtual_region.offset
         for ancestor in widget.ancestors:
             if ancestor is self:
                 break
             if isinstance(ancestor, Widget):
-                x += ancestor.virtual_region.x
-        return x
+                origin += ancestor.virtual_region.offset
+        return origin
 
 
 def _number_select(minimum: int, maximum: int, value: int, select_id: str) -> Select[int]:
