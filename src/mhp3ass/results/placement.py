@@ -198,15 +198,18 @@ def correction(
     1. the listed charm filled again (as ``refilled`` fills it), with the
        jewels that fill gives, placed as ``jewel_placement`` tries them;
     2. the listed charm with ``pick_jewels``' jewels;
-    3. the charm before reduction (``unreduced_charm``, or the listed charm
-       where the search didn't reduce it) with the jewels the search's fill
-       placed in ``body_decorations`` and ``non_body_decorations``, which
-       the bad-skill repair and charm reduction leave as they were (quirk 22).
+    3. the set's own charm before reduction (``unreduced_charm``, or the
+       listed charm where the search didn't reduce it) with the jewels the
+       search's fill placed in ``body_decorations`` and
+       ``non_body_decorations``, which the bad-skill repair and charm
+       reduction leave as they were (quirk 22). Only the set's own: another
+       worker's charm that reduces to the same listed one isn't tried.
 
     ``Unbuildable`` (step 2's reason) when none builds. Raises
     ``PlacementUnknownError`` when steps 1 and 2 don't build and ``solution``
     is a ``loaded`` set's refill: ``settings.cfg`` doesn't keep the charm
-    before reduction.
+    before reduction. Raises ``ValueError`` for a set with a generated charm
+    but no ``unreduced_charm``, which the search always gives one.
     Fills read ``query.relevant_abilities``; as for ``refilled``, call it only while no
     search is using ``game``.
     """
@@ -227,8 +230,7 @@ def correction(
         return Correction(charm=solution.charm, placement=picked, charm_changed=False)
     if loaded:
         raise PlacementUnknownError("the charm before reduction isn't known, so neither is a build")
-    # The search reduces only a charm that isn't custom (Solution.cpp:687-702).
-    unreduced = solution.unreduced_charm if solution.unreduced_charm is not None else solution.charm
+    unreduced = _charm_before_reduction(solution)
     fill_time_jewels = [*solution.body_decorations, *solution.non_body_decorations]
     placed = _buildable_split(
         solution,
@@ -241,6 +243,18 @@ def correction(
         return picked
     rebuilt = Correction(charm=unreduced, placement=placed, charm_changed=True)
     return rebuilt
+
+
+def _charm_before_reduction(solution: Solution) -> Charm | None:
+    """The charm ``solution`` had before the search reduced it: the search
+    reduces only a charm that isn't custom (Solution.cpp:687-702), and keeps
+    a copy of it in ``unreduced_charm``."""
+    charm = solution.charm
+    if solution.unreduced_charm is not None:
+        return solution.unreduced_charm
+    if charm is not None and not charm.custom:
+        raise ValueError("a generated charm the search filled keeps its unreduced_charm")
+    return charm
 
 
 def _filled(

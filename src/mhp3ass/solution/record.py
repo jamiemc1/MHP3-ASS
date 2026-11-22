@@ -213,7 +213,12 @@ def _abilities(pairs: tuple[tuple[int, int], ...], game: GameData) -> dict[Abili
 def from_record(record: SolutionRecord, game: GameData) -> Solution:
     """The ``Solution`` ``record`` describes, built from ``game``'s records; raises
     ``ValueError`` on an index outside the game's tables, an ability given twice,
-    a place that isn't a ``Place`` or a number of armour slots other than five."""
+    a place that isn't a ``Place``, places that aren't one per decoration, or a
+    number of armour slots other than five."""
+    if len(record.places) != len(record.decorations):
+        raise ValueError(
+            f"{len(record.places)} places for {len(record.decorations)} decorations in the record"
+        )
     armors: list[Armor | None] = [
         None
         if position == -1

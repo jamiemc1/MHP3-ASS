@@ -230,7 +230,8 @@ def empty_record(record_index):
                 num_slots=1, abilities=((100_000, 2),), custom=False, hacked=False
             )
         },
-        {"places": (3,)},
+        {"decorations": (0,), "places": (3,)},
+        {"decorations": (0,), "places": ()},
     ],
     ids=[
         "armour-below-empty",
@@ -246,6 +247,7 @@ def empty_record(record_index):
         "charm-ability-negative",
         "unreduced-charm-ability-past-end",
         "place-unknown",
+        "places-not-one-per-decoration",
     ],
 )
 def test_bad_record_raises(changes, empty_record, teamhgg_game):
@@ -254,7 +256,13 @@ def test_bad_record_raises(changes, empty_record, teamhgg_game):
 
 
 def test_record_with_every_index_in_range_rebuilds(empty_record, teamhgg_game):
-    record = replace(empty_record, decorations=(0,), extra_skills=(0,), abilities=((3, 5),))
+    record = replace(
+        empty_record,
+        decorations=(0,),
+        places=(Place.ELSEWHERE,),
+        extra_skills=(0,),
+        abilities=((3, 5),),
+    )
     rebuilt = from_record(record, teamhgg_game)
     assert rebuilt.decorations == [teamhgg_game.decorations[0]]
     assert rebuilt.extra_skills == [teamhgg_game.skills[0]]
