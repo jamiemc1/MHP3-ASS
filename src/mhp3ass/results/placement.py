@@ -365,9 +365,8 @@ def pick_jewels(
         abilities = contested
         followed = set(contested)
         decorations = _unbeaten(_adding_to(decorations, abilities=followed), watched=followed)
-    found = search.first_build()
-    if found is not None:
-        picked = JewelPlacement(multiplier=multiplier, chest=found.chest, elsewhere=found.elsewhere)
+    picked = search.first_build(multiplier=multiplier)
+    if picked is not None:
         return picked
     reaching = search.reaching()
     if reaching:
@@ -417,15 +416,23 @@ class _Group:
     chest: bool
 
 
-@dataclass(frozen=True)
-class _Jewels:
-    chest: tuple[Decoration, ...]
-    elsewhere: tuple[Decoration, ...]
-
-    def with_group(self, chosen: tuple[Decoration, ...], chest: bool) -> _Jewels:
-        if chest:
-            return _Jewels(chest=self.chest + chosen, elsewhere=self.elsewhere)
-        return _Jewels(chest=self.chest, elsewhere=self.elsewhere + chosen)
+def _with_group(
+    placement: JewelPlacement, chosen: tuple[Decoration, ...], chest: bool
+) -> JewelPlacement:
+    """``placement`` with one more group's ``chosen`` jewels, in the chest or elsewhere."""
+    if chest:
+        grown = JewelPlacement(
+            multiplier=placement.multiplier,
+            chest=placement.chest + chosen,
+            elsewhere=placement.elsewhere,
+        )
+    else:
+        grown = JewelPlacement(
+            multiplier=placement.multiplier,
+            chest=placement.chest,
+            elsewhere=placement.elsewhere + chosen,
+        )
+    return grown
 
 
 @dataclass(frozen=True)
@@ -446,12 +453,13 @@ class _Search:
     targets: tuple[int, ...]
     asked: tuple[bool, ...]
 
-    def first_build(self) -> _Jewels | None:
+    def first_build(self, multiplier: int) -> JewelPlacement | None:
         """The first jewels found that bring every ability to its target,
-        each group's gains tried most points first, depth first; ``None``
-        when none do. Points past what the groups left could take off again
-        are held at that cap, so states that end alike are tried once, and a
-        state the groups left can't bring to its targets is dropped."""
+        placed with the chest's ``multiplier``, each group's gains tried most
+        points first, depth first; ``None`` when none do. Points past what the
+        groups left could take off again are held at that cap, so states that
+        end alike are tried once, and a state the groups left can't bring to
+        its targets is dropped."""
         bounds = [self._bounds(index, keep_bad=False) for index in range(len(self.groups))]
         ordered = [
             sorted(options.gains.items(), key=lambda entry: sum(entry[0]), reverse=True)
@@ -460,7 +468,9 @@ class _Search:
         # States after each group that lead to no build, so each is tried once.
         failed: list[set[tuple[int, ...]]] = [set() for _ in self.groups]
 
-        def visit(index: int, points: tuple[int, ...], jewels: _Jewels) -> _Jewels | None:
+        def visit(
+            index: int, points: tuple[int, ...], jewels: JewelPlacement
+        ) -> JewelPlacement | None:
             if index == len(self.groups):
                 return jewels
             bound = bounds[index]
@@ -474,25 +484,31 @@ class _Search:
                     map(operator.lt, after, bound.floors, strict=True)
                 ):
                     continue
-                found = visit(index + 1, after, jewels.with_group(chosen, chest=group.chest))
+                found = visit(
+                    index + 1,
+                    after,
+                    _with_group(placement=jewels, chosen=chosen, chest=group.chest),
+                )
                 if found is not None:
                     return found
                 failed[index].add(after)
             return None
 
-        first = visit(0, self.start, _Jewels(chest=(), elsewhere=()))
+        empty = JewelPlacement(multiplier=multiplier, chest=(), elsewhere=())
+        first = visit(0, self.start, empty)
         return first
 
-    def reaching(self) -> dict[tuple[int, ...], _Jewels]:
-        """The end points, each with the first jewels found giving it, that
-        bring every query ability to its target, whatever the others end at;
-        capped and dropped as ``first_build`` does."""
-        states = {self.start: _Jewels(chest=(), elsewhere=())}
-        for index, group in enumerate(self.groups):
+    def reaching(self) -> list[tuple[int, ...]]:
+        """The end points that bring every query ability to its target,
+        whatever the others end at, capped and dropped as ``first_build``
+        does, in the order the search first reaches them."""
+        # A dict as an insertion-ordered set: pick_jewels takes the first of the fewest bad skills.
+        states: dict[tuple[int, ...], None] = {self.start: None}
+        for index in range(len(self.groups)):
             bound = self._bounds(index, keep_bad=True)
-            grown: dict[tuple[int, ...], _Jewels] = {}
-            for points, jewels in states.items():
-                for gain, chosen in self.options[index].gains.items():
+            grown: dict[tuple[int, ...], None] = {}
+            for points in states:
+                for gain in self.options[index].gains:
                     after = tuple(
                         map(
                             min,
@@ -503,9 +519,10 @@ class _Search:
                     )
                     if after in grown or any(map(operator.lt, after, bound.floors, strict=True)):
                         continue
-                    grown[after] = jewels.with_group(chosen, chest=group.chest)
+                    grown[after] = None
             states = grown
-        return states
+        reached = list(states)
+        return reached
 
     def _bounds(self, index: int, keep_bad: bool) -> _Bounds:
         """After group ``index``: per ability, the cap past which more can't
