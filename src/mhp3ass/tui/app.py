@@ -598,7 +598,11 @@ class SearchApp(App[bool]):
             self.notify(f"{folder} has nothing to clear.", markup=False)
             return
         self.push_screen(
-            ChoiceScreen(title="Clear", text=f"Clear in {folder}:", answers=answers),
+            ChoiceScreen(
+                title="Clear",
+                text=f"Clear in {folder}:",
+                answers=[(answer.label, answer.choice) for answer in answers],
+            ),
             self._clear,
         )
 

@@ -106,7 +106,15 @@ def clear_targets(folder: Path, choice: ClearChoice) -> list[Path]:
     return targets
 
 
-def clear_answers(folder: Path) -> list[tuple[str, ClearChoice]]:
+@dataclasses.dataclass(frozen=True)
+class ClearAnswer:
+    """One of "clear…"'s answers: its button label and the choice it makes."""
+
+    label: str
+    choice: ClearChoice
+
+
+def clear_answers(folder: Path) -> list[ClearAnswer]:
     """What "clear…" offers for ``folder``, each answer's label naming the
     files it touches: only the choices with a file to clear, in the order
     search, my charms, everything."""
@@ -122,9 +130,11 @@ def clear_answers(folder: Path) -> list[tuple[str, ClearChoice]]:
         names = ", ".join(path.name for path in targets)
         if choice is ClearChoice.SEARCH:
             # The language lives in settings.cfg too; it stays, so my charms still load.
-            answers.append((f"{label}: resets {names}, keeping the language", choice))
+            answers.append(
+                ClearAnswer(label=f"{label}: resets {names}, keeping the language", choice=choice)
+            )
         else:
-            answers.append((f"{label}: deletes {names}", choice))
+            answers.append(ClearAnswer(label=f"{label}: deletes {names}", choice=choice))
     return answers
 
 

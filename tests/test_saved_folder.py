@@ -6,6 +6,7 @@ import pytest
 
 from mhp3ass.saved_data import TuiFolders, TuiSettings
 from mhp3ass.saved_folder import (
+    ClearAnswer,
     ClearChoice,
     FolderChoice,
     change_folder,
@@ -151,20 +152,48 @@ def test_each_folder_choice_says_what_it_does_with_the_files(current):
 
 def test_clear_offers_every_answer_naming_its_files(current):
     assert clear_answers(current) == [
-        (
-            "The saved search and results: resets settings.cfg, keeping the language",
-            ClearChoice.SEARCH,
+        ClearAnswer(
+            label="The saved search and results: resets settings.cfg, keeping the language",
+            choice=ClearChoice.SEARCH,
         ),
-        ("My charms (back to the shipped list): deletes mycharms.txt", ClearChoice.MY_CHARMS),
-        ("Everything: deletes settings.cfg, mycharms.txt", ClearChoice.EVERYTHING),
+        ClearAnswer(
+            label="My charms (back to the shipped list): deletes mycharms.txt",
+            choice=ClearChoice.MY_CHARMS,
+        ),
+        ClearAnswer(
+            label="Everything: deletes settings.cfg, mycharms.txt", choice=ClearChoice.EVERYTHING
+        ),
     ]
 
 
-def test_clear_offers_only_the_answers_with_a_file(folder_with_my_charms):
-    """No settings.cfg: no search answer, and Everything names only mycharms.txt."""
+def test_clear_without_settings_offers_no_search_answer(folder_with_my_charms):
+    """Everything names only mycharms.txt."""
     assert clear_answers(folder_with_my_charms) == [
-        ("My charms (back to the shipped list): deletes mycharms.txt", ClearChoice.MY_CHARMS),
-        ("Everything: deletes mycharms.txt", ClearChoice.EVERYTHING),
+        ClearAnswer(
+            label="My charms (back to the shipped list): deletes mycharms.txt",
+            choice=ClearChoice.MY_CHARMS,
+        ),
+        ClearAnswer(label="Everything: deletes mycharms.txt", choice=ClearChoice.EVERYTHING),
+    ]
+
+
+@pytest.fixture
+def folder_with_settings(tmp_path):
+    """A folder holding only a settings.cfg: my charms are still the shipped list."""
+    folder = tmp_path / "settings only"
+    folder.mkdir()
+    (folder / "settings.cfg").write_bytes(b"settings")
+    return folder
+
+
+def test_clear_without_my_charms_offers_no_my_charms_answer(folder_with_settings):
+    """Everything names only settings.cfg."""
+    assert clear_answers(folder_with_settings) == [
+        ClearAnswer(
+            label="The saved search and results: resets settings.cfg, keeping the language",
+            choice=ClearChoice.SEARCH,
+        ),
+        ClearAnswer(label="Everything: deletes settings.cfg", choice=ClearChoice.EVERYTHING),
     ]
 
 
