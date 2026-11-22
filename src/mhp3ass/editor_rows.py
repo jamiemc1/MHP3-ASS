@@ -32,11 +32,11 @@ def chips_cells(chips: Iterable[int]) -> int:
     return cells
 
 
-def chips_share_row(label: int, chips: Iterable[int], fields: int, room: int) -> bool:
+def chips_share_row(chips: Iterable[int], fields: int, room: int) -> bool:
     """The chosen skills (``chips``, each this many cells, a cell apart)
-    fit after their ``label`` and before the skill box and tag drop-down
-    (``fields`` cells), on a row ``room`` cells wide."""
-    shared = label + chips_cells(chips) + fields <= room
+    fit before the skill box and tag drop-down (``fields`` cells), on a
+    row ``room`` cells wide."""
+    shared = chips_cells(chips) + fields <= room
     return shared
 
 

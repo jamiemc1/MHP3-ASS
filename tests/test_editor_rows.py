@@ -32,19 +32,19 @@ def test_a_drop_down_with_no_labels_has_room_for_its_arrow_alone():
 
 
 def test_the_chips_share_the_row_when_they_fit_exactly():
-    shared = chips_share_row(label=7, chips=[10, 12], fields=40, room=7 + 11 + 13 + 40)
+    shared = chips_share_row(chips=[10, 12], fields=40, room=11 + 13 + 40)
 
     assert shared
 
 
 def test_the_chips_move_to_a_row_of_their_own_one_cell_past_the_room():
-    shared = chips_share_row(label=7, chips=[10, 12], fields=40, room=7 + 11 + 13 + 40 - 1)
+    shared = chips_share_row(chips=[10, 12], fields=40, room=11 + 13 + 40 - 1)
 
     assert not shared
 
 
-def test_no_chips_share_the_row_whenever_the_label_and_fields_fit():
-    shared = chips_share_row(label=7, chips=[], fields=40, room=47)
+def test_no_chips_share_the_row_whenever_the_fields_fit():
+    shared = chips_share_row(chips=[], fields=40, room=40)
 
     assert shared
 

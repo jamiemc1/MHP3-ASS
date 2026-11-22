@@ -8,11 +8,10 @@ from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
 from textual.message import Message
-from textual.widgets import Button, Input, Label, OptionList, Select
+from textual.widgets import Button, Input, OptionList, Select
 from textual.widgets.option_list import Option
 
 from mhp3ass.data import GameData
-from mhp3ass.data.strings import DisplayStrings, StringIndex
 from mhp3ass.editor_rows import (
     chip_label,
     chip_width,
@@ -49,9 +48,9 @@ class SkillSearch(Input):
 class SkillPicker(Vertical):
     """Edits one tab's six skill rows; posts ``RowsChanged`` after each change.
 
-    The chosen skills' chips follow the skills' label, on the search box's
-    row where they fit before it (``chips_share_row``), else on a row of
-    their own above it. The label takes the editor's ``lead`` column, and
+    The chosen skills' chips are on the search box's row where they fit
+    before it (``chips_share_row``), else on a row of their own above it.
+    The skills' label is the editor's, in the column before the picker, and
     the offered skills open under the search box."""
 
     DEFAULT_CSS = """
@@ -60,6 +59,10 @@ class SkillPicker(Vertical):
     }
     SkillPicker Horizontal {
         height: auto;
+    }
+    /* A row even with no chips on it, beside the skills' label. */
+    SkillPicker #chips {
+        height: 1;
     }
     SkillPicker ChipButton {
         min-width: 0;
@@ -101,20 +104,15 @@ class SkillPicker(Vertical):
     def __init__(
         self,
         game: GameData,
-        strings: DisplayStrings,
         rows: tuple[SkillRow, ...],
         hunter_type: HunterType,
-        lead: int,
         search_width: int,
     ) -> None:
-        """``lead``: the cells before the search box, the skills' label and its
-        gap; ``search_width``: the search box's, room for the longest skill name."""
+        """``search_width``: the search box's, room for the longest skill name."""
         super().__init__()
         self._game = game
-        self._strings = strings
         self.rows = rows
         self.hunter_type = hunter_type
-        self._lead = lead
         self._search_width = search_width
         self._tag_width = select_width(tag.name for tag in game.skill_tags)
         # Whether the chips are on the search box's row, once there is a width to decide by.
@@ -127,16 +125,8 @@ class SkillPicker(Vertical):
         self._dismissed = False
 
     def compose(self) -> ComposeResult:
-        skills = self._strings.static(StringIndex.SKILLS)
-        with Horizontal(id="chips"):
-            label = Label(skills)
-            label.styles.width = self._lead
-            yield label
+        yield Horizontal(id="chips")
         with Horizontal(id="skill_row"):
-            # The skills' label when the chips are on this row, else the gap under it.
-            shared_label = Label(skills, id="skill_row_label")
-            shared_label.styles.width = self._lead
-            yield shared_label
             search = SkillSearch(placeholder="add skill", compact=True, id="skill_search")
             search.styles.width = self._search_width
             yield search
@@ -165,7 +155,6 @@ class SkillPicker(Vertical):
     def _shares_row(self, chip_widths: list[int], room: int) -> bool:
         """Chips ``chip_widths`` wide fit on the search box's row, ``room`` cells wide."""
         shared = chips_share_row(
-            label=self._lead,
             chips=chip_widths,
             fields=self._search_width + 1 + self._tag_width,
             room=room,
@@ -197,10 +186,8 @@ class SkillPicker(Vertical):
         else:
             self.query_one("#chips", Horizontal).mount_all(chips)
         self.query_one("#chips", Horizontal).display = not shared
-        label = self._strings.static(StringIndex.SKILLS) if shared else ""
-        self.query_one("#skill_row_label", Label).update(label)
         # The offered skills open under the search box, after the chips beside it.
-        offset = self._lead + (chips_cells(widths) if shared else 0)
+        offset = chips_cells(widths) if shared else 0
         self.query_one("#skill_options", OptionList).styles.margin = (0, 0, 0, offset)
         for chip in chips:
             if chip.skill == focused_skill:

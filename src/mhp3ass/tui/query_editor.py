@@ -9,7 +9,6 @@ from __future__ import annotations
 from dataclasses import fields, replace
 from typing import Any
 
-from rich.cells import cell_len
 from textual import events
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
@@ -47,23 +46,38 @@ class QueryEditor(Vertical):
     close up."""
 
     # Its max-height is set by fit_height; past it the editor scrolls.
+    # The first column is as wide as its widest cell, so the fields after
+    # each row's first cell line up; the second holds the weapon slots.
     DEFAULT_CSS = """
     QueryEditor {
         height: auto;
         overflow-y: auto;
         padding: 0 1;
+        layout: grid;
+        grid-size: 3;
+        grid-columns: auto auto 1fr;
+        grid-rows: auto;
     }
     QueryEditor Horizontal {
         height: auto;
+    }
+    QueryEditor #hunter_cell {
+        width: 1fr;
+    }
+    QueryEditor .lead-cell {
+        width: auto;
+    }
+    QueryEditor #setup_rest, QueryEditor SkillPicker, QueryEditor #search_row {
+        column-span: 2;
+    }
+    QueryEditor .group-space {
+        column-span: 3;
     }
     QueryEditor Label {
         padding: 0 1 0 0;
     }
     QueryEditor Select {
         margin-right: 2;
-    }
-    QueryEditor #slots_cell {
-        width: auto;
     }
     /* The charm mode gives way, so the Search button beside it is never cut. */
     QueryEditor #charm_mode {
@@ -73,19 +87,21 @@ class QueryEditor(Vertical):
     QueryEditor #search {
         min-width: 10;
     }
-    /* Their heights are set by _space_groups. */
-    QueryEditor .group-space, QueryEditor #search_row {
+    /* The group spaces' heights are set by _space_groups. */
+    QueryEditor .spread-only {
         display: none;
     }
-    QueryEditor.-spread .group-space, QueryEditor.-spread #search_row {
+    QueryEditor.-spread .spread-only {
         display: block;
     }
-    QueryEditor.-spread #search {
+    QueryEditor.-spread .compact-only {
         display: none;
     }
-    /* Spread, the setup's second row and the charm mode are stacked. */
-    QueryEditor.-spread #mid_row {
-        layout: vertical;
+    /* Spread, the charm mode starts its own row, in the fields' column. */
+    QueryEditor.-spread #charm_cell {
+        column-span: 2;
+        /* An auto row measures a spanning cell at its first column's width. */
+        max-height: 1;
     }
     """
 
@@ -109,17 +125,9 @@ class QueryEditor(Vertical):
         charm_modes = [(strings.static(charm_mode_label(mode)), mode) for mode in CharmMode]
         slots_label = strings.static(StringIndex.MAX_WEAPON_SLOTS)
         charms_label = strings.static(StringIndex.CHARMS)
-        # Each row's first cell, with the gap after it.
-        lead = max(
-            select_width(label for label, _ in hunters) + 2,
-            cell_len(slots_label) + 1,
-            cell_len(strings.static(StringIndex.SKILLS)) + 1,
-        )
-        self._lead = lead
-        # Spread, the Charms label takes the lead column, or more if it is longer.
-        self._charms_width = max(lead, cell_len(charms_label) + 1)
-        yield Static(id="space_above", classes="group-space")
-        with Horizontal(id="setup_row"):
+        yield Static(id="space_above", classes="group-space spread-only")
+        # A Select's own width counts in an auto column only through a container around it.
+        with Horizontal(id="hunter_cell", classes="lead-cell"):
             hunter = Select(
                 hunters,
                 value=self.form.hunter_type,
@@ -127,8 +135,10 @@ class QueryEditor(Vertical):
                 compact=True,
                 id="hunter_type",
             )
-            hunter.styles.width = lead - 2
+            hunter.styles.width = "1fr"
+            hunter.styles.min_width = select_width(label for label, _ in hunters)
             yield hunter
+        with Horizontal(id="setup_rest"):
             gender = Select(
                 genders,
                 value=self.form.gender,
@@ -146,44 +156,47 @@ class QueryEditor(Vertical):
         # Room in the skill box for the longest skill name; Search, spread, is as wide.
         search_width = 26
         # Weapon slots start the second row, so the first fits in 80 columns.
-        with Horizontal(id="mid_row"):
-            with Horizontal(id="slots_cell"):
-                slots = Label(slots_label)
-                slots.styles.width = lead
-                yield slots
-                yield _number_select(0, 3, value=self.form.weapon_slots, select_id="weapon_slots")
-            yield Static(classes="group-space group-gap")
-            with Horizontal(id="charm_cell"):
-                yield Label(charms_label, id="charms_label")
-                charm_mode = Select(
-                    charm_modes,
-                    value=self.form.charm_mode,
-                    allow_blank=False,
-                    compact=True,
-                    id="charm_mode",
-                )
-                charm_mode.styles.max_width = select_width(label for label, _ in charm_modes)
-                yield charm_mode
-                # The app handles the press: searching needs its data and pool.
-                yield Button(
-                    search_label, variant="primary", compact=True, id="search", classes="search"
-                )
-        yield Static(classes="group-space group-gap")
+        yield Label(slots_label, id="slots_label")
+        with Horizontal(id="slots_cell", classes="lead-cell"):
+            yield _number_select(0, 3, value=self.form.weapon_slots, select_id="weapon_slots")
+        # Spread, the charm mode moves to a row of its own, after a gap.
+        yield Static(classes="spread-only")
+        yield Static(classes="group-space group-gap spread-only")
+        yield Label(charms_label, id="charms_lead", classes="spread-only")
+        with Horizontal(id="charm_cell"):
+            yield Label(charms_label, id="charms_label", classes="compact-only")
+            charm_mode = Select(
+                charm_modes,
+                value=self.form.charm_mode,
+                allow_blank=False,
+                compact=True,
+                id="charm_mode",
+            )
+            charm_mode.styles.max_width = select_width(label for label, _ in charm_modes)
+            yield charm_mode
+            # The app handles the press: searching needs its data and pool.
+            yield Button(
+                search_label,
+                variant="primary",
+                compact=True,
+                id="search",
+                classes="search compact-only",
+            )
+        yield Static(classes="group-space group-gap spread-only")
+        yield Label(strings.static(StringIndex.SKILLS), id="skills_label")
         yield SkillPicker(
             self._game,
-            strings=strings,
             rows=self.form.current_rows(),
             hunter_type=self.form.hunter_type,
-            lead=lead,
             search_width=search_width,
         )
-        yield Static(classes="group-space group-gap")
+        yield Static(classes="group-space group-gap spread-only")
         # Spread, Search is the last step, on its own row in the fields' column.
-        with Horizontal(id="search_row"):
+        yield Static(classes="spread-only")
+        with Horizontal(id="search_row", classes="spread-only"):
             search_last = Button(
                 search_label, variant="primary", compact=True, id="search_last", classes="search"
             )
-            search_last.styles.margin = (0, 0, 0, lead)
             search_last.styles.width = search_width
             yield search_last
 
@@ -197,8 +210,6 @@ class QueryEditor(Vertical):
         if spread == self.has_class("-spread"):
             return
         self.set_class(spread, "-spread")
-        # Spread, the charm mode starts its own row, in the fields' column.
-        self.query_one("#charms_label", Label).styles.width = self._charms_width if spread else None
         # Only one of the two Search buttons shows: the focus moves to it,
         # unless the editor is collapsing, which gives the focus to the table.
         shown = self.query_one("#search_last" if spread else "#search", Button)
@@ -225,7 +236,7 @@ class QueryEditor(Vertical):
         rows = [
             *(
                 self.query_one(f"#{row_id}")
-                for row_id in ("setup_row", "slots_cell", "charm_cell", "search_row")
+                for row_id in ("setup_rest", "slots_cell", "charm_cell", "search_row")
             ),
             picker,
         ]
@@ -235,9 +246,12 @@ class QueryEditor(Vertical):
         spacing = group_spacing(
             room=self.size.height, content=content, gaps=len(gaps), opened=opened
         )
-        self.query_one("#space_above", Static).styles.height = spacing.above
-        for gap, height in zip(gaps, spacing.between, strict=True):
-            gap.styles.height = height
+        spaces = [self.query_one("#space_above", Static), *gaps]
+        # An auto grid row sizes a cell by its content within min/max-height, not by its height.
+        for space, height in zip(spaces, (spacing.above, *spacing.between), strict=True):
+            space.styles.height = height
+            space.styles.min_height = height
+            space.styles.max_height = height
 
     def on_select_changed(self, event: Select.Changed) -> None:
         # The form's selects are those whose id is the QueryForm field they set.
