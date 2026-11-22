@@ -7,10 +7,11 @@ two apart in ``body_decorations`` and ``non_body_decorations``. The
 bad-skill check's ``Replace`` and charm reduction's ``SwapOut`` then change
 jewels in ``decorations`` alone, by raw amounts (``Solution.cpp:193-206``,
 ``:537-558``, quirk 22), so for some sets those lists no longer hold the
-jewels shown, and the placement is worked out again from the shown jewels,
-the slots and the set's points. A set loaded from ``settings.cfg``, which
-keeps none of this, is filled again first (``Solution::MatchesQuery``,
-``Solution.cpp:660-724``).
+jewels shown. The port's own ``Solution.places`` follows each shown jewel
+through both, and is the placement where it is valid; otherwise the
+placement is worked out again from the shown jewels, the slots and the
+set's points. A set loaded from ``settings.cfg``, which keeps none of this,
+is filled again first (``Solution::MatchesQuery``, ``Solution.cpp:660-724``).
 
 Where no placement of the shown jewels fits (quirk 52), ``correction``
 finds a version of the set that builds, with jewels the port picks itself
@@ -30,7 +31,7 @@ from mhp3ass.model import Ability, AbilityPair, Armor, Charm, Decoration, Skill,
 from mhp3ass.query import Query, rank_locked
 from mhp3ass.skills import get_skill
 from mhp3ass.solution import matches_query
-from mhp3ass.solution.state import Solution
+from mhp3ass.solution.state import Place, Solution
 
 
 class PlacementUnknownError(ValueError):
@@ -63,11 +64,13 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
     Torso Inc (``GetInitialData`` adds it last, ``:258-262``), everything
     else once.
 
-    The stored lists are the placement when they hold exactly the shown
-    jewels and are valid. Otherwise every split of the shown jewels between
-    the chest and the rest is tried, and of the valid ones the first is
-    taken: the fewest jewels in the chest, then the earliest in the shown
-    order. Raises ``PlacementUnknownError`` when no split is valid (quirk 52).
+    The search's own placement, its ``places``, is taken when every jewel
+    has a place and it is valid. Otherwise the stored lists are the
+    placement when they hold exactly the shown jewels and are valid, and
+    failing those every split of the shown jewels between the chest and the
+    rest is tried, and of the valid ones the first is taken: the fewest
+    jewels in the chest, then the earliest in the shown order. Raises
+    ``PlacementUnknownError`` when no split is valid (quirk 52).
     """
     chest_armor = solution.armors[1]
     if solution.torso_multiplier <= 1 or chest_armor is None or not place_can_matter(solution):
@@ -80,6 +83,9 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
         other_groups=_slot_groups(solution.armors, solution.charm, weapon_slots=weapon_slots),
         points=_nonzero(solution.abilities),
     )
+    placed = _placed_by_search(solution)
+    if placed is not None and check.valid(placed):
+        return placed
     for placement in _splits(solution, jewels=jewels, multiplier=multiplier):
         if check.valid(placement):
             return placement
@@ -87,6 +93,20 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
     raise PlacementUnknownError(
         f"no placement of {names} fits the set's slots and gives its points"
     )
+
+
+def _placed_by_search(solution: Solution) -> JewelPlacement | None:
+    """``solution``'s jewels where the search put them, by ``places``;
+    ``None`` when ``SwapOut`` merged gems from the chest and elsewhere."""
+    if Place.UNPLACEABLE in solution.places:
+        return None
+    placed = list(zip(solution.decorations, solution.places, strict=True))
+    placement = JewelPlacement(
+        multiplier=solution.torso_multiplier,
+        chest=tuple(jewel for jewel, place in placed if place is Place.CHEST),
+        elsewhere=tuple(jewel for jewel, place in placed if place is Place.ELSEWHERE),
+    )
+    return placement
 
 
 def place_can_matter(solution: Solution) -> bool:
@@ -152,7 +172,7 @@ def refilled(solution: Solution, query: Query, game: GameData) -> Solution | Non
     gives other jewels (where the search had filled the set with the charm
     before reducing it, which the file doesn't keep).
     """
-    refill = _filled(solution.armors, charm=solution.charm, custom=True, query=query, game=game)
+    refill = _filled(solution.armors, charm=solution.charm, query=query, game=game)
     if refill is None or Counter(refill.decorations) != Counter(solution.decorations):
         return None
     return refill
@@ -170,10 +190,7 @@ class Correction:
 
 
 def correction(
-    solution: Solution,
-    query: Query,
-    game: GameData,
-    charm_templates: Sequence[Charm | None] | None,
+    solution: Solution, query: Query, game: GameData, loaded: bool
 ) -> Correction | Unbuildable:
     """A version of ``solution``, a filled set ``jewel_placement`` can't
     place, that builds (``builds``), tried in turn:
@@ -181,20 +198,20 @@ def correction(
     1. the listed charm filled again (as ``refilled`` fills it), with the
        jewels that fill gives, placed as ``jewel_placement`` tries them;
     2. the listed charm with ``pick_jewels``' jewels;
-    3. the charm before reduction with the jewels the search's fill placed
-       in ``body_decorations`` and ``non_body_decorations``, which the
-       bad-skill repair and charm reduction leave as they were (quirk 22).
-       The charm is the first of the search's ``charm_templates`` whose fill
-       gives the set again.
+    3. the charm before reduction (``unreduced_charm``, or the listed charm
+       where the search didn't reduce it) with the jewels the search's fill
+       placed in ``body_decorations`` and ``non_body_decorations``, which
+       the bad-skill repair and charm reduction leave as they were (quirk 22).
 
     ``Unbuildable`` (step 2's reason) when none builds. Raises
-    ``PlacementUnknownError`` when steps 1 and 2 don't build and
-    ``charm_templates`` is ``None`` (not known, as for loaded results).
+    ``PlacementUnknownError`` when steps 1 and 2 don't build and ``solution``
+    is a ``loaded`` set's refill: ``settings.cfg`` doesn't keep the charm
+    before reduction.
     Fills read ``query.relevant_abilities``; as for ``refilled``, call it only while no
     search is using ``game``.
     """
     multiplier = solution.torso_multiplier
-    refill = _filled(solution.armors, charm=solution.charm, custom=True, query=query, game=game)
+    refill = _filled(solution.armors, charm=solution.charm, query=query, game=game)
     if refill is not None:
         placed = _buildable_split(
             refill,
@@ -208,74 +225,36 @@ def correction(
     picked = pick_jewels(solution.armors, charm=solution.charm, query=query, game=game)
     if isinstance(picked, JewelPlacement):
         return Correction(charm=solution.charm, placement=picked, charm_changed=False)
-    if charm_templates is None:
-        raise PlacementUnknownError("the search's charms aren't known, so neither is a build")
-    for template in charm_templates:
-        filled = _filled(solution.armors, charm=template, custom=False, query=query, game=game)
-        if filled is None or not _same_set(filled, solution):
-            continue
-        fill_time_jewels = [*filled.body_decorations, *filled.non_body_decorations]
-        placed = _buildable_split(
-            filled,
-            charm=template,
-            jewels=fill_time_jewels,
-            multiplier=multiplier,
-            query=query,
-        )
-        if placed is None:
-            # Another worker's charm may reduce to the same listed one and build.
-            continue
-        rebuilt = Correction(charm=template, placement=placed, charm_changed=True)
-        return rebuilt
-    return picked
+    if loaded:
+        raise PlacementUnknownError("the charm before reduction isn't known, so neither is a build")
+    # The search reduces only a charm that isn't custom (Solution.cpp:687-702).
+    unreduced = solution.unreduced_charm if solution.unreduced_charm is not None else solution.charm
+    fill_time_jewels = [*solution.body_decorations, *solution.non_body_decorations]
+    placed = _buildable_split(
+        solution,
+        charm=unreduced,
+        jewels=fill_time_jewels,
+        multiplier=multiplier,
+        query=query,
+    )
+    if placed is None:
+        return picked
+    rebuilt = Correction(charm=unreduced, placement=placed, charm_changed=True)
+    return rebuilt
 
 
 def _filled(
-    armors: Sequence[Armor | None], charm: Charm | None, custom: bool, query: Query, game: GameData
+    armors: Sequence[Armor | None], charm: Charm | None, query: Query, game: GameData
 ) -> Solution | None:
-    """``armors`` and a copy of ``charm`` through ``MatchesQuery`` for
-    ``query``, the charm marked ``custom`` if asked; ``None`` if rejected."""
+    """``armors`` and a copy of ``charm`` marked custom, which ``ReduceCharm``
+    leaves alone, through ``MatchesQuery`` for ``query``; ``None`` if rejected."""
     copied = charm.copy() if charm is not None else None
-    if copied is not None and custom:
+    if copied is not None:
         copied.custom = True
     filled = Solution(armors=list(armors), charm=copied)
     if not matches_query(filled, query, game):
         return None
     return filled
-
-
-def _same_set(filled: Solution, solution: Solution) -> bool:
-    """The same charm as shown, and the same jewels."""
-    same = _CharmKey.of(filled.charm) == _CharmKey.of(solution.charm) and Counter(
-        filled.decorations
-    ) == Counter(solution.decorations)
-    return same
-
-
-@dataclass(frozen=True)
-class _CharmPoints:
-    """One of a charm's pairs as a value (``AbilityPair`` compares by identity)."""
-
-    ability: Ability
-    amount: int
-
-
-@dataclass(frozen=True)
-class _CharmKey:
-    """A charm by its slots and points, to compare charms that are different objects."""
-
-    num_slots: int
-    points: tuple[_CharmPoints, ...]
-
-    @classmethod
-    def of(cls, charm: Charm | None) -> _CharmKey | None:
-        if charm is None:
-            return None
-        points = tuple(
-            _CharmPoints(ability=pair.ability, amount=pair.amount) for pair in charm.abilities
-        )
-        key = cls(num_slots=charm.num_slots, points=points)
-        return key
 
 
 def _buildable_split(

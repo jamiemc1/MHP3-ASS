@@ -334,13 +334,11 @@ class SearchApp(App[bool]):
             pane = self.query_one(ResultsPane)
             # Reversed before the rows are built, so show needn't build them again.
             view.select_reverse(pane.reverse)
-            # The file doesn't keep which charms the search ran with.
             pane.show(
                 view,
                 rows=view_rows(view, names=pane.table_names, query=results.query),
                 query=results.query,
                 game=self._data.game,
-                charm_templates=None,
             )
             self._collapse_editor()
         else:
@@ -682,7 +680,6 @@ class SearchApp(App[bool]):
         pane = self.query_one(ResultsPane)
         view = pane.view
         query = pane.results_query
-        charm_templates = pane.charm_templates
         note = pane.note
         cursor = self.query_one(ResultsTable).cursor
         show_wide = self.query_one(ResultsTable).show_wide
@@ -700,7 +697,6 @@ class SearchApp(App[bool]):
                 rows=view_rows(view, names=pane.table_names, query=query),
                 query=query,
                 game=self._data.game,
-                charm_templates=charm_templates,
                 note=note,
             )
             self.query_one(ResultsTable).cursor = cursor
@@ -1394,7 +1390,6 @@ class SearchApp(App[bool]):
             rows=rows,
             query=result.query,
             game=self._data.game,
-            charm_templates=tuple(worker.template for worker in result.workers),
             note=note,
         )
         self._collapse_editor()
