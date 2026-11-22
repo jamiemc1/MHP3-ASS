@@ -77,17 +77,23 @@ def jewel_placement(solution: Solution, weapon_slots: int) -> JewelPlacement | N
         return None
     multiplier = solution.torso_multiplier
     jewels = solution.decorations
-    check = _PlacementCheck(
-        solution=solution,
-        chest_slots=chest_armor.num_slots,
-        other_groups=_slot_groups(solution.armors, solution.charm, weapon_slots=weapon_slots),
-        points=_nonzero(solution.abilities),
-    )
+    chest_slots = _chest_slots(solution.armors)
+    other_groups = _slot_groups(solution.armors, solution.charm, weapon_slots=weapon_slots)
+    points = _nonzero(solution.abilities)
+
+    def valid(placement: JewelPlacement) -> bool:
+        """It fits the slots and gives the set's points."""
+        if not _fits_slots(placement, chest_slots=chest_slots, other_groups=other_groups):
+            return False
+        given = _nonzero(_placed_points(solution.armors, solution.charm, placement))
+        gives_the_points = given == points
+        return gives_the_points
+
     placed = _placed_by_search(solution)
-    if placed is not None and check.valid(placed):
+    if placed is not None and valid(placed):
         return placed
     for placement in _splits(solution, jewels=jewels, multiplier=multiplier):
-        if check.valid(placement):
+        if valid(placement):
             return placement
     names = ", ".join(jewel.name for jewel in jewels)
     raise PlacementUnknownError(
@@ -145,8 +151,7 @@ def _splits(
     )
     if Counter(stored.chest + stored.elsewhere) == Counter(jewels):
         yield stored
-    chest_armor = filled.armors[1]
-    chest_slots = chest_armor.num_slots if chest_armor is not None else 0
+    chest_slots = _chest_slots(filled.armors)
     for count in range(min(chest_slots, len(jewels)) + 1):
         for chosen in combinations(range(len(jewels)), count):
             yield JewelPlacement(
@@ -336,8 +341,7 @@ def pick_jewels(
     base = _armor_and_charm_points(armors, charm, multiplier=multiplier)
     useful = _useful_decorations(base, query=query, game=game)
     abilities = sorted(useful.watched, key=lambda ability: ability.name)
-    chest_armor = armors[1]
-    chest_slots = chest_armor.num_slots if chest_armor is not None else 0
+    chest_slots = _chest_slots(armors)
     groups = [_Group(size=chest_slots, weight=multiplier, chest=True)]
     groups += [
         _Group(size=size, weight=1, chest=False)
@@ -360,12 +364,7 @@ def pick_jewels(
             break
         abilities = contested
         followed = set(contested)
-        adding = [
-            decoration
-            for decoration in decorations
-            if any(pair.amount > 0 and pair.ability in followed for pair in decoration.abilities)
-        ]
-        decorations = _unbeaten(adding, watched=followed)
+        decorations = _unbeaten(_adding_to(decorations, abilities=followed), watched=followed)
     found = search.first_build()
     if found is not None:
         picked = JewelPlacement(multiplier=multiplier, chest=found.chest, elsewhere=found.elsewhere)
@@ -574,8 +573,7 @@ def builds(
     """Whether ``placement``'s jewels build ``armors`` with ``charm`` for
     ``query``, by ``pick_jewels``' rules: they fit, every query skill reaches
     its points, and no bad skill shows unless the query allows them."""
-    chest_armor = armors[1]
-    chest_slots = chest_armor.num_slots if chest_armor is not None else 0
+    chest_slots = _chest_slots(armors)
     other_groups = _slot_groups(armors, charm, weapon_slots=query.weapon_slots_allowed)
     if not _fits_slots(placement, chest_slots=chest_slots, other_groups=other_groups):
         return False
@@ -628,11 +626,7 @@ def _useful_decorations(base: Counter[Ability], query: Query, game: GameData) ->
             ability for ability, amount in base.items() if amount < 0 and _can_go_bad(ability)
         }
     while True:
-        adding = [
-            decoration
-            for decoration in usable
-            if any(pair.amount > 0 and pair.ability in watched for pair in decoration.abilities)
-        ]
+        adding = _adding_to(usable, abilities=watched)
         taken = {
             pair.ability
             for decoration in adding
@@ -674,6 +668,23 @@ def _unbeaten(decorations: list[Decoration], watched: set[Ability]) -> list[Deco
         seen.add((slots, ours))
         kept.append(decoration)
     return kept
+
+
+def _chest_slots(armors: Sequence[Armor | None]) -> int:
+    """The chest piece's slots; none without a chest piece."""
+    chest_armor = armors[1]
+    slots = chest_armor.num_slots if chest_armor is not None else 0
+    return slots
+
+
+def _adding_to(decorations: Sequence[Decoration], abilities: set[Ability]) -> list[Decoration]:
+    """The ``decorations`` that add points to one of ``abilities``, in order."""
+    adding = [
+        decoration
+        for decoration in decorations
+        if any(pair.amount > 0 and pair.ability in abilities for pair in decoration.abilities)
+    ]
+    return adding
 
 
 def _slot_groups(
@@ -755,24 +766,6 @@ def _bad(points: tuple[int, ...], abilities: Sequence[Ability], query: Query) ->
         if ability not in asked and amount < 0 and (skill := get_skill(ability, amount)) is not None
     )
     return bad
-
-
-@dataclass(frozen=True)
-class _PlacementCheck:
-    """What a placement of ``solution``'s jewels must meet: the chest's slots,
-    the other slot groups, and the set's non-zero points."""
-
-    solution: Solution
-    chest_slots: int
-    other_groups: list[int]
-    points: dict[Ability, int]
-
-    def valid(self, placement: JewelPlacement) -> bool:
-        if not _fits_slots(placement, chest_slots=self.chest_slots, other_groups=self.other_groups):
-            return False
-        given = _nonzero(_placed_points(self.solution.armors, self.solution.charm, placement))
-        valid = given == self.points
-        return valid
 
 
 def fits(sizes: Sequence[int], groups: Sequence[int]) -> bool:
