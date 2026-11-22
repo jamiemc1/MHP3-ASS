@@ -54,7 +54,6 @@ from mhp3ass.regions import Region, next_region
 from mhp3ass.results.result_set import SearchResult
 from mhp3ass.results.short_names import ShortNames
 from mhp3ass.results.sorting import SortKey
-from mhp3ass.results.table import TableRow
 from mhp3ass.results.view import ResultsView
 from mhp3ass.saved_data import TuiFolders, TuiSettings, write_tui_settings
 from mhp3ass.saved_folder import (
@@ -89,7 +88,7 @@ from mhp3ass.tui.help_screen import HelpScreen
 from mhp3ass.tui.inspector import Inspector
 from mhp3ass.tui.options import ChoiceScreen, OptionsScreen, ThemeList, ThemesFromCurrent
 from mhp3ass.tui.query_editor import QueryEditor
-from mhp3ass.tui.results_pane import ResultsPane, view_rows
+from mhp3ass.tui.results_pane import BuiltRows, ResultsPane, ShownResults, view_rows
 from mhp3ass.tui.results_table import ResultsTable
 from mhp3ass.tui.search_progress import SearchProgress
 from mhp3ass.tui.skill_picker import SkillPicker
@@ -314,6 +313,7 @@ class SearchApp(App[bool]):
         yield SearchProgress()
         yield ResultsPane(
             self._strings,
+            game=self._data.game,
             sort_key=self._sort_key,
             reverse=self._reverse,
             is_searching=self._searching,
@@ -330,16 +330,7 @@ class SearchApp(App[bool]):
         results = self._startup.search.results
         if results is not None:
             self._searched_form = results.form
-            view = results.view
-            pane = self.query_one(ResultsPane)
-            # Reversed before the rows are built, so show needn't build them again.
-            view.select_reverse(pane.reverse)
-            pane.show(
-                view,
-                rows=view_rows(view, names=pane.table_names, query=results.query),
-                query=results.query,
-                game=self._data.game,
-            )
+            self.query_one(ResultsPane).show(ShownResults(view=results.view, query=results.query))
             self._collapse_editor()
         else:
             self._fit_layout(self.size)
@@ -678,9 +669,7 @@ class SearchApp(App[bool]):
         the sort and its direction, the results with the charm chosen and the
         cursor's set, and whether the editor is collapsed."""
         pane = self.query_one(ResultsPane)
-        view = pane.view
-        query = pane.results_query
-        note = pane.note
+        shown = pane.shown
         cursor = self.query_one(ResultsTable).cursor
         show_wide = self.query_one(ResultsTable).show_wide
         column_start = self.query_one(ResultsTable).column_start
@@ -689,16 +678,9 @@ class SearchApp(App[bool]):
         self._reverse = pane.reverse
         self.editor = QueryEditor(self.editor.form, game=self._data.game, strings=self._strings)
         await self.recompose()
-        if view is not None and query is not None:
-            view.relanguage()
-            pane = self.query_one(ResultsPane)
-            pane.show(
-                view,
-                rows=view_rows(view, names=pane.table_names, query=query),
-                query=query,
-                game=self._data.game,
-                note=note,
-            )
+        if shown is not None:
+            shown.view.relanguage()
+            self.query_one(ResultsPane).show(shown)
             self.query_one(ResultsTable).cursor = cursor
         self.query_one(ResultsTable).set_show_wide(show_wide, first=column_start)
         if collapsed:
@@ -1089,7 +1071,7 @@ class SearchApp(App[bool]):
         if not main:
             return
         commands = palette_commands(
-            has_results=self.query_one(ResultsPane).view is not None,
+            has_results=self.query_one(ResultsPane).shown is not None,
             searching=self._cancel is not None,
             inspector_over=self._layout().inspector is InspectorPlace.OVER,
         )
@@ -1352,16 +1334,11 @@ class SearchApp(App[bool]):
         if cancel.is_set():
             return
         view = ResultsView.from_search(result.results, sort_key=sort_key, reverse=reverse)
-        rows = view_rows(view, names=names, query=result.query)
-        self.call_from_thread(self._search_finished, number, result, view, rows, names)
+        built = BuiltRows(rows=view_rows(view, names=names, query=result.query), names=names)
+        self.call_from_thread(self._search_finished, number, result, view, built)
 
     def _search_finished(
-        self,
-        number: int,
-        result: SearchResult,
-        view: ResultsView,
-        rows: list[TableRow],
-        names: ShortNames,
+        self, number: int, result: SearchResult, view: ResultsView, built: BuiltRows
     ) -> None:
         if number != self._search_number or self._cancel is None:
             return
@@ -1381,16 +1358,8 @@ class SearchApp(App[bool]):
                 timeout=30,
                 markup=False,
             )
-        pane = self.query_one(ResultsPane)
-        # The screen's width class may have changed while the search ran.
-        if names != pane.table_names:
-            rows = view_rows(view, names=pane.table_names, query=result.query)
-        pane.show(
-            view,
-            rows=rows,
-            query=result.query,
-            game=self._data.game,
-            note=note,
+        self.query_one(ResultsPane).show(
+            ShownResults(view=view, query=result.query, note=note), built=built
         )
         self._collapse_editor()
         # SaveConfig once the last worker returns (Form1.h:1830).
