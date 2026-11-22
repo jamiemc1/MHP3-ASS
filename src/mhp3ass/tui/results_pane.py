@@ -37,7 +37,7 @@ from mhp3ass.results.find import find_row, row_text
 from mhp3ass.results.inspector import slot_label
 from mhp3ass.results.set_text import set_markdown
 from mhp3ass.results.short_names import ShortNames
-from mhp3ass.results.sorting import SortKey
+from mhp3ass.results.sorting import SortKey, sort_label
 from mhp3ass.results.table import TableRow, table_row, truncate
 from mhp3ass.results.view import CharmFilter, ResultsView
 from mhp3ass.solution.state import Solution
@@ -47,33 +47,6 @@ from mhp3ass.tui.titles import region_title
 
 # The empty table's line before any results, shown again when a first search is cancelled.
 _BEFORE_SEARCH = "Choose up to six skills, then Search."
-
-
-def sort_label(key: SortKey) -> StringIndex:
-    """``cmbSort``'s item text (``Form1.h:2090-2100``)."""
-    match key:
-        case SortKey.NONE:
-            return StringIndex.NONE
-        case SortKey.DRAGON_RES:
-            return StringIndex.DRAGON_RES
-        case SortKey.FIRE_RES:
-            return StringIndex.FIRE_RES
-        case SortKey.ICE_RES:
-            return StringIndex.ICE_RES
-        case SortKey.THUNDER_RES:
-            return StringIndex.THUNDER_RES
-        case SortKey.WATER_RES:
-            return StringIndex.WATER_RES
-        case SortKey.DEFENCE:
-            return StringIndex.BASE_DEFENCE
-        case SortKey.MAX_DEFENCE:
-            return StringIndex.MAX_DEFENCE
-        case SortKey.DIFFICULTY:
-            return StringIndex.DIFFICULTY
-        case SortKey.RARITY:
-            return StringIndex.RARITY
-        case SortKey.SLOTS_SPARE:
-            return StringIndex.SORT_SLOTS_SPARE
 
 
 @dataclass(frozen=True)
@@ -507,26 +480,13 @@ class ResultsPane(Horizontal):
         view = self.view
         if view is None:
             return
-        strings = self._strings
-        names = view.charm_filter_names()
-        self._filters = [
-            CharmFilter.every_solution(),
-            CharmFilter.charm_free(),
-            *(CharmFilter.charm(name) for name in names),
-        ]
-        counts = [
-            len(view.all_solutions),
-            len(view.no_charm_solutions),
-            *(len(view.by_charm[name]) for name in names),
-        ]
-        labels = [
-            strings.static(StringIndex.ALL),
-            strings.basic(StringIndex.NONE),
-            *names,
-        ]
+        entries = view.charm_filter_entries(
+            all_label=self._strings.static(StringIndex.ALL),
+            none_label=self._strings.basic(StringIndex.NONE),
+        )
+        self._filters = [entry.charm_filter for entry in entries]
         self._options = [
-            Option(Content(f"{_fit(label, 12)} {count:>7,}"))
-            for label, count in zip(labels, counts, strict=True)
+            Option(Content(f"{_fit(entry.label, 12)} {entry.count:>7,}")) for entry in entries
         ]
         options = self.query_one("#charm_filter", OptionList)
         options.clear_options()
@@ -538,8 +498,8 @@ class ResultsPane(Horizontal):
         # The drop-down opens over the table, so it has room for longer names.
         choice = self.query_one("#charm_choice", Select)
         choice.set_options(
-            (Content(f"{_fit(label, 30)} {count:>7,}"), number)
-            for number, (label, count) in enumerate(zip(labels, counts, strict=True))
+            (Content(f"{_fit(entry.label, 30)} {entry.count:>7,}"), number)
+            for number, entry in enumerate(entries)
         )
         choice.value = index
         # Its value can be unchanged while its text isn't (new counts): show the new text.

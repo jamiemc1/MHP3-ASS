@@ -1,9 +1,11 @@
-"""The "Sort Results By" keys and the stat each one sorts by.
+"""The "Sort Results By" keys, their names and the stat each one sorts by.
 
-Ported from the comparison functions (``legacy/Form1.h:20-80``) and
-``Form1::SortResults``' choice of one per key (``legacy/Form1.h:2149-2172``):
-``stat_key`` gives each key's stat, negated for the keys that put the highest
-first. The results are sorted by ``results.view.sorted_positions``.
+Ported from the comparison functions (``legacy/Form1.h:20-80``),
+``Form1::SortResults``' choice of one per key (``legacy/Form1.h:2149-2172``)
+and ``cmbSort``'s item text (``legacy/Form1.h:2090-2100``): ``stat_key``
+gives each key's stat, negated for the keys that put the highest first, and
+``sort_label`` its name. The results are sorted by
+``results.view.sorted_positions``.
 
 Each key's stat and direction are the original's. The order of solutions
 with equal values is presentation, not part of the port's contract:
@@ -17,6 +19,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from enum import IntEnum
 
+from mhp3ass.data.strings import StringIndex
 from mhp3ass.data.text import as_signed
 from mhp3ass.solution.state import Solution
 
@@ -35,6 +38,33 @@ class SortKey(IntEnum):
     DIFFICULTY = 8
     RARITY = 9
     SLOTS_SPARE = 10
+
+
+def sort_label(key: SortKey) -> StringIndex:
+    """``cmbSort``'s item text for ``key`` (``Form1.h:2090-2100``)."""
+    match key:
+        case SortKey.NONE:
+            return StringIndex.NONE
+        case SortKey.DRAGON_RES:
+            return StringIndex.DRAGON_RES
+        case SortKey.FIRE_RES:
+            return StringIndex.FIRE_RES
+        case SortKey.ICE_RES:
+            return StringIndex.ICE_RES
+        case SortKey.THUNDER_RES:
+            return StringIndex.THUNDER_RES
+        case SortKey.WATER_RES:
+            return StringIndex.WATER_RES
+        case SortKey.DEFENCE:
+            return StringIndex.BASE_DEFENCE
+        case SortKey.MAX_DEFENCE:
+            return StringIndex.MAX_DEFENCE
+        case SortKey.DIFFICULTY:
+            return StringIndex.DIFFICULTY
+        case SortKey.RARITY:
+            return StringIndex.RARITY
+        case SortKey.SLOTS_SPARE:
+            return StringIndex.SORT_SLOTS_SPARE
 
 
 def stat_key(key: SortKey) -> Callable[[Solution], int] | None:
