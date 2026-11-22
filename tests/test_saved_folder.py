@@ -10,7 +10,9 @@ from mhp3ass.saved_folder import (
     FolderChoice,
     change_folder,
     clear,
+    clear_answers,
     clear_targets,
+    folder_choice_label,
     folder_choices,
     saved_files_in,
     with_folder,
@@ -135,6 +137,39 @@ def test_clearing_deletes_what_it_names(current, choice, names):
 
 def test_clearing_a_folder_without_the_files_deletes_nothing(empty_folder):
     assert clear(empty_folder, ClearChoice.EVERYTHING) == []
+
+
+def test_each_folder_choice_says_what_it_does_with_the_files(current):
+    labels = [folder_choice_label(choice, current) for choice in FolderChoice]
+
+    assert labels == [
+        f"Move settings.cfg and mycharms.txt from {current} there",
+        "Use the files already there",
+        "Start fresh there (the files here stay where they are)",
+    ]
+
+
+def test_clear_offers_every_answer_naming_its_files(current):
+    assert clear_answers(current) == [
+        (
+            "The saved search and results: resets settings.cfg, keeping the language",
+            ClearChoice.SEARCH,
+        ),
+        ("My charms (back to the shipped list): deletes mycharms.txt", ClearChoice.MY_CHARMS),
+        ("Everything: deletes settings.cfg, mycharms.txt", ClearChoice.EVERYTHING),
+    ]
+
+
+def test_clear_offers_only_the_answers_with_a_file(folder_with_my_charms):
+    """No settings.cfg: no search answer, and Everything names only mycharms.txt."""
+    assert clear_answers(folder_with_my_charms) == [
+        ("My charms (back to the shipped list): deletes mycharms.txt", ClearChoice.MY_CHARMS),
+        ("Everything: deletes mycharms.txt", ClearChoice.EVERYTHING),
+    ]
+
+
+def test_clear_offers_nothing_for_a_folder_without_the_files(empty_folder):
+    assert clear_answers(empty_folder) == []
 
 
 @pytest.fixture

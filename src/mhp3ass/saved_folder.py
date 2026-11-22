@@ -2,7 +2,8 @@
 
 Not a port: the original keeps its files beside its executable. These are
 the Options modal's folder choice (move the files there, use what's already
-there, or start fresh) and its "clear…", over ``saved_data``'s folders.
+there, or start fresh) and its "clear…", with the answers each offers, over
+``saved_data``'s folders.
 """
 
 from __future__ import annotations
@@ -49,6 +50,18 @@ def folder_choices(current: Path, new: Path) -> list[FolderChoice]:
     return choices
 
 
+def folder_choice_label(choice: FolderChoice, current: Path) -> str:
+    """How the folder choice offers ``choice`` when the files are in ``current``."""
+    match choice:
+        case FolderChoice.MOVE:
+            label = f"Move settings.cfg and mycharms.txt from {current} there"
+        case FolderChoice.FRESH:
+            label = "Start fresh there (the files here stay where they are)"
+        case FolderChoice.USE:
+            label = "Use the files already there"
+    return label
+
+
 def change_folder(current: Path, new: Path, choice: FolderChoice) -> None:
     """Carry out ``choice`` (one of ``folder_choices``): move the files from
     ``current`` into ``new``, or make ``new`` for a fresh start; using what's
@@ -91,6 +104,28 @@ def clear_targets(folder: Path, choice: ClearChoice) -> list[Path]:
             wanted = {settings_cfg_in(folder), my_charms_in(folder)}
     targets = [path for path in saved_files_in(folder) if path in wanted]
     return targets
+
+
+def clear_answers(folder: Path) -> list[tuple[str, ClearChoice]]:
+    """What "clear…" offers for ``folder``, each answer's label naming the
+    files it touches: only the choices with a file to clear, in the order
+    search, my charms, everything."""
+    answers = []
+    for label, choice in (
+        ("The saved search and results", ClearChoice.SEARCH),
+        ("My charms (back to the shipped list)", ClearChoice.MY_CHARMS),
+        ("Everything", ClearChoice.EVERYTHING),
+    ):
+        targets = clear_targets(folder, choice)
+        if not targets:
+            continue
+        names = ", ".join(path.name for path in targets)
+        if choice is ClearChoice.SEARCH:
+            # The language lives in settings.cfg too; it stays, so my charms still load.
+            answers.append((f"{label}: resets {names}, keeping the language", choice))
+        else:
+            answers.append((f"{label}: deletes {names}", choice))
+    return answers
 
 
 def clear(folder: Path, choice: ClearChoice) -> list[Path]:

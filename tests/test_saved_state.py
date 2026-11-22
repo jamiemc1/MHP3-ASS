@@ -19,6 +19,7 @@ from mhp3ass.saved_state import (
     read_startup_settings,
     restore_search,
     settings_for,
+    starting_settings,
     startup,
 )
 from mhp3ass.settings_cfg import (
@@ -310,6 +311,16 @@ def test_the_starting_state_is_the_starting_form():
     assert SavedSearch.starting() == SavedSearch(
         form=QueryForm.starting(), sort_key=SortKey.NONE, last_search_gunner=False, results=None
     )
+
+
+def test_the_starting_settings_restore_the_starting_state(restore, scratch_game):
+    assert restore(starting_settings(scratch_game, language_index=0)) == SavedSearch.starting()
+
+
+def test_the_starting_settings_keep_the_language_and_hold_no_results(scratch_game):
+    settings = starting_settings(scratch_game, language_index=3)
+
+    assert [settings.language_index, settings.solution_lines] == [3, ()]
 
 
 @pytest.fixture
