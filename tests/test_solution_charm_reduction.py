@@ -11,7 +11,7 @@ from functools import partial
 import pytest
 
 from mhp3ass.data import GameData
-from mhp3ass.model import AbilityPair, Charm, Skill
+from mhp3ass.model import AbilityPair, Charm, Decoration, Skill
 from mhp3ass.solution import calculate_data, finish
 from mhp3ass.solution.bad_skills import fix_bad_skill
 from mhp3ass.solution.charm_reduction import (
@@ -27,7 +27,8 @@ from mhp3ass.solution.charm_reduction import (
     swap_out,
 )
 from mhp3ass.solution.fill import calculate_decorations
-from mhp3ass.solution.state import LegacyNullReferenceError, Solution
+from mhp3ass.solution.initial import add_decoration
+from mhp3ass.solution.state import LegacyNullReferenceError, Place, Solution
 from solution_builders import make_jewel
 
 
@@ -81,14 +82,22 @@ def test_num_1slot_decorations_counts_body_gems_only_at_multiplier_1(make_data, 
     assert [plain, num_1slot_decorations(solution, attack)] == [3, 1]
 
 
+def _socket(solution: Solution, gem: Decoration, count: int, chest: bool = False) -> None:
+    """``count`` of ``gem`` added as the fill adds them: to the chest, with a
+    torso multiplier of 2, or elsewhere."""
+    listed = solution.body_decorations if chest else solution.non_body_decorations
+    multiplier = 2 if chest else 1
+    for _ in range(count):
+        add_decoration(solution, gem, multiplier=multiplier, decoration_list=listed)
+
+
 def test_swap_out_uses_raw_amounts_and_leaves_the_body_list(attack, defense):
     """Quirk 22: a body gem counted twice comes off once, and stays listed."""
     one = make_jewel("One", attack, 1, second=defense, second_amount=-1)
     three = make_jewel("Three", attack, 5, slots=3, second=defense, second_amount=-1)
     solution = Solution(armors=[None] * 5, charm=None)
-    solution.decorations = [one, one, one]
-    solution.body_decorations = [one]
-    solution.abilities = {attack: 4, defense: -4}
+    _socket(solution, one, count=1, chest=True)
+    _socket(solution, one, count=2)
 
     swap_out(solution, three)
 
@@ -99,12 +108,43 @@ def test_swap_out_uses_raw_amounts_and_leaves_the_body_list(attack, defense):
     ]
 
 
+@pytest.mark.parametrize("chest", [True, False])
+def test_swap_out_merging_gems_from_one_place_keeps_it(chest, attack):
+    one = make_jewel("One", attack, 1)
+    kept = make_jewel("Kept", attack, 2, slots=2)
+    two = make_jewel("Two", attack, 3, slots=2)
+    solution = Solution(armors=[None] * 5, charm=None)
+    _socket(solution, kept, count=1, chest=not chest)
+    _socket(solution, one, count=2, chest=chest)
+    merged = Place.CHEST if chest else Place.ELSEWHERE
+    kept_place = Place.ELSEWHERE if chest else Place.CHEST
+
+    swap_out(solution, two)
+
+    assert [solution.decorations, solution.places] == [[kept, two], [kept_place, merged]]
+
+
+def test_swap_out_merging_gems_from_both_places_is_unplaceable(attack):
+    one = make_jewel("One", attack, 1)
+    three = make_jewel("Three", attack, 4, slots=3)
+    solution = Solution(armors=[None] * 5, charm=None)
+    _socket(solution, one, count=1, chest=True)
+    _socket(solution, one, count=3)
+
+    swap_out(solution, three)
+
+    # The chest's gem is first, so it goes with the first two of the others.
+    assert [solution.decorations, solution.places] == [
+        [one, three],
+        [Place.ELSEWHERE, Place.UNPLACEABLE],
+    ]
+
+
 def test_swap_out_past_the_last_gem_indexes_off_the_list(attack):
     """The Assert at Solution.cpp:542 is compiled out, so the loop runs past the end."""
     one = make_jewel("One", attack, 1)
     solution = Solution(armors=[None] * 5, charm=None)
-    solution.decorations = [one]
-    solution.abilities = {attack: 1}
+    _socket(solution, one, count=1)
 
     with pytest.raises(LegacyListIndexError):
         swap_out(solution, make_jewel("Two", attack, 3, slots=2))
@@ -114,8 +154,7 @@ def test_swap_out_into_an_ability_not_yet_in_the_totals_raises(attack, defense):
     """Solution.cpp:555 reads before it writes, so a new ability throws."""
     one = make_jewel("One", attack, 1)
     solution = Solution(armors=[None] * 5, charm=None)
-    solution.decorations = [one, one]
-    solution.abilities = {attack: 2}
+    _socket(solution, one, count=2)
 
     with pytest.raises(KeyError):
         swap_out(solution, make_jewel("Two", attack, 3, slots=2, second=defense, second_amount=-1))
@@ -226,12 +265,11 @@ def test_rearrange_swaps_three_one_slot_gems_for_a_three_slot_gem(make_data, fiv
     one = make_jewel("One", attack, 1)
     three = make_jewel("Three", attack, 4, slots=3)
     charm = Charm(num_slots=0, abilities=[AbilityPair(ability=attack, amount=2)], custom=True)
-    data = make_data([one, three], need={attack: 5}, abilities={attack: 5}, charm=charm)
+    data = make_data([one, three], need={attack: 5}, abilities={attack: 2}, charm=charm)
     solution = data.solution
     solution.armors = five_pieces
     solution.torso_multiplier = 1
-    solution.decorations = [one, one, one]
-    solution.non_body_decorations = [one, one, one]
+    _socket(solution, one, count=3)
 
     rearrange_decorations(data)
 
@@ -245,12 +283,11 @@ def test_rearrange_counts_one_slot_gems_once(make_data, five_pieces, attack):
     two = make_jewel("Two", attack, 3, slots=2)
     three = make_jewel("Three", attack, 4, slots=3)
     charm = Charm(num_slots=0, abilities=[AbilityPair(ability=attack, amount=2)], custom=True)
-    data = make_data([one, two, three], need={attack: 6}, abilities={attack: 6}, charm=charm)
+    data = make_data([one, two, three], need={attack: 6}, abilities={attack: 2}, charm=charm)
     solution = data.solution
     solution.armors = five_pieces
     solution.torso_multiplier = 1
-    solution.decorations = [one, one, one, one]
-    solution.non_body_decorations = [one, one, one, one]
+    _socket(solution, one, count=4)
 
     rearrange_decorations(data)
 
@@ -283,7 +320,7 @@ def test_stages_before_get_initial_data_dereference_null_slots(stage, make_data,
     reads it before then dereferences a null array, as the original would."""
     data = make_data([], need={}, abilities={}, charm=Charm(num_slots=1))
     data.solution.total_slots_spare = 1
-    down = Skill(name="Attack Down", points_required=-10, ability=attack)
+    down = Skill(name="Attack Down", points_required=-10, ability=attack, static_index=0)
     calls = {
         "finish": partial(finish, data),
         "calculate_decorations": partial(

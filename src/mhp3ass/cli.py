@@ -167,7 +167,7 @@ def _search(args: argparse.Namespace) -> int:
     if not args.record_exceptions:
         result = replace(result, exceptions_recorded=False)
     if args.out is None:
-        lines = solution_lines(result, game=data.game)
+        lines = solution_lines(result)
         try:
             for line in lines:
                 print(line)
@@ -179,7 +179,7 @@ def _search(args: argparse.Namespace) -> int:
             os.dup2(devnull, sys.stdout.fileno())
             return 0
     else:
-        worker_lines = added_lines(result, game=data.game)
+        worker_lines = added_lines(result)
         lines = [line for kept in worker_lines for line in kept]
         manifest = search_manifest(
             spec_json,
@@ -187,7 +187,7 @@ def _search(args: argparse.Namespace) -> int:
             worker_lines=worker_lines,
             max_solution_lines=args.max_solution_lines,
         )
-        candidates = candidate_lines(result, game=data.game) if args.candidates else None
+        candidates = candidate_lines(result) if args.candidates else None
         write_search_outputs(args.out, manifest=manifest, lines=lines, candidates=candidates)
     found = sum(len(worker.found) for worker in result.workers)
     print(

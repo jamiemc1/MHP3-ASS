@@ -144,7 +144,8 @@ def test_decoration_matches_when_available(
     for key, value in decoration_fields.items():
         setattr(decoration, key, value)
     query = make_query(
-        skills=[Skill(name="Attack Up", points_required=10, ability=attack)], **query_fields
+        skills=[Skill(name="Attack Up", points_required=10, ability=attack, static_index=0)],
+        **query_fields,
     )
 
     assert decoration_matches_query(decoration, query) is matches
@@ -154,6 +155,8 @@ def test_decoration_matches_only_on_its_first_ability(
     attack: Ability, sharpness: Ability, make_query: Callable[..., Query]
 ):
     decoration = make_jewel("jewel", sharpness, 1, second=attack, second_amount=1)
-    query = make_query(skills=[Skill(name="Attack Up", points_required=10, ability=attack)])
+    query = make_query(
+        skills=[Skill(name="Attack Up", points_required=10, ability=attack, static_index=0)]
+    )
 
     assert not decoration_matches_query(decoration, query)

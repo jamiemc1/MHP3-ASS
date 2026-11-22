@@ -53,7 +53,6 @@ from mhp3ass.search import (
 )
 from mhp3ass.solution.record import (
     CharmRecord,
-    RecordIndex,
     SolutionRecord,
     charm_from_record,
     charm_record,
@@ -164,7 +163,6 @@ class RebuiltSearch:
     search: PoolSearch
     game: GameData
     query: Query
-    index: RecordIndex
 
     @classmethod
     def rebuild(cls, search: PoolSearch) -> RebuiltSearch:
@@ -186,7 +184,7 @@ class RebuiltSearch:
                 f"rebuilt query {search.query.id} has armour choices {armor_indices}, "
                 f"the parent's has {search.armor_indices}"
             )
-        rebuilt = cls(search=search, game=game, query=query, index=RecordIndex.for_game(game))
+        rebuilt = cls(search=search, game=game, query=query)
         return rebuilt
 
 
@@ -342,7 +340,7 @@ def _run_task(
             head_stop=task.head_stop,
             on_step=step,
         )
-        records = [to_record(solution, rebuilt.index) for solution in solutions]
+        records = [to_record(solution, rebuilt.game) for solution in solutions]
     return records
 
 

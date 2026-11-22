@@ -17,7 +17,7 @@ from mhp3ass.data import GameData
 from mhp3ass.data.text import read_lines, split_fields, to_boolean, to_int32, to_uint32
 from mhp3ass.model import AbilityPair, Armor, ArmorType, Charm
 from mhp3ass.query import CharmMode
-from mhp3ass.results.result_set import ResultSet, lines_of, skill_indices
+from mhp3ass.results.result_set import ResultSet, lines_of
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.view import ResultsView
 from mhp3ass.saved_data import write_atomically
@@ -260,11 +260,9 @@ def load_results(settings: SettingsCfg, game: GameData, results: ResultSet) -> R
     return view
 
 
-def with_solutions(
-    settings: SettingsCfg, solutions: Sequence[Solution], game: GameData
-) -> SettingsCfg:
+def with_solutions(settings: SettingsCfg, solutions: Sequence[Solution]) -> SettingsCfg:
     """``settings`` holding ``solutions``' lines, as ``SaveConfig`` writes
     ``all_solutions``."""
-    lines = lines_of(solutions, skill_indices(game))
+    lines = lines_of(solutions)
     saved = dataclasses.replace(settings, solution_lines=tuple(lines))
     return saved

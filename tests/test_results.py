@@ -19,13 +19,11 @@ from mhp3ass.results.result_set import (
     lines_of,
     lines_sha256,
     record_line,
-    skill_indices,
     solution_line,
 )
 from mhp3ass.results.view import SolutionSelection
 from mhp3ass.solution.record import (
     CharmRecord,
-    RecordIndex,
     SolutionRecord,
     charm_from_record,
     to_record,
@@ -265,27 +263,23 @@ def record_replays(corpus_spec, search_data_for, serial_search) -> dict[str, Rec
         spec = corpus_spec(f"corpus/{file_name}")
         data = search_data_for(spec)
         searched = serial_search(file_name)
-        index = RecordIndex.for_game(data.game)
-        skill_index = skill_indices(data.game)
         from_records = ResultSet()
         added_by_records = []
         found_lines_differ = 0
         for worker in searched.workers:
-            records = [to_record(solution, index) for solution in worker.found]
+            records = [to_record(solution, data.game) for solution in worker.found]
             found_lines_differ += sum(
-                record_line(record) != solution_line(solution, skill_index)
+                record_line(record) != solution_line(solution)
                 for record, solution in zip(records, worker.found, strict=True)
             )
             added = from_records.add_records(SolutionList.of_records(records, data.game))
-            added_by_records.append(added.lines(skill_index))
+            added_by_records.append(added.lines())
         replays[spec.query.id] = RecordReplay(
-            solution_lines=searched.results.all_solutions.lines(skill_index),
-            record_lines=from_records.all_solutions.lines(skill_index),
-            rebuilt_lines=[
-                solution_line(solution, skill_index) for solution in from_records.all_solutions
-            ],
+            solution_lines=searched.results.all_solutions.lines(),
+            record_lines=from_records.all_solutions.lines(),
+            rebuilt_lines=[solution_line(solution) for solution in from_records.all_solutions],
             added_by_solutions=[
-                [solution_line(solution, skill_index) for solution in worker.added]
+                [solution_line(solution) for solution in worker.added]
                 for worker in searched.workers
             ],
             added_by_records=added_by_records,
@@ -310,10 +304,10 @@ def test_records_keep_the_solutions_the_search_keeps(record_replays, query_id):
 
 
 @pytest.fixture
-def empty_record_with_slots_counted(record_index) -> SolutionRecord:
+def empty_record_with_slots_counted(teamhgg_game) -> SolutionRecord:
     """A record of a charm-free solution with every slot empty and slots counted."""
     solution = Solution(armors=[None] * 5, charm=None, slots_spare=[0, 0, 0, 0])
-    record = to_record(solution, record_index)
+    record = to_record(solution, teamhgg_game)
     return record
 
 
@@ -394,13 +388,10 @@ def test_charm_names_read_records_as_the_solutions_they_rebuild(
 def test_lines_read_records_as_the_solutions_they_rebuild(
     charmed_and_charm_free_records, teamhgg_game
 ):
-    skill_index = skill_indices(teamhgg_game)
-    from_records = lines_of(
-        SolutionList.of_records(charmed_and_charm_free_records, teamhgg_game), skill_index
-    )
+    from_records = lines_of(SolutionList.of_records(charmed_and_charm_free_records, teamhgg_game))
     rebuilt = list(SolutionList.of_records(charmed_and_charm_free_records, teamhgg_game))
 
-    from_solutions = lines_of(rebuilt, skill_index)
+    from_solutions = lines_of(rebuilt)
 
     assert from_solutions == from_records
     # Slots, pair count, then each pair's amount and ability; the charm-free line has no charm.
@@ -423,7 +414,7 @@ def test_a_charmed_record_with_an_empty_slot_throws(
     with pytest.raises(LegacyNullReferenceError):
         results.add_records(SolutionList.of_records([kept, empty_slot], teamhgg_game))
 
-    assert [results.all_solutions.lines({}), results.existing_armor] == [
+    assert [results.all_solutions.lines(), results.existing_armor] == [
         [record_line(kept)],
         {name: {hash_armor_indices(kept.armors)}},
     ]

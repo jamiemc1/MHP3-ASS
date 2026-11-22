@@ -147,7 +147,7 @@ def test_an_unset_cancel_changes_nothing_in_the_serial_search(
     result = run_search(spec, data=data, cancel=Event())
 
     expected = serial_search("g16-attack-sharp-no-charms.json")
-    assert solution_lines(result, game=data.game) == solution_lines(expected, game=data.game)
+    assert solution_lines(result) == solution_lines(expected)
 
 
 def test_the_pool_searches_as_before_after_a_cancel(
@@ -169,6 +169,6 @@ def test_the_pool_searches_as_before_after_a_cancel(
     )
 
     expected = serial_search("g16-attack-sharp-no-charms.json")
-    assert solution_lines(after, game=data.game) == solution_lines(expected, game=data.game)
+    assert solution_lines(after) == solution_lines(expected)
     assert reports[-1][0] == reports[-1][1]
     assert all(done <= total for done, total in reports)

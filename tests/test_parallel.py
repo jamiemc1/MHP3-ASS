@@ -8,7 +8,7 @@ import pytest
 
 from goldens import formulate_query_json, golden_by_id
 from mhp3ass.parallel import Task, default_jobs, plan_tasks, usable_cpus
-from mhp3ass.results.result_set import skill_indices, solution_line
+from mhp3ass.results.result_set import solution_line
 from mhp3ass.search import armor_choices, run_worker
 from solution_trace import worker_templates
 
@@ -82,7 +82,6 @@ def test_tasks_concatenated_in_order_give_each_workers_serial_solutions(
     g13_query_and_templates, scratch_game
 ):
     query, templates = g13_query_and_templates
-    skill_index = skill_indices(scratch_game)
     head_choices = armor_choices(query)[0]
     tasks = plan_tasks(worker_count=len(templates), head_count=len(head_choices), jobs=3)
     merged: list[list[str]] = [[] for _ in templates]
@@ -95,13 +94,10 @@ def test_tasks_concatenated_in_order_give_each_workers_serial_solutions(
             head_start=task.head_start,
             head_stop=task.head_stop,
         )
-        merged[task.worker] += [solution_line(solution, skill_index) for solution in solutions]
+        merged[task.worker] += [solution_line(solution) for solution in solutions]
         tasks_with_solutions[task.worker] += 1 if solutions else 0
     serial = [
-        [
-            solution_line(solution, skill_index)
-            for solution in run_worker(query, template, scratch_game)
-        ]
+        [solution_line(solution) for solution in run_worker(query, template, scratch_game)]
         for template in templates
     ]
     assert len(tasks) > len(templates)

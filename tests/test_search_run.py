@@ -161,13 +161,9 @@ def test_the_pool_gives_the_serial_result(repo_root, one_skill_spec, search_data
     for pool in (None, search_pool):
         result = run_search(one_skill_spec, data=data, record_exceptions=True, pool=pool)
         manifests.append(
-            search_manifest(
-                spec_json, result=result, worker_lines=added_lines(result, game=data.game)
-            )
+            search_manifest(spec_json, result=result, worker_lines=added_lines(result))
         )
-        outputs.append(
-            [solution_lines(result, game=data.game), candidate_lines(result, game=data.game)]
-        )
+        outputs.append([solution_lines(result), candidate_lines(result)])
 
     removed = sum(worker["found"] - worker["added"] for worker in manifests[0]["workers"])
     assert removed > 0

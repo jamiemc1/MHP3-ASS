@@ -45,7 +45,6 @@ def _notes(search: CorpusSearch) -> list[list[ArmorNote | None]]:
                 query=search.result.query,
                 sort_key=SortKey.NONE,
                 refill_game=search.data.game,
-                charm_templates=None,
             ).armors
         ]
         for solution in search.result.results.all_solutions
@@ -191,8 +190,8 @@ def decorated_solution(make_armor, attack, health) -> Solution:
         charm=None,
         decorations=[jewel_a, jewel_b, jewel_a],
         extra_skills=[
-            Skill(name="Attack Up [S]", points_required=10, ability=attack),
-            Skill(name="Health +20", points_required=10, ability=health),
+            Skill(name="Attack Up [S]", points_required=10, ability=attack, static_index=0),
+            Skill(name="Health +20", points_required=10, ability=health, static_index=0),
         ],
     )
     return solution
@@ -209,7 +208,6 @@ def test_details_list_pieces_jewel_counts_and_the_unsearched_extra_skills(
         query=query,
         sort_key=SortKey.DEFENCE,
         refill_game=teamhgg_game,
-        charm_templates=None,
     )
 
     head, legs = decorated_solution.armors[0], decorated_solution.armors[4]

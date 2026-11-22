@@ -11,7 +11,6 @@ from dataclasses import dataclass
 from typing import Any
 
 from goldens import Candidate
-from mhp3ass.data import GameData
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import (
     SearchResult,
@@ -125,7 +124,6 @@ def compare_search(
         golden_lines=golden_lines,
         golden_candidates=golden_candidates,
         result=result,
-        game=search_data[SearchSpec.from_json(query).query.language].game,
         max_solution_lines=max_solution_lines,
     )
     return comparison
@@ -138,7 +136,6 @@ def compare_result(
     golden_lines: list[str] | None,
     golden_candidates: list[Candidate] | None,
     result: SearchResult,
-    game: GameData,
     max_solution_lines: int,
 ) -> SearchComparison:
     """Compare ``query``'s search with the harness's manifest, and with its
@@ -151,17 +148,17 @@ def compare_result(
     our_manifest = search_manifest(
         query,
         result=result,
-        worker_lines=added_lines(result, game=game),
+        worker_lines=added_lines(result),
         max_solution_lines=max_solution_lines,
     )
     lines_difference = None
     if golden_lines is not None:
-        lines_difference = _lines_difference(solution_lines(result, game=game), golden_lines)
+        lines_difference = _lines_difference(solution_lines(result), golden_lines)
     candidates_difference = None
     if golden_candidates is not None:
         ours = [
             (candidate.worker, candidate.charm_name, candidate.solution_line)
-            for candidate in candidate_lines(result, game=game)
+            for candidate in candidate_lines(result)
         ]
         expected = [
             (candidate.worker, candidate.charm_name, candidate.solution_line)

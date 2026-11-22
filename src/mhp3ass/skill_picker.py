@@ -154,10 +154,7 @@ def saved_skill_index(game: GameData, row: SkillRow) -> int:
     """``SaveConfig``'s value for a row's skill (``Form1.h:486-492``): its static index, or -1."""
     if row.skill is None:
         return -1
-    try:
-        index = game.skills.index(row.skill)
-    except ValueError:
-        raise ValueError(f"{row.skill.name} isn't one of this game's skills") from None
+    index = game.skill_index(row.skill)
     return index
 
 

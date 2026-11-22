@@ -8,7 +8,7 @@ import pytest
 
 from goldens import line_has_charm
 from mhp3ass.model import ArmorType
-from mhp3ass.results.result_set import ResultSet, skill_indices, solution_line
+from mhp3ass.results.result_set import ResultSet, solution_line
 from mhp3ass.results.sorting import SortKey
 from mhp3ass.results.view import CharmFilter
 from mhp3ass.settings_cfg import (
@@ -180,12 +180,11 @@ def test_gui_captures_are_in_english_teamhgg(capture_settings, shipped_languages
 
 
 def test_every_gui_capture_line_loads_and_saves_unchanged(capture_settings, teamhgg_game):
-    skill_index = skill_indices(teamhgg_game)
     changed = [
         line
         for settings in capture_settings.values()
         for line in settings.solution_lines
-        if solution_line(parse_solution_line(line, teamhgg_game), skill_index) != line
+        if solution_line(parse_solution_line(line, teamhgg_game)) != line
     ]
 
     assert changed == []
@@ -373,7 +372,7 @@ def test_the_save_after_a_load_keeps_only_the_charmed_lines(
 ):
     settings = capture_settings[capture]
 
-    saved = with_solutions(settings, load(settings).all_solutions, teamhgg_game)
+    saved = with_solutions(settings, load(settings).all_solutions)
 
     assert list(saved.solution_lines) == charmed_capture_lines(capture)
 

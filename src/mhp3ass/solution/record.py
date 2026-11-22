@@ -14,7 +14,7 @@ from typing import overload
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, AbilityPair, Armor, ArmorType, Charm, Decoration, Skill
-from mhp3ass.solution.state import Solution
+from mhp3ass.solution.state import Place, Solution
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,22 +53,8 @@ class SolutionRecord:
     rarity: int
     difficulty: int
     slots_spare: tuple[int, ...] | None
-
-
-@dataclass(frozen=True, eq=False)
-class RecordIndex:
-    """A game and the position of each of its skills, which ``Skill`` doesn't carry."""
-
-    game: GameData
-    skill_positions: dict[Skill, int]
-
-    @classmethod
-    def for_game(cls, game: GameData) -> RecordIndex:
-        index = cls(
-            game=game,
-            skill_positions={skill: position for position, skill in enumerate(game.skills)},
-        )
-        return index
+    places: tuple[Place, ...]
+    unreduced_charm: CharmRecord | None
 
 
 def _armor_index(armor: Armor | None, armor_type: ArmorType, game: GameData) -> int:
@@ -97,14 +83,9 @@ def _ability_index(ability: Ability, game: GameData) -> int:
     return index
 
 
-def _skill_indices(skills: list[Skill], index: RecordIndex) -> tuple[int, ...]:
-    positions = []
-    for skill in skills:
-        position = index.skill_positions.get(skill)
-        if position is None:
-            raise ValueError(f"{skill.name} is not a skill of this game")
-        positions.append(position)
-    return tuple(positions)
+def _skill_indices(skills: list[Skill], game: GameData) -> tuple[int, ...]:
+    indices = tuple(game.skill_index(skill) for skill in skills)
+    return indices
 
 
 def charm_record(charm: Charm | None, game: GameData) -> CharmRecord | None:
@@ -123,10 +104,9 @@ def charm_record(charm: Charm | None, game: GameData) -> CharmRecord | None:
     return record
 
 
-def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
-    """``solution`` by index into ``index.game``; raises ``ValueError`` on a record
+def to_record(solution: Solution, game: GameData) -> SolutionRecord:
+    """``solution`` by index into ``game``; raises ``ValueError`` on a record
     that isn't that game's, or on a number of armour slots other than five."""
-    game = index.game
     record = SolutionRecord(
         armors=tuple(
             _armor_index(armor, armor_type, game)
@@ -136,8 +116,8 @@ def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
         decorations=_decoration_indices(solution.decorations, game),
         body_decorations=_decoration_indices(solution.body_decorations, game),
         non_body_decorations=_decoration_indices(solution.non_body_decorations, game),
-        extra_skills=_skill_indices(solution.extra_skills, index),
-        bad_skills=_skill_indices(solution.bad_skills, index),
+        extra_skills=_skill_indices(solution.extra_skills, game),
+        bad_skills=_skill_indices(solution.bad_skills, game),
         abilities=tuple(
             (_ability_index(ability, game), points)
             for ability, points in solution.abilities.items()
@@ -155,6 +135,8 @@ def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
         rarity=solution.rarity,
         difficulty=solution.difficulty,
         slots_spare=tuple(solution.slots_spare) if solution.slots_spare is not None else None,
+        places=tuple(solution.places),
+        unreduced_charm=charm_record(solution.unreduced_charm, game),
     )
     return record
 
@@ -208,8 +190,13 @@ def _abilities(pairs: tuple[tuple[int, int], ...], game: GameData) -> dict[Abili
 
 def from_record(record: SolutionRecord, game: GameData) -> Solution:
     """The ``Solution`` ``record`` describes, built from ``game``'s records; raises
-    ``ValueError`` on an index outside the game's tables, an ability given twice
-    or a number of armour slots other than five."""
+    ``ValueError`` on an index outside the game's tables, an ability given twice,
+    a place that isn't a ``Place``, places that aren't one per decoration, or a
+    number of armour slots other than five."""
+    if len(record.places) != len(record.decorations):
+        raise ValueError(
+            f"{len(record.places)} places for {len(record.decorations)} decorations in the record"
+        )
     armors: list[Armor | None] = [
         None
         if position == -1
@@ -245,5 +232,7 @@ def from_record(record: SolutionRecord, game: GameData) -> Solution:
         rarity=record.rarity,
         difficulty=record.difficulty,
         slots_spare=list(record.slots_spare) if record.slots_spare is not None else None,
+        places=[Place(place) for place in record.places],
+        unreduced_charm=charm_from_record(record.unreduced_charm, game),
     )
     return solution
