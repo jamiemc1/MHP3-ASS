@@ -13,7 +13,13 @@ from mhp3ass.model import Ability, AbilityPair, Charm
 from mhp3ass.query import SearchSpec
 from mhp3ass.results.result_set import ResultSet, skill_indices
 from mhp3ass.results.sorting import SortKey
-from mhp3ass.results.view import CharmFilter, FilterKind, ResultsView, SolutionSelection
+from mhp3ass.results.view import (
+    CharmFilter,
+    CharmFilterEntry,
+    FilterKind,
+    ResultsView,
+    SolutionSelection,
+)
 from mhp3ass.solution.state import Solution
 
 
@@ -327,6 +333,41 @@ def test_the_lists_hold_what_add_solutions_filed(mixed_view):
 def test_charm_names_are_listed_ignoring_case(mixed_view):
     """Ordinal order would put "+2 Guard" before "+2 evasion"'s lower-case e."""
     assert mixed_view.charm_filter_names() == ["+2 Attack ---", "+2 evasion ---", "+2 Guard ---"]
+
+
+def test_the_filter_entries_are_all_none_then_each_charm_with_its_count(mixed_view):
+    entries = mixed_view.charm_filter_entries(all_label="Every set", none_label="No charm")
+
+    assert entries == [
+        CharmFilterEntry(charm_filter=CharmFilter.every_solution(), label="Every set", count=7),
+        CharmFilterEntry(charm_filter=CharmFilter.charm_free(), label="No charm", count=3),
+        CharmFilterEntry(
+            charm_filter=CharmFilter.charm("+2 Attack ---"), label="+2 Attack ---", count=1
+        ),
+        CharmFilterEntry(
+            charm_filter=CharmFilter.charm("+2 evasion ---"), label="+2 evasion ---", count=1
+        ),
+        CharmFilterEntry(
+            charm_filter=CharmFilter.charm("+2 Guard ---"), label="+2 Guard ---", count=2
+        ),
+    ]
+
+
+def test_a_loaded_views_none_entry_counts_its_separate_charm_free_list(mixed_view):
+    """A load keeps charm-free lines outside ``all_solutions`` (quirk 45), so
+    All doesn't count them and None counts only them."""
+    charmed = [
+        mixed_view.all_solutions[position] for position in mixed_view.by_charm["+2 Guard ---"]
+    ]
+    loaded = ResultsView.of_lists(
+        all_solutions=charmed, no_charm_solutions=list(mixed_view.no_charm_solutions)
+    )
+
+    counts = [
+        entry.count for entry in loaded.charm_filter_entries(all_label="All", none_label="None")
+    ]
+
+    assert counts == [2, 3, 2]
 
 
 def test_a_charm_name_with_no_solutions_shows_nothing(mixed_view):

@@ -20,7 +20,13 @@ from mhp3ass.solution.bad_skills import (
     replace,
 )
 from mhp3ass.solution.extra_skills import calculate_extra_skills
-from mhp3ass.solution.state import LegacyNullReferenceError, Solution, new_calculation_data
+from mhp3ass.solution.initial import add_decoration
+from mhp3ass.solution.state import (
+    LegacyNullReferenceError,
+    Place,
+    Solution,
+    new_calculation_data,
+)
 from solution_builders import make_jewel
 
 
@@ -338,6 +344,21 @@ def test_replace_adds_an_ability_the_totals_lack(attack, defense):
     replace(solution, 0, new)
 
     assert solution.abilities == {attack: 1, defense: -1}
+
+
+def test_replace_keeps_the_place_of_the_gem_it_replaces(attack):
+    old = make_jewel("Old", attack, 1)
+    new = make_jewel("New", attack, 2)
+    solution = Solution(armors=[None] * 5, charm=None)
+    add_decoration(solution, old, multiplier=1, decoration_list=solution.non_body_decorations)
+    add_decoration(solution, old, multiplier=2, decoration_list=solution.body_decorations)
+
+    replace(solution, 1, new)
+
+    assert [solution.decorations, solution.places] == [
+        [old, new],
+        [Place.ELSEWHERE, Place.CHEST],
+    ]
 
 
 @pytest.fixture

@@ -130,6 +130,16 @@ class CharmFilter:
         return cls(kind=FilterKind.CHARM, charm_name=name)
 
 
+@dataclass(frozen=True)
+class CharmFilterEntry:
+    """A charm filter item as the filter lists it: the filter, its label and
+    how many solutions it shows."""
+
+    charm_filter: CharmFilter
+    label: str
+    count: int
+
+
 def _positions_by_charm(names: Sequence[str]) -> dict[str, list[int]]:
     """``charm_solution_map`` as positions: each charm name (in the order the
     names first appear) and where its solutions are."""
@@ -230,6 +240,33 @@ class ResultsView:
         solution's name once, in case-insensitive alphabetical order."""
         names = sorted(self.by_charm, key=str.casefold)
         return names
+
+    def charm_filter_entries(self, all_label: str, none_label: str) -> list[CharmFilterEntry]:
+        """The charm filter's items in order: All (labelled ``all_label``),
+        None (``none_label``), then each of ``charm_filter_names`` by its
+        name, each with its number of solutions."""
+        names = self.charm_filter_names()
+        entries = [
+            CharmFilterEntry(
+                charm_filter=CharmFilter.every_solution(),
+                label=all_label,
+                count=len(self.all_solutions),
+            ),
+            CharmFilterEntry(
+                charm_filter=CharmFilter.charm_free(),
+                label=none_label,
+                count=len(self.no_charm_solutions),
+            ),
+            *(
+                CharmFilterEntry(
+                    charm_filter=CharmFilter.charm(name),
+                    label=name,
+                    count=len(self.by_charm[name]),
+                )
+                for name in names
+            ),
+        ]
+        return entries
 
     def show_filter(self) -> None:
         """``cmbCharms_SelectedIndexChanged``: rebuild ``final`` from the

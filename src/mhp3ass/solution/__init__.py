@@ -77,6 +77,7 @@ def match(data: CalculationData, game: GameData) -> Outcome:
         if solution.charm.custom:
             rearrange_decorations(data)
         else:
+            solution.unreduced_charm = solution.charm.copy()
             reduce_slots(data)
             reduce_skills(data)
             rearrange_decorations(data)

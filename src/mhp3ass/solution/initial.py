@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from mhp3ass.data.text import as_unsigned
 from mhp3ass.model import Ability, AbilityPair, Armor, Decoration
-from mhp3ass.solution.state import CalculationData, Solution
+from mhp3ass.solution.state import CalculationData, Place, Solution
 
 
 def detrimental(decoration: Decoration, data: CalculationData) -> bool:
@@ -51,8 +51,12 @@ def add_decoration(
     Adds the decoration to ``solution.decorations`` and ``decoration_list``
     (the body or non-body list), adds its skills times ``multiplier`` and
     spends its slots. Returns whether its first ability is now above -10.
+    Its ``places`` entry is the list's: the chest for the body list.
     """
     solution.decorations.append(decoration)
+    solution.places.append(
+        Place.CHEST if decoration_list is solution.body_decorations else Place.ELSEWHERE
+    )
     decoration_list.append(decoration)
     add_abilities(solution.abilities, decoration.abilities, multiplier)
     solution.total_slots_spare = as_unsigned(solution.total_slots_spare - decoration.slots_required)

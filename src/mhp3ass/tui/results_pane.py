@@ -28,7 +28,7 @@ from textual.worker import get_current_worker
 
 from mhp3ass.data import GameData
 from mhp3ass.data.strings import DisplayStrings, StringIndex
-from mhp3ass.model import ArmorType, Charm
+from mhp3ass.model import ArmorType
 from mhp3ass.pane_titles import sets_title
 from mhp3ass.query import Query
 from mhp3ass.regions import Region
@@ -37,7 +37,7 @@ from mhp3ass.results.find import find_row, row_text
 from mhp3ass.results.inspector import slot_label
 from mhp3ass.results.set_text import set_markdown
 from mhp3ass.results.short_names import ShortNames
-from mhp3ass.results.sorting import SortKey
+from mhp3ass.results.sorting import SortKey, sort_label
 from mhp3ass.results.table import TableRow, table_row, truncate
 from mhp3ass.results.view import CharmFilter, ResultsView
 from mhp3ass.solution.state import Solution
@@ -49,31 +49,26 @@ from mhp3ass.tui.titles import region_title
 _BEFORE_SEARCH = "Choose up to six skills, then Search."
 
 
-def sort_label(key: SortKey) -> StringIndex:
-    """``cmbSort``'s item text (``Form1.h:2090-2100``)."""
-    match key:
-        case SortKey.NONE:
-            return StringIndex.NONE
-        case SortKey.DRAGON_RES:
-            return StringIndex.DRAGON_RES
-        case SortKey.FIRE_RES:
-            return StringIndex.FIRE_RES
-        case SortKey.ICE_RES:
-            return StringIndex.ICE_RES
-        case SortKey.THUNDER_RES:
-            return StringIndex.THUNDER_RES
-        case SortKey.WATER_RES:
-            return StringIndex.WATER_RES
-        case SortKey.DEFENCE:
-            return StringIndex.BASE_DEFENCE
-        case SortKey.MAX_DEFENCE:
-            return StringIndex.MAX_DEFENCE
-        case SortKey.DIFFICULTY:
-            return StringIndex.DIFFICULTY
-        case SortKey.RARITY:
-            return StringIndex.RARITY
-        case SortKey.SLOTS_SPARE:
-            return StringIndex.SORT_SLOTS_SPARE
+@dataclass(frozen=True)
+class ShownResults:
+    """Results as the pane shows them: their view; the query they were found
+    with, for the inspector's notes and extra skills; and ``note``, shown in
+    the sets' bottom border, saying what is wrong with them (a worker that
+    stopped)."""
+
+    view: ResultsView
+    query: Query
+    note: str | None = None
+
+
+@dataclass(frozen=True)
+class BuiltRows:
+    """The table's rows for ``view``, built before ``show`` (off the UI
+    thread), and the names they were built with."""
+
+    view: ResultsView
+    rows: Sequence[TableRow]
+    names: ShortNames
 
 
 @dataclass(frozen=True)
@@ -87,7 +82,6 @@ class JewelJob:
     query: Query
     sort_key: SortKey
     game: GameData
-    charm_templates: tuple[Charm | None, ...] | None
 
 
 class ResultsPane(Horizontal):
@@ -125,6 +119,7 @@ class ResultsPane(Horizontal):
     def __init__(
         self,
         strings: DisplayStrings,
+        game: GameData,
         sort_key: SortKey,
         reverse: bool,
         is_searching: Callable[[], bool],
@@ -132,13 +127,15 @@ class ResultsPane(Horizontal):
         short_names: ShortNames,
         full_names: bool,
     ) -> None:
-        """``is_searching`` says whether a search is using the game, when sets
-        can't be filled again for their placements; ``game_lock`` is held
-        while a search or a placement uses it; ``short_names`` shorten the
-        table's cells, unless ``full_names`` (a huge screen) names them in
-        full. Find matches both either way."""
+        """``game`` is the one the results are found in, for their jewel
+        placements; ``is_searching`` says whether a search is using it, when
+        sets can't be filled again for their placements; ``game_lock`` is
+        held while a search or a placement uses it; ``short_names`` shorten
+        the table's cells, unless ``full_names`` (a huge screen) names them
+        in full. Find matches both either way."""
         super().__init__()
         self._strings = strings
+        self._game = game
         self._short_names = short_names
         self._full_names = full_names
         # No names to shorten to, so every piece and charm keeps its own.
@@ -147,17 +144,13 @@ class ResultsPane(Horizontal):
         self._game_lock = game_lock
         # Counts highlights, so a placement worked out for an earlier one is dropped.
         self._inspection = 0
-        self.view: ResultsView | None = None
+        self._shown: ShownResults | None = None
         self._sort_key = sort_key
         # Kept here so the next search's view is shown the same way round.
         self.reverse = reverse
         self._filters: list[CharmFilter] = []
         self._options: list[Option] = []
-        self._query: Query | None = None
-        self._game: GameData | None = None
-        self._charm_templates: tuple[Charm | None, ...] | None = None
         self._needle = ""
-        self.note: str | None = None
         # Find texts by id(solution); the view keeps every solution alive.
         self._text_by_set: dict[int, str] = {}
 
@@ -212,14 +205,9 @@ class ResultsPane(Horizontal):
         yield Inspector(self._strings)
 
     @property
-    def results_query(self) -> Query | None:
-        """The shown results' own query, as ``show`` was given it."""
-        return self._query
-
-    @property
-    def charm_templates(self) -> tuple[Charm | None, ...] | None:
-        """The shown results' charm templates, as ``show`` was given them."""
-        return self._charm_templates
+    def shown(self) -> ShownResults | None:
+        """The results ``show`` was last given, if any."""
+        return self._shown
 
     @property
     def sort_key(self) -> SortKey:
@@ -237,9 +225,10 @@ class ResultsPane(Horizontal):
         if full == self._full_names:
             return
         self._full_names = full
-        if self.view is not None and self._query is not None:
+        shown = self._shown
+        if shown is not None:
             self.query_one("#results", ResultsTable).replace_rows(
-                view_rows(self.view, names=self.table_names, query=self._query)
+                view_rows(shown.view, names=self.table_names, query=shown.query)
             )
 
     @property
@@ -278,40 +267,29 @@ class ResultsPane(Horizontal):
         names = [(key, self._strings.basic(sort_label(key))) for key in SortKey]
         return names
 
-    def show(
-        self,
-        view: ResultsView,
-        rows: Sequence[TableRow],
-        query: Query,
-        game: GameData,
-        charm_templates: tuple[Charm | None, ...] | None,
-        note: str | None = None,
-    ) -> None:
-        """Show a new search's view and the rows of its ``final``
-        (``view_rows``, named by ``table_names``); ``query`` is the results'
-        own, for the inspector's notes and extra skills,
-        ``game`` the one they were found in, for its jewel placements, and
-        ``charm_templates`` the search's workers' charms (``None`` for loaded
-        results), for a set that can't be built as listed (quirk 52).
-        ``note``, shown in the sets' bottom border until the next results,
-        says what is wrong with them (a worker that stopped).
-        The view was built with the sort and reverse of the search's start; if
-        they changed while it ran, it is sorted again here."""
-        self.view = view
-        self.note = note
+    def show(self, shown: ShownResults, built: BuiltRows | None = None) -> None:
+        """Show new results, with the note in the sets' bottom border until
+        the next ones. Their view is sorted again whenever its sort or
+        reverse differs from the pane's (loaded results, or a search during
+        which they changed). The table's rows are ``built``'s when they still
+        fit (built for this view, which kept its order, with the table's
+        names); otherwise they are built here."""
+        self._shown = shown
         table = self.query_one("#results", ResultsTable)
         table.empty_text = "No sets."
         sets = self.query_one("#sets", Vertical)
-        sets.border_subtitle = Content(note) if note is not None else None
-        self._query = query
-        self._game = game
-        self._charm_templates = charm_templates
+        sets.border_subtitle = Content(shown.note) if shown.note is not None else None
         self._text_by_set = {}
         self._fill_filters()
+        view = shown.view
         if view.sort_key is not self.sort_key or view.reverse != self.reverse:
             view.select_sort(self.sort_key)
             view.select_reverse(self.reverse)
-            rows = view_rows(view, names=self.table_names, query=query)
+            built = None
+        if built is not None and built.view is view and built.names == self.table_names:
+            rows = built.rows
+        else:
+            rows = view_rows(view, names=self.table_names, query=shown.query)
         self._set_rows(rows)
 
     def on_results_table_highlighted(self, event: ResultsTable.Highlighted) -> None:
@@ -334,21 +312,18 @@ class ResultsPane(Horizontal):
         again (a loaded set, or one whose shown jewels don't fit, quirk 52)
         shows as being worked out, and is worked out in a thread."""
         self.stop_placements()
-        view = self.view
+        results = self._shown
         inspector = self.query_one(Inspector)
         # A highlight posted before the rows were replaced can be past the new end.
-        if view is None or self._query is None or self._game is None or row >= len(view.final):
+        if results is None or row >= len(results.view.final):
             inspector.clear()
             return
+        view = results.view
         solution = view.final[row]
         details = solution_details(
-            solution,
-            query=self._query,
-            sort_key=view.sort_key,
-            refill_game=None,
-            charm_templates=self._charm_templates,
+            solution, query=results.query, sort_key=view.sort_key, refill_game=None
         )
-        shown = ShownSet(number=row + 1, solution=solution, details=details, query=self._query)
+        shown = ShownSet(number=row + 1, solution=solution, details=details, query=results.query)
         if not isinstance(details.chest_jewels, PlacementPending) or self._is_searching():
             inspector.show(shown)
             return
@@ -359,10 +334,9 @@ class ResultsPane(Horizontal):
                 inspection=self._inspection,
                 number=row + 1,
                 solution=solution,
-                query=self._query,
+                query=results.query,
                 sort_key=view.sort_key,
                 game=self._game,
-                charm_templates=self._charm_templates,
             )
         )
 
@@ -379,7 +353,6 @@ class ResultsPane(Horizontal):
                 query=job.query,
                 sort_key=job.sort_key,
                 refill_game=job.game,
-                charm_templates=job.charm_templates,
             )
         try:
             self.app.call_from_thread(self._jewels_worked_out, job, details)
@@ -397,7 +370,7 @@ class ResultsPane(Horizontal):
 
     def show_searching(self, running: bool) -> None:
         """Before the first results, the empty table says whether a search is running."""
-        if self.view is not None:
+        if self._shown is not None:
             return
         table = self.query_one("#results", ResultsTable)
         table.empty_text = "Searching…" if running else _BEFORE_SEARCH
@@ -409,8 +382,8 @@ class ResultsPane(Horizontal):
         if key is None or key is self._sort_key:
             return
         self._sort_key = key
-        if self.view is not None:
-            self.view.select_sort(key)
+        if self._shown is not None:
+            self._shown.view.select_sort(key)
             self._fill_table()
         else:
             self._update_title()
@@ -423,8 +396,8 @@ class ResultsPane(Horizontal):
         # A selection posted before the list was refilled names an old option.
         index = event.option_index
         current = index < len(self._options) and event.option is self._options[index]
-        if self.view is not None and current:
-            self.view.select_filter(self._filters[index])
+        if self._shown is not None and current:
+            self._shown.view.select_filter(self._filters[index])
             self.query_one("#charm_choice", Select).value = index
             self._fill_table()
 
@@ -434,12 +407,13 @@ class ResultsPane(Horizontal):
             return
         event.stop()
         index = event.value
-        if self.view is None or not isinstance(index, int) or index >= len(self._filters):
+        if self._shown is None or not isinstance(index, int) or index >= len(self._filters):
             return
+        view = self._shown.view
         chosen = self._filters[index]
-        if chosen == self.view.charm_filter:
+        if chosen == view.charm_filter:
             return
-        self.view.select_filter(chosen)
+        view.select_filter(chosen)
         self.query_one("#charm_filter", OptionList).highlighted = index
         self._fill_table()
 
@@ -475,17 +449,16 @@ class ResultsPane(Horizontal):
         matching the find text; with ``from_cursor`` (a new find text) the
         set under the cursor counts too. A notice when none matches."""
         table = self.query_one("#results", ResultsTable)
-        view = self.view
-        query = self._query
-        if view is None or query is None or table.row_count == 0 or self._needle == "":
+        shown = self._shown
+        if shown is None or table.row_count == 0 or self._needle == "":
             return
         texts = []
-        for solution in view.final:
+        for solution in shown.view.final:
             # Each set's text is built once per search, whatever the sort or filter.
             key = id(solution)
             if key not in self._text_by_set:
                 self._text_by_set[key] = row_text(
-                    solution, query=query, short_names=self._short_names
+                    solution, query=shown.query, short_names=self._short_names
                 )
             texts.append(self._text_by_set[key])
         start = (table.cursor - step) % len(texts) if from_cursor else table.cursor
@@ -497,36 +470,23 @@ class ResultsPane(Horizontal):
 
     def reverse_sort(self) -> None:
         self.reverse = not self.reverse
-        if self.view is not None:
-            self.view.select_reverse(self.reverse)
+        if self._shown is not None:
+            self._shown.view.select_reverse(self.reverse)
             self._fill_table()
         else:
             self._update_title()
 
     def _fill_filters(self) -> None:
-        view = self.view
-        if view is None:
+        if self._shown is None:
             return
-        strings = self._strings
-        names = view.charm_filter_names()
-        self._filters = [
-            CharmFilter.every_solution(),
-            CharmFilter.charm_free(),
-            *(CharmFilter.charm(name) for name in names),
-        ]
-        counts = [
-            len(view.all_solutions),
-            len(view.no_charm_solutions),
-            *(len(view.by_charm[name]) for name in names),
-        ]
-        labels = [
-            strings.static(StringIndex.ALL),
-            strings.basic(StringIndex.NONE),
-            *names,
-        ]
+        view = self._shown.view
+        entries = view.charm_filter_entries(
+            all_label=self._strings.static(StringIndex.ALL),
+            none_label=self._strings.basic(StringIndex.NONE),
+        )
+        self._filters = [entry.charm_filter for entry in entries]
         self._options = [
-            Option(Content(f"{_fit(label, 12)} {count:>7,}"))
-            for label, count in zip(labels, counts, strict=True)
+            Option(Content(f"{_fit(entry.label, 12)} {entry.count:>7,}")) for entry in entries
         ]
         options = self.query_one("#charm_filter", OptionList)
         options.clear_options()
@@ -538,15 +498,15 @@ class ResultsPane(Horizontal):
         # The drop-down opens over the table, so it has room for longer names.
         choice = self.query_one("#charm_choice", Select)
         choice.set_options(
-            (Content(f"{_fit(label, 30)} {count:>7,}"), number)
-            for number, (label, count) in enumerate(zip(labels, counts, strict=True))
+            (Content(f"{_fit(entry.label, 30)} {entry.count:>7,}"), number)
+            for number, entry in enumerate(entries)
         )
         choice.value = index
         # Its value can be unchanged while its text isn't (new counts): show the new text.
         choice.mutate_reactive(Select.value)
 
     def _title(self) -> str:
-        shown = len(self.view.final) if self.view is not None else None
+        shown = len(self._shown.view.final) if self._shown is not None else None
         name = self._strings.basic(sort_label(self._sort_key))
         title = sets_title(shown, self._sort_key, sort_name=name, reverse=self.reverse)
         return title
@@ -562,8 +522,9 @@ class ResultsPane(Horizontal):
             self.query_one(Inspector).clear()
 
     def _fill_table(self) -> None:
-        if self.view is not None and self._query is not None:
-            self._set_rows(view_rows(self.view, names=self.table_names, query=self._query))
+        shown = self._shown
+        if shown is not None:
+            self._set_rows(view_rows(shown.view, names=self.table_names, query=shown.query))
 
 
 def _fit(label: str, width: int) -> str:
