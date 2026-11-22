@@ -230,6 +230,8 @@ def _record(marker: int) -> SolutionRecord:
         rarity=0,
         difficulty=0,
         slots_spare=None,
+        places=(),
+        unreduced_charm=None,
     )
     return record
 

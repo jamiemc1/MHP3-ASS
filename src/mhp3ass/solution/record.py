@@ -14,7 +14,7 @@ from typing import overload
 
 from mhp3ass.data import GameData
 from mhp3ass.model import Ability, AbilityPair, Armor, ArmorType, Charm, Decoration, Skill
-from mhp3ass.solution.state import Solution
+from mhp3ass.solution.state import Place, Solution
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,6 +53,8 @@ class SolutionRecord:
     rarity: int
     difficulty: int
     slots_spare: tuple[int, ...] | None
+    places: tuple[Place, ...]
+    unreduced_charm: CharmRecord | None
 
 
 @dataclass(frozen=True, eq=False)
@@ -155,6 +157,8 @@ def to_record(solution: Solution, index: RecordIndex) -> SolutionRecord:
         rarity=solution.rarity,
         difficulty=solution.difficulty,
         slots_spare=tuple(solution.slots_spare) if solution.slots_spare is not None else None,
+        places=tuple(solution.places),
+        unreduced_charm=charm_record(solution.unreduced_charm, game),
     )
     return record
 
@@ -208,8 +212,8 @@ def _abilities(pairs: tuple[tuple[int, int], ...], game: GameData) -> dict[Abili
 
 def from_record(record: SolutionRecord, game: GameData) -> Solution:
     """The ``Solution`` ``record`` describes, built from ``game``'s records; raises
-    ``ValueError`` on an index outside the game's tables, an ability given twice
-    or a number of armour slots other than five."""
+    ``ValueError`` on an index outside the game's tables, an ability given twice,
+    a place that isn't a ``Place`` or a number of armour slots other than five."""
     armors: list[Armor | None] = [
         None
         if position == -1
@@ -245,5 +249,7 @@ def from_record(record: SolutionRecord, game: GameData) -> Solution:
         rarity=record.rarity,
         difficulty=record.difficulty,
         slots_spare=list(record.slots_spare) if record.slots_spare is not None else None,
+        places=[Place(place) for place in record.places],
+        unreduced_charm=charm_from_record(record.unreduced_charm, game),
     )
     return solution

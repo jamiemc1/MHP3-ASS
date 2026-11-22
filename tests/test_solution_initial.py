@@ -7,7 +7,7 @@ import pytest
 
 from mhp3ass.model import AbilityPair, Charm, Skill
 from mhp3ass.solution.initial import add_armor_stats, add_decoration, detrimental, get_initial_data
-from mhp3ass.solution.state import Solution, new_calculation_data
+from mhp3ass.solution.state import Place, Solution, new_calculation_data
 from solution_builders import make_jewel
 from solution_trace import Stage, stage_mismatches
 
@@ -161,6 +161,16 @@ def test_add_decoration_reports_the_first_ability_at_minus_ten(attack):
 
     assert not above
     assert solution.abilities[attack] == -10
+
+
+def test_add_decoration_places_a_gem_by_its_list(attack):
+    jewel = make_jewel("Jewel", attack, 1)
+    solution = Solution(armors=[None] * 5, charm=None)
+
+    add_decoration(solution, jewel, multiplier=1, decoration_list=solution.non_body_decorations)
+    add_decoration(solution, jewel, multiplier=2, decoration_list=solution.body_decorations)
+
+    assert solution.places == [Place.ELSEWHERE, Place.CHEST]
 
 
 def test_detrimental_only_for_a_relevant_second_skill_falling_short(make_query, attack, defense):

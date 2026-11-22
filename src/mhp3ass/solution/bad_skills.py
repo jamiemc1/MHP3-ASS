@@ -195,7 +195,8 @@ def replace(solution: Solution, index: int, decoration: Decoration) -> None:
 
     Swaps one decoration for another and adjusts ``abilities`` by their raw
     amounts: the torso multiplier is ignored and the body/non-body lists keep
-    the old decoration.
+    the old decoration. The new one takes the old one's ``places`` entry, as
+    it takes its position.
     """
     for pair in solution.decorations[index].abilities:
         solution.abilities[pair.ability] -= pair.amount
